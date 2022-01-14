@@ -10,9 +10,15 @@
 class MergeSort final : public ISort
 {
 public:
-	void sort(std::vector<int64_t> &array) override;
-	~MergeSort() final = default;
+	void enable_non_recursive_version(bool enable);
+	void sort(std::vector<int64_t> &array) final;
 
+	~MergeSort() final = default;
+private:
+	bool non_recursive_version_is_enabled_{};
+	void static merge_(std::vector<int64_t> &array, std::vector<int64_t> &help, size_t start, size_t middle, size_t end);
+	void sort_recursive_(std::vector<int64_t> &array, std::vector<int64_t> &help, size_t start, size_t end);
+	void sort_non_recursive_(std::vector<int64_t> &array) ;
 };
 
 
