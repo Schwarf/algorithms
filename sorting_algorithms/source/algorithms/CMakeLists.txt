@@ -1,1 +1,3 @@
-add_library(sorting_lib STATIC i_sort.h selection_sort/selection_sort.cpp selection_sort/selection_sort.h swap.h swap.cpp)
+add_library(sorting_lib STATIC i_sort.h selection_sort/selection_sort.cpp selection_sort/selection_sort.h
+        swap.h swap.cpp ./insertion_sort/insertion_sort.h ./insertion_sort/insertion_sort.cpp
+        ./merge_sort/merge_sort.cpp ./merge_sort/merge_sort.h)
