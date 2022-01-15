@@ -6,11 +6,12 @@
 #define I_EXECUTION_TIME_FOR_SORTING_H
 #include <chrono>
 #include "./../algorithms/i_sort.h"
-
-class IExecutionTimeForSorting()
+#include <memory>
+class IExecutionTimeForSorting
 {
 public:
-	virtual void measure() = 0;
-}
+	virtual void measure(std::vector<int64_t> & array) = 0;
+	virtual int64_t execution_time() = 0;
+};
 
 #endif //I_EXECUTION_TIME_FOR_SORTING_H
