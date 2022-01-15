@@ -7,8 +7,8 @@
 int main()
 {
 	std::vector<int64_t> test{17, 10, 1, 2, 25, 6, 62, 3, 3, 4, 4, 5, 5};
-	ShellSort selection_sort;
-	selection_sort.set_variant(ShellSortVariant::ciura);
+	MergeSort selection_sort;
+	selection_sort.enable_non_recursive_version(true);
 	selection_sort.sort(test);
 	size_t i = 0;
 	size_t j = 0;
