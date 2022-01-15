@@ -16,34 +16,33 @@ size_t ShellSort::ciura_sequence_[9] = {1, 4, 10, 23, 57, 132, 301, 701, 1750};
 
 void ShellSort::sort(std::vector<int64_t> &array)
 {
-	std::cout << "Variant " << variant_ << "  " <<  ShellSortVariant::sedgewick <<  std::endl;
 	if (variant_ == ShellSortVariant::classic)
 		sort_3_N_plus_1_(array);
 	if (variant_ == ShellSortVariant::sedgewick) {
-		std::cout << "Hallo"<<  std::endl;
-		sort_sedgewick_sequence_(array);
+		auto sequence = sedgewick_sequence_;
+		size_t last_sequence_element = 19;
+		hard_coded_sequence_sort(array, sequence, last_sequence_element);
 	}
-	if (variant_ == ShellSortVariant::tokuda)
-		sort_tokuda_sequence_(array);
-	if (variant_ == ShellSortVariant::ciura)
-		sort_ciura_sequence_(array);
-
+	if (variant_ == ShellSortVariant::tokuda) {
+		auto sequence = tokuda_sequence_;
+		size_t last_sequence_element = 19;
+		hard_coded_sequence_sort(array, sequence, last_sequence_element);
+	}
+	if (variant_ == ShellSortVariant::ciura) {
+		auto sequence = ciura_sequence_;
+		size_t last_sequence_element = 8;
+		hard_coded_sequence_sort(array, sequence, last_sequence_element);
+	}
 }
-void ShellSort::sort_ciura_sequence_(std::vector<int64_t> &array)
-{
-}
 
-void ShellSort::sort_tokuda_sequence_(std::vector<int64_t> &array)
-{}
-
-void ShellSort::sort_sedgewick_sequence_(std::vector<int64_t> &array)
+void ShellSort::hard_coded_sequence_sort(std::vector<int64_t> &array, size_t sequence[], size_t last_sequence_element)
 {
 	size_t size = array.size();
 
-	for(size_t sequence_index = 19; sequence_index--;)
+	for(size_t sequence_index = last_sequence_element; sequence_index--;)
 	{
 
-		size_t distance = ShellSort::sedgewick_sequence_[sequence_index];
+		size_t distance = sequence[sequence_index];
 		for(size_t index = distance; index < size; ++index)
 		{
 			int64_t help = array[index];
@@ -57,6 +56,9 @@ void ShellSort::sort_sedgewick_sequence_(std::vector<int64_t> &array)
 		}
 	}
 }
+
+
+
 void ShellSort::sort_3_N_plus_1_(std::vector<int64_t> &array)
 {
 	size_t size = array.size();
