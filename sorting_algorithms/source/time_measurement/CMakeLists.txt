@@ -1,0 +1,1 @@
+add_library(execution_time_measurement STATIC i_execution_time_for_sorting.h execution_time_for_sorting.h execution_time_for_sorting.cpp)
