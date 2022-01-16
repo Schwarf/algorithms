@@ -2,14 +2,14 @@
 #include <random>
 #include <vector>
 #include <algorithm>
-#include "./../algorithms/insertion_sort/insertion_sort.h"
+#include "./../algorithms/selection_sort/selection_sort.h"
 #include "sorting_setup.h"
 
 
-TEST_F(SetupSorting, test_insertion_sort)
+TEST_F(SetupSorting, test_selection_sort)
 {
-	InsertionSort insertion_sort;
-	insertion_sort.sort(random_numbers);
+	SelectionSort selection_sort;
+	selection_sort.sort(random_numbers);
 	std::sort(random_numbers2.begin(), random_numbers2.end());
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
