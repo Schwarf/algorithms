@@ -15,6 +15,7 @@ public:
 	void sort(std::vector<int64_t> &array) final;
 	void set_variant(ShellSortVariant variant);
 	~ShellSort() override = default;
+	void sort(std::shared_ptr<std::vector<int64_t>> & array) final;
 private:
 	ShellSortVariant variant_{ShellSortVariant::classic};
 	static void sort_3_N_plus_1_(std::vector<int64_t> &array);

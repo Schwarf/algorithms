@@ -14,6 +14,7 @@ public:
 	void sort(std::vector<int64_t> &array) final;
 
 	~MergeSort() final = default;
+	void sort(std::shared_ptr<std::vector<int64_t>> & array) final;
 private:
 	bool non_recursive_version_is_enabled_{};
 	void static merge_(std::vector<int64_t> &array, std::vector<int64_t> &help, size_t start, size_t middle, size_t end);

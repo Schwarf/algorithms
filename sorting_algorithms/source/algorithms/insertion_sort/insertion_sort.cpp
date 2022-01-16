@@ -17,3 +17,7 @@ void InsertionSort::sort(std::vector<int64_t> &array)
 		}
 	}
 }
+void InsertionSort::sort(std::shared_ptr<std::vector<int64_t>> &array)
+{
+	sort((*array));
+}

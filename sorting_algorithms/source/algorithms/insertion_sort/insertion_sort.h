@@ -12,6 +12,7 @@ class InsertionSort final: public ISort
 public:
 	void sort(std::vector<int64_t> &array) final;
 	~InsertionSort() final = default;
+	void sort(std::shared_ptr<std::vector<int64_t>> & array) final;
 
 };
 

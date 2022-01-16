@@ -17,3 +17,7 @@ void SelectionSort::sort(std::vector<int64_t> &array)
 		}
 	}
 }
+void SelectionSort::sort(std::shared_ptr<std::vector<int64_t>> &array)
+{
+	sort((*array));
+}

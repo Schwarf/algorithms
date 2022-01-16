@@ -83,3 +83,7 @@ void ShellSort::set_variant(ShellSortVariant variant)
 {
 	variant_ = variant;
 }
+void ShellSort::sort(std::shared_ptr<std::vector<int64_t>> & array)
+{
+	sort((*array));
+}

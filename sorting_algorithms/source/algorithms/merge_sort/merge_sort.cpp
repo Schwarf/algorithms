@@ -70,3 +70,7 @@ void MergeSort::merge_(std::vector<int64_t> &array, std::vector<int64_t> &help, 
 	}
 
 }
+void MergeSort::sort(std::shared_ptr<std::vector<int64_t>> & array)
+{
+	sort((*array));
+}

@@ -8,3 +8,4 @@ void swap(std::vector<int64_t> & array, const size_t & index1, const size_t & in
 	array[index2] = help;
 }
 
+
