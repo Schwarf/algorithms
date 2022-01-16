@@ -15,14 +15,20 @@ public:
 		vector_of_data_.push_back(data_vector);
 		maximum_index_++;
 	}
-	std::shared_ptr<std::vector<T>> get_data_vector(size_t index) final
+	std::shared_ptr<std::vector<T>> get_data_vector(size_t index) const final
 	{
 		if(index <= maximum_index_)
 			return vector_of_data_.at(index);
+		return nullptr;
+	}
+	size_t number_of_entries() const
+	{
+		return maximum_index_;
 	}
 private:
 	std::vector<std::shared_ptr<std::vector<T>>> vector_of_data_{};
 	size_t maximum_index_{};
+
 };
 
 

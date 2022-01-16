@@ -1,2 +1,2 @@
 add_library(interfaces_time_measurement_lib INTERFACE i_execution_time_for_sorting.h i_data_accumulator.h)
-add_library(execution_time_measurement_lib STATIC execution_time_for_sorting.h execution_time_for_sorting.cpp data_accumulator.h)
+add_library(execution_time_measurement_lib STATIC execution_time_for_sorting.h execution_time_for_sorting.cpp data_accumulator.h i_test_template.h test_template.cpp test_template.h)

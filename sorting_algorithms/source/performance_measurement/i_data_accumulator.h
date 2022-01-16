@@ -10,7 +10,8 @@ template <typename T>
 class IDataAccumulator{
 public:
 	virtual void add_data_vector(std::shared_ptr<std::vector<T>>  data_vector) = 0;
-	virtual std::shared_ptr<std::vector<T>> get_data_vector(size_t index) = 0;
+	virtual std::shared_ptr<std::vector<T>> get_data_vector(size_t index) const = 0;
+	virtual size_t number_of_entries() const = 0;
 };
 
 #endif //I_DATA_ACCUMULATOR_H

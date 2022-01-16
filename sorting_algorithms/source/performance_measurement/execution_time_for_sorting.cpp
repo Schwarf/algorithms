@@ -13,7 +13,11 @@ void ExecutionTimeForSorting::measure(std::vector<int64_t> &array)
 	auto start = std::chrono::high_resolution_clock::now();
 	sorting_algorithm_->sort(array);
 	auto end = std::chrono::high_resolution_clock::now();
-	execution_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end -start).count();
+	execution_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+}
+void ExecutionTimeForSorting::measure(std::shared_ptr<std::vector<int64_t>> array)
+{
+	measure((*array));
 }
 
 int64_t ExecutionTimeForSorting::execution_time()
