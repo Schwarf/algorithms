@@ -3,17 +3,15 @@
 //
 
 #include "execution_time_for_sorting.h"
-ExecutionTimeForSorting::ExecutionTimeForSorting(std::shared_ptr<ISort> &sorting_object)
+ExecutionTimeForSorting::ExecutionTimeForSorting(std::shared_ptr<ISort> &sorting_algorithm)
 	:
-	sorting_object_(sorting_object)
-{
-
-}
+	sorting_algorithm_(sorting_algorithm)
+{}
 
 void ExecutionTimeForSorting::measure(std::vector<int64_t> &array)
 {
 	auto start = std::chrono::high_resolution_clock::now();
-	sorting_object_->sort(array);
+	sorting_algorithm_->sort(array);
 	auto end = std::chrono::high_resolution_clock::now();
 	execution_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end -start).count();
 }
@@ -21,4 +19,8 @@ void ExecutionTimeForSorting::measure(std::vector<int64_t> &array)
 int64_t ExecutionTimeForSorting::execution_time()
 {
 	return execution_time_;
+}
+void ExecutionTimeForSorting::set_sorting_algorithm(std::shared_ptr<ISort> algorithm)
+{
+	sorting_algorithm_ = algorithm;
 }

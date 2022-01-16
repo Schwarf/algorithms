@@ -9,11 +9,13 @@
 class ExecutionTimeForSorting final : public IExecutionTimeForSorting
 {
 public:
-	ExecutionTimeForSorting(std::shared_ptr<ISort> & sorting_object);
+	ExecutionTimeForSorting() =default;
+	explicit ExecutionTimeForSorting(std::shared_ptr<ISort> & sorting_algorithm);
 	void measure(std::vector<int64_t> &array) final;
 	int64_t execution_time() final;
+	void set_sorting_algorithm(std::shared_ptr<ISort> algorithm) override;
 private:
-	std::shared_ptr<ISort> & sorting_object_;
+	std::shared_ptr<ISort> sorting_algorithm_ = nullptr;
 	int64_t execution_time_{};
 
 };
