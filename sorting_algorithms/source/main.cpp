@@ -9,6 +9,7 @@
 
 int main()
 {
+	/*
 	TestTemplate test_template;
 	std::shared_ptr<ISort>  merge_sort = std::make_shared<MergeSort>();
 	test_template.execute_all_with(merge_sort);
@@ -17,7 +18,7 @@ int main()
 	{
 		std::cout << "execution time = " << execution_time << " in nanoseconds." << std::endl;
 	}
-
+*/
 
 	DataAccumulator<int64_t> data;
 	std::vector<int64_t> test{17, 10, 1, 2, 25, 6, 62, 3, 3, 4, 4, 5, 5};
