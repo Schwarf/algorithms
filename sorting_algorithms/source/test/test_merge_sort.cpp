@@ -1,6 +1,4 @@
 #include "gtest/gtest.h"
-#include <random>
-#include <vector>
 #include <algorithm>
 #include "./../algorithms/merge_sort/merge_sort.h"
 #include "sorting_setup.h"

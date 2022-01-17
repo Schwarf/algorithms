@@ -1,6 +1,4 @@
 #include "gtest/gtest.h"
-#include <random>
-#include <vector>
 #include <algorithm>
 #include "./../algorithms/selection_sort/selection_sort.h"
 #include "sorting_setup.h"

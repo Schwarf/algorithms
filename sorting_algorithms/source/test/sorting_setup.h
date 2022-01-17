@@ -4,6 +4,7 @@
 
 #ifndef SORTING_SETUP_H
 #define SORTING_SETUP_H
+#include <random>
 class SetupSorting: public testing::Test
 {
 public:

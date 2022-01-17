@@ -3,8 +3,6 @@
 //
 
 #include "gtest/gtest.h"
-#include <random>
-#include <vector>
 #include <algorithm>
 #include "./../algorithms/shell_sort/shell_sort.h"
 #include "sorting_setup.h"

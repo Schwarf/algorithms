@@ -3,6 +3,7 @@
 #include "insertion_sort/insertion_sort.h"
 #include "shell_sort/shell_sort.h"
 #include "merge_sort/merge_sort.h"
+#include "quick_sort/quick_sort.h"
 #include "performance_measurement/execution_time_for_sorting.h"
 #include "performance_measurement/data_accumulator.h"
 #include "performance_measurement/test_template.h"
@@ -24,9 +25,9 @@ int main()
 	std::vector<int64_t> test{17, 10, 1, 2, 25, 6, 62, 3, 3, 4, 4, 5, 5};
 	std::shared_ptr<std::vector<int64_t>> test_ptr = std::make_shared<std::vector<int64_t>>(test);
 	data.add_data_vector(test_ptr);
-	SelectionSort selection_sort;
+	QuickSort selection_sort;
 	//selection_sort.enable_non_recursive_version(true);
-	std::shared_ptr<ISort>  selection_sort_ptr = std::make_shared<SelectionSort>(selection_sort);
+	std::shared_ptr<ISort>  selection_sort_ptr = std::make_shared<QuickSort>(selection_sort);
 	auto sample = data.get_data_vector(0);
 	selection_sort.sort(sample);
 	//ExecutionTimeForSorting time(merge_sort);
