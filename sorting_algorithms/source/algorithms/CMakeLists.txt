@@ -1,3 +1,3 @@
 add_library(sorting_lib STATIC i_sort.h selection_sort/selection_sort.cpp selection_sort/selection_sort.h
         swap.h swap.cpp ./insertion_sort/insertion_sort.h ./insertion_sort/insertion_sort.cpp
-        ./merge_sort/merge_sort.cpp ./merge_sort/merge_sort.h ./shell_sort/shell_sort.cpp ./shell_sort/shell_sort.h quick_sort/quick_sort.cpp quick_sort/quick_sort.h)
+        ./merge_sort/merge_sort.cpp ./merge_sort/merge_sort.h ./shell_sort/shell_sort.cpp ./shell_sort/shell_sort.h quick_sort/quick_sort.cpp quick_sort/quick_sort.h bubble_sort/bubble_sort.cpp bubble_sort/bubble_sort.h)
