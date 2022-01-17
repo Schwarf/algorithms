@@ -18,15 +18,15 @@ public:
 		{
 			auto number = uniform_distribution(mersenne_generator);
 			random_numbers.push_back(number);
-			random_numbers2.push_back(number);
+			std_sorted_reference.push_back(number);
 		}
-		std::sort(random_numbers2.begin(), random_numbers2.end());
+		std::sort(std_sorted_reference.begin(), std_sorted_reference.end());
 	}
 
 
 protected:
 	std::vector<int64_t> random_numbers;
-	std::vector<int64_t> random_numbers2;
+	std::vector<int64_t> std_sorted_reference;
 };
 
 #endif //SORTING_SETUP_H

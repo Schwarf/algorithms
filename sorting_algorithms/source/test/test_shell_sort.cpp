@@ -13,7 +13,7 @@ TEST_F(SetupSorting, test_shell_sort_classic)
 	shell_sort.sort(random_numbers);
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
-		EXPECT_EQ(random_numbers[index], random_numbers2[index]);
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 
 }
@@ -25,7 +25,7 @@ TEST_F(SetupSorting, test_shell_sort_sedgewick)
 	shell_sort.sort(random_numbers);
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
-		EXPECT_EQ(random_numbers[index], random_numbers2[index]);
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }
 
@@ -36,7 +36,7 @@ TEST_F(SetupSorting, test_shell_sort_tokuda)
 	shell_sort.sort(random_numbers);
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
-		EXPECT_EQ(random_numbers[index], random_numbers2[index]);
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }
 
@@ -48,7 +48,7 @@ TEST_F(SetupSorting, test_shell_sort_ciura)
 	shell_sort.sort(random_numbers);
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
-		EXPECT_EQ(random_numbers[index], random_numbers2[index]);
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }
 

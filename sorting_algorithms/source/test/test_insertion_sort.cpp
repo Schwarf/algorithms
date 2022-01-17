@@ -9,7 +9,7 @@ TEST_F(SetupSorting, test_insertion_sort)
 	insertion_sort.sort(random_numbers);
 	for(size_t index =0; index < random_numbers.size(); ++index)
 	{
-		EXPECT_EQ(random_numbers[index], random_numbers2[index]);
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 
 }
