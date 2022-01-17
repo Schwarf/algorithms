@@ -5,6 +5,7 @@
 #ifndef SORTING_SETUP_H
 #define SORTING_SETUP_H
 #include <random>
+#include <algorithm>
 class SetupSorting: public testing::Test
 {
 public:
@@ -19,7 +20,10 @@ public:
 			random_numbers.push_back(number);
 			random_numbers2.push_back(number);
 		}
+		std::sort(random_numbers2.begin(), random_numbers2.end());
 	}
+
+
 protected:
 	std::vector<int64_t> random_numbers;
 	std::vector<int64_t> random_numbers2;
