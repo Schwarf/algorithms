@@ -11,8 +11,7 @@ TEST_F(SetupSorting, test_shell_sort_classic)
 {
 	ShellSort shell_sort;
 	shell_sort.sort(random_numbers);
-	for(size_t index =0; index < random_numbers.size(); ++index)
-	{
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
 		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 
@@ -23,8 +22,7 @@ TEST_F(SetupSorting, test_shell_sort_sedgewick)
 	ShellSort shell_sort;
 	shell_sort.set_variant(ShellSortVariant::sedgewick);
 	shell_sort.sort(random_numbers);
-	for(size_t index =0; index < random_numbers.size(); ++index)
-	{
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
 		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }
@@ -34,8 +32,7 @@ TEST_F(SetupSorting, test_shell_sort_tokuda)
 	ShellSort shell_sort;
 	shell_sort.set_variant(ShellSortVariant::tokuda);
 	shell_sort.sort(random_numbers);
-	for(size_t index =0; index < random_numbers.size(); ++index)
-	{
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
 		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }
@@ -46,8 +43,17 @@ TEST_F(SetupSorting, test_shell_sort_ciura)
 	ShellSort shell_sort;
 	shell_sort.set_variant(ShellSortVariant::ciura);
 	shell_sort.sort(random_numbers);
-	for(size_t index =0; index < random_numbers.size(); ++index)
-	{
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
+		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
+	}
+}
+
+TEST_F(SetupSorting, test_shell_sort_fuchs)
+{
+	ShellSort shell_sort;
+	shell_sort.set_variant(ShellSortVariant::fuchs);
+	shell_sort.sort(random_numbers);
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
 		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 }

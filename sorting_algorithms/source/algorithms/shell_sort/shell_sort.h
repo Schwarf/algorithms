@@ -7,11 +7,12 @@
 #include "./../i_sort.h"
 #include "./../swap.h"
 #include <iostream>
-enum ShellSortVariant{ classic, sedgewick, tokuda, ciura};
+enum ShellSortVariant{ classic, sedgewick, tokuda, ciura, fuchs};
 
 class ShellSort final: public ISort
 {
 public:
+	ShellSort();
 	void sort(std::vector<int64_t> &array) final;
 	void set_variant(ShellSortVariant variant);
 	~ShellSort() override = default;
@@ -23,6 +24,7 @@ private:
 	static size_t sedgewick_sequence_[20];
 	static size_t tokuda_sequence_[20];
 	static size_t ciura_sequence_[9] ;
+	static size_t fuchs_sequence_[20];
 };
 
 
