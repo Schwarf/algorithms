@@ -19,11 +19,11 @@ int main()
 	quick.set_classic_variant(true);
 	std::shared_ptr<ISort>  quick_sort = std::make_shared<QuickSort>(quick);
 
-	test_template.execute_all_with(quick_sort);
-	auto execution_times = test_template.get_execution_time_dictionary()[quick_sort];
+	test_template.execute_all_with(quick_sort, "Quicksort");
+	auto execution_times = test_template.get_execution_time_map()[quick_sort];
 	for(const auto & execution_time : (*execution_times))
 	{
-		std::cout << "Quick sort execution time = " << execution_time << " in nanoseconds." << std::endl;
+		std::cout << test_template.get_algorithm_name_map()[quick_sort] + " execution time = " << execution_time << " in nanoseconds." << std::endl;
 	}
 
 	return 0;

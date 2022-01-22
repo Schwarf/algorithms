@@ -7,9 +7,9 @@ TestTemplate::TestTemplate()
 {
 	std::random_device random_device;
 	std::mt19937_64 mersenne_generator(random_device());
-	size_t maximal_random_numbers = 1000000; //10 billion
+	size_t maximal_random_numbers = 100000000; //10 billion
 	for (size_t number_of_random_numbers = 10; number_of_random_numbers < maximal_random_numbers;
-		 number_of_random_numbers *= 10) {
+		 number_of_random_numbers *= 2) {
 		std::shared_ptr<std::vector<int64_t>> random_numbers = std::make_shared<std::vector<int64_t>>();
 		generate_N_random_numbers_(random_numbers, number_of_random_numbers, mersenne_generator);
 		data_accumulator_.add_data_vector(random_numbers);
@@ -26,18 +26,23 @@ void TestTemplate::generate_N_random_numbers_(std::shared_ptr<std::vector<int64_
 	}
 }
 
-void TestTemplate::execute_all_with(std::shared_ptr<ISort> &sorting_algorithm)
+void TestTemplate::execute_all_with(std::shared_ptr<ISort> &sorting_algorithm, const std::string &algorithm_name)
 {
 	execution_time_for_sorting_.set_sorting_algorithm(sorting_algorithm);
+	names_map_[sorting_algorithm] = algorithm_name;
 	std::shared_ptr<std::vector<int64_t>> execution_times = std::make_shared<std::vector<int64_t>>();
 	for (size_t data_index = 0; data_index < data_accumulator_.number_of_entries(); ++data_index) {
 		execution_time_for_sorting_.measure(data_accumulator_.get_data_vector(data_index));
 		execution_times->push_back(execution_time_for_sorting_.execution_time());
 	}
-	execution_times_dictionary_[sorting_algorithm] = execution_times;
+	execution_times_map_[sorting_algorithm] = execution_times;
 }
 std::map<std::shared_ptr<ISort>,
-		 std::shared_ptr<std::vector<int64_t>>> TestTemplate::get_execution_time_dictionary() const
+		 std::shared_ptr<std::vector<int64_t>>> TestTemplate::get_execution_time_map() const
 {
-	return execution_times_dictionary_;
+	return execution_times_map_;
+}
+std::map<std::shared_ptr<ISort>, std::string> TestTemplate::get_algorithm_name_map() const
+{
+	return names_map_;
 }
