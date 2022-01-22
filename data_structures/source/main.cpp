@@ -7,6 +7,8 @@ int main()
 	bst.add(1, 1.0);
 	bst.add(2, 2.0);
 	auto value = bst.get(1);
-	std::cout << "Hello, World!" << std::endl;
+	for(size_t index = 20; index >= 0; --index) {
+		std::cout << "Hello, World!" << std::endl;
+	}
 	return 0;
 }
