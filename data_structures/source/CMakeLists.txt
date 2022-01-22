@@ -24,4 +24,4 @@ enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
 
 
-add_executable(data_structures main.cpp)
+add_executable(data_structures main.cpp binary_search_tree/bst_node.h binary_search_tree/binary_search_tree.h)
