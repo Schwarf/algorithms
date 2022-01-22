@@ -6,7 +6,7 @@
 #define QUICK_SORT_H
 #include "./../i_sort.h"
 #include "./../swap.h"
-class QuickSort final : public ISort
+class QuickSort final: public ISort
 {
 public:
 	void sort(std::vector<int64_t> &array) final;

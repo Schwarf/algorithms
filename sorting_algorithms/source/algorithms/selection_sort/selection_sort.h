@@ -12,8 +12,8 @@ class SelectionSort final: public ISort
 public:
 	SelectionSort() = default;
 	void sort(std::vector<int64_t> &array) final;
-	~SelectionSort() final =default;
-	void sort(std::shared_ptr<std::vector<int64_t>> & array) final;
+	~SelectionSort() final = default;
+	void sort(std::shared_ptr<std::vector<int64_t>> &array) final;
 };
 
 

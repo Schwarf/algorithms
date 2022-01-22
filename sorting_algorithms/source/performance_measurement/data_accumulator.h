@@ -6,8 +6,8 @@
 #define DATA_ACCUMULATOR_H
 #include "i_data_accumulator.h"
 
-template <typename T>
-class DataAccumulator : public IDataAccumulator<T>
+template<typename T>
+class DataAccumulator: public IDataAccumulator<T>
 {
 public:
 	void add_data_vector(const std::shared_ptr<std::vector<T>> data_vector) final
@@ -17,7 +17,7 @@ public:
 	}
 	std::shared_ptr<std::vector<T>> get_data_vector(size_t index) const final
 	{
-		if(index <= maximum_index_)
+		if (index <= maximum_index_)
 			return vector_of_data_.at(index);
 		return nullptr;
 	}

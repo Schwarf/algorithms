@@ -10,8 +10,7 @@ TEST_F(SetupSorting, test_bubble_sort)
 {
 	BubbleSort bubble_sort;
 	bubble_sort.sort(random_numbers);
-	for(size_t index =0; index < random_numbers.size(); ++index)
-	{
+	for (size_t index = 0; index < random_numbers.size(); ++index) {
 		EXPECT_EQ(random_numbers[index], std_sorted_reference[index]);
 	}
 

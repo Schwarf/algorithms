@@ -6,11 +6,11 @@
 #define EXECUTION_TIME_FOR_SORTING_H
 #include "i_execution_time_for_sorting.h"
 
-class ExecutionTimeForSorting final : public IExecutionTimeForSorting
+class ExecutionTimeForSorting final: public IExecutionTimeForSorting
 {
 public:
-	ExecutionTimeForSorting() =default;
-	explicit ExecutionTimeForSorting(std::shared_ptr<ISort> & sorting_algorithm);
+	ExecutionTimeForSorting() = default;
+	explicit ExecutionTimeForSorting(std::shared_ptr<ISort> &sorting_algorithm);
 	void measure(std::vector<int64_t> &array) final;
 	void measure(std::shared_ptr<std::vector<int64_t>> array) final;
 	int64_t execution_time() final;

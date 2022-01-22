@@ -19,7 +19,9 @@ public:
 	void execute_all_with(std::shared_ptr<ISort> &sorting_algorithm) final;
 	std::map<std::shared_ptr<ISort>, std::shared_ptr<std::vector<int64_t>>> get_execution_time_dictionary() const final;
 private:
-	static void generate_N_random_numbers_(std::shared_ptr<std::vector<int64_t>> & random_numbers, size_t N, std::mt19937_64 & engine);
+	static void generate_N_random_numbers_(std::shared_ptr<std::vector<int64_t>> &random_numbers,
+										   size_t N,
+										   std::mt19937_64 &engine);
 	DataAccumulator<int64_t> data_accumulator_{};
 	ExecutionTimeForSorting execution_time_for_sorting_{};
 	std::map<std::shared_ptr<ISort>, std::shared_ptr<std::vector<int64_t>>> execution_times_dictionary_;
