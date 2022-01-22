@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 #include <cstdint>
+#include <stdexcept>
+#include <string>
 
 class QuickSelect
 {

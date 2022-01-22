@@ -5,6 +5,11 @@
 #include "quick_select.h"
 int64_t QuickSelect::select(std::vector<int64_t> &array, size_t kth_element)
 {
+	if(kth_element > array.size())
+	{
+		const std::string message = "In QuickSelect the kth_element is greater than the array-size";
+		throw std::out_of_range(message);
+	}
 	size_t start = 0;
 	size_t end = array.size() - 1;
 	while(end > start)
