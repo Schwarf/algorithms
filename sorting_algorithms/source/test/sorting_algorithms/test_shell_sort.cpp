@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../algorithms/shell_sort/shell_sort.h"
+#include "../../algorithms/shell_sort/shell_sort.h"
 #include "sorting_setup.h"
 
 

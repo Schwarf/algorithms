@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "./../algorithms/merge_sort/merge_sort.h"
+#include "../../algorithms/merge_sort/merge_sort.h"
 #include "sorting_setup.h"
 
 

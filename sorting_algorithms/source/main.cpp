@@ -10,11 +10,12 @@
 #include "sorting_related/quick_select/quick_select.h"
 int main()
 {
-	std::vector<int64_t> test_select{1, 5, 6, 3, 4, 2};
+	std::vector<int64_t> test_select{1, 2, 3, 4, 6, 7, 8, 9, 10};
 	QuickSelect select;
-	std::cout << select.select(test_select, 7) << std::endl;
+	std::cout << select.select(test_select, 5) << std::endl;
 
-	TestTemplate test_template;
+	/*
+	 TestTemplate test_template;
 	QuickSort quick;
 	quick.set_classic_variant(true);
 	std::shared_ptr<ISort>  quick_sort = std::make_shared<QuickSort>(quick);
@@ -25,6 +26,6 @@ int main()
 	{
 		std::cout << test_template.get_algorithm_name_map()[quick_sort] + " execution time = " << execution_time << " in nanoseconds." << std::endl;
 	}
-
+	*/
 	return 0;
 }

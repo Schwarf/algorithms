@@ -2,7 +2,7 @@
 // Created by andreas on 17.01.22.
 //
 #include "gtest/gtest.h"
-#include "./../algorithms/bubble_sort/bubble_sort.h"
+#include "../../algorithms/bubble_sort/bubble_sort.h"
 #include "sorting_setup.h"
 
 
