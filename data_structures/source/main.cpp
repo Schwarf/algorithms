@@ -14,7 +14,7 @@ int main()
 	int value;
 	for(size_t index =0 ; index < list.size(); ++index)
 	{
-		list.get(index, value);	
+		list.get(index, value);
 		std::cout << value << "  ";
 	}
 	std::cout << std::endl;
