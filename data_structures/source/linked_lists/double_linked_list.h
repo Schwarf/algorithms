@@ -13,6 +13,10 @@ class DoubleLinkedList
 		T value;
 		Node *next;
 		Node *previous;
+		explicit Node(const T & val)
+		{
+			value = val;
+		}
 	};
 
 public:
@@ -24,8 +28,7 @@ public:
 
 	void add_at_head(const T & value)
 	{
-		auto new_node = new Node();
-		new_node->value = value;
+		auto new_node = new Node(value);
 		new_node->previous = nullptr;
 		if(head_ == nullptr)
 		{
@@ -40,8 +43,7 @@ public:
 
 	void add_at_tail(const T & value)
 	{
-		auto new_node = new Node();
-		new_node->value = value;
+		auto new_node = new Node(value);
 		new_node->next = nullptr;
 		if(tail_ == nullptr)
 		{
