@@ -57,6 +57,11 @@ TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
 		linked_list->add_at_tail(element);
 	}
 	int64_t value{};
+	input.insert(input.begin() + 1, 10);
+	input.insert(input.begin() + 3, 20);
+	linked_list->add_at_index(10, 1);
+	linked_list->add_at_index(20, 3);
+	EXPECT_EQ(7, input.size());
 
 	for(size_t index =0; index <  input.size(); ++index)
 	{
@@ -65,3 +70,24 @@ TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
 	}
 }
 
+
+TEST_F(SetupLinkedList, test_invalid_index)
+{
+	for(const auto & element : input)
+	{
+		linked_list->add_at_tail(element);
+	}
+	int64_t value{};
+	size_t out_of_range_index=7;
+	std::string message = "The index is linked list is out of range";
+	try {
+		linked_list->get(out_of_range_index, value);
+		FAIL() << "Expected std::out_of_range";
+	}
+	catch (std::out_of_range const &err) {
+		EXPECT_TRUE(err.what() == message);
+	}
+
+
+
+}

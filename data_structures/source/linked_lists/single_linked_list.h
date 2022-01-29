@@ -56,6 +56,8 @@ public:
 
 	bool get(size_t index, T& return_value)
 	{
+		if(index > length_-1)
+			throw std::out_of_range("The index is linked list is out of range");
 		auto current = head_;
 		size_t count{};
 		while(current != nullptr)
