@@ -6,15 +6,23 @@
 #define SINGLY_LINKED_LIST_H
 
 
-template <typename T>
-class SinglyLinkedList{
-	struct Node{
+template<typename T>
+class SinglyLinkedList
+{
+	struct Node
+	{
 		T value;
-		Node * next;
+		Node *next;
 	};
+private:
+	bool is_index_valid(size_t index)
+	{
+		return index < length_;
+	}
 
 public:
-	SinglyLinkedList(){
+	SinglyLinkedList()
+	{
 		head_ = nullptr;
 	}
 
@@ -25,11 +33,11 @@ public:
 
 	T pop_front()
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty.");
 
 		auto value = head_->value;
-		auto help = head_-> next;
+		auto help = head_->next;
 		delete head_;
 		head_ = help;
 		length_--;
@@ -38,9 +46,9 @@ public:
 
 	T pop_back()
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty.");
-		if(head_->next == nullptr) {
+		if (head_->next == nullptr) {
 			T value = head_->value;
 			head_ = nullptr;
 			length_--;
@@ -48,7 +56,7 @@ public:
 		}
 		auto current = head_;
 
-		while(current->next->next != nullptr)
+		while (current->next->next != nullptr)
 			current = current->next;
 		T value = current->next->value;
 		delete current->next;
@@ -57,12 +65,47 @@ public:
 		return value;
 	}
 
-	void push_at_front(const T & value)
+	T pop_at_index(size_t index)
+	{
+		if (is_empty())
+			throw std::out_of_range("Singly linked list is empty.");
+		if (!is_index_valid(index))
+			throw std::out_of_range("The index is linked list is out of range in method 'pop_at_index'");
+		T value;
+		length_--;
+		if(index == 0) {
+			value = head_->value;
+			delete head_;
+			head_ = nullptr;
+			return value;
+		}
+		if(index == 1) {
+			value= head_->next->value;
+			delete head_->next;
+			head_->next = nullptr;
+			return value;
+		}
+		size_t counter = 2;
+		auto previous = head_->next;
+		auto current = head_->next->next;
+		while(counter < index)
+		{
+			previous = current;
+			current = current->next;
+			counter++;
+		}
+		value = current->value;
+		previous->next = current->next;
+		delete current;
+		return value;
+
+	}
+
+	void push_at_front(const T &value)
 	{
 		auto new_head = new Node();
 		new_head->value = value;
-		if(head_ == nullptr)
-		{
+		if (head_ == nullptr) {
 			new_head->next = nullptr;
 			head_ = new_head;
 			length_ = 1;
@@ -72,36 +115,34 @@ public:
 		head_ = new_head;
 		length_++;
 	}
-	void push_at_back(const T & value){
+	void push_at_back(const T &value)
+	{
 
 		auto new_tail = new Node();
 		new_tail->value = value;
 		new_tail->next = nullptr;
-		if(head_ == nullptr)
-		{
+		if (head_ == nullptr) {
 			head_ = new_tail;
 			new_tail->next = nullptr;
 			length_ = 1;
 			return;
 		}
 		auto current = head_;
-		while(current->next != nullptr)
-		{
+		while (current->next != nullptr) {
 			current = current->next;
 		}
 		current->next = new_tail;
 		length_++;
 	}
 
-	bool get(size_t index, T& return_value)
+	bool get(size_t index, T &return_value)
 	{
-		if(index > length_-1)
-			throw std::out_of_range("The index is linked list is out of range");
+		if (!is_index_valid(index))
+			throw std::out_of_range("The index is linked list is out of range in method 'get'");
 		auto current = head_;
 		size_t count{};
-		while(current != nullptr)
-		{
-			if(index == count) {
+		while (current != nullptr) {
+			if (index == count) {
 				return_value = current->value;
 				return true;
 			}
@@ -111,30 +152,26 @@ public:
 		return false;
 	}
 
-
-	bool add_at_index(const T & value, size_t index)
+	bool add_at_index(const T &value, size_t index)
 	{
-		if(index > length_ - 1)
+		if (!is_index_valid(index))
 			return false;
-		if(index== length_ - 1) {
+		if (index == length_ - 1) {
 			push_at_back(value);
 			return true;
 		}
-		if(index ==0)
-		{
+		if (index == 0) {
 			push_at_front(value);
 			return true;
 		}
 
 		auto new_node = new Node();
-		new_node->value =value;
+		new_node->value = value;
 		auto current = head_;
-		Node * previous = nullptr;
+		Node *previous = nullptr;
 		size_t count = 0;
-		while(current != nullptr)
-		{
-			if(count == index)
-			{
+		while (current != nullptr) {
+			if (count == index) {
 				previous->next = new_node;
 				new_node->next = current;
 				length_++;
@@ -152,9 +189,8 @@ public:
 	}
 
 
-
 private:
-	Node * head_;
+	Node *head_;
 	size_t length_{};
 };
 
