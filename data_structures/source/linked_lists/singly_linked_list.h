@@ -40,11 +40,19 @@ public:
 	{
 		if(is_empty())
 			throw std::out_of_range("Singly linked list is empty.");
+		if(head_->next == nullptr) {
+			T value = head_->value;
+			head_ = nullptr;
+			length_--;
+			return value;
+		}
 		auto current = head_;
-		while(current->next != nullptr)
+
+		while(current->next->next != nullptr)
 			current = current->next;
-		T value = current->value;
-		delete current;
+		T value = current->next->value;
+		delete current->next;
+		current->next = nullptr;
 		length_--;
 		return value;
 	}
