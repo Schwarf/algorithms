@@ -25,11 +25,14 @@ enable_cxx_compiler_flag_if_supported("-O0")
 
 
 add_executable(sort main.cpp)
+
 add_subdirectory(algorithms)
 add_subdirectory(performance_measurement)
 add_subdirectory(sorting_related)
 add_subdirectory(test)
+
 include_directories(algorithms)
 include_directories(performance_measurement)
 include_directories(sorting_related)
+
 target_link_libraries(sort sorting_lib sorting_related_lib execution_time_measurement_lib)

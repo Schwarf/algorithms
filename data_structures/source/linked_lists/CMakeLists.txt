@@ -1,0 +1,1 @@
+add_library(linked_list_lib INTERFACE single_linked_list.h double_linked_list.h)
