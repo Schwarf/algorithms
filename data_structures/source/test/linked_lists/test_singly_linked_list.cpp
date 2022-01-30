@@ -101,7 +101,7 @@ TEST_F(SetupLinkedList, test_pop_front)
 
 TEST_F(SetupLinkedList, test_pop_front_invalid_list_empty)
 {
-	std::string message = "Singly linked list is empty.";
+	std::string message = "Singly linked list is empty (pop_front).";
 	try {
 		linked_list->pop_front();
 		FAIL() << "Empty";
@@ -113,7 +113,7 @@ TEST_F(SetupLinkedList, test_pop_front_invalid_list_empty)
 
 TEST_F(SetupLinkedList, test_pop_back_invalid_list_empty)
 {
-	std::string message = "Singly linked list is empty.";
+	std::string message = "Singly linked list is empty (pop_back).";
 	try {
 		linked_list->pop_back();
 		FAIL() << "Empty";
