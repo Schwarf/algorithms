@@ -5,7 +5,7 @@
 #ifndef DOUBLE_LINKED_LIST_H
 #define DOUBLE_LINKED_LIST_H
 
-template <typename T>
+template<typename T>
 class DoubleLinkedList
 {
 	struct Node
@@ -13,11 +13,16 @@ class DoubleLinkedList
 		T value;
 		Node *next;
 		Node *previous;
-		explicit Node(const T & val)
+		explicit Node(const T &val)
 		{
 			value = val;
 		}
 	};
+
+	bool is_index_valid_(size_t index)
+	{
+		return index < length_;
+	}
 
 public:
 	DoubleLinkedList()
@@ -31,41 +36,37 @@ public:
 		return head_ == nullptr == tail_;
 	}
 
-	void push_at_head(const T & value)
+	void push_at_head(const T &value)
 	{
 		auto new_node = new Node(value);
 		new_node->previous = nullptr;
-		if(is_empty())
-		{
+		if (is_empty()) {
 			tail_ = new_node;
 		}
-		else
-		{
+		else {
 			head_->previous = new_node;
 		}
-		head_= new_node;
+		head_ = new_node;
 		length_++;
 	}
 
-	void push_at_back(const T & value)
+	void push_at_back(const T &value)
 	{
 		auto new_node = new Node(value);
 		new_node->next = nullptr;
-		if(is_empty())
-		{
+		if (is_empty()) {
 			head_ = new_node;
 		}
-		else
-		{
+		else {
 			tail_->next = new_node;
 		}
-		tail_= new_node;
+		tail_ = new_node;
 		length_++;
 	}
 
 	T pop_back()
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_back).");
 		auto value = tail_->value;
 		auto help = tail_->previous;
@@ -78,7 +79,7 @@ public:
 
 	T pop_front()
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_front).");
 		auto value = head_->value;
 		auto help = head_->next;
@@ -93,33 +94,33 @@ public:
 	{
 		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_at_index).");
-		if (!is_index_valid(index))
+		if (!is_index_valid_(index))
 			throw std::out_of_range("The index in doubly linked list is out of range in method 'pop_at_index'");
-		if(index==0)
+		if (index == 0)
 			return pop_front();
-		if(index== length_-1)
+		if (index == length_ - 1)
 			return pop_back();
 
 		size_t index_counter = 1;
 		auto current = head_->next;
 		auto previous = head_;
-		while(index_counter < index)
-		{
+		while (index_counter < index) {
 			index_counter++;
 			previous = current;
 			current = current->next;
 		}
 		auto value = current->value;
 		previous->next = current->next;
-		current->previous = previous;
+		current->next->previous = previous;
 		delete current;
 		length_--;
 		return value;
 	}
 
+
 private:
-	Node * head_;
-	Node * tail_;
+	Node *head_;
+	Node *tail_;
 	size_t length_{};
 };
 

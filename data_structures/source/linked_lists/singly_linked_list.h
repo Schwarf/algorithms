@@ -14,8 +14,7 @@ class SinglyLinkedList
 		T value;
 		Node *next;
 	};
-private:
-	bool is_index_valid(size_t index)
+	bool is_index_valid_(size_t index)
 	{
 		return index < length_;
 	}
@@ -24,6 +23,11 @@ public:
 	SinglyLinkedList()
 	{
 		head_ = nullptr;
+	}
+
+	size_t size() const
+	{
+		return length_;
 	}
 
 	bool is_empty()
@@ -69,7 +73,7 @@ public:
 	{
 		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty (pop_at_index).");
-		if (!is_index_valid(index))
+		if (!is_index_valid_(index))
 			throw std::out_of_range("The index in singly linked list is out of range in method 'pop_at_index'");
 		T value;
 		if (index == 0) {
@@ -128,26 +132,24 @@ public:
 		length_++;
 	}
 
-	bool get(size_t index, T &return_value)
+	T get(size_t index)
 	{
-		if (!is_index_valid(index))
+		if (!is_index_valid_(index))
 			throw std::out_of_range("The index in singly linked list is out of range in method 'get'");
 		auto current = head_;
 		size_t count{};
 		while (current != nullptr) {
 			if (index == count) {
-				return_value = current->value;
-				return true;
+				return current->value;
 			}
 			current = current->next;
 			count++;
 		}
-		return false;
 	}
 
 	bool add_at_index(const T &value, size_t index)
 	{
-		if (!is_index_valid(index))
+		if (!is_index_valid_(index))
 			return false;
 		if (index == length_ - 1) {
 			push_at_back(value);
@@ -176,11 +178,6 @@ public:
 		}
 		return false;
 	}
-	size_t size() const
-	{
-		return length_;
-	}
-
 
 private:
 	Node *head_;

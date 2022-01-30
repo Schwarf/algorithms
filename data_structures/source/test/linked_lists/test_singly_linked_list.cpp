@@ -24,11 +24,9 @@ TEST_F(SetupLinkedList, test_push_at_front)
 	for (const auto &element: input) {
 		linked_list->push_at_front(element);
 	}
-	int64_t value{};
 	std::reverse(input.begin(), input.end());
 	for (size_t index = 0; index < input.size(); ++index) {
-		linked_list->get(index, value);
-		EXPECT_EQ(value, input[index]);
+		EXPECT_EQ(linked_list->get(index), input[index]);
 	}
 }
 
@@ -37,11 +35,8 @@ TEST_F(SetupLinkedList, test_push_at_back)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	int64_t value{};
-
 	for (size_t index = 0; index < input.size(); ++index) {
-		linked_list->get(index, value);
-		EXPECT_EQ(value, input[index]);
+		EXPECT_EQ(linked_list->get(index), input[index]);
 	}
 }
 
@@ -51,7 +46,6 @@ TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	int64_t value{};
 	input.insert(input.begin() + 1, 10);
 	input.insert(input.begin() + 3, 20);
 	linked_list->add_at_index(10, 1);
@@ -59,8 +53,8 @@ TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
 	EXPECT_EQ(7, input.size());
 
 	for (size_t index = 0; index < input.size(); ++index) {
-		linked_list->get(index, value);
-		EXPECT_EQ(value, input[index]);
+
+		EXPECT_EQ(linked_list->get(index), input[index]);
 	}
 }
 
@@ -70,11 +64,10 @@ TEST_F(SetupLinkedList, test_invalid_index)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	int64_t value{};
 	size_t out_of_range_index = 7;
 	std::string message = "The index in singly linked list is out of range in method 'get'";
 	try {
-		linked_list->get(out_of_range_index, value);
+		linked_list->get(out_of_range_index);
 		FAIL() << "Expected std::out_of_range";
 	}
 	catch (std::out_of_range const &err) {
@@ -164,11 +157,8 @@ TEST_F(SetupLinkedList, test_pop_at_index)
 	input.erase(input.begin() + 2);
 	EXPECT_EQ(linked_list->pop_at_index(index), input[index]);
 	input.erase(input.begin() + 2);
-
-	int64_t value{};
-	for (index = 2; index < input.size(); ++index) {
-		linked_list->get(index, value);
-		EXPECT_EQ(value, input[index]);
+	for (index = 2; index < input.size(); ++index) { ;
+		EXPECT_EQ(linked_list->get(index), input[index]);
 
 	}
 }
@@ -203,4 +193,29 @@ TEST_F(SetupLinkedList, test_pop_at_index_last_element)
 	EXPECT_EQ(linked_list->pop_at_index(index), input[index]);
 	EXPECT_FALSE(linked_list->is_empty());
 	EXPECT_EQ(linked_list->size(), 4);
+}
+
+
+TEST_F(SetupLinkedList, test_pop_at_2nd_index_with_length_2)
+{
+	linked_list->push_at_back(input[0]);
+	linked_list->push_at_back(input[1]);
+	size_t index = 1;
+	EXPECT_EQ(linked_list->pop_at_index(index), input[index]);
+	EXPECT_FALSE(linked_list->is_empty());
+	EXPECT_EQ(linked_list->size(), 1);
+	EXPECT_EQ(linked_list->get(0), input[0]);
+	EXPECT_EQ(linked_list->pop_back(), input[0]);
+}
+
+TEST_F(SetupLinkedList, test_pop_at_1st_index_with_length_2)
+{
+	linked_list->push_at_back(input[0]);
+	linked_list->push_at_back(input[1]);
+	size_t index = 0;
+	EXPECT_EQ(linked_list->pop_at_index(index), input[index]);
+	EXPECT_FALSE(linked_list->is_empty());
+	EXPECT_EQ(linked_list->size(), 1);
+	EXPECT_EQ(linked_list->get(0), input[1]);
+	EXPECT_EQ(linked_list->pop_front(), input[1]);
 }
