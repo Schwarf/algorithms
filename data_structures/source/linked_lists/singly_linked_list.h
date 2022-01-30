@@ -72,27 +72,23 @@ public:
 		if (!is_index_valid(index))
 			throw std::out_of_range("The index in singly linked list is out of range in method 'pop_at_index'");
 		T value;
-		length_--;
-		if(index == 0) {
+		if (index == 0) {
 			return pop_front();
 		}
-		if(index == 1) {
-			value= head_->next->value;
-			delete head_->next;
-			head_->next = nullptr;
-			return value;
+		if (index == length_ - 1) {
+			return pop_back();
 		}
-		size_t counter = 2;
-		auto previous = head_->next;
-		auto current = head_->next->next;
-		while(counter < index)
-		{
+		size_t counter = 1;
+		auto previous = head_;
+		auto current = head_->next;
+		while (counter < index) {
 			previous = current;
 			current = current->next;
 			counter++;
 		}
 		value = current->value;
 		previous->next = current->next;
+		length_--;
 		delete current;
 		return value;
 
