@@ -19,9 +19,6 @@ class DoubleLinkedList
 		}
 	};
 
-	size_t length_{};
-
-
 public:
 	DoubleLinkedList()
 	{
@@ -47,6 +44,7 @@ public:
 			head_->previous = new_node;
 		}
 		head_= new_node;
+		length_++;
 	}
 
 	void push_at_back(const T & value)
@@ -62,6 +60,7 @@ public:
 			tail_->next = new_node;
 		}
 		tail_= new_node;
+		length_++;
 	}
 
 	T pop_back()
@@ -73,13 +72,55 @@ public:
 		delete tail_;
 		tail_ = help;
 		tail_->next = nullptr;
+		length_--;
 		return value;
 	}
 
+	T pop_front()
+	{
+		if(is_empty())
+			throw std::out_of_range("Doubly linked list is empty (pop_front).");
+		auto value = head_->value;
+		auto help = head_->next;
+		delete head_;
+		head_ = help;
+		head_->previous = nullptr;
+		length_--;
+		return value;
+	}
+
+	T pop_at_index(size_t index)
+	{
+		if (is_empty())
+			throw std::out_of_range("Doubly linked list is empty (pop_at_index).");
+		if (!is_index_valid(index))
+			throw std::out_of_range("The index in doubly linked list is out of range in method 'pop_at_index'");
+		if(index==0)
+			return pop_front();
+		if(index== length_-1)
+			return pop_back();
+
+		size_t index_counter = 1;
+		auto current = head_->next;
+		auto previous = head_;
+		while(index_counter < index)
+		{
+			index_counter++;
+			previous = current;
+			current = current->next;
+		}
+		auto value = current->value;
+		previous->next = current->next;
+		current->previous = previous;
+		delete current;
+		length_--;
+		return value;
+	}
 
 private:
 	Node * head_;
 	Node * tail_;
+	size_t length_{};
 };
 
 #endif //DOUBLE_LINKED_LIST_H

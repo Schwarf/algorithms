@@ -70,14 +70,11 @@ public:
 		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty (pop_at_index).");
 		if (!is_index_valid(index))
-			throw std::out_of_range("The index is linked list is out of range in method 'pop_at_index'");
+			throw std::out_of_range("The index in singly linked list is out of range in method 'pop_at_index'");
 		T value;
 		length_--;
 		if(index == 0) {
-			value = head_->value;
-			delete head_;
-			head_ = nullptr;
-			return value;
+			return pop_front();
 		}
 		if(index == 1) {
 			value= head_->next->value;
@@ -138,7 +135,7 @@ public:
 	bool get(size_t index, T &return_value)
 	{
 		if (!is_index_valid(index))
-			throw std::out_of_range("The index is linked list is out of range in method 'get'");
+			throw std::out_of_range("The index in singly linked list is out of range in method 'get'");
 		auto current = head_;
 		size_t count{};
 		while (current != nullptr) {

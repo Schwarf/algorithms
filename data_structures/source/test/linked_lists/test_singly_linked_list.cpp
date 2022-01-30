@@ -72,7 +72,7 @@ TEST_F(SetupLinkedList, test_invalid_index)
 	}
 	int64_t value{};
 	size_t out_of_range_index = 7;
-	std::string message = "The index is linked list is out of range in method 'get'";
+	std::string message = "The index in singly linked list is out of range in method 'get'";
 	try {
 		linked_list->get(out_of_range_index, value);
 		FAIL() << "Expected std::out_of_range";
