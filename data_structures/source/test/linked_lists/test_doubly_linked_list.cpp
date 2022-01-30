@@ -30,14 +30,13 @@ TEST_F(SetupDoublyLinkedList, test_push_at_front_get)
 	}
 }
 
-
 TEST_F(SetupDoublyLinkedList, test_push_at_front_get_from_back)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_front(element);
 	}
 	std::reverse(input.begin(), input.end());
-	for (size_t index_from_back = input.size() ; index_from_back--;) {
+	for (size_t index_from_back = input.size(); index_from_back--;) {
 		EXPECT_EQ(linked_list->get_from_back(index_from_back), input[index_from_back]);
 	}
 }
@@ -59,7 +58,28 @@ TEST_F(SetupDoublyLinkedList, test_push_at_back_get_from_back)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	for (size_t index_from_back = input.size() ; index_from_back--;) {
+	for (size_t index_from_back = input.size(); index_from_back--;) {
 		EXPECT_EQ(linked_list->get_from_back(index_from_back), input[index_from_back]);
+	}
+}
+
+
+TEST_F(SetupDoublyLinkedList, test_push_at_back_pop_back)
+{
+	for (const auto &element: input) {
+		linked_list->push_at_back(element);
+	}
+	for (size_t index_from_back = input.size() ; index_from_back--;) {
+		EXPECT_EQ(linked_list->pop_back(), input[index_from_back]);
+	}
+}
+
+TEST_F(SetupDoublyLinkedList, test_push_at_back_pop_front)
+{
+	for (const auto &element: input) {
+		linked_list->push_at_back(element);
+	}
+	for (size_t index = 0 ; index < input.size() ; index++) {
+		EXPECT_EQ(linked_list->pop_front(), input[index]);
 	}
 }

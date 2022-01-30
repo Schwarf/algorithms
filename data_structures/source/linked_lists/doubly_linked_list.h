@@ -77,7 +77,11 @@ public:
 			throw std::out_of_range("Doubly linked list is empty (pop_back).");
 		auto value = tail_->value;
 		auto help = tail_->previous;
-		delete tail_;
+		if(tail_ == head_) {
+			delete tail_;
+			length_--;
+			return value;
+		}
 		tail_ = help;
 		tail_->next = nullptr;
 		length_--;
@@ -90,6 +94,11 @@ public:
 			throw std::out_of_range("Doubly linked list is empty (pop_front).");
 		auto value = head_->value;
 		auto help = head_->next;
+		if(tail_ == head_) {
+			delete head_;
+			length_--;
+			return value;
+		}
 		delete head_;
 		head_ = help;
 		head_->previous = nullptr;
