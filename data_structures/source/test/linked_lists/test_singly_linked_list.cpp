@@ -6,10 +6,10 @@
 #include "gtest/gtest.h"
 #include "./../../linked_lists/singly_linked_list.h"
 
-class SetupLinkedList: public testing::Test
+class SetupSinlgyLinkedList: public testing::Test
 {
 public:
-	SetupLinkedList()
+	SetupSinlgyLinkedList()
 	{
 		linked_list = new SinglyLinkedList<int64_t>();
 	}
@@ -19,7 +19,7 @@ protected:
 };
 
 
-TEST_F(SetupLinkedList, test_push_at_front)
+TEST_F(SetupSinlgyLinkedList, test_push_at_front)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_front(element);
@@ -30,7 +30,7 @@ TEST_F(SetupLinkedList, test_push_at_front)
 	}
 }
 
-TEST_F(SetupLinkedList, test_push_at_back)
+TEST_F(SetupSinlgyLinkedList, test_push_at_back)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -41,7 +41,7 @@ TEST_F(SetupLinkedList, test_push_at_back)
 }
 
 
-TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
+TEST_F(SetupSinlgyLinkedList, test_add_at_index_1_and_index_3)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -59,7 +59,7 @@ TEST_F(SetupLinkedList, test_add_at_index_1_and_index_3)
 }
 
 
-TEST_F(SetupLinkedList, test_invalid_index)
+TEST_F(SetupSinlgyLinkedList, test_invalid_index)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -75,7 +75,7 @@ TEST_F(SetupLinkedList, test_invalid_index)
 	}
 }
 
-TEST_F(SetupLinkedList, test_pop_front)
+TEST_F(SetupSinlgyLinkedList, test_pop_front)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -92,7 +92,7 @@ TEST_F(SetupLinkedList, test_pop_front)
 	EXPECT_EQ(linked_list->size(), input.size() - 5);
 }
 
-TEST_F(SetupLinkedList, test_pop_front_invalid_list_empty)
+TEST_F(SetupSinlgyLinkedList, test_pop_front_invalid_list_empty)
 {
 	std::string message = "Singly linked list is empty (pop_front).";
 	try {
@@ -104,7 +104,7 @@ TEST_F(SetupLinkedList, test_pop_front_invalid_list_empty)
 	}
 }
 
-TEST_F(SetupLinkedList, test_pop_back_invalid_list_empty)
+TEST_F(SetupSinlgyLinkedList, test_pop_back_invalid_list_empty)
 {
 	std::string message = "Singly linked list is empty (pop_back).";
 	try {
@@ -116,7 +116,7 @@ TEST_F(SetupLinkedList, test_pop_back_invalid_list_empty)
 	}
 }
 
-TEST_F(SetupLinkedList, test_pop_back)
+TEST_F(SetupSinlgyLinkedList, test_pop_back)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -133,7 +133,7 @@ TEST_F(SetupLinkedList, test_pop_back)
 	EXPECT_EQ(linked_list->size(), input.size() - 5);
 }
 
-TEST_F(SetupLinkedList, test_is_empty)
+TEST_F(SetupSinlgyLinkedList, test_is_empty)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -147,7 +147,7 @@ TEST_F(SetupLinkedList, test_is_empty)
 	EXPECT_TRUE(linked_list->is_empty());
 }
 
-TEST_F(SetupLinkedList, test_pop_at_index)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_index)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -163,7 +163,7 @@ TEST_F(SetupLinkedList, test_pop_at_index)
 	}
 }
 
-TEST_F(SetupLinkedList, test_pop_at_index_1st_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_index_1st_element)
 {
 	linked_list->push_at_back(input[0]);
 	size_t index = 0;
@@ -173,7 +173,7 @@ TEST_F(SetupLinkedList, test_pop_at_index_1st_element)
 }
 
 
-TEST_F(SetupLinkedList, test_pop_at_index_2nd_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_index_2nd_element)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -184,7 +184,7 @@ TEST_F(SetupLinkedList, test_pop_at_index_2nd_element)
 	EXPECT_EQ(linked_list->size(), 4);
 }
 
-TEST_F(SetupLinkedList, test_pop_at_index_last_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_index_last_element)
 {
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
@@ -196,7 +196,7 @@ TEST_F(SetupLinkedList, test_pop_at_index_last_element)
 }
 
 
-TEST_F(SetupLinkedList, test_pop_at_2nd_index_with_length_2)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_2nd_index_with_length_2)
 {
 	linked_list->push_at_back(input[0]);
 	linked_list->push_at_back(input[1]);
@@ -208,7 +208,7 @@ TEST_F(SetupLinkedList, test_pop_at_2nd_index_with_length_2)
 	EXPECT_EQ(linked_list->pop_back(), input[0]);
 }
 
-TEST_F(SetupLinkedList, test_pop_at_1st_index_with_length_2)
+TEST_F(SetupSinlgyLinkedList, test_pop_at_1st_index_with_length_2)
 {
 	linked_list->push_at_back(input[0]);
 	linked_list->push_at_back(input[1]);

@@ -6,7 +6,7 @@
 #define DOUBLE_LINKED_LIST_H
 
 template<typename T>
-class DoubleLinkedList
+class DoublyLinkedList
 {
 	struct Node
 	{
@@ -25,7 +25,7 @@ class DoubleLinkedList
 	}
 
 public:
-	DoubleLinkedList()
+	DoublyLinkedList()
 	{
 		head_ = nullptr;
 		tail_ = nullptr;
@@ -33,19 +33,22 @@ public:
 
 	bool is_empty()
 	{
-		return head_ == nullptr == tail_;
+		return head_ == nullptr;
 	}
 
-	void push_at_head(const T &value)
+	void push_at_front(const T &value)
 	{
 		auto new_node = new Node(value);
-		new_node->previous = nullptr;
 		if (is_empty()) {
 			tail_ = new_node;
+			head_= tail_;
+			length_++;
+			return;
 		}
-		else {
-			head_->previous = new_node;
-		}
+		auto help = head_;
+		help->previous = new_node;
+		new_node->previous = nullptr;
+		new_node->next = help;
 		head_ = new_node;
 		length_++;
 	}
@@ -56,10 +59,14 @@ public:
 		new_node->next = nullptr;
 		if (is_empty()) {
 			head_ = new_node;
+			tail_ = head_;
+			length_++;
+			return;
 		}
-		else {
-			tail_->next = new_node;
-		}
+		auto help = tail_;
+		help->next = new_node;
+		new_node->previous = help;
+		new_node->next = nullptr;
 		tail_ = new_node;
 		length_++;
 	}
@@ -117,10 +124,44 @@ public:
 		return value;
 	}
 
+	T get(size_t index)
+	{
+		if(is_empty())
+			throw std::out_of_range("Doubly linked list is empty (get).");
+		if(!is_index_valid_(index))
+			throw std::out_of_range("The index in doubly linked list is out of range in method 'get'");
+		size_t index_counter = 0;
+		auto current = head_;
+		while(index_counter < index)
+		{
+			current = current->next;
+			index_counter++;
+		}
+		return current->value;
+
+	}
+
+	T get_from_back(size_t index)
+	{
+		if(is_empty())
+			throw std::out_of_range("Doubly linked list is empty (get).");
+		if(!is_index_valid_(index))
+			throw std::out_of_range("The index in doubly linked list is out of range in method 'get'");
+		int index_counter = length_ - 1;
+		auto current = tail_;
+		while(index_counter > index)
+		{
+			current = current->previous;
+			index_counter--;
+		}
+		return current->value;
+
+	}
+
 
 private:
-	Node *head_;
-	Node *tail_;
+	Node * head_;
+	Node * tail_;
 	size_t length_{};
 };
 
