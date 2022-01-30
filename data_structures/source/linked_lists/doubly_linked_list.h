@@ -19,6 +19,9 @@ class DoubleLinkedList
 		}
 	};
 
+	size_t length_{};
+
+
 public:
 	DoubleLinkedList()
 	{
@@ -26,11 +29,16 @@ public:
 		tail_ = nullptr;
 	}
 
-	void add_at_head(const T & value)
+	bool is_empty()
+	{
+		return head_ == nullptr == tail_;
+	}
+
+	void push_at_head(const T & value)
 	{
 		auto new_node = new Node(value);
 		new_node->previous = nullptr;
-		if(head_ == nullptr)
+		if(is_empty())
 		{
 			tail_ = new_node;
 		}
@@ -41,11 +49,11 @@ public:
 		head_= new_node;
 	}
 
-	void add_at_tail(const T & value)
+	void push_at_back(const T & value)
 	{
 		auto new_node = new Node(value);
 		new_node->next = nullptr;
-		if(tail_ == nullptr)
+		if(is_empty())
 		{
 			head_ = new_node;
 		}
@@ -54,6 +62,18 @@ public:
 			tail_->next = new_node;
 		}
 		tail_= new_node;
+	}
+
+	T pop_back()
+	{
+		if(is_empty())
+			throw std::out_of_range("Doubly linked list is empty (pop_back).");
+		auto value = tail_->value;
+		auto help = tail_->previous;
+		delete tail_;
+		tail_ = help;
+		tail_->next = nullptr;
+		return value;
 	}
 
 

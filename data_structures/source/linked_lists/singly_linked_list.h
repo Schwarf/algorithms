@@ -34,7 +34,7 @@ public:
 	T pop_front()
 	{
 		if (is_empty())
-			throw std::out_of_range("Singly linked list is empty.");
+			throw std::out_of_range("Singly linked list is empty (pop_front).");
 
 		auto value = head_->value;
 		auto help = head_->next;
@@ -47,7 +47,7 @@ public:
 	T pop_back()
 	{
 		if (is_empty())
-			throw std::out_of_range("Singly linked list is empty.");
+			throw std::out_of_range("Singly linked list is empty (pop_back).");
 		if (head_->next == nullptr) {
 			T value = head_->value;
 			head_ = nullptr;
@@ -68,7 +68,7 @@ public:
 	T pop_at_index(size_t index)
 	{
 		if (is_empty())
-			throw std::out_of_range("Singly linked list is empty.");
+			throw std::out_of_range("Singly linked list is empty (pop_at_index).");
 		if (!is_index_valid(index))
 			throw std::out_of_range("The index is linked list is out of range in method 'pop_at_index'");
 		T value;
