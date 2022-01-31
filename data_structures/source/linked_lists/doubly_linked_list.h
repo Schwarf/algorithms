@@ -42,7 +42,7 @@ public:
 		return length_;
 	}
 
-	bool push_at( size_t index, const T &value) final
+	bool push_at(size_t index, const T &value) final
 	{
 		if (index == 0) {
 			push_front(value);

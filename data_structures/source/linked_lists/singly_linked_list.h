@@ -7,7 +7,7 @@
 #include "i_linked_list.h"
 
 template<typename T>
-class SinglyLinkedList : ILinkedList<T>
+class SinglyLinkedList: ILinkedList<T>
 {
 	struct Node
 	{
