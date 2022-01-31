@@ -7,10 +7,10 @@ int main()
 	list.push_at_front(1);
 	list.push_at_front(2);
 	list.push_at_front(3);
-	list.push_at_index(4, 0);
-	list.push_at_index(5, 0);
-	list.push_at_back(0);
-	list.push_at_index(-1, 5);
+	list.push_at(0, 4);
+	list.push_at(0, 5);
+	list.push_back(0);
+	list.push_at(5, -1);
 	int value;
 	for(size_t index =0 ; index < list.size(); ++index)
 	{

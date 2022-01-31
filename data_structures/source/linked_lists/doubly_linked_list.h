@@ -32,17 +32,45 @@ public:
 		tail_ = nullptr;
 	}
 
-	bool is_empty()
+	bool is_empty() const final
 	{
 		return head_ == nullptr;
 	}
 
-	bool push_at_index(const T & value, size_t index)
+	size_t size() const final
 	{
-		return false;
+		return length_;
 	}
 
-	void push_at_front(const T &value) final
+	bool push_at( size_t index, const T &value) final
+	{
+		if (index == 0) {
+			push_front(value);
+			return true;
+		}
+		if (!is_index_valid_(index))
+			return false;
+		if (index == length_ - 1) {
+			push_back(value);
+			return true;
+		}
+
+		auto new_node = new Node(value);
+		auto current = head_->next;
+		size_t index_counter = 1;
+		while (index_counter < index) {
+			index_counter++;
+			current = current->next;
+		}
+		new_node->next = current;
+		new_node->previous = current->previous;
+		current->previous->next = new_node;
+		current->previous = new_node;
+		length_++;
+		return true;
+	}
+
+	void push_front(const T &value) final
 	{
 		auto new_node = new Node(value);
 		if (is_empty()) {
@@ -59,7 +87,7 @@ public:
 		length_++;
 	}
 
-	void push_at_back(const T &value) final
+	void push_back(const T &value) final
 	{
 		auto new_node = new Node(value);
 		new_node->next = nullptr;
@@ -76,7 +104,6 @@ public:
 		tail_ = new_node;
 		length_++;
 	}
-
 
 	T pop_back() final
 	{
@@ -113,12 +140,12 @@ public:
 		return value;
 	}
 
-	T pop_at_index(size_t index) final
+	T pop_at(size_t index) final
 	{
 		if (is_empty())
-			throw std::out_of_range("Doubly linked list is empty (pop_at_index).");
+			throw std::out_of_range("Doubly linked list is empty (pop_at).");
 		if (!is_index_valid_(index))
-			throw std::out_of_range("The index in doubly linked list is out of range in method 'pop_at_index'");
+			throw std::out_of_range("The index in doubly linked list is out of range in method 'pop_at'");
 		if (index == 0)
 			return pop_front();
 		if (index == length_ - 1)

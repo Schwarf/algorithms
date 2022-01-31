@@ -8,12 +8,15 @@
 template<typename T>
 class ILinkedList
 {
-	virtual void push_at_front(const T & value) = 0;
-	virtual void push_at_back(const T & value) = 0;
-	virtual bool push_at_index(const T &value, size_t index) = 0;
+public:
+	virtual void push_front(const T & value) = 0;
+	virtual void push_back(const T & value) = 0;
+	virtual bool push_at(size_t index, const T &value) = 0;
 	virtual T pop_back() = 0;
 	virtual T pop_front() = 0;
-	virtual T pop_at_index(size_t index) = 0;
+	virtual T pop_at(size_t index) = 0;
+	virtual size_t size() const = 0;
+	virtual bool is_empty() const = 0;
 };
 
 #endif //I_LINKED_LIST_H

@@ -25,12 +25,12 @@ public:
 		head_ = nullptr;
 	}
 
-	size_t size() const
+	size_t size() const final
 	{
 		return length_;
 	}
 
-	bool is_empty()
+	bool is_empty() const final
 	{
 		return head_ == nullptr;
 	}
@@ -69,12 +69,12 @@ public:
 		return value;
 	}
 
-	T pop_at_index(size_t index) final
+	T pop_at(size_t index) final
 	{
 		if (is_empty())
-			throw std::out_of_range("Singly linked list is empty (pop_at_index).");
+			throw std::out_of_range("Singly linked list is empty (pop_at).");
 		if (!is_index_valid_(index))
-			throw std::out_of_range("The index in singly linked list is out of range in method 'pop_at_index'");
+			throw std::out_of_range("The index in singly linked list is out of range in method 'pop_at'");
 		T value;
 		if (index == 0) {
 			return pop_front();
@@ -98,7 +98,7 @@ public:
 
 	}
 
-	void push_at_front(const T &value) final
+	void push_front(const T &value) final
 	{
 		auto new_head = new Node();
 		new_head->value = value;
@@ -112,7 +112,7 @@ public:
 		head_ = new_head;
 		length_++;
 	}
-	void push_at_back(const T &value) final
+	void push_back(const T &value) final
 	{
 
 		auto new_tail = new Node();
@@ -147,16 +147,16 @@ public:
 		}
 	}
 
-	bool push_at_index(const T &value, size_t index) final
+	bool push_at(size_t index, const T &value) final
 	{
 		if (!is_index_valid_(index))
 			return false;
 		if (index == length_ - 1) {
-			push_at_back(value);
+			push_back(value);
 			return true;
 		}
 		if (index == 0) {
-			push_at_front(value);
+			push_front(value);
 			return true;
 		}
 
