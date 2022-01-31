@@ -48,8 +48,8 @@ TEST_F(SetupSinlgyLinkedList, test_add_at_index_1_and_index_3)
 	}
 	input.insert(input.begin() + 1, 10);
 	input.insert(input.begin() + 3, 20);
-	linked_list->add_at_index(10, 1);
-	linked_list->add_at_index(20, 3);
+	linked_list->push_at_index(10, 1);
+	linked_list->push_at_index(20, 3);
 	EXPECT_EQ(7, input.size());
 
 	for (size_t index = 0; index < input.size(); ++index) {

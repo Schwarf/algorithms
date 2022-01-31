@@ -4,10 +4,10 @@
 
 #ifndef SINGLY_LINKED_LIST_H
 #define SINGLY_LINKED_LIST_H
-
+#include "i_linked_list.h"
 
 template<typename T>
-class SinglyLinkedList
+class SinglyLinkedList : ILinkedList<T>
 {
 	struct Node
 	{
@@ -35,7 +35,7 @@ public:
 		return head_ == nullptr;
 	}
 
-	T pop_front()
+	T pop_front() final
 	{
 		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty (pop_front).");
@@ -48,7 +48,7 @@ public:
 		return value;
 	}
 
-	T pop_back()
+	T pop_back() final
 	{
 		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty (pop_back).");
@@ -69,7 +69,7 @@ public:
 		return value;
 	}
 
-	T pop_at_index(size_t index)
+	T pop_at_index(size_t index) final
 	{
 		if (is_empty())
 			throw std::out_of_range("Singly linked list is empty (pop_at_index).");
@@ -98,7 +98,7 @@ public:
 
 	}
 
-	void push_at_front(const T &value)
+	void push_at_front(const T &value) final
 	{
 		auto new_head = new Node();
 		new_head->value = value;
@@ -112,7 +112,7 @@ public:
 		head_ = new_head;
 		length_++;
 	}
-	void push_at_back(const T &value)
+	void push_at_back(const T &value) final
 	{
 
 		auto new_tail = new Node();
@@ -147,7 +147,7 @@ public:
 		}
 	}
 
-	bool add_at_index(const T &value, size_t index)
+	bool push_at_index(const T &value, size_t index) final
 	{
 		if (!is_index_valid_(index))
 			return false;

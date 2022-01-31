@@ -69,7 +69,7 @@ TEST_F(SetupDoublyLinkedList, test_push_at_back_pop_back)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	for (size_t index_from_back = input.size() ; index_from_back--;) {
+	for (size_t index_from_back = input.size(); index_from_back--;) {
 		EXPECT_EQ(linked_list->pop_back(), input[index_from_back]);
 	}
 }
@@ -79,7 +79,20 @@ TEST_F(SetupDoublyLinkedList, test_push_at_back_pop_front)
 	for (const auto &element: input) {
 		linked_list->push_at_back(element);
 	}
-	for (size_t index = 0 ; index < input.size() ; index++) {
+	for (size_t index = 0; index < input.size(); index++) {
 		EXPECT_EQ(linked_list->pop_front(), input[index]);
 	}
 }
+/*
+TEST_F(SetupDoublyLinkedList, test_push_at_index_front)
+{
+	for (const auto &element: input) {
+		linked_list->push_at_back(element);
+	}
+	input.insert(input.begin(),0);
+	linked_list->push_at_index()
+	for (size_t index = 0; index < input.size(); index++) {
+		EXPECT_EQ(linked_list->pop_front(), input[index]);
+	}
+}
+*/

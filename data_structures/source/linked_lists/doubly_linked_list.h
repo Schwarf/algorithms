@@ -4,9 +4,10 @@
 
 #ifndef DOUBLE_LINKED_LIST_H
 #define DOUBLE_LINKED_LIST_H
+#include "i_linked_list.h"
 
 template<typename T>
-class DoublyLinkedList
+class DoublyLinkedList: ILinkedList<T>
 {
 	struct Node
 	{
@@ -36,12 +37,17 @@ public:
 		return head_ == nullptr;
 	}
 
-	void push_at_front(const T &value)
+	bool push_at_index(const T & value, size_t index)
+	{
+		return false;
+	}
+
+	void push_at_front(const T &value) final
 	{
 		auto new_node = new Node(value);
 		if (is_empty()) {
 			tail_ = new_node;
-			head_= tail_;
+			head_ = tail_;
 			length_++;
 			return;
 		}
@@ -53,7 +59,7 @@ public:
 		length_++;
 	}
 
-	void push_at_back(const T &value)
+	void push_at_back(const T &value) final
 	{
 		auto new_node = new Node(value);
 		new_node->next = nullptr;
@@ -71,13 +77,14 @@ public:
 		length_++;
 	}
 
-	T pop_back()
+
+	T pop_back() final
 	{
 		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_back).");
 		auto value = tail_->value;
 		auto help = tail_->previous;
-		if(tail_ == head_) {
+		if (tail_ == head_) {
 			delete tail_;
 			length_--;
 			return value;
@@ -88,13 +95,13 @@ public:
 		return value;
 	}
 
-	T pop_front()
+	T pop_front() final
 	{
 		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_front).");
 		auto value = head_->value;
 		auto help = head_->next;
-		if(tail_ == head_) {
+		if (tail_ == head_) {
 			delete head_;
 			length_--;
 			return value;
@@ -106,7 +113,7 @@ public:
 		return value;
 	}
 
-	T pop_at_index(size_t index)
+	T pop_at_index(size_t index) final
 	{
 		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (pop_at_index).");
@@ -135,14 +142,13 @@ public:
 
 	T get(size_t index)
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (get).");
-		if(!is_index_valid_(index))
+		if (!is_index_valid_(index))
 			throw std::out_of_range("The index in doubly linked list is out of range in method 'get'");
 		size_t index_counter = 0;
 		auto current = head_;
-		while(index_counter < index)
-		{
+		while (index_counter < index) {
 			current = current->next;
 			index_counter++;
 		}
@@ -152,14 +158,13 @@ public:
 
 	T get_from_back(size_t index)
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Doubly linked list is empty (get).");
-		if(!is_index_valid_(index))
+		if (!is_index_valid_(index))
 			throw std::out_of_range("The index in doubly linked list is out of range in method 'get'");
 		int index_counter = length_ - 1;
 		auto current = tail_;
-		while(index_counter > index)
-		{
+		while (index_counter > index) {
 			current = current->previous;
 			index_counter--;
 		}
@@ -169,8 +174,8 @@ public:
 
 
 private:
-	Node * head_;
-	Node * tail_;
+	Node *head_;
+	Node *tail_;
 	size_t length_{};
 };
 
