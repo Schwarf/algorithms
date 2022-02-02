@@ -24,7 +24,17 @@ public:
 	{
 		head_ = nullptr;
 	}
-
+	~SinglyLinkedList()
+	{
+		if (head_ == nullptr)
+			return;
+		auto next = head_->next;
+		while (next != nullptr) {
+			delete head_;
+			head_ = next;
+			next = next->next;
+		}
+	}
 	size_t size() const final
 	{
 		return length_;
