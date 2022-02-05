@@ -26,6 +26,7 @@ public:
 	}
 	~SinglyLinkedList()
 	{
+		std::cout<< "Call to destructor singly linked list " << std::endl;
 		if (head_ == nullptr)
 			return;
 		auto next = head_->next;

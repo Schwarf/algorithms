@@ -31,6 +31,18 @@ public:
 		head_ = nullptr;
 		tail_ = nullptr;
 	}
+	~DoublyLinkedList()
+	{
+		std::cout<< "Call to destructor doubly linked list " << std::endl;
+		if (head_ == nullptr)
+			return;
+		auto next = head_->next;
+		while (next != nullptr) {
+			delete head_;
+			head_ = next;
+			next = next->next;
+		}
+	}
 
 	bool is_empty() const final
 	{
