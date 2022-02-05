@@ -1,0 +1,20 @@
+//
+// Created by andreas on 05.02.22.
+//
+
+#ifndef I_QUEUE_H
+#define I_QUEUE_H
+template <typename T>
+class IQueue{
+public:
+	virtual T front() const = 0;
+	virtual T back() const = 0;
+	virtual bool is_empty()  const= 0;
+	size_t szie() const= 0;
+	virtual void push(const T & value) = 0;
+	virtual T pop() = 0;
+	virtual void swap() = 0;
+	virtual void emplace() = 0;
+};
+
+#endif //I_QUEUE_H
