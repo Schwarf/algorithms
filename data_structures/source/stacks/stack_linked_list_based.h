@@ -7,25 +7,27 @@
 #include "i_stack.h"
 
 template <class T>
-class Stack : IStack<T>{
+class StackLLB : IStack<T>{
 private:
 	struct Node{
-		Node(const T val){
+		Node(const T & val){
 			value = val;
 		}
 		T value;
 		Node * next;
 	};
 	Node * head_;
+	size_t size_;
 
 public:
-	Stack(){
+	StackLLB(){
 		head_ = nullptr;
 	}
-	Stack(const T & value){
+	StackLLB(const T & value){
 		head_ = new Node(value);
 	}
-	~Stack(){
+	~StackLLB(){
+		std::cout << "Called destructor of stack (linked list based)!" << std::endl;
 		if(head_ == nullptr)
 			return;
 		auto next = head_->next;
@@ -46,6 +48,7 @@ public:
 		auto help = head_;
 		head_ = new_node;
 		head_->next = help;
+		size_++;
 	}
 
 	T pop() final
@@ -58,9 +61,10 @@ public:
 		head_ = head_->next;
 		delete help;
 		return value;
+		size_--;
 	}
 
-	T top() final
+	T top() const final
 	{
 		if(is_empty()) {
 			throw std::out_of_range("Can not top. The stack is empty.");
@@ -68,11 +72,15 @@ public:
 		return head_->value;
 	}
 
-	bool is_empty()
+	bool is_empty() const final
 	{
 		return head_ == nullptr;
 	}
 
+	size_t size() const final
+	{
+		return size_;
+	}
 };
 
 #endif //STACK_LINKED_LIST_BASED_H
