@@ -4,6 +4,8 @@
 
 #ifndef STACK_ARRAY_BASED_H
 #define STACK_ARRAY_BASED_H
+#include "i_stack.h"
+
 template <class T, size_t stack_size>
 class StackAB : IStack<T>{
 private:

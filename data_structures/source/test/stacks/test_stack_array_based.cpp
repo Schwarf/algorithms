@@ -4,12 +4,12 @@
 
 #include <stack>
 #include "gtest/gtest.h"
-#include "./../../stacks/stack_linked_list_based.h"
+#include "./../../stacks/stack_array_based.h"
 #include "setup_stack.h"
 
-TEST_F(SetupStack, test_push_stack)
+TEST_F(SetupStack, test_push_stack_array_based)
 {
-	auto stack = new StackLLB<int64_t>();
+	auto stack = new StackAB<int64_t, 5>();
 	EXPECT_TRUE(stack->is_empty());
 	for (const auto &element: input) {
 		stack->push(element);
@@ -20,9 +20,9 @@ TEST_F(SetupStack, test_push_stack)
 	EXPECT_EQ(stack->size(), reference_stack->size());
 }
 
-TEST_F(SetupStack, test_top_stack)
+TEST_F(SetupStack, test_top_stack_array_based)
 {
-	auto stack = new StackLLB<int64_t>();
+	auto stack = new StackAB<int64_t, 5>();
 
 	for (const auto &element: input) {
 		stack->push(element);
@@ -31,9 +31,9 @@ TEST_F(SetupStack, test_top_stack)
 }
 
 
-TEST_F(SetupStack, test_pop_stack)
+TEST_F(SetupStack, test_pop_stack_array_based)
 {
-	auto stack = new StackLLB<int64_t>();
+	auto stack = new StackAB<int64_t, 5>();
 
 	for (const auto &element: input) {
 		stack->push(element);

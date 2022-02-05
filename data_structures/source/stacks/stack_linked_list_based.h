@@ -17,7 +17,7 @@ private:
 		Node * next;
 	};
 	Node * head_;
-	size_t size_;
+	size_t size_{};
 
 public:
 	StackLLB(){
@@ -42,6 +42,7 @@ public:
 	{
 		if(head_ == nullptr) {
 			head_ = new Node(value);
+			size_++;
 			return;
 		}
 		auto new_node = new Node(value);
@@ -60,8 +61,8 @@ public:
 		auto help = head_;
 		head_ = head_->next;
 		delete help;
-		return value;
 		size_--;
+		return value;
 	}
 
 	T top() const final
