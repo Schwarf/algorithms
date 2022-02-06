@@ -12,6 +12,8 @@ private:
 	struct Node{
 		Node(const T & val){
 			value = val;
+			next = nullptr;
+
 		}
 		T value;
 		Node * next;
