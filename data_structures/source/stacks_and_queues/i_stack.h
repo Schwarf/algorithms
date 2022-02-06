@@ -4,6 +4,8 @@
 
 #ifndef I_STACK_H
 #define I_STACK_H
+#include <cstddef>
+#include <iostream>
 
 template <typename T>
 class IStack{

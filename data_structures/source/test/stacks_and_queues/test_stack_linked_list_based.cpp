@@ -2,8 +2,6 @@
 // Created by andreas on 05.02.22.
 //
 
-#include <stack>
-#include "gtest/gtest.h"
 #include "./../../stacks_and_queues/stack_linked_list_based.h"
 #include "setup_stack.h"
 

@@ -4,6 +4,8 @@
 
 #ifndef SETUP_STACK_H
 #define SETUP_STACK_H
+#include <stack>
+#include "gtest/gtest.h"
 
 class SetupStack: public testing::Test
 {

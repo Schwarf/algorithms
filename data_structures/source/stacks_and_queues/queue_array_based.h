@@ -51,6 +51,7 @@ public:
 		}
 		auto value = elements_[head_];
 		head_ = (head_ + 1) % queue_size;
+		size_--;
 		return value;
 	}
 
