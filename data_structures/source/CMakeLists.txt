@@ -24,7 +24,7 @@ enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
 
 
-add_executable(data_structures main.cpp binary_search_tree/bst_node.h binary_search_tree/binary_search_tree.h stacks_and_queues/stack_linked_list_based.h stacks_and_queues/i_stack.h stacks_and_queues/stack_array_based.h stacks_and_queues/i_queue.h)
+add_executable(data_structures main.cpp binary_search_tree/bst_node.h binary_search_tree/binary_search_tree.h stacks_and_queues/stack_linked_list_based.h stacks_and_queues/i_stack.h stacks_and_queues/stack_array_based.h stacks_and_queues/i_queue.h stacks_and_queues/queue_linked_list_based.h)
 
 add_subdirectory(linked_lists)
 add_subdirectory(test)
