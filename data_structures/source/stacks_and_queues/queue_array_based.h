@@ -6,13 +6,13 @@
 #define QUEUE_ARRAY_BASED_H
 #include "i_queue.h"
 
-template <class T, size_t queue_size>
-class QueueAB : IQueue<T>
+template<class T, size_t queue_size>
+class QueueAB: IQueue<T>
 {
 private:
 	T elements_[queue_size];
 	size_t head_{};
-	size_t tail_{};
+	size_t tail_{queue_size - 1};
 	size_t size_{};
 public:
 	QueueAB() = default;
@@ -33,14 +33,12 @@ public:
 
 	void enqueue(const T &value)
 	{
-		if(is_full())
-		{
+		if (is_full()) {
 			throw std::out_of_range("Can not enqueue. The array-based queue is full.");
 		}
 
+		tail_ = (tail_ + 1) % queue_size;
 		elements_[tail_] = value;
-		tail_ = (tail_+ 1) % queue_size;
-		std::cout << "Head_, tail " << head_ << "  " << tail_ << std::endl;
 		size_++;
 	}
 
@@ -57,14 +55,14 @@ public:
 
 	T front() const final
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Can not return front element. The queue is empty.");
 		return elements_[head_];
 	}
 
 	T back() const final
 	{
-		if(is_empty())
+		if (is_empty())
 			throw std::out_of_range("Can not return back element. The queue is empty.");
 		return elements_[tail_];
 	}

@@ -45,10 +45,9 @@ public:
 		return size_;
 	}
 
-	void enqueue(const T & value)
+	void enqueue(const T &value)
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			head_ = new Node(value);
 			tail_ = head_;
 			size_++;
@@ -62,12 +61,11 @@ public:
 
 	T dequeue()
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			throw std::out_of_range("Can not dequeue. The queue is empty.");
 		}
 		auto help = head_;
-		head_ =  head_->next;
+		head_ = head_->next;
 		auto value = help->value;
 		delete help;
 		size_--;
@@ -76,8 +74,7 @@ public:
 
 	T front() const final
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			throw std::out_of_range("Can not return front element. The queue is empty.");
 		}
 		return head_->value;
@@ -85,8 +82,7 @@ public:
 
 	T back() const final
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			throw std::out_of_range("Can not return back element. The queue is empty.");
 		}
 		return tail_->value;

@@ -6,24 +6,25 @@
 #define STACK_ARRAY_BASED_H
 #include "i_stack.h"
 
-template <class T, size_t stack_size>
-class StackAB : IStack<T>{
+template<class T, size_t stack_size>
+class StackAB: IStack<T>
+{
 private:
 	T elements_[stack_size + 1]; // +1 because the zero-index element is not used.
 	size_t head_{};
 public:
 	StackAB() = default;
 
-	explicit StackAB(const T & value){
+	explicit StackAB(const T &value)
+	{
 		head_++;
 		elements_[head_] = value;
 	}
 
-	void push(const T & value) final
+	void push(const T &value) final
 	{
 		head_++;
-		if(head_ > stack_size)
-		{
+		if (head_ > stack_size) {
 			throw std::out_of_range("Can not push. The stack (array based) is full.");
 		}
 		elements_[head_] = value;
@@ -36,8 +37,7 @@ public:
 
 	T pop() final
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			throw std::out_of_range("Can not pop. The stack (array based) is empty.");
 		}
 		auto value = top();
@@ -47,8 +47,7 @@ public:
 
 	T top() const final
 	{
-		if(is_empty())
-		{
+		if (is_empty()) {
 			throw std::out_of_range("Can not top. The stack (array based) is empty.");
 		}
 		return elements_[head_];
