@@ -52,7 +52,7 @@ TEST_F(SetupStack, test_pop_empty_stack)
 		stack->pop();
 		FAIL() << "Expected std::out_of_range.";
 	}
-	catch(std::out_of_range const & err) {
+	catch (std::out_of_range const &err) {
 		EXPECT_TRUE(err.what() == message);
 	}
 }
@@ -65,7 +65,7 @@ TEST_F(SetupStack, test_top_empty_stack)
 		stack->top();
 		FAIL() << "Expected std::out_of_range.";
 	}
-	catch(std::out_of_range const & err) {
+	catch (std::out_of_range const &err) {
 		EXPECT_TRUE(err.what() == message);
 	}
 }
