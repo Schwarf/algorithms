@@ -6,13 +6,13 @@
 #define QUEUE_ARRAY_BASED_H
 #include "i_queue.h"
 
-template<class T, size_t queue_size>
+template<class T, size_t queue_capacity>
 class QueueAB: IQueue<T>
 {
 private:
-	T elements_[queue_size];
+	T elements_[queue_capacity];
 	size_t head_{};
-	size_t tail_{queue_size - 1};
+	size_t tail_{queue_capacity - 1};
 	size_t size_{};
 public:
 	QueueAB() = default;
@@ -23,7 +23,7 @@ public:
 
 	bool is_full() const
 	{
-		return size_ == queue_size;
+		return size_ == queue_capacity;
 	}
 
 	size_t size() const final
@@ -37,7 +37,7 @@ public:
 			throw std::out_of_range("Can not enqueue. The array-based queue is full.");
 		}
 
-		tail_ = (tail_ + 1) % queue_size;
+		tail_ = (tail_ + 1) % queue_capacity;
 		elements_[tail_] = value;
 		size_++;
 	}
@@ -48,7 +48,7 @@ public:
 			throw std::out_of_range("Can not dequeue. The array-based queue is empty.");
 		}
 		auto value = elements_[head_];
-		head_ = (head_ + 1) % queue_size;
+		head_ = (head_ + 1) % queue_capacity;
 		size_--;
 		return value;
 	}
