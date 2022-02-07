@@ -4,8 +4,9 @@
 
 #ifndef I_HEAP_H
 #define I_HEAP_H
-template <typename T, size_t heap_capacity>
+template <typename T>
 class IHeap{
+public:
 	virtual T find_max() const =0;
 	virtual void delete_max() =0;
 	virtual void insert(const T & value) =0;
