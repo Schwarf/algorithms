@@ -38,4 +38,4 @@ include_directories(linked_lists)
 include_directories(stacks_and_queues)
 include_directories(heaps)
 
-target_link_libraries(data_structures linked_list_lib stacks_and_queues heaps)
+target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib)

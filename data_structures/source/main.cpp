@@ -4,6 +4,7 @@
 #include "stacks_and_queues/stack_linked_list_based.h"
 #include "stacks_and_queues/stack_array_based.h"
 #include "stacks_and_queues/queue_array_based.h"
+#include "heaps/binary_heap.h"
 int main()
 {
 	StackAB<int, 3> stack;
@@ -27,6 +28,19 @@ int main()
 	std::cout << queue.dequeue() <<std::endl;
 	std::cout << queue.dequeue() <<std::endl;
 
+	BinaryHeap<int, 8> heap;
+	heap.insert(1);
+	heap.insert(2);
+	heap.insert(3);
+	heap.insert(4);
+	heap.insert(5);
+	heap.insert(6);
+	heap.insert(7);
+	heap.get_maximum();
+	heap.print_array();
+	heap.insert(8);
+	heap.get_maximum();
+	heap.print_array();
 	return 0;
 }
 
