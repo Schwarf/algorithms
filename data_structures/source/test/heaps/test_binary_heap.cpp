@@ -56,7 +56,7 @@ protected:
 
 TEST_F(SetupBinaryHeap, test_binary_heap)
 {
-	auto heap = BinaryHeap<size_t, 12>();
+	auto heap = BinaryHeap<int64_t, 12>();
 	for(const auto & element: input)
 	{
 		heap.insert(element);
@@ -70,7 +70,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 {
-	auto heap = BinaryHeap<size_t, 12>();
+	auto heap = BinaryHeap<int64_t, 12>();
 	for(const auto & element: input)
 	{
 		heap.insert(element);
@@ -82,12 +82,65 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
 	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
 	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
-/*
+
 	std::pop_heap(input.begin(), input.end());
-	EXPECT_EQ(input.back(), heap.get_maximum());
+	EXPECT_EQ(input.back(), heap.pop_maximum());
 	input.pop_back();
 	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
 	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
 	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
-*/
+
+	std::pop_heap(input.begin(), input.end());
+	EXPECT_EQ(input.back(), heap.pop_maximum());
+	input.pop_back();
+	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
+
+}
+
+
+TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum_and_insert)
+{
+	auto heap = BinaryHeap<int64_t, 20>();
+	for(const auto & element: input)
+	{
+		heap.insert(element);
+	}
+
+	heap.insert(-2);
+	input.push_back(-2);
+	std::make_heap(input.begin(), input.end());
+	std::pop_heap(input.begin(), input.end());
+	EXPECT_EQ(input.back(), heap.pop_maximum());
+	input.pop_back();
+	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
+
+
+	heap.insert(198);
+	input.push_back(198);
+	std::make_heap(input.begin(), input.end());
+	std::pop_heap(input.begin(), input.end());
+	EXPECT_EQ(input.back(), heap.pop_maximum());
+	input.pop_back();
+	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
+
+	std::pop_heap(input.begin(), input.end());
+	EXPECT_EQ(input.back(), heap.pop_maximum());
+	input.pop_back();
+	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
+
+	heap.insert(198);
+	input.push_back(198);
+	std::make_heap(input.begin(), input.end());
+	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
+
 }

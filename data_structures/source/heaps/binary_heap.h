@@ -37,7 +37,8 @@ public:
 	{
 		size_t index_for_maximum = 0;
 		auto value = elements_[index_for_maximum];
-		elements_[index_for_maximum] = elements_[heap_size_ - 1]; // reduce size by one
+		elements_[index_for_maximum] = elements_[heap_size_ - 1];
+		elements_[heap_size_ - 1] = T{};
 		heap_size_--;
 		demote(index_for_maximum);
 		return value;
@@ -86,30 +87,40 @@ private:
 	size_t parent_index(size_t element_index){
 		return (element_index - 1)/2;
 	}
+
+	size_t left_child_index(size_t element_index){
+		return 2*element_index + 1;
+	}
+
+	size_t right_child_index(size_t element_index){
+		return 2*element_index + 2;
+	}
+
 	void promote(size_t element_index)
 	{
 		while (element_index != 0 &&  elements_[parent_index(element_index)] < elements_[element_index]) {
-		auto help = elements_[parent_index(element_index)];
-			elements_[parent_index(element_index)] = elements_[element_index];
-			elements_[element_index] = help;
+			swap(element_index, parent_index(element_index));
 			element_index = parent_index(element_index);
 		}
 	}
 
+	void swap(size_t index1, size_t index2)
+	{
+		auto help = elements_[index1];
+		elements_[index1] = elements_[index2];
+		elements_[index2] = help;
+	}
 	void demote(size_t element_index)
 	{
-		while ((2 * element_index + 1)  < heap_size_) {
-			auto double_index = 2 * element_index + 1;
-			if (double_index < heap_size_ && elements_[double_index] < elements_[element_index] && elements_[double_index + 1] < elements_[element_index]) {
-				double_index++;
+		while (2*element_index + 2 < heap_size_) {
+			auto new_index = 2*element_index + 1;
+			if (elements_[new_index+1] >  elements_[new_index])
+				new_index++;
+
+			if(elements_[new_index] > elements_[element_index] ){
+				swap(new_index, element_index);
+				element_index = new_index;
 			}
-			if (elements_[element_index] > elements_[double_index]) {
-				break;
-			}
-			auto help = elements_[element_index];
-			elements_[element_index] = elements_[double_index];
-			elements_[double_index] = help;
-			element_index = double_index;
 		}
 	}
 };
