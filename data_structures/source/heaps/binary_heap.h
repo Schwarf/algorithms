@@ -14,15 +14,16 @@ public:
 	BinaryHeap()
 	{
 		// index 0 will be ignored/not used
-		for(size_t index = 0; index < heap_size_; ++index)
-		{
-			elements_[index] = T{};
-		}
+		elements_ = new T[heap_capacity];
+		//		for(size_t index = 0; index < heap_size_; ++index)
+//		{
+//			elements_[index] = T{};
+//		}
 	}
 
 	~BinaryHeap()
 	{
-//		delete[] elements_;
+		delete[] elements_;
 	}
 
 	void insert(const T &value) final
@@ -81,7 +82,8 @@ public:
 
 	}
 private:
-	T elements_[heap_capacity] ;
+//	T elements_[heap_capacity] ;
+	T * elements_;
 	size_t heap_size_{};
 
 	size_t parent_index(size_t element_index){
