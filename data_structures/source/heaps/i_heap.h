@@ -13,6 +13,7 @@ public:
 	virtual void insert(const T &value) = 0;
 	virtual size_t size() const = 0;
 	virtual bool is_empty() const = 0;
+	virtual T get_element(size_t index) const = 0;
 };
 
 
