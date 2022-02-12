@@ -12,7 +12,7 @@ int main()
 {
 	std::vector<int64_t> test_select{1, 2, 3, 4, 6, 7, 8, 9, 10};
 	QuickSelect select;
-	std::cout << select.select(test_select, 20) << std::endl;
+	std::cout << select.select(test_select, 2) << std::endl;
 
 	/*
 	 TestTemplate test_template;
