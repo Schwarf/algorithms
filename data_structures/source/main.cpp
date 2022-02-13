@@ -5,6 +5,7 @@
 #include "stacks_and_queues/stack_array_based.h"
 #include "stacks_and_queues/queue_array_based.h"
 #include "heaps/binary_heap.h"
+#include "heaps/k_ary_heap.h"
 #include <vector>
 #include <algorithm>
 int main()

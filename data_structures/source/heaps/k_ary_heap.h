@@ -6,9 +6,81 @@
 #define K_ARY_HEAP_H
 #include <i_heap.h>
 
-template <typename T, size_t number_of_nodes, size_t heap_capacity>
-class K-aryHeap: IHeap<T>
+template<typename T, size_t number_of_nodes, size_t heap_capacity>
+class K_aryHeap: IHeap<T>
+{
+
+private:
+	T elements_[heap_capacity];
+	size_t heap_size_{};
+	size_t parent_index_(size_t element_index)
 	{
+		return (element_index - 1) / number_of_nodes;
+	}
+	void swap_(size_t index1, size_t index2)
+	{
+		auto help = elements_[index1];
+		elements_[index1] = elements_[index2];
+		elements_[index2] = help;
+	}
+
+	void promote_(size_t element_index)
+	{
+		while (element_index != 0 && elements_[parent_index_(element_index)] < elements_[element_index]) {
+			swap_(parent_index_(element_index), element_index);
+			element_index = parent_index_(element_index);
+		}
+	}
+
+	size_t get_index_of_max_element_in_sub_sequence(size_t element_index)
+	{
+		auto max = elements_[element_index];
+		size_t index_of_maximum = element_index;
+		for(size_t node_index = 1;  node_index <= number_of_nodes; ++node_index) {
+			if(elements_[number_of_nodes*element_index + node_index] > max)
+			{
+				max = elements_[number_of_nodes*element_index + node_index];
+				index_of_maximum = number_of_nodes*element_index + node_index;
+			}
+		}
+		return index_of_maximum;
+
+	}
+
+	void demote_(size_t element_index)
+	{
+		while (number_of_nodes * element_index + number_of_nodes < heap_size_) {
+			auto index_of_maximum = get_index_of_max_element_in_sub_sequence(element_index);
+			if(elements_[index_of_maximum] > elements_[element_index])
+			{
+				swap(index_of_maximum, element_index);
+				element_index = index_of_maximum;
+			}
+		}
+	}
+
+public:
+	void insert(const T &element)
+	{
+		if (heap_size_ == 0) {
+			elements_[heap_size_++] = element;
+			return;
+		}
+		heap_size_++;
+		size_t index = heap_size_ - 1;
+		elements_[index] = element;
+		promote_(index);
+	}
+	void pop_maximum()
+	{
+		size_t index_of_maximum = 0;
+		auto maximum = elements_[index_of_maximum];
+		size_t index_last_element = heap_size_ - 1;
+		swap_(index_of_maximum, index_last_element);
+		heap_size_--;
+		demote_(index_of_maximum);
+		return maximum;
+	}
 
 };
 
