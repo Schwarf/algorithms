@@ -65,9 +65,9 @@ TEST_F(SetupK_aryHeap, test_binary_heap)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
-	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	EXPECT_TRUE(is_binary_heap(heap.get_array(), heap.size() - 1));
+	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, heap.size() - 1));
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
 }
 
@@ -78,9 +78,9 @@ TEST_F(SetupK_aryHeap, test_tenary_heap)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
 }
 
@@ -91,11 +91,11 @@ TEST_F(SetupK_aryHeap, test_quaternary_heap)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), input.size() - 1);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
-	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_tenary_heap);
 
 }
@@ -108,13 +108,13 @@ TEST_F(SetupK_aryHeap, test_quinary_heap)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), input.size() - 1);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
-	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), input.size() - 1);
+	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_tenary_heap);
-	auto result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	auto result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_quaternary_heap);
 }
 
@@ -126,15 +126,15 @@ TEST_F(SetupK_aryHeap, test_senary_heap)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 4>(heap.get_array(), input.size() - 1);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 4>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
-	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), input.size() - 1);
+	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_tenary_heap);
-	auto result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), input.size() - 1);
+	auto result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_quaternary_heap);
-	auto result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	auto result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_quinery_heap);
 }
 
@@ -145,16 +145,65 @@ TEST_F(SetupK_aryHeap, test_tenary_heap_pop_maximum)
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
-	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
 	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input.begin(), input.end()));
 
-	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), input.size() - 1);
+	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
-	result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), input.size() - 1);
+	result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_binary_heap);
+	heap.pop_maximum();
+	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
+	EXPECT_TRUE(result);
+	result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
 
 }
 
+
+TEST_F(SetupK_aryHeap, test_senary_heap_pop_maximum)
+{
+	constexpr size_t number_of_nodes = 6;
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
+	for (const auto &element: input) {
+		heap.insert(element);
+	}
+	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
+	EXPECT_TRUE(result);
+	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 4>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_binary_heap);
+	auto result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_tenary_heap);
+	auto result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quaternary_heap);
+	auto result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quinery_heap);
+	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input.begin(), input.end()));
+
+	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
+	EXPECT_TRUE(result);
+	result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 4>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_binary_heap);
+	result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_tenary_heap);
+	result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quaternary_heap);
+	result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quinery_heap);
+
+	heap.pop_maximum();
+	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
+	EXPECT_TRUE(result);
+	result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 4>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_binary_heap);
+	result_tenary_heap = is_k_ary_heap<int64_t, number_of_nodes - 3>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_tenary_heap);
+	result_quaternary_heap = is_k_ary_heap<int64_t, number_of_nodes - 2>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quaternary_heap);
+	result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
+	EXPECT_FALSE(result_quinery_heap);
+
+}

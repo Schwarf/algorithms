@@ -46,9 +46,20 @@ private:
 
 	}
 
+	size_t number_of_children_(size_t element_index)
+	{
+		size_t number_of_children{};
+
+		while(true)
+		{
+			if(element_index*number_of_nodes + number_of_children > heap_size_ - 1 || number_of_children==number_of_nodes)
+				return number_of_children;
+		}
+	}
 	void demote_(size_t element_index)
 	{
-		while (number_of_nodes * element_index + number_of_nodes < heap_size_) {
+
+		while (number_of_nodes * element_index + number_of_children_(element_index) < heap_size_) {
 			auto index_of_maximum = get_index_of_max_element_in_sub_sequence(element_index);
 			if (elements_[index_of_maximum] > elements_[element_index]) {
 				swap_(index_of_maximum, element_index);
