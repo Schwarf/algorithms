@@ -10,19 +10,19 @@
 class SetupBinaryHeap: public testing::Test
 {
 public:
-	template <typename T>
-	bool is_binary_heap(T * tree, size_t max_index)
+	template<typename T>
+	bool is_binary_heap(T *tree, size_t highest_index)
 	{
-		while (max_index != 0) {
-			auto child = tree[max_index];
-			auto parent = tree[(max_index - 1) / 2];
-			if( child > parent)
+		while (highest_index != 0) {
+			auto child = tree[highest_index];
+			auto parent = tree[(highest_index - 1) / 2];
+			if (child > parent)
 				return false;
-			max_index--;
+			highest_index--;
 		}
 		return true;
 	}
-	template <typename T>
+	template<typename T>
 	bool is_heap_GfG(T arr[], size_t i, size_t n)
 	{
 		if (i >= (n - 2) / 2)
@@ -36,14 +36,14 @@ public:
 
 		return false;
 	}
-	bool is_binary_heap(std::vector<int64_t> tree, size_t max_index)
+	bool is_binary_heap(std::vector<int64_t> tree, size_t highest_index)
 	{
-		while (max_index != 0) {
-			auto child = tree[max_index];
-			auto parent = tree[(max_index - 1) / 2];
-			if( child > parent)
+		while (highest_index != 0) {
+			auto child = tree[highest_index];
+			auto parent = tree[(highest_index - 1) / 2];
+			if (child > parent)
 				return false;
-			max_index--;
+			highest_index--;
 		}
 		return true;
 	}
@@ -57,8 +57,7 @@ protected:
 TEST_F(SetupBinaryHeap, test_binary_heap)
 {
 	auto heap = BinaryHeap<int64_t, 12>();
-	for(const auto & element: input)
-	{
+	for (const auto &element: input) {
 		heap.insert(element);
 	}
 	std::make_heap(input.begin(), input.end());
@@ -71,8 +70,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 {
 	auto heap = BinaryHeap<int64_t, 12>();
-	for(const auto & element: input)
-	{
+	for (const auto &element: input) {
 		heap.insert(element);
 	}
 	std::make_heap(input.begin(), input.end());
@@ -103,8 +101,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum_and_insert)
 {
 	auto heap = BinaryHeap<int64_t, 20>();
-	for(const auto & element: input)
-	{
+	for (const auto &element: input) {
 		heap.insert(element);
 	}
 

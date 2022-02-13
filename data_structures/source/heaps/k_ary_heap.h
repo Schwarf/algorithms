@@ -4,7 +4,7 @@
 
 #ifndef K_ARY_HEAP_H
 #define K_ARY_HEAP_H
-#include <i_heap.h>
+#include "i_heap.h"
 
 template<typename T, size_t number_of_nodes, size_t heap_capacity>
 class K_aryHeap: IHeap<T>
@@ -36,11 +36,10 @@ private:
 	{
 		auto max = elements_[element_index];
 		size_t index_of_maximum = element_index;
-		for(size_t node_index = 1;  node_index <= number_of_nodes; ++node_index) {
-			if(elements_[number_of_nodes*element_index + node_index] > max)
-			{
-				max = elements_[number_of_nodes*element_index + node_index];
-				index_of_maximum = number_of_nodes*element_index + node_index;
+		for (size_t node_index = 1; node_index <= number_of_nodes; ++node_index) {
+			if (elements_[number_of_nodes * element_index + node_index] > max) {
+				max = elements_[number_of_nodes * element_index + node_index];
+				index_of_maximum = number_of_nodes * element_index + node_index;
 			}
 		}
 		return index_of_maximum;
@@ -51,16 +50,46 @@ private:
 	{
 		while (number_of_nodes * element_index + number_of_nodes < heap_size_) {
 			auto index_of_maximum = get_index_of_max_element_in_sub_sequence(element_index);
-			if(elements_[index_of_maximum] > elements_[element_index])
-			{
-				swap(index_of_maximum, element_index);
+			if (elements_[index_of_maximum] > elements_[element_index]) {
+				swap_(index_of_maximum, element_index);
 				element_index = index_of_maximum;
 			}
 		}
 	}
 
 public:
-	void insert(const T &element)
+	T * get_array()
+	{
+		return elements_;
+	}
+
+	size_t size() const final
+	{
+		return heap_size_;
+	}
+
+	bool is_empty() const final
+	{
+		return heap_size_ == 0;
+	}
+
+	T get_maximum() const final
+	{
+		return elements_[0];
+	}
+
+	T get_element(size_t index) const final
+	{
+		if (index > heap_size_)
+			std::out_of_range(
+				"Index " + std::to_string(index) + " in k-ary heap (k=" + std::to_string(number_of_nodes)
+					+ "), is greater than heap size " + std::to_string(heap_size_)
+					+ "!");
+
+		return elements_[index];
+	}
+
+	void insert(const T &element) final
 	{
 		if (heap_size_ == 0) {
 			elements_[heap_size_++] = element;
@@ -71,7 +100,7 @@ public:
 		elements_[index] = element;
 		promote_(index);
 	}
-	void pop_maximum()
+	T pop_maximum() final
 	{
 		size_t index_of_maximum = 0;
 		auto maximum = elements_[index_of_maximum];
