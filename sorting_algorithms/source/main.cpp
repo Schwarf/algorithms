@@ -28,8 +28,8 @@ int main()
 		std::cout << test_template.get_algorithm_name_map()[quick_sort] + " execution time = " << execution_time << " in nanoseconds." << std::endl;
 	}
 	*/
-	auto sort = CountingSort(2, 7);
-	std::vector<int64_t> v{2,4,5,6,3,2,4,4,6,7};
+	auto sort = CountingSort(-2, 7);
+	std::vector<int64_t> v{-2,1,0, -1,2,4,5,6,3,2,4,4,6,7};
 	sort.sort(v);
 	for(const auto & element: v)
 	{
