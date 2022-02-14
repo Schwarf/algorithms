@@ -8,11 +8,12 @@
 #include "performance_measurement/data_accumulator.h"
 #include "performance_measurement/test_template.h"
 #include "sorting_related/quick_select/quick_select.h"
+#include "counting_sort/counting_sort.h"
 int main()
 {
-	std::vector<int64_t> test_select{1, 2, 3, 4, 6, 7, 8, 9, 10};
-	QuickSelect select;
-	std::cout << select.select(test_select, 2) << std::endl;
+//	std::vector<int64_t> test_select{1, 2, 3, 4, 6, 7, 8, 9, 10};
+//	QuickSelect select;
+//	std::cout << select.select(test_select, 2) << std::endl;
 
 	/*
 	 TestTemplate test_template;
@@ -27,5 +28,12 @@ int main()
 		std::cout << test_template.get_algorithm_name_map()[quick_sort] + " execution time = " << execution_time << " in nanoseconds." << std::endl;
 	}
 	*/
+	auto sort = CountingSort(2, 7);
+	std::vector<int64_t> v{2,4,5,6,3,2,4,4,6,7};
+	sort.sort(v);
+	for(const auto & element: v)
+	{
+		std::cout << element << " ";
+	}
 	return 0;
 }
