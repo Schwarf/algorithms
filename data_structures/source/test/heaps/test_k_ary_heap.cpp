@@ -36,7 +36,6 @@ public:
 		return true;
 	}
 
-
 	template<typename T>
 	bool is_heap_GfG(T arr[], size_t i, size_t n)
 	{
@@ -54,14 +53,14 @@ public:
 
 protected:
 	std::vector<int64_t> input{1, 2, 3, 4, 5, 10, 19, 89, 121, 1210, 7, 6};
-
+	std::vector<int64_t> input2{-12, 0, 789, -171891, 1, 2, 3, 4, 5, 10, 19, 89, 121, 1210, 7, 6, 12781209, 65, 1897};
 };
 
 
 TEST_F(SetupK_aryHeap, test_binary_heap)
 {
 	constexpr size_t number_of_nodes = 2;
-	auto heap = K_aryHeap<int64_t, number_of_nodes,  12>();
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -74,7 +73,7 @@ TEST_F(SetupK_aryHeap, test_binary_heap)
 TEST_F(SetupK_aryHeap, test_tenary_heap)
 {
 	constexpr size_t number_of_nodes = 3;
-	auto heap = K_aryHeap<int64_t, number_of_nodes,  12>();
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -87,7 +86,7 @@ TEST_F(SetupK_aryHeap, test_tenary_heap)
 TEST_F(SetupK_aryHeap, test_quaternary_heap)
 {
 	constexpr size_t number_of_nodes = 4;
-	auto heap = K_aryHeap<int64_t, number_of_nodes,  12>();
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -104,7 +103,7 @@ TEST_F(SetupK_aryHeap, test_quaternary_heap)
 TEST_F(SetupK_aryHeap, test_quinary_heap)
 {
 	constexpr size_t number_of_nodes = 5;
-	auto heap = K_aryHeap<int64_t, number_of_nodes,  12>();
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -122,7 +121,7 @@ TEST_F(SetupK_aryHeap, test_quinary_heap)
 TEST_F(SetupK_aryHeap, test_senary_heap)
 {
 	constexpr size_t number_of_nodes = 6;
-	auto heap = K_aryHeap<int64_t, number_of_nodes,  12>();
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -140,16 +139,16 @@ TEST_F(SetupK_aryHeap, test_senary_heap)
 
 TEST_F(SetupK_aryHeap, test_tenary_heap_pop_maximum)
 {
-	constexpr size_t number_of_nodes =3;
-	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
-	for (const auto &element: input) {
+	constexpr size_t number_of_nodes = 3;
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 19>();
+	for (const auto &element: input2) {
 		heap.insert(element);
 	}
 	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
 	auto result_binary_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_binary_heap);
-	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input.begin(), input.end()));
+	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input2.begin(), input2.end()));
 
 	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);
@@ -167,8 +166,8 @@ TEST_F(SetupK_aryHeap, test_tenary_heap_pop_maximum)
 TEST_F(SetupK_aryHeap, test_senary_heap_pop_maximum)
 {
 	constexpr size_t number_of_nodes = 6;
-	auto heap = K_aryHeap<int64_t, number_of_nodes, 12>();
-	for (const auto &element: input) {
+	auto heap = K_aryHeap<int64_t, number_of_nodes, 19>();
+	for (const auto &element: input2) {
 		heap.insert(element);
 	}
 	auto result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
@@ -181,7 +180,7 @@ TEST_F(SetupK_aryHeap, test_senary_heap_pop_maximum)
 	EXPECT_FALSE(result_quaternary_heap);
 	auto result_quinery_heap = is_k_ary_heap<int64_t, number_of_nodes - 1>(heap.get_array(), heap.size() - 1);
 	EXPECT_FALSE(result_quinery_heap);
-	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input.begin(), input.end()));
+	EXPECT_EQ(heap.pop_maximum(), *std::max_element(input2.begin(), input2.end()));
 
 	result = is_k_ary_heap<int64_t, number_of_nodes>(heap.get_array(), heap.size() - 1);
 	EXPECT_TRUE(result);

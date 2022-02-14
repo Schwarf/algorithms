@@ -34,9 +34,10 @@ private:
 
 	size_t get_index_of_max_element_in_sub_sequence(size_t element_index)
 	{
-		auto max = elements_[element_index];
-		size_t index_of_maximum = element_index;
-		for (size_t node_index = 1; node_index <= number_of_nodes; ++node_index) {
+		auto max = T{};
+		size_t index_of_maximum = 0;
+		auto number_of_children = number_of_children_(element_index);
+		for (size_t node_index = 1; node_index <= number_of_children; ++node_index) {
 			if (elements_[number_of_nodes * element_index + node_index] > max) {
 				max = elements_[number_of_nodes * element_index + node_index];
 				index_of_maximum = number_of_nodes * element_index + node_index;
@@ -50,10 +51,11 @@ private:
 	{
 		size_t number_of_children{};
 
-		while(true)
-		{
-			if(element_index*number_of_nodes + number_of_children > heap_size_ - 1 || number_of_children==number_of_nodes)
+		while (true) {
+			auto highest_index = element_index * number_of_nodes + number_of_children;
+			if ((highest_index >= heap_size_ - 1) || number_of_children == number_of_nodes)
 				return number_of_children;
+			number_of_children++;
 		}
 	}
 	void demote_(size_t element_index)
@@ -65,11 +67,13 @@ private:
 				swap_(index_of_maximum, element_index);
 				element_index = index_of_maximum;
 			}
+			else
+				break;
 		}
 	}
 
 public:
-	T * get_array()
+	T *get_array()
 	{
 		return elements_;
 	}
