@@ -11,7 +11,8 @@
 #include "hash_functions/division_hashing.h"
 int main()
 {
-	auto d = DivisionHashing();
+	auto division_hashing = DivisionHashing<1000>();
+	division_hashing.hash(100012);
 	StackAB<int, 3> stack;
 	stack.push(1);
 	stack.push(2);

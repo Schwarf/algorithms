@@ -1,4 +1,5 @@
 add_library(hash_functions_lib INTERFACE
-        some_good_primes.h
+        good_primes.h
         division_hashing.h
+        i_hash_function.h
         )
