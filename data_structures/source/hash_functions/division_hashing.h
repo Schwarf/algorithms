@@ -13,7 +13,7 @@ class DivisionHashing : IHashFunction
 public:
 	DivisionHashing(){
 		if(expected_number_of_entries > Primes::good_primes[Primes::number_of_good_primes - 1]) {
-			throw std::out_of_range("In DivisionHashing: The expected_number_of_entries is greater than the greatest prime available!");
+			throw std::out_of_range("In DivisionHashing: The expected_number_of_entries is greater than the greatest prime number available!");
 		}
 		size_t prime_index{};
 		for(prime_index = 0; prime_index < Primes::number_of_good_primes ; ++prime_index)

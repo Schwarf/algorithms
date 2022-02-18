@@ -9,10 +9,13 @@
 #include <vector>
 #include <algorithm>
 #include "hash_functions/division_hashing.h"
+#include "hash_functions/multiplication_hashing.h"
 int main()
 {
 	auto division_hashing = DivisionHashing<1000>();
+	auto multi_hashing = MultiplicationHashing<64, 14>();
 	division_hashing.hash(100012);
+	std::cout << multi_hashing.hash(123456) << std::endl;
 	StackAB<int, 3> stack;
 	stack.push(1);
 	stack.push(2);
