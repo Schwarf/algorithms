@@ -9,9 +9,71 @@
 template<typename T, size_t number_of_nodes, size_t heap_capacity>
 class K_aryHeap: IHeap<T>
 {
+public:
+	K_aryHeap()
+	{
+		elements_ = new T[heap_capacity];
+	};
+	~K_aryHeap()
+	{
+		delete [] elements_;
+	}
 
+	T *get_array()
+	{
+		return elements_;
+	}
+
+	size_t size() const final
+	{
+		return heap_size_;
+	}
+
+	bool is_empty() const final
+	{
+		return heap_size_ == 0;
+	}
+
+	T get_maximum() const final
+	{
+		return elements_[0];
+	}
+
+	T get_element(size_t index) const final
+	{
+		if (index > heap_size_)
+			std::out_of_range(
+				"Index " + std::to_string(index) + " in k-ary heap (k=" + std::to_string(number_of_nodes)
+					+ "), is greater than heap size " + std::to_string(heap_size_)
+					+ "!");
+
+		return elements_[index];
+	}
+
+	void insert(const T &element) final
+	{
+		if (heap_size_ == 0) {
+			elements_[heap_size_++] = element;
+			return;
+		}
+		heap_size_++;
+		size_t index = heap_size_ - 1;
+		elements_[index] = element;
+		promote_(index);
+	}
+	T pop_maximum() final
+	{
+		size_t index_of_maximum = 0;
+		auto maximum = elements_[index_of_maximum];
+		size_t index_last_element = heap_size_ - 1;
+		swap_(index_of_maximum, index_last_element);
+		heap_size_--;
+		demote_(index_of_maximum);
+		return maximum;
+	}
 private:
-	T elements_[heap_capacity];
+	//T elements_[heap_capacity];
+	T *elements_;
 	size_t heap_size_{};
 	size_t parent_index_(size_t element_index)
 	{
@@ -71,61 +133,6 @@ private:
 				break;
 		}
 	}
-
-public:
-	T *get_array()
-	{
-		return elements_;
-	}
-
-	size_t size() const final
-	{
-		return heap_size_;
-	}
-
-	bool is_empty() const final
-	{
-		return heap_size_ == 0;
-	}
-
-	T get_maximum() const final
-	{
-		return elements_[0];
-	}
-
-	T get_element(size_t index) const final
-	{
-		if (index > heap_size_)
-			std::out_of_range(
-				"Index " + std::to_string(index) + " in k-ary heap (k=" + std::to_string(number_of_nodes)
-					+ "), is greater than heap size " + std::to_string(heap_size_)
-					+ "!");
-
-		return elements_[index];
-	}
-
-	void insert(const T &element) final
-	{
-		if (heap_size_ == 0) {
-			elements_[heap_size_++] = element;
-			return;
-		}
-		heap_size_++;
-		size_t index = heap_size_ - 1;
-		elements_[index] = element;
-		promote_(index);
-	}
-	T pop_maximum() final
-	{
-		size_t index_of_maximum = 0;
-		auto maximum = elements_[index_of_maximum];
-		size_t index_last_element = heap_size_ - 1;
-		swap_(index_of_maximum, index_last_element);
-		heap_size_--;
-		demote_(index_of_maximum);
-		return maximum;
-	}
-
 };
 
 #endif //K_ARY_HEAP_H
