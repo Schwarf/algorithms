@@ -10,6 +10,7 @@
 namespace Primes
 {
 constexpr size_t number_of_good_primes = 26;
+
 static constexpr size_t good_primes[Primes::number_of_good_primes] =
 	{
 		53,

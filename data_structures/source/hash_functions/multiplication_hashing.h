@@ -19,11 +19,10 @@ public:
 	}
 	size_t hash(size_t value) const final
 	{
-		auto word_size_factor_coefficient = static_cast<size_t> (multiplication_constant_ * value /word_size_factor_);
-		size_t rest = multiplication_constant_ * value - word_size_factor_coefficient *word_size_factor_;
+		auto word_size_factor_coefficient = static_cast<size_t> (multiplication_constant_ * value / word_size_factor_);
+		size_t rest = multiplication_constant_ * value - word_size_factor_coefficient * word_size_factor_;
 		size_t bit_shift = machine_word_size - number_of_most_significant_bits;
 		return (rest >> bit_shift);
-
 	}
 
 private:
