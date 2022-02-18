@@ -29,13 +29,15 @@ add_executable(data_structures
         binary_search_tree/bst_node.h
         binary_search_tree/binary_search_tree.h)
 
+add_subdirectory(hash_functions)
 add_subdirectory(linked_lists)
 add_subdirectory(stacks_and_queues)
 add_subdirectory(heaps)
 add_subdirectory(test)
 
+include_directories(hash_functions)
 include_directories(linked_lists)
 include_directories(stacks_and_queues)
 include_directories(heaps)
 
-target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib)
+target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib)

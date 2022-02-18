@@ -8,8 +8,10 @@
 #include "heaps/k_ary_heap.h"
 #include <vector>
 #include <algorithm>
+#include "hash_functions/division_hashing.h"
 int main()
 {
+	auto d = DivisionHashing();
 	StackAB<int, 3> stack;
 	stack.push(1);
 	stack.push(2);
