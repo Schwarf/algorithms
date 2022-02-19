@@ -10,9 +10,12 @@
 #include <algorithm>
 #include "hash_functions/division_hashing.h"
 #include "hash_functions/multiplication_hashing.h"
+#include "hash_functions/testing_hash_functions/test_hash_functions.h"
 int main()
 {
+
 	auto division_hashing = DivisionHashing<1000>();
+	//auto tes = TestHashFunctions();
 	auto multi_hashing = MultiplicationHashing<64, 14>();
 	division_hashing.hash(100012);
 	std::cout << multi_hashing.hash(123456) << std::endl;
@@ -21,21 +24,21 @@ int main()
 	stack.push(2);
 	stack.push(3);
 
-	std::cout << stack.pop() <<std::endl;
-	std::cout << stack.top() <<std::endl;
-	std::cout << stack.pop() <<std::endl;
-	std::cout << stack.pop() <<std::endl;
+	std::cout << stack.pop() << std::endl;
+	std::cout << stack.top() << std::endl;
+	std::cout << stack.pop() << std::endl;
+	std::cout << stack.pop() << std::endl;
 	//std::cout << stack.top() <<std::endl;
 
 	QueueAB<int, 3> queue;
 	queue.enqueue(1);
 	queue.enqueue(2);
 	queue.enqueue(3);
-	std::cout << "Queue \n" ;
+	std::cout << "Queue \n";
 
-	std::cout << queue.dequeue() <<std::endl;
-	std::cout << queue.dequeue() <<std::endl;
-	std::cout << queue.dequeue() <<std::endl;
+	std::cout << queue.dequeue() << std::endl;
+	std::cout << queue.dequeue() << std::endl;
+	std::cout << queue.dequeue() << std::endl;
 
 	auto heap = new BinaryHeap<int, 8>();
 	heap->insert(1);
@@ -50,11 +53,10 @@ int main()
 	heap->insert(8);
 	heap->get_maximum();
 	heap->print_array();
-	std::vector<int> v{1,2,3,4,5,6,7};
+	std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
 	std::make_heap(v.begin(), v.end());
-	for(const auto & element: v)
-	{
-		std::cout <<" std::heap = "  << element << "\n";
+	for (const auto &element: v) {
+		std::cout << " std::heap = " << element << "\n";
 	}
 
 	return 0;
