@@ -8,6 +8,7 @@
 
 class IHashFunction
 {
+public:
 	virtual size_t hash(size_t value) const = 0;
 };
 

@@ -8,7 +8,7 @@
 #include "i_hash_function.h"
 
 template<size_t expected_number_of_entries>
-class DivisionHashing: IHashFunction
+class DivisionHashing: public IHashFunction
 {
 public:
 	DivisionHashing()
@@ -24,7 +24,7 @@ public:
 		}
 		prime_ = Primes::good_primes[prime_index];
 	}
-	size_t hash(size_t value) const final
+	size_t hash(size_t value) const override
 	{
 		return value % prime_;
 	}
