@@ -5,6 +5,15 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_STANDARD 99)
 include(CheckCXXCompilerFlag)
 
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.71.0 )
+
+if(NOT Boost_FOUND)
+    message(FATAL_ERROR "Could not find boost!")
+endif()
+
 
 function(enable_cxx_compiler_flag_if_supported flag)
     string(FIND "${CMAKE_CUDA_FLAGS}" "${flag}" flag_already_set)
@@ -39,5 +48,6 @@ include_directories(hash_functions)
 include_directories(linked_lists)
 include_directories(stacks_and_queues)
 include_directories(heaps)
+include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib)
+target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib)
