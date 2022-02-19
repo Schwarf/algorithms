@@ -1,4 +1,3 @@
-Ångström
 A
 A's
 AMD
@@ -102382,6 +102381,7 @@ zwieback's
 zygote
 zygote's
 zygotes
+Ångström
 Ångström's
 éclair
 éclair's

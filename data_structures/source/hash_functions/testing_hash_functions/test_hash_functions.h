@@ -14,17 +14,63 @@
 
 #include "./../i_hash_function.h"
 
-
+template <size_t hash_table_size>
 class TestHashFunctions
 {
 public:
-	explicit TestHashFunctions();
-	void test(IHashFunction & hash_funcion);
+	explicit TestHashFunctions()
+	{
+		hashes_ = std::vector<double>(hash_table_size, 0);
+		open_read_file_();
+	}
+
+	void test(IHashFunction & hash_function)
+	{
+
+		double equal_distribution_expectation = static_cast<double>(words_.size()) / static_cast<double>(hash_table_size);
+		int counter{};
+		for (const auto & word: words_) {
+			size_t sum_of_character_hash_values{};
+			for(const auto & single_character: word){
+
+				sum_of_character_hash_values += hash_function.hash(single_character);
+
+			}
+			counter++;
+			if (counter > 10000)
+				counter =0;
+			hashes_.at(sum_of_character_hash_values) += 1.0;
+		}
+		double sum{};
+		for (const auto & hash_sum_element: hashes_) {
+			sum += (equal_distribution_expectation - hash_sum_element) * (equal_distribution_expectation - hash_sum_element)
+				/ equal_distribution_expectation;
+		}
+
+		auto chi_squared = boost::math::chi_squared(static_cast<double> (hash_table_size - 1));
+		double probability_hashes_are_uniformly_distributed = boost::math::cdf(chi_squared, sum);
+		std::cout << "The probability that the distribution is NOT derived from the uniform-distribution is given as :" << probability_hashes_are_uniformly_distributed << std::endl;
+	}
+
 private:
-	void open_read_file_();
+	void open_read_file_()
+	{
+		datafile_.open(file_name_, std::ios::in);
+		// We want to compute the hash of the sum-of-all-characters of a word in the data file.
+		// Since the words in the data file contain characters that are represented by a negative char value
+		// we need to project all chars to unsigned chars.
+		// We ar doing that using std::make_unsigned<char>::type
+		if (datafile_.is_open()) {
+			std::string word_string;
+			while (std::getline(datafile_, word_string)) {
+				words_.push_back(word_string);
+			}
+		}
+	}
 	std::string file_name_{"/media/linux_data/projects/cpp/algorithms/data_structures/source/hash_functions/testing_hash_functions/test_data.txt"};
 	std::fstream datafile_{};
-	std::vector<size_t> words_;
+	std::vector<std::string> words_;
+	std::vector<double> hashes_;
 };
 
 

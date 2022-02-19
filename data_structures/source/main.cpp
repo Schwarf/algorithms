@@ -13,9 +13,10 @@
 #include "hash_functions/testing_hash_functions/test_hash_functions.h"
 int main()
 {
-
-	auto division_hashing = DivisionHashing<1000>();
-	//auto tes = TestHashFunctions();
+	constexpr size_t hash_table_size = 4*4*4*4 * 4*4*4*4; // 2**16
+	auto division_hashing = DivisionHashing<hash_table_size, 256>();
+	auto test = TestHashFunctions<hash_table_size>();
+	test.test(division_hashing);
 	auto multi_hashing = MultiplicationHashing<64, 14>();
 	division_hashing.hash(100012);
 	std::cout << multi_hashing.hash(123456) << std::endl;
