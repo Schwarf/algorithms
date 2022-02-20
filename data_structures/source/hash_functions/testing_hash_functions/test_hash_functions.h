@@ -24,22 +24,26 @@ public:
 		open_read_file_();
 	}
 
+	size_t convert_string_to_hashable_value( const std::string & string, size_t prime_number)
+	{
+		size_t result{};
+		size_t string_as_base_256_number = 256;
+		for(size_t index = string.size(); index--;)
+		{
+			result = (result * string_as_base_256_number + string.at(index)) % prime_number;
+		}
+		return result;
+	}
+
 	void test(IHashFunction & hash_function)
 	{
 
 		double equal_distribution_expectation = static_cast<double>(words_.size()) / static_cast<double>(hash_table_size);
-		int counter{};
+		size_t hash_value{};
+		auto prime_number = hash_function.prime_number();
 		for (const auto & word: words_) {
-			size_t sum_of_character_hash_values{};
-			for(const auto & single_character: word){
-
-				sum_of_character_hash_values += hash_function.hash(single_character);
-
-			}
-			counter++;
-			if (counter > 10000)
-				counter =0;
-			hashes_.at(sum_of_character_hash_values) += 1.0;
+			hash_value = convert_string_to_hashable_value(word, prime_number);
+			hashes_.at(hash_value) += 1.0;
 		}
 		double sum{};
 		for (const auto & hash_sum_element: hashes_) {

@@ -10,6 +10,7 @@ class IHashFunction
 {
 public:
 	virtual size_t hash(size_t value) const = 0;
+	virtual size_t prime_number() const = 0;
 };
 
 #endif //I_HASH_FUNCTION_H

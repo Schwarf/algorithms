@@ -28,6 +28,10 @@ public:
 		size_t bit_shift = machine_word_size - number_of_most_significant_bits;
 		return (rest >> bit_shift);
 	}
+	size_t prime_number() const final
+	{
+		return 0;
+	}
 
 private:
 	double golden_ratio_minus_one_{0.618033988749894};

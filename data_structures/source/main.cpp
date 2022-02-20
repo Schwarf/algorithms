@@ -14,7 +14,7 @@
 int main()
 {
 	constexpr size_t hash_table_size = 4*4*4*4 * 4*4*4*4; // 2**16
-	auto division_hashing = DivisionHashing<hash_table_size, 256>();
+	auto division_hashing = DivisionHashing<hash_table_size>(65413);
 	auto test = TestHashFunctions<hash_table_size>();
 	test.test(division_hashing);
 	auto multi_hashing = MultiplicationHashing<64, 14>();
