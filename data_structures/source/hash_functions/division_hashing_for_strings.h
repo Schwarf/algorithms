@@ -5,12 +5,13 @@
 #ifndef DIVISION_METHOD_H
 #define DIVISION_METHOD_H
 #include "good_primes.h"
-#include "i_hash_function.h"
+#include "i_hash_function_for_strings.h"
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <string>
 
-template<size_t expected_number_of_entries>
+template<size_t expected_number_of_entries, size_t base_number>
 class DivisionHashing: public IHashFunction
 {
 public:
@@ -39,9 +40,19 @@ public:
 		}
 		modulo_prime_ = last_10_primes.at(7);
 	}
-	size_t hash(size_t value) const override
+
+	size_t convert_string_to_hashable_value_(const std::string &string) const
 	{
-		return value % modulo_prime_;
+		size_t result{};
+		for (size_t index = string.size(); index--;) {
+			result = (result * base_number + string.at(index)) % modulo_prime_;
+		}
+		return result;
+	}
+
+	size_t hash(const std::string &string) const final
+	{
+		return convert_string_to_hashable_value_(string) % modulo_prime_;
 	}
 
 	size_t prime_number() const final
