@@ -6,6 +6,9 @@
 #define DIVISION_METHOD_H
 #include "good_primes.h"
 #include "i_hash_function.h"
+#include <fstream>
+#include <sstream>
+#include <vector>
 
 template<size_t expected_number_of_entries>
 class DivisionHashing: public IHashFunction
@@ -13,21 +16,28 @@ class DivisionHashing: public IHashFunction
 public:
 	DivisionHashing(size_t modulo_prime = 0)
 	{
-		if (expected_number_of_entries > Primes::good_primes[Primes::number_of_good_primes - 1]) {
-			throw std::out_of_range(
-				"In DivisionHashing: The expected_number_of_entries is greater than the greatest prime number available!");
-		}
-		size_t prime_index{};
-
 		if (modulo_prime) {
 			modulo_prime_ = modulo_prime;
 			return;
 		}
-		for (prime_index = 0; prime_index < Primes::number_of_good_primes; ++prime_index) {
-			if (expected_number_of_entries < Primes::good_primes[prime_index])
-				break;
+		std::fstream prime_number_file;
+		prime_number_file.open(prime_numbers_file_path_, std::ios::in);
+		std::vector<size_t> last_10_primes(10, 0);
+		size_t last_ten_primes_counter{};
+		if (prime_number_file.is_open()) {
+			std::string line;
+			while (std::getline(prime_number_file, line)) {
+				size_t prime = std::stol(line);
+				if (prime > expected_number_of_entries) {
+					break;
+				}
+				if (last_ten_primes_counter == 10)
+					last_ten_primes_counter = 0;
+				last_10_primes.at(last_ten_primes_counter) = prime;
+				last_ten_primes_counter++;
+			}
 		}
-		modulo_prime_ = Primes::good_primes[prime_index];
+		modulo_prime_ = last_10_primes.at(7);
 	}
 	size_t hash(size_t value) const override
 	{
@@ -39,7 +49,8 @@ public:
 		return modulo_prime_;
 	}
 private:
-	size_t modulo_prime_;
+	size_t modulo_prime_{};
+	std::string prime_numbers_file_path_{"./../miscellaneous/prime_numbers.txt"};
 };
 
 

@@ -30,7 +30,7 @@ void generate_prime_numbers_up_to(size_t n)
 {
 	auto sieve = sieve_of_sundaram(n);
 	std::fstream file;
-	file.open("./../hash_functions/testing_hash_functions/prime_numbers.txt", std::ios::out);
+	file.open("./../miscellaneous/prime_numbers.txt", std::ios::out);
 	size_t index{};
 	size_t k = (n-1)/2;
 	if(file.is_open())

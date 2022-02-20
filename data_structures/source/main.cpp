@@ -11,13 +11,14 @@
 #include "hash_functions/division_hashing.h"
 #include "hash_functions/multiplication_hashing.h"
 #include "hash_functions/testing_hash_functions/test_hash_functions.h"
+#include "miscellaneous/generate_prime_numbers_up_to.h"
 int main()
 {
-	constexpr size_t hash_table_size = 4*4*4*4 * 4*4*4*4; // 2**16
-	auto division_hashing = DivisionHashing<hash_table_size>(65413);
+	constexpr size_t hash_table_size = 4L*4*4*4 * 4*4*4*4 ; // 2**16
+	auto division_hashing = DivisionHashing<hash_table_size>();
 	auto test = TestHashFunctions<hash_table_size>();
 	test.test(division_hashing);
-	auto multi_hashing = MultiplicationHashing<64, 14>();
+	auto multi_hashing = MultiplicationHashing<63, 14>();
 	division_hashing.hash(100012);
 	std::cout << multi_hashing.hash(123456) << std::endl;
 	StackAB<int, 3> stack;

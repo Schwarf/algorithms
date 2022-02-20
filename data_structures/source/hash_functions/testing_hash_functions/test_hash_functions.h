@@ -50,10 +50,12 @@ public:
 			sum += (equal_distribution_expectation - hash_sum_element) * (equal_distribution_expectation - hash_sum_element)
 				/ equal_distribution_expectation;
 		}
-
+		std::cout << hash_table_size << std::endl;
 		auto chi_squared = boost::math::chi_squared(static_cast<double> (hash_table_size - 1));
 		double probability_hashes_are_uniformly_distributed = boost::math::cdf(chi_squared, sum);
-		std::cout << "The probability that the distribution is NOT derived from the uniform-distribution is given as :" << probability_hashes_are_uniformly_distributed << std::endl;
+		std::cout << "For the prime number: " << std::to_string(hash_function.prime_number()) << std::endl;
+		std::cout << "the probability that the distribution is NOT derived from the uniform-distribution is given as :" << probability_hashes_are_uniformly_distributed << std::endl;
+
 	}
 
 private:
@@ -71,7 +73,7 @@ private:
 			}
 		}
 	}
-	std::string file_name_{"/media/linux_data/projects/cpp/algorithms/data_structures/source/hash_functions/testing_hash_functions/test_data.txt"};
+	std::string file_name_{"./../hash_functions/testing_hash_functions/test_data.txt"};
 	std::fstream datafile_{};
 	std::vector<std::string> words_;
 	std::vector<double> hashes_;
