@@ -10,10 +10,7 @@ template<size_t base_number>
 class MultiplicationHashing: public IHashFunction
 {
 public:
-	MultiplicationHashing()
-	{
-
-	}
+	MultiplicationHashing() = default;
 	size_t hash(const std::string & string) const final
 	{
 		size_t hash_value{};

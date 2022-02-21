@@ -9,7 +9,7 @@
 class IHashFunction
 {
 public:
-	virtual size_t hash(const std::string & string ) const = 0;
+	virtual size_t hash(const std::string &string) const = 0;
 	virtual size_t prime_number() const = 0;
 };
 

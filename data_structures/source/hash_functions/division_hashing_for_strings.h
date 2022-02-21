@@ -15,7 +15,7 @@ template<size_t expected_number_of_entries, size_t base_number>
 class DivisionHashing: public IHashFunction
 {
 public:
-	DivisionHashing(size_t modulo_prime = 0)
+	explicit DivisionHashing(size_t modulo_prime = 0)
 	{
 		if (modulo_prime) {
 			modulo_prime_ = modulo_prime;
