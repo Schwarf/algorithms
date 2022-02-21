@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "hash_functions/division_hashing_for_strings.h"
 #include "hash_functions/multiplication_hashing_for_strings.h"
-#include "hash_functions/testing_hash_functions/test_hash_functions.h"
+#include "hash_functions/testing_hash_functions/test_if_hashes_uniformly_distributed.h"
 #include "miscellaneous/generate_prime_numbers_up_to.h"
 int main()
 {

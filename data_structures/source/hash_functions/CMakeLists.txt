@@ -8,5 +8,5 @@ add_library(hash_functions_lib INTERFACE
         )
 
 add_library(test_hash_function_lib INTERFACE
-        testing_hash_functions/test_hash_functions.h
+        testing_hash_functions/test_if_hashes_uniformly_distributed.h
         )

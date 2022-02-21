@@ -2,8 +2,8 @@
 // Created by andreas on 19.02.22.
 //
 
-#ifndef TEST_HASH_FUNCTIONS_H
-#define TEST_HASH_FUNCTIONS_H
+#ifndef TEST_IF_HASHES_UNIFORMLY_DISTRIBUTED_H
+#define TEST_IF_HASHES_UNIFORMLY_DISTRIBUTED_H
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -69,4 +69,4 @@ private:
 };
 
 
-#endif //TEST_HASH_FUNCTIONS_H
+#endif //TEST_IF_HASHES_UNIFORMLY_DISTRIBUTED_H
