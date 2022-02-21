@@ -38,14 +38,14 @@ public:
 				last_ten_primes_counter++;
 			}
 		}
-		modulo_prime_ = last_10_primes.at(7);
+		modulo_prime_ = last_10_primes.at(9);
 	}
 
 	size_t convert_string_to_hashable_value_(const std::string &string) const
 	{
 		size_t result{};
 		for (size_t index = string.size(); index--;) {
-			result = (result * base_number + string.at(index)) % modulo_prime_;
+			result = (result * base_number + char_to_unsigned(string.at(index))) % modulo_prime_;
 		}
 		return result;
 	}

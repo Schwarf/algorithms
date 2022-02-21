@@ -15,10 +15,11 @@
 int main()
 {
 	constexpr size_t hash_table_size = 4L*4*4*4 * 4*4*4*4 ; // 2**16
+	auto multi_hashing = MultiplicationHashing<256, 65449>();
 	auto division_hashing = DivisionHashing<hash_table_size, 256>();
 	auto test = TestHashFunctions<hash_table_size>();
-	test.test(division_hashing);
-	auto multi_hashing = MultiplicationHashing<256>();
+	test.test(multi_hashing);
+
 	StackAB<int, 3> stack;
 	stack.push(1);
 	stack.push(2);

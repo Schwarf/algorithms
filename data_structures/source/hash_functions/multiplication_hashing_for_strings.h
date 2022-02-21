@@ -6,18 +6,21 @@
 #define MULTIPLICATION_HASHING_FOR_STRINGS_H
 #include <cmath>
 
-template<size_t base_number>
+template<size_t base_number, size_t multiplication_constant>
 class MultiplicationHashing: public IHashFunction
 {
 public:
 	MultiplicationHashing() = default;
-	size_t hash(const std::string & string) const final
+	size_t hash(const std::string &string) const final
 	{
-		size_t hash_value{};
+		double hash_value{};
 		for (size_t index = string.size(); index--;) {
-			 hash_value = std::fmod(golden_ratio_minus_one_ * (base_number * hash_value + string[index]),1.0);
+			hash_value =
+				std::fmod(golden_ratio_minus_one_ * (base_number * hash_value + char_to_unsigned(string.at(index))),
+						  1.0);
 		}
-		return hash_value;
+		hash_value *= multiplication_constant;
+		return static_cast<size_t>(hash_value);
 
 	}
 	size_t prime_number() const final
@@ -27,9 +30,6 @@ public:
 
 private:
 	double golden_ratio_minus_one_{0.618033988749894};
-	size_t multiplication_constant_{};
-	size_t word_size_factor_{};
-
 };
 
 #endif //MULTIPLICATION_HASHING_FOR_STRINGS_H
