@@ -123,6 +123,8 @@ private:
 				swap(new_index, element_index);
 				element_index = new_index;
 			}
+			else
+				break;
 		}
 	}
 };
