@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(unique string_consists_of_unique_characters_1_1.cpp)
 add_executable(permutation string_permutation_1_2.cpp)
-add_executable(urlify urlify_string.cpp)
+add_executable(urlify urlify_string_1_3.cpp)
+add_executable(palindrome palindrome_permutation_1_4.cpp)
+add_executable(one_away one_edit_away_1_5.cpp)
