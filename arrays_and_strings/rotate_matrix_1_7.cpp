@@ -17,7 +17,7 @@ public:
 		{
 			throw std::out_of_range("Invalid matrix access!");
 		}
-		return data_[row + column*dimension];
+		return data_[column + row*dimension];
 	}
 
 	void print_matrix()
@@ -27,7 +27,7 @@ public:
 		{
 			for(size_t column_index = 0; column_index < dimension; ++column_index)
 			{
-				std::cout << data_[row_index + column_index*dimension] <<", ";
+				std::cout << data_[column_index + row_index*dimension] <<", ";
 			}
 			std::cout << std::endl;
 		}
