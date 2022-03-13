@@ -21,6 +21,31 @@ std::string urlify(std::string &input, size_t true_size)
 	return result;
 }
 
+std::string optimized_urlify(std::string &input, size_t true_size)
+{
+	char space = ' ';
+	size_t count = 0;
+	if(true_size == input.size())
+		return input;
+	int back_index = input.size() - 1;
+	for (size_t index = true_size - 1; index--;) {
+		if(input[index] == space)
+		{
+			input[back_index--] = '0';
+			input[back_index--] = '2';
+			input[back_index--] = '%';
+		}
+		else
+		{
+			input[back_index--] = input[index];
+		}
+		if(back_index == -1)
+			break;
+	}
+	return input;
+}
+
+
 int main()
 {
 	std::string test = "hello its me    ";
@@ -33,5 +58,7 @@ int main()
 	std::cout << result2 << std::endl;
 	std::cout << (result.size() == test.size()) << std::endl;
 	std::cout << (result2.size() == test2.size()) << std::endl;
+	auto result_new = optimized_urlify(test, test_size);
+	std::cout << result_new << std::endl;
 	return 0;
 }
