@@ -3,6 +3,7 @@
 //
 
 #include <vector>
+#include <set>
 #include <stdexcept>
 #include <iostream>
 
@@ -51,6 +52,35 @@ void fill_matrix(Matrix<matrix_type, row_dimension, column_dimension> &matrix)
 template<typename matrix_type, size_t row_dimension, size_t column_dimension>
 void zero_matrix(Matrix<matrix_type, row_dimension, column_dimension> &matrix)
 {
+	std::set<size_t> row_indices;
+	std::set<size_t> column_indices;
+	for(size_t row_index =0; row_index < row_dimension; ++row_index )
+	{
+		for (size_t column_index = 0; column_index < column_dimension; column_index++) {
+			if(matrix(row_index, column_index) == 0)
+			{
+				row_indices.insert(row_index);
+				column_indices.insert(column_index);
+			}
+		}
+	}
+
+	for(const auto & row_index : row_indices)
+	{
+		for(size_t column_index = 0; column_index < column_dimension; column_index++)
+		{
+			matrix(row_index, column_index) = 0;
+		}
+	}
+
+	for(const auto & column_index : column_indices)
+	{
+		for(size_t row_index = 0; row_index < row_dimension; row_index++)
+		{
+			matrix(row_index, column_index) = 0;
+		}
+	}
+
 }
 
 int main()
@@ -58,5 +88,19 @@ int main()
 	Matrix<int, 3, 2> dim23;
 	fill_matrix<int, 3, 2>(dim23);
 	dim23.print_matrix();
+	dim23(1,1) = 0;
+	dim23.print_matrix();
+	zero_matrix<int,3,2>(dim23);
+	dim23.print_matrix();
+
+	Matrix<int, 20, 30> dim2030;
+	fill_matrix<int, 20, 30>(dim2030);
+	dim2030.print_matrix();
+	dim2030(10,5) = 0;
+	dim2030(17,14) = 0;
+	dim2030.print_matrix();
+	zero_matrix<int,20,30>(dim2030);
+	dim2030.print_matrix();
+
 
 }
