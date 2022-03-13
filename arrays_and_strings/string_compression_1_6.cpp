@@ -13,17 +13,16 @@ std::string compression(std::string &input)
 	int counter{1};
 	result.append(1, input[0]);
 	for (size_t index = 1; index < input.size(); ++index) {
-		if(input[index] == input[index-1])
+		if (input[index] == input[index - 1])
 			counter++;
-		else
-		{
+		else {
 			result.append(std::to_string(counter));
 			result.append(1, input[index]);
 			counter = 1;
 		}
 	}
 	result.append(std::to_string(counter));
-	if(result.size() == 2*input.size())
+	if (result.size() == 2 * input.size())
 		return input;
 
 	return result;

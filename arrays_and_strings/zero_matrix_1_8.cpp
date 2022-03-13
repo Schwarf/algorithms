@@ -25,7 +25,6 @@ public:
 
 	void print_matrix()
 	{
-
 		for (size_t row_index = 0; row_index < row_dimension; ++row_index) {
 			for (size_t column_index = 0; column_index < column_dimension; ++column_index) {
 				std::cout << data_[column_index + row_index * column_dimension] << ", ";
@@ -57,8 +56,7 @@ void zero_matrix(Matrix<matrix_type, row_dimension, column_dimension> &matrix)
 int main()
 {
 	Matrix<int, 3, 2> dim23;
-	fill_matrix<int,3,2>(dim23);
+	fill_matrix<int, 3, 2>(dim23);
 	dim23.print_matrix();
-
 
 }

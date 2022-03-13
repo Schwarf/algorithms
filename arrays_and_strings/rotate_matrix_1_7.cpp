@@ -52,7 +52,7 @@ template<typename matrix_type, size_t dimension>
 void rotate_symmetric_matrix(SymmetricMatrix<matrix_type, dimension> &matrix)
 {
 	if (dimension < 2)
-		return ;
+		return;
 	for (size_t layer_index = 0; layer_index < dimension / 2; ++layer_index) {
 		auto first_index = layer_index;
 		auto last_index = dimension - 1 - layer_index;

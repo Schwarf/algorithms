@@ -15,19 +15,18 @@ bool is_palindrome(std::string &input)
 		return true;
 
 	std::vector<bool> appeared(26, true);
-	for_each(input.begin(), input.end(), [](char & character){character = std::tolower(character);});
+	for_each(input.begin(), input.end(), [](char &character)
+	{ character = std::tolower(character); });
 
-	for(const auto & element : input)
-	{
+	for (const auto &element: input) {
 
-		if(std::isalpha(element)) {
+		if (std::isalpha(element)) {
 			appeared[element - 'a'] = !appeared[element - 'a'];
 		}
 	}
 	int counter = 0;
-	for(const auto & element : appeared)
-	{
-		if(!element)
+	for (const auto &element: appeared) {
+		if (!element)
 			counter++;
 	}
 	return counter < 2;
