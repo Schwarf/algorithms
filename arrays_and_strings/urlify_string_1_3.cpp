@@ -24,11 +24,10 @@ std::string urlify(std::string &input, size_t true_size)
 std::string optimized_urlify(std::string &input, size_t true_size)
 {
 	char space = ' ';
-	size_t count = 0;
 	if(true_size == input.size())
 		return input;
-	int back_index = input.size() - 1;
-	for (size_t index = true_size - 1; index--;) {
+	size_t back_index = input.size() - 1;
+	for (size_t index = true_size ; index--;) {
 		if(input[index] == space)
 		{
 			input[back_index--] = '0';
@@ -39,7 +38,7 @@ std::string optimized_urlify(std::string &input, size_t true_size)
 		{
 			input[back_index--] = input[index];
 		}
-		if(back_index == -1)
+		if(back_index == 0)
 			break;
 	}
 	return input;
