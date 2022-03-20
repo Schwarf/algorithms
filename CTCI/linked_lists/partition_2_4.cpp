@@ -50,67 +50,53 @@ public:
 	{
 		return head_;
 	}
-};
 
-template<typename T>
-void partition(Node<T> *head, T value)
-{
-	if(head == nullptr || head->next == nullptr)
-		return;
-
-	auto value_node = head;
-	auto end_node = head;
-	while (end_node->next != nullptr) {
-		end_node = end_node->next;
-	}
-	while (value_node->value != value) {
-		value_node = value_node->next;
-	}
-	if (value_node->next == nullptr)
-		return;
-
-	if(head->value == value)
+	void partition(T value)
 	{
-		auto node = head->next;
-		while(node->next !=nullptr)
-		{
-			if(node->value < value) {
-				auto new_head = new Node<int>(value);
-				new_head->next = head;
-				head = new_head;
-			}
+		auto node = head_;
+		while (node->value != value) {
 			node = node->next;
 		}
-	}
-	auto start = head->next;
-	Node<int>* start_prev = nullptr;
-	while (start != value_node) {
-		if (start->value > value) {
-			auto new_end_node = new Node<int>(start->value);
-			end_node->next = new_end_node;
-			end_node = new_end_node;
-			end_node->next = nullptr;
-			if(start_prev == nullptr) {
-				start_prev = start->next;
+		auto value_node = node;
+		while (node->next != nullptr) {
+			node = node->next;
+		}
+		auto end_node = node;
+		node = head_;
+		Node<int> *prev_node = nullptr;
+		while (node != value_node) {
+			if (node->value > value) {
+				auto new_end_node = new Node<int>(node->value);
+				end_node->next = new_end_node;
+				end_node = new_end_node;
+				if (node == head_) {
+					node = node->next;
+					delete head_;
+					head_ = node;
+				}
+				else {
+					auto help = node;
+					prev_node->next = node->next;
+					node = node->next;
+					delete help;
+				}
+
 			}
-			start_prev->next = start->next;
-			delete start;
-			start = start_prev->next;
+			else {
+				prev_node = node;
+				node = node->next;
+			}
 
 		}
-		else {
-			start_prev = start;
-			start = start->next;
-		}
-
 	}
 
-}
+};
 
 int main()
 {
 	auto single = LinkedList<int>();
 	single.push_back(7);
+	single.push_back(2);
 	single.push_back(6);
 	single.push_back(6);
 	single.push_back(5);
@@ -118,7 +104,7 @@ int main()
 	single.push_back(2);
 	single.push_back(3);
 	single.print_list();
-	partition<int>(single.head(), 5);
+	single.partition(5);
 	single.print_list();
 
 
