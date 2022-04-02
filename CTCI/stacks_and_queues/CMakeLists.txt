@@ -4,3 +4,4 @@ project(stacks_and_queues)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(stack_min stack_min_3_2.cpp)
+add_executable(set_of_stacks set_of_stacks_3_3.cpp)
