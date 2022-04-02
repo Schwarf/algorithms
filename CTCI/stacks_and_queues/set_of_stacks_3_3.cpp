@@ -106,6 +106,21 @@ public:
 		current_stack->push(value);
 	}
 
+	T popAt(size_t index)
+	{
+		if(index > set_of_stacks_.size())
+		{
+			throw std::out_of_range("Index out of range.");
+		}
+		auto current_stack = set_of_stacks_.at(index);
+		if(current_stack->is_empty())
+		{
+			throw std::out_of_range("Stack at given index is empty!");
+		}
+		return current_stack->pop();
+
+	}
+
 	T pop()
 	{
 		auto current_stack = set_of_stacks_.back();
@@ -149,7 +164,9 @@ int main()
 	test.push(4);
 	test.push(5);
 
-	std::cout << test.pop() << std::endl;
+	std::cout << test.popAt(1) << std::endl;
+	std::cout << test.popAt(1) << std::endl;
+	std::cout << test.popAt(1) << std::endl;
 	std::cout << test.pop() << std::endl;
 	std::cout << test.pop() << std::endl;
 	std::cout << test.pop() << std::endl;
