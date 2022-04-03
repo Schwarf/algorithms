@@ -67,8 +67,9 @@ int main()
 	tree->insert(3);
 	tree->insert(4);
 //	std::function<void(int)> print_function = print<int>;
-	tree->traverse_in_preorder(print<int>);
-	tree->traverse_in_postorder(print<int>);
+	tree->traverse_preorder(print<int>);
+	std::cout << "***************" << std::endl;
+	tree->traverse_postorder(print<int>);
 
 
 	return 0;
