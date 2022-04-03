@@ -12,6 +12,7 @@
 #include "hash_functions/multiplication_hashing_for_strings.h"
 #include "hash_functions/testing_hash_functions/test_if_hashes_uniformly_distributed.h"
 #include "miscellaneous/generate_prime_numbers_up_to.h"
+#include "trees/n-ary_tree.h"
 int main()
 {
 	constexpr size_t hash_table_size = 4L*4*4*4 * 4*4*4*4 ; // 2**16
@@ -59,6 +60,16 @@ int main()
 	for (const auto &element: v) {
 		std::cout << " std::heap = " << element << "\n";
 	}
+
+	auto tree = new N_aryTree<int, 2>();
+	tree->insert(1);
+	tree->insert(2);
+	tree->insert(3);
+	tree->insert(4);
+//	std::function<void(int)> print_function = print<int>;
+	tree->traverse_in_preorder(print<int>);
+
+
 
 	return 0;
 }
