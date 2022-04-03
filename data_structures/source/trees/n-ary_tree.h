@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include <iostream>
+#include <stack>
 
 template <typename T>
 void print(T value)
@@ -15,6 +16,24 @@ void print(T value)
 }
 
 
+template  <typename T>
+struct fill_stack
+{
+	void operator()(T value){
+		stack_.push(value);
+		auto x = size();
+	}
+	T operator()(){
+		stack_.pop();
+	}
+	size_t size() const
+	{
+		return stack_.size();
+	}
+
+private:
+	std::stack<T> stack_;
+};
 
 
 template<typename T, size_t maximal_number_of_children>
@@ -70,6 +89,23 @@ public:
 		preorder_traversal(node, function);
 	}
 
+	void traverse_in_postorder(std::function<void(T)> function){
+		auto node = root_;
+		if(!node)
+			return;
+		auto help = fill_stack<T>();
+		preorder_traversal(node, help);
+		auto size = help.size();
+		if(function) {
+			for (size_t index = 0; index < size; ++index) {
+				function(pop());
+			}
+		}
+
+	}
+
+
+private:
 	void preorder_traversal(N_aryTreeNode<T, maximum_number_of_children> * node, std::function<void(T)> function)
 	{
 		if(function)
