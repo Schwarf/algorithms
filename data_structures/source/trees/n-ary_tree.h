@@ -50,17 +50,16 @@ public:
 
 	bool insert(N_aryTreeNode<T, maximum_number_of_children> *node, T value)
 	{
-		if (node->number_of_children() < maximum_number_of_children) {
-			auto new_node = new N_aryTreeNode<T, maximum_number_of_children>(value);
-			node->children.push_back(new_node);
-			return true;
-		}
-		for (size_t child_index = 0; child_index < maximum_number_of_children; ++child_index) {
-			if (insert(node->children[child_index], value))
-				break;
+		for(auto & child : node->children)
+		{
+			if(!child) {
+				child = new N_aryTreeNode<T, maximum_number_of_children>(value);
+				return true;
+			}
 		}
 	}
 
+	
 	void traverse_preorder(std::function<void(T)> function)
 	{
 		auto node = root_;
