@@ -9,12 +9,11 @@
 #include <iostream>
 #include <stack>
 
-template <typename T>
+template<typename T>
 void print(T value)
 {
 	std::cout << value << std::endl;
 }
-
 
 template<typename T, size_t maximal_number_of_children>
 struct N_aryTreeNode
@@ -42,8 +41,7 @@ class N_aryTree
 public:
 	void insert(T value)
 	{
-		if(root_==nullptr)
-		{
+		if (root_ == nullptr) {
 			root_ = new N_aryTreeNode<T, maximum_number_of_children>(value);
 			return;
 		}
@@ -52,53 +50,72 @@ public:
 
 	bool insert(N_aryTreeNode<T, maximum_number_of_children> *node, T value)
 	{
-		if ( node->number_of_children() < maximum_number_of_children) {
+		if (node->number_of_children() < maximum_number_of_children) {
 			auto new_node = new N_aryTreeNode<T, maximum_number_of_children>(value);
 			node->children.push_back(new_node);
 			return true;
 		}
 		for (size_t child_index = 0; child_index < maximum_number_of_children; ++child_index) {
-			if(insert(node->children[child_index], value))
+			if (insert(node->children[child_index], value))
 				break;
 		}
 	}
 
-	void traverse_preorder(std::function<void(T)> function){
+	void traverse_preorder(std::function<void(T)> function)
+	{
 		auto node = root_;
-		if(!node)
+		if (!node)
 			return;
 		preorder_traversal(node, function);
 	}
 
-	void traverse_postorder(std::function<void(T)> function){
+	void traverse_postorder(std::function<void(T)> function)
+	{
 		auto node = root_;
-		if(!node)
+		if (!node)
 			return;
 		postorder_traversal(node, function);
 	}
 
+	void traverse_inorder(std::function<void(T)> function)
+	{
+		auto node = root_;
+		if (!node)
+			return;
+		inorder_traversal(node, function);
+	}
+
 
 private:
-	void preorder_traversal(N_aryTreeNode<T, maximum_number_of_children> * node, std::function<void(T)> function)
+	void preorder_traversal(N_aryTreeNode<T, maximum_number_of_children> *node, std::function<void(T)> function)
 	{
-		if (node != nullptr) {
-			function(node->value);
-			for (const auto child: node->children) {
-				preorder_traversal(child, function);
-			}
+		function(node->value);
+		for (const auto child: node->children) {
+			preorder_traversal(child, function);
 		}
 	}
 
-	void postorder_traversal(N_aryTreeNode<T, maximum_number_of_children> * node, std::function<void(T)> function)
+	void postorder_traversal(N_aryTreeNode<T, maximum_number_of_children> *node, std::function<void(T)> function)
 	{
-		for(const auto child: node->children)
-		{
+		for (const auto child: node->children) {
 			postorder_traversal(child, function);
 		}
 		function(node->value);
 
 	}
 
+	void inorder_traversal(N_aryTreeNode<T, maximum_number_of_children> *node, std::function<void(T)> function)
+	{
+		for (size_t child_index = 0; child_index < node->number_of_children() / 2; ++child_index) {
+			inorder_traversal(node->children[child_index], function);
+		}
+		function(node->value);
+		for (size_t child_index = node->number_of_children() / 2; child_index < node->number_of_children();
+			 ++child_index) {
+			inorder_traversal(node->children[child_index], function);
+		}
+
+	}
 
 
 private:

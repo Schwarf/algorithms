@@ -66,11 +66,13 @@ int main()
 	tree->insert(2);
 	tree->insert(3);
 	tree->insert(4);
+	tree->insert(5);
 //	std::function<void(int)> print_function = print<int>;
 	tree->traverse_preorder(print<int>);
 	std::cout << "***************" << std::endl;
 	tree->traverse_postorder(print<int>);
-
+	std::cout << "***************" << std::endl;
+	tree->traverse_inorder(print<int>);
 
 	return 0;
 }
