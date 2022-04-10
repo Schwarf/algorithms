@@ -61,12 +61,11 @@ int main()
 		std::cout << " std::heap = " << element << "\n";
 	}
 
-	auto tree = new N_aryTree<int, 2>();
-	tree->insert(1);
-	tree->insert(2);
-	tree->insert(3);
-	tree->insert(4);
-	tree->insert(5);
+	auto tree = new N_aryTree<int, 2>(1);
+	tree->root()->add_child(2);
+	tree->root()->add_child(3);
+	tree->root()->children.at(0)->add_child(4);
+	tree->root()->children.at(0)->add_child(5);
 //	std::function<void(int)> print_function = print<int>;
 	tree->traverse_preorder(print<int>);
 	std::cout << "***************" << std::endl;
