@@ -29,3 +29,15 @@ TEST_F(SetupN_aryTree, test_inorder_traversal)
 		EXPECT_EQ(help.result().at(index), inorder.at(index));
 	}
 }
+
+TEST_F(SetupN_aryTree, test_postorder_traversal)
+{
+	auto binary_tree = SetupN_aryTree::binary_tree();
+
+	auto help = HelperClass<int>();
+	binary_tree->traverse_postorder(std::ref(help));
+	for(size_t index =0; index < inorder.size(); ++index)
+	{
+		EXPECT_EQ(help.result().at(index), postorder.at(index));
+	}
+}
