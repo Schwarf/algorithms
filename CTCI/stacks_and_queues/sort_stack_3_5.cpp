@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 
+
+// This creates a sorted_stack but asked was to sort an existing stack
 template<typename T>
 class sorted_stack
 {
@@ -67,5 +69,5 @@ int main()
 		sorted.pop();
 	}
 
-
+	return 0;
 }
