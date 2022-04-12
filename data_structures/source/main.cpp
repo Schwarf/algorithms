@@ -13,6 +13,7 @@
 #include "hash_functions/testing_hash_functions/test_if_hashes_uniformly_distributed.h"
 #include "miscellaneous/generate_prime_numbers_up_to.h"
 #include "trees/n-ary_tree.h"
+#include "tries/trie.h"
 int main()
 {
 	constexpr size_t hash_table_size = 4L*4*4*4 * 4*4*4*4 ; // 2**16
@@ -72,7 +73,11 @@ int main()
 	tree->traverse_postorder(print<int>);
 	std::cout << "***************" << std::endl;
 	tree->traverse_inorder(print<int>);
-
+	std::cout << "TRIE" << std::endl;
+	auto trie = Trie<26>();
+	trie.insert("apple");
+	std::cout << trie.search("apple") << std::endl;
+	std::cout << trie.prefix("app")<< std::endl;;
 	return 0;
 }
 
