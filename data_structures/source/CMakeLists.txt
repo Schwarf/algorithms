@@ -43,6 +43,7 @@ add_subdirectory(linked_lists)
 add_subdirectory(stacks_and_queues)
 add_subdirectory(heaps)
 add_subdirectory(trees)
+add_subdirectory(graphs)
 add_subdirectory(test)
 add_subdirectory(miscellaneous)
 

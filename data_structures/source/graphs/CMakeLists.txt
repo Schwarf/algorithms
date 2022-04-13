@@ -1,0 +1,1 @@
+add_library(graphs_lib INTERFACE graph.h)
