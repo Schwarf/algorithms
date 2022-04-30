@@ -28,6 +28,6 @@ void HeapSort::promote_(size_t index, std::vector<int64_t> &array)
 {
 	while (index != 0 && array[(index - 1) / 2] < array[index]) {
 		swap(array, index, (index - 1) / 2);
-		index = (index - 1)/2;
+		index = (index - 1) / 2;
 	}
 }

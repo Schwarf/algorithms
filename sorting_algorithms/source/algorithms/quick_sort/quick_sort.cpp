@@ -69,6 +69,6 @@ void QuickSort::modern_quick_sort_(std::vector<int64_t> &array, int start, int e
 		else
 			index++;
 	}
-	modern_quick_sort_(array, start, less_than-1);
-	modern_quick_sort_(array, greater_than+1, end);
+	modern_quick_sort_(array, start, less_than - 1);
+	modern_quick_sort_(array, greater_than + 1, end);
 }

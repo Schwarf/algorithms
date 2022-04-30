@@ -7,7 +7,7 @@
 #include "./../i_sort.h"
 #include "./../swap.h"
 
-class HeapSort : ISort
+class HeapSort: ISort
 {
 public:
 	void sort(std::vector<int64_t> &array) final;
@@ -15,8 +15,8 @@ public:
 	~HeapSort() override = default;
 private:
 	size_t heap_size_{};
-	void insert_(size_t index, std::vector<int64_t> & array);
-	void promote_(size_t index, std::vector<int64_t> & array);
+	void insert_(size_t index, std::vector<int64_t> &array);
+	void promote_(size_t index, std::vector<int64_t> &array);
 };
 
 

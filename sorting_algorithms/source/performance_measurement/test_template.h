@@ -17,7 +17,7 @@ class TestTemplate final: public ITestTemplate
 {
 public:
 	TestTemplate();
-	void execute_all_with(std::shared_ptr<ISort> &sorting_algorithm, const std::string & algorithm_name) final;
+	void execute_all_with(std::shared_ptr<ISort> &sorting_algorithm, const std::string &algorithm_name) final;
 	std::map<std::shared_ptr<ISort>, std::shared_ptr<std::vector<int64_t>>> get_execution_time_map() const final;
 	std::map<std::shared_ptr<ISort>, std::string> get_algorithm_name_map() const final;
 private:

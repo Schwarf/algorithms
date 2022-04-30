@@ -15,21 +15,18 @@ CountingSort::CountingSort(int64_t lower_limit, int64_t upper_limit)
 void CountingSort::sort(std::vector<int64_t> &array)
 {
 	result_ = std::vector<int64_t>(array.size(), 0);
-	for(const auto & element : array)
-	{
-		element_counter_[element - lower_limit_] =  element_counter_[element - lower_limit_] + 1;
+	for (const auto &element: array) {
+		element_counter_[element - lower_limit_] = element_counter_[element - lower_limit_] + 1;
 	}
 	// compute
-	for(size_t index =1; index < element_counter_.size(); ++index)
-	{
+	for (size_t index = 1; index < element_counter_.size(); ++index) {
 		element_counter_[index] += element_counter_[index - 1];
 	}
 
-	for(size_t index = result_.size()  ; index--; )
-	{
-		auto i = element_counter_[array[index]- lower_limit_] - 1;
+	for (size_t index = result_.size(); index--;) {
+		auto i = element_counter_[array[index] - lower_limit_] - 1;
 		result_[i] = array[index];
-		element_counter_[array[index]- lower_limit_] -= 1;
+		element_counter_[array[index] - lower_limit_] -= 1;
 	}
 	array = result_;
 }
