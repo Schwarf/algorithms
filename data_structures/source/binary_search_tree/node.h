@@ -2,12 +2,12 @@
 // Created by andreas on 22.01.22.
 //
 
-#ifndef BST_NODE_H
-#define BST_NODE_H
+#ifndef NODE_H
+#define NODE_H
 template<typename Key, typename Value>
-class BSTNode{
+class Node{
 public:
-	BSTNode(const Key & key, const Value &value){
+	Node(const Key & key, const Value &value){
 		key_ = key;
 		value_ = value;
 	}
@@ -23,11 +23,11 @@ public:
 	{
 		value_ = value;
 	}
-	BSTNode * left()const
+	Node * left()const
 	{
 		return left_;
 	}
-	BSTNode * right()const
+	Node * right()const
 	{
 		return right_;
 	}
@@ -35,8 +35,8 @@ public:
 private:
 	Key key_;
 	Value value_;
-	BSTNode * left_;
-	BSTNode * right_;
+	Node * left_;
+	Node * right_;
 };
 
-#endif //BST_NODE_H
+#endif //NODE_H

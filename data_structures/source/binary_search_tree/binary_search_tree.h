@@ -4,7 +4,7 @@
 
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
-#include "bst_node.h"
+#include "node.h"
 template<typename Key, typename Value>
 class BinarySearchTree{
 public:
@@ -13,10 +13,10 @@ public:
 		root_ = add_(root_, key, value);
 	}
 
-	BSTNode<Key, Value>* add_(BSTNode<Key, Value> * node, const Key & key, const Value & value){
+	Node<Key, Value>* add_(Node<Key, Value> * node, const Key & key, const Value & value){
 		if(node == nullptr)
-			return new BSTNode<Key,Value>(key, value);
-		if(key < node->key())
+			return new Node<Key, Value>(key, value);
+		if(key =< node->key())
 			add_(node->left(), key, value);
 		if(key > node->key())
 			add_(node->right(), key, value);
@@ -48,7 +48,7 @@ public:
 
 
 private:
-	BSTNode<Key, Value> * root_ = nullptr;
+	Node<Key, Value> * root_ = nullptr;
 
 };
 
