@@ -7,7 +7,7 @@
 #include "tree_node.h"
 #include <vector>
 #include <stack>
-
+// For Preorder, you traverse from the root to the left subtree then to the right subtree.
 std::vector<int> pre_order_traversal(TreeNode<int>* root)
 {
 	std::vector<int> answer;

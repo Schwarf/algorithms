@@ -9,7 +9,7 @@
 #include <stack>
 
 #include "tree_node.h"
-
+// For Inorder, you traverse from the left subtree to the root then to the right subtree.
 std::vector<int> in_order_traversal(TreeNode<int>* root)
 {
 	std::vector<int> result;
