@@ -44,6 +44,9 @@ void post_order_traversal(std::vector<int> & result, TreeNode<int> *root)
 
 std::vector<int> post_order_traversal_recursive(TreeNode<int> *root)
 {
+	std::vector<int> result;
+	post_order_traversal(result, root);
+	return result;
 }
 
 #endif //POST_ORDER_TRAVERSAL_H
