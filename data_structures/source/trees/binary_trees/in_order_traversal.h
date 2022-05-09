@@ -10,14 +10,16 @@
 
 #include "tree_node.h"
 // For Inorder, you traverse from the left subtree to the root then to the right subtree.
-std::vector<int> in_order_traversal(TreeNode<int>* root)
+// Inorder => Left, Root, Right.
+
+std::vector<int> in_order_traversal(TreeNode<int> *root)
 {
+	if(!root)
+		return {};
 	std::vector<int> result;
-	std::stack<TreeNode<int>*> remember_left_nodes;
-	while(root || !remember_left_nodes.empty())
-	{
-		while(root)
-		{
+	std::stack<TreeNode<int> *> remember_left_nodes;
+	while (root || !remember_left_nodes.empty()) {
+		while (root) {
 			remember_left_nodes.push(root);
 			root = root->left;
 		}
@@ -29,16 +31,16 @@ std::vector<int> in_order_traversal(TreeNode<int>* root)
 	return result;
 }
 
-void in_order_traversal(std::vector<int> & result, TreeNode<int>* root)
+void in_order_traversal(std::vector<int> &result, TreeNode<int> *root)
 {
-	if(!root)
+	if (!root)
 		return;
 	in_order_traversal(result, root->left);
 	result.push_back(root->value);
 	in_order_traversal(result, root->right);
 }
 
-std::vector<int> in_order_traversal_recursive(TreeNode<int>* root)
+std::vector<int> in_order_traversal_recursive(TreeNode<int> *root)
 {
 	std::vector<int> result;
 	in_order_traversal(result, root);

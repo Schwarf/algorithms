@@ -25,23 +25,23 @@ struct TreeNode
 		right(nullptr)
 	{
 	}
-	TreeNode(const T &val, TreeNode * left, TreeNode *right)
+	TreeNode(const T &val, TreeNode *left, TreeNode *right)
 		:
 		value(val),
 		left(left),
 		right(right)
 	{
 	}
-	TreeNode<int>* add_left(const T &val)
+	TreeNode<int> *add_left(const T &val)
 	{
-		if(!this)
+		if (!this)
 			return nullptr;
 		this->left = new TreeNode<int>(val);
 		return this->left;
 	}
-	TreeNode<int>* add_right(const T &val)
+	TreeNode<int> *add_right(const T &val)
 	{
-		if(!this)
+		if (!this)
 			return nullptr;
 		this->right = new TreeNode<int>(val);
 		return this->right;
