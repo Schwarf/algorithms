@@ -14,6 +14,7 @@ add_executable(test_data_structures
         stacks_and_queues/test_queue_array_based.cpp
         heaps/test_binary_heap.cpp
         heaps/test_k_ary_heap.cpp
-        trees/test_binary_tree.cpp)
+        trees/test_binary_tree.cpp
+        trees/binary_trees/test_pre_order_traversal.cpp)
 target_link_libraries(test_data_structures gtest gtest_main)
 target_link_libraries(test_data_structures linked_list_lib)
