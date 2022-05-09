@@ -55,4 +55,5 @@ include_directories(trees)
 include_directories(miscellaneous)
 include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib)
+target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib trees_lib
+        binary_tree_lib)
