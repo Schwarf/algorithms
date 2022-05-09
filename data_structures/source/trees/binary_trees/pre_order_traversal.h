@@ -11,19 +11,19 @@
 std::vector<int> pre_order_traversal(TreeNode<int>* root)
 {
 	std::vector<int> answer;
-	std::stack<TreeNode<int>*> remember_right_leafs;
-	while(root || !remember_right_leafs.empty())
+	std::stack<TreeNode<int>*> remember_right_nodes;
+	while(root || !remember_right_nodes.empty())
 	{
 		while(root)
 		{
 			answer.push_back(root->value);
 			if(root->right)
-				remember_right_leafs.push(root->right);
+				remember_right_nodes.push(root->right);
 			root = root->left;
 		}
-		if(!remember_right_leafs.empty()) {
-			root = remember_right_leafs.top();
-			remember_right_leafs.pop();
+		if(!remember_right_nodes.empty()) {
+			root = remember_right_nodes.top();
+			remember_right_nodes.pop();
 		}
 	}
 	return answer;
