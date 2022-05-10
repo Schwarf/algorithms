@@ -23,7 +23,7 @@ struct N_aryTreeNode
 	std::vector<N_aryTreeNode<T, maximal_number_of_children> *> children;
 	N_aryTreeNode()
 	{
-		children.resize(maximal_number_of_children, nullptr);
+		children.reserve(maximal_number_of_children, nullptr);
 	}
 	bool add_child(const T & value)
 	{
