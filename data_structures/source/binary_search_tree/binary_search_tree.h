@@ -16,7 +16,7 @@ public:
 	Node<Key, Value>* add_(Node<Key, Value> * node, const Key & key, const Value & value){
 		if(node == nullptr)
 			return new Node<Key, Value>(key, value);
-		if(key =< node->key())
+		if(key <= node->key())
 			add_(node->left(), key, value);
 		if(key > node->key())
 			add_(node->right(), key, value);

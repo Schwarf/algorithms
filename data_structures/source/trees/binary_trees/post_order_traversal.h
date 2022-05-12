@@ -9,8 +9,6 @@
 #include <stack>
 #include <algorithm>
 
-#include "tree_node.h"
-
 // For Post order, you traverse from the left subtree to the right subtree then to the root.
 // Postorder => Left, Right, Root.
 std::vector<int> post_order_traversal(TreeNode<int> *root)

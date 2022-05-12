@@ -20,6 +20,32 @@ protected:
 	std::vector<int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
 	int depth{4};
 
+	static TreeNode<int> * inverted_tree()
+	{
+		auto root = new TreeNode<int>(25);
+		auto left= root->add_left(50);
+		auto right = root->add_right(15);
+
+		auto left_left = left->add_left(70);
+		auto left_right = left->add_right(35);
+
+		auto right_left = right->add_left(22);
+		auto right_right = right->add_right(10);
+
+		left_left->add_left(90);
+		left_left->add_right(66);
+
+		left_right->add_left(44);
+		left_right->add_right(31);
+
+
+		right_left->add_left(24);
+		right_left->add_right(18);
+
+		right_right->add_left(12);
+		right_right->add_right(4);
+		return root;
+	}
 	static TreeNode<int> * binary_tree_root()
 	{
 		auto root = new TreeNode<int>(25);
