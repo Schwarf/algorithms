@@ -95,6 +95,28 @@ Node<T> *kth_to_last_recursive(Node<T> *head, int k)
 	return kth_to_last_recursive(head, k, i);
 }
 
+template<typename T>
+Node<T> * kth_to_last(Node<T> * head, int k)
+{
+	auto front = head;
+	auto back = head;
+	// adv
+	while(k--)
+	{
+		front = front->next;
+	}
+	// we omit the
+	if(!front)
+		return head->next;
+	while(front->next)
+	{
+		front = front->next;
+		back = back->next;
+	}
+	back->next = back->next->next;
+	return head;
+}
+
 int main()
 {
 	auto single = LinkedList<int>();
@@ -106,10 +128,10 @@ int main()
 	single.push_back(13);
 	single.push_back(178);
 	single.print_list();
-	std::cout << single.kth_to_last(2) << std::endl;
-	std::cout << kth_to_last_recursive(single.head(), 2)->value << std::endl;
-	assert(single.kth_to_last(2)==kth_to_last_recursive(single.head(), 2)->value);
-	assert(single.kth_to_last(1)==kth_to_last_recursive(single.head(), 1)->value);
-	assert(single.kth_to_last(4)==kth_to_last_recursive(single.head(), 4)->value);
-	assert(single.kth_to_last(7)==kth_to_last_recursive(single.head(), 7)->value);
+//	std::cout << single.kth_to_last(2) << std::endl;
+//	std::cout << kth_to_last_recursive(single.head(), 2)->value << std::endl;
+	assert(single.kth_to_last(2)==kth_to_last(single.head(), 2)->value);
+//	assert(single.kth_to_last(1)==kth_to_last(single.head(), 1)->value);
+//	assert(single.kth_to_last(4)==kth_to_last(single.head(), 4)->value);
+//	assert(single.kth_to_last(7)==kth_to_last(single.head(), 7)->value);
 }
