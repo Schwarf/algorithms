@@ -28,7 +28,7 @@ int64_t step_count_recursive(int steps)
 	if (steps <= 0)
 		return 0;
 	if (steps == 1)
-		return 1;	
+		return 1;
 	if (steps == 2)
 		return 2;
 	return step_count_recursive(steps - 1) + step_count_recursive(steps - 2) + step_count_recursive(steps - 3);
@@ -38,4 +38,9 @@ int main()
 {
 	std::cout << step_count(18) << std::endl;
 	std::cout << step_count_recursive(18) << std::endl;
+	std::string test{"abcdefghijklmnopqrstuvwxyz"};
+	for(const auto & element : test )
+	{
+		std::cout << element - 'a' << std::endl;
+	}
 }
