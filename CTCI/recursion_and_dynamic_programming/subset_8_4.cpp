@@ -47,5 +47,7 @@ int main()
 		std::cout << "}" << std::endl;
 	}
 	std::cout << result.size() << std::endl;
+	int x = 1 <<0;
+	std::cout << x << std::endl;
 
 }
