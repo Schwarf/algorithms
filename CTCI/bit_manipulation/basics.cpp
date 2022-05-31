@@ -17,6 +17,11 @@ int get_next_power_of_two(int number)
 	number++;
 }
 
+bool is_power_of_two(int number)
+{
+	return ((number & (number-1)) ==0);
+}
+
 
 template<typename T, size_t bitset_size>
 std::bitset<bitset_size> convert(T &value)
