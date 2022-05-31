@@ -4,6 +4,18 @@
 
 #include <bitset>
 #include <iostream>
+#include <type_traits>
+
+int get_next_power_of_two(int number)
+{
+	number--;
+	number |= number >> 1;
+	number |= number >> 2;
+	number |= number >> 4;
+	number |= number >> 8;
+	number |= number >> 16;
+	number++;
+}
 
 
 template<typename T, size_t bitset_size>
@@ -52,6 +64,8 @@ void clear_bits_from_zero_until(T &number, int bit_position)
 	int mask = (-1 << (bit_position + 1));
 	number &= mask;
 }
+
+
 
 
 int main()
