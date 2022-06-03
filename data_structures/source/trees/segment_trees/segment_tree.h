@@ -33,9 +33,9 @@ public:
 			int right = index;
 
 			if(index & 1)
-				left = index - 1;
+				left--;
 			else
-				right = index + 1;
+				right++;
 			tree_[index/2] = tree_[left] + tree_[right];
 			index /= 2;
 		}
@@ -51,7 +51,7 @@ public:
 			if(left_index & 1)
 				sum += tree_[left_index++];
 			if(!(right_index & 1))
-				sum += tree_[right_index++];
+				sum += tree_[right_index--];
 			left_index /=2;
 			right_index /=2;
 		}

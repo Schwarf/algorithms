@@ -9,5 +9,9 @@
 TEST_F(SetupSegmentTree, test_segment_tree)
 {
 	auto tree = SegmentTree<int>(input);
-	EXPECT_TRUE(1==1);
+	int left_index{2};
+	int right_index{6};
+	auto sum1 = tree.sum_range(left_index, right_index);
+	auto sum2 = prefix_sum[right_index+1] - prefix_sum[left_index];
+	EXPECT_EQ(sum1, sum2);
 }
