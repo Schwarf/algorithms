@@ -5,7 +5,10 @@
 #ifndef SEGMENT_TREE_H
 #define SEGMENT_TREE_H
 #include <vector>
-// USed only for fixed size arrays/vectors. Adding of elements not POSSIBLE!!!
+// Used only for fixed size arrays/vectors. Adding of elements not POSSIBLE!!!
+
+
+
 template<typename T>
 class SegmentTree{
 public:
@@ -38,7 +41,24 @@ public:
 		}
 	}
 
-	
+	T sum_range(int left_index, int right_index)
+	{
+		left_index += tree_size_/2;
+		right_index += tree_size_/2;
+		T sum{};
+		while(left_index <= right_index)
+		{
+			if(left_index & 1)
+				sum += tree_[left_index++];
+			if(!(right_index & 1))
+				sum += tree_[right_index++];
+			left_index /=2;
+			right_index /=2;
+		}
+		return sum;
+	}
+
+
 
 private:
 	void build_tree(std::vector<T> & input)
