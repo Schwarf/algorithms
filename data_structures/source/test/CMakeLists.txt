@@ -31,7 +31,8 @@ add_executable(test_binary_tree_algorithms
         trees/binary_trees/test_invert_binary_tree.cpp)
 
 add_executable(test_segment_tree_algorithms
-        trees/segment_trees/
+        trees/segment_trees/setup_for_segment_tree_testing.h
+        trees/segment_trees/test_segment_tree.cpp
 )
 
 target_link_libraries(test_linked_lists gtest gtest_main)
@@ -39,5 +40,6 @@ target_link_libraries(test_stacks_and_queues gtest gtest_main)
 target_link_libraries(test_heaps gtest gtest_main)
 target_link_libraries(test_binary_tree_traversal gtest gtest_main)
 target_link_libraries(test_binary_tree_algorithms gtest gtest_main)
+target_link_libraries(test_segment_tree_algorithms gtest gtest_main)
 
 

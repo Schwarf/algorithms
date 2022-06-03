@@ -2,23 +2,20 @@
 // Created by andreas on 03.06.22.
 //
 
-#ifndef SETUP_FOR_SEGEMENT_TREE_TESTING_H
-#define SETUP_FOR_SEGEMENT_TREE_TESTING_H
+#ifndef SETUP_FOR_SEGMENT_TREE_TESTING_H
+#define SETUP_FOR_SEGMENT_TREE_TESTING_H
 //
 // Created by andreas on 03.04.22.
 //
 
-#ifndef SETUP_N_ARY_TREE_H
-#define SETUP_N_ARY_TREE_H
 #include "gtest/gtest.h"
 #include <vector>
-#include "./../../../trees/segment_trees/segment_tree.h"
 
 
 class SetupSegmentTree: public testing::Test
 {
 public:
-	SetupSegmentTree()
+	void SetUp() override
 		{
 			compute_prefix_sum();
 		};
@@ -38,6 +35,4 @@ private:
 
 };
 
-#endif //SETUP_N_ARY_TREE_H
-
-#endif //SETUP_FOR_SEGEMENT_TREE_TESTING_H
+#endif //SETUP_FOR_SEGMENT_TREE_TESTING_H
