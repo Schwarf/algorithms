@@ -37,7 +37,7 @@ void depth_first_search(std::vector<std::vector<std::string>> &result,
 		invalid_columns[col] = false;
 		invalid_backward_diagonals[col + row] = false;
 		invalid_forward_diagonals[col - row + board_size - 1] = false;
-		board[row][col] = '.';
+		board[row][col] = '-';
 
 	}
 }
@@ -53,6 +53,7 @@ std::vector<std::vector<std::string>> solve_queen_problem(int board_size)
 					   std::vector<bool>(board_size),
 					   std::vector<bool>(2 * board_size - 1),
 					   std::vector<bool>(2 * board_size - 1));
+	return result;
 
 }
 
