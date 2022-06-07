@@ -3,3 +3,4 @@ project(bit_manipulation)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(basics basics.cpp)
+add_executable(insertion insertion_5_1.cpp)
