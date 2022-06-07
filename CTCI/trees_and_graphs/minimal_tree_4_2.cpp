@@ -5,7 +5,8 @@ template<typename T>
 
 struct Node
 {
-	T val;
+	Node(T val) {value = val;}
+	T value;
 	Node *left = nullptr;
 	Node *right = nullptr;
 };
@@ -32,4 +33,8 @@ int main()
 {
 	std::vector<int> x{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
+	auto head = create_minimal_binary_search_tree(x);
+	std::cout << head->value << std::endl;
+	std::cout << head->left->left->left->value << std::endl;
+	std::cout << head->right->value << std::endl;
 }
