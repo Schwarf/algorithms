@@ -37,13 +37,16 @@ Node<T> *create_minimal_binary_search_tree_iteratively(std::vector<T> &sorted)
 	auto head = new Node<T>(sorted[index]);
 	auto queue = std::queue<std::pair<Node<T>*, int>>();
 	queue.push(std::make_pair(head, index));
-	while(!queue.empty() && ((index+index/2) < sorted.size()) && ((index-index/2) > -1))
+	while(!queue.empty())
 	{
 		auto node = queue.front().first;
 		index = queue.front().second;
 		queue.pop();
-		auto left_index = index - index/2;
-		auto right_index = index + index/2;
+		if(index +1  > sorted.size() -1 || ( index-1 < 0))
+			break;
+
+		auto left_index = (index -1)/2;
+		auto right_index = (index +1)/2;
 		auto left = new Node<T>(sorted[left_index]);
 		auto right = new Node<T>(sorted[right_index]);
 		node->left = left;
@@ -54,14 +57,29 @@ Node<T> *create_minimal_binary_search_tree_iteratively(std::vector<T> &sorted)
 	return head;
 }
 
+template <typename T>
+void pre_order_traversal(Node<T> * head)
+{
+	if(head == nullptr)
+		return;
+	std::cout<< head->value << "  " ;
+	pre_order_traversal(head->left);
+	pre_order_traversal(head->right);
+}
+
+
 int main()
 {
-	std::vector<int> x{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	std::vector<int> x{-1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
 	auto head = create_minimal_binary_search_tree(x);
 	auto head2 = create_minimal_binary_search_tree_iteratively(x);
+	//std::cout << head->value/head2->value << std::endl;
 
-	std::cout << head->value << std::endl;
-	std::cout << head->left->left->left->value << std::endl;
-	std::cout << head->right->value << std::endl;
+	//std::cout << head->left->left->value << "  " << head2->left->left->value << std::endl;
+	//std::cout << head->right->value/head2->right->value << std::endl;
+	pre_order_traversal<int>(head);
+	std::cout << std::endl;
+	// TODO iterative approach not working
+	pre_order_traversal<int>(head2);
 }
