@@ -3,4 +3,4 @@ project(binary_search)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(binary_search main.cpp binary_search.h)
+add_executable(binary_search main.cpp binary_search.h first_appearance_in_sorted_vector.h)
