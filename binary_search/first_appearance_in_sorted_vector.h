@@ -11,23 +11,23 @@ template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::
 int first_appearance(std::vector<T> & input, T target)
 {
 	int iterator_distance = input.size() -1;
-	int current{};
-	int step{};
-	int begin{};
+	int current_index{};
+	int step_size{};
+	int start_index{};
 	while(iterator_distance > 0)
 	{
-		current = begin;
-		step = iterator_distance/2;
-		current += step;
-		if(input[current] < target)
+		current_index = start_index;
+		step_size = iterator_distance/2;
+		current_index += step_size;
+		if(input[current_index] < target)
 		{
-			begin = ++current;
-			iterator_distance -= step + 1;
+			start_index = ++current_index;
+			iterator_distance -= step_size + 1;
 		}
 		else
-			iterator_distance = step;
+			iterator_distance = step_size;
 	}
-	return begin;
+	return start_index;
 
 }
 

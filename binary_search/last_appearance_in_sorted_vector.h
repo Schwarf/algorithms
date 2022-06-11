@@ -13,24 +13,24 @@ template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::
 int last_appearance(std::vector<T> & input, T target)
 {
 	int iterator_distance = input.size() -1;
-	int current{};
+	int current_index{};
 	int step{};
-	int begin{};
+	int start_index{};
 	while(iterator_distance > 0)
 	{
-		current = begin;
+		current_index = start_index;
 		step = iterator_distance/2;
-		current += step;
-		if(!(target < input[current]))
+		current_index += step;
+		if(!(target < input[current_index]))
 		{
-			begin = current;
-			++begin;
+			start_index = current_index;
+			++start_index;
 			iterator_distance -= step + 1;
 		}
 		else
 			iterator_distance = step;
 	}
-	return begin;
+	return start_index;
 
 }
 
