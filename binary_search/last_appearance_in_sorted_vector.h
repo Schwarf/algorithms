@@ -21,7 +21,7 @@ int last_appearance(std::vector<T> & input, T target)
 		current = begin;
 		step = iterator_distance/2;
 		current += step;
-		if(!(input[current] < target))
+		if(!(target < input[current]))
 		{
 			begin = current;
 			++begin;
