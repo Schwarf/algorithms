@@ -29,7 +29,7 @@ int minimal_operations_to_get_zero(std::vector<T> &input, T target)
 
 	target = sum - target;
 	T current_sum{};
-	int start_index;
+	int start_index{};
 	int count_operations{};
 	for(int i =0; i < input.size(); ++i)
 	{
