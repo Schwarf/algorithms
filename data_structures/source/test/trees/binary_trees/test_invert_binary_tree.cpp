@@ -3,8 +3,8 @@
 //
 
 #include "setup_binary_tree.h"
-#include "./../../../../trees/binary_trees/invert_binary_tree.h"
-#include "./../../../../trees/binary_trees/post_order_traversal.h"
+#include "./../../../trees/binary_trees/invert_binary_tree.h"
+#include "./../../../trees/binary_trees/post_order_traversal.h"
 
 TEST_F(SetupBinaryTree, test_invert_binary_tree)
 {

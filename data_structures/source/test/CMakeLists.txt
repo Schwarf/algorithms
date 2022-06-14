@@ -1,8 +1,11 @@
 project(Google_tests)
 
 # 'lib' is the folder with Google Test sources
-add_subdirectory(google_test_lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+#add_subdirectory(google_test_lib)
+#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 enable_testing()
 add_executable(test_linked_lists
@@ -35,11 +38,11 @@ add_executable(test_segment_tree_algorithms
         trees/segment_trees/test_segment_tree.cpp
 )
 
-target_link_libraries(test_linked_lists gtest gtest_main)
-target_link_libraries(test_stacks_and_queues gtest gtest_main)
-target_link_libraries(test_heaps gtest gtest_main)
-target_link_libraries(test_binary_tree_traversal gtest gtest_main)
-target_link_libraries(test_binary_tree_algorithms gtest gtest_main)
-target_link_libraries(test_segment_tree_algorithms gtest gtest_main)
+target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_stacks_and_queues ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_heaps ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_binary_tree_traversal ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_binary_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_segment_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 
 
