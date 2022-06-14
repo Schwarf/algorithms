@@ -1,6 +1,7 @@
 #include <iostream>
 #include "sum_longest_subarray_with_unique_elements.h"
 #include "minimal_operations_to_get_zero.h"
+#include "longest_common_substring.h"
 
 int main()
 {
@@ -31,5 +32,24 @@ int main()
 	std::cout << minimal_operations_to_get_zero(test1, target1) - result1 << std::endl;
 	std::cout << minimal_operations_to_get_zero(test2, target2) - result2 << std::endl;
 	std::cout << minimal_operations_to_get_zero(test3, target3) - result3 << std::endl;
+
+	std::cout << "Longest common substring" << std::endl;
+	std::string s1{"Hallo"};
+	std::string s2{"Hallo"};
+
+	std::cout << longest_common_substring(s1, s2) << std::endl;
+	s1 = "HalloaIOPP";
+	s2 = "asbnaHalloa";
+
+	std::cout << longest_common_substring(s1, s2) << std::endl;
+	s1 = "1";
+	s2 = "2";
+
+	std::cout << longest_common_substring(s1, s2) << std::endl;
+	s1 = "";
+	s2 = "";
+
+	std::cout << longest_common_substring(s1, s2) << std::endl;
+
 
 }
