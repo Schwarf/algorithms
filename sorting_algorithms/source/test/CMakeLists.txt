@@ -1,9 +1,11 @@
 # 'Google_test' is the subproject name
 project(Google_tests)
 
-# 'lib' is the folder with Google Test sources
-add_subdirectory(google_test_lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+#add_subdirectory(google_test_lib)
+#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
 
 add_executable(sorting_tests
         sorting_algorithms/test_insertion_sort.cpp
@@ -16,5 +18,6 @@ add_executable(sorting_tests
         sorting_algorithms/test_bubble_sort.cpp
         sorting_algorithms/test_heap_sort.cpp
         sorting_algorithms/test_counting_sort.cpp)
-target_link_libraries(sorting_tests gtest gtest_main)
+#target_link_libraries(sorting_tests gtest gtest_main)
+target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(sorting_tests sorting_lib)
