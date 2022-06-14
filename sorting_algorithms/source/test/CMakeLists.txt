@@ -5,8 +5,6 @@ project(Google_tests)
 add_subdirectory(google_test_lib)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-# 'Google_Tests_run' is the target name
-# 'test1.cpp tests2.cpp' are source files with tests
 add_executable(sorting_tests
         sorting_algorithms/test_insertion_sort.cpp
         sorting_algorithms/sorting_setup.h
