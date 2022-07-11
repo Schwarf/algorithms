@@ -7,6 +7,12 @@
 #include <string>
 #include <vector>
 
+// Given two strings text1 and text2, return the length of their longest common substring. If there is no common
+// substring, return 0.
+// A substring of a string is a new string generated from the original string with some characters (can be none)
+// deleted without changing the relative order of the remaining characters.
+// For example, "ace" is a subsequence of "abcde".
+// A common subsequence of two strings is a subsequence that is common to both strings.
 
 int longest_common_substring(std::string word1, std::string word2) {
 
