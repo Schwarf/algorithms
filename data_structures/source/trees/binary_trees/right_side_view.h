@@ -22,7 +22,7 @@ void depth_first_search(TreeNode<int>* root, int depth, std::vector<int> & resul
 
 }
 
-std::vector<int> ride_side_view(TreeNode<int> *root)
+std::vector<int> right_side_view(TreeNode<int> *root)
 {
 	std::vector<int> result;
 	depth_first_search(root, 0, result);
