@@ -4,3 +4,4 @@ project(dynamic_programming)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(min_costs_to_reach_end min_costs_to_reach_end.cpp)
+add_executable(min_jumps_to_last_index min_jumps_to_last_index.cpp)
