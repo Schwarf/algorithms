@@ -12,9 +12,11 @@ int min_jumps_to_last_index(std::vector<int> &max_jump_lengths)
 	int current_max = 0;
 	int jumps = 0;
 	for(int i = 0;i<max_jump_lengths.size()-1;i++){
+		// update the maximum to reach from the current index
 		if(i+max_jump_lengths[i] > current_max){
 			current_max = i +max_jump_lengths[i];
 		}
+		// when the index reaches the current-reach we update the current-reach to the seen maximum
 		if(i==current_reach){
 			jumps++;
 			current_reach = current_max;
