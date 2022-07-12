@@ -15,6 +15,7 @@ int get_next_power_of_two(int number)
 	number |= number >> 8;
 	number |= number >> 16;
 	number++;
+    return number;
 }
 
 bool is_power_of_two(int number)
