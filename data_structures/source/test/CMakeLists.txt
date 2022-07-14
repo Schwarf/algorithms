@@ -31,7 +31,8 @@ add_executable(test_binary_tree_traversal
 add_executable(test_binary_tree_algorithms
         trees/test_binary_tree.cpp
         trees/binary_trees/test_maximum_depth.cpp
-        trees/binary_trees/test_right_side_view.cpp)
+        trees/binary_trees/test_right_side_view.cpp
+        trees/binary_trees/test_construct_binary_tree_from_preorder_and_inorder.cpp)
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h
