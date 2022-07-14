@@ -18,12 +18,13 @@ protected:
 	std::vector<int> inorder{4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90};
 	std::vector<int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
 	std::vector<int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
+	std::vector<std::vector<int>> levelorder{{25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
 	int depth{4};
 
-	static TreeNode<int> * inverted_tree()
+	static TreeNode<int> *inverted_tree()
 	{
 		auto root = new TreeNode<int>(25);
-		auto left= root->add_left(50);
+		auto left = root->add_left(50);
 		auto right = root->add_right(15);
 
 		auto left_left = left->add_left(70);
@@ -46,10 +47,10 @@ protected:
 		right_right->add_right(4);
 		return root;
 	}
-	static TreeNode<int> * binary_tree_root()
+	static TreeNode<int> *binary_tree_root()
 	{
 		auto root = new TreeNode<int>(25);
-		auto left= root->add_left(15);
+		auto left = root->add_left(15);
 		auto right = root->add_right(50);
 
 		auto left_left = left->add_left(10);

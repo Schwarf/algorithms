@@ -26,7 +26,7 @@ add_executable(test_heaps
 add_executable(test_binary_tree_traversal
         trees/binary_trees/test_pre_order_traversal.cpp
         trees/binary_trees/test_in_order_traversal.cpp
-        trees/binary_trees/test_post_order_traversal.cpp)
+        trees/binary_trees/test_post_order_traversal.cpp trees/binary_trees/test_level_order_traversal.cpp)
 
 add_executable(test_binary_tree_algorithms
         trees/test_binary_tree.cpp

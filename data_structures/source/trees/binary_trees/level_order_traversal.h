@@ -10,7 +10,7 @@
 
 
 template <typename T>
-std::vector<std::vector<T>> levelOrder(TreeNode<T>* root) {
+std::vector<std::vector<T>> level_order_traversal(TreeNode<T>* root) {
 	if(!root)
 		return {};
 	auto result = std::vector<std::vector<T>>();
@@ -26,7 +26,7 @@ std::vector<std::vector<T>> levelOrder(TreeNode<T>* root) {
 			while(help.front() != nullptr)
 			{
 				node = help.front();
-				insert.push_back(node->val);
+				insert.push_back(node->value);
 				help.pop();
 				if(node->left)
 					help.push(node->left);

@@ -7,7 +7,7 @@
 #include "./../../../trees/binary_trees/post_order_traversal.h"
 #include "./../../../trees/binary_trees/in_order_traversal.h"
 
-TEST_F(SetupBinaryTree, test_inorder_traversal)
+TEST_F(SetupBinaryTree, test_construct_binary_tree_from_preorder_and_inorder)
 {
 	auto root = SetupBinaryTree::binary_tree_root();
 	auto constructed_root = construct_from_preorder_and_inorder(preorder, inorder);
