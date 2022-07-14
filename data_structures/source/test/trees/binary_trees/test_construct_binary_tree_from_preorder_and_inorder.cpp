@@ -9,7 +9,6 @@
 
 TEST_F(SetupBinaryTree, test_construct_binary_tree_from_preorder_and_inorder)
 {
-	auto root = SetupBinaryTree::binary_tree_root();
 	auto constructed_root = construct_from_preorder_and_inorder(preorder, inorder);
 	auto result_constructed = post_order_traversal_recursive(constructed_root);
 	auto result_constructed2 = in_order_traversal(constructed_root);

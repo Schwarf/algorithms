@@ -5,12 +5,12 @@
 #ifndef CONSTRUCT_BINARY_TREE_FROM_INORDER_AND_POSTORDER_H
 #define CONSTRUCT_BINARY_TREE_FROM_INORDER_AND_POSTORDER_H
 #include <vector>
-#include "tree_node.h"
 #include <unordered_map>
+#include "tree_node.h"
 
 
 template<typename T>
-TreeNode<T> *_construct_tree(std::vector<T> &postorder,
+TreeNode<T> *_construct_tree_post_in(std::vector<T> &postorder,
 							 int left,
 							 int right,
 							 int &post_order_index,
@@ -20,12 +20,12 @@ TreeNode<T> *_construct_tree(std::vector<T> &postorder,
 		return nullptr;
 	int root_value = postorder[post_order_index--];
 	auto root = new TreeNode<T>(root_value);
-	root->right = _construct_tree(postorder,
+	root->right = _construct_tree_post_in(postorder,
 								  inorder_value_to_index[root_value] + 1,
 								  right,
 								  post_order_index,
 								  inorder_value_to_index);
-	root->left = _construct_tree(postorder,
+	root->left = _construct_tree_post_in(postorder,
 								 left,
 								 inorder_value_to_index[root_value] - 1,
 								 post_order_index,
@@ -41,7 +41,7 @@ TreeNode<T> *construct_from_inorder_and_postorder(std::vector<T> &post_order, st
 	for (int i = 0; i < in_order.size(); ++i)
 		inorder_value_to_index[in_order[i]] = i;
 
-	return _construct_tree(post_order, 0, post_order.size() - 1, post_order_index, inorder_value_to_index);
+	return _construct_tree_post_in(post_order, 0, post_order.size() - 1, post_order_index, inorder_value_to_index);
 
 }
 
