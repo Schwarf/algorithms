@@ -4,22 +4,26 @@
 
 #ifndef GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
 #define GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
+
 #include <vector>
 #include <stack>
 #include <utility>
+#include <algorithm>
+
 /*
-You are given an m x n binary matrix grid, the earth. An island is a group of 1's (representing land)
+You are given an m x n binary matrix grid, the quadrant_map. An island is a group of 1's (representing land)
  connected 4-directionally
  (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
 The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 */
 
-void dfs_iterative_max_area(std::vector<std::vector<int>> & earth, std::vector<std::vector<bool>> & visited, int & max_area, int row, int column)
-{
-    if(!earth[row][column])
+void
+dfs_iterative_max_area(std::vector<std::vector<int>> &quadrant_map, std::vector<std::vector<bool>> &visited, int &max_area,
+                       int row, int column) {
+    if (!quadrant_map[row][column])
         return;
-    if(visited[row][column])
+    if (visited[row][column])
         return;
 
     std::stack<std::pair<int, int>> help;
@@ -27,32 +31,55 @@ void dfs_iterative_max_area(std::vector<std::vector<int>> & earth, std::vector<s
     visited[row][column] = true;
     int area{};
 
-    while(!help.empty())
-    {
+    while (!help.empty()) {
         auto current = help.top();
         help.pop();
         visited[current.first][current.second] = true;
-        if((current.first -1  > 0) && earth[current.first-1][current.second])
-            help.push(std::make_pair(current.first-1, current.second));
-        if((current.first +1  < earth.size()) && earth[current.first+1][current.second])
-            help.push(std::make_pair(current.first+1, current.second));
-        if((current.second -1 > 0) && earth[current.first][current.second-1])
-            help.push(std::make_pair(current.first, current.second-1));
-        if((current.second +1  < earth[0].size()) && earth[current.first][current.second+1])
-            help.push(std::make_pair(current.first, current.second+1));
+        if ((current.first - 1 > -1) && quadrant_map[current.first - 1][current.second])
+            help.push(std::make_pair(current.first - 1, current.second));
+        if ((current.first + 1 < quadrant_map.size()) && quadrant_map[current.first + 1][current.second])
+            help.push(std::make_pair(current.first + 1, current.second));
+        if ((current.second - 1 > -1) && quadrant_map[current.first][current.second - 1])
+            help.push(std::make_pair(current.first, current.second - 1));
+        if ((current.second + 1 < quadrant_map[0].size()) && quadrant_map[current.first][current.second + 1])
+            help.push(std::make_pair(current.first, current.second + 1));
+        area++;
     }
-    if(area > max_area)
-        area=max_area;
+    if (area > max_area)
+        max_area = area;
 }
 
-int size_of_largest_island(std::vector<std::vector<int>> & earth)
-{
-    int n = earth.size();
-    int m = earth[0].size();
+int size_of_largest_island(std::vector<std::vector<int>> &quadrant_map) {
+    int n = quadrant_map.size();
+    int m = quadrant_map[0].size();
     std::vector<std::vector<bool>> visited(n, std::vector<bool>(m, false));
     int max_area{};
-    dfs_iterative_max_area(earth, visited, max_area, 0, 0);
+    dfs_iterative_max_area(quadrant_map, visited, max_area, 0, 0);
 }
 
+
+int dfs_recursive_max_area(std::vector<std::vector<int>> &quadrant_map, int row, int column) {
+    if (row < 0 || row > quadrant_map.size() || column < 0 || column > quadrant_map[0].size())
+        return 0;
+    if (!quadrant_map[row][column])
+        return 0;
+    return 1 + dfs_recursive_max_area(quadrant_map, row + 1, column) + dfs_recursive_max_area(quadrant_map, row - 1, column) +
+           dfs_recursive_max_area(quadrant_map, row, column - 1) + dfs_recursive_max_area(quadrant_map, row, column + 1);
+}
+
+int size_of_largest_island_recursive(std::vector<std::vector<int>> &quadrant_map) {
+    int n = quadrant_map.size();
+    int m = quadrant_map[0].size();
+    int max_area{};
+    int area{};
+    for (int row = 0; row < n; ++row)
+        for (int column = 0; column < m; ++column) {
+            if (quadrant_map[row][column])
+                area = dfs_recursive_max_area(quadrant_map, row, column);
+
+            max_area = std::max(max_area, area);
+        }
+    return max_area;
+}
 
 #endif //GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
