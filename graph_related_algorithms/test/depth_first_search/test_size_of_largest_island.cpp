@@ -40,3 +40,34 @@ TEST_F(SetupIslands, test_iterative_approach_earth1)
     auto result = size_of_largest_island(earth1);
     EXPECT_EQ(result, answer1);
 }
+
+TEST_F(SetupIslands, test_iterative_approach_earth2)
+{
+    auto result = size_of_largest_island(earth2);
+    EXPECT_EQ(result, answer2);
+}
+
+TEST_F(SetupIslands, test_iterative_approach_earth3)
+{
+    auto result = size_of_largest_island(earth3);
+    EXPECT_EQ(result, answer3);
+}
+
+
+TEST_F(SetupIslands, test_recursive_approach_earth1)
+{
+    auto result = size_of_largest_island_recursive(earth1);
+    EXPECT_EQ(result, answer1);
+}
+
+TEST_F(SetupIslands, test_recursive_approach_earth2)
+{
+    auto result = size_of_largest_island_recursive(earth2);
+    EXPECT_EQ(result, answer2);
+}
+
+TEST_F(SetupIslands, test_recursive_approach_earth3)
+{
+    auto result = size_of_largest_island_recursive(earth3);
+    EXPECT_EQ(result, answer3);
+}

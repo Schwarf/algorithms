@@ -65,10 +65,11 @@ int size_of_largest_island(std::vector<std::vector<int>> &quadrant_map) {
 
 
 int dfs_recursive_max_area(std::vector<std::vector<int>> &quadrant_map, int row, int column) {
-    if (row < 0 || row > quadrant_map.size() || column < 0 || column > quadrant_map[0].size())
+    if (row < 0 || row > quadrant_map.size()-1 || column < 0 || column > quadrant_map[0].size()-1)
         return 0;
     if (!quadrant_map[row][column])
         return 0;
+    quadrant_map[row][column] =0;
     return 1 + dfs_recursive_max_area(quadrant_map, row + 1, column) + dfs_recursive_max_area(quadrant_map, row - 1, column) +
            dfs_recursive_max_area(quadrant_map, row, column - 1) + dfs_recursive_max_area(quadrant_map, row, column + 1);
 }
