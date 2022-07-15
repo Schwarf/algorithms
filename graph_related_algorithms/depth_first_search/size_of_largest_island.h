@@ -28,13 +28,13 @@ dfs_iterative_max_area(std::vector<std::vector<int>> &quadrant_map, std::vector<
 
     std::stack<std::pair<int, int>> help;
     help.push(std::make_pair(row, column));
-    visited[row][column] = true;
     int area{};
 
     while (!help.empty()) {
         auto current = help.top();
         help.pop();
-        visited[current.first][current.second] = true;
+        if(visited[current.first][current.second])
+            continue;
         if ((current.first - 1 > -1) && quadrant_map[current.first - 1][current.second])
             help.push(std::make_pair(current.first - 1, current.second));
         if ((current.first + 1 < quadrant_map.size()) && quadrant_map[current.first + 1][current.second])
@@ -43,6 +43,7 @@ dfs_iterative_max_area(std::vector<std::vector<int>> &quadrant_map, std::vector<
             help.push(std::make_pair(current.first, current.second - 1));
         if ((current.second + 1 < quadrant_map[0].size()) && quadrant_map[current.first][current.second + 1])
             help.push(std::make_pair(current.first, current.second + 1));
+        visited[current.first][current.second] = true;
         area++;
     }
     if (area > max_area)
@@ -54,7 +55,12 @@ int size_of_largest_island(std::vector<std::vector<int>> &quadrant_map) {
     int m = quadrant_map[0].size();
     std::vector<std::vector<bool>> visited(n, std::vector<bool>(m, false));
     int max_area{};
-    dfs_iterative_max_area(quadrant_map, visited, max_area, 0, 0);
+    for(int row =0 ; row < quadrant_map.size(); ++row) {
+        for (int column = 0; column < quadrant_map[0].size(); ++column) {
+            dfs_iterative_max_area(quadrant_map, visited, max_area, row, column);
+        }
+    }
+    return max_area;
 }
 
 
