@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(graph_related_algorithms)
+project(graph_related_algorithms_test)
 
 
 find_package(GTest REQUIRED)

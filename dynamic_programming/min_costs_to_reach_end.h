@@ -22,7 +22,7 @@ int min_cost_to_reach_end(std::vector<int> &cost)
 	}
 	return previous;
 }
-
+/*
 int main()
 {
 	auto test1 = std::pair<std::vector<int>, int>{std::vector<int>{10, 15, 20}, 15};
@@ -34,3 +34,4 @@ int main()
 	std::cout << min_cost_to_reach_end(test2.first) << ", " << test2.second << std::endl;
 	std::cout << min_cost_to_reach_end(test3.first) << ", " << test3.second << std::endl;
 }
+ */

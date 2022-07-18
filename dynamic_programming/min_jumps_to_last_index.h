@@ -25,7 +25,7 @@ int min_jumps_to_last_index(std::vector<int> &max_jump_lengths)
 	return jumps;
 }
 
-
+/*
 int main()
 {
 	auto test1 = std::pair<std::vector<int>, int>{std::vector<int>{2,3,1,1,4}, 2};
@@ -37,3 +37,4 @@ int main()
 	std::cout << min_jumps_to_last_index(test3.first) << ", " << test3.second << std::endl;
 
 }
+ */
