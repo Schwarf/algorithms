@@ -37,6 +37,7 @@ int count_ways_down_and_right_in_2D_grid(int number_of_rows,
 int count_ways_down_and_right_in_2D_grid(int number_of_rows, int number_of_columns)
 {
 	std::unordered_map<std::pair<int, int>, int, pair_hash> row_column_number_of_ways;
+	row_column_number_of_ways[std::make_pair(1,1)] = 1;
 	return count_ways_down_and_right_in_2D_grid(number_of_rows, number_of_columns, row_column_number_of_ways);
 }
 
