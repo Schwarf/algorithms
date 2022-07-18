@@ -3,7 +3,6 @@
 //
 #include "gtest/gtest.h"
 #include "./../../depth_first_search/size_of_largest_island.h"
-#include <algorithm>
 #include <vector>
 
 class SetupIslands : public testing::Test {
