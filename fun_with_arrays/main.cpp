@@ -2,6 +2,7 @@
 #include "sum_longest_subarray_with_unique_elements.h"
 #include "minimal_operations_to_get_zero.h"
 #include "longest_common_substring.h"
+#include "count_words_that_are_subsequences_in_given_string.h"
 
 int main()
 {
@@ -52,4 +53,10 @@ int main()
 	std::cout << longest_common_substring(s1, s2) << std::endl;
 
 
+	s1 = "abcdef";
+	auto words1 = std::vector<std::string>{"a","bb","acd","ace", "acf"};
+	s2 = "dsahjpjauf";
+	auto words2 = std::vector<std::string>{"ahjpjau","ja","ahbwzgqnuk","tnmlanowax", "jau", "hjau", "pjau"};
+	std::cout <<"#1 = "  << count_words_that_are_subsequences_in_given_string(s1, words1) << std::endl;
+	std::cout <<"#2 = "  << count_words_that_are_subsequences_in_given_string(s2, words2) << std::endl;
 }
