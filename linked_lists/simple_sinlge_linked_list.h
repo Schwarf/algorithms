@@ -8,8 +8,11 @@
 template<typename T>
 struct Node
 {
-	Node * next;
-	T value;
+	Node(T val){
+		value = val;
+	}
+	Node * next = nullptr;
+	T value{};
 };
 
 #endif //SIMPLE_SINLGE_LINKED_LIST_H
