@@ -8,10 +8,11 @@
 template<typename T>
 struct Node
 {
-	Node(T val){
+	Node(T val)
+	{
 		value = val;
 	}
-	Node * next = nullptr;
+	Node *next = nullptr;
 	T value{};
 };
 

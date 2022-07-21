@@ -24,7 +24,7 @@ Node<T> * revert_linked_list(Node<T> * head)
 }
 
 template <typename T>
-Node<T> * revert_linked_list_recursive(Node<T> * head)
+Node<T> *revert_linked_list_recursive(Node<T> * head)
 {
 	if(!head || !head->next)
 		return head;
