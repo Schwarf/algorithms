@@ -11,6 +11,8 @@
 template <typename T>
 Node<T> * revert_linked_list(Node<T> * head)
 {
+	if(!head)
+		return nullptr;
 	Node<T> * previous = nullptr;
 	auto next = head;
 	while(head)
@@ -26,7 +28,9 @@ Node<T> * revert_linked_list(Node<T> * head)
 template <typename T>
 Node<T> *revert_linked_list_recursive(Node<T> * head)
 {
-	if(!head || !head->next)
+	if(!head)
+		return nullptr;
+	if(!head->next)
 		return head;
 	auto rest = revert_linked_list_recursive(head->next);
 	head->next->next =head;
