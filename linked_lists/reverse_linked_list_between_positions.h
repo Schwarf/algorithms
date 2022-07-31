@@ -5,7 +5,7 @@
 #ifndef REVERSE_LINKED_LIST_BETWEEN_POSITIONS_H
 #define REVERSE_LINKED_LIST_BETWEEN_POSITIONS_H
 
-#include "simple_sinlge_linked_list.h"
+#include "simple_single_linked_list.h"
 
 template<typename T>
 Node<T> *reverse_linked_list_between_positions(Node<T> *head, int left_index, int right_index)

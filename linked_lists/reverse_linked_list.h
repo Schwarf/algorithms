@@ -5,7 +5,7 @@
 #ifndef REVERSE_LINKED_LIST_H
 #define REVERSE_LINKED_LIST_H
 
-#include "simple_sinlge_linked_list.h"
+#include "simple_single_linked_list.h"
 
 template <typename T>
 Node<T> * reverse_linked_list(Node<T> * head)
