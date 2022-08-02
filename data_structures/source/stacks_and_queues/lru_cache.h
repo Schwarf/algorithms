@@ -6,6 +6,7 @@
 #define LRU_CACHE_H
 #include <unordered_map>
 #include <list>
+#include <vector>
 
 template<typename key_T, typename value_T>
 class LRUCache
@@ -42,6 +43,17 @@ public:
 		key_value_list_.splice(key_value_list_.begin(), key_value_list_, pair_iterator->second);
 		return pair_iterator->second->second;
 	}
+
+	std::vector<value_T> get_all_values()
+	{
+		auto result = std::vector<value_T>();
+		for(const auto & element : key_value_list_)
+		{
+			result.push_back(element.second);
+		}
+		return result;
+	}
+
 
 private:
 	void check_cache_size()
