@@ -17,7 +17,8 @@ add_executable(test_stacks_and_queues
         stacks_and_queues/test_stack_array_based.cpp
         stacks_and_queues/setup_stack.h
         stacks_and_queues/test_queue_linked_list_based.cpp
-        stacks_and_queues/test_queue_array_based.cpp)
+        stacks_and_queues/test_queue_array_based.cpp
+        stacks_and_queues/test_lru_cache.cpp)
 
 add_executable(test_heaps
         heaps/test_binary_heap.cpp

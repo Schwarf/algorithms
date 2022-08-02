@@ -32,6 +32,17 @@ public:
 		check_cache_size();
 	}
 
+	value_T get(key_T key)
+	{
+		auto pair_iterator = cache_.find(key);
+		if(pair_iterator == cache_.end())
+		{
+			throw std::out_of_range("Element not in cache!");
+		}
+		key_value_list_.splice(key_value_list_.begin(), key_value_list_, pair_iterator->second);
+		return pair_iterator->second->second;
+	}
+
 private:
 	void check_cache_size()
 	{
