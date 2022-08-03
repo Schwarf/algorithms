@@ -34,7 +34,7 @@ add_executable(test_binary_tree_algorithms
         trees/binary_trees/test_maximum_depth.cpp
         trees/binary_trees/test_right_side_view.cpp
         trees/binary_trees/test_construct_binary_tree_from_preorder_and_inorder.cpp
-        trees/binary_trees/test_construct_binary_tree_from_inorder_and_postorder.cpp)
+        trees/binary_trees/test_construct_binary_tree_from_inorder_and_postorder.cpp trees/binary_trees/test_binary_search_tree_from_sorted_array.cpp)
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h
