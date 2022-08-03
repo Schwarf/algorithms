@@ -11,25 +11,25 @@
 
 template<typename T>
 TreeNode<T> *_construct_tree_post_in(std::vector<T> &postorder,
-							 int left,
-							 int right,
-							 int &post_order_index,
-							 std::unordered_map<T, int> &inorder_value_to_index)
+									 int left,
+									 int right,
+									 int &post_order_index,
+									 std::unordered_map<T, int> &inorder_value_to_index)
 {
 	if (left > right)
 		return nullptr;
 	int root_value = postorder[post_order_index--];
 	auto root = new TreeNode<T>(root_value);
 	root->right = _construct_tree_post_in(postorder,
-								  inorder_value_to_index[root_value] + 1,
-								  right,
-								  post_order_index,
-								  inorder_value_to_index);
+										  inorder_value_to_index[root_value] + 1,
+										  right,
+										  post_order_index,
+										  inorder_value_to_index);
 	root->left = _construct_tree_post_in(postorder,
-								 left,
-								 inorder_value_to_index[root_value] - 1,
-								 post_order_index,
-								 inorder_value_to_index);
+										 left,
+										 inorder_value_to_index[root_value] - 1,
+										 post_order_index,
+										 inorder_value_to_index);
 	return root;
 }
 

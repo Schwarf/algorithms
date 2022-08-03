@@ -13,7 +13,7 @@
 
 std::vector<int> in_order_traversal(TreeNode<int> *root)
 {
-	if(!root)
+	if (!root)
 		return {};
 	std::vector<int> result;
 	std::stack<TreeNode<int> *> remember_left_nodes;

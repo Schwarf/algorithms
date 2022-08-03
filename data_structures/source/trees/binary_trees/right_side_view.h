@@ -11,14 +11,14 @@
 // return the values of the nodes you can see ordered from top to bottom.
 
 // THE TEST INCORPORATES ITERATIVE SOLUTION
-void depth_first_search(TreeNode<int>* root, int depth, std::vector<int> & result)
+void depth_first_search(TreeNode<int> *root, int depth, std::vector<int> &result)
 {
-	if(!root)
+	if (!root)
 		return;
-	if(result.size() == depth)
+	if (result.size() == depth)
 		result.push_back(root->value);
-	depth_first_search(root->right, depth+1, result);
-	depth_first_search(root->left, depth+1, result);
+	depth_first_search(root->right, depth + 1, result);
+	depth_first_search(root->left, depth + 1, result);
 
 }
 

@@ -31,9 +31,9 @@ std::vector<int> post_order_traversal(TreeNode<int> *root)
 	return result;
 }
 
-void post_order_traversal(std::vector<int> & result, TreeNode<int> *root)
+void post_order_traversal(std::vector<int> &result, TreeNode<int> *root)
 {
-	if(!root)
+	if (!root)
 		return;
 	post_order_traversal(result, root->left);
 	post_order_traversal(result, root->right);

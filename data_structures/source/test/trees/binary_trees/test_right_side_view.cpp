@@ -39,7 +39,7 @@ TEST_F(SetupBinaryTree, test_right_side_view)
 	auto root = SetupBinaryTree::binary_tree_root();
 	auto result = right_side_view(root);
 	auto test_result = test_right_side_view(root);
-	for(int index =0; index < result.size(); ++index) {
+	for (int index = 0; index < result.size(); ++index) {
 		EXPECT_EQ(result[index], test_result[index]);
 	}
 }

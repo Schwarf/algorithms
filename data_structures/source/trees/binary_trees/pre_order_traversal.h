@@ -11,7 +11,7 @@
 // Preorder => Root, Left, Right.
 std::vector<int> pre_order_traversal(TreeNode<int> *root)
 {
-	if(!root)
+	if (!root)
 		return {};
 	std::vector<int> result;
 	std::stack<TreeNode<int> *> remember_right_nodes;

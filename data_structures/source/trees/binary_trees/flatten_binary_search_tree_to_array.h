@@ -16,7 +16,7 @@ int help_flatten_binary_search_tree(TreeNode<T> *root, std::vector<int> &result,
 	if (result.empty())
 		result.resize(1);
 	else if (index > result.size() - 1)
-		result.resize(index+1);
+		result.resize(index + 1);
 	result[index] = root->value;
 	index = help_flatten_binary_search_tree(root->right, result, index + 1);
 	return index;
