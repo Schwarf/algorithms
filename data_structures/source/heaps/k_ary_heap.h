@@ -16,7 +16,7 @@ public:
 	};
 	~K_aryHeap()
 	{
-		delete [] elements_;
+		delete[] elements_;
 	}
 
 	T *get_array()
