@@ -13,7 +13,7 @@ bool has_path_sum(TreeNode<int> *root, int target)
 {
 	if (!root)
 		return false;
-	// has to be leave node
+	// has to be leaf node
 	if (root->left == nullptr && root->right == nullptr && root->value == target)
 		return true;
 	target = target - root->value;
