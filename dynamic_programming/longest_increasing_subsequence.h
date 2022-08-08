@@ -24,4 +24,23 @@ int size_of_longest_increasing_subsequence(const std::vector<int> &sequence)
 	return *std::max_element(help.begin(), help.end());
 }
 
+// O(N*logN) ???
+int size_of_longest_increasing_subsequence2(const std::vector<int>& sequence) {
+
+	std::vector<int> sub_sequence;
+
+	const int n = sequence.size();
+
+	for(int i = 0; i < n; i++) {
+		auto it = lower_bound(sub_sequence.begin(), sub_sequence.end(), sequence[i]);
+		if(it != sub_sequence.end()) {
+			*it = sequence[i];
+		} else {
+			sub_sequence.push_back(sequence[i]);
+		}
+	}
+	return sub_sequence.size();
+}
+
+
 #endif //LONGEST_INCREASING_SUBSEQUENCE_H
