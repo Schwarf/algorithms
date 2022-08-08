@@ -35,3 +35,21 @@ TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario3)
 	auto output3 = size_of_longest_increasing_subsequence(input3);
 	EXPECT_EQ(result3, output3);
 }
+
+TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario1)
+{
+	auto output1 = size_of_longest_increasing_subsequence2(input1);
+	EXPECT_EQ(result1, output1);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario2)
+{
+	auto output2 = size_of_longest_increasing_subsequence2(input2);
+	EXPECT_EQ(result2, output2);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario3)
+{
+	auto output3 = size_of_longest_increasing_subsequence2(input3);
+	EXPECT_EQ(result3, output3);
+}
