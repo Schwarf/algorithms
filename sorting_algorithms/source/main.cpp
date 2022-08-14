@@ -9,6 +9,9 @@
 #include "performance_measurement/test_template.h"
 #include "sorting_related/quick_select/quick_select.h"
 #include "counting_sort/counting_sort.h"
+#include "upper_lower_bounds/upper_bound.h"
+#include <algorithm>
+
 int main()
 {
 //	std::vector<int64_t> test_select{1, 2, 3, 4, 6, 7, 8, 9, 10};
@@ -29,11 +32,13 @@ int main()
 	}
 	*/
 	auto sort = CountingSort(-2, 7);
-	std::vector<int64_t> v{-2,1,0, -1,2,4,5,6,3,2,4,4,6,7};
+	std::vector<int64_t> v{-2, 1, 0, -1, 2, 4, 5, 6, 3, 2, 4, 4, 6, 7};
 	sort.sort(v);
-	for(const auto & element: v)
-	{
-		std::cout << element << " ";
-	}
+	std::cout << "[";
+	for (const auto &element: v)
+		std::cout << element << ", ";
+	std::cout << "]" << std::endl;
+	auto help = my_upper_bound(v.begin(), v.end(), 3);
+	std::cout << *help << std::endl;
 	return 0;
 }
