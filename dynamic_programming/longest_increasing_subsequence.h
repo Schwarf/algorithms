@@ -21,6 +21,8 @@ int size_of_longest_increasing_subsequence(const std::vector<int> &sequence)
 			}
 		}
 	}
+//	for(const auto & element : help)
+//		std::cout << element << std::endl;
 	return *std::max_element(help.begin(), help.end());
 }
 

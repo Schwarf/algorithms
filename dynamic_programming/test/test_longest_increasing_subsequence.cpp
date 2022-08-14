@@ -15,6 +15,9 @@ protected:
 	int result2{4};
 	std::vector<int> input3{1, 12, 419, 181, 17, 19, 0, 71, 26, 1, 2, 3, 4, 5, 6, 7};
 	int result3{8};
+	std::vector<int> input4{2,1,4,3,5,6};
+	int result4{4};
+
 };
 
 
@@ -34,6 +37,12 @@ TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario3)
 {
 	auto output3 = size_of_longest_increasing_subsequence(input3);
 	EXPECT_EQ(result3, output3);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario4)
+{
+	auto output4 = size_of_longest_increasing_subsequence(input4);
+	EXPECT_EQ(result4, output4);
 }
 
 TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario1)
