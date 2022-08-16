@@ -17,7 +17,8 @@ add_executable(sorting_tests
         sorting_algorithms/test_quick_sort.cpp
         sorting_algorithms/test_bubble_sort.cpp
         sorting_algorithms/test_heap_sort.cpp
-        sorting_algorithms/test_counting_sort.cpp)
+        sorting_algorithms/test_counting_sort.cpp
+        sorting_algorithms/test_upper_bound.cpp)
 #target_link_libraries(sorting_tests gtest gtest_main)
 target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(sorting_tests sorting_lib)
