@@ -2,7 +2,6 @@
 // Created by andreas on 16.08.22.
 //
 #include "gtest/gtest.h"
-#include <utility>
 #include "./../../algorithms/upper_lower_bounds/upper_bound.h"
 
 class SetupUpperbound: public testing::Test
