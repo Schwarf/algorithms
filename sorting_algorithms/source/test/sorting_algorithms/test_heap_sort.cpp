@@ -13,7 +13,7 @@ public:
 		while (max_index != 0) {
 			auto child = tree[max_index];
 			auto parent = tree[(max_index - 1) / 2];
-			if( child > parent)
+			if (child > parent)
 				return false;
 			max_index--;
 		}
