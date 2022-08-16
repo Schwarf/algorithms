@@ -13,8 +13,6 @@ ForwardIterator my_upper_bound(ForwardIterator first, ForwardIterator last, cons
 	auto begin = first;
 	//typename std::iterator_traits<ForwardIterator>::differenc_type count, step;
 	auto count = std::distance(first, last);
-	auto print = [begin](ForwardIterator it)
-	{ std::cout << it - begin << std::endl; };
 	while (count > 0) {
 		it = first;
 		auto step = count / 2;
@@ -23,10 +21,10 @@ ForwardIterator my_upper_bound(ForwardIterator first, ForwardIterator last, cons
 			first = ++it;
 			count -= step + 1;
 		}
-		else
+		else {
 			count = step;
-		print(first);
-		print(it);
+
+		}
 		std::cout << std::endl;
 	}
 	return first;
