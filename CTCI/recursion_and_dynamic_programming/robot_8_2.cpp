@@ -78,6 +78,7 @@ int main()
 
 	maze[1][1] = false;
 	maze[1][2] = false;
+//	maze[2][2] = false;
 	maze[1][3] = false;
 
 	auto path = getPath(maze);
