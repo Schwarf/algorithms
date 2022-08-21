@@ -87,7 +87,7 @@ int main()
 	}
 
 	std::cout << "***************" << std::endl;
-	auto path2 = getPath(maze);
+	auto path2 = getPath_memo(maze);
 	for (const auto &pair: path2) {
 		std::cout << pair.first << "  " << pair.second << std::endl;
 	}
