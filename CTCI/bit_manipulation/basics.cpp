@@ -20,8 +20,15 @@ int get_next_power_of_two(int number)
 
 bool is_power_of_two(int number)
 {
-	return ((number & (number-1)) ==0);
+	return number > 0 && ((number & (number-1)) ==0);
 }
+
+bool is_power_of_four(int number)
+{
+	return number > 0 && ((number & (number-1)) ==0) && (number & 0x555555555);
+}
+
+
 
 
 template<typename T, size_t bitset_size>
