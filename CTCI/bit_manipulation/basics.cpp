@@ -25,11 +25,10 @@ bool is_power_of_two(int number)
 
 bool is_power_of_four(int number)
 {
+	// 5 in hexadecimal has the binary representation 0101. Since all powers of four have the pattern ...1010100 we
+	// use this
 	return number > 0 && ((number & (number-1)) ==0) && (number & 0x555555555);
 }
-
-
-
 
 template<typename T, size_t bitset_size>
 std::bitset<bitset_size> convert(T &value)
