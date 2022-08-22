@@ -23,6 +23,14 @@ bool is_power_of_two(int number)
 	return number > 0 && ((number & (number-1)) ==0);
 }
 
+bool is_power_of_three(int n)
+{
+	if (n <= 0)
+		return false;
+	// largest number in 32bit int that is a power of three is 3**int(math.log(2**31-1, 3))
+	return 1162261467 % n == 0;
+}
+
 bool is_power_of_four(int number)
 {
 	// 5 in hexadecimal has the binary representation 0101. Since all powers of four have the pattern ...1010100 we
