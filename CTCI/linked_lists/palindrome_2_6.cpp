@@ -75,17 +75,16 @@ public:
 
 };
 
-template <class T>
+template<class T>
 bool is_palindrome(LinkedList<T> list)
 {
-	if(list.head() == nullptr || list.head()->next == nullptr)
+	if (list.head() == nullptr || list.head()->next == nullptr)
 		return true;
 	auto reverse = list;
 	auto reverse_node = reverse.reverse().head();
 	auto node = list.head();
-	while(node != reverse_node)
-	{
-		if(node->value != reverse_node->value)
+	while (node != reverse_node) {
+		if (node->value != reverse_node->value)
 			return false;
 		node = node->next;
 		reverse_node = reverse_node->next;
@@ -94,6 +93,26 @@ bool is_palindrome(LinkedList<T> list)
 
 }
 
+// Check this code with local temp
+template<typename T>
+class SolvePalindrome
+{
+	Node<T> *temp;
+
+	bool check(Node<T> *head)
+	{
+		if (nullptr == head) return true;
+		bool res = check(head->next, temp) & (temp->value == head->value);
+		temp = temp->next;
+		return res;
+	}
+
+	bool isPalindrome(Node<T> *head)
+	{
+		temp = head;
+		return check(head);
+	}
+};
 
 int main()
 {
@@ -103,7 +122,7 @@ int main()
 	list.push_back(2);
 	list.push_back(1);
 	auto reverted = list.reverse();
-	std::cout << is_palindrome<int>(reverted) << std:: endl;
+	std::cout << is_palindrome<int>(reverted) << std::endl;
 
 	return 0;
 }
