@@ -5,6 +5,7 @@
 #include <bitset>
 #include <iostream>
 #include <type_traits>
+#include <cmath>
 
 int get_next_power_of_two(int number)
 {
@@ -16,6 +17,15 @@ int get_next_power_of_two(int number)
 	number |= number >> 16;
 	number++;
     return number;
+}
+
+int find_complement(int num)
+{
+	int exponent = std::log2(num) + 1;
+	for (int i = 0; i < exponent; i++) {
+		num = num ^ (1 << i);
+	}
+	return num;
 }
 
 bool is_power_of_two(int number)
