@@ -12,6 +12,7 @@ add_executable(dynamic_programming_samples_test
         test_min_jumps_to_last_index.cpp
         test_count_ways_in_2D_grid.cpp
         test_longest_increasing_subsequence.cpp
+        test_maximum_length_of_same_subarray_in_two_arrays.cpp
         test_main.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
