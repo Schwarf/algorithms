@@ -14,7 +14,7 @@ public:
 		std::random_device random_device;
 		std::mt19937_64 mersenne_generator(random_device());
 		std::uniform_int_distribution<int64_t> uniform_distribution;
-		size_t N = 5;
+		size_t N = 5000;
 		for (size_t index = 0; index < N; ++index) {
 			auto number = uniform_distribution(mersenne_generator);
 			random_numbers.push_back(number);
