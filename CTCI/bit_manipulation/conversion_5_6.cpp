@@ -9,7 +9,7 @@ bool has_bit(int number, int bit_position)
 }
 
 // works only for 32-bit integers
-int number_of_needed_flips(int number1, int number2)
+int number_of_needed_flips_32bit(int number1, int number2)
 {
 	int bit_max_shift =32;
 	int needed_flips{};
@@ -40,7 +40,7 @@ int number_of_needed_flips(T number1, T number2)
 
 int main()
 {
-	std::cout << number_of_needed_flips(29, 14) << std::endl;
+	std::cout << number_of_needed_flips(29, 15) << std::endl;
 
 	std::cout << number_of_needed_flips(2843821094382099, 1423784902148092348) << std::endl;
 }
