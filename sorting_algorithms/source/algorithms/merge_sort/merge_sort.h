@@ -18,12 +18,12 @@ public:
 private:
 	bool non_recursive_version_is_enabled_{};
 	void static merge_(std::vector<int64_t> &array,
-					   std::vector<int64_t> &help,
 					   size_t start,
 					   size_t middle,
 					   size_t end);
-	void sort_recursive_(std::vector<int64_t> &array, std::vector<int64_t> &help, size_t start, size_t end);
-	void static sort_non_recursive_(std::vector<int64_t> &array, std::vector<int64_t> &help);
+	void sort_recursive_(std::vector<int64_t> &array, size_t start, size_t end);
+	void static sort_non_recursive_(std::vector<int64_t> &array);
+	std::vector<int64_t> help_;
 };
 
 
