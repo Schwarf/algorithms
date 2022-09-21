@@ -39,6 +39,13 @@ struct DirectedGraph
 	std::vector<Node<T> *> nodes;
 };
 
+template <typename T>
+void print_graph(DirectedGraph<T> & graph)
+{
+
+}
+
+
 template <typename T >
 void create_edges_in_graph(DirectedGraph<T> & graph, int probability_for_edge_in_percent)
 {
