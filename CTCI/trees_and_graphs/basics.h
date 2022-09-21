@@ -5,13 +5,22 @@
 #ifndef BASICS_H
 #define BASICS_H
 #include <vector>
-#include <cstdlib>
-#include <ctime>
+#include <type_traits>
+#include <random>
+
+template <typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
+static inline T get_random(const T & lower_bound, const T & upper_bound)
+{
+	auto int_distribution_ = std::uniform_int_distribution<T>(lower_bound, upper_bound);
+	std::random_device device;
+	auto generator = std::mt19937 (device());
+	return int_distribution_(generator);
+}
 
 template<typename T>
 struct Node
 {
-	Node(T val)
+	explicit Node(T val)
 		: value(val)
 	{}
 	T value;
@@ -20,18 +29,32 @@ struct Node
 };
 
 template<typename T>
-struct Graph
+struct DirectedGraph
 {
+	explicit DirectedGraph(int number_of_vertices)
+	{
+		for(int vertex{}; vertex < number_of_vertices; ++vertex)
+			nodes.push_back(new Node<int>(vertex));
+	}
 	std::vector<Node<T> *> nodes;
 };
 
-int main()
+template <typename T >
+void create_edges_in_graph(DirectedGraph<T> & graph, int probability_for_edge_in_percent)
 {
-	srand(time(NULL));
-	auto graph = Graph<int>();
-	for(int i{}; i < 100; ++i) {
-		graph.nodes.push_back(new Node<int>(i));
+	int probability{};
+	for(auto & node : graph.nodes) // here we call node and vertex the same
+	{
+
+		for(int vertex{}; vertex < graph.nodes.size(); ++vertex) {
+			if(vertex == node->value)
+				continue;
+			probability = get_random(0, 100);
+			if (probability <= probability_for_edge_in_percent) {
+				node->children.push_back(graph.nodes[vertex]);
+			}
+		}
 	}
-	return 0;
 }
+
 #endif //BASICS_H
