@@ -22,7 +22,29 @@ public:
 
 private:
 	Node<T> * root_ = nullptr;
+	void delete_(Node<T> * node, const T & value)
+	{
+		if(node ==nullptr)
+			return;
+		if(value < node->value)
+			delete_(node->left,value);
+		else if(value > node->value)
+			delete_(node->right,value);
+		else
+		{
+			if(node->left == nullptr && node->right != nullptr)
+			{
+				Node<T> * temp = node->right;
+				delete node;
+			}
+			if(node->left != nullptr && node->right == nullptr)
+			{
+				Node<T> * temp = node->left;
+				delete node;
+			}
 
+		}
+	}
 
 	void insert_(Node<T> * node, const T & value){
 		if(node == nullptr) {
