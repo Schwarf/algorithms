@@ -5,50 +5,35 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 #include "node.h"
-template<typename Key, typename Value>
+template<typename T>
 class BinarySearchTree{
 public:
-	void add(const Key & key, const Value & value)
+	void insert(const T & value)
 	{
-		root_ = add_(root_, key, value);
+		insert_(root_, value);
 	}
 
-	Node<Key, Value>* add_(Node<Key, Value> * node, const Key & key, const Value & value){
-		if(node == nullptr)
-			return new Node<Key, Value>(key, value);
-		if(key <= node->key())
-			add_(node->left(), key, value);
-		if(key > node->key())
-			add_(node->right(), key, value);
-
-		node->reset_value(value);
-		return node;
-	}
-
-	Value get(const Key & key) const
+	void delete_node_with_value(const T & value)
 	{
-		auto node = root_;
-		while(node != nullptr)
-		{
-			if(node->key() < key)
-			{
-				node = node->left();
-			}
-			else if(node->key() > key)
-			{
-				node = node->right();
-			}
-			else
-			{
-				return node->value();
-			}
-		}
-		return Value{};
+		delete_(root_, value);
 	}
+
 
 
 private:
-	Node<Key, Value> * root_ = nullptr;
+	Node<T> * root_ = nullptr;
+
+
+	void insert_(Node<T> * node, const T & value){
+		if(node == nullptr) {
+			node = new Node<T>(value);
+			return;
+		}
+		if(value <= node->value)
+			insert_(node->left(), value);
+		if(value > node->value)
+			insert_(node->right(), value);
+	}
 
 };
 
