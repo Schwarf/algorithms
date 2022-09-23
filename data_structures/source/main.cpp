@@ -1,32 +1,18 @@
 #include <iostream>
 #include <vector>
-#include "trees/binary_trees/tree_node.h"
-#include "trees/binary_trees/in_order_traversal.h"
-#include "trees/binary_trees/pre_order_traversal.h"
-#include "trees/binary_trees/construct_binary_tree_from_preorder_and_inorder.h"
-
+#include "binary_search_tree/binary_search_tree.h"
 
 
 int main()
 {
-	auto root = new TreeNode<int>(1);
-	root->add_left(2)->add_left(4)->add_left(6);
-	root->left->add_right(5);
-	root->add_right(3);
-	std::vector<int> pre_order, in_order;
-	in_order_traversal(in_order, root);
-	pre_order_traversal(pre_order, root);
-	std::cout << "Pre order:" << std::endl;
-	for(const auto & element: pre_order)
-		std::cout << element << ", " ;
-	std::cout << std::endl;
+	auto tree = BinarySearchTree<int>();
+	tree.insert(3);
+	tree.insert(5);
+	tree.insert(1);
+	tree.insert(2);
+	tree.insert(4);
+	tree.insert(10);
 
-	std::cout << "In order:" << std::endl;
-	for(const auto & element: in_order)
-		std::cout << element << ", " ;
-
-	auto tree = construct_from_preorder_and_inorder(pre_order, in_order);
-	int x =1;
-	return 0;
+	tree.print_inorder_traversal();
 }
 

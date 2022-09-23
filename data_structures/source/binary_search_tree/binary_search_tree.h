@@ -5,11 +5,17 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 #include "node.h"
+#include <iostream>
+
 template<typename T>
 class BinarySearchTree{
 public:
 	void insert(const T & value)
 	{
+		if(!root_) {
+			root_ = new Node<T>(value);
+			return;
+		}
 		insert_(root_, value);
 	}
 
@@ -18,9 +24,22 @@ public:
 		delete_(root_, value);
 	}
 
+	void print_inorder_traversal()
+	{
+		print_inorder_traversal_(root_);
+	}
 
 
 private:
+
+	void print_inorder_traversal_(Node<T> * node){
+		if(!node)
+			return;
+		print_inorder_traversal_(node->left);
+		std::cout<< node->value << " " << std::endl;
+		print_inorder_traversal_(node->right);
+	}
+
 	Node<T> * root_ = nullptr;
 	void delete_(Node<T> * node, const T & value)
 	{
@@ -52,9 +71,9 @@ private:
 			return;
 		}
 		if(value <= node->value)
-			insert_(node->left(), value);
+			insert_(node->left, value);
 		if(value > node->value)
-			insert_(node->right(), value);
+			insert_(node->right, value);
 	}
 
 };

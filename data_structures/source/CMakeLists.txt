@@ -33,7 +33,7 @@ enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
 
 
-add_executable(data_structures
+add_executable(main
         main.cpp
         binary_search_tree/node.h
         binary_search_tree/binary_search_tree.h)
@@ -55,5 +55,5 @@ include_directories(trees)
 include_directories(miscellaneous)
 include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(data_structures linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib trees_lib
+target_link_libraries(main linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib trees_lib
         binary_tree_lib)

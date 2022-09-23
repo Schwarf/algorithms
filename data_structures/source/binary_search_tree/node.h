@@ -7,8 +7,8 @@
 template<typename T>
 struct Node{
 public:
-	Node(const T & val){
-		value = value;
+	explicit Node(const T & val){
+		value = val;
 	}
 	Node * left = nullptr;
 	Node * right = nullptr;
