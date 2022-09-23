@@ -14,5 +14,8 @@ int main()
 	tree.insert(10);
 
 	tree.print_inorder_traversal();
+	auto ordered = tree.write_to_vector_inorder();
+	for(const auto & element: ordered)
+		std::cout << element << std::endl;
 }
 
