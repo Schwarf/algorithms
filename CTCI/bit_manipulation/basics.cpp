@@ -16,7 +16,7 @@ int get_next_power_of_two(int number)
 	number |= number >> 8;
 	number |= number >> 16;
 	number++;
-    return number;
+	return number;
 }
 
 int find_complement(int num)
@@ -30,7 +30,7 @@ int find_complement(int num)
 
 bool is_power_of_two(int number)
 {
-	return number > 0 && ((number & (number-1)) ==0);
+	return number > 0 && ((number & (number - 1)) == 0);
 }
 
 bool is_power_of_three(int n)
@@ -45,7 +45,7 @@ bool is_power_of_four(int number)
 {
 	// 5 in hexadecimal has the binary representation 0101. Since all powers of four have the pattern ...1010100 we
 	// use this
-	return number > 0 && ((number & (number-1)) ==0) && (number & 0x555555555);
+	return number > 0 && ((number & (number - 1)) == 0) && (number & 0x555555555);
 }
 
 template<typename T, size_t bitset_size>
@@ -83,7 +83,7 @@ template<typename T>
 void clear_most_significant_bits_until(T &number, int bit_position)
 {
 	static_assert(std::is_integral<T>::value, "Integral required.");
-	int mask = (1 << bit_position) -1;
+	int mask = (1 << bit_position) - 1;
 	number &= mask;
 }
 
@@ -95,8 +95,12 @@ void clear_bits_from_zero_until(T &number, int bit_position)
 	number &= mask;
 }
 
-
-
+template<typename T>
+int length_in_bits(T &number)
+{
+	static_assert(std::is_integral<T>::value, "Integral required.");
+	return std::floor(std::log2(number) + 1.0);
+}
 
 int main()
 {
