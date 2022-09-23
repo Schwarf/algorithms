@@ -16,7 +16,10 @@ public:
 			root_ = new Node<T>(value);
 			return;
 		}
-		insert_(root_, value);
+		else {
+			auto node = root_;
+			insert_(node, value);
+		}
 	}
 
 	void delete_node_with_value(const T & value)
@@ -66,14 +69,22 @@ private:
 	}
 
 	void insert_(Node<T> * node, const T & value){
-		if(node == nullptr) {
-			node = new Node<T>(value);
-			return;
-		}
+
 		if(value <= node->value)
-			insert_(node->left, value);
+		{
+			if(node->left == nullptr)
+				node->left = new Node<T>(value);
+			else
+				insert_(node->left, value);
+		}
+
 		if(value > node->value)
-			insert_(node->right, value);
+		{
+			if(node->right == nullptr)
+				node->right = new Node<T>(value);
+			else
+				insert_(node->right, value);
+		}
 	}
 
 };
