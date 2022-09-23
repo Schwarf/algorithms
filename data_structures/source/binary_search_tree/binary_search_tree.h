@@ -24,7 +24,7 @@ public:
 
 	void delete_node_with_value(const T & value)
 	{
-		delete_(root_, value);
+		root_ = delete_(root_, value);
 	}
 
 	void print_inorder_traversal()
@@ -35,7 +35,7 @@ public:
 
 private:
 
-	void print_inorder_traversal_(Node<T> * node){
+	Node<T> *  print_inorder_traversal_(Node<T> * node){
 		if(!node)
 			return;
 		print_inorder_traversal_(node->left);
@@ -64,7 +64,7 @@ private:
 				Node<T> * temp = node->left;
 				delete node;
 			}
-
+			Node<T> * temp =
 		}
 	}
 
