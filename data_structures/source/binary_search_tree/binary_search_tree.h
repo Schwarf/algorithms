@@ -143,24 +143,40 @@ private:
 		parent->height = 1 + std::max(height(parent->left), height(parent->right));
 		p_r->height = 1 + std::max(height(p_r->left), height(p_r->right));
 		return p_r;
-
 	}
 
 
-	void insert_(Node<T> *node, const T &value)
+	Node<T> * insert_(Node<T> *node, const T &value)
 	{
-		if(!node)
+		if (!node)
 			return new Node<T>(value);
 
 		if (value < node->value)
-				node->left = insert_(node->left, value);
+			node->left = insert_(node->left, value);
 		else if (value > node->value)
-				node->right = insert_(node->right, value);
+			node->right = insert_(node->right, value);
 		else
 			return node;
 
 		node->height = 1 + std::max(height(node->left), height(node->right));
 		int balance = height(node->left) - height(node->right);
+		// left left case ???
+		if (balance > 1 && value < node->left->key)
+			return right_rotation(node);
+		// left right case ???
+		if (balance > 1 && value > node->left->key) {
+			node->left =  left_rotation(node->left);
+			return right_rotation(node);
+		}
+		// right right case ??
+		if (balance < -1  && value > node->right->key)
+			return left_rotation(node);
+		// right left case ???
+		if (balance < -1  && value < node->right->key) {
+			node->right =  right_rotation(node->right);
+			return left_rotation(node);
+		}
+		return node;
 
 	}
 
