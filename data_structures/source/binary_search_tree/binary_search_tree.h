@@ -40,11 +40,18 @@ public:
 		return result;
 	}
 
+	int height(Node<T> * node)
+	{
+		if(node)
+			return node->height;
+		return 0;
+	}
+
 
 private:
 	Node<T> *root_ = nullptr;
 
-	void write_to_vector_inorder_(Node<T> *node, std::vector<T> & result)
+	void write_to_vector_inorder_(Node<T> *node, std::vector<T> &result)
 	{
 		if (!node)
 			return;
@@ -88,7 +95,7 @@ private:
 				return child;
 			}
 			// Case: Has two children
-			if(node->left && node->right) {
+			if (node->left && node->right) {
 				auto temp = node->right;
 				while (temp->left)
 					temp = temp->left;
@@ -98,22 +105,43 @@ private:
 		}
 		return node;
 	}
+	//                               RIGHT ROTATION
+	//              parent                                        p_l
+	//              /     \                                      /   \
+	//             /       \              ------->              /     \
+	//           p_l        p_r                            p_l_l       parent
+	//          /  \                                                   /    \
+	//         /    \                                                 /      \
+	//     p_l_l    p_l_r                                           p_l_r    p_r
+	//
+	Node<T> *right_rotation(Node<T> *parent)
+	{
+		auto p_l = parent->left;
+		auto p_l_r = p_l->right;
+		p_l->right = parent;
+		parent->left = p_l_r;
+		parent->height = 1 + std::max(height(parent->left), height(parent->right));
+		p_l->height = 1 + std::max(height(p_l->left), height(p_l->right));
+		return p_l;
+
+	}
+
+
 
 	void insert_(Node<T> *node, const T &value)
 	{
+		if(!node)
+			return new Node<T>(value);
 
-		if (value <= node->value) {
-			if (node->left == nullptr)
-				node->left = new Node<T>(value);
-			else
-				insert_(node->left, value);
-		}
-		if (value > node->value) {
-			if (node->right == nullptr)
-				node->right = new Node<T>(value);
-			else
-				insert_(node->right, value);
-		}
+		if (value < node->value)
+				node->left = insert_(node->left, value);
+		else if (value > node->value)
+				node->right = insert_(node->right, value);
+		else
+			return node;
+
+		node->height = 1 + std::max(height(node->left), height(node->right));
+		int balance = height(node->left) - height(node->right);
 
 	}
 
