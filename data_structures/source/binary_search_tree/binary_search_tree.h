@@ -125,7 +125,26 @@ private:
 		return p_l;
 
 	}
+	//                               LEFT ROTATION
+	//                p_r                                        parent
+	//              /     \                                      /    \
+	//             /       \              <-------              /      \
+	//           parent    p_r_r                              p_l       p_r
+	//          /  \                                                   /    \
+	//         /    \                                                 /      \
+	//       p_l    p_r_l                                           p_r_l    p_r_r
+	//
+	Node<T> *left_rotation(Node<T> *parent)
+	{
+		auto p_r = parent->right;
+		auto p_r_l = p_r->left;
+		p_r->right = parent;
+		parent->right = p_r_l;
+		parent->height = 1 + std::max(height(parent->left), height(parent->right));
+		p_r->height = 1 + std::max(height(p_r->left), height(p_r->right));
+		return p_r;
 
+	}
 
 
 	void insert_(Node<T> *node, const T &value)
