@@ -40,9 +40,9 @@ public:
 		return result;
 	}
 
-	int height(Node<T> * node)
+	int height(Node<T> *node)
 	{
-		if(node)
+		if (node)
 			return node->height;
 		return 0;
 	}
@@ -145,8 +145,7 @@ private:
 		return p_r;
 	}
 
-
-	Node<T> * insert_(Node<T> *node, const T &value)
+	Node<T> *insert_(Node<T> *node, const T &value)
 	{
 		if (!node)
 			return new Node<T>(value);
@@ -165,15 +164,15 @@ private:
 			return right_rotation(node);
 		// left right case ???
 		if (balance > 1 && value > node->left->key) {
-			node->left =  left_rotation(node->left);
+			node->left = left_rotation(node->left);
 			return right_rotation(node);
 		}
 		// right right case ??
-		if (balance < -1  && value > node->right->key)
+		if (balance < -1 && value > node->right->key)
 			return left_rotation(node);
 		// right left case ???
-		if (balance < -1  && value < node->right->key) {
-			node->right =  right_rotation(node->right);
+		if (balance < -1 && value < node->right->key) {
+			node->right = right_rotation(node->right);
 			return left_rotation(node);
 		}
 		return node;
