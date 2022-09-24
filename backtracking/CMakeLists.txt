@@ -3,4 +3,4 @@ project(backtracking)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(backtracking main.cpp queens_problem.h)
+add_executable(backtracking main.cpp queens_problem.h path_sum_binary_tree.h)

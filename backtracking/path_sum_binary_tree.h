@@ -11,43 +11,45 @@ A root-to-leaf path is a path starting from the root and ending at any leaf node
  */
 #include <vector>
 
-template <typename T>
-struct Node{
-	explicit Node(const T & val)
+template<typename T>
+struct Node
+{
+	explicit Node(const T &val)
 	{
-		value =val;
+		value = val;
 	}
-	Node* left = nullptr;
-	Node* right = nullptr;
+	Node *left = nullptr;
+	Node *right = nullptr;
 	T value;
 };
 
-template <typename T>
-class Solution {
+template<typename T>
+class Solution
+{
 public:
 	std::vector<std::vector<T>> result;
-	void sum(Node<T> * node, T target, std::vector<T> & path)
+	void sum(Node<T> *node, T target_path_sum, std::vector<T> &path)
 	{
-		if(!node)
+		if (!node)
 			return;
 		path.push_back(node->val);
-		target -= node->val;
-		if(node->left ==nullptr && node-> right ==nullptr)
-		{
-			if (target ==0)
+		target_path_sum -= node->val;
+		if (node->left == nullptr && node->right == nullptr) {
+			if (target_path_sum == 0)
 				result.push_back(path);
 		}
-		else{
-			sum(node->left, target, path);
-			sum(node->right, target, path);
+		else {
+			sum(node->left, target_path_sum, path);
+			sum(node->right, target_path_sum, path);
 		}
+		// pop back to evaluate all branches of given node
 		path.pop_back();
-
 	}
 
-	std::vector<std::vector<T>> pathSum(Node<T>* root, T targetSum) {
+	std::vector<std::vector<T>> pathSum(Node<T> *root, T target_path_sum)
+	{
 		std::vector<T> path;
-		sum(root, targetSum, path);
+		sum(root, target_path_sum, path);
 		return result;
 	}
 };
