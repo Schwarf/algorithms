@@ -10,12 +10,15 @@ int main()
 	tree.insert(5);
 	tree.insert(1);
 	tree.insert(2);
+	tree.insert(7);
+	tree.insert(6);
 	tree.insert(4);
 	tree.insert(10);
 
 	tree.print_inorder_traversal();
-	auto ordered = tree.write_to_vector_inorder();
-	for(const auto & element: ordered)
-		std::cout << element << std::endl;
+//	auto ordered = tree.write_to_vector_inorder();
+	std::cout << "******************" << std::endl;
+	tree.delete_node_with_value(5);
+	tree.print_inorder_traversal();
 }
 

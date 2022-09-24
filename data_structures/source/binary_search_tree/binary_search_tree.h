@@ -62,7 +62,7 @@ private:
 		print_inorder_traversal_(node->right);
 	}
 
-	Node<T> *delete_(Node<T> *node, const T &value)
+	Node<T> *delete_(Node<T> *node, T value)
 	{
 		if (node == nullptr)
 			return nullptr;
@@ -71,17 +71,32 @@ private:
 		else if (value > node->value)
 			delete_(node->right, value);
 		else {
-			if (node->left == nullptr && node->right != nullptr) {
-				Node<T> *temp = node->right;
+			// Case: Is leaf node
+			if (node->left == nullptr && node->right == nullptr) {
 				delete node;
+				return nullptr;
 			}
-			if (node->left != nullptr && node->right == nullptr) {
-				Node<T> *temp = node->left;
+			// Case: Has one child
+			if (node->left == nullptr) {
+				auto child = node->right;
 				delete node;
+				return child;
 			}
-			Node<T> *temp = nullptr;
+			else if (node->right == nullptr) {
+				auto child = node->left;
+				delete node;
+				return child;
+			}
+			// Case: Has two children
+			if(node->left && node->right) {
+				auto temp = node->right;
+				while (temp->left)
+					temp = temp->left;
+				node->value = temp->value;
+				node->right = delete_(node->right, node->value);
+			}
 		}
-		return nullptr;
+		return node;
 	}
 
 	void insert_(Node<T> *node, const T &value)
@@ -93,13 +108,13 @@ private:
 			else
 				insert_(node->left, value);
 		}
-
 		if (value > node->value) {
 			if (node->right == nullptr)
 				node->right = new Node<T>(value);
 			else
 				insert_(node->right, value);
 		}
+
 	}
 
 };
