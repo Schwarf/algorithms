@@ -5,6 +5,7 @@
 #include "./../../binary_search_tree/avl_tree.h"
 #include <vector>
 #include <algorithm>
+#include <random>
 
 class SetupAVLTree: public testing::Test
 {
@@ -15,6 +16,14 @@ public:
 		std::reverse(ascending_order.begin(), ascending_order.end());
 	}
 protected:
+	static inline int get_random(const int & lower_bound, const int & upper_bound)
+	{
+		auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
+		std::random_device device;
+		auto generator = std::mt19937 (device());
+		return int_distribution_(generator);
+	}
+
 	std::vector<int> descending_order{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6};
 	std::vector<int> ascending_order;
 	int expected_height = 5;
@@ -82,10 +91,31 @@ TEST_F(SetupAVLTree, test_deleting_one_value_in_between_and_inserting_it_again)
 		avl_tree.insert(element);
 	int index = 3;
 	avl_tree.delete_node_with_value(ascending_order[index]);
-	auto test = avl_tree.get_vector_inorder();
 	avl_tree.insert(ascending_order[index]);
 	auto result = avl_tree.get_vector_inorder();
 	for (int i{}; i < ascending_order.size(); ++i) {
 		EXPECT_EQ(result[i], ascending_order[i]);
+	}
+}
+
+TEST_F(SetupAVLTree, test_random_inserting)
+{
+	auto avl_tree = AVLTree<int>();
+	int index{};
+	int limit{1000};
+	int value{};
+	std::set<int> expected_result;
+	while (index < limit)
+	{
+		value = get_random(-1000000, 1000000);
+		avl_tree.insert(value);
+		expected_result.insert(value);
+		index++;
+	}
+	auto result = avl_tree.get_vector_inorder();
+	index =0;
+	for (const auto & element: expected_result) {
+		EXPECT_EQ(result[index], element);
+		index++;
 	}
 }
