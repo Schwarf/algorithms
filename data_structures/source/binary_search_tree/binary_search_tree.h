@@ -145,6 +145,13 @@ private:
 		return p_r;
 	}
 
+	int compute_balance(Node<T> * node)
+	{
+		if(node == nullptr)
+			return 0;
+		return height(node->left) - height(node->right);
+	}
+
 	Node<T> *insert_(Node<T> *node, const T &value)
 	{
 		if (!node)
@@ -158,19 +165,39 @@ private:
 			return node;
 
 		node->height = 1 + std::max(height(node->left), height(node->right));
-		int balance = height(node->left) - height(node->right);
-		// left left case ???
+		auto balance = compute_balance(node);
+		// left left case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is smaller than the child-node-value
+		// we have to perform a simple right rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL-Insertion1-1.jpg
+		// definition of balance value seems to be off by a minus sign
 		if (balance > 1 && value < node->left->key)
 			return right_rotation(node);
-		// left right case ???
+		// left right case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is larger than the child-node-value
+		// we have to perform a left rotation first, than a right rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Insertion_3-1.jpg
+		// definition of balance value seems to be off by a minus sign
 		if (balance > 1 && value > node->left->key) {
 			node->left = left_rotation(node->left);
 			return right_rotation(node);
 		}
-		// right right case ??
+		// right right case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is larger than the child-node-value
+		// we have to perform a simple left rotation first
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_INSERTION2-1.jpg
+		// definition of balance value seems to be off by a minus sign
 		if (balance < -1 && value > node->right->key)
 			return left_rotation(node);
-		// right left case ???
+		// right left case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is smaller than the child-node-value
+		// we have to perform a right rotation first, than a left rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Tree_4-1.jpg
+		// definition of balance value seems to be off by a minus sign
 		if (balance < -1 && value < node->right->key) {
 			node->right = right_rotation(node->right);
 			return left_rotation(node);
