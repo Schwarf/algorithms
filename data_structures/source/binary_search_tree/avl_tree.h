@@ -13,7 +13,7 @@ class AVLTree
 public:
 	void insert(const T &value)
 	{
-		root_ = insert_(root_, value);
+		root_ = insert_(root_ , value);
 	}
 
 	void delete_node_with_value(const T &value)
@@ -41,7 +41,7 @@ public:
 private:
 	Node<T> *root_ = nullptr;
 
-	int height(Node<T> *node) const
+	int height_(Node<T> *node) const
 	{
 		if (node)
 			return node->height;
@@ -66,12 +66,68 @@ private:
 		print_inorder_traversal_(node->right);
 	}
 
-	Node<T> *minimal_value_in_subtree(Node<T> *node) const
+	Node<T> *minimal_value_in_subtree_(Node<T> *node) const
 	{
 		auto current = node;
 		while (current->left != nullptr)
 			current = current->left;
 		return current;
+	}
+
+
+	Node<T> * balance_tree_(Node<T> *node)
+	{
+		node->height = 1 + std::max(height_(node->left), height_(node->right));
+		auto balance = compute_balance(node);
+		auto left_balance = compute_balance(node->left);
+		auto right_balance = compute_balance(node->right);
+		// left left case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is smaller than the child-node-value
+		// we have to perform a simple right rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL-Insertion1-1.jpg
+		// definition of balance value seems to be off by a minus sign
+		// alternatively check that the balance of the child has the SAME sign (or zero) than the node
+
+		// if (balance > 1 && value < node->left->value)
+		if (balance > 1 && left_balance >= 0)
+			return right_rotation(node);
+		// left right case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is larger than the child-node-value
+		// we have to perform a left rotation first, than a right rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Insertion_3-1.jpg
+		// definition of balance value seems to be off by a minus sign
+		// alternatively check that the balance of the child has the OPPOSITE sign than the node
+		// if (balance > 1 && value > node->left->value) {
+		if (balance > 1 && left_balance < 0) {
+			node->left = left_rotation(node->left);
+			return right_rotation(node);
+		}
+		// right right case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is larger than the child-node-value
+		// we have to perform a simple left rotation first
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_INSERTION2-1.jpg
+		// definition of balance value seems to be off by a minus sign
+		// alternatively check that the balance of the child has the SAME sign (or zero) than the node
+		// if (balance < -1 && value > node->right->value)
+		if (balance < -1 && right_balance <= 0)
+			return left_rotation(node);
+		// right left case
+		// we check the value of the child-node and compare it with the inserted-value
+		// if the inserted-value is smaller than the child-node-value
+		// we have to perform a right rotation first, than a left rotation
+		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Tree_4-1.jpg
+		// definition of balance value seems to be off by a minus sign
+		// alternatively check that the balance of the child has the OPPOSITE sign than the node
+		// if (balance < -1 && value < node->right->value) {
+		if (balance < -1 && right_balance > 0) {
+			node->right = right_rotation(node->right);
+			return left_rotation(node);
+		}
+		return nullptr;
+
 	}
 
 	Node<T> *delete_(Node<T> *node, T value)
@@ -100,40 +156,19 @@ private:
 				// node with two children
 			else {
 				// the node successor is the minimum in the right subtree
-				temp = minimal_value_in_subtree(node);
+				temp = minimal_value_in_subtree_(node);
 				// replace value in current node with successor node
 				node->value = temp->value;
 				// delete the successor note
 				node->right = delete_(node->right, temp->value);
 			}
 		}
-		// Now check if we need re-balancing
-		// tree has only one node
+			// Now check if we need re-balancing
+			// tree has only one node
 		if (node == nullptr)
 			return node;
-		node->height = 1 + std::max(height(node->left), height(node->right));
-		auto balance = compute_balance(node);
-		auto left_balance = compute_balance(node->left);
-		auto right_balance = compute_balance(node->right);
-		// left left case
-		if (balance > 1 && left_balance >= 0)
-			return right_rotation(node);
-		// left right case
-		if (balance > 1 && left_balance < 0) {
-			node->left = left_rotation(node->left);
-			return right_rotation(node);
-		}
-		// right right case
-		if (balance < -1 && right_balance <= 0)
-			return left_rotation(node);
-		// right left case
-		if (balance < -1 && right_balance > 0) {
-			node->right = right_rotation(node->right);
-			return left_rotation(node);
-		}
-
-
-		return node;
+		auto balanced = balance_tree_(node);
+		return balanced? balanced: node;
 	}
 	//                               RIGHT ROTATION
 	//              parent                                        p_l
@@ -150,8 +185,8 @@ private:
 		auto p_l_r = p_l->right;
 		p_l->right = parent;
 		parent->left = p_l_r;
-		parent->height = 1 + std::max(height(parent->left), height(parent->right));
-		p_l->height = 1 + std::max(height(p_l->left), height(p_l->right));
+		parent->height = 1 + std::max(height_(parent->left), height_(parent->right));
+		p_l->height = 1 + std::max(height_(p_l->left), height_(p_l->right));
 		return p_l;
 
 	}
@@ -170,8 +205,8 @@ private:
 		auto p_r_l = p_r->left;
 		p_r->left = parent;
 		parent->right = p_r_l;
-		parent->height = 1 + std::max(height(parent->left), height(parent->right));
-		p_r->height = 1 + std::max(height(p_r->left), height(p_r->right));
+		parent->height = 1 + std::max(height_(parent->left), height_(parent->right));
+		p_r->height = 1 + std::max(height_(p_r->left), height_(p_r->right));
 		return p_r;
 	}
 
@@ -179,7 +214,7 @@ private:
 	{
 		if (node == nullptr)
 			return 0;
-		return height(node->left) - height(node->right);
+		return height_(node->left) - height_(node->right);
 	}
 
 	Node<T> *insert_(Node<T> *node, const T &value)
@@ -194,45 +229,8 @@ private:
 		else
 			return node;
 
-		node->height = 1 + std::max(height(node->left), height(node->right));
-		auto balance = compute_balance(node);
-		// left left case
-		// we check the value of the child-node and compare it with the inserted-value
-		// if the inserted-value is smaller than the child-node-value
-		// we have to perform a simple right rotation
-		// https://media.geeksforgeeks.org/wp-content/uploads/AVL-Insertion1-1.jpg
-		// definition of balance value seems to be off by a minus sign
-		if (balance > 1 && value < node->left->value)
-			return right_rotation(node);
-		// left right case
-		// we check the value of the child-node and compare it with the inserted-value
-		// if the inserted-value is larger than the child-node-value
-		// we have to perform a left rotation first, than a right rotation
-		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Insertion_3-1.jpg
-		// definition of balance value seems to be off by a minus sign
-		if (balance > 1 && value > node->left->value) {
-			node->left = left_rotation(node->left);
-			return right_rotation(node);
-		}
-		// right right case
-		// we check the value of the child-node and compare it with the inserted-value
-		// if the inserted-value is larger than the child-node-value
-		// we have to perform a simple left rotation first
-		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_INSERTION2-1.jpg
-		// definition of balance value seems to be off by a minus sign
-		if (balance < -1 && value > node->right->value)
-			return left_rotation(node);
-		// right left case
-		// we check the value of the child-node and compare it with the inserted-value
-		// if the inserted-value is smaller than the child-node-value
-		// we have to perform a right rotation first, than a left rotation
-		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Tree_4-1.jpg
-		// definition of balance value seems to be off by a minus sign
-		if (balance < -1 && value < node->right->value) {
-			node->right = right_rotation(node->right);
-			return left_rotation(node);
-		}
-		return node;
+		auto balanced = balance_tree_(node);
+		return balanced ? balanced: node;
 
 	}
 
