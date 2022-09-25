@@ -14,11 +14,16 @@ public:
 	void insert(const T &value)
 	{
 		root_ = insert_(root_, value);
+		number_of_nodes_++;
 	}
 
 	void delete_node_with_value(const T &value)
 	{
 		root_ = delete_(root_, value);
+		if(root_)
+			number_of_nodes_--;
+		else
+			number_of_nodes_=0;
 	}
 
 	void print_inorder_traversal() const
@@ -32,14 +37,20 @@ public:
 		write_to_vector_inorder_(root_, result);
 		return result;
 	}
+
 	int height() const
 	{
 		return root_->height;
 	}
 
+	int number_of_nodes() const
+	{
+		return number_of_nodes_;
+	}
 
 private:
 	Node<T> *root_ = nullptr;
+	size_t number_of_nodes_{};
 
 	int height_(Node<T> *node) const
 	{
@@ -77,9 +88,9 @@ private:
 	Node<T> *balance_tree_(Node<T> *node)
 	{
 		node->height = 1 + std::max(height_(node->left), height_(node->right));
-		auto balance = compute_balance(node);
-		auto left_balance = compute_balance(node->left);
-		auto right_balance = compute_balance(node->right);
+		auto balance = compute_balance_(node);
+		auto left_balance = compute_balance_(node->left);
+		auto right_balance = compute_balance_(node->right);
 		// left left case
 		// we check the value of the child-node and compare it with the inserted-value
 		// if the inserted-value is smaller than the child-node-value
@@ -209,7 +220,7 @@ private:
 		return p_r;
 	}
 
-	int compute_balance(Node<T> *node) const
+	int compute_balance_(Node<T> *node) const
 	{
 		if (node == nullptr)
 			return 0;

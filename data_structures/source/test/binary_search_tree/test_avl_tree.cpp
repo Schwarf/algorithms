@@ -36,6 +36,7 @@ TEST_F(SetupAVLTree, test_insert_descending_order)
 	for (const auto &element: descending_order)
 		avl_tree.insert(element);
 	EXPECT_EQ(avl_tree.height(), expected_height);
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
 }
@@ -47,6 +48,7 @@ TEST_F(SetupAVLTree, test_insert_ascending_order)
 	for (const auto &element: ascending_order)
 		avl_tree.insert(element);
 	EXPECT_EQ(avl_tree.height(), expected_height);
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
 }
@@ -61,6 +63,7 @@ TEST_F(SetupAVLTree, test_deleting_biggest_values)
 		avl_tree.delete_node_with_value(descending_order[i]);
 	}
 	EXPECT_EQ(avl_tree.height(), reduced_expected_height);
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - (descending_order.size()/2));
 	auto result = avl_tree.get_vector_inorder();
 	for (int i{}; i < ascending_order.size() / 2; ++i) {
 		EXPECT_EQ(result[i], ascending_order[i]);
@@ -77,6 +80,7 @@ TEST_F(SetupAVLTree, test_deleting_one_value_in_between)
 	auto result = avl_tree.get_vector_inorder();
 	ascending_order.erase(std::remove(ascending_order.begin(), ascending_order.end(), ascending_order[index]),
 						  ascending_order.end());
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - 1);
 	for (int i{}; i < ascending_order.size(); ++i) {
 		if (i == index)
 			continue;
@@ -91,7 +95,9 @@ TEST_F(SetupAVLTree, test_deleting_one_value_in_between_and_inserting_it_again)
 		avl_tree.insert(element);
 	int index = 3;
 	avl_tree.delete_node_with_value(ascending_order[index]);
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - 1);
 	avl_tree.insert(ascending_order[index]);
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	for (int i{}; i < ascending_order.size(); ++i) {
 		EXPECT_EQ(result[i], ascending_order[i]);
@@ -114,8 +120,10 @@ TEST_F(SetupAVLTree, test_random_inserting)
 	}
 	auto result = avl_tree.get_vector_inorder();
 	index =0;
+	EXPECT_EQ(avl_tree.number_of_nodes(), 1000);
 	for (const auto & element: expected_result) {
 		EXPECT_EQ(result[index], element);
 		index++;
 	}
+
 }
