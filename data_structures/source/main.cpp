@@ -16,7 +16,7 @@ int main()
 	tree.insert(10);
 
 	tree.print_inorder_traversal();
-//	auto ordered = tree.write_to_vector_inorder();
+//	auto ordered = tree.get_vector_inorder();
 	std::cout << "******************" << std::endl;
 	tree.delete_node_with_value(5);
 	tree.delete_node_with_value(10);

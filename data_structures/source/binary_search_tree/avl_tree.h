@@ -13,7 +13,7 @@ class AVLTree
 public:
 	void insert(const T &value)
 	{
-		root_ = insert_(root_ , value);
+		root_ = insert_(root_, value);
 	}
 
 	void delete_node_with_value(const T &value)
@@ -26,7 +26,7 @@ public:
 		print_inorder_traversal_(root_);
 	}
 
-	std::vector<T> write_to_vector_inorder()
+	std::vector<T> get_vector_inorder()
 	{
 		std::vector<T> result;
 		write_to_vector_inorder_(root_, result);
@@ -74,8 +74,7 @@ private:
 		return current;
 	}
 
-
-	Node<T> * balance_tree_(Node<T> *node)
+	Node<T> *balance_tree_(Node<T> *node)
 	{
 		node->height = 1 + std::max(height_(node->left), height_(node->right));
 		auto balance = compute_balance(node);
@@ -156,19 +155,19 @@ private:
 				// node with two children
 			else {
 				// the node successor is the minimum in the right subtree
-				temp = minimal_value_in_subtree_(node);
+				temp = minimal_value_in_subtree_(node->right);
 				// replace value in current node with successor node
 				node->value = temp->value;
 				// delete the successor note
 				node->right = delete_(node->right, temp->value);
 			}
 		}
-			// Now check if we need re-balancing
-			// tree has only one node
+		// Now check if we need re-balancing
+		// tree has only one node
 		if (node == nullptr)
 			return node;
 		auto balanced = balance_tree_(node);
-		return balanced? balanced: node;
+		return balanced ? balanced : node;
 	}
 	//                               RIGHT ROTATION
 	//              parent                                        p_l
@@ -230,7 +229,7 @@ private:
 			return node;
 
 		auto balanced = balance_tree_(node);
-		return balanced ? balanced: node;
+		return balanced ? balanced : node;
 
 	}
 
