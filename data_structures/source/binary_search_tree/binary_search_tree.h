@@ -69,6 +69,14 @@ private:
 		print_inorder_traversal_(node->right);
 	}
 
+	Node<T> * minimal_value_in_subtree(Node<T> * node)
+	{
+		auto current = node;
+		while(current->left != nullptr)
+			current = current->left;
+		return current;
+	}
+
 	Node<T> *delete_(Node<T> *node, T value)
 	{
 		if (node == nullptr)
@@ -78,30 +86,25 @@ private:
 		else if (value > node->value)
 			delete_(node->right, value);
 		else {
-			// Case: Is leaf node
-			if (node->left == nullptr && node->right == nullptr) {
-				delete node;
-				return nullptr;
+			Node<T> *temp = nullptr;
+			// node with one or no child
+			if (node->left == nullptr || node->right == nullptr) {
+				temp = node->left ? node->left : node->right;
+				// no child
+				if (temp == nullptr) {
+					temp = node;
+					node = nullptr;
+				}
+					// One child ... copy child content
+				else
+					*node = *temp;
+				delete (temp);
 			}
-			// Case: Has one child
-			if (node->left == nullptr) {
-				auto child = node->right;
-				delete node;
-				return child;
+				// node with two children
+			else {
+				temp =
 			}
-			else if (node->right == nullptr) {
-				auto child = node->left;
-				delete node;
-				return child;
-			}
-			// Case: Has two children
-			if (node->left && node->right) {
-				auto temp = node->right;
-				while (temp->left)
-					temp = temp->left;
-				node->value = temp->value;
-				node->right = delete_(node->right, node->value);
-			}
+
 		}
 		return node;
 	}
@@ -145,9 +148,9 @@ private:
 		return p_r;
 	}
 
-	int compute_balance(Node<T> * node)
+	int compute_balance(Node<T> *node)
 	{
-		if(node == nullptr)
+		if (node == nullptr)
 			return 0;
 		return height(node->left) - height(node->right);
 	}
