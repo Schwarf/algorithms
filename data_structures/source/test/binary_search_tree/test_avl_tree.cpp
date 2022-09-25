@@ -18,9 +18,10 @@ protected:
 	std::vector<int> descending_order{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6};
 	std::vector<int> ascending_order;
 	int expected_height = 5;
+	int reduced_expected_height = 4;
 };
 
-TEST_F(SetupAVLTree, test_descending_order)
+TEST_F(SetupAVLTree, test_insert_descending_order)
 {
 	auto avl_tree = AVLTree<int>();
 	for(const auto & element: descending_order)
@@ -31,7 +32,7 @@ TEST_F(SetupAVLTree, test_descending_order)
 }
 
 
-TEST_F(SetupAVLTree, test_ascending_order)
+TEST_F(SetupAVLTree, test_insert_ascending_order)
 {
 	auto avl_tree = AVLTree<int>();
 	for(const auto & element: ascending_order)
@@ -39,4 +40,18 @@ TEST_F(SetupAVLTree, test_ascending_order)
 	EXPECT_EQ(avl_tree.height(), expected_height);
 	auto result = avl_tree.write_to_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
+}
+
+
+TEST_F(SetupAVLTree, test_deleting_biggest_values)
+{
+	auto avl_tree = AVLTree<int>();
+	for(const auto & element: ascending_order)
+		avl_tree.insert(element);
+	for(int i{}; i < descending_order.size()/2; ++i)
+	{
+		avl_tree.delete_node_with_value(descending_order[i]);
+	}
+	EXPECT_EQ(avl_tree.height(), reduced_expected_height);
+	auto result = avl_tree.write_to_vector_inorder();
 }

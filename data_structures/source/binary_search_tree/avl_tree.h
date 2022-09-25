@@ -13,7 +13,7 @@ class AVLTree
 public:
 	void insert(const T &value)
 	{
-		root_ = insert_(root_ , value);
+		root_ = insert_(root_, value);
 	}
 
 	void delete_node_with_value(const T &value)
@@ -79,9 +79,9 @@ private:
 		if (node == nullptr)
 			return nullptr;
 		if (value < node->value)
-			delete_(node->left, value);
+			node->left = delete_(node->left, value);
 		else if (value > node->value)
-			delete_(node->right, value);
+			node->right = delete_(node->right, value);
 		else {
 			Node<T> *temp = nullptr;
 			// node with one or no child
@@ -106,32 +106,33 @@ private:
 				// delete the successor note
 				node->right = delete_(node->right, temp->value);
 			}
-			// Now check if we need re-balancing
-			// tree has only one node
-			if (node == nullptr)
-				return node;
-			node->height = 1 + std::max(height(node->left), height(node->right));
-			auto balance = compute_balance(node);
-			auto left_balance = compute_balance(node->left);
-			auto right_balance = compute_balance(node->right);
-			// left left case
-			if (balance > 1 && left_balance >= 0)
-				return right_rotation(node);
-			// left right case
-			if (balance > 1 && left_balance < 0) {
-				node->left = left_rotation(node->left);
-				return right_rotation(node);
-			}
-			// right right case
-			if (balance < -1 && right_balance <= 0)
-				return left_rotation(node);
-			// right left case
-			if (balance < -1 && right_balance > 0) {
-				node->right = right_rotation(node->right);
-				return left_rotation(node);
-			}
-
 		}
+		// Now check if we need re-balancing
+		// tree has only one node
+		if (node == nullptr)
+			return node;
+		node->height = 1 + std::max(height(node->left), height(node->right));
+		auto balance = compute_balance(node);
+		auto left_balance = compute_balance(node->left);
+		auto right_balance = compute_balance(node->right);
+		// left left case
+		if (balance > 1 && left_balance >= 0)
+			return right_rotation(node);
+		// left right case
+		if (balance > 1 && left_balance < 0) {
+			node->left = left_rotation(node->left);
+			return right_rotation(node);
+		}
+		// right right case
+		if (balance < -1 && right_balance <= 0)
+			return left_rotation(node);
+		// right left case
+		if (balance < -1 && right_balance > 0) {
+			node->right = right_rotation(node->right);
+			return left_rotation(node);
+		}
+
+
 		return node;
 	}
 	//                               RIGHT ROTATION

@@ -19,6 +19,7 @@ int main()
 //	auto ordered = tree.write_to_vector_inorder();
 	std::cout << "******************" << std::endl;
 	tree.delete_node_with_value(5);
+	tree.delete_node_with_value(10);
 	tree.print_inorder_traversal();
 }
 
