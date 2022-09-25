@@ -36,7 +36,7 @@ enable_cxx_compiler_flag_if_supported("-O0")
 add_executable(main
         main.cpp
         binary_search_tree/node.h
-        binary_search_tree/binary_search_tree.h)
+        binary_search_tree/avl_tree.h)
 
 add_subdirectory(hash_functions)
 add_subdirectory(linked_lists)

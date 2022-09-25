@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
-#include "binary_search_tree/binary_search_tree.h"
+#include "binary_search_tree/avl_tree.h"
 
 
 int main()
 {
-	auto tree = BinarySearchTree<int>();
+	auto tree = AVLTree<int>();
 	tree.insert(3);
 	tree.insert(5);
 	tree.insert(1);

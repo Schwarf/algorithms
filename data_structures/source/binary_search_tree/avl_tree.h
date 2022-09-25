@@ -2,25 +2,18 @@
 // Created by andreas on 22.01.22.
 //
 
-#ifndef BINARY_SEARCH_TREE_H
-#define BINARY_SEARCH_TREE_H
+#ifndef AVL_TREE_H
+#define AVL_TREE_H
 #include "node.h"
 #include <iostream>
 
 template<typename T>
-class BinarySearchTree
+class AVLTree
 {
 public:
 	void insert(const T &value)
 	{
-		if (!root_) {
-			root_ = new Node<T>(value);
-			return;
-		}
-		else {
-			auto node = root_;
-			insert_(node, value);
-		}
+		root_ = insert_(root_ , value);
 	}
 
 	void delete_node_with_value(const T &value)
@@ -204,7 +197,7 @@ private:
 		// we have to perform a simple right rotation
 		// https://media.geeksforgeeks.org/wp-content/uploads/AVL-Insertion1-1.jpg
 		// definition of balance value seems to be off by a minus sign
-		if (balance > 1 && value < node->left->key)
+		if (balance > 1 && value < node->left->value)
 			return right_rotation(node);
 		// left right case
 		// we check the value of the child-node and compare it with the inserted-value
@@ -212,7 +205,7 @@ private:
 		// we have to perform a left rotation first, than a right rotation
 		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Insertion_3-1.jpg
 		// definition of balance value seems to be off by a minus sign
-		if (balance > 1 && value > node->left->key) {
+		if (balance > 1 && value > node->left->value) {
 			node->left = left_rotation(node->left);
 			return right_rotation(node);
 		}
@@ -222,7 +215,7 @@ private:
 		// we have to perform a simple left rotation first
 		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_INSERTION2-1.jpg
 		// definition of balance value seems to be off by a minus sign
-		if (balance < -1 && value > node->right->key)
+		if (balance < -1 && value > node->right->value)
 			return left_rotation(node);
 		// right left case
 		// we check the value of the child-node and compare it with the inserted-value
@@ -230,7 +223,7 @@ private:
 		// we have to perform a right rotation first, than a left rotation
 		// https://media.geeksforgeeks.org/wp-content/uploads/AVL_Tree_4-1.jpg
 		// definition of balance value seems to be off by a minus sign
-		if (balance < -1 && value < node->right->key) {
+		if (balance < -1 && value < node->right->value) {
 			node->right = right_rotation(node->right);
 			return left_rotation(node);
 		}
@@ -241,4 +234,4 @@ private:
 };
 
 
-#endif //BINARY_SEARCH_TREE_H
+#endif //AVL_TREE_H
