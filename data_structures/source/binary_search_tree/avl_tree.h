@@ -163,7 +163,7 @@ private:
 	{
 		auto p_r = parent->right;
 		auto p_r_l = p_r->left;
-		p_r->right = parent;
+		p_r->left = parent;
 		parent->right = p_r_l;
 		parent->height = 1 + std::max(height(parent->left), height(parent->right));
 		p_r->height = 1 + std::max(height(p_r->left), height(p_r->right));

@@ -12,7 +12,7 @@ public:
 	}
 	Node * left = nullptr;
 	Node * right = nullptr;
-	int height{0};
+	int height{1};
 	T value{};
 };
 
