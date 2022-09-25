@@ -21,7 +21,7 @@ public:
 		root_ = delete_(root_, value);
 	}
 
-	void print_inorder_traversal()
+	void print_inorder_traversal() const
 	{
 		print_inorder_traversal_(root_);
 	}
@@ -32,19 +32,23 @@ public:
 		write_to_vector_inorder_(root_, result);
 		return result;
 	}
-
-	int height(Node<T> *node)
+	int height() const
 	{
-		if (node)
-			return node->height;
-		return 0;
+		return root_->height;
 	}
 
 
 private:
 	Node<T> *root_ = nullptr;
 
-	void write_to_vector_inorder_(Node<T> *node, std::vector<T> &result)
+	int height(Node<T> *node) const
+	{
+		if (node)
+			return node->height;
+		return 0;
+	}
+
+	void write_to_vector_inorder_(Node<T> *node, std::vector<T> &result) const
 	{
 		if (!node)
 			return;
@@ -53,7 +57,7 @@ private:
 		write_to_vector_inorder_(node->right, result);
 	}
 
-	void print_inorder_traversal_(Node<T> *node)
+	void print_inorder_traversal_(Node<T> *node) const
 	{
 		if (!node)
 			return;
@@ -62,7 +66,7 @@ private:
 		print_inorder_traversal_(node->right);
 	}
 
-	Node<T> *minimal_value_in_subtree(Node<T> *node)
+	Node<T> *minimal_value_in_subtree(Node<T> *node) const
 	{
 		auto current = node;
 		while (current->left != nullptr)
@@ -170,7 +174,7 @@ private:
 		return p_r;
 	}
 
-	int compute_balance(Node<T> *node)
+	int compute_balance(Node<T> *node) const
 	{
 		if (node == nullptr)
 			return 0;
