@@ -69,10 +69,10 @@ private:
 		print_inorder_traversal_(node->right);
 	}
 
-	Node<T> * minimal_value_in_subtree(Node<T> * node)
+	Node<T> *minimal_value_in_subtree(Node<T> *node)
 	{
 		auto current = node;
-		while(current->left != nullptr)
+		while (current->left != nullptr)
 			current = current->left;
 		return current;
 	}
@@ -102,7 +102,36 @@ private:
 			}
 				// node with two children
 			else {
-				temp =
+				// the node successor is the minimum in the right subtree
+				temp = minimal_value_in_subtree(node);
+				// replace value in current node with successor node
+				node->value = temp->value;
+				// delete the successor note
+				node->right = delete_(node->right, temp->value);
+			}
+			// Now check if we need re-balancing
+			// tree has only one node
+			if (node == nullptr)
+				return node;
+			node->height = 1 + std::max(height(node->left), height(node->right));
+			auto balance = compute_balance(node);
+			auto left_balance = compute_balance(node->left);
+			auto right_balance = compute_balance(node->right);
+			// left left case
+			if (balance > 1 && left_balance >= 0)
+				return right_rotation(node);
+			// left right case
+			if (balance > 1 && left_balance < 0) {
+				node->left = left_rotation(node->left);
+				return right_rotation(node);
+			}
+			// right right case
+			if (balance < -1 && right_balance <= 0)
+				return left_rotation(node);
+			// right left case
+			if (balance < -1 && right_balance > 0) {
+				node->right = right_rotation(node->right);
+				return left_rotation(node);
 			}
 
 		}
