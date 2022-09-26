@@ -48,6 +48,12 @@ public:
 		return number_of_nodes_;
 	}
 
+	bool is_value_in_tree(const T & value) const
+	{
+
+		return find_(value, root_);
+	}
+
 private:
 	Node<T> *root_ = nullptr;
 	size_t number_of_nodes_{};
@@ -57,6 +63,18 @@ private:
 		if (node)
 			return node->height;
 		return 0;
+	}
+
+	bool find_(const T & value, Node<T> * node) const
+	{
+		if(node == nullptr)
+			return false;
+		else if(node->value == value)
+			return true;
+		else if(value < node->value)
+			return find_(value, node->left);
+		else
+			return find_(value, node->right);
 	}
 
 	void write_to_vector_inorder_(Node<T> *node, std::vector<T> &result) const

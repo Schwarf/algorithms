@@ -39,6 +39,9 @@ TEST_F(SetupAVLTree, test_insert_descending_order)
 	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
+	EXPECT_TRUE(avl_tree.is_value_in_tree(descending_order[0]));
+	int value_not_in_tree =12;
+	EXPECT_FALSE(avl_tree.is_value_in_tree(value_not_in_tree));
 }
 
 
@@ -51,6 +54,9 @@ TEST_F(SetupAVLTree, test_insert_ascending_order)
 	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
+	EXPECT_TRUE(avl_tree.is_value_in_tree(ascending_order[0]));
+	int value_not_in_tree =-12;
+	EXPECT_FALSE(avl_tree.is_value_in_tree(value_not_in_tree));
 }
 
 
@@ -76,7 +82,9 @@ TEST_F(SetupAVLTree, test_deleting_one_value_in_between)
 	for (const auto &element: ascending_order)
 		avl_tree.insert(element);
 	int index = 5;
+	EXPECT_TRUE(avl_tree.is_value_in_tree(ascending_order[index]));
 	avl_tree.delete_node_with_value(ascending_order[index]);
+	EXPECT_FALSE(avl_tree.is_value_in_tree(ascending_order[index]));
 	auto result = avl_tree.get_vector_inorder();
 	ascending_order.erase(std::remove(ascending_order.begin(), ascending_order.end(), ascending_order[index]),
 						  ascending_order.end());
@@ -94,9 +102,12 @@ TEST_F(SetupAVLTree, test_deleting_one_value_in_between_and_inserting_it_again)
 	for (const auto &element: ascending_order)
 		avl_tree.insert(element);
 	int index = 3;
+	EXPECT_TRUE(avl_tree.is_value_in_tree(ascending_order[index]));
 	avl_tree.delete_node_with_value(ascending_order[index]);
+	EXPECT_FALSE(avl_tree.is_value_in_tree(ascending_order[index]));
 	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - 1);
 	avl_tree.insert(ascending_order[index]);
+	EXPECT_TRUE(avl_tree.is_value_in_tree(ascending_order[index]));
 	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size());
 	auto result = avl_tree.get_vector_inorder();
 	for (int i{}; i < ascending_order.size(); ++i) {
