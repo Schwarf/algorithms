@@ -5,13 +5,15 @@
 #ifndef NODE_H
 #define NODE_H
 template<typename T>
-struct Node{
+struct Node
+{
 public:
-	explicit Node(const T & val){
+	explicit Node(const T &val)
+	{
 		value = val;
 	}
-	Node * left = nullptr;
-	Node * right = nullptr;
+	Node *left = nullptr;
+	Node *right = nullptr;
 	int height{1};
 	T value{};
 };

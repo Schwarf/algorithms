@@ -16,11 +16,11 @@ public:
 		std::reverse(ascending_order.begin(), ascending_order.end());
 	}
 protected:
-	static inline int get_random(const int & lower_bound, const int & upper_bound)
+	static inline int get_random(const int &lower_bound, const int &upper_bound)
 	{
 		auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
 		std::random_device device;
-		auto generator = std::mt19937 (device());
+		auto generator = std::mt19937(device());
 		return int_distribution_(generator);
 	}
 
@@ -40,7 +40,7 @@ TEST_F(SetupAVLTree, test_insert_descending_order)
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
 	EXPECT_TRUE(avl_tree.is_value_in_tree(descending_order[0]));
-	int value_not_in_tree =12;
+	int value_not_in_tree = 12;
 	EXPECT_FALSE(avl_tree.is_value_in_tree(value_not_in_tree));
 }
 
@@ -55,7 +55,7 @@ TEST_F(SetupAVLTree, test_insert_ascending_order)
 	auto result = avl_tree.get_vector_inorder();
 	EXPECT_EQ(result, ascending_order);
 	EXPECT_TRUE(avl_tree.is_value_in_tree(ascending_order[0]));
-	int value_not_in_tree =-12;
+	int value_not_in_tree = -12;
 	EXPECT_FALSE(avl_tree.is_value_in_tree(value_not_in_tree));
 }
 
@@ -69,7 +69,7 @@ TEST_F(SetupAVLTree, test_deleting_biggest_values)
 		avl_tree.delete_node_with_value(descending_order[i]);
 	}
 	EXPECT_EQ(avl_tree.height(), reduced_expected_height);
-	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - (descending_order.size()/2));
+	EXPECT_EQ(avl_tree.number_of_nodes(), descending_order.size() - (descending_order.size() / 2));
 	auto result = avl_tree.get_vector_inorder();
 	for (int i{}; i < ascending_order.size() / 2; ++i) {
 		EXPECT_EQ(result[i], ascending_order[i]);
@@ -122,19 +122,54 @@ TEST_F(SetupAVLTree, test_random_inserting)
 	int limit{1000};
 	int value{};
 	std::set<int> expected_result;
-	while (index < limit)
-	{
+	while (index < limit) {
 		value = get_random(-1000000, 1000000);
 		avl_tree.insert(value);
 		expected_result.insert(value);
 		index++;
 	}
 	auto result = avl_tree.get_vector_inorder();
-	index =0;
+	index = 0;
 	EXPECT_EQ(avl_tree.number_of_nodes(), 1000);
-	for (const auto & element: expected_result) {
+	for (const auto &element: expected_result) {
 		EXPECT_EQ(result[index], element);
 		index++;
 	}
+}
 
+TEST_F(SetupAVLTree, test_random_inserting_and_random_deleting)
+{
+	auto avl_tree = AVLTree<int>();
+	int index{};
+	int limit{1000};
+	int value{};
+	std::set<int> expected_result;
+	std::vector<int> help;
+	while (index < limit) {
+		value = get_random(-1000000, 1000000);
+		avl_tree.insert(value);
+		help.push_back(value);
+		expected_result.insert(value);
+		index++;
+	}
+	auto result = avl_tree.get_vector_inorder();
+	index = 0;
+	EXPECT_EQ(avl_tree.number_of_nodes(), 1000);
+	for (const auto &element: expected_result) {
+		EXPECT_EQ(result[index], element);
+		index++;
+	}
+	int delete_limit = 50;
+	for (int i = 0; i < delete_limit; ++i) {
+		index = get_random(0, help.size());
+		avl_tree.delete_node_with_value(help[index]);
+		expected_result.erase(help[index]);
+	}
+	index = 0;
+	EXPECT_EQ(avl_tree.number_of_nodes(), 950);
+	result = avl_tree.get_vector_inorder();
+	for (const auto &element: expected_result) {
+		EXPECT_EQ(result[index], element);
+		index++;
+	}
 }

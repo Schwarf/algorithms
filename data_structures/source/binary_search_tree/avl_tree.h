@@ -20,10 +20,10 @@ public:
 	void delete_node_with_value(const T &value)
 	{
 		root_ = delete_(root_, value);
-		if(root_)
+		if (root_)
 			number_of_nodes_--;
 		else
-			number_of_nodes_=0;
+			number_of_nodes_ = 0;
 	}
 
 	void print_inorder_traversal() const
@@ -48,7 +48,7 @@ public:
 		return number_of_nodes_;
 	}
 
-	bool is_value_in_tree(const T & value) const
+	bool is_value_in_tree(const T &value) const
 	{
 
 		return find_(value, root_);
@@ -65,13 +65,13 @@ private:
 		return 0;
 	}
 
-	bool find_(const T & value, Node<T> * node) const
+	bool find_(const T &value, Node<T> *node) const
 	{
-		if(node == nullptr)
+		if (node == nullptr)
 			return false;
-		else if(node->value == value)
+		else if (node->value == value)
 			return true;
-		else if(value < node->value)
+		else if (value < node->value)
 			return find_(value, node->left);
 		else
 			return find_(value, node->right);
