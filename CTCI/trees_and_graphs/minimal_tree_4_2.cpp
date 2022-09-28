@@ -3,10 +3,15 @@
 #include <queue>
 
 template<typename T>
-
 struct Node
 {
-	Node(T val) {value = val;}
+	explicit Node(const T &val)
+		: value(val)
+	{}
+	Node()
+		: value(0)
+	{}
+
 	T value;
 	Node *left = nullptr;
 	Node *right = nullptr;
@@ -34,41 +39,40 @@ template<typename T>
 Node<T> *create_minimal_binary_search_tree_iteratively(std::vector<T> &sorted)
 {
 	int start_index = 0;
-	int end_index = sorted.size() -1;
+	int end_index = sorted.size() - 1;
 	int middle_index{};
-	auto head = new Node<T>(0);
-	auto queue = std::queue<std::pair<Node<T>*, std::pair<int, int >>>();
+	auto head = new Node<T>();
+	auto queue = std::queue<std::pair<Node<T> *, std::pair<int, int >>>();
 	queue.push(std::make_pair(head, std::make_pair(start_index, end_index)));
-	while(!queue.empty())
-	{
+	while (!queue.empty()) {
 		auto node = queue.front().first;
 		start_index = queue.front().second.first;
 		end_index = queue.front().second.second;
 		queue.pop();
-		middle_index = (start_index + end_index)/2;
+		middle_index = (start_index + end_index) / 2;
 		node->value = sorted[middle_index];
-
-		auto left = new Node<T>(sorted[left_index]);
-		auto right = new Node<T>(sorted[right_index]);
-		node->left = left;
-		node->right = right;
-		queue.push(std::make_pair(left, left_index));
-		queue.push(std::make_pair(right, right_index));
+		if (middle_index < end_index ) {
+			node->right = new Node<T>();
+			queue.push(std::make_pair(node->right, std::make_pair(middle_index + 1, end_index)));
+		}
+		if (middle_index > start_index) {
+			node->left = new Node<T>();
+			queue.push(std::make_pair(node->left, std::make_pair(start_index, middle_index -1)));
+		}
 	}
 	return head;
 }
 
-template <typename T>
-void in_order_traversal(Node<T> * head)
+template<typename T>
+void in_order_traversal(Node<T> *head)
 {
-	if(head == nullptr)
+	if (head == nullptr)
 		return;
 
 	in_order_traversal(head->left);
-	std::cout<< head->value << "  " ;
+	std::cout << head->value << "  ";
 	in_order_traversal(head->right);
 }
-
 
 int main()
 {
