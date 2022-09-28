@@ -33,20 +33,21 @@ Node<T> *create_minimal_binary_search_tree(std::vector<T> &sorted)
 template<typename T>
 Node<T> *create_minimal_binary_search_tree_iteratively(std::vector<T> &sorted)
 {
-	int index = (sorted.size() -1)/ 2;
-	auto head = new Node<T>(sorted[index]);
-	auto queue = std::queue<std::pair<Node<T>*, int>>();
-	queue.push(std::make_pair(head, index));
+	int start_index = 0;
+	int end_index = sorted.size() -1;
+	int middle_index{};
+	auto head = new Node<T>(0);
+	auto queue = std::queue<std::pair<Node<T>*, std::pair<int, int >>>();
+	queue.push(std::make_pair(head, std::make_pair(start_index, end_index)));
 	while(!queue.empty())
 	{
 		auto node = queue.front().first;
-		index = queue.front().second;
+		start_index = queue.front().second.first;
+		end_index = queue.front().second.second;
 		queue.pop();
-		if(index +1  > sorted.size() -1 || ( index-1 < 0))
-			break;
+		middle_index = (start_index + end_index)/2;
+		node->value = sorted[middle_index];
 
-		auto left_index = (index -1)/2;
-		auto right_index = (index +1)/2;
 		auto left = new Node<T>(sorted[left_index]);
 		auto right = new Node<T>(sorted[right_index]);
 		node->left = left;
@@ -58,19 +59,20 @@ Node<T> *create_minimal_binary_search_tree_iteratively(std::vector<T> &sorted)
 }
 
 template <typename T>
-void pre_order_traversal(Node<T> * head)
+void in_order_traversal(Node<T> * head)
 {
 	if(head == nullptr)
 		return;
+
+	in_order_traversal(head->left);
 	std::cout<< head->value << "  " ;
-	pre_order_traversal(head->left);
-	pre_order_traversal(head->right);
+	in_order_traversal(head->right);
 }
 
 
 int main()
 {
-	std::vector<int> x{-1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	std::vector<int> x{-4, -3, -1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
 	auto head = create_minimal_binary_search_tree(x);
 	auto head2 = create_minimal_binary_search_tree_iteratively(x);
@@ -78,8 +80,8 @@ int main()
 
 	//std::cout << head->left->left->value << "  " << head2->left->left->value << std::endl;
 	//std::cout << head->right->value/head2->right->value << std::endl;
-	pre_order_traversal<int>(head);
+	in_order_traversal<int>(head);
 	std::cout << std::endl;
 	// TODO iterative approach not working
-	pre_order_traversal<int>(head2);
+	in_order_traversal<int>(head2);
 }
