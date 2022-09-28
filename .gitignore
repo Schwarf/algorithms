@@ -1,8 +1,13 @@
 prime_numbers.txt
+first_grap.txt
+
 cmake-build-debug/
 .idea/
+
 # Prerequisites
 *.d
+*.ps
+*.txt
 
 # Compiled Object files
 *.slo
