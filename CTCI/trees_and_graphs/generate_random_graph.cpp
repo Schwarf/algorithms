@@ -8,7 +8,8 @@ int main()
 {
 	constexpr int number_of_vertices = 10;
 	constexpr int probability_to_create_edge = 15; // percent
-	auto graph = DirectedGraph<int>(number_of_vertices);
+	auto graph = DirectedGraph<int>("first_graph",number_of_vertices);
 	create_edges_in_graph(graph, probability_to_create_edge);
+	print_graph_in_DOT_language<int>(graph);
 	return 0;
 }
