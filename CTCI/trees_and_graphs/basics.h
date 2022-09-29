@@ -21,6 +21,8 @@ static inline T get_random(const T &lower_bound, const T &upper_bound)
 	return int_distribution_(generator);
 }
 
+enum State {Unvisited, Visited, Visiting};
+
 template<typename T>
 struct Node
 {
@@ -28,6 +30,8 @@ struct Node
 		: value(val)
 	{}
 	T value;
+
+	State state = Unvisited;
 	std::vector<Node<T> *> children;
 
 };
