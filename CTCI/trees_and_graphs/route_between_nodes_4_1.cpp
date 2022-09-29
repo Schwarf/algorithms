@@ -3,12 +3,13 @@
 //
 #include "basics.h"
 #include <queue>
+#include <iostream>
 
 template <typename T>
 Graph<T> generate_random_graph()
 {
 	constexpr int number_of_vertices = 10;
-	constexpr int probability_to_create_edge = 5; // in percent
+	constexpr int probability_to_create_edge = 15; // in percent
 	auto graph = Graph<T>("first_graph", number_of_vertices);
 	create_edges_in_graph(graph, probability_to_create_edge);
 	return graph;
@@ -51,5 +52,8 @@ bool search_if_nodes_are_connected(const Graph<T> & graph,  Node<T> * start_node
 int main()
 {
 	auto graph = generate_random_graph<int>();
-
+	auto start_node = graph.nodes[0];
+	auto end_node = graph.nodes[7];
+	print_graph_in_DOT_language(graph);
+	std::cout << search_if_nodes_are_connected(graph, start_node, end_node) << std::endl;
 }

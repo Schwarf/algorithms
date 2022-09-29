@@ -57,10 +57,10 @@ void print_graph_in_DOT_language(Graph<T> &graph)
 	std::ofstream output_file(file_name);
 
 	if (output_file.is_open()) {
-		output_file << "graph G {" << std::endl;
+		output_file << "digraph G {" << std::endl;
 		for (const auto &node: graph.nodes) {
 			for (const auto &child: node->children)
-				output_file << node->value << " -- " << child->value << " ;" << std::endl;
+				output_file << node->value << " -> " << child->value << " ;" << std::endl;
 		}
 		output_file << "}" << std::endl;
 		output_file.close();
