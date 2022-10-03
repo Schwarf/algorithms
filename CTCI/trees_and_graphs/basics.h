@@ -87,13 +87,13 @@ void create_edges_in_graph(Graph<T> &graph, int probability_for_edge_in_percent)
 }
 
 template<typename T>
-Node<T> * create_random_binary_tree(int index, int number_of_nodes)
+Node<T> * generate_binary_tree_with_random_values(int index, int number_of_nodes)
 {
 	Node<T> * root = nullptr;
 	if(index < number_of_nodes) {
 		root = new Node<T>(get_random(0, number_of_nodes*10));
-		root->children.push_back(create_random_binary_tree<T>(2 * index + 1, number_of_nodes));
-		root->children.push_back(create_random_binary_tree<T>(2 * index + 2, number_of_nodes));
+		root->children.push_back(generate_binary_tree_with_random_values<T>(2 * index + 1, number_of_nodes));
+		root->children.push_back(generate_binary_tree_with_random_values<T>(2 * index + 2, number_of_nodes));
 	}
 	return root;
 }
