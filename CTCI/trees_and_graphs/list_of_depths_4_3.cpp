@@ -52,5 +52,7 @@ std::vector<Node<T>* > build_linked_lists_from_binary_tree(Node<T>* binary_tree_
 
 int main()
 {
-	return 0;
+	int number_of_nodes{9};
+	auto root = create_random_binary_tree<int>(0, number_of_nodes);
+	auto x=1;
 }

@@ -7,9 +7,11 @@
 #include <utility>
 #include <vector>
 #include <type_traits>
+#include <queue>
 #include <random>
 #include <ostream>
 #include <fstream>
+#include <iostream>
 
 
 template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
@@ -82,6 +84,18 @@ void create_edges_in_graph(Graph<T> &graph, int probability_for_edge_in_percent)
 			}
 		}
 	}
+}
+
+template<typename T>
+Node<T> * create_random_binary_tree(int index, int number_of_nodes)
+{
+	Node<T> * root = nullptr;
+	if(index < number_of_nodes) {
+		root = new Node<T>(get_random(0, number_of_nodes*10));
+		root->children.push_back(create_random_binary_tree<T>(2 * index + 1, number_of_nodes));
+		root->children.push_back(create_random_binary_tree<T>(2 * index + 2, number_of_nodes));
+	}
+	return root;
 }
 
 #endif //BASICS_H
