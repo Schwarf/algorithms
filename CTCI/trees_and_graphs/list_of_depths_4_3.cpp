@@ -26,19 +26,23 @@ std::vector<Node<T>* > build_linked_lists_from_binary_tree(Node<T>* binary_tree_
 	{
 		if(help.front())
 		{
-			node = help.pop();
-			auto left = node->children[0];
-			auto right = node->children[1];
-			if(!list_head) {
-				list_head = new Node<T>(node->value);
-				list_tail = list_head;
+			while(help.front()) {
+				node = help.front();
+				help.pop();
+				auto left = node->children[0];
+				auto right = node->children[1];
+				if (!list_head) {
+					list_head = new Node<T>(node->value);
+					list_tail = list_head;
+				}
+				else {
+					list_tail->children.push_back(new Node<T>(node->value));
+					list_tail = list_tail->children[0];
+				}
+				help.push(left);
+				help.push(right);
 			}
-			else {
-				list_tail->children.push_back(new Node<T>(node->value));
-				list_tail = list_tail->children[0];
-			}
-			help.push(left);
-			help.push(right);
+			help.push(nullptr);
 		}
 		else
 		{
@@ -54,5 +58,6 @@ int main()
 {
 	int number_of_nodes{9};
 	auto root = create_random_binary_tree<int>(0, number_of_nodes);
-	auto x=1;
+	auto result = build_linked_lists_from_binary_tree(root);
+	auto x = 1;
 }
