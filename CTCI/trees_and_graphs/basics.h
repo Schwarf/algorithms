@@ -73,7 +73,7 @@ template<typename T>
 void create_edges_in_graph(Graph<T> &graph, int probability_for_edge_in_percent)
 {
 	int probability{};
-	for (auto &node: graph.nodes) // here we call node and vertex the same
+	for (auto &node: graph.nodes) // here node and vertex denote the same entity
 	{
 		for (int vertex{}; vertex < graph.nodes.size(); ++vertex) {
 			if (vertex == node->value)
@@ -87,13 +87,13 @@ void create_edges_in_graph(Graph<T> &graph, int probability_for_edge_in_percent)
 }
 
 template<typename T>
-Node<T> * generate_binary_tree_with_random_values(int index, int number_of_nodes)
+Node<T> * generate_balanced_binary_tree_with_random_values(int index, int number_of_nodes)
 {
 	Node<T> * root = nullptr;
 	if(index < number_of_nodes) {
 		root = new Node<T>(get_random(0, number_of_nodes*10));
-		root->children.push_back(generate_binary_tree_with_random_values<T>(2 * index + 1, number_of_nodes));
-		root->children.push_back(generate_binary_tree_with_random_values<T>(2 * index + 2, number_of_nodes));
+		root->children.push_back(generate_balanced_binary_tree_with_random_values<T>(2 * index + 1, number_of_nodes));
+		root->children.push_back(generate_balanced_binary_tree_with_random_values<T>(2 * index + 2, number_of_nodes));
 	}
 	return root;
 }
