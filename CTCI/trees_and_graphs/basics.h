@@ -113,4 +113,27 @@ TreeNode<T> * generate_balanced_binary_tree_with_random_values(int index, int nu
 	return root;
 }
 
+
+template<typename T>
+TreeNode<T> * generate_unbalanced_binary_tree_with_random_values(int index, int number_of_nodes)
+{
+	if(number_of_nodes < 4)
+		throw std::invalid_argument("The number of nodes is smaller than 3. Unbalanced tree can not be generated.");
+	auto root = generate_balanced_binary_tree_with_random_values<T>(index, number_of_nodes -3);
+	auto node = root;
+	if(node) {
+		while (node->right)
+			node = node->right;
+	}
+	for(int i{}; i < 3; ++i)
+	{
+		auto new_node = new TreeNode<int>(get_random(index, number_of_nodes));
+		node->right = new_node;
+		node = node->right;
+	}
+	return root;
+
+	return root;
+}
+
 #endif //BASICS_H
