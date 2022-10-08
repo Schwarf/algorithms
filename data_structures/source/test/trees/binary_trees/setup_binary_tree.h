@@ -7,7 +7,8 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include "./../../../trees/binary_trees/tree_node.h"
-
+#include "./../../../trees/binary_trees/post_order_traversal.h"
+#include "./../../../trees/binary_trees/pre_order_traversal.h"
 
 class SetupBinaryTree: public testing::Test
 {
@@ -24,68 +25,52 @@ protected:
 	static TreeNode<int> *inverted_tree()
 	{
 		auto root = new TreeNode<int>(25);
-		auto left = root->add_left(50);
-		auto right = root->add_right(15);
+		root->left = new TreeNode<int>(50);
+		root->right = new TreeNode<int>(15);
 
-		auto left_left = left->add_left(70);
-		auto left_right = left->add_right(35);
+		root->left->left = new TreeNode<int>(70);
+		root->left->right = new TreeNode<int>(35);
 
-		auto right_left = right->add_left(22);
-		auto right_right = right->add_right(10);
+		root->right->left = new TreeNode<int>(22);
+		root->right->right = new TreeNode<int>(10);
 
-		left_left->add_left(90);
-		left_left->add_right(66);
+		root->left->left->left = new TreeNode<int>(90);
+		root->left->left->right = new TreeNode<int>(66);
 
-		left_right->add_left(44);
-		left_right->add_right(31);
+		root->left->right->left = new TreeNode<int>(44);
+		root->left->right->right = new TreeNode<int>(31);
 
+		root->right->left->left = new TreeNode<int>(24);
+		root->right->left->right = new TreeNode<int>(18);
 
-		right_left->add_left(24);
-		right_left->add_right(18);
+		root->right->right->left = new TreeNode<int>(12);
+		root->right->right->right = new TreeNode<int>(4);
 
-		right_right->add_left(12);
-		right_right->add_right(4);
 		return root;
 	}
 	static TreeNode<int> *binary_tree_root()
 	{
 		auto root = new TreeNode<int>(25);
-		auto left = root->add_left(15);
-		auto right = root->add_right(50);
+		root->left = new TreeNode<int>(15);
+		root->right = new TreeNode<int>(50);
 
-		auto left_left = left->add_left(10);
-		auto left_right = left->add_right(22);
+		root->left->left = new TreeNode<int>(10);
+		root->left->right = new TreeNode<int>(22);
 
-		auto right_left = right->add_left(35);
-		auto right_right = right->add_right(70);
+		root->right->left = new TreeNode<int>(35);
+		root->right->right = new TreeNode<int>(70);
 
-		left_left->add_left(4);
-		left_left->add_right(12);
+		root->left->left->left = new TreeNode<int>(4);
+		root->left->left->right = new TreeNode<int>(12);
 
-		left_right->add_left(18);
-		left_right->add_right(24);
+		root->left->right->left = new TreeNode<int>(18);
+		root->left->right->right = new TreeNode<int>(24);
 
+		root->right->left->left = new TreeNode<int>(31);
+		root->right->left->right = new TreeNode<int>(44);
 
-		right_left->add_left(31);
-		right_left->add_right(44);
-
-		right_right->add_left(66);
-		right_right->add_right(90);
-
-		//		binary_tree->root()->add_child(15);
-//		binary_tree->root()->add_child(50);
-//		binary_tree->root()->children.at(0)->add_child(10);
-//		binary_tree->root()->children.at(0)->add_child(22);
-//		binary_tree->root()->children.at(1)->add_child(35);
-//		binary_tree->root()->children.at(1)->add_child(70);
-//		binary_tree->root()->children.at(0)->children.at(0)->add_child(4);
-//		binary_tree->root()->children.at(0)->children.at(0)->add_child(12);
-//		binary_tree->root()->children.at(0)->children.at(1)->add_child(18);
-//		binary_tree->root()->children.at(0)->children.at(1)->add_child(24);
-//		binary_tree->root()->children.at(1)->children.at(0)->add_child(31);
-//		binary_tree->root()->children.at(1)->children.at(0)->add_child(44);
-//		binary_tree->root()->children.at(1)->children.at(1)->add_child(66);
-//		binary_tree->root()->children.at(1)->children.at(1)->add_child(90);
+		root->right->right->left = new TreeNode<int>(66);
+		root->right->right->right = new TreeNode<int>(90);
 
 		return root;
 	}

@@ -32,17 +32,6 @@ struct TreeNode
 		right(right)
 	{
 	}
-	TreeNode<int> *add_left(const T &val)
-	{
-		this->left = new TreeNode<int>(val);
-		return this->left;
-	}
-	TreeNode<int> *add_right(const T &val)
-	{
-		this->right = new TreeNode<int>(val);
-		return this->right;
-	}
-
 };
 
 #endif //TREE_NODE_H
