@@ -7,8 +7,6 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include "./../../../trees/binary_trees/tree_node.h"
-#include "./../../../trees/binary_trees/post_order_traversal.h"
-#include "./../../../trees/binary_trees/pre_order_traversal.h"
 
 class SetupBinaryTree: public testing::Test
 {

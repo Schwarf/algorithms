@@ -1,7 +1,6 @@
 //
 // Created by andreas on 12.05.22.
 //
-
 #include "setup_binary_tree.h"
 #include "./../../../trees/binary_trees/invert_binary_tree.h"
 #include "./../../../trees/binary_trees/post_order_traversal.h"

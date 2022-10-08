@@ -4,8 +4,6 @@ project(Google_tests)
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-#add_subdirectory(google_test_lib)
-#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 enable_testing()
 add_executable(test_linked_lists
@@ -27,14 +25,23 @@ add_executable(test_heaps
 add_executable(test_binary_tree_traversal
         trees/binary_trees/test_pre_order_traversal.cpp
         trees/binary_trees/test_in_order_traversal.cpp
-        trees/binary_trees/test_post_order_traversal.cpp trees/binary_trees/test_level_order_traversal.cpp)
+        trees/binary_trees/test_post_order_traversal.cpp
+        trees/binary_trees/test_level_order_traversal.cpp
+        )
+
+add_executable(test_binary_tree_inversion
+        trees/binary_trees/test_invert_binary_tree.cpp
+        )
 
 add_executable(test_binary_tree_algorithms
         trees/test_binary_tree.cpp
         trees/binary_trees/test_maximum_depth.cpp
         trees/binary_trees/test_right_side_view.cpp
+        trees/binary_trees/test_construct_binary_tree_from_inorder_and_postorder.cpp
         trees/binary_trees/test_construct_binary_tree_from_preorder_and_inorder.cpp
-        trees/binary_trees/test_construct_binary_tree_from_inorder_and_postorder.cpp trees/binary_trees/test_binary_search_tree_from_sorted_array.cpp trees/binary_trees/test_flatten_binary_search_tree_to_array.cpp)
+        trees/binary_trees/test_binary_search_tree_from_sorted_array.cpp
+        trees/binary_trees/test_flatten_binary_search_tree_to_array.cpp
+        )
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h
@@ -53,4 +60,4 @@ target_link_libraries(test_binary_tree_traversal ${GTEST_LIBRARIES} ${GTEST_MAIN
 target_link_libraries(test_binary_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_segment_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_binary_search_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
-
+target_link_libraries(test_binary_tree_inversion ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
