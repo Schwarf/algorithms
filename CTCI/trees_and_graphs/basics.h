@@ -12,7 +12,7 @@
 #include <ostream>
 #include <fstream>
 #include <iostream>
-
+#include <exception>
 
 template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
 static inline T get_random(const T &lower_bound, const T &upper_bound)
@@ -37,6 +37,21 @@ struct Node
 	std::vector<Node<T> *> children;
 
 };
+
+template<typename T>
+struct TreeNode
+{
+	explicit TreeNode(T val)
+		: value(val)
+	{}
+	T value;
+
+	State state = Unvisited;
+	TreeNode * left;
+	TreeNode * right;
+
+};
+
 
 template<typename T>
 struct Graph
@@ -87,13 +102,13 @@ void create_edges_in_graph(Graph<T> &graph, int probability_for_edge_in_percent)
 }
 
 template<typename T>
-Node<T> * generate_balanced_binary_tree_with_random_values(int index, int number_of_nodes)
+TreeNode<T> * generate_balanced_binary_tree_with_random_values(int index, int number_of_nodes)
 {
-	Node<T> * root = nullptr;
+	TreeNode<T> * root = nullptr;
 	if(index < number_of_nodes) {
-		root = new Node<T>(get_random(0, number_of_nodes*10));
-		root->children.push_back(generate_balanced_binary_tree_with_random_values<T>(2 * index + 1, number_of_nodes));
-		root->children.push_back(generate_balanced_binary_tree_with_random_values<T>(2 * index + 2, number_of_nodes));
+		root = new TreeNode<T>(get_random(0, number_of_nodes * 10));
+		root->left =generate_balanced_binary_tree_with_random_values<T>(2 * index + 1, number_of_nodes);
+		root->right = generate_balanced_binary_tree_with_random_values<T>(2 * index + 2, number_of_nodes);
 	}
 	return root;
 }
