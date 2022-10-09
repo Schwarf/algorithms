@@ -11,12 +11,13 @@
 
 // For Post order, you traverse from the left subtree to the right subtree then to the root.
 // Postorder => Left, Right, Root.
-std::vector<int> post_order_traversal(TreeNode<int> *root)
+template <typename T>
+std::vector<T> post_order_traversal(TreeNode<T> *root)
 {
 	if (!root)
 		return {};
-	auto result = std::vector<int>();
-	auto remember = std::stack<TreeNode<int> *>();
+	auto result = std::vector<T>();
+	auto remember = std::stack<TreeNode<T> *>();
 	remember.push(root);
 	while (!remember.empty()) {
 		root = remember.top();
@@ -30,8 +31,8 @@ std::vector<int> post_order_traversal(TreeNode<int> *root)
 	std::reverse(result.begin(), result.end());
 	return result;
 }
-
-void post_order_traversal(std::vector<int> &result, TreeNode<int> *root)
+template<typename T>
+void post_order_traversal(std::vector<T> &result, TreeNode<T> *root)
 {
 	if (!root)
 		return;
@@ -40,9 +41,10 @@ void post_order_traversal(std::vector<int> &result, TreeNode<int> *root)
 	result.push_back(root->value);
 }
 
-std::vector<int> post_order_traversal_recursive(TreeNode<int> *root)
+template<typename T>
+std::vector<T> post_order_traversal_recursive(TreeNode<T> *root)
 {
-	std::vector<int> result;
+	std::vector<T> result;
 	post_order_traversal(result, root);
 	return result;
 }

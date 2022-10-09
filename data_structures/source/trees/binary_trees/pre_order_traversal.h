@@ -9,12 +9,13 @@
 #include <stack>
 // For Preorder, you traverse from the root to the left subtree then to the right subtree.
 // Preorder => Root, Left, Right.
-std::vector<int> pre_order_traversal(TreeNode<int> *root)
+template <typename T>
+std::vector<T> pre_order_traversal(TreeNode<T> *root)
 {
 	if (!root)
 		return {};
-	std::vector<int> result;
-	std::stack<TreeNode<int> *> remember_right_nodes;
+	std::vector<T> result;
+	std::stack<TreeNode<T> *> remember_right_nodes;
 	while (root || !remember_right_nodes.empty()) {
 		while (root) {
 			result.push_back(root->value);
@@ -30,7 +31,8 @@ std::vector<int> pre_order_traversal(TreeNode<int> *root)
 	return result;
 }
 
-void pre_order_traversal(std::vector<int> &result, TreeNode<int> *root)
+template <typename T>
+void pre_order_traversal(std::vector<T> &result, TreeNode<T> *root)
 {
 	if (!root)
 		return;
@@ -39,9 +41,10 @@ void pre_order_traversal(std::vector<int> &result, TreeNode<int> *root)
 	pre_order_traversal(result, root->right);
 }
 
-std::vector<int> pre_order_traversal_recursive(TreeNode<int> *root)
+template <typename T>
+std::vector<T> pre_order_traversal_recursive(TreeNode<T> *root)
 {
-	std::vector<int> answer;
+	std::vector<T> answer;
 	pre_order_traversal(answer, root);
 	return answer;
 }
