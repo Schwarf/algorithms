@@ -30,13 +30,15 @@ int sum_longest_subarray_with_unique_elements(std::vector<T> & input)
 	T max_sum{};
 	while(right < input.size())
 	{
+		// If the element has been seen already, we increase left and subtract the element form the sum
+		// e.g. 1(left),2,3,1(right)  the first one is removed and left advanced
 		while(help[input[right]])
 		{
 			help[input[left]] = false;
 			sum -= input[left];
 			left++;
 		}
-
+		// Each element is added and tracked.
 		sum += input[right];
 		help[input[right]] = true;
 		right++;
