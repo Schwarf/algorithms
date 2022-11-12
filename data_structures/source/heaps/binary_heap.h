@@ -7,6 +7,7 @@
 #include "i_heap.h"
 #include <iostream>
 
+
 template<typename T, size_t heap_capacity>
 class BinaryHeap: IHeap<T>
 {
@@ -15,10 +16,6 @@ public:
 	{
 		// index 0 will be ignored/not used
 		elements_ = new T[heap_capacity];
-		//		for(size_t index = 0; index < heap_size_; ++index)
-//		{
-//			elements_[index] = T{};
-//		}
 	}
 
 	~BinaryHeap()
@@ -31,7 +28,7 @@ public:
 		heap_size_++;
 		auto index = heap_size_ - 1;
 		elements_[index] = value; // add value at the end and increase size
-		promote(index); // promote the value to the correct position in heap
+		promote_(index); // promote_ the value to the correct position in heap
 	}
 
 	T pop_maximum() final
@@ -41,7 +38,7 @@ public:
 		elements_[index_for_maximum] = elements_[heap_size_ - 1];
 		elements_[heap_size_ - 1] = T{};
 		heap_size_--;
-		demote(index_for_maximum);
+		demote_(index_for_maximum);
 		return value;
 	}
 
@@ -83,7 +80,6 @@ public:
 
 	}
 private:
-//	T elements_[heap_capacity] ;
 	T *elements_;
 	size_t heap_size_{};
 
@@ -102,21 +98,21 @@ private:
 		return 2 * element_index + 2;
 	}
 
-	void promote(size_t element_index)
+	void promote_(size_t element_index)
 	{
 		while (element_index != 0 && elements_[parent_index(element_index)] < elements_[element_index]) {
-			swap(element_index, parent_index(element_index));
+			swap_(element_index, parent_index(element_index));
 			element_index = parent_index(element_index);
 		}
 	}
 
-	void swap(size_t index1, size_t index2)
+	void swap_(size_t index1, size_t index2)
 	{
 		auto help = elements_[index1];
 		elements_[index1] = elements_[index2];
 		elements_[index2] = help;
 	}
-	void demote(size_t element_index)
+	void demote_(size_t element_index)
 	{
 		while (2 * element_index + 2 < heap_size_) {
 			auto new_index = 2 * element_index + 1;
@@ -124,7 +120,7 @@ private:
 				new_index++;
 
 			if (elements_[new_index] > elements_[element_index]) {
-				swap(new_index, element_index);
+				swap_(new_index, element_index);
 				element_index = new_index;
 			}
 			else

@@ -6,6 +6,8 @@
 #include "./../../heaps/binary_heap.h"
 #include <algorithm>
 #include <vector>
+#include <random>
+#include <queue>
 
 class SetupBinaryHeap: public testing::Test
 {
@@ -47,6 +49,14 @@ public:
 		}
 		return true;
 	}
+	static inline int get_random(const int &lower_bound, const int &upper_bound)
+	{
+		auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
+		std::random_device device;
+		auto generator = std::mt19937(device());
+		return int_distribution_(generator);
+	}
+
 
 protected:
 	std::vector<int64_t> input{1, 2, 3, 4, 5, 10, 19, 89, 121, 1210, 7, 6};
@@ -65,6 +75,46 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 	EXPECT_TRUE(is_binary_heap(heap.get_array(), input.size() - 1));
 	EXPECT_TRUE(is_heap_GfG(heap.get_array(), 0, input.size() - 1));
 }
+
+TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
+{
+	constexpr int limit = 4;
+	auto heap = BinaryHeap<int64_t, limit>();
+	int count{};
+	std::priority_queue<int64_t> expected_result;
+	while (count++ < limit) {
+		auto element = get_random(-10000000, 2000000);
+		heap.insert(element);
+		expected_result.push(element);
+	}
+	for (int i{}; i < limit; ++i)
+	{
+		std::cout << i << "  "<< heap.get_maximum() << " = " << expected_result.top() << std::endl;
+		EXPECT_TRUE( heap.get_maximum()==expected_result.top());
+		expected_result.pop();
+		heap.pop_maximum();
+	}
+}
+
+TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop_maximum)
+{
+	constexpr int limit = 4;
+	auto heap = BinaryHeap<int64_t, limit>();
+	int count{};
+	std::priority_queue<int64_t> expected_result;
+	while (count++ < limit) {
+		auto element = get_random(-10000000, 2000000);
+		heap.insert(element);
+		expected_result.push(element);
+	}
+	for (int i{}; i < limit; ++i)
+	{
+		std::cout << i << "  "<< heap.get_maximum() << " = " << expected_result.top() << std::endl;
+		EXPECT_TRUE( heap.pop_maximum()==expected_result.top());
+		expected_result.pop();
+	}
+}
+
 
 
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
