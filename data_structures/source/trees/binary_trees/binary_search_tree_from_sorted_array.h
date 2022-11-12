@@ -22,9 +22,7 @@ TreeNode<T> *build_tree(std::vector<int> &array, int left, int right)
 template<typename T>
 TreeNode<T> *binary_search_tree_from_sorted_array(std::vector<int> &array)
 {
-
 	return build_tree<T>(array, 0, array.size() - 1);
-
 }
 
 #endif //BINARY_SEARCH_TREE_FROM_SORTED_ARRAY_H
