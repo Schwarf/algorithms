@@ -78,18 +78,17 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 
 TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
 {
-	constexpr int limit = 4;
+	constexpr int limit = 10000;
 	auto heap = BinaryHeap<int64_t, limit>();
 	int count{};
 	std::priority_queue<int64_t> expected_result;
-	while (count++ < limit) {
-		auto element = get_random(-10000000, 2000000);
+	while (count < limit) {
+		auto element = input[count++];
 		heap.insert(element);
 		expected_result.push(element);
 	}
 	for (int i{}; i < limit; ++i)
 	{
-		std::cout << i << "  "<< heap.get_maximum() << " = " << expected_result.top() << std::endl;
 		EXPECT_TRUE( heap.get_maximum()==expected_result.top());
 		expected_result.pop();
 		heap.pop_maximum();
@@ -98,7 +97,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
 
 TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop_maximum)
 {
-	constexpr int limit = 4;
+	constexpr int limit = 10000;
 	auto heap = BinaryHeap<int64_t, limit>();
 	int count{};
 	std::priority_queue<int64_t> expected_result;
@@ -109,7 +108,6 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop_maximum)
 	}
 	for (int i{}; i < limit; ++i)
 	{
-		std::cout << i << "  "<< heap.get_maximum() << " = " << expected_result.top() << std::endl;
 		EXPECT_TRUE( heap.pop_maximum()==expected_result.top());
 		expected_result.pop();
 	}

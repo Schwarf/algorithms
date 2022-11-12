@@ -25,20 +25,18 @@ public:
 
 	void insert(const T &value) final
 	{
-		heap_size_++;
-		auto index = heap_size_ - 1;
-		elements_[index] = value; // add value at the end and increase size
-		promote_(index); // promote_ the value to the correct position in heap
+		if (heap_size_ == heap_capacity)
+			throw std::out_of_range("Heap is full!");
+		elements_[heap_size_++] = value; // add value at the end and increase size
+		promote_(); // promote_ the value to the correct position in heap
 	}
 
 	T pop_maximum() final
 	{
 		size_t index_for_maximum = 0;
 		auto value = elements_[index_for_maximum];
-		elements_[index_for_maximum] = elements_[heap_size_ - 1];
-		elements_[heap_size_ - 1] = T{};
-		heap_size_--;
-		demote_(index_for_maximum);
+		swap_(index_for_maximum, --heap_size_);
+		demote_();
 		return value;
 	}
 
@@ -83,26 +81,14 @@ private:
 	T *elements_;
 	size_t heap_size_{};
 
-	size_t parent_index(size_t element_index)
+	void promote_()
 	{
-		return (element_index - 1) / 2;
-	}
-
-	size_t left_child_index(size_t element_index)
-	{
-		return 2 * element_index + 1;
-	}
-
-	size_t right_child_index(size_t element_index)
-	{
-		return 2 * element_index + 2;
-	}
-
-	void promote_(size_t element_index)
-	{
-		while (element_index != 0 && elements_[parent_index(element_index)] < elements_[element_index]) {
-			swap_(element_index, parent_index(element_index));
-			element_index = parent_index(element_index);
+		for (int child_index = heap_size_ - 1; child_index > 0;) {
+			int parent_index = (child_index - 1) >> 1;
+			if (elements_[parent_index] >= elements_[child_index])
+				return;
+			swap_(child_index, parent_index);
+			child_index = parent_index;
 		}
 	}
 
@@ -112,19 +98,14 @@ private:
 		elements_[index1] = elements_[index2];
 		elements_[index2] = help;
 	}
-	void demote_(size_t element_index)
+	void demote_()
 	{
-		while (2 * element_index + 2 < heap_size_) {
-			auto new_index = 2 * element_index + 1;
-			if (elements_[new_index + 1] > elements_[new_index])
-				new_index++;
-
-			if (elements_[new_index] > elements_[element_index]) {
-				swap_(new_index, element_index);
-				element_index = new_index;
-			}
-			else
-				break;
+		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_; child_index = (child_index << 1) + 1) {
+			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index+1])
+				child_index++;
+			if(elements_[parent_index] < elements_[child_index])
+				swap_(child_index, parent_index);
+			parent_index = child_index;
 		}
 	}
 };
