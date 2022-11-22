@@ -4,39 +4,45 @@
 #include "gtest/gtest.h"
 #include "./../perfect_square.h"
 
-
-TEST(perfect_square, perfect_square_1)
+class SetupPerfectSquares: public testing::Test
 {
-	auto target{1};
-	auto answer{1};
-	EXPECT_EQ(answer, number_of_perfect_square_summands_needed(target));
+protected:
+	int target1{1};
+	int answer1{1};
+	int target2{12};
+	int answer2{3};
+	int target3{13};
+	int answer3{2};
+	int target4{1791};
+	int answer4{4};
+	int target5{9973};
+	int answer5{4};
+
+};
+
+
+TEST_F(SetupPerfectSquares, SetupPerfectSquare_12)
+{
+	EXPECT_EQ(answer2, number_of_perfect_square_summands_needed(target2));
 }
 
-TEST(perfect_square, perfect_square_12)
+
+TEST_F(SetupPerfectSquares, SetupPerfectSquare_13)
 {
-	auto target{12};
-	auto answer{3};
-	EXPECT_EQ(answer, number_of_perfect_square_summands_needed(target));
+	EXPECT_EQ(answer3, number_of_perfect_square_summands_needed(target3));
 }
 
-
-TEST(perfect_square, perfect_square_13)
+TEST_F(SetupPerfectSquares, SetupPerfectSquare_1791)
 {
-	auto target{13};
-	auto answer{2};
-	EXPECT_EQ(answer, number_of_perfect_square_summands_needed(target));
+	EXPECT_EQ(answer4, number_of_perfect_square_summands_needed(target4));
 }
 
-TEST(perfect_square, perfect_square_1791)
+TEST_F(SetupPerfectSquares, SetupPerfectSquare_9973)
 {
-	auto target{1791};
-	auto answer{4};
-	EXPECT_EQ(answer, number_of_perfect_square_summands_needed(target));
+	EXPECT_EQ(answer5, number_of_perfect_square_summands_needed(target5));
 }
 
-TEST(perfect_square, perfect_square_9974)
+TEST_F(SetupPerfectSquares, SetupPerfectSquare_1)
 {
-	auto target{9973};
-	auto answer{4};
-	EXPECT_EQ(answer, number_of_perfect_square_summands_needed(target));
+	EXPECT_EQ(answer1, number_of_perfect_square_summands_needed(target1));
 }

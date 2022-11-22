@@ -2,8 +2,6 @@
 // Created by andreas on 22.11.22.
 //
 
-#ifndef PERFECT_SQUARE_H
-#define PERFECT_SQUARE_H
 #include <vector>
 // Given an integer n, return the least number of perfect square numbers needed that sum to n.
 // perfect squares: 1, 4, 9, 16,
@@ -18,4 +16,3 @@ int number_of_perfect_square_summands_needed(int target)
 			dp[i] = std::min(dp[i], dp[i-j*j] + 1); // We subtract perfect squares from i
 	return dp[target];
 }
-#endif //PERFECT_SQUARE_H
