@@ -8,5 +8,6 @@ add_executable(dynamic_programming_samples main.cpp
         min_jumps_to_last_index.h
         count_ways_2D_grid.h
         longest_increasing_subsequence.h
-        maximum_length_of_same_subarray_in_two_arrays.h)
+        maximum_length_of_same_subarray_in_two_arrays.h
+        perfect_square.h)
 include_directories(test)
