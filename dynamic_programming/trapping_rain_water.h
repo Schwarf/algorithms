@@ -9,6 +9,25 @@
 
 // Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
+// brute force
+int rainwater(const std::vector<int> &landscape)
+{
+	int result{};
+	for(int i{1}; i < landscape.size()-1; ++i)
+	{
+		int left=i-1;
+		int right = i+1;
+		int left_max{};
+		int right_max{};
+		while(left > -1)
+			left_max = std::max(landscape[left--], left_max);
+		while(right < landscape.size())
+			right_max = std::max(landscape[right++], right_max);
+		result += std::max(std::min(left_max, right_max)-landscape[i], 0);
+	}
+	return result;
+}
+
 // dynamic-programming approach
 int rainwater_dp(const std::vector<int> &landscape)
 {
