@@ -88,8 +88,8 @@ int rainwater_two_pointer(const std::vector<int> &landscape)
 			landscape[right] >= right_max ? (right_max = landscape[right]) : result += (right_max - landscape[right]);
 			--right;
 		}
-		return result;
 	}
+	return result;
 }
 
 // stack approach

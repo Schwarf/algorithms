@@ -42,3 +42,13 @@ TEST_F(SetupTrappingRainwater, stack2)
 {
 	EXPECT_EQ(rainwater_stack(landscape2), water2);
 }
+
+TEST_F(SetupTrappingRainwater, two_pointer1)
+{
+	EXPECT_EQ(rainwater_two_pointer(landscape1), water1);
+}
+
+TEST_F(SetupTrappingRainwater, two_pointer2)
+{
+	EXPECT_EQ(rainwater_two_pointer(landscape2), water2);
+}
