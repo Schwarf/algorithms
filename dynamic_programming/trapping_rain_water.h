@@ -52,6 +52,28 @@ int rainwater_stack(const std::vector<int> &landscape)
 	return result;
 }
 
+int rainwater_two_pointer(const std::vector<int> &landscape)
+{
+	int left{};
+	int right = landscape.size()-1;
+	int result{};
+	int left_max{};
+	int right_max{};
+	while(left < right)
+	{
+		if(landscape[left] < landscape[right])
+		{
+			landscape[left] >= left_max ? (left_max=landscape[left]) : result += (left_max-landscape[left]);
+			++left;
+		}
+		else {
+			landscape[right] >= right_max ? (right_max = landscape[right]) : result += (right_max - landscape[right]);
+			--right;
+		}
+		return result;
+	}
+}
+
 // stack approach
 
 
