@@ -23,7 +23,6 @@ TEST_F(SetupTrappingRainwater, brute_force2)
 	EXPECT_EQ(rainwater(landscape2), water2);
 }
 
-
 TEST_F(SetupTrappingRainwater, dynamic_programming1)
 {
 	EXPECT_EQ(rainwater_dp(landscape1), water1);
@@ -34,5 +33,12 @@ TEST_F(SetupTrappingRainwater, dynamic_programming2)
 	EXPECT_EQ(rainwater_dp(landscape2), water2);
 }
 
+TEST_F(SetupTrappingRainwater, stack1)
+{
+	EXPECT_EQ(rainwater_stack(landscape1), water1);
+}
 
-
+TEST_F(SetupTrappingRainwater, stack2)
+{
+	EXPECT_EQ(rainwater_stack(landscape2), water2);
+}
