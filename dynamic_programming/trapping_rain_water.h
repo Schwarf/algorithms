@@ -13,17 +13,16 @@
 int rainwater(const std::vector<int> &landscape)
 {
 	int result{};
-	for(int i{1}; i < landscape.size()-1; ++i)
-	{
-		int left=i-1;
-		int right = i+1;
+	for (int i{1}; i < landscape.size() - 1; ++i) {
+		int left = i - 1;
+		int right = i + 1;
 		int left_max{};
 		int right_max{};
-		while(left > -1)
+		while (left > -1)
 			left_max = std::max(landscape[left--], left_max);
-		while(right < landscape.size())
+		while (right < landscape.size())
 			right_max = std::max(landscape[right++], right_max);
-		result += std::max(std::min(left_max, right_max)-landscape[i], 0);
+		result += std::max(std::min(left_max, right_max) - landscape[i], 0);
 	}
 	return result;
 }
@@ -36,13 +35,15 @@ int rainwater_dp(const std::vector<int> &landscape)
 		return init;
 	int result{};
 	int size = landscape.size();
-	std::vector<int> left_max, right_max;
+	std::vector<int> left_max(size, 0), right_max(size, 0);
+	left_max[0] = landscape[0];
+	right_max[size - 1] = landscape[size - 1];
 	for (int i = 1; i < size; ++i)
 		left_max[i] = std::max(landscape[i], left_max[i - 1]);
-	for (int i = size - 2; i > -1; --i)
+	for (int i = size - 2; i >= 0; --i)
 		right_max[i] = std::max(landscape[i], right_max[i + 1]);
-	for (int i = 1; i <= size - 1; ++i)
-		result += std::min(left_max[i], right_max[i]) - landscape[i];
+	for (int i = 1; i < size - 1; ++i)
+		result += std::max(std::min(left_max[i], right_max[i]) - landscape[i], 0);
 	return result;
 }
 
@@ -74,15 +75,13 @@ int rainwater_stack(const std::vector<int> &landscape)
 int rainwater_two_pointer(const std::vector<int> &landscape)
 {
 	int left{};
-	int right = landscape.size()-1;
+	int right = landscape.size() - 1;
 	int result{};
 	int left_max{};
 	int right_max{};
-	while(left < right)
-	{
-		if(landscape[left] < landscape[right])
-		{
-			landscape[left] >= left_max ? (left_max=landscape[left]) : result += (left_max-landscape[left]);
+	while (left < right) {
+		if (landscape[left] < landscape[right]) {
+			landscape[left] >= left_max ? (left_max = landscape[left]) : result += (left_max - landscape[left]);
 			++left;
 		}
 		else {
