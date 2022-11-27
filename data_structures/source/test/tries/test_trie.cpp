@@ -34,3 +34,22 @@ TEST(TrieInsertSearch, Test2)
 	trie.insert(insert1);
 	EXPECT_TRUE(trie.search(insert1));
 }
+
+
+TEST(TrieInsertDeleteSearch, Test1)
+{
+	std::string insert1{"Hallo"};
+	std::string insert2{"Haallo"};
+	auto trie = Trie<128>();
+	trie.insert(insert1);
+	EXPECT_TRUE(trie.search(insert1));
+	trie.remove(insert1);
+	EXPECT_FALSE(trie.search(insert1));
+	trie.insert(insert2);
+	EXPECT_FALSE(trie.search(insert1));
+	trie.insert(insert1);
+	EXPECT_TRUE(trie.search(insert1));
+	trie.remove(insert1);
+	EXPECT_FALSE(trie.search(insert1));
+	EXPECT_TRUE(trie.search(insert2));
+}
