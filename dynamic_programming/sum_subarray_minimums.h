@@ -9,6 +9,7 @@
 // Given an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr.
 // Since the answer may be large, return the answer modulo 109 + 7.
 // https://leetcode.com/problems/sum-of-subarray-minimums/solution/
+// TODO: Reunderstand that
 int sum_of_subarray_minimums(std::vector<int> &arr)
 {
 	constexpr int kMod = 1e9 + 7;
@@ -16,17 +17,17 @@ int sum_of_subarray_minimums(std::vector<int> &arr)
 	long ans = 0;
 	std::vector<int> prev(n, -1);
 	std::vector<int> next(n, n);
-	std::stack<int> monotonic_stack;
+	std::stack<int> monotonic_index_stack;
 
 	for (int i = 0; i < n; ++i) {
-		while (!monotonic_stack.empty() && arr[monotonic_stack.top()] > arr[i]) {
-			const int index = monotonic_stack.top();
-			monotonic_stack.pop();
+		while (!monotonic_index_stack.empty() && arr[monotonic_index_stack.top()] > arr[i]) {
+			const int index = monotonic_index_stack.top();
+			monotonic_index_stack.pop();
 			next[index] = i;
 		}
-		if (!monotonic_stack.empty())
-			prev[i] = monotonic_stack.top();
-		monotonic_stack.push(i);
+		if (!monotonic_index_stack.empty())
+			prev[i] = monotonic_index_stack.top();
+		monotonic_index_stack.push(i);
 	}
 
 	for (int i = 0; i < n; ++i) {
