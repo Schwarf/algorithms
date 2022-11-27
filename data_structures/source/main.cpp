@@ -3,6 +3,7 @@
 #include "binary_search_tree/avl_tree.h"
 #include "binary_trees/find_two_sum_in_binary_tree.h"
 #include "binary_trees/tree_node.h"
+#include "tries/trie.h"
 int main()
 {
 	auto avl_tree = AVLTree<int>();
@@ -31,5 +32,16 @@ int main()
 	std::cout << find_target_two_sum(root, 10) << std::endl;
 	std::cout << find_target_two_sum(root, 27) << std::endl;
 	std::cout << find_target_two_sum(root, 2) << std::endl;
+
+	std::string str_and{"and"};
+	std::string str_ant{"ant"};
+	std::string str_ban{"ban"};
+	std::cout << "*******************TRIE*********************" << std::endl;
+	auto trie = Trie<26>();
+	trie.insert(str_and);
+	trie.insert(str_ant);
+	std::cout << trie.search(str_and) << std::endl;
+	std::cout << trie.search(str_ban) << std::endl;
+
 }
 

@@ -6,6 +6,7 @@
 #define TRIE_H
 #include <memory>
 #include <string>
+// https://leetcode.com/problems/word-search-ii/
 
 
 template <size_t alphabet_size>
@@ -31,9 +32,7 @@ public:
 		{
 			int trie_index = key[index] - 'a';
 			if(!node->children[trie_index])
-			{
 				node->children[trie_index] = get_new_node();
-			}
 			node = node->children[trie_index];
 		}
 		node->is_end_of_word = true;
@@ -68,9 +67,7 @@ private:
 	{
 		auto new_node = new TrieNode<alphabet_size>();
 		for(size_t index=0; index < alphabet_size; ++index)
-		{
 			new_node->children[index] = nullptr;
-		}
 		return new_node;
 	}
 	TrieNode<alphabet_size> * root_;
