@@ -37,7 +37,7 @@ int main()
 	std::string str_ant{"ant"};
 	std::string str_ban{"ban"};
 	std::cout << "*******************TRIE*********************" << std::endl;
-	auto trie = Trie<26>();
+	auto trie = Trie<128>();
 	trie.insert(str_and);
 	trie.insert(str_ant);
 	std::cout << trie.search(str_and) << std::endl;

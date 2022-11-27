@@ -50,7 +50,7 @@ add_executable(test_segment_tree_algorithms
 
 add_executable(test_binary_search_tree_algorithms
         binary_search_tree/test_avl_tree.cpp
-        )
+        tries/test_trie.cpp)
 
 
 target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
