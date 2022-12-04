@@ -38,4 +38,18 @@ int get_majority_element_bit_manipulation(const std::vector<int>& input)
 }
 
 
+int get_majority_element_boyer_moore(const std::vector<int>& input)
+{
+	int count{};
+	// Works because we are between +/-10**9
+	int candidate{2000000000};
+	for(const auto & element : input)
+	{
+		candidate = (count == 0) ? element: candidate;
+		count += (element == candidate) ? 1 : -1;
+	}
+	return candidate;
+}
+
+
 #endif //GET_MAJORITY_ELEMENT_H
