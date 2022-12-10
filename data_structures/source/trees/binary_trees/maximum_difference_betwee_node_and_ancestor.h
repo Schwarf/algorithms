@@ -37,7 +37,7 @@ void get_max_diff_for_node(TreeNode<int> *node, int &max)
 	get_max_diff_for_node(node->right, max);
 }
 
-// O(N^2)
+// O(N^2) time complexity, O(1) space complexity
 int brute_force_solution(TreeNode<int> *root)
 {
 	int max{};
@@ -45,26 +45,24 @@ int brute_force_solution(TreeNode<int> *root)
 	return max;
 }
 
-void helper(TreeNode<int> *node, int &current_max, int &current_min, int &result)
+int helper(TreeNode<int> *node, int current_max, int current_min)
 {
 	if (!node)
-		return;
-	int local_result = std::max(std::abs(current_max - node->value), std::abs(current_min - node->value));
-	result = std::max(local_result, result);
+		return current_max - current_min;
 	current_max = std::max(current_max, node->value);
 	current_min = std::min(current_min, node->value);
-	helper(node->left, current_max, current_min, result);
-	helper(node->right, current_max, current_min, result);
-	return;
+	int left = helper(node->left, current_max, current_min);
+	int right = helper(node->right, current_max, current_min);
+	return std::max(left, right);
 }
-
+// O(N) time complexity, O(N) space complexity
 int one_recursion_solution(TreeNode<int> *root)
 {
 	if (!root)
 		return 0;
-	int result{};
-	helper(root, root->value, root->value, result);
-	return result;
+	int max = root->value;
+	int min = root->value;
+	return helper(root, max, min);
 
 }
 
