@@ -41,12 +41,12 @@ add_executable(test_binary_tree_algorithms
         trees/binary_trees/test_construct_binary_tree_from_preorder_and_inorder.cpp
         trees/binary_trees/test_binary_search_tree_from_sorted_array.cpp
         trees/binary_trees/test_flatten_binary_search_tree_to_array.cpp
-        )
+        trees/binary_trees/test_maximum_difference_between_node_and_ancestor.cpp)
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h
         trees/segment_trees/test_segment_tree.cpp
-)
+        )
 
 add_executable(test_binary_search_tree_algorithms
         binary_search_tree/test_avl_tree.cpp
