@@ -9,7 +9,7 @@
 #include <stack>
 // For Preorder, you traverse from the root to the left subtree then to the right subtree.
 // Preorder => Root, Left, Right.
-template <typename T>
+template<typename T>
 std::vector<T> pre_order_traversal(TreeNode<T> *root)
 {
 	if (!root)
@@ -31,7 +31,7 @@ std::vector<T> pre_order_traversal(TreeNode<T> *root)
 	return result;
 }
 
-template <typename T>
+template<typename T>
 void pre_order_traversal(std::vector<T> &result, TreeNode<T> *root)
 {
 	if (!root)
@@ -41,7 +41,7 @@ void pre_order_traversal(std::vector<T> &result, TreeNode<T> *root)
 	pre_order_traversal(result, root->right);
 }
 
-template <typename T>
+template<typename T>
 std::vector<T> pre_order_traversal_recursive(TreeNode<T> *root)
 {
 	std::vector<T> answer;
