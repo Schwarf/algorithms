@@ -8,7 +8,7 @@
 #include <vector>
 #include <stack>
 // For Preorder, you traverse from the root to the left subtree then to the right subtree.
-// Preorder => Root, Left, Right.
+// Preorder => Root, Left, Right aka parents get processed before children
 template<typename T>
 std::vector<T> pre_order_traversal(TreeNode<T> *root)
 {

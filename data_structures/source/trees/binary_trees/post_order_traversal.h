@@ -10,8 +10,8 @@
 #include <algorithm>
 
 // For Post order, you traverse from the left subtree to the right subtree then to the root.
-// Postorder => Left, Right, Root.
-template <typename T>
+// Postorder => Left, Right, Root aka children get processed before parents
+template<typename T>
 std::vector<T> post_order_traversal(TreeNode<T> *root)
 {
 	if (!root)
