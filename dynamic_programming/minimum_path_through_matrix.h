@@ -23,7 +23,7 @@ int minimal_downward_path_through_matrix(std::vector<std::vector<int>> &matrix)
 			minimum_last_row = matrix[row - 1][col];
 			if (col > 0)
 				minimum_last_row = std::min(minimum_last_row, matrix[row - 1][col - 1]);
-			if (col < N)
+			if (col < N - 1)
 				minimum_last_row = std::min(minimum_last_row, matrix[row - 1][col + 1]);
 			matrix[row][col] += minimum_last_row;
 		}
