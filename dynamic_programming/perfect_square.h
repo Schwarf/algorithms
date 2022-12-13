@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/perfect-squares/discuss/2837605/Complete-Intuition-Explained-oror-Recursion-greaterMemo-greaterDP
 int number_of_perfect_square_summands_needed(int target)
 {
+	// in this vector we count the number of perfect squares for all number until the target number
 	std::vector<int> dp(target + 1, 1000000);
 	dp[0] = 0;
 	for (int i = 1; i <= target; ++i)
