@@ -33,3 +33,22 @@ TEST_F(SetupMinimumPathThroughMatrix, test_scenario3)
 	auto minimum = minimal_downward_path_through_matrix(input3);
 	EXPECT_EQ(minimum, result3);
 }
+
+
+TEST_F(SetupMinimumPathThroughMatrix, test_scenario1_constant_input)
+{
+	auto minimum = minimal_downward_path_through_matrix2(input1);
+	EXPECT_EQ(minimum, result1);
+}
+
+TEST_F(SetupMinimumPathThroughMatrix, test_scenario2_constant_input)
+{
+	auto minimum = minimal_downward_path_through_matrix2(input2);
+	EXPECT_EQ(minimum, result2);
+}
+
+TEST_F(SetupMinimumPathThroughMatrix, test_scenario3_constant_input)
+{
+	auto minimum = minimal_downward_path_through_matrix2(input3);
+	EXPECT_EQ(minimum, result3);
+}
