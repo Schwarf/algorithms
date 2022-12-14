@@ -14,6 +14,7 @@ add_executable(dynamic_programming_samples_test
         test_longest_increasing_subsequence.cpp
         test_maximum_length_of_same_subarray_in_two_arrays.cpp
         test_perfect_squares.cpp
-        test_main.cpp test_trapping_rain_water.cpp test_sum_subarray_minimums.cpp ../minimum_path_through_matrix.h test_minimum_path_through_matrix.cpp)
+        test_main.cpp test_trapping_rain_water.cpp test_sum_subarray_minimums.cpp
+        test_minimum_path_through_matrix.cpp ../maximum_sum_of_array_no_adjacent_elements.h)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
