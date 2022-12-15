@@ -8,7 +8,7 @@
 // return the maximum amount of money you can rob tonight without alerting the police. (only non-adjacent elements)
 #include <vector>
 #include <algorithm>
-int get_sum(std::vector<int> &nums)
+int get_maximum_sum_no_adjacent_elements_sum(const std::vector<int> &nums)
 {
 	int n = nums.size();
 	if (n == 1)
