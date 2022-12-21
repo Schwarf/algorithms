@@ -6,6 +6,7 @@
 #include "tries/trie.h"
 #include "graphs/graph.h"
 #include "graphs/does_path_in_graph_exist.h"
+#include "graphs/is_bipartition_possible.h"
 int main()
 {
 	auto avl_tree = AVLTree<int>();
@@ -45,14 +46,14 @@ int main()
 	std::cout << trie.search(str_and) << std::endl;
 	std::cout << trie.search(str_ban) << std::endl;
 
-	auto graph = BidirectionalGraph<int, double>();
-	const std::shared_ptr<GraphNode<int, double>> node1(new GraphNode<int, double>(1, 1.0));
-	const std::shared_ptr<GraphNode<int, double>> node2(new GraphNode<int, double>(2, 2.0));
-	const std::shared_ptr<GraphNode<int, double>> node3(new GraphNode<int, double>(3, 3.0));
+	auto graph = BidirectionalGraph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(1, 1));
+	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(2, 2));
+	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(3, 3));
 
-	const std::shared_ptr<GraphNode<int, double>> node4(new GraphNode<int, double>(4, 4.0));
-	const std::shared_ptr<GraphNode<int, double>> node5(new GraphNode<int, double>(5, 5.0));
-	const std::shared_ptr<GraphNode<int, double>> node6(new GraphNode<int, double>(6, 6.0));
+	const std::shared_ptr<GraphNode<int, int>> node4(new GraphNode<int, int>(4, 4));
+	const std::shared_ptr<GraphNode<int, int>> node5(new GraphNode<int, int>(5, 5));
+	const std::shared_ptr<GraphNode<int, int>> node6(new GraphNode<int, int>(6, 6));
 
 	graph.add_edge(node1, node2);
 	graph.add_edge(node1, node3);
@@ -61,6 +62,6 @@ int main()
 	graph.add_edge(node4, node6);
 
 	std::cout << "Does path exist (1,3): " << does_path_exist(graph, node1, node5) << std::endl;
-
+	std::cout << "Bi partite should not work: " << is_bi_partition_possible(graph) << std::endl;
 }
 
