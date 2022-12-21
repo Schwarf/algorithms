@@ -37,9 +37,7 @@ public:
 	{
 		auto pair_iterator = cache_.find(key);
 		if(pair_iterator == cache_.end())
-		{
 			throw std::out_of_range("Element not in cache!");
-		}
 		key_value_list_.splice(key_value_list_.begin(), key_value_list_, pair_iterator->second);
 		return pair_iterator->second->second;
 	}
@@ -67,6 +65,7 @@ private:
 	}
 	using key_value_pair = std::pair<key_T, value_T>;
 	std::list<key_value_pair> key_value_list_;
+	// hashtable with key-type and 
 	std::unordered_map<key_T, decltype(key_value_list_.begin())> cache_;
 	size_t cache_size_;
 };

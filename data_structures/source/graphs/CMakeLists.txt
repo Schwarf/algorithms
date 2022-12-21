@@ -1,1 +1,1 @@
-add_library(graphs_lib INTERFACE graph.h)
+add_library(graphs_lib INTERFACE vertex_old_definition.h graph.h does_path_in_graph_exist.h)
