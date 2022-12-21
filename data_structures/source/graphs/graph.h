@@ -30,19 +30,35 @@ class BidirectionalGraph
 public:
 	std::vector<GraphNodePtr<id_T, data_T>> get_neighbors(const GraphNodePtr<id_T, data_T> &node)
 	{
-		return this->graph_[node];
+		return this->graph_[node->id];
+	}
+	std::vector<GraphNodePtr<id_T, data_T>> get_neighbors(id_T id)
+	{
+		return this->graph_[id];
+	}
+
+	GraphNodePtr<id_T, data_T> get_node_by_id(id_T id)
+	{
+		return nodes_[id];
 	}
 
 	void add_edge(const GraphNodePtr<id_T, data_T> &node1,
 				  const GraphNodePtr<id_T, data_T> &node2)
 	{
-		graph_[node1].push_back(node2);
-		graph_[node2].push_back(node1);
+		graph_[node1->id].push_back(node2);
+		graph_[node2->id].push_back(node1);
+		nodes_[node1->id] = node1;
+		nodes_[node2->id] = node2;
+	}
+
+	std::size_t size() const
+	{
+		return graph_.size();
 	}
 
 private:
-	std::unordered_map<GraphNodePtr<id_T, data_T>, std::vector<GraphNodePtr<id_T, data_T>>>
-		graph_;
+	std::unordered_map<id_T, std::vector<GraphNodePtr<id_T, data_T>>> graph_;
+	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> nodes_;
 
 };
 
