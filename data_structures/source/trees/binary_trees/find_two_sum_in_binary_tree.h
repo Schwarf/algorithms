@@ -19,7 +19,7 @@ bool find_target_two_sum(TreeNode<T> *root, int target)
 		return true;
 	help_find_target_two_sum<T>.insert(root->value);
 	return find_target_two_sum(root->left, target) || find_target_two_sum(root->right, target);
-};
+}
 
 
 #endif //FIND_TWO_SUM_IN_BINARY_TREE_H
