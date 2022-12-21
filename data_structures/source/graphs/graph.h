@@ -1,77 +1,43 @@
 //
-// Created by andreas on 13.04.22.
+// Created by andreas on 19.12.22.
 //
 
 #ifndef GRAPH_H
 #define GRAPH_H
-#include <cstddef>
-#include <list>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
-template<typename data_T>
-class Vertex;
-
-
-template<typename data_T>
-struct UndirectedEdge
-{
-	UndirectedEdge(Vertex<data_T> * vertex1, Vertex<data_T> * vertex2, size_t weight)
+template <typename id_T, typename data_T>
+struct GraphNode{
+	GraphNode(const id_T & id, const data_T & data)
 	{
-		vertex1_ = vertex1;
-		vertex2_ = vertex2;
-		weight_ = weight;
+		this->data = data;
+		this->id = id;
 	}
-	Vertex<data_T> * vertex1_;
-	Vertex<data_T> * vertex2_;
-	size_t weight_;
+	data_T data;
+	id_T id;
 };
 
-
-
-template<typename data_T>
-class Vertex
+template <typename id_T, typename data_T>
+class BidirectionalGraph
 {
-	explicit Vertex(data_T value){
-		value_ = value;
-		vertex_id_ = vertex_count_;
-		vertex_count_++;
-
+public:
+	std::vector<std::shared_ptr<GraphNode<id_T, data_T>>> get_neighbors(std::shared_ptr<GraphNode<id_T, data_T>> node) const
+	{
+		return this->graph_[node];
 	}
 
-	void connect_to_vertex(Vertex<data_T> * vertex, size_t weight)
-	{
-		edges_.insert(new UndirectedEdge<data_T>(this, vertex, weight));
-	}
 
-	std::list<UndirectedEdge<data_T>> edges()
+	void add_edge(std::shared_ptr<GraphNode<id_T, data_T>>  node1, std::shared_ptr<GraphNode<id_T, data_T>>  node2)
 	{
-		return edges_;
-	}
-
-	size_t id()
-	{
-		return vertex_id_;
-	}
-	data_T value()
-	{
-		return value_;
-	}
-	~Vertex()
-	{
-		for(auto connection : edges_)
-		{
-			delete connection;
-		}
+		graph_[node1].push_back(node2);
+		graph_[node2].push_back(node1);
 	}
 
 private:
-	data_T value_;
-	std::list<UndirectedEdge<data_T> * > edges_;
-	size_t vertex_id_{};
-	static size_t vertex_count_;
+	std::unordered_map<std::shared_ptr<GraphNode<id_T, data_T>>, std::vector<std::shared_ptr<GraphNode<id_T, data_T>>>> graph_;
+
 };
-
-template <typename  data_T>
-size_t Vertex<data_T>::vertex_count_ = 0;
-
 
 #endif //GRAPH_H
