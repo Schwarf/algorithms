@@ -9,11 +9,11 @@
 
 template<typename id_T, typename data_T>
 bool does_path_exist(BidirectionalGraph<id_T, data_T> &graph,
-					 std::shared_ptr<GraphNode<id_T, data_T>> source_node,
-					 std::shared_ptr<GraphNode<id_T, data_T>> destination_node)
+					 const GraphNodePtr<id_T, data_T> & source_node,
+					 const GraphNodePtr<id_T, data_T> & destination_node)
 {
-	std::queue<std::shared_ptr<GraphNode<id_T, data_T>>> bfs_queue;
-	std::unordered_map<std::shared_ptr<GraphNode<id_T, data_T>>, bool> visited;
+	std::queue<GraphNodePtr<id_T, data_T>> bfs_queue;
+	std::unordered_map<GraphNodePtr<id_T, data_T>, bool> visited;
 	bfs_queue.push(source_node);
 //	visited[source_node] = true;
 	while(!bfs_queue.empty())
