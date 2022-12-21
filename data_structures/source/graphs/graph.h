@@ -23,7 +23,7 @@ template <typename id_T, typename data_T>
 class BidirectionalGraph
 {
 public:
-	std::vector<std::shared_ptr<GraphNode<id_T, data_T>>> get_neighbors(std::shared_ptr<GraphNode<id_T, data_T>> node) const
+	std::vector<std::shared_ptr<GraphNode<id_T, data_T>>> get_neighbors(std::shared_ptr<GraphNode<id_T, data_T>> node)
 	{
 		return this->graph_[node];
 	}

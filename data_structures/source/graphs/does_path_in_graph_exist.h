@@ -8,7 +8,7 @@
 #include <queue>
 
 template<typename id_T, typename data_T>
-bool does_path_exist(const BidirectionalGraph<id_T, data_T> &graph,
+bool does_path_exist(BidirectionalGraph<id_T, data_T> &graph,
 					 std::shared_ptr<GraphNode<id_T, data_T>> source_node,
 					 std::shared_ptr<GraphNode<id_T, data_T>> destination_node)
 {
@@ -24,12 +24,11 @@ bool does_path_exist(const BidirectionalGraph<id_T, data_T> &graph,
 			return true;
 		for(const auto next_node : graph.get_neighbors(current_node))
 		{
-			std::cout << "next node " << next_node->id << std::endl;
-//				if(!visited[next_node])
-//				{
-//					bfs_queue.push(next_node);
-//					visited[next_node] = true;
-//				}
+				if(!visited[next_node])
+				{
+					bfs_queue.push(next_node);
+					visited[next_node] = true;
+				}
 		}
 
 	}

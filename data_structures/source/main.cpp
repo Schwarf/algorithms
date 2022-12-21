@@ -60,7 +60,7 @@ int main()
 	graph.add_edge(node3, node5);
 	graph.add_edge(node4, node6);
 
-	std::cout << "Does path exist (1,3)" << does_path_exist(graph, node1, node3) << std::endl;
+	std::cout << "Does path exist (1,3)" << does_path_exist(graph, node1, node6) << std::endl;
 
 
 
