@@ -18,12 +18,11 @@ public:
 	{
 	}
 
-	void put(const key_T & key, const value_T & value)
+	void put(const key_T &key, const value_T &value)
 	{
 		auto pair_iterator = cache_.find(key);
 		// cache hit, erase item in cache and list
-		if(pair_iterator != cache_.end())
-		{
+		if (pair_iterator != cache_.end()) {
 			key_value_list_.erase(pair_iterator->second);
 			cache_.erase(pair_iterator);
 		}
@@ -36,18 +35,31 @@ public:
 	value_T get(key_T key)
 	{
 		auto pair_iterator = cache_.find(key);
-		if(pair_iterator == cache_.end())
+		if (pair_iterator == cache_.end())
 			throw std::out_of_range("Element not in cache!");
 		key_value_list_.splice(key_value_list_.begin(), key_value_list_, pair_iterator->second);
 		return pair_iterator->second->second;
 	}
 
-	std::vector<value_T> get_all_values()
+	value_T get_most_recent_value() const
+	{
+		return key_value_list_.front().second;
+	}
+
+	std::vector<value_T> get_all_values() const
 	{
 		auto result = std::vector<value_T>();
-		for(const auto & element : key_value_list_)
-		{
+		for (const auto &element: key_value_list_) {
 			result.push_back(element.second);
+		}
+		return result;
+	}
+
+	std::vector<key_T> get_all_keys() const
+	{
+		auto result = std::vector<key_T>();
+		for (const auto &element: key_value_list_) {
+			result.push_back(element.first);
 		}
 		return result;
 	}
@@ -56,8 +68,7 @@ public:
 private:
 	void check_cache_size()
 	{
-		while(cache_.size() > cache_size_)
-		{
+		while (cache_.size() > cache_size_) {
 			auto last_key = key_value_list_.back().first;
 			key_value_list_.pop_back();
 			cache_.erase(last_key);
