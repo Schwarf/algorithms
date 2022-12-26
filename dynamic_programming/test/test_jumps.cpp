@@ -30,6 +30,12 @@ TEST(CanReachLastIndex, test_scenario4)
 	EXPECT_TRUE(can_reach_last_index(jump_distance));
 }
 
+TEST(CanReachLastIndex, test_scenario5)
+{
+	std::vector<int> jump_distance{0};
+	EXPECT_TRUE(can_reach_last_index(jump_distance));
+}
+
 
 TEST(MinimalNumberOfJumps, test_scenario1)
 {
