@@ -6,7 +6,24 @@
 #include <iostream>
 #include <vector>
 
-int min_jumps_to_last_index(std::vector<int> &max_jump_lengths)
+bool can_reach_last_index(const std::vector<int> &jump_distances)
+{
+	int back = jump_distances.size() - 1;
+	if (back == 0)
+		return true;
+	if (jump_distances[0] == back)
+		return true;
+	if (jump_distances[0] == 0)
+		return false;
+	int current_position = back;
+	for (int i{current_position - 1}; i > -1; --i) {
+		if (i + jump_distances[i] > current_position)
+			current_position = i;
+	}
+	return current_position == 0;
+}
+
+int min_jumps_to_last_index(const std::vector<int> &max_jump_lengths)
 {
 	int current_reach = 0;
 	int current_max = 0;
