@@ -17,7 +17,7 @@ bool can_reach_last_index(const std::vector<int> &jump_distances)
 		return false;
 	int current_position = back;
 	for (int i{current_position - 1}; i > -1; --i) {
-		if (i + jump_distances[i] > current_position)
+		if (i + jump_distances[i] >= current_position)
 			current_position = i;
 	}
 	return current_position == 0;
