@@ -6,6 +6,9 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 enable_testing()
+add_executable(test_graphs
+        graphs/test_graph.cpp)
+
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
         linked_lists/test_doubly_linked_list.cpp)
@@ -53,6 +56,7 @@ add_executable(test_binary_search_tree_algorithms
         tries/test_trie.cpp)
 
 
+target_link_libraries(test_graphs ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_stacks_and_queues ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_heaps ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
