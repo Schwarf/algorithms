@@ -13,7 +13,7 @@ protected:
 	int id2 = 2, data2 = 2;
 	int id3 = 3, data3 = 3;
 	int id4 = 4, data4 = 4;
-
+	int id5 = 5, data5 = 5;
 };
 
 TEST_F(SetupBidirectionalGraph, test_add_edge)
@@ -70,6 +70,28 @@ TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id)
 	EXPECT_TRUE(graph.get_neighbors(id4).empty());
 }
 
+TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id2)
+{
+	auto graph = BidirectionalGraph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
+	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
+	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));
+	const std::shared_ptr<GraphNode<int, int>> node4(new GraphNode<int, int>(id4, data4));
+	const std::shared_ptr<GraphNode<int, int>> node5(new GraphNode<int, int>(id5, data5));
+	graph.add_edge(node1, node2);
+	graph.add_edge(node1, node3);
+	graph.add_node(node4);
+	graph.add_edge(node1, node5);
+	auto neighbors_node1 = std::set<std::shared_ptr<GraphNode<int, int> >>{node2, node3, node5};
+	auto neighbors_node2 = std::set<std::shared_ptr<GraphNode<int, int> >>{node1};
+	auto neighbors_node5 = std::set<std::shared_ptr<GraphNode<int, int> >>{node1};
+	EXPECT_EQ(graph.get_neighbors(id1), neighbors_node1);
+	EXPECT_EQ(graph.get_neighbors(id2), neighbors_node2);
+	EXPECT_EQ(graph.get_neighbors(id3), neighbors_node5);
+	EXPECT_TRUE(graph.get_neighbors(id4).empty());
+}
+
+
 TEST_F(SetupBidirectionalGraph, test_size)
 {
 	auto graph = BidirectionalGraph<int, int>();
@@ -84,4 +106,43 @@ TEST_F(SetupBidirectionalGraph, test_size)
 	EXPECT_EQ(graph.number_of_nodes(), 3);
 	graph.add_edge(node1, node4);
 	EXPECT_EQ(graph.number_of_nodes(), 4);
+}
+
+TEST_F(SetupBidirectionalGraph, test_add_node)
+{
+	auto graph = BidirectionalGraph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
+	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
+	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));
+	const std::shared_ptr<GraphNode<int, int>> node4(new GraphNode<int, int>(id4, data4));
+	EXPECT_EQ(graph.number_of_nodes(), 0);
+	graph.add_edge(node1, node2);
+	EXPECT_EQ(graph.number_of_nodes(), 2);
+	graph.add_node(node3);
+	EXPECT_EQ(graph.number_of_nodes(), 3);
+	graph.add_node(node4);
+	EXPECT_EQ(graph.number_of_nodes(), 4);
+}
+
+TEST_F(SetupBidirectionalGraph, test_erase_node)
+{
+	auto graph = BidirectionalGraph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
+	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
+	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));
+	const std::shared_ptr<GraphNode<int, int>> node4(new GraphNode<int, int>(id4, data4));
+	const std::shared_ptr<GraphNode<int, int>> node5(new GraphNode<int, int>(id5, data5));
+	graph.add_edge(node1, node2);
+	graph.add_node(node3);
+	graph.add_node(node4);
+	graph.add_edge(node1, node5);
+	EXPECT_EQ(graph.number_of_nodes(), 5);
+	EXPECT_TRUE(graph.erase_node(id4));
+	EXPECT_EQ(graph.number_of_nodes(), 4);
+	EXPECT_TRUE(graph.erase_node(id1));
+	EXPECT_EQ(graph.number_of_nodes(), 3);
+	EXPECT_TRUE(graph.get_neighbors(id2).empty());
+	EXPECT_TRUE(graph.get_neighbors(id5).empty());
+	graph.add_edge(node3, node4);
+
 }

@@ -45,15 +45,47 @@ public:
 	void add_edge(const GraphNodePtr<id_T, data_T> &node1,
 				  const GraphNodePtr<id_T, data_T> &node2)
 	{
-		graph_[node1->id].insert(node2);
-		graph_[node2->id].insert(node1);
 		nodes_[node1->id] = node1;
 		nodes_[node2->id] = node2;
+		graph_[node1->id].insert(node2);
+		graph_[node2->id].insert(node1);
+
 	}
 
 	std::size_t number_of_nodes() const
 	{
-		return graph_.size();
+		return nodes_.size();
+	}
+
+	void add_node(const GraphNodePtr<id_T, data_T> &node)
+	{
+		nodes_[node->id] = node;
+	}
+
+	bool erase_node(id_T id)
+	{
+		bool is_in_graph = graph_.find(id) != graph_.end();
+		bool is_in_nodes = nodes_.find(id) != nodes_.end();
+		if (!is_in_graph && !is_in_nodes)
+			return false;
+
+		if (is_in_nodes)
+			nodes_.erase(id);
+
+		if (is_in_graph) {
+			auto affected_neighbors = get_neighbors(id);
+			graph_.erase(id);
+			for (const auto &neighbor: affected_neighbors) {
+				auto iterator =
+					std::find_if(graph_[neighbor->id].begin(),
+								 graph_[neighbor->id].end(),
+								 [id](const GraphNodePtr<id_T, data_T> &node)
+								 { return node->id == id; });
+				graph_[neighbor->id].erase(iterator);
+			}
+
+		}
+		return true;
 	}
 
 private:
