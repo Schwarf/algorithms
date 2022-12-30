@@ -7,6 +7,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 enable_testing()
 add_executable(test_graphs
+        graphs/test_does_path_graph_exist.cpp
         graphs/test_graph.cpp)
 
 add_executable(test_linked_lists

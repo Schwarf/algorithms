@@ -144,5 +144,5 @@ TEST_F(SetupBidirectionalGraph, test_erase_node)
 	EXPECT_TRUE(graph.get_neighbors(id2).empty());
 	EXPECT_TRUE(graph.get_neighbors(id5).empty());
 	graph.add_edge(node3, node4);
-
+	graph.add_edge(node3, node4);
 }

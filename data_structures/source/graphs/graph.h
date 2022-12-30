@@ -89,9 +89,11 @@ public:
 	}
 
 private:
+	// Here we store the relations between nodes if they exist.
 	std::unordered_map<id_T, std::set<GraphNodePtr<id_T, data_T>>> graph_;
+	// Here we store all graph-nodes (id, data) pairs, that can be retrieved using the id. A node might be isolated.
+	// not participating in any relations with other nodes
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> nodes_;
-
 };
 
 #endif //GRAPH_H
