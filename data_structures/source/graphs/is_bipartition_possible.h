@@ -8,7 +8,8 @@
 #include <queue>
 #include "graph.h"
 // We want to split a group of n objects (labeled from 1 to n) into two groups of any size.
-// Each object may be connected with some other objects and not related to the objects of the other group.
+// Each object in one goup may be connected with some other objects of the other group BUT not related to the objects
+// of the OWN group.
 // Given the integer n and the graph, return true if it is possible to split all objects into two groups in this way.
 
 bool breadth_first_search(int source_node_id, BidirectionalGraph<int, int> &graph, std::vector<int> &node_colors)
