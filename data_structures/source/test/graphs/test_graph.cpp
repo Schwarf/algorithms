@@ -42,8 +42,8 @@ TEST_F(SetupBidirectionalGraph, test_get_neighbours)
 	graph.add_edge(node1, node2);
 	graph.add_edge(node1, node3);
 	graph.add_edge(node2, node3);
-	auto neighbors_node1 = std::vector<std::shared_ptr<GraphNode<int, int> >>{node2, node3};
-	auto neighbors_node2 = std::vector<std::shared_ptr<GraphNode<int, int> >>{node3, node1};
+	auto neighbors_node1 = std::set<std::shared_ptr<GraphNode<int, int> >>{node2, node3};
+	auto neighbors_node2 = std::set<std::shared_ptr<GraphNode<int, int> >>{node3, node1};
 	EXPECT_EQ(graph.get_neighbors(node1), neighbors_node1);
 	EXPECT_EQ(graph.get_neighbors(node2), neighbors_node2);
 }

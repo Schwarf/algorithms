@@ -5,7 +5,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <unordered_map>
-#include <vector>
+#include <set>
 #include <memory>
 
 
@@ -28,11 +28,11 @@ template<typename id_T, typename data_T>
 class BidirectionalGraph
 {
 public:
-	std::vector<GraphNodePtr<id_T, data_T>> get_neighbors(const GraphNodePtr<id_T, data_T> &node)
+	std::set<GraphNodePtr<id_T, data_T>> get_neighbors(const GraphNodePtr<id_T, data_T> &node)
 	{
 		return this->graph_[node->id];
 	}
-	std::vector<GraphNodePtr<id_T, data_T>> get_neighbors(id_T id)
+	std::set<GraphNodePtr<id_T, data_T>> get_neighbors(id_T id)
 	{
 		return this->graph_[id];
 	}
@@ -45,8 +45,8 @@ public:
 	void add_edge(const GraphNodePtr<id_T, data_T> &node1,
 				  const GraphNodePtr<id_T, data_T> &node2)
 	{
-		graph_[node1->id].push_back(node2);
-		graph_[node2->id].push_back(node1);
+		graph_[node1->id].insert(node2);
+		graph_[node2->id].insert(node1);
 		nodes_[node1->id] = node1;
 		nodes_[node2->id] = node2;
 	}
@@ -57,7 +57,7 @@ public:
 	}
 
 private:
-	std::unordered_map<id_T, std::vector<GraphNodePtr<id_T, data_T>>> graph_;
+	std::unordered_map<id_T, std::set<GraphNodePtr<id_T, data_T>>> graph_;
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> nodes_;
 
 };
