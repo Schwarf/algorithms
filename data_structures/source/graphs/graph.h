@@ -51,7 +51,7 @@ public:
 		nodes_[node2->id] = node2;
 	}
 
-	std::size_t size() const
+	std::size_t number_of_nodes() const
 	{
 		return graph_.size();
 	}
