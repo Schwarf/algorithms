@@ -38,7 +38,7 @@ TEST_F(SetupDoesPathExist, test_simple_case)
 	EXPECT_FALSE(does_path_exist(graph, node4, node1));
 	EXPECT_FALSE(does_path_exist(graph, node4, node2));
 	EXPECT_FALSE(does_path_exist(graph, node4, node3));
-	graph.add_node(node4);
+	graph.add_vertex(node4);
 	EXPECT_FALSE(does_path_exist(graph, node1, node4));
 	EXPECT_FALSE(does_path_exist(graph, node2, node4));
 	EXPECT_FALSE(does_path_exist(graph, node3, node4));

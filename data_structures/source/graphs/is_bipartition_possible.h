@@ -14,20 +14,20 @@
 
 bool breadth_first_search(int source_node_id, BidirectionalGraph<int, int> &graph, std::vector<int> &node_colors)
 {
-	std::queue<GraphNodePtr<int, int>> bfs_queue;
+	std::queue<int> bfs_queue;
 
-	bfs_queue.push(graph.get_node_by_id(source_node_id));
+	bfs_queue.push(source_node_id);
 	node_colors[source_node_id] = 0; // source node is always red
 	while (!bfs_queue.empty()) {
-		auto current_node = bfs_queue.front();
+		auto current_node_id = bfs_queue.front();
 		bfs_queue.pop();
-		for (const auto &neighbor: graph.get_neighbors(current_node)) {
+		for (const auto &neighbor_id: graph.get_neighbors(current_node_id)) {
 			// in a bipartite graph neighbors do not have the same color
-			if (node_colors[current_node->id] == node_colors[neighbor->id])
+			if (node_colors[current_node_id] == node_colors[neighbor_id])
 				return false;
-			if (node_colors[neighbor->id] == -1) {
-				node_colors[neighbor->id] = 1 - node_colors[current_node->id];
-				bfs_queue.push(neighbor);
+			if (node_colors[neighbor_id] == -1) {
+				node_colors[neighbor_id] = 1 - node_colors[current_node_id];
+				bfs_queue.push(neighbor_id);
 			}
 		}
 	}
@@ -38,8 +38,8 @@ bool is_bi_partition_possible(BidirectionalGraph<int, int> &graph)
 {
 	// we have two colors red and blue. Red is represented by '0', blue by '1'
 	// The
-	std::vector<int> node_colors(graph.number_of_nodes() + 1, -1);
-	for (size_t id = 1; id <= graph.number_of_nodes(); ++id) {
+	std::vector<int> node_colors(graph.number_of_vertices() + 1, -1);
+	for (size_t id = 1; id <= graph.number_of_vertices(); ++id) {
 		if (node_colors[id] == -1) {
 			if (!breadth_first_search(id, graph, node_colors))
 				return false;
