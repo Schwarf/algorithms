@@ -19,6 +19,8 @@ struct GraphNode
 	}
 	data_T data;
 	id_T id;
+	bool discovered{};
+	bool processed{};
 };
 
 template<typename id_T, typename data_T>
