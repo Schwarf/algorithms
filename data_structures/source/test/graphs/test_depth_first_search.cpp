@@ -46,11 +46,11 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_node1)
 	GraphNodePtr<int, int> start_node = nullptr;
 	int start_node_id = 1;
 	auto graph = get_graph(start_node_id, start_node);
-	std::map<int, int> expected_parents{{2, 1}, {3, 1}, {4, 3}, {5, 3}, {6, 5}, {7, 5}};
-	auto parents = depth_first_search<int, int>(graph, start_node);
-	EXPECT_EQ(parents.size(), expected_parents.size());
-	for (const auto &[child, parent]: expected_parents) {
-		EXPECT_EQ(parent, parents.at(child));
+	std::map<int, int> expected_dfs_tree{{2, 1}, {3, 1}, {4, 3}, {5, 3}, {6, 5}, {7, 5}};
+	auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_node);
+	EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
+	for (const auto &[child, parent]: expected_dfs_tree) {
+		EXPECT_EQ(parent, dfs_tree.at(child));
 	}
 }
 
@@ -60,11 +60,11 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_node4)
 	GraphNodePtr<int, int> start_node = nullptr;
 	int start_node_id = 4;
 	auto graph = get_graph(start_node_id, start_node);
-	std::map<int, int> expected_parents{{3, 4}, {1, 3}, {2, 3}, {5, 3}, {6, 5}, {7, 5}};
-	auto parents = depth_first_search<int, int>(graph, start_node);
-	EXPECT_EQ(parents.size(), expected_parents.size());
-	for (const auto &[child, parent]: expected_parents) {
-		EXPECT_EQ(parent, parents.at(child));
+	std::map<int, int> expected_dfs_tree{{3, 4}, {1, 3}, {2, 3}, {5, 3}, {6, 5}, {7, 5}};
+	auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_node);
+	EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
+	for (const auto &[child, parent]: expected_dfs_tree) {
+		EXPECT_EQ(parent, dfs_tree.at(child));
 	}
 }
 
@@ -74,10 +74,10 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_node5)
 	GraphNodePtr<int, int> start_node = nullptr;
 	int start_node_id = 5;
 	auto graph = get_graph(start_node_id, start_node);
-	std::map<int, int> expected_parents{{3, 5}, {6, 5}, {7, 5}, {2, 6}, {1, 2}, {4, 3}};
-	auto parents = depth_first_search<int, int>(graph, start_node);
-	EXPECT_EQ(parents.size(), expected_parents.size());
-	for (const auto &[child, parent]: expected_parents) {
-		EXPECT_EQ(parent, parents.at(child));
+	std::map<int, int> expected_dfs_tree{{3, 5}, {6, 5}, {7, 5}, {2, 6}, {1, 2}, {4, 3}};
+	auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_node);
+	EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
+	for (const auto &[child, parent]: expected_dfs_tree) {
+		EXPECT_EQ(parent, dfs_tree.at(child));
 	}
 }

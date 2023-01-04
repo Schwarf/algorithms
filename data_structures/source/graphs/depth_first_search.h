@@ -10,12 +10,12 @@
 #include "graph.h"
 
 template<typename id_T, typename data_T>
-std::map<id_T, id_T> depth_first_search(Graph<id_T, data_T> &graph,
-										const GraphNodePtr<id_T, data_T> &start_node)
+std::map<id_T, id_T> get_depth_first_search_tree(Graph<id_T, data_T> &graph,
+												 const GraphNodePtr<id_T, data_T> &start_node)
 {
 	std::stack<id_T> dfs_stack;
 	dfs_stack.push(start_node->id);
-	std::map<id_T, id_T> parents_map;
+	std::map<id_T, id_T> dfs_tree;
 	while (!dfs_stack.empty()) {
 		auto current_node_id = dfs_stack.top();
 		dfs_stack.pop();
@@ -25,11 +25,11 @@ std::map<id_T, id_T> depth_first_search(Graph<id_T, data_T> &graph,
 				continue;
 			graph.get_node_by_id(neighbor_id)->discovered = true;
 			dfs_stack.push(neighbor_id);
-			parents_map[neighbor_id] = current_node_id;
+			dfs_tree[neighbor_id] = current_node_id;
 		}
 		graph.get_node_by_id(current_node_id)->processed = true;
 	}
-	return parents_map;
+	return dfs_tree;
 }
 
 #endif //DEPTH_FIRST_SEARCH_H
