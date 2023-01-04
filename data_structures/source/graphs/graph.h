@@ -30,6 +30,16 @@ template<typename id_T, typename data_T>
 class Graph
 {
 public:
+	void set_has_cycle()
+	{
+		has_cycle_ = true;
+	}
+
+	bool has_cycle()
+	{
+		return has_cycle_;
+	}
+
 	std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T> &node)
 	{
 		return this->edges_[node->id];
@@ -119,6 +129,7 @@ private:
 	// Here we store all graph-nodes (id, data) pairs, that can be retrieved using the id. A node might be isolated.
 	// not participating in any relations with other nodes
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
+	bool has_cycle_{};
 
 };
 

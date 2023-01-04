@@ -39,6 +39,7 @@ protected:
 		start_node = graph.get_node_by_id(start_node_id);
 		return graph;
 	}
+
 };
 
 TEST_F(SetupDFSGraph, test_depth_first_search_start_node1)
@@ -66,6 +67,7 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_node4)
 	for (const auto &[child, parent]: expected_dfs_tree) {
 		EXPECT_EQ(parent, dfs_tree.at(child));
 	}
+
 }
 
 
