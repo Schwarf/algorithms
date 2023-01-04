@@ -114,7 +114,7 @@ public:
 	}
 
 private:
-	// Here we store the relations between nodes if they exist.
+	// Here we store the relations between nodes/vertices if they exist.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
 	// Here we store all graph-nodes (id, data) pairs, that can be retrieved using the id. A node might be isolated.
 	// not participating in any relations with other nodes
