@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "./../../graphs/graph.h"
 #include "./../../graphs/depth_first_search.h"
+#include <iostream>
 
 class SetupDFSGraph: public testing::Test
 {
@@ -45,8 +46,10 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_node1)
 	GraphNodePtr<int, int> start_node = nullptr;
 	int start_node_id = 1;
 	auto graph = get_graph(start_node_id, start_node);
-	std::map<int, int> expected_parents{{2, 1}, {3, 1}, {4, 3}, {5, 3}, {5, 6}, {7, 5}};
+	std::map<int, int> expected_parents{{2, 1}, {3, 1}, {4, 3}, {5, 3}, {6, 5}, {7, 5}};
 	auto parents = depth_first_search<int, int>(graph, start_node);
-	for (const auto &[child, parent]: expected_parents)
-		EXPECT_EQ(parent, parents[child]);
+	EXPECT_EQ(parents.size(), expected_parents.size());
+	for (const auto &[child, parent]: expected_parents) {
+		EXPECT_EQ(parent, parents.at(child));
+	}
 }
