@@ -27,7 +27,7 @@ template<typename id_T, typename data_T>
 using GraphNodePtr = std::shared_ptr<GraphNode<id_T, data_T>>;
 
 template<typename id_T, typename data_T>
-class BidirectionalGraph
+class Graph
 {
 public:
 	std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T> &node)

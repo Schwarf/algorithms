@@ -10,7 +10,7 @@
 #include "graph.h"
 
 template<typename id_T, typename data_T>
-std::map<id_T, id_T> breadth_first_search(BidirectionalGraph<id_T, data_T> &graph,
+std::map<id_T, id_T> breadth_first_search(Graph<id_T, data_T> &graph,
 										  const GraphNodePtr<id_T, data_T> &start_node)
 {
 	std::queue<id_T> bfs_queue;

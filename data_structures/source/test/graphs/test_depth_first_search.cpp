@@ -17,7 +17,7 @@ protected:
 	int id5 = 5, data5 = 5;
 	int id6 = 6, data6 = 6;
 	int id7 = 7, data7 = 7;
-	BidirectionalGraph<int, int> get_graph(int start_node_id, GraphNodePtr<int, int> &start_node) const
+	Graph<int, int> get_graph(int start_node_id, GraphNodePtr<int, int> &start_node) const
 	{
 		const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
 		const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
@@ -26,7 +26,7 @@ protected:
 		const std::shared_ptr<GraphNode<int, int>> node5(new GraphNode<int, int>(id5, data5));
 		const std::shared_ptr<GraphNode<int, int>> node6(new GraphNode<int, int>(id6, data6));
 		const std::shared_ptr<GraphNode<int, int>> node7(new GraphNode<int, int>(id7, data7));
-		auto graph = BidirectionalGraph<int, int>();
+		auto graph = Graph<int, int>();
 		graph.add_edge(node1, node2);
 		graph.add_edge(node1, node3);
 		graph.add_edge(node2, node3);

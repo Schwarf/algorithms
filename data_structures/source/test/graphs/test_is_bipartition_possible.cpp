@@ -20,7 +20,7 @@ protected:
 
 TEST_F(SetupBiPartitionPossible, test_positive_case)
 {
-	auto graph = BidirectionalGraph<int, int>();
+	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
 	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
 	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));
@@ -35,7 +35,7 @@ TEST_F(SetupBiPartitionPossible, test_positive_case)
 
 TEST_F(SetupBiPartitionPossible, test_negative_case)
 {
-	auto graph = BidirectionalGraph<int, int>();
+	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
 	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
 	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));
@@ -50,7 +50,7 @@ TEST_F(SetupBiPartitionPossible, test_negative_case)
 
 TEST_F(SetupBiPartitionPossible, test_negative_erase_positive)
 {
-	auto graph = BidirectionalGraph<int, int>();
+	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
 	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(id2, data2));
 	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(id3, data3));

@@ -8,7 +8,7 @@
 #include <queue>
 
 template<typename id_T, typename data_T>
-bool does_path_exist(BidirectionalGraph<id_T, data_T> &graph,
+bool does_path_exist(Graph<id_T, data_T> &graph,
 					 const GraphNodePtr<id_T, data_T> &source_node,
 					 const GraphNodePtr<id_T, data_T> &destination_node)
 {

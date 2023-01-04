@@ -46,7 +46,7 @@ int main()
 	std::cout << trie.search(str_and) << std::endl;
 	std::cout << trie.search(str_ban) << std::endl;
 
-	auto graph = BidirectionalGraph<int, int>();
+	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(1, 1));
 	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(2, 2));
 	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(3, 3));

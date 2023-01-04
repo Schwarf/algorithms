@@ -12,7 +12,7 @@
 // of the OWN group.
 // Given the integer n and the graph, return true if it is possible to split all objects into two groups in this way.
 
-bool breadth_first_search(int source_node_id, BidirectionalGraph<int, int> &graph, std::vector<int> &node_colors)
+bool breadth_first_search(int source_node_id, Graph<int, int> &graph, std::vector<int> &node_colors)
 {
 	std::queue<int> bfs_queue;
 
@@ -34,7 +34,7 @@ bool breadth_first_search(int source_node_id, BidirectionalGraph<int, int> &grap
 	return true;
 }
 
-bool is_bi_partition_possible(BidirectionalGraph<int, int> &graph)
+bool is_bi_partition_possible(Graph<int, int> &graph)
 {
 	// we have two colors red and blue. Red is represented by '0', blue by '1'
 	// The
