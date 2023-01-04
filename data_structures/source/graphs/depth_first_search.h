@@ -21,8 +21,13 @@ std::map<id_T, id_T> get_depth_first_search_tree(Graph<id_T, data_T> &graph,
 		dfs_stack.pop();
 		graph.get_node_by_id(current_node_id)->discovered = true;
 		for (const auto &neighbor_id: graph.get_neighbors(current_node_id)) {
-			if (graph.get_node_by_id(neighbor_id)->discovered)
+			if (graph.get_node_by_id(neighbor_id)->processed)
 				continue;
+			if (graph.get_node_by_id(neighbor_id)->discovered) {
+				if (dfs_tree.find(neighbor_id) != dfs_tree.end() && current_node_id != dfs_tree[neighbor_id])
+					graph.set_has_cycle();
+				continue;
+			}
 			graph.get_node_by_id(neighbor_id)->discovered = true;
 			dfs_stack.push(neighbor_id);
 			dfs_tree[neighbor_id] = current_node_id;

@@ -75,16 +75,14 @@ public:
 		edges_[node2_id].insert(node1_id);
 
 	}
-	void reset_discovered()
-	{
-		for (auto &[id, node]: vertices_)
-			node->discovered = false;
-	}
 
-	void reset_processed()
+	void reset_all_node_properties()
 	{
-		for (auto &[id, node]: vertices_)
-			node->processed = false;
+		for (auto &[id, node]: vertices_) {
+			node->discovered = false;
+			node->processe = false;
+		}
+		has_cycle_ = false;
 	}
 
 	std::size_t number_of_vertices() const
