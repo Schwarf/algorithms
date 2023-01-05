@@ -26,7 +26,7 @@ struct GraphNode
 template<typename id_T, typename data_T>
 using GraphNodePtr = std::shared_ptr<GraphNode<id_T, data_T>>;
 
-template<typename id_T, typename data_T>
+template<typename id_T, typename data_T, bool directed_ = false>
 class Graph
 {
 public:
@@ -54,26 +54,28 @@ public:
 		return vertices_[id];
 	}
 
-	void add_edge(const GraphNodePtr<id_T, data_T> &node1,
-				  const GraphNodePtr<id_T, data_T> &node2)
+	void add_edge(const GraphNodePtr<id_T, data_T> &source_node,
+				  const GraphNodePtr<id_T, data_T> &destination_node)
 	{
-		if (vertices_.find(node1->id) == vertices_.end())
-			vertices_[node1->id] = node1;
-		if (vertices_.find(node2->id) == vertices_.end())
-			vertices_[node2->id] = node2;
-		add_edge(node1->id, node2->id);
+		if (vertices_.find(source_node->id) == vertices_.end())
+			vertices_[source_node->id] = source_node;
+		if (vertices_.find(destination_node->id) == vertices_.end())
+			vertices_[destination_node->id] = destination_node;
+		add_edge(source_node->id, destination_node->id);
 	}
 
-	void add_edge(const id_T &node1_id,
-				  const id_T &node2_id)
+	void add_edge(const id_T &source_node_id,
+				  const id_T &destination_node_id)
 	{
-		if (vertices_.find(node1_id) == vertices_.end())
-			throw std::invalid_argument("The node id " + std::to_string(node1_id) + "does not exist in the graph!");
-		if (vertices_.find(node2_id) == vertices_.end())
-			throw std::invalid_argument("The node id " + std::to_string(node2_id) + "does not exist in the graph!");
-		edges_[node1_id].insert(node2_id);
-		edges_[node2_id].insert(node1_id);
-
+		if (vertices_.find(source_node_id) == vertices_.end())
+			throw std::invalid_argument(
+				"The node id " + std::to_string(source_node_id) + "does not exist in the graph!");
+		if (vertices_.find(destination_node_id) == vertices_.end())
+			throw std::invalid_argument(
+				"The node id " + std::to_string(destination_node_id) + "does not exist in the graph!");
+		edges_[source_node_id].insert(destination_node_id);
+		if (!directed_)
+			edges_[destination_node_id].insert(source_node_id);
 	}
 
 	void reset_all_node_properties()
@@ -132,3 +134,5 @@ private:
 };
 
 #endif //GRAPH_H
+
+
