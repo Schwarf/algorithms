@@ -63,5 +63,6 @@ int main()
 
 	std::cout << "Does path exist (1,3): " << does_path_exist(graph, node1, node5) << std::endl;
 	std::cout << "Bi partite should not work: " << is_bi_partition_possible(graph) << std::endl;
+	std::cout << std::numeric_limits<int32_t>::min() << std::endl;
 }
 

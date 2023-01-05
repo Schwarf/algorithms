@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <set>
 #include <memory>
-
+#include <algorithm>
 
 template<typename id_T, typename data_T>
 struct GraphNode
