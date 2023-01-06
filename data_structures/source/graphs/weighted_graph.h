@@ -48,6 +48,16 @@ public:
 		add_edge(source_node->id, destination_node->id, weight);
 	}
 
+	void add_vertex(const GraphNodePtr<id_T, data_T> &node)
+	{
+		vertices_[node->id] = node;
+	}
+
+	std::size_t number_of_vertices() const
+	{
+		return vertices_.size();
+	}
+
 	void add_edge(const id_T &source_node_id,
 				  const id_T &destination_node_id, const weight_T &weight)
 	{
@@ -75,6 +85,51 @@ public:
 	{
 		return has_cycle_;
 	}
+
+	weight_T get_edge_weight(const id_T &source_node_id, const id_T &destination_node_id)
+	{
+		if (vertices_.find(source_node_id) == vertices_.end())
+			throw std::invalid_argument(
+				"The node id " + std::to_string(source_node_id) + " does not exist in the graph!");
+		if (vertices_.find(destination_node_id) == vertices_.end())
+			throw std::invalid_argument(
+				"The node id " + std::to_string(destination_node_id) + " does not exist in the graph!");
+		auto id_pair = std::make_pair(source_node_id, destination_node_id);
+		if (weights_.find(id_pair) == weights_.end())
+			throw std::invalid_argument(
+				"The edge with source id " + std::to_string(source_node_id) + " and destination id "
+					+ std::to_string(destination_node_id) + " does not exist in the graph!");
+		return weights_[id_pair];
+	}
+
+	bool erase_node(id_T id_to_erase)
+	{
+		bool is_in_graph = edges_.find(id_to_erase) != edges_.end();
+		bool is_in_nodes = vertices_.find(id_to_erase) != vertices_.end();
+		if (!is_in_graph && !is_in_nodes)
+			return false;
+
+		if (is_in_nodes)
+			vertices_.erase(id_to_erase);
+
+		if (is_in_graph) {
+			auto affected_neighbors = get_neighbors(id_to_erase);
+			edges_.erase(id_to_erase);
+			for (const auto &neighbor_id: affected_neighbors) {
+				auto id_iterator =
+					std::find_if(edges_[neighbor_id].begin(),
+								 edges_[neighbor_id].end(),
+								 [id_to_erase](const id_T &node_id)
+								 { return node_id == id_to_erase; });
+
+				edges_[neighbor_id].erase(id_iterator);
+				weights_.erase(std::make_pair(id_to_erase, neighbor_id));
+			}
+
+		}
+		return true;
+	}
+
 private:
 	// Here we store the relations between nodes/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
