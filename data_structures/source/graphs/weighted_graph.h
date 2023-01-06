@@ -6,10 +6,10 @@
 #define WEIGHTED_GRAPH_H
 #include "graph.h"
 
-template<typename id_T>
 struct id_T_pair_hash
 {
-	std::size_t operator()(const std::pair<id_T, id_T> id_pair)
+	template<typename id_T>
+	std::size_t operator()(const std::pair<id_T, id_T> &id_pair) const
 	{
 		return std::hash<id_T>()(id_pair.first) ^ std::hash<id_T>()(id_pair.second);
 	}
@@ -79,7 +79,7 @@ private:
 	// Here we store the relations between nodes/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
 	// Store the weights
-	std::unordered_map<std::pair<id_T, id_T>, weight_T, id_T_pair_hash<id_T>> weights_;
+	std::unordered_map<std::pair<id_T, id_T>, weight_T, id_T_pair_hash> weights_;
 	// Here we store all graph-nodes (id, data) pairs, that can be retrieved using the id. A node might be isolated.
 	// not participating in any relations with other nodes
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
