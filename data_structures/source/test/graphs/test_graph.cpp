@@ -4,10 +4,10 @@
 #include "gtest/gtest.h"
 #include "./../../graphs/graph.h"
 
-class SetupBidirectionalGraph: public testing::Test
+class SetupGraph: public testing::Test
 {
 public:
-	SetupBidirectionalGraph() = default;
+	SetupGraph() = default;
 protected:
 	int id1 = 1, data1 = 1;
 	int id2 = 2, data2 = 2;
@@ -16,7 +16,7 @@ protected:
 	int id5 = 5, data5 = 5;
 };
 
-TEST_F(SetupBidirectionalGraph, test_add_edge_nodes)
+TEST_F(SetupGraph, test_add_edge_nodes)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -32,7 +32,7 @@ TEST_F(SetupBidirectionalGraph, test_add_edge_nodes)
 	EXPECT_EQ(graph.get_node_by_id(id4), nullptr);
 }
 
-TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_node)
+TEST_F(SetupGraph, test_get_neighbours_by_node)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -51,7 +51,7 @@ TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_node)
 	EXPECT_TRUE(graph.get_neighbors(node4).empty());
 }
 
-TEST_F(SetupBidirectionalGraph, test_add_vertices_then_nodes)
+TEST_F(SetupGraph, test_add_vertices_then_nodes)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -74,7 +74,7 @@ TEST_F(SetupBidirectionalGraph, test_add_vertices_then_nodes)
 }
 
 
-TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id)
+TEST_F(SetupGraph, test_get_neighbours_by_id)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -93,7 +93,7 @@ TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id)
 	EXPECT_TRUE(graph.get_neighbors(id4).empty());
 }
 
-TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id2)
+TEST_F(SetupGraph, test_get_neighbours_by_id2)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -115,7 +115,7 @@ TEST_F(SetupBidirectionalGraph, test_get_neighbours_by_id2)
 }
 
 
-TEST_F(SetupBidirectionalGraph, test_size)
+TEST_F(SetupGraph, test_size)
 {
 	auto graph = Graph<int, int>();
 	EXPECT_EQ(graph.number_of_vertices(), 0);
@@ -131,7 +131,7 @@ TEST_F(SetupBidirectionalGraph, test_size)
 	EXPECT_EQ(graph.number_of_vertices(), 4);
 }
 
-TEST_F(SetupBidirectionalGraph, test_add_node)
+TEST_F(SetupGraph, test_add_node)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
@@ -147,7 +147,7 @@ TEST_F(SetupBidirectionalGraph, test_add_node)
 	EXPECT_EQ(graph.number_of_vertices(), 4);
 }
 
-TEST_F(SetupBidirectionalGraph, test_erase_node)
+TEST_F(SetupGraph, test_erase_node)
 {
 	auto graph = Graph<int, int>();
 	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(id1, data1));
