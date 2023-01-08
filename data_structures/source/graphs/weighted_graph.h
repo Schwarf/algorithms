@@ -24,33 +24,33 @@ public:
 		has_cycle_ = true;
 	}
 
-	std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T> &node)
+	std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T> &vertex)
 	{
-		return this->edges_[node->id];
+		return this->edges_[vertex->id];
 	}
 	std::set<id_T> get_neighbors(id_T id)
 	{
 		return this->edges_[id];
 	}
 
-	GraphNodePtr<id_T, data_T> get_node_by_id(id_T id)
+	GraphNodePtr<id_T, data_T> get_vertex_by_id(id_T id)
 	{
 		return vertices_[id];
 	}
 
-	void add_edge(const GraphNodePtr<id_T, data_T> &source_node,
-				  const GraphNodePtr<id_T, data_T> &destination_node, const weight_T &weight)
+	void add_edge(const GraphNodePtr<id_T, data_T> &source_vertex,
+				  const GraphNodePtr<id_T, data_T> &destination_vertex, const weight_T &weight)
 	{
-		if (vertices_.find(source_node->id) == vertices_.end())
-			vertices_[source_node->id] = source_node;
-		if (vertices_.find(destination_node->id) == vertices_.end())
-			vertices_[destination_node->id] = destination_node;
-		add_edge(source_node->id, destination_node->id, weight);
+		if (vertices_.find(source_vertex->id) == vertices_.end())
+			vertices_[source_vertex->id] = source_vertex;
+		if (vertices_.find(destination_vertex->id) == vertices_.end())
+			vertices_[destination_vertex->id] = destination_vertex;
+		add_edge(source_vertex->id, destination_vertex->id, weight);
 	}
 
-	void add_vertex(const GraphNodePtr<id_T, data_T> &node)
+	void add_vertex(const GraphNodePtr<id_T, data_T> &vertex)
 	{
-		vertices_[node->id] = node;
+		vertices_[vertex->id] = vertex;
 	}
 
 	std::size_t number_of_vertices() const
@@ -58,25 +58,25 @@ public:
 		return vertices_.size();
 	}
 
-	void add_edge(const id_T &source_node_id,
-				  const id_T &destination_node_id, const weight_T &weight)
+	void add_edge(const id_T &source_vertex_id,
+				  const id_T &destination_vertex_id, const weight_T &weight)
 	{
-		if (vertices_.find(source_node_id) == vertices_.end())
+		if (vertices_.find(source_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The node id " + std::to_string(source_node_id) + "does not exist in the graph!");
-		if (vertices_.find(destination_node_id) == vertices_.end())
+				"The vertex id " + std::to_string(source_vertex_id) + "does not exist in the graph!");
+		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The node id " + std::to_string(destination_node_id) + "does not exist in the graph!");
-		edges_[source_node_id].insert(destination_node_id);
-		weights_[std::make_pair(source_node_id, destination_node_id)] = weight;
+				"The vertex id " + std::to_string(destination_vertex_id) + "does not exist in the graph!");
+		edges_[source_vertex_id].insert(destination_vertex_id);
+		weights_[std::make_pair(source_vertex_id, destination_vertex_id)] = weight;
 		if (!directed_)
-			edges_[destination_node_id].insert(source_node_id);
+			edges_[destination_vertex_id].insert(source_vertex_id);
 	}
-	void reset_all_node_properties()
+	void reset_all_vertex_properties()
 	{
-		for (auto &[id, node]: vertices_) {
-			node->discovered = false;
-			node->processe = false;
+		for (auto &[id, vertex]: vertices_) {
+			vertex->discovered = false;
+			vertex->processe = false;
 		}
 		has_cycle_ = false;
 	}
@@ -86,30 +86,30 @@ public:
 		return has_cycle_;
 	}
 
-	weight_T get_edge_weight(const id_T &source_node_id, const id_T &destination_node_id)
+	weight_T get_edge_weight(const id_T &source_vertex_id, const id_T &destination_vertex_id)
 	{
-		if (vertices_.find(source_node_id) == vertices_.end())
+		if (vertices_.find(source_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The node id " + std::to_string(source_node_id) + " does not exist in the graph!");
-		if (vertices_.find(destination_node_id) == vertices_.end())
+				"The vertex id " + std::to_string(source_vertex_id) + " does not exist in the graph!");
+		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The node id " + std::to_string(destination_node_id) + " does not exist in the graph!");
-		auto id_pair = std::make_pair(source_node_id, destination_node_id);
+				"The vertex id " + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+		auto id_pair = std::make_pair(source_vertex_id, destination_vertex_id);
 		if (weights_.find(id_pair) == weights_.end())
 			throw std::invalid_argument(
-				"The edge with source id " + std::to_string(source_node_id) + " and destination id "
-					+ std::to_string(destination_node_id) + " does not exist in the graph!");
+				"The edge with source id " + std::to_string(source_vertex_id) + " and destination id "
+					+ std::to_string(destination_vertex_id) + " does not exist in the graph!");
 		return weights_[id_pair];
 	}
 
-	bool erase_node(id_T id_to_erase)
+	bool erase_vertex(id_T id_to_erase)
 	{
 		bool is_in_graph = edges_.find(id_to_erase) != edges_.end();
-		bool is_in_nodes = vertices_.find(id_to_erase) != vertices_.end();
-		if (!is_in_graph && !is_in_nodes)
+		bool is_in_vertexs = vertices_.find(id_to_erase) != vertices_.end();
+		if (!is_in_graph && !is_in_vertexs)
 			return false;
 
-		if (is_in_nodes)
+		if (is_in_vertexs)
 			vertices_.erase(id_to_erase);
 
 		if (is_in_graph) {
@@ -119,8 +119,8 @@ public:
 				auto id_iterator =
 					std::find_if(edges_[neighbor_id].begin(),
 								 edges_[neighbor_id].end(),
-								 [id_to_erase](const id_T &node_id)
-								 { return node_id == id_to_erase; });
+								 [id_to_erase](const id_T &vertex_id)
+								 { return vertex_id == id_to_erase; });
 
 				edges_[neighbor_id].erase(id_iterator);
 				weights_.erase(std::make_pair(id_to_erase, neighbor_id));
@@ -131,12 +131,12 @@ public:
 	}
 
 private:
-	// Here we store the relations between nodes/vertices if they exist including the weights.
+	// Here we store the relations between vertexs/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
 	// Store the weights
 	std::unordered_map<std::pair<id_T, id_T>, weight_T, id_T_pair_hash> weights_;
-	// Here we store all graph-nodes (id, data) pairs, that can be retrieved using the id. A node might be isolated.
-	// not participating in any relations with other nodes
+	// Here we store all graph-vertexs (id, data) pairs, that can be retrieved using the id. A vertex might be isolated.
+	// not participating in any relations with other vertexs
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
 	bool has_cycle_{};
 

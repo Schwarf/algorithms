@@ -47,21 +47,21 @@ int main()
 	std::cout << trie.search(str_ban) << std::endl;
 
 	auto graph = Graph<int, int>();
-	const std::shared_ptr<GraphNode<int, int>> node1(new GraphNode<int, int>(1, 1));
-	const std::shared_ptr<GraphNode<int, int>> node2(new GraphNode<int, int>(2, 2));
-	const std::shared_ptr<GraphNode<int, int>> node3(new GraphNode<int, int>(3, 3));
+	const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(1, 1));
+	const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(2, 2));
+	const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(3, 3));
 
-	const std::shared_ptr<GraphNode<int, int>> node4(new GraphNode<int, int>(4, 4));
-	const std::shared_ptr<GraphNode<int, int>> node5(new GraphNode<int, int>(5, 5));
-	const std::shared_ptr<GraphNode<int, int>> node6(new GraphNode<int, int>(6, 6));
+	const std::shared_ptr<GraphNode<int, int>> vertex4(new GraphNode<int, int>(4, 4));
+	const std::shared_ptr<GraphNode<int, int>> vertex5(new GraphNode<int, int>(5, 5));
+	const std::shared_ptr<GraphNode<int, int>> vertex6(new GraphNode<int, int>(6, 6));
 
-	graph.add_edge(node1, node2);
-	graph.add_edge(node1, node3);
-	graph.add_edge(node2, node3);
-	graph.add_edge(node3, node5);
-	graph.add_edge(node4, node6);
+	graph.add_edge(vertex1, vertex2);
+	graph.add_edge(vertex1, vertex3);
+	graph.add_edge(vertex2, vertex3);
+	graph.add_edge(vertex3, vertex5);
+	graph.add_edge(vertex4, vertex6);
 
-	std::cout << "Does path exist (1,3): " << does_path_exist(graph, node1, node5) << std::endl;
+	std::cout << "Does path exist (1,3): " << does_path_exist(graph, vertex1, vertex5) << std::endl;
 	std::cout << "Bi partite should not work: " << is_bi_partition_possible(graph) << std::endl;
 	std::cout << std::numeric_limits<int32_t>::min() << std::endl;
 }
