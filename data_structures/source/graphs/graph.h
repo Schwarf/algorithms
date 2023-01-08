@@ -119,8 +119,8 @@ public:
 			|| !is_source_vertex_in_graph)
 			return false;
 
-		return (vertices_[source_vertex_id].find(destination_vertex_id) != vertices_.end())
-			&& (vertices_[destination_vertex_id].find(source_vertex_id) != vertices_.end());
+		return (edges_[source_vertex_id].find(destination_vertex_id) != edges_[source_vertex_id].end())
+			&& (edges_[destination_vertex_id].find(source_vertex_id) != edges_[destination_vertex_id].end());
 	}
 
 	bool erase_vertex(id_T id)
