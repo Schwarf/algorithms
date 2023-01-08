@@ -10,10 +10,10 @@ public:
 	SetupWeightedGraph() = default;
 protected:
 	int id1 = 1, data1 = 1, weight1 = 1;
-	int id2 = 2, data2 = 2, weight2 = 2;
-	int id3 = 3, data3 = 3, weight3 = 3;
-	int id4 = 4, data4 = 4, weight4 = 4;
-	int id5 = 5, data5 = 5, weight5 = 5;
+	int id2 = 2, data2 = 2, weight2 = 22;
+	int id3 = 3, data3 = 3, weight3 = 33;
+	int id4 = 4, data4 = 4, weight4 = 44;
+	int id5 = 5, data5 = 5, weight5 = 55;
 };
 
 TEST_F(SetupWeightedGraph, test_add_edge_nodes)
@@ -194,11 +194,20 @@ TEST_F(SetupWeightedGraph, test_erase_node)
 	graph.add_edge(node1, node2, weight1);
 	graph.add_vertex(node3);
 	graph.add_vertex(node4);
-	graph.add_edge(node1, node5, weight1);
+	graph.add_edge(node1, node5, weight2);
+	EXPECT_EQ(graph.get_edge_weight(node1->id, node5->id), weight2);
 	EXPECT_EQ(graph.number_of_vertices(), 5);
 	EXPECT_TRUE(graph.erase_node(id4));
 	EXPECT_EQ(graph.number_of_vertices(), 4);
 	EXPECT_TRUE(graph.erase_node(id1));
+	std::string message = "The node id " + std::to_string(node1->id) + " does not exist in the graph!";
+	try {
+		graph.get_edge_weight(node5->id, node1->id);
+		FAIL() << "Expected std::invalid_argument";
+	}
+	catch (std::invalid_argument const &err) {
+		EXPECT_TRUE(err.what() == message);
+	}
 	EXPECT_EQ(graph.number_of_vertices(), 3);
 	EXPECT_TRUE(graph.get_neighbors(id2).empty());
 	EXPECT_TRUE(graph.get_neighbors(id5).empty());
