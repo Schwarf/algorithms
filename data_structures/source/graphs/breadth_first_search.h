@@ -17,18 +17,18 @@ std::map<id_T, id_T> get_breadth_first_search_tree(Graph<id_T, data_T> &graph,
 	bfs_queue.push(start_vertex->id);
 	std::map<id_T, id_T> bfs_tree;
 	while (!bfs_queue.empty()) {
-		id_T vertex_id = bfs_queue.front();
-		graph.get_vertex_by_id(vertex_id)->discovered = true;
+		id_T current_vertex_id = bfs_queue.front();
+		graph.get_vertex_by_id(current_vertex_id)->discovered = true;
 		bfs_queue.pop();
-		for (const auto &neighbor_id: graph.get_neighbors(vertex_id)) {
+		for (const auto &neighbor_id: graph.get_neighbors(current_vertex_id)) {
 			if (graph.get_vertex_by_id(neighbor_id)->discovered)
 				continue;
-			bfs_tree[neighbor_id] = vertex_id;
+			bfs_tree[neighbor_id] = current_vertex_id;
 			bfs_queue.push(neighbor_id);
 			graph.get_vertex_by_id(neighbor_id)->discovered = true;
 
 		}
-		graph.get_vertex_by_id(vertex_id)->processed = true;
+		graph.get_vertex_by_id(current_vertex_id)->processed = true;
 	}
 	return bfs_tree;
 }

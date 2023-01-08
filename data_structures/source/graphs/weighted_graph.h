@@ -105,11 +105,11 @@ public:
 	bool erase_vertex(id_T id_to_erase)
 	{
 		bool is_in_graph = edges_.find(id_to_erase) != edges_.end();
-		bool is_in_vertexs = vertices_.find(id_to_erase) != vertices_.end();
-		if (!is_in_graph && !is_in_vertexs)
+		bool is_in_vertices = vertices_.find(id_to_erase) != vertices_.end();
+		if (!is_in_graph && !is_in_vertices)
 			return false;
 
-		if (is_in_vertexs)
+		if (is_in_vertices)
 			vertices_.erase(id_to_erase);
 
 		if (is_in_graph) {
