@@ -36,14 +36,32 @@ protected:
 		start_node = vertex1;
 		return graph;
 	}
+	WeightedGraph<int, int, int> get_graph2(GraphNodePtr<int, int> &start_node) const
+	{
+		WeightedGraph<int, int, int> graph;
+		const std::shared_ptr<GraphNode<int, int>> vertex0(new GraphNode<int, int>(0, 0));
+		const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(1, 1));
+		const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(2, 2));
+		const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(3, 3));
+		const std::shared_ptr<GraphNode<int, int>> vertex4(new GraphNode<int, int>(4, 4));
+		graph.add_edge(vertex0, vertex1, 2);
+		graph.add_edge(vertex1, vertex2, 3);
+		graph.add_edge(vertex0, vertex3, 6);
+		graph.add_edge(vertex1, vertex4, 5);
+		graph.add_edge(vertex1, vertex3, 8);
+		graph.add_edge(vertex2, vertex4, 7);
+		graph.add_edge(vertex3, vertex4, 9);
+		start_node = vertex0;
+		return graph;
+	}
 
 };
 
-TEST_F(SetupPrimAlgorithmTest, simple_prim_graph1)
+TEST_F(SetupPrimAlgorithmTest, simple_prim_graph2)
 {
 	GraphNodePtr<int, int> start_node = nullptr;
-	auto graph = get_graph1(start_node);
+	auto graph = get_graph2(start_node);
 	auto minimum_spanning_tree = simple_prim_algorithm(graph, start_node);
-	EXPECT_EQ(1, 1);
+	EXPECT_EQ(1, 2);
 }
 #endif //TEST_PRIM_ALGORITHM_CPP
