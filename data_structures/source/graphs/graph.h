@@ -100,8 +100,8 @@ public:
 	bool erase_edge(const id_T &source_vertex_id, const id_T &destination_vertex_id)
 	{
 		if (does_edge_exist(source_vertex_id, destination_vertex_id)) {
-			vertices_[source_vertex_id].erase(destination_vertex_id);
-			vertices_[destination_vertex_id].erase(source_vertex_id);
+			edges_[source_vertex_id].erase(destination_vertex_id);
+			edges_[destination_vertex_id].erase(source_vertex_id);
 			return true;
 		}
 		return false;

@@ -170,7 +170,6 @@ TEST_F(SetupGraph, test_erase_vertex)
 	graph.add_edge(vertex3, vertex4);
 }
 
-
 TEST_F(SetupGraph, test_does_edge_exist)
 {
 	auto graph = Graph<int, int>();
@@ -188,3 +187,20 @@ TEST_F(SetupGraph, test_does_edge_exist)
 	EXPECT_FALSE(graph.does_edge_exist(id3, id5));
 	EXPECT_FALSE(graph.does_edge_exist(id1, id3));
 }
+
+TEST_F(SetupGraph, test_erase_edge)
+{
+	auto graph = Graph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
+	const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
+	const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
+	const std::shared_ptr<GraphNode<int, int>> vertex4(new GraphNode<int, int>(id4, data4));
+	const std::shared_ptr<GraphNode<int, int>> vertex5(new GraphNode<int, int>(id5, data5));
+	graph.add_edge(vertex1, vertex2);
+	graph.add_vertex(vertex3);
+	graph.add_edge(vertex1, vertex5);
+	EXPECT_TRUE(graph.does_edge_exist(id1, id2));
+	EXPECT_TRUE(graph.erase_edge(id1, id2));
+	EXPECT_FALSE(graph.does_edge_exist(id1, id2));
+}
+
