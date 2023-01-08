@@ -69,14 +69,16 @@ public:
 				"The vertex id " + std::to_string(destination_vertex_id) + "does not exist in the graph!");
 		edges_[source_vertex_id].insert(destination_vertex_id);
 		weights_[std::make_pair(source_vertex_id, destination_vertex_id)] = weight;
-		if (!directed_)
+		if (!directed_) {
 			edges_[destination_vertex_id].insert(source_vertex_id);
+			weights_[std::make_pair(destination_vertex_id, source_vertex_id)] = weight;
+		}
 	}
 	void reset_all_vertex_properties()
 	{
 		for (auto &[id, vertex]: vertices_) {
 			vertex->discovered = false;
-			vertex->processe = false;
+			vertex->processed = false;
 		}
 		has_cycle_ = false;
 	}

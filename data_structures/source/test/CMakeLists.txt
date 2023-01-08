@@ -12,7 +12,8 @@ add_executable(test_graphs
         graphs/test_is_bipartition_possible.cpp
         graphs/test_breadth_first_search.cpp
         graphs/test_depth_first_search.cpp
-        graphs/test_weighted_graph.cpp)
+        graphs/test_weighted_graph.cpp
+        graphs/test_prim_algorithm.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
