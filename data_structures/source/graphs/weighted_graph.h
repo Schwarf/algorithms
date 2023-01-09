@@ -42,9 +42,9 @@ public:
 				  const GraphNodePtr<id_T, data_T> &destination_vertex, const weight_T &weight)
 	{
 		if (vertices_.find(source_vertex->id) == vertices_.end())
-			vertices_[source_vertex->id] = source_vertex;
+			add_vertex(source_vertex);
 		if (vertices_.find(destination_vertex->id) == vertices_.end())
-			vertices_[destination_vertex->id] = destination_vertex;
+			add_vertex(destination_vertex);
 		add_edge(source_vertex->id, destination_vertex->id, weight);
 	}
 
@@ -133,15 +133,14 @@ public:
 	}
 
 private:
-	// Here we store the relations between vertexs/vertices if they exist including the weights.
+	// Here we store the relations between vertices/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
 	// Store the weights
 	std::unordered_map<std::pair<id_T, id_T>, weight_T, id_T_pair_hash> weights_;
-	// Here we store all graph-vertexs (id, data) pairs, that can be retrieved using the id. A vertex might be isolated.
+	// Here we store all graph-vertices (id, data) pairs, that can be retrieved using the id. A vertex might be isolated.
 	// not participating in any relations with other vertexs
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
 	bool has_cycle_{};
-
 };
 
 

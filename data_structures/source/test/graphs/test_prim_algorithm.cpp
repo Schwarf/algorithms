@@ -61,7 +61,7 @@ TEST_F(SetupPrimAlgorithmTest, simple_prim_graph2)
 {
 	GraphNodePtr<int, int> start_node = nullptr;
 	auto graph = get_graph2(start_node);
-	auto minimum_spanning_tree = simple_prim_algorithm(graph, start_node);
+	auto minimum_spanning_tree = simple_prim_algorithm(graph, start_node, 10000);
 	EXPECT_EQ(1, 2);
 }
 #endif //TEST_PRIM_ALGORITHM_CPP
