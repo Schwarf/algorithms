@@ -15,17 +15,15 @@ std::vector<T> pre_order_traversal(TreeNode<T> *root)
 	if (!root)
 		return {};
 	std::vector<T> result;
-	std::stack<TreeNode<T> *> remember_right_nodes;
-	while (root || !remember_right_nodes.empty()) {
-		while (root) {
-			result.push_back(root->value);
-			if (root->right)
-				remember_right_nodes.push(root->right);
-			root = root->left;
-		}
-		if (!remember_right_nodes.empty()) {
-			root = remember_right_nodes.top();
-			remember_right_nodes.pop();
+	std::stack<TreeNode<T> *> remember_nodes;
+	remember_nodes.push(root);
+	while (!remember_nodes.empty()) {
+		auto current_node = remember_nodes.top();
+		remember_nodes.pop();
+		if (current_node != nullptr) {
+			result.push_back(current_node->value);
+			remember_nodes.push(current_node->right);
+			remember_nodes.push(current_node->left);
 		}
 	}
 	return result;
