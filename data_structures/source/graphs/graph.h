@@ -58,9 +58,9 @@ public:
 				  const GraphNodePtr<id_T, data_T> &destination_vertex)
 	{
 		if (vertices_.find(source_vertex->id) == vertices_.end())
-			vertices_[source_vertex->id] = source_vertex;
+			add_vertex(source_vertex);
 		if (vertices_.find(destination_vertex->id) == vertices_.end())
-			vertices_[destination_vertex->id] = destination_vertex;
+			add_vertex(destination_vertex);
 		add_edge(source_vertex->id, destination_vertex->id);
 	}
 
