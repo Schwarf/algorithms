@@ -257,7 +257,21 @@ TEST_F(SetupWeightedGraph, simple_prim_graph2)
 {
 	GraphNodePtr<int, int> start_node = nullptr;
 	auto graph = get_graph2(start_node);
-	auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_prim(start_node);
+	auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
+	std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{std::make_pair(1, std::make_pair(0, 2)),
+																	  std::make_pair(2, std::make_pair(1, 3)),
+																	  std::make_pair(3, std::make_pair(0, 6)),
+																	  std::make_pair(4, std::make_pair(, 5))};
+	for (const auto &element: expected_minimum_spanning_tree) {
+		EXPECT_EQ(minimum_spanning_tree[element.first], element.second);
+	}
+}
+
+TEST_F(SetupWeightedGraph, simple_prim_graph2)
+{
+	GraphNodePtr<int, int> start_node = nullptr;
+	auto graph = get_graph2(start_node);
+	auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
 	std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{std::make_pair(1, std::make_pair(0, 2)),
 																	  std::make_pair(2, std::make_pair(1, 3)),
 																	  std::make_pair(3, std::make_pair(0, 6)),

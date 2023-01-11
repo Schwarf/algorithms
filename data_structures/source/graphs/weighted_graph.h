@@ -131,8 +131,11 @@ public:
 		}
 		return true;
 	}
-	std::map<id_T, std::pair<id_T, weight_T>> compute_minimum_spanning_tree_prim(const GraphNodePtr<id_T,
-																									data_T> &start_vertex)
+
+	// Simple prim algo is O(N^2), if we neglect the introduced overhead by data-structures (std::map,
+	// std::unordered_map)
+	std::map<id_T, std::pair<id_T, weight_T>> compute_minimum_spanning_tree_simple_prim(const GraphNodePtr<id_T,
+																										   data_T> &start_vertex)
 	{
 		reset_all_vertex_properties();
 		std::unordered_map<id_T, weight_T> minimum_weight_for_vertex_id;
