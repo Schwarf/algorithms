@@ -1,1 +1,1 @@
-add_library(graphs_lib INTERFACE vertex_old_definition.h graph.h does_path_in_graph_exist.h is_bipartition_possible.h breadth_first_search.h depth_first_search.h weighted_graph.h simple_prim_algorithm.h)
+add_library(graphs_lib INTERFACE vertex_old_definition.h graph.h does_path_in_graph_exist.h is_bipartition_possible.h breadth_first_search.h depth_first_search.h weighted_graph.h)
