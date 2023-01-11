@@ -1,3 +1,4 @@
 * Test exceptions in graph and weighted graph
-* Unit test template arguments for directed (weighted) graphs in particular erase_node.
+* Write more unit tests for minimum spanning tree
+* Understand union-find and Kruskal algorithm
 

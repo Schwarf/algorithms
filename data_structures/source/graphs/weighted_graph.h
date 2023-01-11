@@ -170,6 +170,46 @@ public:
 		return parents;
 	}
 
+	std::map<id_T, std::pair<id_T, weight_T>> shortest_path_tree_dijkstra(const GraphNodePtr<id_T,
+																							 data_T> &start_vertex)
+	{
+		reset_all_vertex_properties();
+		std::unordered_map<id_T, weight_T> minimum_weight_for_vertex_id;
+		std::map<id_T, std::pair<id_T, weight_T>> parents;
+		for (const auto &[id, id_sets]: edges_)
+			minimum_weight_for_vertex_id[id] = std::numeric_limits<weight_T>::max();
+		auto current_vertex_id = start_vertex->id;
+		weight_T current_edge_weight;
+
+		while (!get_vertex_by_id(current_vertex_id)->discovered) {
+
+			get_vertex_by_id(current_vertex_id)->discovered = true;
+			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
+				current_edge_weight = weights_[std::make_pair(current_vertex_id, neighbor_id)];
+				// if new minimum weight is found in undiscovered vertex store weight in hashmap and update parent
+				if ((minimum_weight_for_vertex_id[current_vertex_id] + current_edge_weight)
+					< minimum_weight_for_vertex_id[neighbor_id]) {
+					minimum_weight_for_vertex_id[neighbor_id] =
+						current_edge_weight + minimum_weight_for_vertex_id[current_vertex_id];
+					parents[neighbor_id] = std::make_pair(current_vertex_id,
+														  current_edge_weight
+															  + minimum_weight_for_vertex_id[current_vertex_id]);
+				}
+			}
+			// for the next for loop determine the absolute minimum weight across all id's
+			weight_T minimum_weight = std::numeric_limits<weight_T>::max();
+			for (const auto &[id, _]: edges_) {
+				if (!get_vertex_by_id(id)->discovered
+					&& minimum_weight_for_vertex_id[id] < minimum_weight) {
+					minimum_weight = minimum_weight_for_vertex_id[id];
+					current_vertex_id = id;
+				}
+			}
+		}
+		return parents;
+	}
+
+
 private:
 	// Here we store the relations between vertices/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
