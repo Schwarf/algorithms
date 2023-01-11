@@ -33,21 +33,41 @@ protected:
 		start_node = vertex0;
 		return graph;
 	}
-	WeightedGraph<int, int, int> get_graph1(GraphNodePtr<int, int> &start_node) const
+	WeightedGraph<int, int, int> get_graph(GraphNodePtr<int, int> &start_node) const
 	{
 		WeightedGraph<int, int, int> graph;
-		const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
-		const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
-		const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
-		const std::shared_ptr<GraphNode<int, int>> vertex4(new GraphNode<int, int>(id4, data4));
-		const std::shared_ptr<GraphNode<int, int>> vertex5(new GraphNode<int, int>(id5, data5));
-		graph.add_edge(vertex1, vertex2, weight1);
-		graph.add_edge(vertex1, vertex3, weight2);
-		graph.add_edge(vertex2, vertex3, weight3);
-		graph.add_edge(vertex2, vertex4, weight4);
-		graph.add_edge(vertex3, vertex5, weight5);
-		graph.add_edge(vertex5, vertex1, weight6);
-		start_node = vertex1;
+		const std::shared_ptr<GraphNode<int, int>> vertex0(new GraphNode<int, int>(0, 0));
+		const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(1, 1));
+		const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(2, 2));
+		const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(3, 3));
+		const std::shared_ptr<GraphNode<int, int>> vertex4(new GraphNode<int, int>(4, 4));
+		const std::shared_ptr<GraphNode<int, int>> vertex5(new GraphNode<int, int>(5, 5));
+		const std::shared_ptr<GraphNode<int, int>> vertex6(new GraphNode<int, int>(6, 6));
+		const std::shared_ptr<GraphNode<int, int>> vertex7(new GraphNode<int, int>(7, 7));
+		const std::shared_ptr<GraphNode<int, int>> vertex8(new GraphNode<int, int>(8, 8));
+		graph.add_edge(vertex0, vertex1, 4);
+		graph.add_edge(vertex0, vertex7, 8);
+
+		graph.add_edge(vertex1, vertex7, 11);
+		graph.add_edge(vertex1, vertex2, 8);
+
+		graph.add_edge(vertex2, vertex8, 2);
+		graph.add_edge(vertex2, vertex3, 7);
+		graph.add_edge(vertex2, vertex5, 4);
+
+		graph.add_edge(vertex3, vertex4, 9);
+		graph.add_edge(vertex3, vertex5, 14);
+
+		graph.add_edge(vertex4, vertex5, 10);
+
+		graph.add_edge(vertex5, vertex6, 2);
+
+		graph.add_edge(vertex6, vertex7, 1);
+		graph.add_edge(vertex6, vertex8, 6);
+
+		graph.add_edge(vertex7, vertex8, 7);
+
+		start_node = vertex0;
 		return graph;
 	}
 
@@ -261,22 +281,21 @@ TEST_F(SetupWeightedGraph, simple_prim_graph2)
 	std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{std::make_pair(1, std::make_pair(0, 2)),
 																	  std::make_pair(2, std::make_pair(1, 3)),
 																	  std::make_pair(3, std::make_pair(0, 6)),
-																	  std::make_pair(4, std::make_pair(, 5))};
+																	  std::make_pair(4, std::make_pair(1, 5))};
 	for (const auto &element: expected_minimum_spanning_tree) {
 		EXPECT_EQ(minimum_spanning_tree[element.first], element.second);
 	}
 }
 
-TEST_F(SetupWeightedGraph, simple_prim_graph2)
+TEST_F(SetupWeightedGraph, simple_prim_graph)
 {
 	GraphNodePtr<int, int> start_node = nullptr;
-	auto graph = get_graph2(start_node);
+	auto graph = get_graph(start_node);
 	auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
-	std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{std::make_pair(1, std::make_pair(0, 2)),
-																	  std::make_pair(2, std::make_pair(1, 3)),
-																	  std::make_pair(3, std::make_pair(0, 6)),
-																	  std::make_pair(4, std::make_pair(, 5))};
-	for (const auto &element: expected_minimum_spanning_tree) {
-		EXPECT_EQ(minimum_spanning_tree[element.first], element.second);
+	int expected_total_distance = 37;
+	int total_distance{};
+	for (const auto &[first, second]: minimum_spanning_tree) {
+		total_distance += second.second;
 	}
+	EXPECT_EQ(total_distance, expected_total_distance);
 }
