@@ -9,9 +9,9 @@
 struct id_T_pair_hash
 {
 	template<typename id_T>
-	std::size_t operator()(const std::pair<id_T, id_T> &id_pair) const
+	std::size_t operator()(const std::array<id_T, 2> &id_pair) const
 	{
-		return std::hash<id_T>()(id_pair.first) ^ std::hash<id_T>()(id_pair.second);
+		return std::hash<id_T>()(id_pair[0]) ^ std::hash<id_T>()(id_pair[1]);
 	}
 };
 
@@ -68,10 +68,10 @@ public:
 			throw std::invalid_argument(
 				"The vertex id " + std::to_string(destination_vertex_id) + "does not exist in the graph!");
 		edges_[source_vertex_id].insert(destination_vertex_id);
-		weights_[std::make_pair(source_vertex_id, destination_vertex_id)] = weight;
+		weights_[{source_vertex_id, destination_vertex_id}] = weight;
 		if (!directed_) {
 			edges_[destination_vertex_id].insert(source_vertex_id);
-			weights_[std::make_pair(destination_vertex_id, source_vertex_id)] = weight;
+			weights_[{destination_vertex_id, source_vertex_id}] = weight;
 		}
 	}
 	void reset_all_vertex_properties()
@@ -96,7 +96,7 @@ public:
 		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
 				"The vertex id " + std::to_string(destination_vertex_id) + " does not exist in the graph!");
-		auto id_pair = std::make_pair(source_vertex_id, destination_vertex_id);
+		std::array<id_T, 2> id_pair{source_vertex_id, destination_vertex_id};
 		if (weights_.find(id_pair) == weights_.end())
 			throw std::invalid_argument(
 				"The edge with source id " + std::to_string(source_vertex_id) + " and destination id "
@@ -125,7 +125,7 @@ public:
 								 { return vertex_id == id_to_erase; });
 
 				edges_[neighbor_id].erase(id_iterator);
-				weights_.erase(std::make_pair(id_to_erase, neighbor_id));
+				weights_.erase({id_to_erase, neighbor_id});
 			}
 
 		}
@@ -149,7 +149,7 @@ public:
 
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
-				current_edge_weight = weights_[std::make_pair(current_vertex_id, neighbor_id)];
+				current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
 				// if new minimum weight is found in undiscovered vertex store weight in hashmap and update parent
 				if (!get_vertex_by_id(neighbor_id)->discovered
 					&& current_edge_weight < minimum_weight_for_vertex_id[neighbor_id]) {
@@ -214,7 +214,7 @@ private:
 	// Here we store the relations between vertices/vertices if they exist including the weights.
 	std::unordered_map<id_T, std::set<id_T>> edges_;
 	// Store the weights
-	std::unordered_map<std::pair<id_T, id_T>, weight_T, id_T_pair_hash> weights_;
+	std::unordered_map<std::array<id_T, 2>, weight_T, id_T_pair_hash> weights_;
 	// Here we store all graph-vertices (id, data) pairs, that can be retrieved using the id. A vertex might be isolated.
 	// not participating in any relations with other vertexs
 	std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
