@@ -299,3 +299,12 @@ TEST_F(SetupWeightedGraph, simple_prim_graph)
 	}
 	EXPECT_EQ(total_distance, expected_total_distance);
 }
+
+TEST_F(SetupWeightedGraph, test_djikstra)
+{
+    GraphNodePtr<int, int> start_node = nullptr;
+    auto graph = get_graph(start_node);
+    auto shortest_path = graph.shortest_path_tree_dijkstra(start_node);
+    EXPECT_EQ(1,2 );
+}
+

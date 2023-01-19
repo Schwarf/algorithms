@@ -180,12 +180,12 @@ public:
 			minimum_weight_for_vertex_id[id] = std::numeric_limits<weight_T>::max();
 		auto current_vertex_id = start_vertex->id;
 		weight_T current_edge_weight;
-
+        minimum_weight_for_vertex_id[start_vertex->id] = 0;
 		while (!get_vertex_by_id(current_vertex_id)->discovered) {
 
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
-				current_edge_weight = weights_[std::make_pair(current_vertex_id, neighbor_id)];
+				current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
 				// if new minimum weight is found in undiscovered vertex store weight in hashmap and update parent
 				if ((minimum_weight_for_vertex_id[current_vertex_id] + current_edge_weight)
 					< minimum_weight_for_vertex_id[neighbor_id]) {
