@@ -174,34 +174,35 @@ public:
 																							 data_T> &start_vertex)
 	{
 		reset_all_vertex_properties();
-		std::unordered_map<id_T, weight_T> minimum_weight_for_vertex_id;
+		std::unordered_map<id_T, weight_T> distance;
 		std::map<id_T, std::pair<id_T, weight_T>> parents;
 		for (const auto &[id, id_sets]: edges_)
-			minimum_weight_for_vertex_id[id] = std::numeric_limits<weight_T>::max();
+            distance[id] = std::numeric_limits<weight_T>::max();
 		auto current_vertex_id = start_vertex->id;
 		weight_T current_edge_weight;
-        minimum_weight_for_vertex_id[start_vertex->id] = 0;
+        distance[current_vertex_id] = 0;
 		while (!get_vertex_by_id(current_vertex_id)->discovered) {
 
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
 				current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
-				// if new minimum weight is found in undiscovered vertex store weight in hashmap and update parent
-				if ((minimum_weight_for_vertex_id[current_vertex_id] + current_edge_weight)
-					< minimum_weight_for_vertex_id[neighbor_id]) {
-					minimum_weight_for_vertex_id[neighbor_id] =
-						current_edge_weight + minimum_weight_for_vertex_id[current_vertex_id];
-					parents[neighbor_id] = std::make_pair(current_vertex_id,
-														  current_edge_weight
-															  + minimum_weight_for_vertex_id[current_vertex_id]);
+				// if the current neighbor distance is larger than the distance to the current vertex plus the weight
+                // between neighbor and current-vertex
+				if ((distance[current_vertex_id] + current_edge_weight)
+                    < distance[neighbor_id]) {
+                    distance[neighbor_id] =
+                            current_edge_weight + distance[current_vertex_id];
+					parents[neighbor_id] = std::make_pair(start_vertex->id,
+                                                          current_edge_weight
+                                                          + distance[current_vertex_id]);
 				}
 			}
 			// for the next for loop determine the absolute minimum weight across all id's
 			weight_T minimum_weight = std::numeric_limits<weight_T>::max();
 			for (const auto &[id, _]: edges_) {
 				if (!get_vertex_by_id(id)->discovered
-					&& minimum_weight_for_vertex_id[id] < minimum_weight) {
-					minimum_weight = minimum_weight_for_vertex_id[id];
+                    && distance[id] < minimum_weight) {
+					minimum_weight = distance[id];
 					current_vertex_id = id;
 				}
 			}
