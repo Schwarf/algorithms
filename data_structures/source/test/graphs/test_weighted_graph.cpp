@@ -306,3 +306,16 @@ TEST_F(SetupWeightedGraph, test_djikstra) {
     }
 }
 
+TEST_F(SetupWeightedGraph, test_djikstra2) {
+    GraphNodePtr<int, int> start_node = nullptr;
+    auto graph = get_graph2(start_node);
+    auto shortest_path = graph.shortest_path_tree_dijkstra(start_node);
+    std::map<int, std::pair<int, int>> expected_shortest_paths{std::make_pair(1, std::make_pair(0, 2)),
+                                                               std::make_pair(2, std::make_pair(0, 5)),
+                                                               std::make_pair(3, std::make_pair(0, 6)),
+                                                               std::make_pair(4, std::make_pair(0, 7))};
+
+    for (const auto &element: expected_shortest_paths) {
+        EXPECT_EQ(shortest_path[element.first], element.second);
+    }
+}
