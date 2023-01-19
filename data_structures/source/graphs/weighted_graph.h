@@ -170,6 +170,7 @@ public:
 		return parents;
 	}
 
+    // This function computes the shortest path to all vertices from the start vertex
 	std::map<id_T, std::pair<id_T, weight_T>> shortest_path_tree_dijkstra(const GraphNodePtr<id_T,
 																							 data_T> &start_vertex)
 	{
