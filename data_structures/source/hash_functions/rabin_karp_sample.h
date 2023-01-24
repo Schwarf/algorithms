@@ -20,6 +20,20 @@ size_t hash(const std::string & input)
     return value;
 }
 
+int rabin_karp(const std::string & pattern, const std::string & input)
+{
+    size_t pattern_hash = hash(pattern);
+    size_t search_hash{};
+    size_t power{1};
 
+    for(int i{}; i < pattern.size(); ++i)
+        power = power*BASE % MOD;
+
+    for(int i{}; i < input.size(); ++i)
+    {
+        search_hash = search_hash*BASE + input[i];
+        search_hash %= MOD;
+    }
+}
 
 #endif //DATA_STRUCTURES_RABIN_KARP_SAMPLE_H
