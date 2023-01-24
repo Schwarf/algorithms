@@ -5,6 +5,7 @@
 #ifndef MULTIPLICATION_HASHING_FOR_STRINGS_H
 #define MULTIPLICATION_HASHING_FOR_STRINGS_H
 #include <cmath>
+#include "i_hash_function_for_strings.h"
 
 template<size_t base_number, size_t multiplication_constant>
 class MultiplicationHashing: public IHashFunction
