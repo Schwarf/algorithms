@@ -208,19 +208,24 @@ public:
 		return distance;
 	}
 
-	std::map<id_T, std::pair<id_T, weight_T>> real_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
+	std::unordered_map<id_T, weight_T> real_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
 	{
-
+		// this constructs a min-heap (std::greater) based on a tuple. The default comparison with std::greater is done
+		// lexicographically
 		std::priority_queue<std::tuple<weight_T, id_T>, std::vector<std::tuple<weight_T, id_T>>, std::greater<>> queue;
+		std::unordered_map<id_T, weight_T> distances;
 		queue.emplace({0, start_vertex->id});
 		while (!queue.empty()) {
 			auto [distance, current_vertex_id] = queue.top();
 			queue.top();
 			get_vertex_by_id(current_vertex_id)->discovered = true;
-			for (const auto &neighbor_id: get_neighbors(current_vertex_id))
-				queue.emplace({distance + weights_[{current_vertex_id, neighbor_id}], neighbor_id});
+			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
+				auto new_distance = distance + weights_[{current_vertex_id, neighbor_id}];
+				distances[neighbor_id] = new_distance;
+				queue.emplace({new_distance, neighbor_id});
 			}
-
+		}
+		return distances;
 	}
 
 
