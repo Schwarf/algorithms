@@ -36,7 +36,7 @@ enable_cxx_compiler_flag_if_supported("-O0")
 add_executable(main
         main.cpp
         binary_search_tree/avl_node.h
-        binary_search_tree/avl_tree.h union_find_disjoint_set/disjoint_set_quick_find.h)
+        binary_search_tree/avl_tree.h)
 
 add_subdirectory(hash_functions)
 add_subdirectory(linked_lists)
@@ -47,6 +47,7 @@ add_subdirectory(tries)
 add_subdirectory(graphs)
 add_subdirectory(test)
 add_subdirectory(miscellaneous)
+add_subdirectory(union_find_disjoint_set)
 
 include_directories(hash_functions)
 include_directories(linked_lists)
@@ -54,9 +55,9 @@ include_directories(stacks_and_queues)
 include_directories(heaps)
 include_directories(tries)
 include_directories(trees)
-include_directories(union_find_disjoint_set)
 include_directories(miscellaneous)
+include_directories(union_find_disjoint_set)
 include_directories(${Boost_INCLUDE_DIRS})
 
 target_link_libraries(main linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib trees_lib
-        binary_tree_lib)
+        binary_tree_lib disjointset_lib)
