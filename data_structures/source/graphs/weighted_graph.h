@@ -214,15 +214,20 @@ public:
 		// lexicographically
 		std::priority_queue<std::tuple<weight_T, id_T>, std::vector<std::tuple<weight_T, id_T>>, std::greater<>> queue;
 		std::unordered_map<id_T, weight_T> distances;
-		queue.emplace({0, start_vertex->id});
+		for (const auto &[id, id_sets]: edges_)
+			distances[id] = std::numeric_limits<weight_T>::max();
+
+		queue.emplace(weight_T{}, start_vertex->id);
 		while (!queue.empty()) {
-			auto [distance, current_vertex_id] = queue.top();
-			queue.top();
+			auto [current_distance, current_vertex_id] = queue.top();
+			queue.pop();
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
-				auto new_distance = distance + weights_[{current_vertex_id, neighbor_id}];
-				distances[neighbor_id] = new_distance;
-				queue.emplace({new_distance, neighbor_id});
+				auto new_distance = current_distance + weights_[{current_vertex_id, neighbor_id}];
+				if(distances[neighbor_id] > new_distance) {
+					distances[neighbor_id] = new_distance;
+					queue.emplace(new_distance, neighbor_id);
+				}
 			}
 		}
 		return distances;

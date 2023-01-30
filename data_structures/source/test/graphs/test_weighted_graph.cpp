@@ -288,7 +288,7 @@ TEST_F(SetupWeightedGraph, simple_prim_graph) {
     EXPECT_EQ(total_distance, expected_total_distance);
 }
 
-TEST_F(SetupWeightedGraph, test_djikstra) {
+TEST_F(SetupWeightedGraph, test_primitive_djikstra) {
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph(start_node);
     auto shortest_path = graph.primitive_dijkstra(start_node);
@@ -306,10 +306,43 @@ TEST_F(SetupWeightedGraph, test_djikstra) {
     }
 }
 
-TEST_F(SetupWeightedGraph, test_djikstra2) {
+TEST_F(SetupWeightedGraph, test_primitive_djikstra2) {
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph2(start_node);
     auto shortest_path = graph.primitive_dijkstra(start_node);
+	std::unordered_map<int, int> expected_shortest_paths;
+	expected_shortest_paths[2] = 5;
+	expected_shortest_paths[3] = 6;
+	expected_shortest_paths[4] = 7;
+	for (const auto &[key, value]: expected_shortest_paths) {
+		EXPECT_EQ(shortest_path[key], value);
+	}
+
+}
+
+
+TEST_F(SetupWeightedGraph, test_real_djikstra) {
+	GraphNodePtr<int, int> start_node = nullptr;
+	auto graph = get_graph(start_node);
+	auto shortest_path = graph.real_dijkstra(start_node);
+	std::unordered_map<int, int> expected_shortest_paths;
+	expected_shortest_paths[2] = 12;
+	expected_shortest_paths[3] = 19;
+	expected_shortest_paths[4] = 21;
+	expected_shortest_paths[5] = 11;
+	expected_shortest_paths[6] = 9;
+	expected_shortest_paths[7] = 8;
+	expected_shortest_paths[8] = 14;
+
+	for (const auto &[key, value]: expected_shortest_paths) {
+		EXPECT_EQ(shortest_path[key], value);
+	}
+}
+
+TEST_F(SetupWeightedGraph, test_real_djikstra2) {
+	GraphNodePtr<int, int> start_node = nullptr;
+	auto graph = get_graph2(start_node);
+	auto shortest_path = graph.real_dijkstra(start_node);
 	std::unordered_map<int, int> expected_shortest_paths;
 	expected_shortest_paths[2] = 5;
 	expected_shortest_paths[3] = 6;
