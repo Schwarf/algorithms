@@ -5,6 +5,8 @@
 #ifndef WEIGHTED_GRAPH_H
 #define WEIGHTED_GRAPH_H
 #include "graph.h"
+#include <tuple>
+#include <queue>
 
 struct id_T_pair_hash
 {
@@ -170,45 +172,55 @@ public:
 		return parents;
 	}
 
-    // This function computes the shortest path to all vertices from the start vertex
-	std::map<id_T, std::pair<id_T, weight_T>> shortest_path_tree_dijkstra(const GraphNodePtr<id_T,
-																							 data_T> &start_vertex)
+	// This function computes the shortest path to all vertices from the start vertex
+	std::unordered_map<id_T, weight_T> primitive_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
 	{
 		reset_all_vertex_properties();
 		std::unordered_map<id_T, weight_T> distance;
-		std::map<id_T, std::pair<id_T, weight_T>> parents;
 		for (const auto &[id, id_sets]: edges_)
-            distance[id] = std::numeric_limits<weight_T>::max();
+			distance[id] = std::numeric_limits<weight_T>::max();
 		auto current_vertex_id = start_vertex->id;
 		weight_T current_edge_weight;
-        distance[current_vertex_id] = 0;
+		distance[current_vertex_id] = 0;
 		while (!get_vertex_by_id(current_vertex_id)->discovered) {
 
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
 				current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
 				// if the current neighbor distance is larger than the distance to the current vertex plus the weight
-                // between neighbor and current-vertex
+				// between neighbor and current-vertex
 				if ((distance[current_vertex_id] + current_edge_weight)
-                    < distance[neighbor_id]) {
-                    distance[neighbor_id] =
-                            current_edge_weight + distance[current_vertex_id];
-					parents[neighbor_id] = std::make_pair(start_vertex->id,
-                                                          current_edge_weight
-                                                          + distance[current_vertex_id]);
+					< distance[neighbor_id]) {
+					distance[neighbor_id] =
+						current_edge_weight + distance[current_vertex_id];
 				}
 			}
 			// for the next for loop determine the absolute minimum weight across all id's
 			weight_T minimum_weight = std::numeric_limits<weight_T>::max();
 			for (const auto &[id, _]: edges_) {
 				if (!get_vertex_by_id(id)->discovered
-                    && distance[id] < minimum_weight) {
+					&& distance[id] < minimum_weight) {
 					minimum_weight = distance[id];
 					current_vertex_id = id;
 				}
 			}
 		}
-		return parents;
+		return distance;
+	}
+
+	std::map<id_T, std::pair<id_T, weight_T>> real_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
+	{
+
+		std::priority_queue<std::tuple<weight_T, id_T>, std::vector<std::tuple<weight_T, id_T>>, std::greater<>> queue;
+		queue.emplace({0, start_vertex->id});
+		while (!queue.empty()) {
+			auto [distance, current_vertex_id] = queue.top();
+			queue.top();
+			get_vertex_by_id(current_vertex_id)->discovered = true;
+			for (const auto &neighbor_id: get_neighbors(current_vertex_id))
+				queue.emplace({distance + weights_[{current_vertex_id, neighbor_id}], neighbor_id});
+			}
+
 	}
 
 

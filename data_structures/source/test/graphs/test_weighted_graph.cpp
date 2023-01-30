@@ -291,31 +291,31 @@ TEST_F(SetupWeightedGraph, simple_prim_graph) {
 TEST_F(SetupWeightedGraph, test_djikstra) {
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph(start_node);
-    auto shortest_path = graph.shortest_path_tree_dijkstra(start_node);
-    std::map<int, std::pair<int, int>> expected_shortest_paths{std::make_pair(1, std::make_pair(0, 4)),
-                                                               std::make_pair(2, std::make_pair(0, 12)),
-                                                               std::make_pair(3, std::make_pair(0, 19)),
-                                                               std::make_pair(4, std::make_pair(0, 21)),
-                                                               std::make_pair(5, std::make_pair(0, 11)),
-                                                               std::make_pair(6, std::make_pair(0, 9)),
-                                                               std::make_pair(7, std::make_pair(0, 8)),
-                                                               std::make_pair(8, std::make_pair(0, 14))};
+    auto shortest_path = graph.primitive_dijkstra(start_node);
+    std::unordered_map<int, int> expected_shortest_paths;
+	expected_shortest_paths[2] = 12;
+	expected_shortest_paths[3] = 19;
+	expected_shortest_paths[4] = 21;
+	expected_shortest_paths[5] = 11;
+	expected_shortest_paths[6] = 9;
+	expected_shortest_paths[7] = 8;
+	expected_shortest_paths[8] = 14;
 
-    for (const auto &element: expected_shortest_paths) {
-        EXPECT_EQ(shortest_path[element.first], element.second);
+    for (const auto &[key, value]: expected_shortest_paths) {
+        EXPECT_EQ(shortest_path[key], value);
     }
 }
 
 TEST_F(SetupWeightedGraph, test_djikstra2) {
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph2(start_node);
-    auto shortest_path = graph.shortest_path_tree_dijkstra(start_node);
-    std::map<int, std::pair<int, int>> expected_shortest_paths{std::make_pair(1, std::make_pair(0, 2)),
-                                                               std::make_pair(2, std::make_pair(0, 5)),
-                                                               std::make_pair(3, std::make_pair(0, 6)),
-                                                               std::make_pair(4, std::make_pair(0, 7))};
+    auto shortest_path = graph.primitive_dijkstra(start_node);
+	std::unordered_map<int, int> expected_shortest_paths;
+	expected_shortest_paths[2] = 5;
+	expected_shortest_paths[3] = 6;
+	expected_shortest_paths[4] = 7;
+	for (const auto &[key, value]: expected_shortest_paths) {
+		EXPECT_EQ(shortest_path[key], value);
+	}
 
-    for (const auto &element: expected_shortest_paths) {
-        EXPECT_EQ(shortest_path[element.first], element.second);
-    }
 }

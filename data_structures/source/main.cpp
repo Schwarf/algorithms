@@ -64,5 +64,12 @@ int main()
 	std::cout << "Does path exist (1,3): " << does_path_exist(graph, vertex1, vertex5) << std::endl;
 	std::cout << "Bi partite should not work: " << is_bi_partition_possible(graph) << std::endl;
 	std::cout << std::numeric_limits<int32_t>::min() << std::endl;
+	auto queue = std::priority_queue<std::tuple<float, int>, std::vector<std::tuple<float, int> >, std::greater< > > ();
+
+	queue.emplace(1.1f, 2);
+	queue.emplace(3.1f, -1);
+	auto h = queue.top();
+	int x =1;
+
 }
 
