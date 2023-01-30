@@ -7,7 +7,7 @@ cmake-build-debug/
 # Prerequisites
 *.d
 *.ps
-*.txt
+
 
 # Compiled Object files
 *.slo

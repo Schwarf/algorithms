@@ -1,0 +1,1 @@
+add_library(tries_lib INTERFACE disjoint_set_quick_find.h)
