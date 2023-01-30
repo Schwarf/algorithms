@@ -7,6 +7,8 @@
 #include "graphs/graph.h"
 #include "graphs/does_path_in_graph_exist.h"
 #include "graphs/is_bipartition_possible.h"
+#include "union_find_disjoint_set/disjoint_set_quick_find.h"
+
 int main()
 {
 	auto avl_tree = AVLTree<int>();
@@ -70,6 +72,21 @@ int main()
 	queue.emplace(3.1f, -1);
 	auto h = queue.top();
 	int x =1;
+
+	auto u = DisjointSetQuickFind(10);
+	std::cout << std::boolalpha;
+	u.union_set(1, 2);
+	u.union_set(2, 5);
+	u.union_set(5, 6);
+	u.union_set(6, 7);
+	u.union_set(3, 8);
+	u.union_set(8, 9);
+	std::cout << u.are_connected(1, 5) << std::endl;  // true
+	std::cout << u.are_connected(5, 7) << std::endl;  // true
+	std::cout << u.are_connected(4, 9) << std::endl;  // false
+	// 1-2-5-6-7 3-8-9-4
+	u.union_set(9, 4);
+	std::cout << u.are_connected(4, 9) << std::endl;  // true
 
 }
 
