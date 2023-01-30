@@ -7,7 +7,7 @@
 #include "graphs/graph.h"
 #include "graphs/does_path_in_graph_exist.h"
 #include "graphs/is_bipartition_possible.h"
-#include "union_find_disjoint_set/disjoint_set_quick_find.h"
+#include "union_find_disjoint_set/quick_find.h"
 
 int main()
 {

@@ -1,1 +1,1 @@
-add_library(disjointset_lib INTERFACE disjoint_set_quick_find.h disjoint_set_quick_union.h)
+add_library(disjointset_lib INTERFACE quick_find.h quick_union.h quick_union_with_union_by_rank.h)

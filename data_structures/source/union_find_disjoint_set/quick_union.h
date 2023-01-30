@@ -2,14 +2,8 @@
 // Created by andreas on 30.01.23.
 //
 
-#ifndef DISJOINT_SET_QUICK_UNION_H
-#define DISJOINT_SET_QUICK_UNION_H
-//
-// Created by andreas on 30.01.23.
-//
-
-#ifndef DISJOINT_SET_QUICK_FIND_H
-#define DISJOINT_SET_QUICK_FIND_H
+#ifndef QUICK_UNION_H
+#define QUICK_UNION_H
 #include <vector>
 
 class DisjointSetQuickUnion
@@ -50,6 +44,4 @@ private:
 };
 
 
-#endif //DISJOINT_SET_QUICK_FIND_H
-
-#endif //DISJOINT_SET_QUICK_UNION_H
+#endif //QUICK_UNION_H

@@ -2,8 +2,8 @@
 // Created by andreas on 30.01.23.
 //
 
-#ifndef DISJOINT_SET_QUICK_FIND_H
-#define DISJOINT_SET_QUICK_FIND_H
+#ifndef QUICK_FIND_H
+#define QUICK_FIND_H
 #include <vector>
 
 class DisjointSetQuickFind
@@ -45,4 +45,4 @@ private:
 };
 
 
-#endif //DISJOINT_SET_QUICK_FIND_H
+#endif //QUICK_FIND_H

@@ -1,0 +1,8 @@
+//
+// Created by andreas on 30.01.23.
+//
+
+#ifndef QUICK_UNION_WITH_UNION_BY_RANK_H
+#define QUICK_UNION_WITH_UNION_BY_RANK_H
+
+#endif //QUICK_UNION_WITH_UNION_BY_RANK_H
