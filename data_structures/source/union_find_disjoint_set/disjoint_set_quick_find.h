@@ -27,11 +27,10 @@ public:
 	{
 		auto root_x = find(x);
 		auto root_y = find(y);
-		if(root_x == root_y)
+		if (root_x == root_y)
 			return;
-		for (int i{}; i < roots.size(); ++i)
-		{
-			if(roots[i] == root_y)
+		for (size_t i{}; i < roots.size(); ++i) {
+			if (roots[i] == root_y)
 				roots[i] = root_x;
 		}
 	}
