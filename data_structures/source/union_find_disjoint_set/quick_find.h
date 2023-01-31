@@ -18,26 +18,26 @@ public:
 		}
 	}
 
-	size_t find(size_t x)
+	size_t find(size_t element)
 	{
-		return roots[x];
+		return roots[element];
 	}
 
-	void union_set(size_t x, size_t y)
+	void union_set(size_t element1, size_t element2)
 	{
-		auto root_x = find(x);
-		auto root_y = find(y);
-		if (root_x == root_y)
+		auto root_element1 = find(element1);
+		auto root_element2 = find(element2);
+		if (root_element1 == root_element2)
 			return;
 		for (size_t i{}; i < roots.size(); ++i) {
-			if (roots[i] == root_y)
-				roots[i] = root_x;
+			if (roots[i] == root_element2)
+				roots[i] = root_element1;
 		}
 	}
 
-	bool are_connected(size_t x, size_t y)
+	bool are_connected(size_t element1, size_t element2)
 	{
-		return find(x) == find(y);
+		return find(element1) == find(element2);
 	}
 
 private:
