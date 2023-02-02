@@ -59,8 +59,12 @@ add_executable(test_segment_tree_algorithms
 
 add_executable(test_binary_search_tree_algorithms
         binary_search_tree/test_avl_tree.cpp
-        tries/test_trie.cpp)
+        tries/test_trie.cpp union_find_disjoint_set/test_quick_find.cpp)
 
+
+add_executable(test_union_find_disjoint_set_algorithms
+        union_find_disjoint_set/test_quick_find.cpp
+        )
 
 target_link_libraries(test_graphs ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
@@ -71,3 +75,4 @@ target_link_libraries(test_binary_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAI
 target_link_libraries(test_segment_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_binary_search_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_binary_tree_inversion ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_union_find_disjoint_set_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

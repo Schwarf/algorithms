@@ -6,10 +6,10 @@
 #define QUICK_FIND_H
 #include <vector>
 
-class DisjointSetQuickFind
+class QuickFind
 {
 public:
-	explicit DisjointSetQuickFind(size_t size)
+	explicit QuickFind(size_t size)
 		:
 		roots(size)
 	{

@@ -73,7 +73,7 @@ int main()
 	auto h = queue.top();
 	int x = 1;
 
-	auto u = DisjointSetQuickUnion(10);
+	auto u = QuickUnion(10);
 	std::cout << std::boolalpha;
 	u.union_set(1, 2);
 	u.union_set(2, 5);

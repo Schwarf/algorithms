@@ -6,10 +6,10 @@
 #define QUICK_UNION_H
 #include <vector>
 
-class DisjointSetQuickUnion
+class QuickUnion
 {
 public:
-	explicit DisjointSetQuickUnion(size_t size)
+	explicit QuickUnion(size_t size)
 		:
 		roots(size)
 	{
