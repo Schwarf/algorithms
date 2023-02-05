@@ -11,24 +11,26 @@ class OptimizedDisjointSet
 public:
 	explicit OptimizedDisjointSet(size_t size)
 		:
-		roots(size)
+		roots(size),
+		ranks(size)
 	{
 		for (size_t i{}; i < size; ++i) {
 			roots[i] = i;
+			ranks[i] = 1;
 		}
 	}
 
-	size_t find(size_t element)
+	size_t find_root(size_t element)
 	{
 		if (element == roots[element])
 			return element;
-		return roots[element] = find(roots[element]);
+		return roots[element] = find_root(roots[element]);
 	}
 
 	void union_set(size_t element1, size_t element2)
 	{
-		auto root_element1 = find(element1);
-		auto root_element2 = find(element2);
+		auto root_element1 = find_root(element1);
+		auto root_element2 = find_root(element2);
 		if (root_element1 == root_element2)
 			return;
 		if (ranks[root_element1] > ranks[root_element2])
@@ -43,7 +45,7 @@ public:
 
 	bool are_connected(size_t element1, size_t element2)
 	{
-		return find(element1) == find(element2);
+		return find_root(element1) == find_root(element2);
 	}
 
 

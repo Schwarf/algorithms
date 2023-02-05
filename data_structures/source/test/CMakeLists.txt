@@ -64,6 +64,7 @@ add_executable(test_binary_search_tree_algorithms
 
 add_executable(test_union_find_disjoint_set_algorithms
         union_find_disjoint_set/test_quick_find.cpp
+        union_find_disjoint_set/test_optimized_disjoint_set.cpp
         )
 
 target_link_libraries(test_graphs ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
