@@ -9,6 +9,49 @@
 #include "graphs/is_bipartition_possible.h"
 #include "union_find_disjoint_set/quick_find.h"
 #include "union_find_disjoint_set/quick_union.h"
+struct ListNode
+{
+	int val;
+	ListNode *next;
+	ListNode()
+		: val(0), next(nullptr)
+	{}
+	ListNode(int x)
+		: val(x), next(nullptr)
+	{}
+	ListNode(int x, ListNode *next)
+		: val(x), next(next)
+	{}
+};
+
+class Solution
+{
+public:
+	ListNode *mergeKLists(std::vector<ListNode *> &lists)
+	{
+		std::priority_queue<int, std::vector<int>, std::greater<> > queue;
+		for (const auto &element: lists) {
+			auto node = element;
+			while (node) {
+				queue.push(node->val);
+				node = node->next;
+			}
+		}
+		auto head = new ListNode(queue.top());
+		queue.pop();
+
+		auto node = head;
+		auto next = head;
+		while (!queue.empty()) {
+			node = next;
+			next = new ListNode(queue.top());
+			node->next = next;
+			queue.pop();
+		}
+		return head;
+	}
+};
+
 int main()
 {
 	auto avl_tree = AVLTree<int>();
@@ -88,5 +131,19 @@ int main()
 	u.union_set(9, 4);
 	std::cout << u.are_connected(4, 9) << std::endl;  // true
 
+	auto head1 = new ListNode(1);
+	head1->next = new ListNode(4);
+	head1->next->next = new ListNode(5);
+
+	auto head2 = new ListNode(1);
+	head2->next = new ListNode(3);
+	head2->next->next = new ListNode(4);
+
+	auto head3 = new ListNode(2);
+	head3->next = new ListNode(6);
+	std::vector<ListNode *> input{head1, head2, head3};
+	auto s = Solution();
+	auto result = s.mergeKLists(input);
+	int zxxz = 1;
 }
 
