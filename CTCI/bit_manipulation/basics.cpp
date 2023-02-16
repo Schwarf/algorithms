@@ -102,6 +102,39 @@ int length_in_bits(T &number)
 	return std::floor(std::log2(number) + 1.0);
 }
 
+std::string addBinary(std::string &a, std::string &b)
+{
+	if (a.size() < b.size())
+		std::swap(a, b);
+	while (a.size() > b.size())
+		b.insert(0, 1, '0');
+	bool carry_over{};
+	auto one = '1';
+	auto zero = '0';
+	for (auto i = a.size(); --i; ) {
+		if (a[i] == one && b[i] == one) {
+			if (carry_over)
+				a[i] = one;
+			else {
+				a[i] = zero;
+				carry_over = true;
+			}
+		}
+
+		else if ((a[i] == one && b[i] == zero) ||
+			(a[i] == zero && b[i] == one))
+			a[i] = carry_over ? zero : one;
+		else if (carry_over) {
+			a[i] = one;
+			carry_over = false;
+		}
+	}
+	if (carry_over)
+		a = one + a;
+	return a;
+}
+}
+
 int main()
 {
 	int x1{29};
@@ -134,6 +167,12 @@ int main()
 			  << std::endl;
 	std::cout << "Bit 0 (and 1 and 2) cleared of 13 aka (" << x1 << "=8) shall be NOT set: " << has_bit<int>(x1, 1)
 			  << std::endl;
+
+	std::string a{"101010"};
+	std::string b{"101"};
+	while (a.size() > b.size())
+		b.insert(0, 1, '0');
+	std::cout << b << std::endl;
 
 	return 0;
 }
