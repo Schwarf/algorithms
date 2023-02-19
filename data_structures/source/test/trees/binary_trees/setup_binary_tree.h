@@ -83,6 +83,17 @@ protected:
 		root->right->right = new TreeNode<int>(7);
 		return root;
 	}
+
+	static TreeNode<int> *inverted_small_binary_tree_root()
+	{
+		auto root = new TreeNode<int>(3);
+		root->left = new TreeNode<int>(20);
+		root->right = new TreeNode<int>(9);
+		root->left->left = new TreeNode<int>(7);
+		root->left->right = new TreeNode<int>(15);
+		return root;
+	}
+
 };
 
 #endif //SETUP_BINARY_TREE_H
