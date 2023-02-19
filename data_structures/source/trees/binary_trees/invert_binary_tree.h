@@ -6,7 +6,8 @@
 #define INVERT_BINARY_TREE_H
 
 #include "tree_node.h"
-TreeNode<int> *invert_binary_tree(TreeNode<int> *root)
+template <typename T>
+TreeNode<T> *invert_binary_tree(TreeNode<T> *root)
 {
 	if (!root)
 		return nullptr;
