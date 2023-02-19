@@ -66,4 +66,36 @@ std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root)
 	}
 	return result;
 }
+
+
+template<typename T>
+std::vector<std::vector<T>> zigzag_level_order_traversal(TreeNode<T> *root)
+{
+	if(!root)
+		return{};
+	std::queue<TreeNode<T>* > q{{root}};
+	std::vector<std::vector<T>> result;
+	bool from_left_to_right{true};
+	while(!q.empty())
+	{
+		int size = q.size();
+		std::vector<int> level(size);
+		for(int i{}; i < size; ++i)
+		{
+			auto node = q.front();
+			q.pop();
+			const int index = from_left_to_right ? i : size-1-i;
+			level[index] = node->value;
+			if(node->left)
+				q.push(node->left);
+			if(node->right)
+				q.push(node->right);
+		}
+		from_left_to_right = !from_left_to_right;
+		result.push_back(level);
+		level.clear();
+	}
+	return result;
+}
+
 #endif //LEVEL_ORDER_TRAVERSAL_H
