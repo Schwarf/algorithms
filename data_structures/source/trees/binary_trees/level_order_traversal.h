@@ -55,7 +55,7 @@ std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root)
 		{
 			auto node = q.front();
 			q.pop();
-			level[i] = node->val;
+			level[i] = node->value;
 			if(node->left)
 				q.push(node->left);
 			if(node->right)
