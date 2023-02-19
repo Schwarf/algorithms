@@ -18,6 +18,8 @@ protected:
 	std::vector<int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
 	std::vector<int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
 	std::vector<std::vector<int>> levelorder{{25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
+	std::vector<std::vector<int>> levelorder_inverted_tree{{25}, {50, 15}, {70, 35, 22, 10}, {90, 66, 44, 31, 24, 18, 12, 4}};
+	std::vector<std::vector<int>> levelorder_small_tree{{3}, {9, 20}, {15, 7}};
 	int depth{4};
 
 	static TreeNode<int> *inverted_tree()
@@ -72,7 +74,15 @@ protected:
 
 		return root;
 	}
-
+	static TreeNode<int> *small_binary_tree_root()
+	{
+		auto root = new TreeNode<int>(3);
+		root->left = new TreeNode<int>(9);
+		root->right = new TreeNode<int>(20);
+		root->right->left = new TreeNode<int>(15);
+		root->right->right = new TreeNode<int>(7);
+		return root;
+	}
 };
 
 #endif //SETUP_BINARY_TREE_H
