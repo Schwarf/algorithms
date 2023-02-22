@@ -3,4 +3,4 @@ project(binary_search)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(binary_search main.cpp binary_search.h first_appearance_in_sorted_vector.h last_appearance_in_sorted_vector.h)
+add_executable(binary_search main.cpp binary_search.h first_appearance_in_sorted_vector.h last_appearance_in_sorted_vector.h minimum_car_size_to_ship_packages.h)
