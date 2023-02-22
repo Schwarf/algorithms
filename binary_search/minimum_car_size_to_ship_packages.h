@@ -10,7 +10,7 @@
 #include <vector>
 #include <algorithm>
 
-template<typename T>
+template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
 bool is_valid_car_size(const std::vector<T> &weights, T max_load, int max_days)
 {
 	int days{1};
@@ -25,7 +25,7 @@ bool is_valid_car_size(const std::vector<T> &weights, T max_load, int max_days)
 	return days <= max_days;
 }
 
-template<typename T>
+template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
 T get_car_size_to_ship_in_days(const std::vector<T> &weights, int days)
 {
 	T max_weight{}, total_weight{};
