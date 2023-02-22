@@ -27,7 +27,7 @@ int first_appearance(std::vector<T> & input, T target)
 		else
 			iterator_distance = step_size;
 	}
-	return start_index;
+	return start_index == input.size()-1 ? ++start_index : start_index;
 
 }
 
