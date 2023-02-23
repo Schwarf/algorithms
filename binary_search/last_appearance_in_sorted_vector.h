@@ -21,7 +21,7 @@ int last_appearance(std::vector<T> & input, T target)
 		current_index = start_index;
 		step = iterator_distance/2;
 		current_index += step;
-		if(!(target < input[current_index]))
+		if(target >= input[current_index])
 		{
 			start_index = current_index;
 			++start_index;
@@ -30,7 +30,7 @@ int last_appearance(std::vector<T> & input, T target)
 		else
 			iterator_distance = step;
 	}
-	return start_index;
+	return start_index == input.size()-1 ? ++start_index : start_index;
 
 }
 
