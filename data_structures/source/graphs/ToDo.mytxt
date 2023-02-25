@@ -1,4 +1,3 @@
-* Test exceptions in graph and weighted graph
 * Write more unit tests for minimum spanning tree
 * Add unit tests for Dijkstra algo
 * Understand union-find and Kruskal algorithm

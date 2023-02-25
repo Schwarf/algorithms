@@ -65,10 +65,10 @@ public:
 	{
 		if (vertices_.find(source_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(source_vertex_id) + "does not exist in the graph!");
+				"The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
 		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(destination_vertex_id) + "does not exist in the graph!");
+				"The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
 		edges_[source_vertex_id].insert(destination_vertex_id);
 		weights_[{source_vertex_id, destination_vertex_id}] = weight;
 		if (!directed_) {
@@ -94,10 +94,10 @@ public:
 	{
 		if (vertices_.find(source_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(source_vertex_id) + " does not exist in the graph!");
+				"The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
 		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+				"The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
 		std::array<id_T, 2> id_pair{source_vertex_id, destination_vertex_id};
 		if (weights_.find(id_pair) == weights_.end())
 			throw std::invalid_argument(
@@ -136,8 +136,8 @@ public:
 
 	// Simple prim algo is O(N^2), if we neglect the introduced overhead by data-structures (std::map,
 	// std::unordered_map)
-	std::map<id_T, std::pair<id_T, weight_T>> compute_minimum_spanning_tree_simple_prim(const GraphNodePtr<id_T,
-																										   data_T> &start_vertex)
+	std::map<id_T, std::pair<id_T, weight_T>> compute_minimum_spanning_tree_simple_prim(
+		const GraphNodePtr<id_T, data_T> &start_vertex)
 	{
 		reset_all_vertex_properties();
 		std::unordered_map<id_T, weight_T> minimum_weight_for_vertex_id;
@@ -224,7 +224,7 @@ public:
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
 				auto new_distance = current_distance + weights_[{current_vertex_id, neighbor_id}];
-				if(distances[neighbor_id] > new_distance) {
+				if (distances[neighbor_id] > new_distance) {
 					distances[neighbor_id] = new_distance;
 					queue.emplace(new_distance, neighbor_id);
 				}

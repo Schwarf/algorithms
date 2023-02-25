@@ -69,10 +69,10 @@ public:
 	{
 		if (vertices_.find(source_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(source_vertex_id) + "does not exist in the graph!");
+				"The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
 		if (vertices_.find(destination_vertex_id) == vertices_.end())
 			throw std::invalid_argument(
-				"The vertex id " + std::to_string(destination_vertex_id) + "does not exist in the graph!");
+				"The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
 		edges_[source_vertex_id].insert(destination_vertex_id);
 		if (!directed_)
 			edges_[destination_vertex_id].insert(source_vertex_id);

@@ -14,6 +14,7 @@ protected:
 	int id3 = 3, data3 = 3;
 	int id4 = 4, data4 = 4;
 	int id5 = 5, data5 = 5;
+	int invalid_id = 10;
 };
 
 TEST_F(SetupGraph, test_add_edge_vertexs)
@@ -204,3 +205,34 @@ TEST_F(SetupGraph, test_erase_edge)
 	EXPECT_FALSE(graph.does_edge_exist(id1, id2));
 }
 
+TEST_F(SetupGraph, test_invalid_edge1)
+{
+	auto graph = Graph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
+	graph.add_vertex(vertex1);
+	auto message = "The destination vertex id=" + std::to_string(invalid_id) + " does not exist in the graph!";
+	try {
+		graph.add_edge(id1, invalid_id);
+		FAIL() << "Expected std::invalid_argument.";
+	}
+	catch (std::invalid_argument const &err) {
+		EXPECT_TRUE(err.what() == message);
+	}
+
+}
+
+TEST_F(SetupGraph, test_invalid_edge2)
+{
+	auto graph = Graph<int, int>();
+	const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
+	graph.add_vertex(vertex1);
+	auto message = "The source vertex id=" + std::to_string(invalid_id) + " does not exist in the graph!";
+	try {
+		graph.add_edge(invalid_id, id1);
+		FAIL() << "Expected std::invalid_argument.";
+	}
+	catch (std::invalid_argument const &err) {
+		EXPECT_TRUE(err.what() == message);
+	}
+
+}
