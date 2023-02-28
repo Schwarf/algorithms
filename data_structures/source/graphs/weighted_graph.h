@@ -176,36 +176,36 @@ public:
 	std::unordered_map<id_T, weight_T> primitive_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
 	{
 		reset_all_vertex_properties();
-		std::unordered_map<id_T, weight_T> distance;
+		std::unordered_map<id_T, weight_T> distance_to_vertices;
 		for (const auto &[id, id_sets]: edges_)
-			distance[id] = std::numeric_limits<weight_T>::max();
+			distance_to_vertices[id] = std::numeric_limits<weight_T>::max();
 		auto current_vertex_id = start_vertex->id;
-		weight_T current_edge_weight;
-		distance[current_vertex_id] = 0;
+		weight_T current_edge_weight{};
+		distance_to_vertices[current_vertex_id] = 0;
 		while (!get_vertex_by_id(current_vertex_id)->discovered) {
 
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
 				current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
-				// if the current neighbor distance is larger than the distance to the current vertex plus the weight
+				// if the current neighbor distance_to_vertices is larger than the distance_to_vertices to the current vertex plus the weight
 				// between neighbor and current-vertex
-				if ((distance[current_vertex_id] + current_edge_weight)
-					< distance[neighbor_id]) {
-					distance[neighbor_id] =
-						current_edge_weight + distance[current_vertex_id];
+				if ((distance_to_vertices[current_vertex_id] + current_edge_weight)
+					< distance_to_vertices[neighbor_id]) {
+					distance_to_vertices[neighbor_id] =
+						current_edge_weight + distance_to_vertices[current_vertex_id];
 				}
 			}
 			// for the next for loop determine the absolute minimum weight across all id's
 			weight_T minimum_weight = std::numeric_limits<weight_T>::max();
 			for (const auto &[id, _]: edges_) {
 				if (!get_vertex_by_id(id)->discovered
-					&& distance[id] < minimum_weight) {
-					minimum_weight = distance[id];
+					&& distance_to_vertices[id] < minimum_weight) {
+					minimum_weight = distance_to_vertices[id];
 					current_vertex_id = id;
 				}
 			}
 		}
-		return distance;
+		return distance_to_vertices;
 	}
 
 	std::unordered_map<id_T, weight_T> real_dijkstra(const GraphNodePtr<id_T, data_T> &start_vertex)
@@ -213,9 +213,9 @@ public:
 		// this constructs a min-heap (std::greater) based on a tuple. The default comparison with std::greater is done
 		// lexicographically
 		std::priority_queue<std::tuple<weight_T, id_T>, std::vector<std::tuple<weight_T, id_T>>, std::greater<>> queue;
-		std::unordered_map<id_T, weight_T> distances;
+		std::unordered_map<id_T, weight_T> distance_to_vertices;
 		for (const auto &[id, id_sets]: edges_)
-			distances[id] = std::numeric_limits<weight_T>::max();
+			distance_to_vertices[id] = std::numeric_limits<weight_T>::max();
 
 		queue.emplace(weight_T{}, start_vertex->id);
 		while (!queue.empty()) {
@@ -224,13 +224,13 @@ public:
 			get_vertex_by_id(current_vertex_id)->discovered = true;
 			for (const auto &neighbor_id: get_neighbors(current_vertex_id)) {
 				auto new_distance = current_distance + weights_[{current_vertex_id, neighbor_id}];
-				if (distances[neighbor_id] > new_distance) {
-					distances[neighbor_id] = new_distance;
+				if (distance_to_vertices[neighbor_id] > new_distance) {
+					distance_to_vertices[neighbor_id] = new_distance;
 					queue.emplace(new_distance, neighbor_id);
 				}
 			}
 		}
-		return distances;
+		return distance_to_vertices;
 	}
 
 
