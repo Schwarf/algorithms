@@ -2,3 +2,4 @@ ToDo:
 - Write helper functions for tests to automate generation of binary trees (binary trees)
 - Write unit tests for maximum product of splitted tree (binary trees)
 - Write unit tests for maximum path sum
+- Study segment trees in more detail and extend unit tests.

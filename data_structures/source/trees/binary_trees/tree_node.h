@@ -18,7 +18,7 @@ struct TreeNode
 		right(nullptr)
 	{
 	}
-	TreeNode(const T &val)
+	explicit TreeNode(const T &val)
 		:
 		value(val),
 		left(nullptr),
