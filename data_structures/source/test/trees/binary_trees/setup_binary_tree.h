@@ -8,6 +8,13 @@
 #include <vector>
 #include "./../../../trees/binary_trees/tree_node.h"
 
+
+template<typename T>
+TreeNode<T> *generate_binary_search_tree(size_t size)
+{
+	std::vecto
+}
+
 class SetupBinaryTree: public testing::Test
 {
 public:
@@ -18,7 +25,8 @@ protected:
 	std::vector<int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
 	std::vector<int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
 	std::vector<std::vector<int>> levelorder{{25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
-	std::vector<std::vector<int>> levelorder_inverted_tree{{25}, {50, 15}, {70, 35, 22, 10}, {90, 66, 44, 31, 24, 18, 12, 4}};
+	std::vector<std::vector<int>>
+		levelorder_inverted_tree{{25}, {50, 15}, {70, 35, 22, 10}, {90, 66, 44, 31, 24, 18, 12, 4}};
 	std::vector<std::vector<int>> levelorder_small_tree{{3}, {9, 20}, {15, 7}};
 	int depth{4};
 
@@ -91,6 +99,48 @@ protected:
 		root->right = new TreeNode<int>(9);
 		root->left->left = new TreeNode<int>(7);
 		root->left->right = new TreeNode<int>(15);
+		return root;
+	}
+
+	static TreeNode<int> *small_tree_with_subtree_duplicates()
+	{
+		auto root = new TreeNode<int>(1);
+		root->left = new TreeNode<int>(2);
+		root->right = new TreeNode<int>(2);
+		return root;
+	}
+
+	static TreeNode<int> *medium_tree_with_subtree_duplicates1()
+	{
+		auto root = new TreeNode<int>(1);
+		root->left = new TreeNode<int>(2);
+		root->right = new TreeNode<int>(3);
+		root->left->left = new TreeNode<int>(4);
+		root->right->left = new TreeNode<int>(2);
+		root->right->left->left = new TreeNode<int>(4);
+		root->right->right = new TreeNode<int>(4);
+		return root;
+	}
+
+	static TreeNode<int> *medium_tree_with_subtree_duplicates2()
+	{
+		auto root = new TreeNode<int>(1);
+		root->left = new TreeNode<int>(2);
+		root->right = new TreeNode<int>(2);
+		root->left->left = new TreeNode<int>(3);
+		root->right->left = new TreeNode<int>(3);
+		return root;
+	}
+
+	static TreeNode<int> *medium_tree_with_subtree_duplicates3()
+	{
+		auto root = new TreeNode<int>(2);
+		root->left = new TreeNode<int>(1);
+		root->right = new TreeNode<int>(1);
+		root->left->left = new TreeNode<int>(2);
+		root->left->right = new TreeNode<int>(3);
+		root->right->left = new TreeNode<int>(4);
+		root->right->right = new TreeNode<int>(5);
 		return root;
 	}
 
