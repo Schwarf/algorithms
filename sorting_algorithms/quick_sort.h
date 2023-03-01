@@ -34,6 +34,8 @@ void quick_sort_(Container & container, int low_index, int high_index) {
 template<typename Container, typename = std::void_t<decltype(std::declval<Container>()[0]),
 													decltype(std::declval<Container>().size())>>
 void quick_sort(Container & container) {
+	if(!container.size())
+		return;
 	int low_index {};
 	int high_index = container.size() -1;
 	quick_sort_(container, low_index, high_index);

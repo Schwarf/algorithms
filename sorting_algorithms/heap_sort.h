@@ -10,6 +10,7 @@ template<typename Container, typename = std::void_t<decltype(std::declval<Contai
 													decltype(std::declval<Container>().size())>>
 void heapify(Container &container, int n, int index)
 {
+
 	int index_largest_element = index; // index is root element and shall be largest of 3 (root, left, right child)
 	int index_left_child = 2 * index + 1;
 	int index_right_child = 2 * index + 2;
@@ -34,6 +35,8 @@ template<typename Container, typename = std::void_t<decltype(std::declval<Contai
 													decltype(std::declval<Container>().size())>>
 void heap_sort(Container &container)
 {
+	if(!container.size())
+		return;
 	int n = container.size();
 	// First we heapify the array, that means we have find the maximum element in the array and propagate it to index 0
 	// We do that starting from index= n/2-1 (with children at 2*index+1 and 2*index+2) and go all the way down to 0.
