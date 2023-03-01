@@ -38,3 +38,36 @@ TEST_F(SetupSortingTests, heap_sort_string)
 	heap_sort(result);
 	EXPECT_EQ(result, expected_result);
 }
+
+TEST_F(SetupSortingTests, heap_sort_empty_vector)
+{
+	auto result = std::vector<int>{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	heap_sort(result);
+	EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupSortingTests, heap_sort_empty_array)
+{
+	auto result = std::array<int, 0>{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	heap_sort(result);
+	EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupSortingTests, heap_sort_empty_string)
+{
+	auto result = std::string{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	heap_sort(result);
+	EXPECT_EQ(result, expected_result);
+}

@@ -41,3 +41,36 @@ TEST_F(SetupSortingTests, quick_sort_string)
 	quick_sort(result);
 	EXPECT_EQ(result, expected_result);
 }
+
+TEST_F(SetupSortingTests, quick_sort_empty_vector)
+{
+	auto result = std::vector<int>{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	quick_sort(result);
+	EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupSortingTests, quick_sort_empty_array)
+{
+	auto result = std::array<int, 0>{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	quick_sort(result);
+	EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupSortingTests, quick_sort_empty_string)
+{
+	auto result = std::string{};
+	auto expected_result = result;
+	EXPECT_EQ(result, expected_result);
+	std::sort(expected_result.begin(), expected_result.end());
+	EXPECT_EQ(result, expected_result);
+	quick_sort(result);
+	EXPECT_EQ(result, expected_result);
+}
