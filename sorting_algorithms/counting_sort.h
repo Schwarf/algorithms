@@ -26,7 +26,7 @@ void counting_sort(Container &container, const Element max_value, const Element 
 	for (size_t index = 1; index < element_counts.size(); ++index)
 		element_counts[index] += element_counts[index - 1];
 
-	Container result(container.size());
+	Container result(container.size(),{});
 	for (size_t index = container.size(); index--;) {
 		auto i = element_counts[container[index] - min_value] - 1;
 		result[i] = container[index];
