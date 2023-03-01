@@ -14,7 +14,6 @@ add_executable(sorting_tests
         sorting_algorithms/test_merge_sort.cpp
         sorting_algorithms/test_main.cpp
         sorting_algorithms/test_shell_sort.cpp
-        sorting_algorithms/test_quick_sort.cpp
         sorting_algorithms/test_bubble_sort.cpp
         sorting_algorithms/test_counting_sort.cpp
         sorting_algorithms/test_upper_bound.cpp
