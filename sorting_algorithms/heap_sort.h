@@ -6,8 +6,9 @@
 #define HEAP_SORT_H
 #include <type_traits>
 
-template<typename Container, typename = std::void_t<decltype(std::declval<Container>()[0]),
+template<typename Container, typename Element, typename = std::void_t<decltype(std::declval<Container>()[0]),
 													decltype(std::declval<Container>().size())>>
+requires (!std::is_pointer_v<Element>)
 void heapify(Container &container, int n, int index)
 {
 
@@ -31,11 +32,12 @@ void heapify(Container &container, int n, int index)
 // C++17 void_t-trick (SFINAE): std::void_t takes arbitrary number of different template arguments and maps
 // them all to void e.g. void_t<int, double> is equivalent to void. So we specify a template specialisation
 // if and only if the Container type has an index-operator and has the "size" method.
-template<typename Container, typename = std::void_t<decltype(std::declval<Container>()[0]),
-													decltype(std::declval<Container>().size())>>
+template<typename Container, typename Element, typename = std::void_t<decltype(std::declval<Container>()[0]),
+																	  decltype(std::declval<Container>().size())>>
+requires (!std::is_pointer_v<Element>)
 void heap_sort(Container &container)
 {
-	if(!container.size())
+	if (!container.size())
 		return;
 	int n = container.size();
 	// First we heapify the array, that means we have find the maximum element in the array and propagate it to index 0
