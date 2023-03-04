@@ -1,15 +1,32 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <array>
-#include "quick_sort.h"
+
+bool compare_pointers(const int* a, const int* b)
+{
+	return *a < *b;
+}
+
 int main()
 {
-	//std::array<int, 8> test{100,1,2,38,4,56,8,5};
-	std::vector<int> test2{0, 2, 1, -1, 3, 5};
-	quick_sort(test2);
-	for(const auto & element: test2)
-		std::cout << element << ", ";
+	std::vector<int*> vec{new int(5), new int(2), new int(9)};
+
+	// Sort the vector using the custom comparison function
+	std::sort(vec.begin(), vec.end(), compare_pointers);
+
+	// Print the sorted vector
+	for (int* ptr : vec)
+	{
+		std::cout << *ptr << " ";
+	}
 	std::cout << std::endl;
+
+	// Delete the dynamically allocated integers
+	for (int* ptr : vec)
+	{
+		delete ptr;
+	}
 
 	return 0;
 }
+

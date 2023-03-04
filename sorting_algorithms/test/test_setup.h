@@ -12,8 +12,13 @@ class SetupSortingTests: public testing::Test
 {
 public:
 	explicit SetupSortingTests()
-	: random_engine_{std::random_device{}()}
+		: random_engine_{std::random_device{}()}
 	{
+	}
+
+	static bool compare_pointers(const int *a, const int *b)
+	{
+		return *a < *b;
 	}
 
 	std::vector<int> get_N_random_number_vector(const int lower_bound, const int upper_bound, const size_t size)
@@ -22,6 +27,19 @@ public:
 		std::vector<int> result;
 		for (size_t i{}; i < size; ++i) {
 			result.push_back(int_distribution_(random_engine_));
+		}
+		return result;
+	}
+
+	std::vector<int *> get_N_random_number_vector_of_pointers(const int lower_bound,
+															  const int upper_bound,
+															  const size_t size)
+	{
+		int_distribution_ = std::uniform_int_distribution{lower_bound, upper_bound};
+		std::vector<int *> result;
+		for (size_t i{}; i < size; ++i) {
+			int *p = new int(int_distribution_(random_engine_));
+			result.push_back(p);
 		}
 		return result;
 	}

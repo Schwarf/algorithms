@@ -71,3 +71,16 @@ TEST_F(SetupSortingTests, heap_sort_empty_string)
 	heap_sort(result);
 	EXPECT_EQ(result, expected_result);
 }
+
+
+TEST_F(SetupSortingTests, heap_sort_int_vector_of_pointers)
+{
+	auto result = get_N_random_number_vector_of_pointers(-1000, 1000, 1000);
+	heap_sort(result);
+	int before {-1001};
+	for(int i{}; i < result.size(); ++i) {
+		EXPECT_TRUE(before <= *result[i]);
+		before = *result[i];
+	}
+
+}
