@@ -31,6 +31,9 @@ void quick_sort_(Container & container, int low_index, int high_index) {
 	}
 }
 
+// C++17 void_t-trick (SFINAE): std::void_t takes arbitrary number of different template arguments and maps
+// them all to void e.g. void_t<int, double> is equivalent to void. So we specify a template specialisation
+// if and only if the Container type has an index-operator and has the "size" method.
 template<typename Container, typename = std::void_t<decltype(std::declval<Container>()[0]),
 													decltype(std::declval<Container>().size())>>
 void quick_sort(Container & container) {

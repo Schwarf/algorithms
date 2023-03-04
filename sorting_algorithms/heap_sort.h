@@ -4,11 +4,10 @@
 
 #ifndef HEAP_SORT_H
 #define HEAP_SORT_H
-#include <type_traits>
+#include "sort_concepts.h"
 
-template<typename Container, typename Element, typename = std::void_t<decltype(std::declval<Container>()[0]),
-													decltype(std::declval<Container>().size())>>
-requires (!std::is_pointer_v<Element>)
+template<typename Container>
+requires IndexedContainer<Container> && ElementContainer<Container> && NoPointerElement<typename Container::value_type>
 void heapify(Container &container, int n, int index)
 {
 
@@ -29,12 +28,8 @@ void heapify(Container &container, int n, int index)
 
 }
 
-// C++17 void_t-trick (SFINAE): std::void_t takes arbitrary number of different template arguments and maps
-// them all to void e.g. void_t<int, double> is equivalent to void. So we specify a template specialisation
-// if and only if the Container type has an index-operator and has the "size" method.
-template<typename Container, typename Element, typename = std::void_t<decltype(std::declval<Container>()[0]),
-																	  decltype(std::declval<Container>().size())>>
-requires (!std::is_pointer_v<Element>)
+template<typename Container>
+requires IndexedContainer<Container> && ElementContainer<Container> && NoPointerElement<typename Container::value_type>
 void heap_sort(Container &container)
 {
 	if (!container.size())
