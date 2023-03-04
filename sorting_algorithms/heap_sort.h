@@ -7,7 +7,7 @@
 #include "sort_concepts.h"
 
 template<typename Container>
-requires IndexedContainer<Container> && ElementContainer<Container> && NoPointerElement<typename Container::value_type>
+requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
 void heapify(Container &container, int n, int index)
 {
 
@@ -29,7 +29,7 @@ void heapify(Container &container, int n, int index)
 }
 
 template<typename Container>
-requires IndexedContainer<Container> && ElementContainer<Container> && (!NoPointerElement<typename Container::value_type>)
+requires IndexedContainer<Container>  && (!NoPointerElement<typename Container::value_type>)
 void heapify(Container &container, int n, int index)
 {
 
@@ -52,7 +52,7 @@ void heapify(Container &container, int n, int index)
 
 
 template<typename Container>
-requires IndexedContainer<Container> && ElementContainer<Container> && NoPointerElement<typename Container::value_type>
+requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
 void heap_sort(Container &container)
 {
 	if (!container.size())
@@ -72,7 +72,7 @@ void heap_sort(Container &container)
 }
 
 template<typename Container>
-requires IndexedContainer<Container> && ElementContainer<Container> && (!NoPointerElement<typename Container::value_type>)
+requires IndexedContainer<Container> && (!NoPointerElement<typename Container::value_type>)
 void heap_sort(Container &container)
 {
 	if (!container.size())
