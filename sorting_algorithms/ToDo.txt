@@ -1,0 +1,2 @@
+- Improve algo documentation on heap_soort, quick_sort and merge_sort
+- Bucket sort is missing
