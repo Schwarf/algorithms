@@ -28,6 +28,7 @@ void heapify(Container &container, int n, int index)
 
 }
 
+// heapify for container with pointers
 template<typename Container>
 requires IndexedContainer<Container>  && (!NoPointerElement<typename Container::value_type>)
 void heapify(Container &container, int n, int index)
@@ -71,6 +72,7 @@ void heap_sort(Container &container)
 	}
 }
 
+// heap sort for container with pointers
 template<typename Container>
 requires IndexedContainer<Container> && (!NoPointerElement<typename Container::value_type>)
 void heap_sort(Container &container)
