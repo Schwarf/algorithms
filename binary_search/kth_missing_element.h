@@ -20,7 +20,7 @@ concept NoPointerElement = !std::is_pointer_v<Element>;
 
 template<typename Container>
 requires IndexedContainerWithUnsignedIntegralElements<Container> && NoPointerElement<typename Container::value_type>
-int find_kth_positive_element(const Container & container, int k)
+int find_kth_missing_positive_element(const Container & container, int k)
 {
 	int n = container.size();
 	int left {};
