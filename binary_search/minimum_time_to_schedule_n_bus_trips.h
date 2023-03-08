@@ -25,7 +25,7 @@ requires IndexedContainerWithUnsignedIntegralElements<Container> && UnsignedInte
 ReturnType minimum_time_to_schedule_n_bus_trips(const Container & bus_times, int total_trips)
 {
 	ReturnType left{1};
-	auto right = static_cast<ReturnType>(*std::ranges::max_element(bus_times));
+	auto right = static_cast<ReturnType>(*std::ranges::max_element(bus_times) * total_trips);
 	while(left <= right)
 	{
 		ReturnType trips{};
