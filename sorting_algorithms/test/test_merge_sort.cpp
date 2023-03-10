@@ -8,7 +8,7 @@
 // Created by andreas on 01.03.23.
 //
 #include "test_setup.h"
-#include "./../merge_sort.h"
+#include "merge_sort.h"
 #include <algorithm>
 
 TEST_F(SetupSortingTests, merge_sort_int_vector)

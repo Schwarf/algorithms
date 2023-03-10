@@ -2,7 +2,7 @@
 // Created by andreas on 01.03.23.
 //
 #include "test_setup.h"
-#include "./../heap_sort.h"
+#include "heap_sort.h"
 #include <algorithm>
 
 TEST_F(SetupSortingTests, heap_sort_int_vector)

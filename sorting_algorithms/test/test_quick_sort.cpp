@@ -5,7 +5,7 @@
 // Created by andreas on 01.03.23.
 //
 #include "test_setup.h"
-#include "./../quick_sort.h"
+#include "quick_sort.h"
 #include <algorithm>
 
 TEST_F(SetupSortingTests, quick_sort_int_vector)

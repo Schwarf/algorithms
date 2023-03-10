@@ -2,8 +2,7 @@
 // Created by andreas on 01.03.23.
 //
 #include "test_setup.h"
-#include "./../counting_sort.h"
-#include <algorithm>
+#include "counting_sort.h"
 
 TEST_F(SetupSortingTests, counting_sort_int_vector)
 {
