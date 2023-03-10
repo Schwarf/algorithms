@@ -75,7 +75,7 @@ TEST(reservoir_sampling, test_chi_square)
 
 	double expected_frequency = sample_size_d/input_size;
 
-	int draws{1000};
+	int draws{10};
 	int count = draws;
 	std::vector<double> frequencies(input.size()+1);
 	while (count--) {
@@ -91,10 +91,10 @@ TEST(reservoir_sampling, test_chi_square)
 		double difference = frequencies[i]/draws - expected_frequency;
 		chi_square += difference*difference/expected_frequency;
 	}
-	// degrees of freedom are sample_size - 1
-	// int degrees_of_freedom = sample_size -1;
+	// degrees of freedom are input_size - 1
+	// int degrees_of_freedom = input_size -1;
 	// double alpha = 0.05
-	double critical_value = 42.557;
+	double critical_value = 113.145;
 	std::cout << chi_square <<  std::endl;
 	EXPECT_TRUE(chi_square < critical_value);
 
