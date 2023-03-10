@@ -3,4 +3,4 @@ project(probabilistic_algorithms)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(probabilistic_algorithms main.cpp )
+add_executable(probabilistic_algorithms main.cpp reservoir_sampling.h)
