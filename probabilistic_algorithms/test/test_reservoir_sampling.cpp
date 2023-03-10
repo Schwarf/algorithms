@@ -61,3 +61,42 @@ TEST(reservoir_sampling, test_overall_mean_value)
 	double absolute_error = std::abs(mean - mean_estimate);
 	EXPECT_TRUE(absolute_error < one_sigma_error);
 }
+
+
+TEST(reservoir_sampling, test_chi_square)
+{
+	std::vector<int> input(100);
+	double input_size = static_cast<double>(input.size());
+	// Fill input
+	std::iota(input.begin(), input.end(), 1);
+
+	int sample_size{30};
+	double sample_size_d = static_cast<double>(sample_size);
+
+	double expected_frequency = sample_size_d/input_size;
+
+	int draws{1000};
+	int count = draws;
+	std::vector<double> frequencies(input.size()+1);
+	while (count--) {
+		auto sample = reservoir_sampling(input, sample_size);
+		for (const auto &sample_element: sample)
+			frequencies[sample_element] += 1.0;
+	}
+
+	// compute chi-square
+	double chi_square {};
+	for(int i{1}; i < input_size + 1;++i)
+	{
+		double difference = frequencies[i]/draws - expected_frequency;
+		chi_square += difference*difference/expected_frequency;
+	}
+	// degrees of freedom are sample_size - 1
+	// int degrees_of_freedom = sample_size -1;
+	// double alpha = 0.05
+	double critical_value = 42.557;
+	std::cout << chi_square <<  std::endl;
+	EXPECT_TRUE(chi_square < critical_value);
+
+
+}
