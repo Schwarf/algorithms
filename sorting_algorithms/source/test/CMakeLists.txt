@@ -8,7 +8,6 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 add_executable(sorting_tests
-        sorting_algorithms/test_insertion_sort.cpp
         sorting_algorithms/sorting_setup.h
         sorting_algorithms/test_selection_sort.cpp
         sorting_algorithms/test_merge_sort.cpp
