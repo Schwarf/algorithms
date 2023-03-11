@@ -4,9 +4,7 @@
 
 #ifndef MINIMUM_SPEED_TO_EAT_BANANAS_IN_N_HOURS_H
 #define MINIMUM_SPEED_TO_EAT_BANANAS_IN_N_HOURS_H
-#include <concepts>
-#include <ranges>
-#include <algorithm>
+#include "used_concepts.h"
 // Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas.
 // The guards have gone and will come back in h hours.
 // Koko can decide her bananas-per-hour eating speed of k.
@@ -15,13 +13,6 @@
 // Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
 //Return the minimum integer k such that she can eat all the bananas within h hours.
 
-template<typename Container>
-concept IndexedContainerWithUnsignedIntegralElements = requires(Container c)
-{
-	{ c[0] } -> std::same_as<typename Container::value_type &>;
-	{ c.size() } -> std::same_as<std::size_t>;
-	requires std::unsigned_integral<typename Container::value_type>;
-};
 template<typename Container>
 requires IndexedContainerWithUnsignedIntegralElements<Container>
 bool is_enough_time_to_eat_all_bananas(const Container &banana_piles, int max_time, int speed)

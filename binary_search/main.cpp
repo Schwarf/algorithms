@@ -2,10 +2,14 @@
 #include "binary_search.h"
 #include "first_appearance_in_sorted_vector.h"
 #include "last_appearance_in_sorted_vector.h"
+template<typename T>
+void print_type(T value) {
+    std::cout << typeid(T).name() << std::endl;
+}
+
 int main()
 {
-	std::vector<int> test{1, 2, 2, 3, 3, 3, 4, 4, 5};
-	std::cout << first_appearance(test, 3) << std::endl;
-	std::cout << last_appearance(test, 3) << std::endl;
-	return 0;
+	auto x =42;
+	print_type(std::type_identity_t<decltype(x)>(x));
 }
+

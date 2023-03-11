@@ -4,19 +4,8 @@
 
 #ifndef KTH_MISSING_ELEMENT_H
 #define KTH_MISSING_ELEMENT_H
-#include <concepts>
+#include "used_concepts.h"
 // Given array/vector of positive elements find the kth missing element
-
-template <typename Container>
-concept IndexedContainerWithUnsignedIntegralElements = requires(Container c)
-{
-	{ c[0] } -> std::same_as<typename Container::value_type&>;
-	{ c.size() } -> std::same_as<std::size_t>;
-	requires std::unsigned_integral<typename Container::value_type>;
-};
-
-template <typename Element>
-concept NoPointerElement = !std::is_pointer_v<Element>;
 
 template<typename Container>
 requires IndexedContainerWithUnsignedIntegralElements<Container> && NoPointerElement<typename Container::value_type>
