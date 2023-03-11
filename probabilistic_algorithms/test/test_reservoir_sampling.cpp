@@ -76,6 +76,11 @@ TEST(reservoir_sampling, test_frequencies)
 	int draws{100000};
 
 	double expected_proportion = sample_size_d/input_size;
+	// Sample proportion follows binomial distribution with parameters
+	// p = proportion and
+	// number of experiments n = draws.
+	// X= n*p is expected value for the number of successes for one input element.
+	// So the proportion for one input-element is given as p = X/n;
 	double expected_std_error = std::sqrt(expected_proportion*(1-expected_proportion)/draws);
 	int count = draws;
 	std::vector<int> frequencies(input.size()+1);
@@ -86,10 +91,10 @@ TEST(reservoir_sampling, test_frequencies)
 			frequencies[sample_element]++;
 	}
 
-	std::vector<double> estimated_proportion(input.size()+1);
+	std::vector<double> sample_proportion(input.size()+1);
 	for (int i{1} ; i < input_size+1 ; ++i) {
-		estimated_proportion[i] = static_cast<double>(frequencies[i]) / draws;
-		double absolute_error = std::abs(estimated_proportion[i] - expected_proportion);
+		sample_proportion[i] = static_cast<double>(frequencies[i]) / draws;
+		double absolute_error = std::abs(sample_proportion[i] - expected_proportion);
 		EXPECT_TRUE(absolute_error < 3*expected_std_error);
 	}
 
