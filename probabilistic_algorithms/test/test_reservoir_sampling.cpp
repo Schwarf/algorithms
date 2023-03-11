@@ -63,7 +63,7 @@ TEST(reservoir_sampling, test_overall_mean_value)
 }
 
 
-TEST(reservoir_sampling, test_frequencies)
+TEST(reservoir_sampling, test_uniform_distribution_frequencies)
 {
 	std::vector<int> input(100);
 	double input_size = static_cast<double>(input.size());
@@ -92,16 +92,17 @@ TEST(reservoir_sampling, test_frequencies)
 	}
 
 	std::vector<double> sample_proportion(input.size() + 1);
+	double absolute_error{};
 	for (int i{1}; i < input_size + 1; ++i) {
 		sample_proportion[i] = static_cast<double>(frequencies[i]) / experiments;
-		double absolute_error = std::abs(sample_proportion[i] - expected_proportion);
+		absolute_error = std::abs(sample_proportion[i] - expected_proportion);
 		EXPECT_TRUE(absolute_error < 3 * expected_std_error);
 	}
 
 }
 
 
-TEST(reservoir_sampling, test_frequencies2)
+TEST(reservoir_sampling, test_non_uniform_ditribution_frequencies)
 {
 	std::vector<int> input{1, 2, 3, 2, 1, 4, 5, 5, 3, 3, 2, 1};
 	int sample_size{7};
