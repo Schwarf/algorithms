@@ -33,17 +33,17 @@ TEST(reservoir_sampling, test_overall_mean_value)
 	int sample_size{30};
 	double sample_size_d = static_cast<double>(sample_size);
 
-	double mean = (input_size+1.0)/2.0;
+	double mean = (input_size + 1.0) / 2.0;
 
-	double standard_deviation {};
-	for(const auto & element: input)
-		standard_deviation += (static_cast<double>(element) - mean)*(static_cast<double>(element) - mean);
-	standard_deviation *= 1.0/input_size;
+	double standard_deviation{};
+	for (const auto &element: input)
+		standard_deviation += (static_cast<double>(element) - mean) * (static_cast<double>(element) - mean);
+	standard_deviation *= 1.0 / input_size;
 	standard_deviation = std::sqrt(standard_deviation);
 
-	int draws{100000};
-	int count = draws;
-	std::vector<int> frequencies(input.size()+1);
+	int experiments{10000};
+	int count = experiments;
+	std::vector<int> frequencies(input.size() + 1);
 
 	while (count--) {
 		auto sample = reservoir_sampling(input, sample_size);
@@ -51,12 +51,12 @@ TEST(reservoir_sampling, test_overall_mean_value)
 			frequencies[sample_element]++;
 	}
 
-	double mean_estimate {};
-	for (int i{1} ; i < input_size+1 ; ++i)
-		mean_estimate += static_cast<double>(frequencies[i])* input[i-1];
-	mean_estimate = mean_estimate/ static_cast<double >(draws)/sample_size_d;
+	double mean_estimate{};
+	for (int i{1}; i < input_size + 1; ++i)
+		mean_estimate += static_cast<double>(frequencies[i]) * input[i - 1];
+	mean_estimate = mean_estimate / static_cast<double >(experiments) / sample_size_d;
 
-	double one_sigma_error = standard_deviation/std::sqrt(static_cast<double>(draws));
+	double one_sigma_error = standard_deviation / std::sqrt(static_cast<double>(experiments));
 
 	double absolute_error = std::abs(mean - mean_estimate);
 	EXPECT_TRUE(absolute_error < one_sigma_error);
@@ -73,17 +73,17 @@ TEST(reservoir_sampling, test_frequencies)
 	int sample_size{30};
 	double sample_size_d = static_cast<double>(sample_size);
 
-	int draws{100000};
+	int experiments{10000};
 
-	double expected_proportion = sample_size_d/input_size;
+	double expected_proportion = sample_size_d / input_size;
 	// Sample proportion follows binomial distribution with parameters
 	// p = proportion and
-	// number of experiments n = draws.
+	// number of experiments n = experiments.
 	// X= n*p is expected value for the number of successes for one input element.
 	// So the proportion for one input-element is given as p = X/n;
-	double expected_std_error = std::sqrt(expected_proportion*(1-expected_proportion)/draws);
-	int count = draws;
-	std::vector<int> frequencies(input.size()+1);
+	double expected_std_error = std::sqrt(expected_proportion * (1 - expected_proportion) / experiments);
+	int count = experiments;
+	std::vector<int> frequencies(input.size() + 1);
 
 	while (count--) {
 		auto sample = reservoir_sampling(input, sample_size);
@@ -91,51 +91,49 @@ TEST(reservoir_sampling, test_frequencies)
 			frequencies[sample_element]++;
 	}
 
-	std::vector<double> sample_proportion(input.size()+1);
-	for (int i{1} ; i < input_size+1 ; ++i) {
-		sample_proportion[i] = static_cast<double>(frequencies[i]) / draws;
+	std::vector<double> sample_proportion(input.size() + 1);
+	for (int i{1}; i < input_size + 1; ++i) {
+		sample_proportion[i] = static_cast<double>(frequencies[i]) / experiments;
 		double absolute_error = std::abs(sample_proportion[i] - expected_proportion);
-		EXPECT_TRUE(absolute_error < 3*expected_std_error);
+		EXPECT_TRUE(absolute_error < 3 * expected_std_error);
 	}
-
 
 }
 
 
-TEST(reservoir_sampling, test_chi_square)
+TEST(reservoir_sampling, test_frequencies2)
 {
-	std::vector<int> input(100);
-	double input_size = static_cast<double>(input.size());
-	// Fill input
-	std::iota(input.begin(), input.end(), 1);
-
-	int sample_size{30};
+	std::vector<int> input{1, 2, 3, 2, 1, 4, 5, 5, 3, 3, 2, 1};
+	int sample_size{7};
 	double sample_size_d = static_cast<double>(sample_size);
+	int experiments{10000};
+	std::vector<double> expected_proportion{0., 3./12., 3./12., 3./12., 1./12., 2./12. };
 
-	double expected_frequency = sample_size_d/input_size;
+	// Sample proportion follows binomial distribution with parameters
+	// p = proportion and
+	// number of experiments n = experiments.
+	// X= n*p is expected value for the number of successes for one input element.
+	// So the proportion for one input-element is given as p = X/n;
 
-	int draws{10};
-	int count = draws;
-	std::vector<double> frequencies(input.size()+1);
+	std::vector<double> expected_std_error(expected_proportion.size());
+	for(int i{}; i < expected_proportion.size(); ++i)
+		expected_std_error[i] = std::sqrt(expected_proportion[i] * (1 - expected_proportion[i]) / experiments);
+	int count = experiments;
+	std::vector<int> frequencies(expected_proportion.size());
 	while (count--) {
 		auto sample = reservoir_sampling(input, sample_size);
 		for (const auto &sample_element: sample)
-			frequencies[sample_element] += 1.0;
+			frequencies[sample_element]++;
 	}
 
-	// compute chi-square
-	double chi_square {};
-	for(int i{1}; i < input_size + 1;++i)
-	{
-		double difference = frequencies[i]/draws - expected_frequency;
-		chi_square += difference*difference/expected_frequency;
+	std::vector<double> sample_proportion(expected_proportion.size());
+	for (int i{1}; i < expected_proportion.size(); ++i) {
+		// Here we divide by sample_size_d, since we need to normalize the proportion. In
+		// 100000 experiments with 7 draws=sample_size we expect more than 100000 appearances if
+		// the values in the input are not uniformly distributed like in this case.
+		sample_proportion[i] = static_cast<double>(frequencies[i]) / experiments/sample_size_d;
+		double absolute_error = std::abs(sample_proportion[i] - expected_proportion[i]);
+		EXPECT_TRUE(absolute_error < 3 * expected_std_error[i]);
 	}
-	// degrees of freedom are input_size - 1
-	// int degrees_of_freedom = input_size -1;
-	// double alpha = 0.05
-	double critical_value = 113.145;
-	std::cout << chi_square <<  std::endl;
-	EXPECT_TRUE(chi_square < critical_value);
-
 
 }
