@@ -4,7 +4,7 @@
 
 #ifndef HEAP_SORT_H
 #define HEAP_SORT_H
-#include "sort_concepts.h"
+#include "used_concepts.h"
 
 template<typename Container>
 requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
