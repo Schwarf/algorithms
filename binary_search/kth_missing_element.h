@@ -11,7 +11,7 @@ template <typename Container>
 concept IndexedContainerWithUnsignedIntegralElements = requires(Container c)
 {
 	{ c[0] } -> std::same_as<typename Container::value_type&>;
-	{ c.size() } -> std::integral;
+	{ c.size() } -> std::same_as<std::size_t>;
 	requires std::unsigned_integral<typename Container::value_type>;
 };
 
