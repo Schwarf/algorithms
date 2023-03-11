@@ -1,13 +1,20 @@
 #include <iostream>
+#include <array>
 #include "reservoir_sampling.h"
+#include "held_karp_algorithm.h"
 
 int main() {
-	std::vector<int> nums{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	int k = 5;
-	std::vector<int> res = reservoir_sampling( nums, k);
-	for (int num : res) {
-		std::cout << num << " ";
-	}
-	std::cout << std::endl;
-	return 0;
+
+	std::vector<std::vector<int>> cities = {{0, 0},
+											  {1, 1},
+											  {2, 0},
+											  {3, 2},
+											  {4, 1},
+											  {5, 3},
+											  {6, 0},
+											  {7, 2},
+											  {27, -10},
+											  {-6, -9}};
+	std::cout << held_karp_algorithm(cities);
+
 }
