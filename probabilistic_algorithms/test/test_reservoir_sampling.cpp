@@ -63,6 +63,40 @@ TEST(reservoir_sampling, test_overall_mean_value)
 }
 
 
+TEST(reservoir_sampling, test_frequencies)
+{
+	std::vector<int> input(100);
+	double input_size = static_cast<double>(input.size());
+	// Fill input
+	std::iota(input.begin(), input.end(), 1);
+
+	int sample_size{30};
+	double sample_size_d = static_cast<double>(sample_size);
+
+	int draws{100000};
+
+	double expected_proportion = sample_size_d/input_size;
+	double expected_std_error = std::sqrt(expected_proportion*(1-expected_proportion)/draws);
+	int count = draws;
+	std::vector<int> frequencies(input.size()+1);
+
+	while (count--) {
+		auto sample = reservoir_sampling(input, sample_size);
+		for (const auto &sample_element: sample)
+			frequencies[sample_element]++;
+	}
+
+	std::vector<double> estimated_proportion(input.size()+1);
+	for (int i{1} ; i < input_size+1 ; ++i) {
+		estimated_proportion[i] = static_cast<double>(frequencies[i]) / draws;
+		double absolute_error = std::abs(estimated_proportion[i] - expected_proportion);
+		EXPECT_TRUE(absolute_error < 3*expected_std_error);
+	}
+
+
+}
+
+
 TEST(reservoir_sampling, test_chi_square)
 {
 	std::vector<int> input(100);
