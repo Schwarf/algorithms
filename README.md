@@ -4,6 +4,6 @@ ToDo's and open points:
 - Study systematic on backtracking problems ... sets, permutations etc 
 - Study systematic on dynamic programming problems, e.g. string matching
 - All kinds of caches are missing (only LRU data_structures/source/stacks_and_queues/lru_cache.h)
-- Study and apply heuristic algorithms like stimulated annealing  
+  
 - 
  
