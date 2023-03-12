@@ -28,8 +28,35 @@ double generate_random_tour(ContainerType & locations)
 	std::ranges::shuffle(locations, random_generator);
 }
 
+template <typename ContainerType>
+requires RequireIndexedContainer<ContainerType>
+void perturb_tour(ContainerType & locations)
+{
+	std::mt19937 random_generator(std::random_device{}());
+	std::uniform_int_distribution<int> distribution(0, locations.size());
+	int index1 = distribution(random_generator);
+	int index2 = distribution(random_generator);
+	std::swap(locations[index1], locations[index2]);
+
+}
 
 
+template <typename ContainerType>
+requires RequireIndexedContainer<ContainerType>
+double simulated_annealing(const ContainerType & initial_locations, double initial_temperature, double cooling_rate,
+						   double minimal_temperature)
+{
+	auto current_tour = initial_locations;
+	auto current_tour_length = compute_tour_length(current_tour);
+	double temperature = initial_temperature;
+	while(temperature > minimal_temperature)
+	{
+		auto new_tour = perturb_tour(current_tour);
+		double new_tour_length = compute_tour_length(new_tour);
+		double delta = new_tour_length - current_tour_length;
+		if(delta < 0 || std::exp(-delta /temperature) > )
+	}
+}
 
 
 
