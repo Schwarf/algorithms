@@ -18,9 +18,19 @@ concept ContainerTypeTemplate = requires(const ContainerType<InnerContainerType<
 	{ container.size() } -> std::same_as<std::size_t>;
 };
 
-template< typename FunctionType, typename T, template<typename...> class InnerContainerType>
-concept ReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType, InnerContainerType<T>, InnerContainerType<T>>, double>;
+template<typename FunctionType, typename T, template<typename...> class InnerContainerType>
+concept ReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType,
+															   InnerContainerType<T>,
+															   InnerContainerType<T>>, double>;
 
+template<typename FunctionType, typename T, template<typename...> class ContainerType, template<typename...> class InnerContainerType>
+concept ObjectFunctionReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType, const ContainerType<InnerContainerType<T>> &>, double>;
+
+
+template<typename FunctionType, typename T, template<typename...> class ContainerType,
+	template<typename...> class InnerContainerType>
+concept ReturnTypeIsContainer = std::same_as<std::invoke_result_t<FunctionType, ContainerType<InnerContainerType<T>>>,
+											 ContainerType<InnerContainerType<T>>>;
 
 template<typename CoordinatesType>
 concept RequireCoordinates = requires(const CoordinatesType &coordinates1, const CoordinatesType &coordinates2)

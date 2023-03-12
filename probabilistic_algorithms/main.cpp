@@ -3,6 +3,7 @@
 #include "reservoir_sampling.h"
 #include "held_karp_algorithm.h"
 #include "simulated_annealing.h"
+#include "simulated_annealing_full_templated.h"
 int main()
 {
 
@@ -21,15 +22,9 @@ int main()
 	int i{10};
 	std::cout << "------------------------------" << std::endl;
 	while(i) {
-
-		double initial_temperature{100.0};
-		double cooling_rate{0.99};
-		double minimal_temperature{0.1};
-		auto approximate_result = simulated_annealing(cities, initial_temperature, cooling_rate, minimal_temperature);
-		std::cout << approximate_result << std::endl;
-		auto deviation = std::abs(1.0 - approximate_result/held_karp_result);
-		std::cout << "Deviation is: " << deviation << std::endl;
+		std::cout << simulated_annealing_algorithm(cities, compute_tour_length<int, std::vector, std::vector>,
+												   perturbation<int, std::vector, std::vector>, 1000.0, 0.9999, 1.0)
+				  << std::endl;
 		i--;
 	}
-
 }

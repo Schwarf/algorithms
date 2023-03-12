@@ -71,4 +71,6 @@ double simulated_annealing(const ContainerType &initial_locations, double initia
 }
 
 
+
+
 #endif //SIMULATED_ANNEALING_H
