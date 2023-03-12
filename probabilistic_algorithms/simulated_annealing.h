@@ -40,6 +40,13 @@ void perturb_tour(ContainerType & locations)
 
 }
 
+double get_random_double_number()
+{
+	std::mt19937 random_generator(std::random_device{}());
+	std::uniform_real_distribution<double> distribution(0.0, 1.0);
+	return distribution(random_generator);
+}
+
 
 template <typename ContainerType>
 requires RequireIndexedContainer<ContainerType>
@@ -54,7 +61,12 @@ double simulated_annealing(const ContainerType & initial_locations, double initi
 		auto new_tour = perturb_tour(current_tour);
 		double new_tour_length = compute_tour_length(new_tour);
 		double delta = new_tour_length - current_tour_length;
-		if(delta < 0 || std::exp(-delta /temperature) > )
+		if(delta < 0 || std::exp(-delta /temperature) > get_random_double_number())
+		{
+			current_tour = new_tour;
+			current_tour_length = new_tour_length;
+		}
+		temperature *= cooling_rate;
 	}
 }
 
