@@ -14,9 +14,13 @@ template<typename T, typename ObjectFunctionType, typename PerturbationFunctionT
 	template<typename...> class InnerContainerType>
 requires ContainerTypeTemplate<T, ContainerType, InnerContainerType>
 	&& std::invocable<ObjectFunctionType, const InnerContainerType<T> &, const InnerContainerType<T> &>
-	&& std::invocable<PerturbationFunctionType, ContainerType<InnerContainerType<T>> & , decltype(std::declval<std::mt19937>()) &>
+	&& std::invocable<PerturbationFunctionType,
+					  ContainerType<InnerContainerType<T>> &,
+					  decltype(std::declval<std::mt19937>()) &>
 	&& ReturnTypeIsDouble<ObjectFunctionType, T, InnerContainerType>
-	double FunctionA(ContainerType<InnerContainerType<T>> &container, ObjectFunctionType func, PerturbationFunctionType perturbation_function)
+double FunctionA(ContainerType<InnerContainerType<T>> &container,
+				 ObjectFunctionType func,
+				 PerturbationFunctionType perturbation_function)
 {
 	std::mt19937 random_generator(std::random_device{}());
 	double result = 0.0;
@@ -27,16 +31,15 @@ requires ContainerTypeTemplate<T, ContainerType, InnerContainerType>
 	return result;
 }
 
-template<typename T,	template<typename...> class ContainerType,
+template<typename T, template<typename...> class ContainerType,
 	template<typename...> class InnerContainerType>
-void perturb(ContainerType<InnerContainerType<T>> & container, decltype(std::declval<std::mt19937>()) & random_generator)
+void perturb(ContainerType<InnerContainerType<T>> &container, decltype(std::declval<std::mt19937>()) &random_generator)
 {
 	std::uniform_int_distribution<int> distribution(0, container.size() - 1);
 	int index1 = distribution(random_generator);
 	int index2 = distribution(random_generator);
 	std::swap(container[index1], container[index2]);
 }
-
 
 template<typename T, template<typename> class ContainerType>
 double CalculateDistance(const ContainerType<T> &v1, const ContainerType<T> &v2)

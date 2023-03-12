@@ -10,14 +10,14 @@
 template<typename T,
 	template<typename...> class ContainerType,
 	template<typename...> class InnerContainerType>
-double compute_tour_length(const ContainerType<InnerContainerType<T>> & container)
+double compute_tour_length(const ContainerType<InnerContainerType<T>> &container)
 {
-	auto distance_function = [](const auto & container1, const auto & container2){
+	auto distance_function = [](const auto &container1, const auto &container2)
+	{
 		double distance{};
-		for(int i{}; i < container1.size(); ++i)
-		{
+		for (int i{}; i < container1.size(); ++i) {
 			double difference = container1[i] - container2[i];
-			distance += difference*difference;
+			distance += difference * difference;
 		}
 		return std::sqrt(distance);
 	};
@@ -29,10 +29,10 @@ double compute_tour_length(const ContainerType<InnerContainerType<T>> & containe
 	return tour_length;
 }
 
-
-template<typename T,	template<typename...> class ContainerType,
+template<typename T, template<typename...> class ContainerType,
 	template<typename...> class InnerContainerType>
-void perturbation(ContainerType<InnerContainerType<T>> & container, decltype(std::declval<std::mt19937>()) & random_generator)
+void perturbation(ContainerType<InnerContainerType<T>> &container,
+				  decltype(std::declval<std::mt19937>()) &random_generator)
 {
 	std::uniform_int_distribution<int> distribution(0, container.size() - 1);
 	int index1 = distribution(random_generator);
@@ -40,14 +40,14 @@ void perturbation(ContainerType<InnerContainerType<T>> & container, decltype(std
 	std::swap(container[index1], container[index2]);
 }
 
-
-
 template<typename T, typename ObjectFunctionType, typename PerturbationFunctionType,
 	template<typename...> class ContainerType,
 	template<typename...> class InnerContainerType>
 requires ContainerTypeTemplate<T, ContainerType, InnerContainerType>
 	&& std::invocable<ObjectFunctionType, const ContainerType<InnerContainerType<T>> &>
-	&& std::invocable<PerturbationFunctionType, ContainerType<InnerContainerType<T>> & , decltype(std::declval<std::mt19937>()) &>
+	&& std::invocable<PerturbationFunctionType,
+					  ContainerType<InnerContainerType<T>> &,
+					  decltype(std::declval<std::mt19937>()) &>
 	&& ObjectFunctionReturnTypeIsDouble<ObjectFunctionType, T, ContainerType, InnerContainerType>
 double simulated_annealing_algorithm(ContainerType<InnerContainerType<T>> &container,
 									 ObjectFunctionType object_function,
