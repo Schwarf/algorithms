@@ -2,6 +2,26 @@
 // Created by andreas on 11.03.23.
 //
 
+template<typename T, template<typename...> typename CoordinateType>
+concept CoordinateTypeTemplate = requires(const CoordinateType<T> &coordinates) {
+	{ coordinates[0] } -> std::same_as<typename CoordinateType<T>::value_type const &>;
+	{ coordinates.size() } -> std::same_as<std::size_t>;
+	{ static_cast<double> (coordinates[0]) };
+
+};
+
+template<typename T, template<typename...> class ContainerType,
+	template<typename...> class InnerContainerType>
+concept ContainerTypeTemplate = requires(const ContainerType<InnerContainerType<T>> &container) {
+	requires CoordinateTypeTemplate<T, InnerContainerType>;
+	{ container[0] } -> std::same_as<typename ContainerType<InnerContainerType<T>>::value_type const &>;
+	{ container.size() } -> std::same_as<std::size_t>;
+};
+
+template< typename FunctionType, typename T, template<typename...> class InnerContainerType>
+concept ReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType, InnerContainerType<T>, InnerContainerType<T>>, double>;
+
+
 template<typename CoordinatesType>
 concept RequireCoordinates = requires(const CoordinatesType &coordinates1, const CoordinatesType &coordinates2)
 {
