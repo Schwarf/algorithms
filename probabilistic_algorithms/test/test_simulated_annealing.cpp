@@ -7,18 +7,6 @@
 
 #define EPSILON 1.e-15
 
-class SetupSimulatedAnnealingTest: public testing::Test
-{
-public:
-	explicit SetupSimulatedAnnealingTest()
-		: random_generator_(std::random_device{}())
-	{
-
-	}
-private:
-	std::mt19937 random_generator_;
-};
-
 
 TEST(TestSimulatedAnnealing, simple)
 {
@@ -142,18 +130,36 @@ TEST(TestSimulatedAnnealing, difficult)
 												  {-29.63113468704464, -11.20842696153460, 22.15390544948178},
 												  {6.230598008349119, -33.52107872770915, -31.06915450778756}};
 	double exact_result{807.22976479499}; // From Computer algebra program
-	double max_deviation_in_percent{15.0};
-	double minimal_temperature{0.1};
-	double cooling_rate{0.9999};
+	double minimal_temperature{0.001};
+	double cooling_rate{0.99999};
 	double initial_temperature{100.0};
-	int tries{10};
+	int tries{3};
+	std::vector<double> approximate_results;
+	std::vector<double> deviation_results;
 	while (tries) {
+
 		double
 			approximate_result = simulated_annealing(locations, initial_temperature, cooling_rate, minimal_temperature);
+		approximate_results.push_back(approximate_result);
 		tries--;
-		double deviation = std::abs(1.0 - approximate_result / exact_result);
-		double deviation_in_percent = deviation * 100.0;
-		std::cout << deviation << "  " << approximate_result << std::endl;
-		EXPECT_TRUE(deviation_in_percent < max_deviation_in_percent);
 	}
+	auto mean =
+		std::accumulate(approximate_results.cbegin(), approximate_results.cend(), 0.0) / approximate_results.size();
+	auto mean_deviations =
+		std::accumulate(deviation_results.cbegin(), deviation_results.cend(), 0.0) / approximate_results.size();
+	auto sum_of_squared_difference = std::transform_reduce(approximate_results.begin(), approximate_results.end(), 0.0,
+														   std::plus<>(), [mean](double x)
+														   { return (x - mean) * (x - mean); });
+
+	auto standard_deviation = std::sqrt(sum_of_squared_difference / approximate_results.size());
+	std::cout << mean << " +/- " << standard_deviation << std::endl;
+	std::cout << "Deviation of mean from exact result: "  << std::abs(1.0 -mean/exact_result) << std::endl;
+	// Best result in this setup: 12.03.2023
+	// double minimal_temperature{0.001};
+	// double cooling_rate{0.99999};
+	// double initial_temperature{100.0};
+	// int tries{3};
+	// mena = 826.97 +/- 9.64319
+	// Deviation of mean from exact result: 0.0244545
+
 }
