@@ -26,6 +26,11 @@ enable_cxx_compiler_flag_if_supported("-fconcepts-diagnostics-depth=2")
 
 add_subdirectory(test)
 
-add_executable(probabilistic_algorithms main.cpp reservoir_sampling.h held_karp_algorithm.h used_concepts.h)
+add_executable(probabilistic_algorithms
+                main.cpp
+                reservoir_sampling.h
+                held_karp_algorithm.h
+                simulated_annealing.h
+                used_concepts.h)
 #add_executable(mase tsp.cpp )
 #add_executable(status status.cpp)
