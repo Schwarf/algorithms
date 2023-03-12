@@ -31,6 +31,6 @@ add_executable(probabilistic_algorithms
                 reservoir_sampling.h
                 held_karp_algorithm.h
                 simulated_annealing.h
-                used_concepts.h)
-#add_executable(mase tsp.cpp )
+                used_concepts.h )
+add_executable(mase templating_with_functions.cpp )
 #add_executable(status status.cpp)
