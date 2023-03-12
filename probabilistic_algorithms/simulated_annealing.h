@@ -14,7 +14,7 @@ double compute_tour_length(const ContainerType & locations)
 {
 	const auto number_of_locations = locations.size();
 	double tour_length{};
-	for(int i{}; i < number_of_locations-1;++i)
+	for(size_t i{}; i < number_of_locations-1;++i)
 		tour_length += distance(locations[i], locations[i+1]);
 	tour_length += distance(locations[number_of_locations-1], locations[0]);
 	return tour_length;

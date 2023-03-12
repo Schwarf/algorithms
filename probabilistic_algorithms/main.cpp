@@ -16,10 +16,20 @@ int main()
 											{7, 2},
 											{27, -10},
 											{-6, -9}};
-	//std::cout << held_karp_algorithm(cities);
-	double initial_temperature{100.0};
-	double cooling_rate{0.95};
-	double minimal_temperature{0.1};
-	std::cout << simulated_annealing(cities, initial_temperature, cooling_rate, minimal_temperature) << std::endl;
+	auto held_karp_result = held_karp_algorithm(cities);
+	std::cout << held_karp_result << std::endl;
+	int i{10};
+	std::cout << "------------------------------" << std::endl;
+	while(i) {
+
+		double initial_temperature{100.0};
+		double cooling_rate{0.99};
+		double minimal_temperature{0.1};
+		auto approximate_result = simulated_annealing(cities, initial_temperature, cooling_rate, minimal_temperature);
+		std::cout << approximate_result << std::endl;
+		auto deviation = std::abs(1.0 - approximate_result/held_karp_result);
+		std::cout << "Deviation is: " << deviation << std::endl;
+		i--;
+	}
 
 }

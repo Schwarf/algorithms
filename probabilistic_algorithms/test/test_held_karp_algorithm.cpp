@@ -19,6 +19,7 @@ TEST(held_karp, test_with_10_x_y_integers)
 											   {27, -10},
 											   {-6, -9}};
 	double expected_result = 80.27812116117478; // From computer algebra program
+	// double longest_tour_with_hel_karp_inverted = 117.693 // not cross_checked
 	double result = held_karp_algorithm(locations);
 	double deviation = std::abs(1.0 - result / expected_result);
 	EXPECT_TRUE(deviation < EPSILON);
