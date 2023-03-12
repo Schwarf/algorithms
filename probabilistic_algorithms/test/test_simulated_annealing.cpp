@@ -131,7 +131,7 @@ TEST(TestSimulatedAnnealing, difficult)
 												  {6.230598008349119, -33.52107872770915, -31.06915450778756}};
 	double exact_result{807.22976479499}; // From Computer algebra program
 	double minimal_temperature{0.001};
-	double cooling_rate{0.99999};
+	double cooling_rate{0.99};
 	double initial_temperature{100.0};
 	int tries{3};
 	std::vector<double> approximate_results;
