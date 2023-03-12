@@ -5,28 +5,38 @@
 #include <algorithm>
 #include <numeric>
 #include <cmath>
+#include <random>
 
 #include "used_concepts.h"
 
-template<typename T, typename FunctionType,
+template<typename T, typename ObjectFunctionType, typename PerturbationFunctionType,
 	template<typename...> class ContainerType,
 	template<typename...> class InnerContainerType>
 requires ContainerTypeTemplate<T, ContainerType, InnerContainerType>
-	&& std::invocable<FunctionType, InnerContainerType<T>, InnerContainerType<T>>
-	&& ReturnTypeIsDouble<FunctionType, T, InnerContainerType>
-double FunctionA(const ContainerType<InnerContainerType<T>> &container, FunctionType func)
+	&& std::invocable<ObjectFunctionType, const InnerContainerType<T> &, const InnerContainerType<T> &>
+	&& std::invocable<PerturbationFunctionType, ContainerType<InnerContainerType<T>> & , decltype(std::declval<std::mt19937>()) &>
+	&& ReturnTypeIsDouble<ObjectFunctionType, T, InnerContainerType>
+	double FunctionA(ContainerType<InnerContainerType<T>> &container, ObjectFunctionType func, PerturbationFunctionType perturbation_function)
 {
+	std::mt19937 random_generator(std::random_device{}());
 	double result = 0.0;
-	for (const auto &inner_container1: container) {
-		for (const auto &inner_container2: container) {
-			if (&inner_container1 == &inner_container2) {
-				continue;
-			}
-			result += func(inner_container1, inner_container2);
-		}
-	}
+	auto size = container.size();
+	perturbation_function(container, random_generator);
+	for (int i{}; i < size - 1; ++i)
+		result += func(container[i], container[i + 1]);
 	return result;
 }
+
+template<typename T,	template<typename...> class ContainerType,
+	template<typename...> class InnerContainerType>
+void perturb(ContainerType<InnerContainerType<T>> & container, decltype(std::declval<std::mt19937>()) & random_generator)
+{
+	std::uniform_int_distribution<int> distribution(0, container.size() - 1);
+	int index1 = distribution(random_generator);
+	int index2 = distribution(random_generator);
+	std::swap(container[index1], container[index2]);
+}
+
 
 template<typename T, template<typename> class ContainerType>
 double CalculateDistance(const ContainerType<T> &v1, const ContainerType<T> &v2)
@@ -40,8 +50,8 @@ double CalculateDistance(const ContainerType<T> &v1, const ContainerType<T> &v2)
 
 int main()
 {
-	std::vector<std::vector<int>> v = {{2, 2}, {0, 0}};
-	double result = FunctionA(v, CalculateDistance<int, std::vector>);
+	std::vector<std::vector<int>> v = {{4, 3}, {0, 0}, {1, 1}};
+	double result = FunctionA(v, CalculateDistance<int, std::vector>, perturb<int, std::vector, std::vector>);
 	std::cout << "Result: " << result << std::endl;
 	return 0;
 }
