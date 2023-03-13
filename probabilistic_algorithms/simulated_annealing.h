@@ -31,16 +31,22 @@ ContainerType generate_random_tour(ContainerType locations)
 
 template<typename ContainerType>
 requires RequireIndexedContainer<ContainerType>
-ContainerType perturb_tour(ContainerType locations)
+void perturbate_tour(ContainerType & locations, int & index1, int & index2)
 {
 	std::mt19937 random_generator(std::random_device{}());
 	std::uniform_int_distribution<int> distribution(0, locations.size() - 1);
-	int index1 = distribution(random_generator);
-	int index2 = distribution(random_generator);
+	index1 = distribution(random_generator);
+	index2 = distribution(random_generator);
 	std::swap(locations[index1], locations[index2]);
-	return locations;
-
 }
+
+template<typename ContainerType>
+requires RequireIndexedContainer<ContainerType>
+void undo_perturbation(ContainerType & locations, int index1, int index2)
+{
+	std::swap(locations[index1], locations[index2]);
+}
+
 
 
 template<typename ContainerType>
@@ -57,14 +63,16 @@ double simulated_annealing(const ContainerType &initial_locations, double initia
 	auto current_tour = generate_random_tour(initial_locations);
 	auto current_tour_length = compute_tour_length(current_tour);
 	double temperature = initial_temperature;
+	int index1{};
+	int index2{};
 	while (temperature > minimal_temperature) {
-		auto new_tour = perturb_tour(current_tour);
-		double new_tour_length = compute_tour_length(new_tour);
+		perturbate_tour(current_tour, index1, index2);
+		double new_tour_length = compute_tour_length(current_tour);
 		double delta = new_tour_length - current_tour_length;
-		if (delta < 0 || std::exp(-delta / temperature) > get_random_double_number()) {
-			current_tour = new_tour;
+		if (delta < 0 || std::exp(-delta / temperature) > get_random_double_number())
 			current_tour_length = new_tour_length;
-		}
+		else
+			undo_perturbation(current_tour, index1, index2);
 		temperature *= cooling_rate;
 	}
 	return current_tour_length;

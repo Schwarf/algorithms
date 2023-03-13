@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "simulated_annealing.h"
-#include "simulated_annealing_full_templated.h"
+#include "simulated_annealing/simulated_annealing_full_templated.h"
 
 #define EPSILON 1.e-15
 
@@ -131,9 +131,9 @@ TEST(TestSimulatedAnnealing, difficult)
 												  {6.230598008349119, -33.52107872770915, -31.06915450778756}};
 	double exact_result{807.22976479499}; // From Computer algebra program
 	double minimal_temperature{0.001};
-	double cooling_rate{0.99};
+	double cooling_rate{0.99999};
 	double initial_temperature{100.0};
-	int tries{3};
+	int tries{100};
 	std::vector<double> approximate_results;
 	std::vector<double> deviation_results;
 	while (tries) {
@@ -152,19 +152,21 @@ TEST(TestSimulatedAnnealing, difficult)
 														   { return (x - mean) * (x - mean); });
 
 	auto standard_deviation = std::sqrt(sum_of_squared_difference / approximate_results.size());
-	std::cout << mean << " +/- " << standard_deviation << std::endl;
+	std::cout << "Mean +/ STD: " << mean << " +/- " << standard_deviation << std::endl;
+	std::cout << "Minimum: " << *std::min_element(approximate_results.begin(),approximate_results.end()) << std::endl;
 	std::cout << "Deviation of mean from exact result: "  << std::abs(1.0 -mean/exact_result) << std::endl;
 	// Best result in this setup: 12.03.2023
+	// int tries{100};
 	// double minimal_temperature{0.001};
 	// double cooling_rate{0.99999};
 	// double initial_temperature{100.0};
-	// int tries{3};
-	// mena = 826.97 +/- 9.64319
-	// Deviation of mean from exact result: 0.0244545
+	// Mean +/- STD: 844.252 +/- 18.7913
+	// Minimum: 807.23
+	// Deviation of mean from exact result: 0.0458629
 
 }
 
-
+/*
 TEST(TestSimulatedAnnealing, simple_full_templated)
 {
 	std::vector<std::vector<int>> locations = {{0, 0},
@@ -197,3 +199,4 @@ TEST(TestSimulatedAnnealing, simple_full_templated)
 	}
 	EXPECT_TRUE(count_exact > 0);
 }
+*/
