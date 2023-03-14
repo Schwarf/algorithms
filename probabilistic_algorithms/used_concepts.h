@@ -2,6 +2,7 @@
 // Created by andreas on 11.03.23.
 //
 
+#include <random>
 template<typename T, template<typename...> typename CoordinateType>
 concept CoordinateTypeTemplate = requires(const CoordinateType<T> &coordinates) {
 	{ coordinates[0] } -> std::same_as<typename CoordinateType<T>::value_type const &>;
@@ -23,14 +24,20 @@ concept ReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType,
 															   InnerContainerType<T>,
 															   InnerContainerType<T>>, double>;
 
-template<typename FunctionType, typename T, template<typename...> class ContainerType, template<typename...> class InnerContainerType>
-concept ObjectFunctionReturnTypeIsDouble = std::same_as<std::invoke_result_t<FunctionType, const ContainerType<InnerContainerType<T>> &>, double>;
+
+template<typename Functor, typename T, template<typename...> class ContainerType, template<typename...> class InnerContainerType>
+concept ObjectFunctionFunctor = requires(Functor functor, ContainerType<InnerContainerType<T>> & container)
+{
+	{functor(container) } -> std::same_as<double>;
+};
 
 
-template<typename FunctionType, typename T, template<typename...> class ContainerType,
-	template<typename...> class InnerContainerType>
-concept ReturnTypeIsContainer = std::same_as<std::invoke_result_t<FunctionType, ContainerType<InnerContainerType<T>>>,
-											 ContainerType<InnerContainerType<T>>>;
+template<typename Functor, typename T, template<typename...> class ContainerType, template<typename...> class InnerContainerType>
+concept PerturbationFunctor = requires(Functor functor, ContainerType<InnerContainerType<T>> & container, std::mt19937 random_engine)
+{
+	{functor(container, random_engine) } -> std::same_as<void>;
+	{functor.undo(container)} -> std::same_as<void>;
+};
 
 template<typename CoordinatesType>
 concept RequireCoordinates = requires(const CoordinatesType &coordinates1, const CoordinatesType &coordinates2)
@@ -52,19 +59,6 @@ concept RequireIndexedContainer = requires(const ContainerType &container)
 	{ container[0] } -> std::same_as<typename ContainerType::value_type const &>;
 	{ container.size() } -> std::same_as<std::size_t>;
 };
-/*
-template<typename FunctionType, typename ContainerType>
-concept RequireDistanceFunction = requires(FunctionType function,
-										   const ContainerType &container1,
-										   const ContainerType &container2)
-{
-	requires std::same_as< typename std::invoke_result_t<FunctionType,
-											   typename ContainerType::value_type,
-											   typename ContainerType::value_type>, double>;
-	requires RequireCoordinates<ContainerType>;
-
-};
- */
 
 #ifndef USED_CONCEPTS_H
 #define USED_CONCEPTS_H
