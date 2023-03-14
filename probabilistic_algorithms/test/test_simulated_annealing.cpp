@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "simulated_annealing.h"
-#include "simulated_annealing/simulated_annealing_full_templated.h"
+#include "simulated_annealing_full_templated.h"
 
 #define EPSILON 1.e-15
 
@@ -131,7 +131,7 @@ TEST(TestSimulatedAnnealing, difficult)
 												  {6.230598008349119, -33.52107872770915, -31.06915450778756}};
 	double exact_result{807.22976479499}; // From Computer algebra program
 	double minimal_temperature{0.001};
-	double cooling_rate{0.99999};
+	double cooling_rate{0.99};
 	double initial_temperature{100.0};
 	int tries{100};
 	std::vector<double> approximate_results;
@@ -153,8 +153,8 @@ TEST(TestSimulatedAnnealing, difficult)
 
 	auto standard_deviation = std::sqrt(sum_of_squared_difference / approximate_results.size());
 	std::cout << "Mean +/ STD: " << mean << " +/- " << standard_deviation << std::endl;
-	std::cout << "Minimum: " << *std::min_element(approximate_results.begin(),approximate_results.end()) << std::endl;
-	std::cout << "Deviation of mean from exact result: "  << std::abs(1.0 -mean/exact_result) << std::endl;
+	std::cout << "Minimum: " << *std::min_element(approximate_results.begin(), approximate_results.end()) << std::endl;
+	std::cout << "Deviation of mean from exact result: " << std::abs(1.0 - mean / exact_result) << std::endl;
 	// Best result in this setup: 12.03.2023
 	// int tries{100};
 	// double minimal_temperature{0.001};
@@ -166,7 +166,7 @@ TEST(TestSimulatedAnnealing, difficult)
 
 }
 
-/*
+
 TEST(TestSimulatedAnnealing, simple_full_templated)
 {
 	std::vector<std::vector<int>> locations = {{0, 0},
@@ -186,10 +186,17 @@ TEST(TestSimulatedAnnealing, simple_full_templated)
 	double initial_temperature{100.0};
 	int tries{10};
 	int count_exact{};
+	auto perturbation_function = TravelingSalesmanPerturbationFunction<int, std::vector, std::vector>();
+	auto object_function = TravelingSalesmanObjectFunction<int, std::vector, std::vector>();
+
 	while (tries) {
 		double
-			approximate_result = simulated_annealing_algorithm(locations, compute_tour_length<int, std::vector, std::vector>,
-															   perturbation<int, std::vector, std::vector>, initial_temperature, cooling_rate, minimal_temperature);
+			approximate_result = simulated_annealing_algorithm(locations,
+															   object_function,
+															   perturbation_function,
+															   initial_temperature,
+															   cooling_rate,
+															   minimal_temperature);
 		tries--;
 		double deviation = std::abs(1.0 - approximate_result / exact_result);
 		double deviation_in_percent = deviation * 100.0;
@@ -199,4 +206,3 @@ TEST(TestSimulatedAnnealing, simple_full_templated)
 	}
 	EXPECT_TRUE(count_exact > 0);
 }
-*/
