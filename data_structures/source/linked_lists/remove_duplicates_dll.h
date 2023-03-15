@@ -45,17 +45,17 @@ NodeDLL<T>* remove_duplicates_from_tail(NodeDLL<T>* tail)
 		return tail;
 	auto current = tail;
 	// This points behind tail
-	NodeDLL<T> * previous = nullptr;
+	NodeDLL<T> * next = nullptr;
 	std::unordered_set<T> counter;
 	while(current)
 	{
 		if(counter.find(current->value) != counter.end()) {
-			previous->previous = current->previous;
+			next->previous = current->previous;
 			if(current->previous)
-				current->previous->next = previous;
+				current->previous->next = next;
 		}
 		else {
-			previous = current;
+			next = current;
 			counter.insert(current->value);
 		}
 		current = current->previous;
