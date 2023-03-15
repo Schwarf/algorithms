@@ -14,6 +14,6 @@ struct Node
 	{
 	}
 	T value;
-	Node<T> *next;
+	Node<T> *next{nullptr};
 };
 #endif //NODE_H
