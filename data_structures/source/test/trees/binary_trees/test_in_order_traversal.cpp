@@ -4,7 +4,7 @@
 
 
 #include "setup_binary_tree.h"
-#include "./../../../trees/binary_trees/in_order_traversal.h"
+#include "trees/binary_trees/in_order_traversal.h"
 
 
 TEST_F(SetupBinaryTree, test_inorder_traversal)

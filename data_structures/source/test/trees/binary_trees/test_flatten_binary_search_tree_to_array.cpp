@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../../../trees/binary_trees/flatten_binary_search_tree_to_array.h"
-#include "./../../../trees/binary_trees/binary_search_tree_from_sorted_array.h"
+#include "trees/binary_trees/flatten_binary_search_tree_to_array.h"
+#include "trees/binary_trees/binary_search_tree_from_sorted_array.h"
 
 
 TEST(flatten_binary_search_tree_to_array, first_attempt)

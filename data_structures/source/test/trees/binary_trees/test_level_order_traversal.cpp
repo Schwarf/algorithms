@@ -3,7 +3,7 @@
 //
 
 #include "setup_binary_tree.h"
-#include "./../../../trees/binary_trees/level_order_traversal.h"
+#include "trees/binary_trees/level_order_traversal.h"
 
 
 TEST_F(SetupBinaryTree, test_level_order_traversal)

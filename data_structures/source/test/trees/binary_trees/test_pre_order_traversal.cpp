@@ -3,7 +3,7 @@
 //
 
 #include "setup_binary_tree.h"
-#include "./../../../trees/binary_trees/pre_order_traversal.h"
+#include "trees/binary_trees/pre_order_traversal.h"
 
 
 TEST_F(SetupBinaryTree, test_preorder_traversal)

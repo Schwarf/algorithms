@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../../../trees/binary_trees/find_duplicate_subtrees.h"
+#include "trees/binary_trees/find_duplicate_subtrees.h"
 #include "setup_binary_tree.h"
 
 

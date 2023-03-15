@@ -3,9 +3,9 @@
 //
 
 #include "setup_binary_tree.h"
-#include "./../../../trees/binary_trees/construct_binary_tree_from_preorder_and_inorder.h"
-#include "./../../../trees/binary_trees/post_order_traversal.h"
-#include "./../../../trees/binary_trees/in_order_traversal.h"
+#include "trees/binary_trees/construct_binary_tree_from_preorder_and_inorder.h"
+#include "trees/binary_trees/post_order_traversal.h"
+#include "trees/binary_trees/in_order_traversal.h"
 
 TEST_F(SetupBinaryTree, test_construct_binary_tree_from_preorder_and_inorder)
 {

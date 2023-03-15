@@ -3,7 +3,7 @@
 //
 
 #include "setup_binary_tree.h"
-#include "./../../../trees/binary_trees/maximum_depth.h"
+#include "trees/binary_trees/maximum_depth.h"
 
 
 TEST_F(SetupBinaryTree, test_maximum_depth)

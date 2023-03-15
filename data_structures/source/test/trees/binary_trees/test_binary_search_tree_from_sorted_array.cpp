@@ -2,7 +2,7 @@
 // Created by andreas on 03.08.22.
 //
 #include "gtest/gtest.h"
-#include "./../../../trees/binary_trees/binary_search_tree_from_sorted_array.h"
+#include "trees/binary_trees/binary_search_tree_from_sorted_array.h"
 
 template<typename T>
 bool is_valid_binary_search_tree(TreeNode<T> *root, TreeNode<T> *min = nullptr, TreeNode<T> *max = nullptr)

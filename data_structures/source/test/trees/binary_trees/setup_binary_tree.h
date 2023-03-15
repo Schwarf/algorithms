@@ -6,14 +6,8 @@
 #define SETUP_BINARY_TREE_H
 #include "gtest/gtest.h"
 #include <vector>
-#include "./../../../trees/binary_trees/tree_node.h"
+#include "trees/binary_trees/tree_node.h"
 
-
-template<typename T>
-TreeNode<T> *generate_binary_search_tree(size_t size)
-{
-	std::vecto
-}
 
 class SetupBinaryTree: public testing::Test
 {
