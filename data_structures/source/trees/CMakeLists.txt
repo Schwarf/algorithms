@@ -18,5 +18,5 @@ add_library(binary_tree_lib INTERFACE
         binary_trees/maximum_difference_betwee_node_and_ancestor.h
         binary_trees/maximum_product_of_splitted_tree.h
         binary_trees/maximum_path_sum.h
-        binary_trees/find_duplicate_subtrees.h)
+        binary_trees/find_duplicate_subtrees.h binary_trees/is_binary_tree_complete.h)
 add_library(segment_tree_lib INTERFACE segment_trees/segment_tree.h)
