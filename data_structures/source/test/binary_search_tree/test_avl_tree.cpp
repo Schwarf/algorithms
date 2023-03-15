@@ -2,9 +2,8 @@
 // Created by andreas on 25.09.22.
 //
 #include "gtest/gtest.h"
-#include "./../../binary_search_tree/avl_tree.h"
+#include "binary_search_tree/avl_tree.h"
 #include <vector>
-#include <algorithm>
 #include <random>
 
 class SetupAVLTree: public testing::Test

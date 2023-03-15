@@ -4,7 +4,7 @@
 
 
 #include "gtest/gtest.h"
-#include "./../../tries/trie.h"
+#include "tries/trie.h"
 
 
 TEST(TrieInsertSearch, Test1)

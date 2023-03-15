@@ -2,7 +2,7 @@
 // Created by andreas on 02.02.23.
 //
 
-#include "./../../union_find_disjoint_set/quick_find.h"
+#include "union_find_disjoint_set/quick_find.h"
 #include "setup_disjoint_sets.h"
 
 TEST_F(SetupDisjointSets, single_set_quick_find)
