@@ -22,7 +22,8 @@ NodeDLL<T>* remove_duplicates(NodeDLL<T>* head)
 	{
 		if(counter.find(current->value) != counter.end()) {
 			previous->next = current->next;
-			current->next->previous = previous;
+			if(current->next)
+				current->next->previous = previous;
 		}
 		else {
 			previous = current;
@@ -50,7 +51,8 @@ NodeDLL<T>* remove_duplicates_from_tail(NodeDLL<T>* tail)
 	{
 		if(counter.find(current->value) != counter.end()) {
 			previous->previous = current->previous;
-			current->previous->next = previous;
+			if(current->previous)
+				current->previous->next = previous;
 		}
 		else {
 			previous = current;
