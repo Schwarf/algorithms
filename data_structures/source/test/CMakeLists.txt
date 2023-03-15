@@ -17,7 +17,7 @@ add_executable(test_graphs
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
-        linked_lists/test_doubly_linked_list.cpp linked_lists/test_remove_duplicates.cpp linked_lists/test_setup.h)
+        linked_lists/test_doubly_linked_list.cpp linked_lists/test_remove_duplicates.cpp linked_lists/test_setup_singly_linked_lists.h linked_lists/test_remove_duplicates_dll.cpp linked_lists/test_setup_doubly_linked_lists.h)
 
 add_executable(test_stacks_and_queues
         stacks_and_queues/test_stack_linked_list_based.cpp
