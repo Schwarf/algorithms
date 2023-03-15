@@ -2,9 +2,9 @@
 // Created by andreas on 04.01.23.
 //
 #include "gtest/gtest.h"
-#include "./../../graphs/graph.h"
-#include "./../../graphs/depth_first_search.h"
-#include <iostream>
+#include "graphs/graph.h"
+#include "graphs/depth_first_search.h"
+
 
 class SetupDFSGraph: public testing::Test
 {

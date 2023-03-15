@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../../graphs/is_bipartition_possible.h"
+#include "graphs/is_bipartition_possible.h"
 
 class SetupBiPartitionPossible: public testing::Test
 {

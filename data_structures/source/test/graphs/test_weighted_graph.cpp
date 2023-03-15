@@ -2,7 +2,7 @@
 // Created by andreas on 30.12.22.
 //
 #include "gtest/gtest.h"
-#include "./../../graphs/weighted_graph.h"
+#include "graphs/weighted_graph.h"
 
 class SetupWeightedGraph: public testing::Test
 {
@@ -261,12 +261,13 @@ TEST_F(SetupWeightedGraph, test_erase_vertex)
 	EXPECT_TRUE(graph.erase_vertex(id4));
 	EXPECT_EQ(graph.number_of_vertices(), 4);
 	EXPECT_TRUE(graph.erase_vertex(id1));
-	std::string message = "The vertex id " + std::to_string(vertex1->id) + " does not exist in the graph!";
+	std::string message = "The destination vertex id=" + std::to_string(vertex1->id) + " does not exist in the graph!";
 	try {
 		graph.get_edge_weight(vertex5->id, vertex1->id);
 		FAIL() << "Expected std::invalid_argument";
 	}
 	catch (std::invalid_argument const &err) {
+		std::cout << err.what() << std::endl;
 		EXPECT_TRUE(err.what() == message);
 	}
 	EXPECT_EQ(graph.number_of_vertices(), 3);

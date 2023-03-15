@@ -2,7 +2,7 @@
 // Created by andreas on 30.12.22.
 //
 #include "gtest/gtest.h"
-#include "./../../graphs/graph.h"
+#include "graphs/graph.h"
 
 class SetupGraph: public testing::Test
 {
