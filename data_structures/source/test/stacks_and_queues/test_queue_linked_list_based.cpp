@@ -3,7 +3,7 @@
 //
 
 #include "setup_queue.h"
-#include "./../../stacks_and_queues/queue_linked_list_based.h"
+#include "stacks_and_queues/queue_linked_list_based.h"
 
 TEST_F(SetupQueue, test_enqueue)
 {

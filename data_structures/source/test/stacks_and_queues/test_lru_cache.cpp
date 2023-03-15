@@ -1,7 +1,7 @@
 //
 // Created by andreas on 02.08.22.
 //
-#include "./../../stacks_and_queues/lru_cache.h"
+#include "stacks_and_queues/lru_cache.h"
 #include "gtest/gtest.h"
 
 TEST(test_lru_cache, test_lru_cache)
