@@ -7,12 +7,13 @@
 #include <unordered_map>
 #include <list>
 #include <vector>
+#include <stdexcept>
 
 template<typename key_T, typename value_T>
 class LRUCache
 {
 public:
-	LRUCache(size_t cache_size)
+	explicit LRUCache(size_t cache_size)
 		:
 		cache_size_(cache_size)
 	{
