@@ -21,13 +21,17 @@ Node<T>* remove_duplicates(Node<T>* head)
 	std::unordered_set<T> counter;
 	while(current)
 	{
-		if(counter.find(current->value) != counter.end())
+		if(counter.find(current->value) != counter.end()) {
 			previous->next = current->next;
+			delete current;
+			current = previous->next;
+		}
 		else {
 			previous = current;
 			counter.insert(current->value);
+			current = current->next;
 		}
-		current = current->next;
+
 	}
 	return head;
 }
@@ -47,11 +51,15 @@ Node<T>* remove_duplicates_no_extra_space(Node<T>* head)
 		auto previous = left;
 		while(right)
 		{
-			if(right->value == left->value)
+			if(right->value == left->value) {
 				previous->next = right->next;
-			else
+				delete right;
+				right = previous->next;
+			}
+			else {
 				previous = right;
-			right = right->next;
+				right = right->next;
+			}
 		}
 		left = left->next;
 	}
