@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include "gtest/gtest.h"
-#include "./../../linked_lists/doubly_linked_list.h"
+#include "linked_lists/doubly_linked_list.h"
 
 class SetupDoublyLinkedList: public testing::Test
 {

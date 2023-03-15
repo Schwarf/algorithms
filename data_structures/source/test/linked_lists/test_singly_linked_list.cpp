@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include "gtest/gtest.h"
-#include "./../../linked_lists/singly_linked_list.h"
+#include "linked_lists/singly_linked_list.h"
 
 class SetupSinlgyLinkedList: public testing::Test
 {

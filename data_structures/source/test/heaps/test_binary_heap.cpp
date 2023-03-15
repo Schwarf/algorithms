@@ -3,8 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../../heaps/binary_heap.h"
-#include <algorithm>
+#include "heaps/binary_heap.h"
 #include <vector>
 #include <random>
 #include <queue>
