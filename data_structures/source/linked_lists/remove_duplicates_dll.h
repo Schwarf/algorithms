@@ -69,5 +69,36 @@ NodeDLL<T>* remove_duplicates_from_tail(NodeDLL<T>* tail)
 	return tail;
 }
 
+// Remove all duplicates from a single linked list using NO additional space
+// Runtime complexity: O(N^2)
+template<typename T>
+NodeDLL<T>* remove_duplicates_no_extra_space(NodeDLL<T>* head)
+{
+	if(!head)
+		return head;
+	auto left = head;
+
+	while(left)
+	{
+		auto right = left->next;
+		auto previous = left;
+		while(right)
+		{
+			if(right->value == left->value) {
+				previous->next = right->next;
+				if(right->next)
+					right->next->previous = previous;
+				delete right;
+				right = previous->next;
+			}
+			else {
+				previous = right;
+				right = right->next;
+			}
+		}
+		left = left->next;
+	}
+	return head;
+}
 
 #endif //REMOVE_DUPLICATES_DLL_H
