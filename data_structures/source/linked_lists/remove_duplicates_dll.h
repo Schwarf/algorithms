@@ -24,12 +24,15 @@ NodeDLL<T>* remove_duplicates(NodeDLL<T>* head)
 			previous->next = current->next;
 			if(current->next)
 				current->next->previous = previous;
+			delete current;
+			current = previous->next;
 		}
 		else {
 			previous = current;
 			counter.insert(current->value);
+			current = current->next;
 		}
-		current = current->next;
+
 	}
 	return head;
 }
@@ -53,12 +56,15 @@ NodeDLL<T>* remove_duplicates_from_tail(NodeDLL<T>* tail)
 			next->previous = current->previous;
 			if(current->previous)
 				current->previous->next = next;
+			delete current;
+			current = next->previous;
 		}
 		else {
 			next = current;
 			counter.insert(current->value);
+			current = current->previous;
 		}
-		current = current->previous;
+
 	}
 	return tail;
 }
