@@ -11,7 +11,7 @@
 template <typename T>
 Node<T> * kth_to_last_element(Node<T> * head, int k)
 {
-	if(!head)
+	if(!head || k==0)
 		return head;
 	int steps{k};
 	auto forward = head;
@@ -21,7 +21,7 @@ Node<T> * kth_to_last_element(Node<T> * head, int k)
 		steps--;
 	}
 	if(!forward)
-		return nullptr;
+		return head;
 	auto backward = head;
 	while(forward)
 	{
