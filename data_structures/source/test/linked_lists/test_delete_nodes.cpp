@@ -48,3 +48,43 @@ TEST_F(SetupSinglyLinkedLists, delete_nodes3)
 		head = head->next;
 	}
 }
+
+TEST_F(SetupSinglyLinkedLists, delete_middle_nodes1)
+{
+	std::vector<int> input{1, 2, 3, 4, 5};
+	auto head = get_single_list_from_vector(input);
+	delete_middle_node_in_list_with_ate_least_two_elements(head);
+	std::vector<int> expected_values{1, 2, 4, 5};
+	size_t index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}
+
+TEST_F(SetupSinglyLinkedLists, delete_middle_nodes2)
+{
+	std::vector<int> input{1, 2};
+	auto head = get_single_list_from_vector(input);
+	delete_middle_node_in_list_with_ate_least_two_elements(head);
+	std::vector<int> expected_values{2};
+	size_t index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}
+
+
+TEST_F(SetupSinglyLinkedLists, delete_middle_nodes3)
+{
+	std::vector<int> input{1, 2, 3, 4};
+	auto head = get_single_list_from_vector(input);
+	delete_middle_node_in_list_with_ate_least_two_elements(head);
+	std::vector<int> expected_values{1, 3, 4};
+	size_t index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}

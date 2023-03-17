@@ -21,16 +21,21 @@ void delete_given_node_but_not_last_node(Node<T> *node_to_delete)
 
 // Here we hae no acces to head but only to the middle node, the one that shall be deleted
 template<typename T>
-void delete_middle_node(Node<T> *middle_node)
+void delete_middle_node_in_list_with_ate_least_two_elements(Node<T> *head)
 {
-	auto previous = middle_node;
-	while (middle_node->next) {
-		middle_node->value = middle_node->next->value;
-		previous = middle_node;
-		middle_node = middle_node->next;
+	Node<T> *previous = nullptr;
+	auto slow = head;
+	auto fast = head;
+	while (fast->next && fast->next->next) {
+		previous = slow;
+		slow = slow->next;
+		fast = fast->next->next;
 	}
-	delete middle_node;
-	previous->next = nullptr;
+	if (previous) {
+		previous->next = slow->next;
+	}
+	delete slow;
+
 }
 
 #endif //DELETE_NODES_H
