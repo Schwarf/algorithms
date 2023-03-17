@@ -24,6 +24,6 @@ enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
 
 add_subdirectory(test)
-add_executable(sort main.cpp heap_sort.h quick_sort.h counting_sort.h used_concepts.h merge_sort.h insertion_sort.h selection_sort.h)
+add_executable(sort main.cpp heap_sort.h quick_sort.h counting_sort.h used_concepts.h merge_sort.h insertion_sort.h selection_sort.h shell_sort.h)
 
 
