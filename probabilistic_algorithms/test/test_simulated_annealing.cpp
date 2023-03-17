@@ -96,6 +96,7 @@ TEST(TestSimulatedAnnealing, simple3)
 	}
 	EXPECT_TRUE(count_exact > 0);
 }
+
 TEST(TestSimulatedAnnealing, difficult)
 {
 	std::vector<std::vector<double>> locations = {{42.48666101836389, 16.18246423104821, 37.19792176607905},
