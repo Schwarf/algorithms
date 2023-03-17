@@ -7,18 +7,16 @@
 #include "node.h"
 
 template<typename T>
-void delete_given_node(Node<T> *&node)
+void delete_given_node_but_not_last_node(Node<T> *node_to_delete)
 {
-	if (!node->next) {
-		auto last = node;
-		delete last;
-		last = nullptr;
+	if (!node_to_delete) {
 		return;
 	}
-	auto next = node->next;
-	node->value = next->value;
-	node->next = next->next;
+	auto next = node_to_delete->next;
+	node_to_delete->value = next->value;
+	node_to_delete->next = next->next;
 	delete next;
+
 }
 
 // Here we hae no acces to head but only to the middle node, the one that shall be deleted
