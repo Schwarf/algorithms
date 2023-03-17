@@ -25,6 +25,18 @@ protected:
 		}
 		return head;
 	}
+	template <typename T>
+	size_t get_size(Node<T> * head)
+	{
+		size_t size{};
+		while(head)
+		{
+			size++;
+			head = head->next;
+		}
+		return size;
+	}
+
 
 
 };
