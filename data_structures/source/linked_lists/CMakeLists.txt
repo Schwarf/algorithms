@@ -7,4 +7,4 @@ add_library(linked_list_lib INTERFACE
         node_dll.h
         remove_duplicates_dll.h
         kth_to_last.h
-        delete_middle_element.h)
+        delete_nodes.h)

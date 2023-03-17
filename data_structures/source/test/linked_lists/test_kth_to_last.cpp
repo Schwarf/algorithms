@@ -1,7 +1,7 @@
 //
 // Created by andreas on 17.03.23.
 //
-#include "test_setup_singly_linked_lists.h"
+#include "setup_singly_linked_lists.h"
 #include "linked_lists/kth_to_last.h"
 #include <vector>
 
@@ -31,7 +31,7 @@ TEST_F(SetupSinglyLinkedLists, k_is_zero)
 	auto head = get_single_list_from_vector(input);
 	int k{};
 	auto result = kth_to_last_element(head, k);
-	Node<int> * expected_result = nullptr;
+	Node<int> *expected_result = nullptr;
 	EXPECT_EQ(nullptr, expected_result);
 }
 

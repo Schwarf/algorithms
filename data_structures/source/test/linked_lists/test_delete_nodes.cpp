@@ -1,0 +1,51 @@
+//
+// Created by andreas on 17.03.23.
+//
+#include "setup_singly_linked_lists.h"
+#include "linked_lists/delete_nodes.h"
+#include <vector>
+/*
+TEST_F(SetupSinglyLinkedLists, delete_nodes1)
+{
+	std::vector<int> input{1, 2, 3, 4, 5};
+	auto head = get_single_list_from_vector(input);
+	auto node_to_delete = head->next->next;
+	delete_given_node(node_to_delete);
+	std::vector<int> expected_values{1, 2, 4, 5};
+	size_t index{};
+	while (head) {
+		std::cout << head->value << std::endl;
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}
+
+
+TEST_F(SetupSinglyLinkedLists, delete_nodes2)
+{
+	std::vector<int> input{1, 2, 3, 4, 5};
+	auto head = get_single_list_from_vector(input);
+	auto node_to_delete = head;
+	delete_given_node(node_to_delete);
+	std::vector<int> expected_values{2, 3, 4, 5};
+	size_t index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}
+
+*/
+TEST_F(SetupSinglyLinkedLists, delete_nodes3)
+{
+	std::vector<int> input{1, 2, 3, 4, 5};
+	auto head = get_single_list_from_vector(input);
+	auto node_to_delete = head->next->next->next->next;
+	delete_given_node(node_to_delete);
+	std::vector<int> expected_values{1, 2, 3, 4};
+	size_t index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_values[index++]);
+		head = head->next;
+	}
+}
