@@ -37,8 +37,9 @@ Node<T> *add_reversed_order(Node<T> *head1, Node<T> *head2)
 		sum = (node2->value + carry_over) % 10;
 		carry_over = (node2->value + carry_over) / 10;
 		node2->value = sum;
-		node1->next = node2;
+		node1 = node2;
 		node2 = node2->next;
+		
 	}
 
 	if (carry_over != 0) {
