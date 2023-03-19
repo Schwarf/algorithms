@@ -6,16 +6,16 @@
 #define PARTITION_LINKED_LIST_FOR_ELEMENT_H
 #include "node.h"
 template<typename T>
-void partition_linked_list_for_element(Node<T> *head, const T &element)
+Node<T> *partition_linked_list_for_element(Node<T> *head, const T &element)
 {
 	if (!head)
-		return;
+		return head;
 	auto back = head;
 	while (back->value != element)
 		back = back->next;
 	auto middle = back;
 	auto tail = back->next;
-	while (tail) {
+	while (tail->next) {
 		if (tail->value < element) {
 			auto new_head = new Node<T>(tail->value);
 			new_head->next = head;
