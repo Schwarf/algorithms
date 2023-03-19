@@ -8,6 +8,11 @@
 template<typename T>
 struct Node
 {
+	Node()
+		: value(0),
+		  next(nullptr)
+	{}
+
 	explicit Node(T val)
 		:
 		value(val)
