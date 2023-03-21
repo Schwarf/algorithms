@@ -36,33 +36,39 @@ Node<T> *add_reversed_order_iteratively(Node<T> *head1, Node<T> *head2)
 		return head2;
 	if (!head2)
 		return head1;
-	auto result = new Node<T>();
-	auto result_head = result;
+	Node<T> *result = nullptr;
+	Node<T> *result_head = nullptr;
 	int carry_over{};
 	int sum{};
 	while (head1 && head2) {
 		sum = (head1->value + head2->value + carry_over) % 10;
 		carry_over = (head1->value + head2->value + carry_over) / 10;
-		result->value = sum;
+		if (!result) {
+			result = new Node<T>(sum);
+			result_head = result;
+		}
+		else {
+			result->next = new Node<T>(sum);
+			result = result->next;
+		}
 		head1 = head1->next;
 		head2 = head2->next;
-		result->next = new Node<T>();
+
 	}
 	while (head1) {
 		sum = (head1->value + carry_over) % 10;
 		carry_over = (head1->value + carry_over) / 10;
-		head1->value = sum;
-		result->value = sum;
+		result->next = new Node<T>(sum);
+		result = result->next;
 		head1 = head1->next;
-		result->next = new Node<T>();
+
 	}
 	while (head2) {
 		sum = (head2->value + carry_over) % 10;
 		carry_over = (head2->value + carry_over) / 10;
-		head2->value = sum;
-		result->value = sum;
+		result->next = new Node<T>(sum);
+		result = result->next;
 		head2 = head2->next;
-		result->next = new Node<T>();
 	}
 
 	if (carry_over != 0) {
