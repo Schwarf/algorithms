@@ -42,10 +42,10 @@ VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
 		auto node = q.front();
 		q.pop();
 		for (const auto &edge: graph[node]) {
-			if (!visited[edge[0]]) {
-				visited[edge[0]] = true;
-				minimum = std::min(minimum, edge[1]);
-				if (edge[1] == end_vertex)
+			if (!visited[edge.first]) {
+				visited[edge.first] = true;
+				minimum = std::min(minimum, edge.second);
+				if (edge.first == end_vertex)
 					end_vertex_found = true;
 			}
 		}
