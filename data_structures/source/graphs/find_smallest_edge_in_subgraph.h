@@ -2,13 +2,13 @@
 // Created by andreas on 22.03.23.
 //
 
-#ifndef FIND_SHORTEST_EDGE_IN_SUBGRAPH_H
-#define FIND_SHORTEST_EDGE_IN_SUBGRAPH_H
+#ifndef FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
+#define FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
 #include "used_concepts.h"
 #include <vector>
 #include <queue>
 #include <stdexcept>
-// Given a disconnected graph and two vertices. Find the shortest edge in the sub-graph that contains the two vertices.
+// Given a disconnected graph and two vertices. Find the smallest edge in the sub-graph that contains the two vertices.
 // Each edge is given as std::vector of size 3 with [vertex_1, vertex_2, edge-length].
 // All vertices are listed between 1 and n where n is the size of the input-vector.
 // As function template we have to provide the maximal edge value as 4th argument.
@@ -16,7 +16,7 @@
 
 template<typename VertexType>
 requires VertexRequirement<VertexType>
-VertexType find_shortest_edge_in_sub_graph_bfs(const std::vector<std::vector<VertexType>> &vertices,
+VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<VertexType>> &vertices,
 											   const VertexType &start_vertex,
 											   const VertexType &end_vertex,
 											   const VertexType &max_edge_value,
@@ -24,7 +24,7 @@ VertexType find_shortest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
 {
 
 	if (vertices.empty())
-		throw std::invalid_argument("Empty vector in find_shortest_edge_in_sub_graph_bfs!");
+		throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
 	if (vertices.size() == 1)
 		return vertices[0][2];
 	// Transform into graph representation with adjacency list
@@ -54,4 +54,4 @@ VertexType find_shortest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
 };
 
 
-#endif //FIND_SHORTEST_EDGE_IN_SUBGRAPH_H
+#endif //FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
