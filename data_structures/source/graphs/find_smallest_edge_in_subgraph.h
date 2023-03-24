@@ -108,7 +108,7 @@ void dfs(VertexType node, VertexType end_vertex,
 		if (edge.first == end_vertex)
 			end_vertex_found = true;
 		if (!visited[edge.first])
-			dfs(edge.first, graph, visited, answer);
+			dfs(edge.first, end_vertex, graph, visited, answer, end_vertex_found);
 	}
 }
 
@@ -136,8 +136,8 @@ VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::
 	VertexType minimum{max_edge_value};
 	std::vector<bool> visited(vertices.size() + 1);
 	bool end_vertex_found{};
-	VertexType answer;
-	dfs(1, end_vertex, graph, visited, answer, end_vertex_found);
+
+	dfs(1, end_vertex, graph, visited, minimum, end_vertex_found);
 
 	return end_vertex_found ? minimum : not_connected_value;
 };
