@@ -1,9 +1,11 @@
 #include <algorithm>
 #include <iostream>
-#include "merge_sort.h"
 #include "shell_sort.h"
+#include "bitonic_sort.h"
 int main() {
-
-	auto test = SedgewickSequence<2>::value;
-	std::cout << test << std::endl;
+	std::vector<int> t {1,4,3,2};
+	bitonic_sort<std::vector<int>, 4>(t);
+	for(const auto & element: t)
+		std::cout << element << ", ";
+	std::cout << std::endl;
 }
