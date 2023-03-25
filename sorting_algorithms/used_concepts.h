@@ -15,7 +15,7 @@ concept IndexedContainer = requires(Container c)
 };
 
 template <std::size_t N >
-concept PowerOfTwo = (N > 0) && (std::has_single_bit(N));
+concept PowerOfTwo = ((N > 0) && (std::has_single_bit(N))) || (N==0);
 
 template <typename Element>
 concept NoPointerElement = !std::is_pointer_v<Element>;

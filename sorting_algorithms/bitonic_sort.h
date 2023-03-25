@@ -10,12 +10,9 @@ template<typename Container, std::size_t Size>
 requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && PowerOfTwo<Size>
 void bitonic_sort(Container &container)
 {
-	int size = container.size();
-	for (int k{2}; k <= size; k <<= 1) {
-		std::cout << " k= " << k << std::endl;
+	for (int k{2}; k <= Size; k <<= 1) {
 		for (int j = k >> 1; j > 0; j >>= 1) {
-			std::cout << j << std::endl;
-			for (int i = {}; i < size; ++i) {
+			for (int i = {}; i < Size; ++i) {
 				auto l = i ^ j;
 				if( l > i)
 					if( ((i&k) == 0 && (container[i] > container[l])) || ((i&k) != 0 && (container[i] < container[l])))
