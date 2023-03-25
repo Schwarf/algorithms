@@ -15,9 +15,9 @@ public:
 		: random_engine_{std::random_device{}()}
 	{
 	}
-	static constexpr int two_to_10{1024};
-	static constexpr int two_to_11{2048};
-	static constexpr int two_to_7{128};
+	static constexpr int two_to_the_power_of_10{1024};
+	static constexpr int two_to_the_power_of_11{2048};
+	static constexpr int two_to_the_power_of_7{128};
 	static bool compare_pointers(const int *a, const int *b)
 	{
 		return *a < *b;
