@@ -6,7 +6,7 @@
 #define USED_CONCEPTS_H
 #include <concepts>
 template<typename VertexType>
-concept VertexRequirement = std::is_integral_v<VertexType>;
+concept VertexRequirement = std::is_integral_v<VertexType> && !std::is_signed_v<VertexType>;
 
 template<typename EdgeType>
 concept EdgeRequirement = std::is_arithmetic_v<EdgeType>;

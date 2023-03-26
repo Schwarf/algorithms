@@ -100,7 +100,7 @@ requires VertexRequirement<VertexType>
 void dfs(VertexType node, VertexType end_vertex,
 		 const std::vector<std::vector<std::pair<VertexType, VertexType>>> &graph,
 		 std::vector<bool> &visited,
-		 int &answer, bool &end_vertex_found)
+		 VertexType &answer, bool &end_vertex_found)
 {
 	visited[node] = true;
 	for (const auto &edge: graph[node]) {
@@ -137,7 +137,7 @@ VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::
 	std::vector<bool> visited(vertices.size() + 1);
 	bool end_vertex_found{};
 
-	dfs(1, end_vertex, graph, visited, minimum, end_vertex_found);
+	dfs(start_vertex, end_vertex, graph, visited, minimum, end_vertex_found);
 
 	return end_vertex_found ? minimum : not_connected_value;
 };
