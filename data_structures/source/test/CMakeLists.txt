@@ -13,11 +13,20 @@ add_executable(test_graphs
         graphs/test_breadth_first_search.cpp
         graphs/test_depth_first_search.cpp
         graphs/test_weighted_graph.cpp
-        graphs/test_find_shortest_edge_in_subgraph.cpp)
+        graphs/test_find_shortest_edge_in_subgraph.cpp
+        graphs/test_minimum_number_of_egdes_to_create_connected_graph.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
-        linked_lists/test_doubly_linked_list.cpp linked_lists/test_remove_duplicates.cpp linked_lists/setup_singly_linked_lists.h linked_lists/test_remove_duplicates_dll.cpp linked_lists/setup_doubly_linked_lists.h linked_lists/test_kth_to_last.cpp linked_lists/test_delete_nodes.cpp linked_lists/test_partition_linked_list_for_element.cpp linked_lists/test_add_digits_via_linked_list.cpp)
+        linked_lists/test_doubly_linked_list.cpp
+        linked_lists/test_remove_duplicates.cpp
+        linked_lists/setup_singly_linked_lists.h
+        linked_lists/test_remove_duplicates_dll.cpp
+        linked_lists/setup_doubly_linked_lists.h
+        linked_lists/test_kth_to_last.cpp
+        linked_lists/test_delete_nodes.cpp
+        linked_lists/test_partition_linked_list_for_element.cpp
+        linked_lists/test_add_digits_via_linked_list.cpp)
 
 add_executable(test_stacks_and_queues
         stacks_and_queues/test_stack_linked_list_based.cpp

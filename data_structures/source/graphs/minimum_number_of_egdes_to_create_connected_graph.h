@@ -4,9 +4,10 @@
 
 #ifndef MINIMUM_NUMBER_OF_EGDES_TO_CREATE_CONNECTED_GRAPH_H
 #define MINIMUM_NUMBER_OF_EGDES_TO_CREATE_CONNECTED_GRAPH_H
-// Given is a graph with disconnected sub-graphs with n cable connections.
-// Determine if the n cables can be rearranged
-// to make the graph a connected graph. If there are not enough cables return -1;
+// Given is a graph with disconnected sub-graphs and the required number of connected vertices n.
+// Determine if the cables in the graph can be rearranged
+// to make the graph a connected graph with n vertices. Return the number of "cable rear"
+// If there are not enough cables return -1;
 #include "used_concepts.h"
 #include <vector>
 #include <queue>
@@ -44,14 +45,14 @@ int minimum_number_of_edges_to_create_connected_graph(VertexType n, std::vector<
 	}
 
 	std::vector<bool> visited(n);
-	int number_of_connected_vertices{};
+	int required_number_of_connections{};
 	for (VertexType i{}; i < n; ++i) {
 		if (!visited[i]) {
-			number_of_connected_vertices++;
+			required_number_of_connections++;
 			breadth_first_search(i, graph, visited);
 		}
 	}
-	return number_of_connected_vertices;
+	return required_number_of_connections - 1;
 
 }
 
