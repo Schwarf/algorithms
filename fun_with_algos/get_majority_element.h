@@ -9,9 +9,10 @@
 #define GET_MAJORITY_ELEMENT_H
 // The majority element in an array of length n appears at least n/2 times in the array. Find it. input-element between
 // +/- 10^9
-int get_majority_element_hashmap(const std::vector<int>& input)
+template <typename T>
+T get_majority_element_hashmap(const std::vector<T>& input)
 {
-	std::unordered_map<int, int> counter;
+	std::unordered_map<T, int> counter;
 	for(const auto & element: input)
 	{
 		if(++counter[element] > input.size()/2)
@@ -20,9 +21,12 @@ int get_majority_element_hashmap(const std::vector<int>& input)
 	return {};
 }
 
-int get_majority_element_bit_manipulation(const std::vector<int>& input)
+// Works only for integral types because we manipulate bits
+template <typename T>
+requires std::is_integral_v<T>
+T get_majority_element_bit_manipulation(const std::vector<T>& input)
 {
-	int majority_element{};
+	T majority_element{};
 	// Works because we are between +/-10**9
 	for(int i{}; i < 32; ++i)
 	{
@@ -37,12 +41,13 @@ int get_majority_element_bit_manipulation(const std::vector<int>& input)
 	return majority_element;
 }
 
-
-int get_majority_element_boyer_moore(const std::vector<int>& input)
+// Should work for all types
+template <typename T>
+T get_majority_element_boyer_moore(const std::vector<T>& input, T initial_candidate)
 {
 	int count{};
 	// Works because we are between +/-10**9
-	int candidate{2000000000};
+	T candidate = initial_candidate;
 	for(const auto & element : input)
 	{
 		candidate = (count == 0) ? element: candidate;
