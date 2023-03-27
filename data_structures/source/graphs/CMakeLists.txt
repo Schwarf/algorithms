@@ -8,4 +8,5 @@ add_library(graphs_lib INTERFACE
         weighted_graph.h
         find_smallest_edge_in_subgraph.h
         minimum_number_of_egdes_to_create_connected_graph.h
+        all_roads_lead_to_rome.h
         used_concepts.h)
