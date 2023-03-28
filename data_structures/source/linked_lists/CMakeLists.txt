@@ -7,4 +7,7 @@ add_library(linked_list_lib INTERFACE
         node_dll.h
         remove_duplicates_dll.h
         kth_to_last.h
-        delete_nodes.h partition_linked_list_for_element.h add_digits_via_linked_list.h)
+        delete_nodes.h
+        partition_linked_list_for_element.h
+        add_digits_via_linked_list.h
+        check_if_linked_list_is_palindrome.h)
