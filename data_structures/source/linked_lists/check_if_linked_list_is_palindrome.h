@@ -6,7 +6,7 @@
 #define CHECK_IF_LINKED_LIST_IS_PALINDROME_H
 
 #include "node.h"
-
+#include <stack>
 template <typename T>
 Node<T> * revert(Node<T> * head)
 {
@@ -36,7 +36,32 @@ bool is_palindrome(Node<T> * head)
 		new_head = new_head->next;
 	}
 	return true;
+}
 
+template <typename T>
+bool is_palindrome_with_stack(Node<T> * head)
+{
+	if(!head)
+		return true;
+	auto slow = head;
+	auto fast = head;
+	std::stack<T> s;
+	while(fast && fast->next)
+	{
+		s.push(slow->value);
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	if(fast)
+		slow = slow->next;
+	while(slow)
+	{
+		if(slow->value != s.top())
+			return false;
+		slow = slow->next;
+		s.pop();
+	}
+	return true;
 }
 
 
