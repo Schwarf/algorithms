@@ -1,5 +1,6 @@
+ToDo:
+
 * Write more unit tests for minimum spanning tree
-* Add unit tests for Dijkstra algo
-* Understand union-find and Kruskal algorithm
-* More simple graphs using vectors
+* Add more unit tests for Dijkstra algo
+* Build graphs from std::vectors
 * Add dfs and union find implementation for find_shortest_edge_in_subgraph
