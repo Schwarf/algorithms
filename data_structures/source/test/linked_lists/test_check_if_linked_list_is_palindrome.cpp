@@ -19,11 +19,33 @@ TEST_F(SetupSinglyLinkedLists, check_for_palindrome_true2)
 	EXPECT_TRUE(is_palindrome(head));
 }
 
-TEST_F(SetupSinglyLinkedLists, check_for_palindrome_false1)
+TEST_F(SetupSinglyLinkedLists, check_for_palindrome_true_nullptr)
 {
-	std::vector<int> input{1,2,3,2};
+
+	Node<double>* head = nullptr;
+	EXPECT_TRUE(is_palindrome(head));
+}
+
+TEST_F(SetupSinglyLinkedLists, check_for_palindrome_true_one_elememt)
+{
+	std::vector<int> input{1};
 	auto head = get_single_list_from_vector(input);
 	EXPECT_TRUE(is_palindrome(head));
 }
 
+
+TEST_F(SetupSinglyLinkedLists, check_for_palindrome_false1)
+{
+	std::vector<int> input{1,2,3,2};
+	auto head = get_single_list_from_vector(input);
+	EXPECT_FALSE(is_palindrome(head));
+}
+
+
+TEST_F(SetupSinglyLinkedLists, check_for_palindrome_false2)
+{
+	std::vector<int> input{1,2};
+	auto head = get_single_list_from_vector(input);
+	EXPECT_FALSE(is_palindrome(head));
+}
 

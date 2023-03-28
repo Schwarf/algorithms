@@ -25,6 +25,8 @@ Node<T> * revert(Node<T> * head)
 template <typename T>
 bool is_palindrome(Node<T> * head)
 {
+	if(!head)
+		return true;
 	auto new_head = revert(head);
 	while(head)
 	{
