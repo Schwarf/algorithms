@@ -26,12 +26,13 @@ TEST(reservoir_sampling, test_output)
 TEST(reservoir_sampling, test_overall_mean_value)
 {
 	std::vector<int> input(100);
-	double input_size = static_cast<double>(input.size());
+	auto input_size = static_cast<double>(input.size());
 	// Fill input
 	std::iota(input.begin(), input.end(), 1);
 
 	int sample_size{30};
-	double sample_size_d = static_cast<double>(sample_size);
+	auto sample_size_d = static_cast<double>(sample_size);
+	
 
 	double mean = (input_size + 1.0) / 2.0;
 
@@ -66,12 +67,12 @@ TEST(reservoir_sampling, test_overall_mean_value)
 TEST(reservoir_sampling, test_uniform_distribution_frequencies)
 {
 	std::vector<int> input(100);
-	double input_size = static_cast<double>(input.size());
+	auto input_size = static_cast<double>(input.size());
 	// Fill input
 	std::iota(input.begin(), input.end(), 1);
 
 	int sample_size{30};
-	double sample_size_d = static_cast<double>(sample_size);
+	auto sample_size_d = static_cast<double>(sample_size);
 
 	int experiments{10000};
 
@@ -93,10 +94,9 @@ TEST(reservoir_sampling, test_uniform_distribution_frequencies)
 	// The number of total draws from the input is given as number of experiments times the sample_size per experiment
 	double total_draws = experiments * sample_size_d;
 	std::vector<double> sample_proportion(input.size() + 1);
-	double absolute_error{};
 	for (int i{1}; i < input_size + 1; ++i) {
 		sample_proportion[i] = static_cast<double>(frequencies[i]) / total_draws;
-		absolute_error = std::abs(sample_proportion[i] - expected_proportion);
+		double absolute_error = std::abs(sample_proportion[i] - expected_proportion);
 		EXPECT_TRUE(absolute_error < 3 * expected_std_error);
 	}
 
@@ -134,7 +134,7 @@ TEST(reservoir_sampling, test_non_uniform_ditribution_frequencies)
 	std::vector<double> sample_proportion(expected_proportion.size());
 	for (int i{1}; i < expected_proportion.size(); ++i) {
 		// Here we divide by sample_size_d, since we need to normalize the proportion. In
-		// 100000 experiments with 7 draws=sample_size we expect more than 100000 appearances if
+		// 100000 experiments with 7 draws and given sample_size we expect more than 100000 appearances if
 		// the values in the input are not uniformly distributed like in this case.
 		sample_proportion[i] = static_cast<double>(frequencies[i]) /total_draws;
 		double absolute_error = std::abs(sample_proportion[i] - expected_proportion[i]);
