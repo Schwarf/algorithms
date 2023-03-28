@@ -31,7 +31,7 @@ ContainerType generate_random_tour(ContainerType locations)
 
 template<typename ContainerType>
 requires RequireIndexedContainer<ContainerType>
-void perturbate_tour(ContainerType & locations, int & index1, int & index2)
+void perturbate_tour(ContainerType &locations, int &index1, int &index2)
 {
 	std::mt19937 random_generator(std::random_device{}());
 	std::uniform_int_distribution<int> distribution(0, locations.size() - 1);
@@ -42,19 +42,18 @@ void perturbate_tour(ContainerType & locations, int & index1, int & index2)
 
 template<typename ContainerType>
 requires RequireIndexedContainer<ContainerType>
-void undo_perturbation(ContainerType & locations, int index1, int index2)
+void undo_perturbation(ContainerType &locations, int index1, int index2)
 {
 	std::swap(locations[index1], locations[index2]);
 }
-
-
 
 template<typename ContainerType>
 requires RequireIndexedContainer<ContainerType>
 double simulated_annealing(const ContainerType &initial_locations, double initial_temperature, double cooling_rate,
 						   double minimal_temperature)
 {
-	auto get_random_double_number = [](){
+	auto get_random_double_number = []()
+	{
 		std::mt19937 random_generator(std::random_device{}());
 		std::uniform_real_distribution<double> distribution(0.0, 1.0);
 		return distribution(random_generator);
@@ -77,8 +76,6 @@ double simulated_annealing(const ContainerType &initial_locations, double initia
 	}
 	return current_tour_length;
 }
-
-
 
 
 #endif //SIMULATED_ANNEALING_H

@@ -34,5 +34,4 @@ add_executable(probabilistic_algorithms
                 used_concepts.h
                 simulated_annealing_full_templated.h
                 traveling_salesman_functors.h)
-add_executable(mase templating_with_functions.cpp )
-#add_executable(status status.cpp)
+add_executable(sample templating_with_functions.cpp)

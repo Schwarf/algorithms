@@ -38,9 +38,9 @@ struct Node
 	T value;
 };
 template<typename T>
-std::vector<T>reservoir_sampling(const Node<T>* head, size_t reservoir_size)
+std::vector<T> reservoir_sampling(const Node<T> *head, size_t reservoir_size)
 {
-	std::vector<Node<T>*> reservoir(reservoir_size);
+	std::vector<Node<T> *> reservoir(reservoir_size);
 	int element_index{};
 	std::random_device random_device;
 	std::mt19937 generator(random_device());

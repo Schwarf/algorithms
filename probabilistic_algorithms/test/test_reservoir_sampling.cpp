@@ -32,7 +32,6 @@ TEST(reservoir_sampling, test_overall_mean_value)
 
 	int sample_size{30};
 	auto sample_size_d = static_cast<double>(sample_size);
-	
 
 	double mean = (input_size + 1.0) / 2.0;
 
@@ -109,7 +108,7 @@ TEST(reservoir_sampling, test_non_uniform_ditribution_frequencies)
 	int sample_size{7};
 	double sample_size_d = static_cast<double>(sample_size);
 	int experiments{10000};
-	std::vector<double> expected_proportion{0., 3./12., 3./12., 3./12., 1./12., 2./12. };
+	std::vector<double> expected_proportion{0., 3. / 12., 3. / 12., 3. / 12., 1. / 12., 2. / 12.};
 
 	// Sample proportion follows binomial distribution with parameters
 	// p = proportion and
@@ -118,7 +117,7 @@ TEST(reservoir_sampling, test_non_uniform_ditribution_frequencies)
 	// So the proportion for one input-element is given as p = X/n;
 
 	std::vector<double> expected_std_error(expected_proportion.size());
-	for(int i{}; i < expected_proportion.size(); ++i)
+	for (int i{}; i < expected_proportion.size(); ++i)
 		expected_std_error[i] = std::sqrt(expected_proportion[i] * (1 - expected_proportion[i]) / experiments);
 	int count = experiments;
 	std::vector<int> frequencies(expected_proportion.size());
@@ -130,13 +129,12 @@ TEST(reservoir_sampling, test_non_uniform_ditribution_frequencies)
 	// The number of total draws from the input is given as number of experiments times the sample_size per experiment
 	double total_draws = experiments * sample_size_d;
 
-
 	std::vector<double> sample_proportion(expected_proportion.size());
 	for (int i{1}; i < expected_proportion.size(); ++i) {
 		// Here we divide by sample_size_d, since we need to normalize the proportion. In
 		// 100000 experiments with 7 draws and given sample_size we expect more than 100000 appearances if
 		// the values in the input are not uniformly distributed like in this case.
-		sample_proportion[i] = static_cast<double>(frequencies[i]) /total_draws;
+		sample_proportion[i] = static_cast<double>(frequencies[i]) / total_draws;
 		double absolute_error = std::abs(sample_proportion[i] - expected_proportion[i]);
 		EXPECT_TRUE(absolute_error < 3 * expected_std_error[i]);
 	}
