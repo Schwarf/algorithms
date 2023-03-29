@@ -10,4 +10,5 @@ add_library(linked_list_lib INTERFACE
         delete_nodes.h
         partition_linked_list_for_element.h
         add_digits_via_linked_list.h
-        check_if_linked_list_is_palindrome.h)
+        check_if_linked_list_is_palindrome.h
+        are_linked_lists_intersecting.h)
