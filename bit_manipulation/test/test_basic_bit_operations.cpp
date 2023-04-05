@@ -84,7 +84,7 @@ TEST(is_bit_position_valid, is_invalid3)
 	}
 }
 
-TEST(has_bit, test_all_positions_for_int)
+TEST(has_bit, sample1)
 {
 	constexpr int input{17};
 	std::vector<bool> expected_bit_positions(31, false);
@@ -100,7 +100,26 @@ TEST(has_bit, test_all_positions_for_int)
 	}
 }
 
-TEST(set_bit, returns_true)
+TEST(has_bit, zero)
+{
+	constexpr int input{0};
+	constexpr int maximum_bit{31};
+	for(int i{}; i < maximum_bit; ++i)
+			EXPECT_FALSE(has_bit(input, i));
+}
+
+TEST(has_bit, all)
+{
+	constexpr int maximum_bit = 63;
+	uint64_t input{1};
+	input <<= maximum_bit;
+	input--;
+	input += uint64_t{1} << maximum_bit;
+	for(int i{}; i < maximum_bit; ++i)
+		EXPECT_TRUE(has_bit(input, i));
+}
+
+TEST(set_bit, sample1)
 {
 	int input{17};
 	constexpr int bit_to_set{19};
@@ -111,7 +130,7 @@ TEST(set_bit, returns_true)
 	EXPECT_EQ(expected_result, input);
 }
 
-TEST(clear_bit, returns_true)
+TEST(clear_bit, sample1)
 {
 	constexpr int bit1{3};
 	constexpr int bit2{17};
@@ -131,4 +150,23 @@ TEST(clear_bit, returns_true)
 	EXPECT_EQ(expected_result2, input);
 	EXPECT_TRUE(has_bit(input, bit1));
 	EXPECT_FALSE(has_bit(input, bit2));
+}
+
+TEST(clear_most_siginificant_bits_until_position, sample1)
+{
+	constexpr int bit1{18};
+	int input = (1<< bit1) -1;
+	constexpr int clear_most_significant_bits{11};
+	for(int i{}; i < bit1; ++i)
+		EXPECT_TRUE(has_bit(input, i));
+
+	clear_most_significant_bits_until_position(input, clear_most_significant_bits);
+	for(int i{}; i < bit1; ++i) {
+		if(i < clear_most_significant_bits)
+			EXPECT_TRUE(has_bit(input, i));
+		else
+			EXPECT_FALSE(has_bit(input, i));
+	}
+
+
 }
