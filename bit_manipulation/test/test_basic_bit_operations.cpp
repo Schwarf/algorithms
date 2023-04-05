@@ -110,3 +110,25 @@ TEST(set_bit, returns_true)
 	EXPECT_TRUE(has_bit(input, bit_to_set));
 	EXPECT_EQ(expected_result, input);
 }
+
+TEST(clear_bit, returns_true)
+{
+	constexpr int bit1{3};
+	constexpr int bit2{17};
+	int input = (1<< bit1) + (1<< bit2);
+	constexpr int bit_to_clear1{4};
+	constexpr int bit_to_clear2{bit2};
+	const auto expected_result1 = input;
+	const auto expected_result2 = (1 << bit1);
+	EXPECT_TRUE(has_bit(input, bit1));
+	EXPECT_TRUE(has_bit(input, bit2));
+	clear_bit(input, bit_to_clear1);
+	EXPECT_EQ(expected_result1, input);
+	EXPECT_TRUE(has_bit(input, bit1));
+	EXPECT_TRUE(has_bit(input, bit2));
+
+	clear_bit(input, bit_to_clear2);
+	EXPECT_EQ(expected_result2, input);
+	EXPECT_TRUE(has_bit(input, bit1));
+	EXPECT_FALSE(has_bit(input, bit2));
+}

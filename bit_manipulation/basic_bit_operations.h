@@ -41,4 +41,14 @@ void set_bit(T &number, const int bit_position)
 };
 
 
+template<typename T>
+requires std::integral<T>
+void clear_bit(T &number, const int bit_position)
+{
+	is_valid_bit_position<T>(bit_position);
+	T mask = ~(1 << bit_position);
+	number &= mask;
+};
+
+
 #endif //BASIC_BIT_OPERATIONS_H
