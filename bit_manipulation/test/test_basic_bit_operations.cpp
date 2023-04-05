@@ -84,7 +84,7 @@ TEST(is_bit_position_valid, is_invalid3)
 	}
 }
 
-TEST(has_bit, returns_true)
+TEST(has_bit, test_all_positions_for_int)
 {
 	constexpr int input{17};
 	std::vector<bool> expected_bit_positions(31, false);
@@ -98,4 +98,15 @@ TEST(has_bit, returns_true)
 		else
 			EXPECT_FALSE(has_bit(input, i));
 	}
+}
+
+TEST(set_bit, returns_true)
+{
+	int input{17};
+	constexpr int bit_to_set{19};
+	const auto expected_result = (1 << 19) + 17;
+	EXPECT_FALSE(has_bit(input, bit_to_set));
+	set_bit(input, bit_to_set);
+	EXPECT_TRUE(has_bit(input, bit_to_set));
+	EXPECT_EQ(expected_result, input);
 }

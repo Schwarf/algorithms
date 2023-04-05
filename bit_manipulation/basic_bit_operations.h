@@ -11,7 +11,7 @@
 
 template<typename T>
 requires std::integral<T>
-void is_valid_bit_position(int bit_position)
+void is_valid_bit_position(const int bit_position)
 {
 	constexpr int maximum_bit_position{63};
 	if (bit_position > maximum_bit_position || bit_position < 0)
@@ -26,7 +26,7 @@ void is_valid_bit_position(int bit_position)
 
 template<typename T>
 requires std::integral<T>
-bool has_bit(T number, int bit_position)
+bool has_bit(const T number, const int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
 	return (number & (1 << bit_position)) != 0;
@@ -34,7 +34,7 @@ bool has_bit(T number, int bit_position)
 
 template<typename T>
 requires std::integral<T>
-void set_bit(T &number, int bit_position)
+void set_bit(T &number, const int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
 	number |= (1 << bit_position);
