@@ -83,3 +83,19 @@ TEST(is_bit_position_valid, is_invalid3)
 		EXPECT_EQ(err.what(), expected_message);
 	}
 }
+
+TEST(has_bit, returns_true)
+{
+	constexpr int input{17};
+	std::vector<bool> expected_bit_positions(31, false);
+	expected_bit_positions[0] = true;
+	expected_bit_positions[4] = true;
+	constexpr int maximum_bit{31};
+	for(int i{}; i < maximum_bit; ++i)
+	{
+		if(expected_bit_positions[i])
+			EXPECT_TRUE(has_bit(input, i));
+		else
+			EXPECT_FALSE(has_bit(input, i));
+	}
+}

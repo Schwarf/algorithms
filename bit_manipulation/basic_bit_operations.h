@@ -29,7 +29,7 @@ requires std::integral<T>
 bool has_bit(T number, int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
-	return (number & 1 << bit_position) == 1;
+	return (number & (1 << bit_position)) != 0;
 };
 
 template<typename T>
