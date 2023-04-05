@@ -9,30 +9,35 @@
 #include <bit>
 
 
-template<typename T, int maximum_bit_position>
+template<typename T>
+requires std::integral<T>
+void is_valid_bit_position(int bit_position)
+{
+	constexpr int maximum_bit_position{63};
+	if (bit_position > maximum_bit_position || bit_position < 0)
+		throw std::out_of_range(
+			"Bit position must be greater than 0 and smaller than " + std::to_string(maximum_bit_position) + "!");
+	uint64_t bit{1};
+	bit <<= bit_position;
+	if (bit >= static_cast<uint64_t>(std::numeric_limits<T>::max()))
+		throw std::out_of_range(
+			"Provided bit position " + std::to_string(bit_position) + " overflows in provided type !");
+}
+
+template<typename T>
 requires std::integral<T>
 bool has_bit(T number, int bit_position)
 {
-	static_assert(maximum_bit_position < 64);
-	if (bit_position > maximum_bit_position)
-		throw std::out_of_range("Bit position must be smaller than " + std::to_string(maximum_bit_position) + "!");
-	uint64_t bit = (1 << bit_position);
-	if (bit >= static_cast<uint64_t>(std::numeric_limits<T>::max()))
-		throw std::out_of_range("Bit position overflows in provided type !");
-	return (number & 1 << bit_position) != 0;
+	is_valid_bit_position<T>(bit_position);
+	return (number & 1 << bit_position) == 1;
 };
 
-template<typename T, int maximum_bit_position>
+template<typename T>
 requires std::integral<T>
-T set_bit(T number, int bit_position)
+void set_bit(T &number, int bit_position)
 {
-	static_assert(maximum_bit_position < 64);
-	if (bit_position > maximum_bit_position)
-		throw std::out_of_range("Bit position must be smaller than " + std::to_string(maximum_bit_position) + "!");
-	uint64_t bit = (1 << bit_position);
-	if (bit >= static_cast<uint64_t>(std::numeric_limits<T>::max()))
-		throw std::out_of_range("Bit position overflows in provided type !");
-	return number |= (1 << bit_position);
+	is_valid_bit_position<T>(bit_position);
+	number |= (1 << bit_position);
 };
 
 

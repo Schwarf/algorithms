@@ -3,9 +3,13 @@
 
 int main()
 {
-	uint64_t h{1};
-	uint64_t x = h << 63;
-	int bit_position = 63;
-	std::cout << has_bit<uint64_t, 63>(x, bit_position) << std::endl;
+	uint32_t h{1};
+	uint32_t x = h << 14;
+	int bit_position = 41;
+	//std::cout << has_bit(x, bit_position) << std::endl;
+	int y{};
+	set_bit(y, 3);
+	std::cout << y << std::endl;
 	return 0;
+
 }
