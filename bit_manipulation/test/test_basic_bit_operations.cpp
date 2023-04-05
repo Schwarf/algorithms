@@ -130,6 +130,19 @@ TEST(set_bit, sample1)
 	EXPECT_EQ(expected_result, input);
 }
 
+TEST(set_bit, all_bits)
+{
+	uint32_t input{0};
+	for(int i{}; i < 32; ++i)
+	{
+		EXPECT_FALSE(has_bit(input, i));
+		set_bit(input, i);
+		EXPECT_TRUE(has_bit(input, i));
+	}
+	EXPECT_EQ(input, std::numeric_limits<uint32_t>::max());
+}
+
+
 TEST(clear_bit, sample1)
 {
 	constexpr int bit1{3};
@@ -152,6 +165,19 @@ TEST(clear_bit, sample1)
 	EXPECT_FALSE(has_bit(input, bit2));
 }
 
+TEST(clear_bit, sample2)
+{
+	constexpr int bit1{25};
+	int input = (1<< bit1) -1;
+	for(int i{bit1-1}; i >-1; i--)
+	{
+		EXPECT_TRUE(has_bit(input,i));
+		clear_bit(input, i);
+		EXPECT_FALSE(has_bit(input,i));
+	}
+}
+
+
 TEST(clear_most_siginificant_bits_until_position, sample1)
 {
 	constexpr int bit1{18};
@@ -167,6 +193,4 @@ TEST(clear_most_siginificant_bits_until_position, sample1)
 		else
 			EXPECT_FALSE(has_bit(input, i));
 	}
-
-
 }
