@@ -91,9 +91,8 @@ TEST(has_bit, sample1)
 	expected_bit_positions[0] = true;
 	expected_bit_positions[4] = true;
 	constexpr int maximum_bit{31};
-	for(int i{}; i < maximum_bit; ++i)
-	{
-		if(expected_bit_positions[i])
+	for (int i{}; i < maximum_bit; ++i) {
+		if (expected_bit_positions[i])
 			EXPECT_TRUE(has_bit(input, i));
 		else
 			EXPECT_FALSE(has_bit(input, i));
@@ -104,8 +103,8 @@ TEST(has_bit, zero)
 {
 	constexpr int input{0};
 	constexpr int maximum_bit{31};
-	for(int i{}; i < maximum_bit; ++i)
-			EXPECT_FALSE(has_bit(input, i));
+	for (int i{}; i < maximum_bit; ++i)
+		EXPECT_FALSE(has_bit(input, i));
 }
 
 TEST(has_bit, all)
@@ -115,7 +114,7 @@ TEST(has_bit, all)
 	input <<= maximum_bit;
 	input--;
 	input += uint64_t{1} << maximum_bit;
-	for(int i{}; i < maximum_bit; ++i)
+	for (int i{}; i < maximum_bit; ++i)
 		EXPECT_TRUE(has_bit(input, i));
 }
 
@@ -133,8 +132,7 @@ TEST(set_bit, sample1)
 TEST(set_bit, all_bits)
 {
 	uint32_t input{0};
-	for(int i{}; i < 32; ++i)
-	{
+	for (int i{}; i < 32; ++i) {
 		EXPECT_FALSE(has_bit(input, i));
 		set_bit(input, i);
 		EXPECT_TRUE(has_bit(input, i));
@@ -147,7 +145,7 @@ TEST(clear_bit, sample1)
 {
 	constexpr int bit1{3};
 	constexpr int bit2{17};
-	int input = (1<< bit1) + (1<< bit2);
+	int input = (1 << bit1) + (1 << bit2);
 	constexpr int bit_to_clear1{4};
 	constexpr int bit_to_clear2{bit2};
 	const auto expected_result1 = input;
@@ -168,12 +166,11 @@ TEST(clear_bit, sample1)
 TEST(clear_bit, sample2)
 {
 	constexpr int bit1{25};
-	int input = (1<< bit1) -1;
-	for(int i{bit1-1}; i >-1; i--)
-	{
-		EXPECT_TRUE(has_bit(input,i));
+	int input = (1 << bit1) - 1;
+	for (int i{bit1 - 1}; i > -1; i--) {
+		EXPECT_TRUE(has_bit(input, i));
 		clear_bit(input, i);
-		EXPECT_FALSE(has_bit(input,i));
+		EXPECT_FALSE(has_bit(input, i));
 	}
 }
 
@@ -181,16 +178,33 @@ TEST(clear_bit, sample2)
 TEST(clear_most_siginificant_bits_until_position, sample1)
 {
 	constexpr int bit1{18};
-	int input = (1<< bit1) -1;
+	int input = (1 << bit1) - 1;
 	constexpr int clear_most_significant_bits{11};
-	for(int i{}; i < bit1; ++i)
+	for (int i{}; i < bit1; ++i)
 		EXPECT_TRUE(has_bit(input, i));
 
 	clear_most_significant_bits_until_position(input, clear_most_significant_bits);
-	for(int i{}; i < bit1; ++i) {
-		if(i < clear_most_significant_bits)
+	for (int i{}; i < bit1; ++i) {
+		if (i < clear_most_significant_bits)
 			EXPECT_TRUE(has_bit(input, i));
 		else
 			EXPECT_FALSE(has_bit(input, i));
+	}
+}
+
+TEST(clear_bits_until_position, sample1)
+{
+	constexpr int bit1{30};
+	int input = (1 << bit1) - 1;
+	constexpr int clear_bits{7};
+	for (int i{}; i < bit1; ++i)
+		EXPECT_TRUE(has_bit(input, i));
+
+	clear_bits_until_position(input, clear_bits);
+	for (int i{}; i < bit1; ++i) {
+		if (i <= clear_bits)
+			EXPECT_FALSE(has_bit(input, i));
+		else
+			EXPECT_TRUE(has_bit(input, i));
 	}
 }

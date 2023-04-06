@@ -55,7 +55,16 @@ requires std::integral<T>
 void clear_most_significant_bits_until_position(T &number, const int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
-	T mask = (1 << bit_position) -1;
+	T mask = (1 << bit_position) - 1;
+	number &= mask;
+}
+
+template<typename T>
+requires std::integral<T>
+void clear_bits_until_position(T &number, const int bit_position)
+{
+	is_valid_bit_position<T>(bit_position);
+	T mask = (-1 << (bit_position + 1));
 	number &= mask;
 }
 
