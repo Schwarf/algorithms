@@ -24,14 +24,11 @@ Node<T> *clone_graph(Node<T> *node)
 		return node;
 	std::queue<Node<T> *> q{{node}};
 	std::unordered_map<Node<T> *, Node<T> *> mapping{{node, new Node(node->value)}};
-	while(!q.empty())
-	{
+	while (!q.empty()) {
 		auto current_node = q.front();
 		q.pop();
-		for(const auto &neighbor : current_node->neighbors)
-		{
-			if(!mapping[neighbor])
-			{
+		for (const auto &neighbor: current_node->neighbors) {
+			if (!mapping[neighbor]) {
 				mapping[neighbor] = new Node<T>(neighbor->value);
 				q.push(neighbor);
 			}
@@ -39,7 +36,7 @@ Node<T> *clone_graph(Node<T> *node)
 		}
 
 	}
-	return mapping[node]
+	return mapping[node];
 }
 
 #endif //CLONE_GRAPH_H
