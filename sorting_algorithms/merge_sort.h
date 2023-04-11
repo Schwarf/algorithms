@@ -6,6 +6,7 @@
 #define MERGE_SORT_H
 #include "used_concepts.h"
 
+// When we merge we have in the beginning two elements
 template<typename Container>
 requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
 void merge(Container &container, int left, int mid, int right)
@@ -25,6 +26,8 @@ void merge(Container &container, int left, int mid, int right)
 	}
 }
 
+// We recursively look at smaller ranges of the container until only one element is left (that is always sorted).
+// Then we merge.
 template<typename Container>
 requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
 void recursive(Container &container, int left, int right)

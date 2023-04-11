@@ -1,8 +1,4 @@
 //
-// Created by andreas on 25.03.23.
-//
-
-//
 // Created by andreas on 22.03.23.
 //
 #include "test_setup.h"
@@ -61,7 +57,7 @@ TEST_F(SetupSortingTests, bitonic_sort_empty_array)
 	EXPECT_EQ(result, expected_result);
 	std::ranges::sort(expected_result);
 	EXPECT_EQ(result, expected_result);
-	bitonic_sort<std::array<int,0>, 0>(result);
+	bitonic_sort<std::array<int, 0>, 0>(result);
 	EXPECT_EQ(result, expected_result);
 }
 

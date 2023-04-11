@@ -4,3 +4,4 @@
 - Implement performance comparison
 - Redo quickselect implementation
 - Redo kth element in two- or n-sorted arrays
+- Bitonic sort is just implemented but not explained ... sorting networks
