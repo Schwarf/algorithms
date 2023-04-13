@@ -5,7 +5,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 add_executable(fun_with_arrays_tests
-        test_contiguous_array.cpp)
+        test_contiguous_array.cpp
+        test_minimal_operations_to_get_zero.cpp)
 
 include_directories(./../)
 target_link_libraries(fun_with_arrays_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
