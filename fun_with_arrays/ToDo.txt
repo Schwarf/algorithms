@@ -1,0 +1,2 @@
+- Algo "minimal operations to get zero" is quite complex. Write a docu.
+- Write unit tests for other algos.
