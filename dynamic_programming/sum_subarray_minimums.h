@@ -10,7 +10,7 @@
 // Since the answer may be large, return the answer modulo 109 + 7.
 // https://leetcode.com/problems/sum-of-subarray-minimums/solution/
 // TODO: Reunderstand that
-int sum_of_subarray_minimums(std::vector<int> &arr)
+long sum_of_subarray_minimums(std::vector<int> &arr)
 {
 	constexpr int kMod = 1e9 + 7;
 	const int n = arr.size();

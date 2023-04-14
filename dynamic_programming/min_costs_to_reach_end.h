@@ -7,16 +7,16 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
-int min_cost_to_reach_end(std::vector<int> &cost)
+template<typename T>
+int min_cost_to_reach_end(std::vector<T> &cost)
 {
-	int previous{};
-	int before_previous{};
+	T previous{};
+	T before_previous{};
 	if (cost.size() == 2)
 		return std::min(cost[0], cost[1]);
 	for (int i = 2; i <= cost.size(); ++i) {
-		int one_step = previous + cost[i - 1];
-		int two_step = before_previous + cost[i - 2];
+		auto one_step = previous + cost[i - 1];
+		auto two_step = before_previous + cost[i - 2];
 		before_previous = previous;
 		previous = std::min(one_step, two_step);
 	}
