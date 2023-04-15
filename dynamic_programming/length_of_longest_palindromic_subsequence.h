@@ -44,6 +44,7 @@ int length_of_longest_palindromic_subsequence_bottom_up(const std::string &input
 		for (int j = i + 1; j < size; ++j)
 			memo[i][j] = input[i] == input[j] ? memo[i + 1][j - 1] + 2 : std::max(memo[i + 1][j], memo[i][j - 1]);
 	}
+	return memo[0][size - 1];
 }
 
 
