@@ -6,6 +6,13 @@
 
 TEST(LengthOfLongestPalindromicSubsequence, short1)
 {
+	std::string input{"bbac"};
+	int expected_result{2};
+	EXPECT_EQ(expected_result, length_of_longest_palindromic_subsequence(input));
+}
+
+TEST(LengthOfLongestPalindromicSubsequence, short2)
+{
 	std::string input{"abbac"};
 	int expected_result{4};
 	EXPECT_EQ(expected_result, length_of_longest_palindromic_subsequence(input));

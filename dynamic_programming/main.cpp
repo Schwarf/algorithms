@@ -3,10 +3,18 @@
 //
 #include <iostream>
 #include "maximum_length_of_same_subarray_in_two_arrays.h"
+
+typedef enum Code
+{
+	Yes,
+	No,
+	Begin,
+	Unused
+} Code_t;
+
 int main()
 {
-	std::vector<int> test1{1,2,2,3,4};
-	std::vector<int> test2{2,3,4,3,2,5};
-	std::cout << maximum_length(test1, test2) << std::endl;
+	Code_t x{};
+	std::cout << x << std::endl;
 	return 0;
 }
