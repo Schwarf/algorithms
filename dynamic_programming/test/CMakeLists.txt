@@ -2,7 +2,7 @@ project(test_dynamic_programming_samples)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
-
+include_directories(./../)
 add_executable(dynamic_programming_samples_test
         test_min_costs_to_reach_end.cpp
         test_jumps.cpp

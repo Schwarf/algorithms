@@ -2,9 +2,9 @@
 // Created by andreas on 18.07.22.
 //
 #include "gtest/gtest.h"
-#include "./../count_ways_2D_grid.h"
+#include "count_ways_2D_grid.h"
 
-class SetupCountWaysIn2DGrid : public testing::Test
+class SetupCountWaysIn2DGrid: public testing::Test
 {
 protected:
 	int number_of_rows1{1};
@@ -14,7 +14,6 @@ protected:
 	int number_of_rows2{2};
 	int number_of_columns2{3};
 	int ways2{3};
-
 
 	int number_of_rows3{3};
 	int number_of_columns3{2};

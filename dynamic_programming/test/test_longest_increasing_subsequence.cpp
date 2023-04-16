@@ -4,18 +4,18 @@
 #include <utility>
 #include <vector>
 #include "gtest/gtest.h"
-#include "./../longest_increasing_subsequence.h"
+#include "longest_increasing_subsequence.h"
 
-class SetupLongestIncreasingSubsequence : public testing::Test
+class SetupLongestIncreasingSubsequence: public testing::Test
 {
 protected:
-	std::vector<int> input1{10,9,2,5,3,7,101,18};
+	std::vector<int> input1{10, 9, 2, 5, 3, 7, 101, 18};
 	int result1{4};
-	std::vector<int> input2{0,1,0,3,2,3};
+	std::vector<int> input2{0, 1, 0, 3, 2, 3};
 	int result2{4};
 	std::vector<int> input3{1, 12, 419, 181, 17, 19, 0, 71, 26, 1, 2, 3, 4, 5, 6, 7};
 	int result3{8};
-	std::vector<int> input4{2,1,4,3,5,6};
+	std::vector<int> input4{2, 1, 4, 3, 5, 6};
 	int result4{4};
 
 };

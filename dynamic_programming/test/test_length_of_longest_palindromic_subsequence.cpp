@@ -2,7 +2,7 @@
 // Created by andreas on 14.04.23.
 //
 #include "gtest/gtest.h"
-#include "./../length_of_longest_palindromic_subsequence.h"
+#include "length_of_longest_palindromic_subsequence.h"
 
 TEST(LengthOfLongestPalindromicSubsequence, short1)
 {

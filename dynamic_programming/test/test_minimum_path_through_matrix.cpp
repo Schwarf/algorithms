@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include <vector>
-#include "./../minimum_path_through_matrix.h"
+#include "minimum_path_through_matrix.h"
 class SetupMinimumPathThroughMatrix: public testing::Test
 {
 protected:

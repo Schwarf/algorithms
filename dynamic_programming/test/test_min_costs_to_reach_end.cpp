@@ -3,10 +3,10 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../min_costs_to_reach_end.h"
+#include "min_costs_to_reach_end.h"
 #include <vector>
 
-class SetupCostsPerStep : public testing::Test
+class SetupCostsPerStep: public testing::Test
 {
 protected:
 	std::vector<int> costs_per_step1{10, 15, 20};

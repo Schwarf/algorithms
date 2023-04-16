@@ -2,13 +2,13 @@
 // Created by andreas on 20.09.22.
 //
 #include "gtest/gtest.h"
-#include "./../maximum_length_of_same_subarray_in_two_arrays.h"
+#include "maximum_length_of_same_subarray_in_two_arrays.h"
 
-class SetupMaximumLengthOfSameSubarrayInTwoArrays : public testing::Test
+class SetupMaximumLengthOfSameSubarrayInTwoArrays: public testing::Test
 {
 protected:
-	std::vector<int> first_array1{1,2,3,7,8,1,2,3,4,9, 10, 167};
-	std::vector<int> second_array1{9,8,1,2,3,4,8,9,0};
+	std::vector<int> first_array1{1, 2, 3, 7, 8, 1, 2, 3, 4, 9, 10, 167};
+	std::vector<int> second_array1{9, 8, 1, 2, 3, 4, 8, 9, 0};
 	int answer1{5};
 	std::vector<int> first_array2{};
 	std::vector<int> second_array2{};
@@ -16,8 +16,8 @@ protected:
 	std::vector<int> first_array3{1};
 	std::vector<int> second_array3{2};
 	int answer3{};
-	std::vector<int> first_array4{1,2,3,4,5};
-	std::vector<int> second_array4{2,7,8,9,0};
+	std::vector<int> first_array4{1, 2, 3, 4, 5};
+	std::vector<int> second_array4{2, 7, 8, 9, 0};
 	int answer4{1};
 
 };

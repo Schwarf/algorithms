@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../jumps.h"
+#include "jumps.h"
 #include <vector>
 
 TEST(CanReachLastIndex, test_scenario1)

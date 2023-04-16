@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include <vector>
-#include "./../sum_subarray_minimums.h"
+#include "sum_subarray_minimums.h"
 
 TEST(ComputeSumSubArrayMinimums, Test1)
 {

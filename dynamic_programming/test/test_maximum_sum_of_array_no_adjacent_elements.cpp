@@ -2,7 +2,7 @@
 // Created by andreas on 14.12.22.
 //
 #include "gtest/gtest.h"
-#include "./../maximum_sum_of_array_no_adjacent_elements.h"
+#include "maximum_sum_of_array_no_adjacent_elements.h"
 #include <vector>
 
 TEST(test_maximum_sum_of_array_no_neighbors, scenario1)
