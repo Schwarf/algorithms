@@ -2,7 +2,7 @@
 #include <array>
 #include "reservoir_sampling.h"
 #include "held_karp_algorithm.h"
-#include "simulated_annealing.h"
+//#include "simulated_annealing.h"
 #include "traveling_salesman_functors.h"
 #include "simulated_annealing_full_templated.h"
 int main()
@@ -30,7 +30,7 @@ int main()
 	};
 
 
-	auto held_karp_result = held_karp_algorithm(cities2);
+	auto held_karp_result = held_karp_algorithm(cities);
 	std::cout << held_karp_result << std::endl;
 	int i{10};
 	std::cout << "------------------------------" << std::endl;

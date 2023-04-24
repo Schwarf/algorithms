@@ -1,6 +1,8 @@
 //
 // Created by andreas on 11.03.23.
 //
+#ifndef USED_CONCEPTS_H
+#define USED_CONCEPTS_H
 
 #include <random>
 template<typename T, template<typename...> typename CoordinateType>
@@ -59,8 +61,5 @@ concept RequireIndexedContainer = requires(const ContainerType &container)
 	{ container[0] } -> std::same_as<typename ContainerType::value_type const &>;
 	{ container.size() } -> std::same_as<std::size_t>;
 };
-
-#ifndef USED_CONCEPTS_H
-#define USED_CONCEPTS_H
 
 #endif //USED_CONCEPTS_H
