@@ -3,4 +3,4 @@ add_library(heap_lib INTERFACE
         binary_heap.h
         k_ary_heap.h
         find_remaining_stone.h
-        )
+        smallest_number_in_infinite_set.h)
