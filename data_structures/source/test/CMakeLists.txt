@@ -16,7 +16,8 @@ add_executable(test_graphs
         graphs/test_find_shortest_edge_in_subgraph.cpp
         graphs/test_minimum_number_of_egdes_to_create_connected_graph.cpp
         graphs/test_all_roads_lead_to_rome.cpp
-        graphs/test_clone_graph.cpp)
+        graphs/test_clone_graph.cpp
+        graphs/test_minimal_distance_to_connect_all_points.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
