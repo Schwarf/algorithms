@@ -5,6 +5,7 @@
 #ifndef MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
 #define MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
 #include <vector>
+#include <numeric>
 
 // You are given an integer array nums and an integer x. In one operation, you can either remove the leftmost or the
 // rightmost element from the array nums and subtract its value from x. Note that
@@ -16,12 +17,11 @@
 // 1 <= nums[i] <= 10^4
 // 1 <= x <= 10^9
 
+
 template<typename T>
 int minimal_operations_to_get_zero(std::vector<T> &input, T target)
 {
-	T sum{};
-	for (const auto &element: input)
-		sum += element;
+	auto sum = std::accumulate(input.begin(), input.end(), T{});
 	if (sum == target)
 		return input.size();
 	if (sum < target)
