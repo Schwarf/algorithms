@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(dynamic_programming_samples)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(test)
 
@@ -18,4 +18,5 @@ add_executable(dynamic_programming_samples main.cpp
         minimum_path_through_matrix.h
         perfect_square.h
         sum_subarray_minimums.h
-        trapping_rain_water.h)
+        trapping_rain_water.h
+        maximum_number_of_uncrossing_lines.h)
