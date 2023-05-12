@@ -19,4 +19,5 @@ add_executable(dynamic_programming_samples main.cpp
         perfect_square.h
         sum_subarray_minimums.h
         trapping_rain_water.h
-        maximum_number_of_uncrossing_lines.h)
+        maximum_number_of_uncrossing_lines.h
+        maximum_points_solved_with_brain_power.h)
