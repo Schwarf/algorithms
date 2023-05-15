@@ -12,4 +12,5 @@ add_library(linked_list_lib INTERFACE
         add_digits_via_linked_list.h
         check_if_linked_list_is_palindrome.h
         are_linked_lists_intersecting.h
-        does_linked_list_have_loop.h)
+        does_linked_list_have_loop.h
+        swapping_nodes.h)
