@@ -18,7 +18,7 @@ Node<T> *swap_nodes_in_pairs(Node<T> *head)
 }
 
 template<typename T>
-Node<T> *swap_pairs_iterative(Node<T> *head)
+Node<T> *swap_nodes_in_pairs_iterative(Node<T> *head)
 {
 
 	auto new_head_is_next = new Node<T>(-1);
