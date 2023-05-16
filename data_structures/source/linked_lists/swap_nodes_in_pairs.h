@@ -17,4 +17,21 @@ Node<T> *swap_nodes_in_pairs(Node<T> *head)
 	return first;
 }
 
+template<typename T>
+Node<T> *swap_pairs_iterative(Node<T> *head)
+{
 
+	auto new_head_is_next = new Node<T>(-1);
+	auto previous = new_head_is_next;
+	auto current = head;
+
+	while (current->next && current->next->next) {
+		Node<T> *next = current->next;
+		current->next = next->next;
+		next->next = previous->next;
+		previous->next = next;
+		previous = current;
+		current = current->next;
+	}
+	return new_head_is_next->next;
+}
