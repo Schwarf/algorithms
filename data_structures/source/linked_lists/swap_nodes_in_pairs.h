@@ -9,7 +9,7 @@ template<typename T>
 Node<T> *swap_nodes_in_pairs(Node<T> *head)
 {
 	if (!head || !head->next)
-		return;
+		return head;
 	auto first = new Node<T>(head->next->value);
 	auto second = new Node<T>(head->value);
 	first->next = second;
