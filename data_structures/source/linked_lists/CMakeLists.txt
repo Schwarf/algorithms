@@ -13,4 +13,5 @@ add_library(linked_list_lib INTERFACE
         check_if_linked_list_is_palindrome.h
         are_linked_lists_intersecting.h
         does_linked_list_have_loop.h
-        swapping_nodes.h)
+        swapping_nodes.h
+        swap_nodes_in_pairs.h)
