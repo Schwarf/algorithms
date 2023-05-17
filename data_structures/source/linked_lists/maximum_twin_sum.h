@@ -33,14 +33,15 @@ T maximum_twin_sum_with_stack(Node<T> *head)
 	std::stack<T> help;
 	auto node = head;
 	while (node) {
-		help.push(head->value);
+		help.push(node->value);
 		node = node->next;
 	}
 	int half_size = help.size() >> 1;
-	int count{};
+	int count{0};
 	T max{};
-	while (count++ <= half_size) {
+	while (count++ < half_size) {
 		max = std::max(head->value + help.top(), max);
+		head = head->next;
 		help.pop();
 	}
 
