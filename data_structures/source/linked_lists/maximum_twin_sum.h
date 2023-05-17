@@ -48,4 +48,33 @@ T maximum_twin_sum_with_stack(Node<T> *head)
 	return max;
 }
 
+template<typename T>
+T maximum_twin_sum_revert_half(Node<T> *head)
+{
+	auto fast = head;
+	auto slow = head;
+	while (fast && fast->next) {
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	// Reverse second half of the linked list.
+	Node<T> *next;
+	Node<T> *previous = nullptr;
+	while (slow) {
+		next = slow->next;
+		slow->next = previous;
+		previous = slow;
+		slow = next;
+	}
+	T max{};
+	Node<T> *start = head;
+	while (previous) {
+		max = std::max(max, start->value + previous->value);
+		previous = previous->next;
+		start = start->next;
+	}
+
+	return max;
+}
+
 #endif //MAXIMUM_TWIN_SUM_H
