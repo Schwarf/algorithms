@@ -11,11 +11,11 @@
 // The twin sum is defined as the sum of a node and its twin.
 // Given the head of a linked list with even length, return the maximum twin sum of the linked list.
 template<typename T>
-T twin_sum_with_vector(Node<T> *head)
+T maximum_twin_sum_with_vector(Node<T> *head)
 {
 	std::vector<T> help;
 	while (head) {
-		help.push_back(head->val);
+		help.push_back(head->value);
 		head = head->next;
 	}
 	int left{};
