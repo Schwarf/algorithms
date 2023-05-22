@@ -31,6 +31,6 @@ public:
 
 private:
 	std::priority_queue<T, std::vector<T>, std::greater<>> queue_;
-	int k_;
+	size_t k_;
 };
 #endif //KTH_LARGEST_ELEMENT_IN_STREAM_H

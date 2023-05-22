@@ -46,7 +46,7 @@ add_executable(test_stacks_and_queues
 add_executable(test_heaps
         heaps/test_binary_heap.cpp
         heaps/test_k_ary_heap.cpp
-        heaps/test_find_remaining_stone.cpp heaps/test_smallest_number_in_infinite_set.cpp)
+        heaps/test_find_remaining_stone.cpp heaps/test_smallest_number_in_infinite_set.cpp heaps/test_kth_largest_element_in_stream.cpp)
 
 add_executable(test_binary_tree_traversal
         trees/binary_trees/test_pre_order_traversal.cpp
