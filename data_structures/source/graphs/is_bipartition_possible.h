@@ -5,12 +5,49 @@
 #ifndef IS_BIPARTITION_POSSIBLE_H
 #define IS_BIPARTITION_POSSIBLE_H
 #include <vector>
+#include "used_concepts.h"
 #include <queue>
 #include "graph.h"
 // We want to split a group of n objects (labeled from 1 to n) into two groups of any size.
 // Each object in one goup may be connected with some other objects of the other group BUT not related to the objects
 // of the OWN group.
 // Given the integer n and the graph, return true if it is possible to split all objects into two groups in this way.
+
+template<typename T>
+requires VertexRequirement<T>
+bool breadth_first_search(T start_vertex, const std::vector<std::vector<T>> &graph, std::vector<int> &color_vector)
+{
+	std::queue<T> q{{start_vertex}};
+	color_vector[start_vertex] = 0;
+	while (!q.empty()) {
+		auto current_node = q.front();
+		q.pop();
+		for (const auto &neighbor: graph[current_node]) {
+			if (color_vector[neighbor] == color_vector[current_node])
+				return false;
+			if (color_vector[neighbor] = -1) {
+				color_vector[neighbor] = 1 - color_vector[current_node];
+				q.push(neighbor);
+			}
+		}
+	}
+	return true;
+}
+
+template<typename T>
+requires VertexRequirement<T>
+bool is_bi_partition_possible(const std::vector<std::vector<T>> &graph)
+{
+	size_t size = graph.size();
+	// This vector keeps 2 colors and one 'none' value aka -1
+	std::vector<int> color_vector(size, -1);
+	for (size_t i{}; i < size; ++i) {
+		if (!breadth_first_search(i, graph, color_vector))
+			return false;
+
+	}
+	return true;
+}
 
 bool breadth_first_search(int source_vertex_id, Graph<int, int> &graph, std::vector<int> &vertex_colors)
 {
