@@ -15,9 +15,10 @@
 
 template<typename T>
 requires VertexRequirement<T>
-bool breadth_first_search(T start_vertex, const std::vector<std::vector<T>> &graph, std::vector<int> &color_vector)
+bool breadth_first_search(T start_vertex, const std::vector<std::vector<T>> &graph)
 {
 	std::queue<T> q{{start_vertex}};
+	std::vector<int> color_vector(graph.size(), -1);
 	color_vector[start_vertex] = 0;
 	while (!q.empty()) {
 		auto current_node = q.front();
@@ -25,7 +26,7 @@ bool breadth_first_search(T start_vertex, const std::vector<std::vector<T>> &gra
 		for (const auto &neighbor: graph[current_node]) {
 			if (color_vector[neighbor] == color_vector[current_node])
 				return false;
-			if (color_vector[neighbor] = -1) {
+			if (color_vector[neighbor] == -1) {
 				color_vector[neighbor] = 1 - color_vector[current_node];
 				q.push(neighbor);
 			}
@@ -38,11 +39,10 @@ template<typename T>
 requires VertexRequirement<T>
 bool is_bi_partition_possible(const std::vector<std::vector<T>> &graph)
 {
-	size_t size = graph.size();
+	T size = graph.size();
 	// This vector keeps 2 colors and one 'none' value aka -1
-	std::vector<int> color_vector(size, -1);
-	for (size_t i{}; i < size; ++i) {
-		if (!breadth_first_search(i, graph, color_vector))
+	for (T i{}; i < size; ++i) {
+		if (!breadth_first_search(i, graph))
 			return false;
 
 	}

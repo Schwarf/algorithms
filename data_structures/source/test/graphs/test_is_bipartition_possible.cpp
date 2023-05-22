@@ -66,3 +66,16 @@ TEST_F(SetupBiPartitionPossible, test_negative_erase_positive)
 	graph.erase_vertex(id5);
 	EXPECT_TRUE(is_bi_partition_possible(graph));
 }
+
+
+TEST(BiPartitionPossibleVectorInput, test_simple_false)
+{
+	std::vector<std::vector<unsigned short>> input{{1, 2, 3}, {0, 2}, {0, 1, 3}, {0, 2}};
+	EXPECT_FALSE(is_bi_partition_possible(input));
+}
+
+TEST(BiPartitionPossibleVectorInput, test_simple_true)
+{
+	std::vector<std::vector<unsigned short>> input{{1, 3}, {0, 2}, {1, 3}, {0, 2}};
+	EXPECT_TRUE(is_bi_partition_possible(input));
+}
