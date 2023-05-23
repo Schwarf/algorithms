@@ -13,6 +13,6 @@ that receives all needed functors (perturbation function, object function ...).
 ToDo's: 
 - Other applications of simulated annealing need to be tested e.g. knapsack problem.
 - Probably the current "concept overloaded" implementation of simulated annealing is not suitable for these cases.
-- Many more probabilistic algorithms are missing: Bloom filter, Monte Carlo, ... reimplement Lepage's VEGAS? 
+- Many more probabilistic algorithms are missing: Bloom filter, Monte Carlo, Genetic algorithms... reimplement Lepage's VEGAS? 
 
 
