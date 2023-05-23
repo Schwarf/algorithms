@@ -8,6 +8,7 @@
 #include <concepts>
 #include <queue>
 
+
 template<typename T, typename ContainerType, typename DistanceFunctionType>
 requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type> &&
 	std::same_as<T, std::invoke_result_t<DistanceFunctionType, ContainerType, ContainerType>>
@@ -40,7 +41,7 @@ T minimal_costs_to_connect_points(std::vector<std::vector<T>> points, DistanceFu
 		visited[index] = true;
 		T distance{};
 		while (true) {
-			if (!visited[graph[index].top().first] && ) {
+			if (!visited[graph[index].top().first]) {
 				distance = graph[index].top().second;
 				break;
 			}
