@@ -47,6 +47,7 @@ add_subdirectory(tries)
 add_subdirectory(graphs)
 add_subdirectory(test)
 add_subdirectory(miscellaneous)
+add_subdirectory(caches)
 add_subdirectory(union_find_disjoint_set)
 
 include_directories(hash_functions)
