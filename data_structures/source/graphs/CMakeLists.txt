@@ -11,4 +11,5 @@ add_library(graphs_lib INTERFACE
         all_roads_lead_to_rome.h
         used_concepts.h
         clone_graph.h
-        minimal_distance_to_connect_all_points.h)
+        minimal_distance_to_connect_all_points.h
+        size_of_largest_island.h)
