@@ -12,4 +12,5 @@ add_library(graphs_lib INTERFACE
         used_concepts.h
         clone_graph.h
         minimal_distance_to_connect_all_points.h
-        size_of_largest_island.h)
+        size_of_largest_island.h
+        maximum_marked_circles.h)
