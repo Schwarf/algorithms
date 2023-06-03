@@ -37,9 +37,9 @@ int time_to_inform_group(int n, int headID, const std::vector<int> &leaders, con
 void dfs(std::vector<std::vector<int>> graph, const std::vector<int> &times, int member, int time, int &max_time)
 {
 	max_time = std::max(max_time, time);
-	
+
 	for (const auto &comrade: graph[member]) {
-		dfs(graph, times, comrade, time + times[comrade], max_time);
+		dfs(graph, times, comrade, time + times[member], max_time);
 	}
 }
 
