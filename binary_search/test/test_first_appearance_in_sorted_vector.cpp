@@ -9,7 +9,7 @@
 
 TEST(FirstAppearence, simple)
 {
-	std::vector<int> input{0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7};
+	std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
 	int target = 5;
 	int expected_result = std::distance(input.begin(), std::lower_bound(input.begin(), input.end(), target));
 	int result = first_appearance(input, target);
@@ -18,7 +18,7 @@ TEST(FirstAppearence, simple)
 
 TEST(FirstAppearence, simple2)
 {
-	std::vector<int> input{0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7};
+	std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
 	int target = 11;
 	int expected_result = std::distance(input.begin(), std::lower_bound(input.begin(), input.end(), target));
 	int result = first_appearance(input, target);
@@ -27,7 +27,7 @@ TEST(FirstAppearence, simple2)
 
 TEST(FirstAppearence, simple3)
 {
-	std::vector<int> input{0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7};
+	std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
 	int target = -1;
 	int expected_result = std::distance(input.begin(), std::lower_bound(input.begin(), input.end(), target));
 	int result = first_appearance(input, target);

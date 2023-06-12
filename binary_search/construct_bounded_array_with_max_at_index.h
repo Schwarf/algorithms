@@ -1,0 +1,48 @@
+//
+// Created by andreas on 10.06.23.
+//
+
+#ifndef CONSTRUCT_BOUNDED_ARRAY_WITH_MAX_AT_INDEX_H
+#define CONSTRUCT_BOUNDED_ARRAY_WITH_MAX_AT_INDEX_H
+// You are given three positive integers: n, index, and maxSum. You want to construct an array nums (0-indexed) that satisfies the following conditions:
+// - nums.length == n
+// - nums[i] is a positive integer where 0 <= i < n.
+// - abs(nums[i] - nums[i+1]) <= 1 where 0 <= i < n-1.
+// - The sum of all the elements of nums does not exceed maxSum.
+// - nums[index] is maximized.
+// Return nums[index] of the constructed array.
+
+#include <type_traits>
+long long compute_sum(int index, T value, int n)
+{
+	long long count{};
+	// left side of index
+	if(value > index)
+		count+= (long long)(value+value-index)*(index+1)/2;
+	else
+		count+= (long long)(value+1)*value/2 + (index -value+1);
+	// right side of index
+	if(value >= n- index)
+		count+= (long long)(value+value-n+1+index)*(n-index)/2;
+	else
+		count+= (long long)(value+1)*value/2 + (n-index -value);
+
+	return count-value;
+}
+template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
+T maxValue(int n, int index, T max_sum) {
+	T left{1};
+	T right{max_sum};
+	while(left < right)
+	{
+		T mid = (left+right+1)/2;
+		if(compute_sum(index, mid, n) <= maxSum)
+			left = mid;
+		else
+			right = mid-1;
+	}
+	return left;
+
+}
+
+#endif //CONSTRUCT_BOUNDED_ARRAY_WITH_MAX_AT_INDEX_H
