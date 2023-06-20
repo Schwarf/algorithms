@@ -1,0 +1,8 @@
+//
+// Created by andreas on 20.06.23.
+//
+
+#ifndef K_RADIUS_SUBARRAY_AVERAGES_H
+#define K_RADIUS_SUBARRAY_AVERAGES_H
+
+#endif //K_RADIUS_SUBARRAY_AVERAGES_H
