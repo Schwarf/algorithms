@@ -20,7 +20,7 @@ std::vector<double> get_averages_prefix_sum(std::vector<T> & nums, int k)
 		return nums;
 	std::vector<double> prefix_sum(n+1, 0.0);
 	prefix_sum[0] = nums[0];
-	std::vector<double> result(nums.size(), -1.0);
+	std::vector<double> result(n, -1.0);
 	for(int i{}; i < n; ++i)
 		prefix_sum[i+1] = prefix_sum[i] + nums[i];
 	const double div{2.0*k + 1.0};
@@ -29,6 +29,29 @@ std::vector<double> get_averages_prefix_sum(std::vector<T> & nums, int k)
 	return result;
 };
 
+
+template <typename T>
+std::vector<double> get_averages_sliding_window(std::vector<T> & nums, int k)
+{
+	int n = nums.size();
+	if( k == 0)
+		return nums;
+	std::vector<double> result(n, -1.0);
+	if(2*k+1 > n)
+		return result;
+	double sum{};
+	const double div{2.0*k + 1.0};
+	for(int i{}; i < 2*k+1; ++i)
+		sum += nums[i];
+	result[k] = sum/div;
+	for(int i{2*k+1} ; i < n; ++i)
+	{
+		sum += -nums[i-2*k-1] + nums[i];
+		result[i-k] = sum/div;
+	}
+	return result;
+
+};
 
 
 
