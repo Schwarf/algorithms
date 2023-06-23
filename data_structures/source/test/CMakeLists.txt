@@ -86,6 +86,8 @@ add_executable(test_union_find_disjoint_set_algorithms
         union_find_disjoint_set/test_optimized_disjoint_set.cpp
         )
 
+add_executable(test_dictionaries dictionaries/test_ordered_dictionary.cpp)
+
 target_link_libraries(test_graphs ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_stacks_and_queues ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
@@ -96,3 +98,4 @@ target_link_libraries(test_segment_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MA
 target_link_libraries(test_binary_search_tree_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_binary_tree_inversion ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_union_find_disjoint_set_algorithms ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_dictionaries ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
