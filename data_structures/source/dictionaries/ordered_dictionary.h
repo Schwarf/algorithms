@@ -5,8 +5,6 @@
 #ifndef ORDERED_DICTIONARY_H
 #define ORDERED_DICTIONARY_H
 #include <unordered_map>
-#include <type_traits>
-// An ordered dictionary keeps the order of the items inserted
 
 template<typename T>
 concept Hashable = requires(T t)
@@ -17,6 +15,7 @@ concept Hashable = requires(T t)
 template<typename T>
 concept OptionalType = std::same_as<T, std::optional<typename T::value_type>>;
 
+// An ordered dictionary keeps the order of the items inserted
 template<typename KeyType, typename ValueType> requires OptionalType<ValueType>
 struct OrderedDictionaryNode
 {
