@@ -68,14 +68,14 @@ public:
 		return node->value;
 	}
 
-	ValueType front()
+	ValueType front() const
 	{
 		if (head == nullptr)
 			return std::nullopt;
 		return head->value;
 	}
 
-	ValueType back()
+	ValueType back() const
 	{
 		if (tail == nullptr)
 			return std::nullopt;
@@ -84,32 +84,37 @@ public:
 
 	void pop_front()
 	{
-		if (head) {
-			auto node = head;
-			head = head->next;
-			if (head)
-				head->prev = nullptr;
-			else
-				tail = nullptr;
-			hashmap.erase(node->key);
-			delete node;
-		}
+		if (head == nullptr)
+			return;
+		auto node = head;
+		head = head->next;
+		if (head)
+			head->prev = nullptr;
+		else
+			tail = nullptr;
+		hashmap.erase(node->key);
+		delete node;
+
 	}
 
 	void pop_back()
 	{
-		if (tail) {
-			auto node = tail;
-			tail = tail->prev;
-			if (tail)
-				tail->next = nullptr;
-			else
-				head = nullptr;
-			hashmap.erase(node->key);
-			delete node;
-		}
+		if (tail == nullptr)
+			return;
+		auto node = tail;
+		tail = tail->prev;
+		if (tail)
+			tail->next = nullptr;
+		else
+			head = nullptr;
+		hashmap.erase(node->key);
+		delete node;
 	}
 
+	size_t size() const
+	{
+		return hashmap.size();
+	}
 
 private:
 	std::unordered_map<KeyType, OrderedDictionaryNode<KeyType, ValueType> *> hashmap;
