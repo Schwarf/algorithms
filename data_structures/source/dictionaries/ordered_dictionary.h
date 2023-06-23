@@ -11,13 +11,16 @@
 template<typename T>
 concept Hashable = requires(T t)
 {
-	{ std::hash<T>(t) }-> std::same_as<std::size_t>;
+	{ std::hash<T>{}(t) }-> std::same_as<std::size_t>;
 };
 
-template<typename KeyType, typename ValueType>
+template<typename T>
+concept OptionalType = std::same_as<T, std::optional<typename T::value_type>>;
+
+template<typename KeyType, typename ValueType> requires OptionalType<ValueType>
 struct OrderedDictionaryNode
 {
-	OrderedDictionaryNode(const KeyType &k, const KeyType &v)
+	OrderedDictionaryNode(const KeyType &k, const ValueType &v)
 		: key(k), value(v), prev(nullptr), next(nullptr)
 	{}
 	KeyType key;
@@ -30,10 +33,6 @@ template<typename KeyType, typename ValueType> requires Hashable<KeyType>
 class OrderedDictionary
 {
 public:
-	explicit OrderedDictionary(ValueType invalid_value)
-		: invalid_value_(invalid_value)
-	{}
-
 	~OrderedDictionary()
 	{
 		auto current = head;
@@ -43,7 +42,7 @@ public:
 			current = next;
 		}
 	}
-	void insert(KeyType key, ValueType value)
+	void insert(const KeyType &key, const ValueType &value)
 	{
 		if (hashmap.find(key) != hashmap.end()) {
 			hashmap[key]->value = value;
@@ -65,7 +64,7 @@ public:
 	ValueType get(const KeyType &key)
 	{
 		if (hashmap.find(key) == hashmap.end())
-			return invalid_value_;
+			return std::nullopt;
 		auto node = hashmap[key];
 		return node->value;
 	}
@@ -73,15 +72,15 @@ public:
 	ValueType front()
 	{
 		if (head == nullptr)
-			return invalid_value_;
-		return head.value;
+			return std::nullopt;
+		return head->value;
 	}
 
 	ValueType back()
 	{
 		if (tail == nullptr)
-			return invalid_value_;
-		return tail.value;
+			return std::nullopt;
+		return tail->value;
 	}
 
 	void pop_front()
@@ -114,9 +113,9 @@ public:
 
 
 private:
-	std::unordered_map<KeyType, OrderedDictionaryNode<KeyType, ValueType>> hashmap;
-	OrderedDictionaryNode<KeyType, ValueType> head{nullptr};
-	OrderedDictionaryNode<KeyType, ValueType> tail{nullptr};
+	std::unordered_map<KeyType, OrderedDictionaryNode<KeyType, ValueType> *> hashmap;
+	OrderedDictionaryNode<KeyType, ValueType> *head{nullptr};
+	OrderedDictionaryNode<KeyType, ValueType> *tail{nullptr};
 	ValueType invalid_value_;
 };
 

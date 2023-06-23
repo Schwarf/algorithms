@@ -9,6 +9,7 @@
 #include "graphs/is_bipartition_possible.h"
 #include "union_find_disjoint_set/quick_find.h"
 #include "union_find_disjoint_set/quick_union.h"
+#include "dictionaries/ordered_dictionary.h"
 struct ListNode
 {
 	int val;
@@ -145,5 +146,15 @@ int main()
 	auto s = Solution();
 	auto result = s.mergeKLists(input);
 	int zxxz = 1;
+	std::hash<int>{}(18);
+	auto dict = OrderedDictionary<int, std::optional<int>>();
+	int k1{121};
+	auto v1 = std::optional<int>(k1);
+
+	dict.insert(k1, v1);
+	std::cout << *dict.front() << std::endl;
+	std::cout << *dict.back() << std::endl;
+	if (dict.get(121).has_value())
+		std::cout << dict.get(121).value() << std::endl;
 }
 
