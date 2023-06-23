@@ -33,16 +33,24 @@ public:
 	explicit OrderedDictionary(ValueType invalid_value)
 		: invalid_value_(invalid_value)
 	{}
+
+	~OrderedDictionary()
+	{
+		auto current = head;
+		while (current) {
+			auto next = current->next;
+			delete current;
+			current = next;
+		}
+	}
 	void insert(KeyType key, ValueType value)
 	{
 		if (hashmap.find(key) != hashmap.end()) {
 			hashmap[key]->value = value;
 			return;
 		}
-		auto new_node = new OrderedDictionaryNode<KeyType, ValueType>();
-		new_node->key = key;
-		new_node->value = value;
-		if (tail == nullptr) {
+		auto new_node = new OrderedDictionaryNode<KeyType, ValueType>(key, value);
+		if (head == nullptr) {
 			head = new_node;
 			tail = new_node;
 		}
@@ -56,16 +64,57 @@ public:
 
 	ValueType get(const KeyType &key)
 	{
-		if (hashmap.find(key) == hashmap.edn())
-			return {};
-
+		if (hashmap.find(key) == hashmap.end())
+			return invalid_value_;
 		auto node = hashmap[key];
-		if(node != tail)
-			
+		return node->value;
 	}
 
+	ValueType front()
+	{
+		if (head == nullptr)
+			return invalid_value_;
+		return head.value;
+	}
+
+	ValueType back()
+	{
+		if (tail == nullptr)
+			return invalid_value_;
+		return tail.value;
+	}
+
+	void pop_front()
+	{
+		if (head) {
+			auto node = head;
+			head = head->next;
+			if (head)
+				head->prev = nullptr;
+			else
+				tail = nullptr;
+			hashmap.erase(node->key);
+			delete node;
+		}
+	}
+
+	void pop_back()
+	{
+		if (tail) {
+			auto node = tail;
+			tail = tail->prev;
+			if (tail)
+				tail->next = nullptr;
+			else
+				head = nullptr;
+			hashmap.erase(node->key);
+			delete node;
+		}
+	}
+
+
 private:
-	std::unordered_map<KeyType, ValueType> hashmap;
+	std::unordered_map<KeyType, OrderedDictionaryNode<KeyType, ValueType>> hashmap;
 	OrderedDictionaryNode<KeyType, ValueType> head{nullptr};
 	OrderedDictionaryNode<KeyType, ValueType> tail{nullptr};
 	ValueType invalid_value_;
