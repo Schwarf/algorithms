@@ -70,7 +70,10 @@ double median_of_sorted_arrays2(const std::vector<T> &input1, const std::vector<
 		return median_of_sorted_arrays2(input2, input1);
 	}
 
-	int m = input1.size(), n = input2.size();
+	int m = input1.size();
+	int n = input2.size();
+	if (n+m==0)
+		return -1.0;
 	int left = 0, right = m;
 
 	while (left <= right) {
