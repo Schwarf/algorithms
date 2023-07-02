@@ -41,6 +41,7 @@ int find_median(const std::vector<T> &input1,
 		else
 			return find_median(input1, input2, median_index, left1, right1, left2, mid2 - 1);
 	}
+	return -1;
 
 }
 
@@ -52,7 +53,9 @@ double median_of_sorted_arrays(const std::vector<T> &input1, const std::vector<T
 	int size2 = input2.size() - 1;
 
 	int size = size1 + size2 + 2;
-	if (size & 1)
+	if(size ==0)
+		return -1.0;
+	else if (size & 1)
 		return find_median(input1, input2, size / 2, 0, size1, 0, size2);
 	else
 		return (find_median(input1, input2, size / 2 - 1, 0, size1, 0, size2)
