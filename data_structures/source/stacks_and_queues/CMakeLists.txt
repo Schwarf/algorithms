@@ -7,4 +7,4 @@ add_library(stacks_and_queues_lib INTERFACE
         queue_array_based.h
         lru_cache.h
         monotonic_stack/monotonic_stack.h
-        longest_valid_parantheses_string.h)
+        longest_valid_parentheses_string.h)

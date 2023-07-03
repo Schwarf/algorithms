@@ -2,8 +2,8 @@
 // Created by andreas on 03.07.23.
 //
 
-#ifndef LONGEST_VALID_PARANTHESES_STRING_H
-#define LONGEST_VALID_PARANTHESES_STRING_H
+#ifndef LONGEST_VALID_PARENTHESES_STRING_H
+#define LONGEST_VALID_PARENTHESES_STRING_H
 
 #include <string>
 #include <stack>
@@ -31,4 +31,4 @@ int longest_valid_paratheses_string(const std::string &input)
 	return max;
 }
 
-#endif //LONGEST_VALID_PARANTHESES_STRING_H
+#endif //LONGEST_VALID_PARENTHESES_STRING_H

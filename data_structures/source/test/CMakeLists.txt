@@ -42,7 +42,8 @@ add_executable(test_stacks_and_queues
         stacks_and_queues/test_queue_linked_list_based.cpp
         stacks_and_queues/test_queue_array_based.cpp
         stacks_and_queues/test_lru_cache.cpp
-        stacks_and_queues/monotonic_stack/test_monotonic_stack.cpp)
+        stacks_and_queues/monotonic_stack/test_monotonic_stack.cpp
+        stacks_and_queues/test_longest_parentheses_string.cpp)
 
 add_executable(test_heaps
         heaps/test_binary_heap.cpp
