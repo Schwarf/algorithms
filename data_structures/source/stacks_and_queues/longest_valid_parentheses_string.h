@@ -11,7 +11,7 @@
 //	parentheses substring
 
 
-int longest_valid_paratheses_string(const std::string &input)
+int longest_valid_parentheses_string(const std::string &input)
 {
 	std::stack<int> s{{-1}};
 	int max{};
@@ -30,5 +30,6 @@ int longest_valid_paratheses_string(const std::string &input)
 	}
 	return max;
 }
+
 
 #endif //LONGEST_VALID_PARENTHESES_STRING_H

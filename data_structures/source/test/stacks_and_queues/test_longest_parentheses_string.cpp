@@ -8,14 +8,14 @@ TEST(LongestValidParentheses, simple_first)
 {
 	std::string input{"(()"};
 	constexpr int expected_result{2};
-	EXPECT_EQ(longest_valid_paratheses_string(input), expected_result);
+	EXPECT_EQ(longest_valid_parentheses_string(input), expected_result);
 }
 
 TEST(LongestValidParentheses, simple_second)
 {
 	std::string input{")()())"};
 	constexpr int expected_result{4};
-	EXPECT_EQ(longest_valid_paratheses_string(input), expected_result);
+	EXPECT_EQ(longest_valid_parentheses_string(input), expected_result);
 }
 
 
@@ -23,7 +23,7 @@ TEST(LongestValidParentheses, simple_third)
 {
 	std::string input{""};
 	constexpr int expected_result{0};
-	EXPECT_EQ(longest_valid_paratheses_string(input), expected_result);
+	EXPECT_EQ(longest_valid_parentheses_string(input), expected_result);
 }
 
 TEST(LongestValidParentheses, long_first)
@@ -31,7 +31,7 @@ TEST(LongestValidParentheses, long_first)
 	std::string input
 		{")(()(()(((())(((((()()))((((()()(()()())())())()))()()()())(())()()(((()))))()((()))(((())()((()()())((())))(())))())((()())()()((()((())))))((()(((((()((()))(()()(())))((()))()))())"};
 	constexpr int expected_result{132};
-	EXPECT_EQ(longest_valid_paratheses_string(input), expected_result);
+	EXPECT_EQ(longest_valid_parentheses_string(input), expected_result);
 }
 
 TEST(LongestValidParentheses, long_second)
@@ -39,5 +39,5 @@ TEST(LongestValidParentheses, long_second)
 	std::string input
 		{"())()()(())((()(()()(((()))((((())((()(())()())(()((((()))()(()))(())()(())(()(((((())((((((()())())(()(()((())()))(()))))))()(()))((((())()()()))()()()(((()(()())(()()(()(()()(((()))))))()()))())())((()()))))))((()))(((()((())()(()()))((())))()()())))))))()))))(()))))()))()))()((())))((()))(()))))))(((()))))))))()(()()()(())((())()))()()(())))()()))(()())()))(((()())()))((())((((()))(()(()(()()()(((())()(((((()))((()(((((())(()()))((((((((()(()(()(()(())))(())(()())())(()((((()(())((()(())))(())))()(((((()(()()(())))))))())(())(())(()()(((())))((()))(((((()))))())))()((()))()))))())))))((())(((((()()))((((())))(((()(()(())())(((()(()(()()()())))())()))((()((())())()()()(((())(((((()((((((()((()())))((((())((()(((((((()(()((()()()(()(()())(()(()()((((())))()(((()())))(()()))()(()()()()(((((())(()))))((()))())))()((((((()))())))()(()))(())))((((()())(((((()()())(((((())(()())(()))))()(()()))()))))))())))(((())(()(()()))(()))()(((())))())((((()(((()))))))()(()(()))()()(()()))))))))((()))))))(())((()((()))()))((((((()())))))(()((())((((()))))(()(()()()()(()))()()(()(()))(()()(((((((()())(())(()())((())())()(()())((())()())())(()())))())))(())())())(())((()())(((()()))()))()()))()(()(())((((((((())))()((())((()((((((((((()))))(()(((((())(()(()())())))((())())))))()))(()((()()))((()((())()()()((()(())())((())())(()()(((())))))())()()(()))()())(()(()((())))((((()()(())))())(())(()(()(())())())(()()())()(())())))(()()(((())))((()()(((())()()(()())((((()()(()())(()((((()(()()(()(()(((()((()())(()()))(()((((()(((((()))))()()))(((()((((((()(()()()()())()))(()(())))))((()(((()())())))(((()()))(()(()(((((((()()))(()(())))())()(())())(())(()))(())(()))()()(()()())))))()))()((())(((()((((((((())()()))())))((()())("};
 	constexpr int expected_result{310};
-	EXPECT_EQ(longest_valid_paratheses_string(input), expected_result);
+	EXPECT_EQ(longest_valid_parentheses_string(input), expected_result);
 }
