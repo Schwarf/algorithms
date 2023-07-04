@@ -7,4 +7,5 @@ add_subdirectory(test)
 
 add_executable(bit_manipulation main.cpp
         basic_bit_operations.h
-        insert_bit_sequence_into_bitstring.h)
+        insert_bit_sequence_into_bitstring.h
+        find_unique_number_in_arrays.h)
