@@ -6,7 +6,7 @@
 
 int main()
 {
-	std::cout << compute_binomial_coefficient(50, 25) << std::endl;
+	std::cout << compute_binomial_coefficient(50, 24) << std::endl;
 
 
 	return 0;
