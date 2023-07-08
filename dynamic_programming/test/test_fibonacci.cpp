@@ -26,6 +26,18 @@ TEST_F(SetupFibonacciTest, nth_fibonacci_number_atRuntime)
 		EXPECT_EQ(fibonacci_numbers[i], n_th_fibonacci_number(i));
 }
 
+TEST_F(SetupFibonacciTest, nth_fibonacci_number_atRuntimeThrowsForValueOver50)
+{
+	const std::string message{"We only compute fibonacci numbers up to 50"};
+	try {
+		auto result = n_th_fibonacci_number(51);
+		FAIL() << "Expected std::out_of_range";
+	}
+	catch (std::out_of_range const &err) {
+		EXPECT_TRUE(err.what() == message);
+	}
+}
+
 
 TEST_F(SetupFibonacciTest, nth_fibonacci_number_atCompileTime)
 {
