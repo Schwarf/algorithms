@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <climits>
-//Given an n x n integer matrix, return the minimum sum of any downward path through the matrix.
+//Given an n x n unsigned integer matrix, return the minimum sum of any downward path through the matrix.
 //A downward path starts at any element in the first row and chooses the element in the next row that is either
 // directly below or diagonally left/right.
 //Specifically, the next element from position [row, col] will be [row + 1, col - 1], [row + 1, col]
