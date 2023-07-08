@@ -20,4 +20,5 @@ add_executable(dynamic_programming_samples main.cpp
         sum_subarray_minimums.h
         trapping_rain_water.h
         maximum_number_of_uncrossing_lines.h
-        maximum_points_solved_with_brain_power.h)
+        maximum_points_solved_with_brain_power.h
+        main.cpp)

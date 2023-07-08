@@ -17,6 +17,7 @@ add_executable(dynamic_programming_samples_test
         test_maximum_sum_of_array_no_adjacent_elements.cpp
         test_length_of_longest_palindromic_subsequence.cpp
         test_maximum_number_of_uncrossing_lines.cpp
-        test_maximum_points_solved_brain_power.cpp)
+        test_maximum_points_solved_brain_power.cpp
+        test_fibonacci.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
