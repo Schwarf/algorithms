@@ -22,4 +22,6 @@ add_executable(dynamic_programming_samples main.cpp
         maximum_number_of_uncrossing_lines.h
         maximum_points_solved_with_brain_power.h
         pascal_triangle.h
+        maximum_subarray_kadane_algorithm.h
+        used_concepts.h
         main.cpp)

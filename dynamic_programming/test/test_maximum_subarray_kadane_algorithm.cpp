@@ -6,7 +6,7 @@
 #define TEST_MAXIMUM_SUBARRAY_KADANE_ALGORITHM_CPP
 #include <deque>
 #include "gtest/gtest.h"
-#include "./../maximum_subarray_kadane_algorithm.h"
+#include "../../dynamic_programming/maximum_subarray_kadane_algorithm.h"
 
 TEST(KadaneAlgorithm, simple1)
 {

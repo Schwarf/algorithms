@@ -19,6 +19,7 @@ add_executable(dynamic_programming_samples_test
         test_maximum_number_of_uncrossing_lines.cpp
         test_maximum_points_solved_brain_power.cpp
         test_fibonacci.cpp
-        test_pascal_triangle.cpp)
+        test_pascal_triangle.cpp
+        test_maximum_subarray_kadane_algorithm.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
