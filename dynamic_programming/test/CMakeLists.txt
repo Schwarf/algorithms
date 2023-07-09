@@ -20,6 +20,7 @@ add_executable(dynamic_programming_samples_test
         test_maximum_points_solved_brain_power.cpp
         test_fibonacci.cpp
         test_pascal_triangle.cpp
-        test_maximum_subarray_kadane_algorithm.cpp)
+        test_maximum_subarray_kadane_algorithm.cpp
+        test_longest_palindromic_substring.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
