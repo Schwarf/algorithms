@@ -1,4 +1,4 @@
-+
+
 //
 // Created by andreas on 09.07.23.
 //
@@ -7,6 +7,10 @@
 #define MINIMIZE_NUMBER_OF_COINS_H
 // Given a set of coins and an amount find the minimal number of coins to get the amount
 #include <vector>
+#include <iostream>
+
+static int depth{};
+
 int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 {
 	if (amount == 0)
@@ -22,28 +26,29 @@ int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 	return number_of_coins == amount + 1 ? -1 : number_of_coins;
 }
 
-int minimize_top_down(const std::vector<int> &coins, int amount, std::vector<int> & memo)
+int minimize_top_down(const std::vector<int> &coins, int amount, std::vector<int> &memo)
 {
-	if(memo[amount] != amount+1)
+	depth++;
+	std::cout << depth << std::endl;
+	if (memo[amount] != -1)
 		return memo[amount];
-	if(amount==0)
+	if (amount == 0)
 		return 0;
-	int number_of_coins{amount+1};
-	for(const auto & coin: coins)
-	{
-		if(amount > coin) {
+	int number_of_coins{amount + 1};
+	for (const auto &coin: coins) {
+		if (amount >= coin) {
 			auto sub_count = std::min(number_of_coins, minimize_top_down(coins, amount - coin, memo));
 			if (sub_count != -1)
-				number_of_coins = std::min(number_of_coins,  1+sub_count);
+				number_of_coins = std::min(number_of_coins, 1 + sub_count);
 		}
 	}
-	memo[amount] = number_of_coins != amount+1 ? number_of_coins: (int)0;
-	return number_of_coins;
+	memo[amount] = number_of_coins != amount + 1 ? number_of_coins : -1;
+	return memo[amount];
 }
 
 int minimize_number_of_coins_top_down(const std::vector<int> &coins, int amount)
 {
-	std::vector<int> memo(amount+1, amount+1);
+	std::vector<int> memo(amount + 1, -1);
 	return minimize_top_down(coins, amount, memo);
 }
 
