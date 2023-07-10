@@ -137,6 +137,15 @@ protected:
 		root->right->right = new TreeNode<int>(5);
 		return root;
 	}
+	static TreeNode<int> *imbalanced_right_tree()
+	{
+		auto root = new TreeNode<int>(2);
+		root->right = new TreeNode<int>(1);
+		root->right->left = new TreeNode<int>(4);
+		root->right->right = new TreeNode<int>(5);
+		root->right->right->right = new TreeNode<int>(12);
+		return root;
+	}
 
 };
 

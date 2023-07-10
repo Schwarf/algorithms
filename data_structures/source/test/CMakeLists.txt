@@ -70,7 +70,9 @@ add_executable(test_binary_tree_algorithms
         trees/binary_trees/test_binary_search_tree_from_sorted_array.cpp
         trees/binary_trees/test_flatten_binary_search_tree_to_array.cpp
         trees/binary_trees/test_maximum_difference_between_node_and_ancestor.cpp
-        trees/binary_trees/test_find_duplicate_subtrees.cpp trees/binary_trees/test_is_binary_tree_complete.cpp)
+        trees/binary_trees/test_find_duplicate_subtrees.cpp
+        trees/binary_trees/test_is_binary_tree_complete.cpp
+        trees/binary_trees/test_minimum_depth_binary_tree.cpp)
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h

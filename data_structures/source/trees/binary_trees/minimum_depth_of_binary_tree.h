@@ -15,9 +15,9 @@ int minimum_depth_binary_tree_dfs(TreeNode<T> *root)
 	if (root->left && root->right)
 		return 1 + std::min(minimum_depth_binary_tree_dfs(root->left), minimum_depth_binary_tree_dfs(root->right));
 	if (root->left)
-		return 1 + minimum_depth_binary_tree(root->left);
+		return 1 + minimum_depth_binary_tree_dfs(root->left);
 	if (root->right)
-		return 1 + minimum_depth_binary_tree(root->right);
+		return 1 + minimum_depth_binary_tree_dfs(root->right);
 	return 1;
 }
 
