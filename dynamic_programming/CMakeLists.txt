@@ -24,5 +24,5 @@ add_executable(dynamic_programming_samples main.cpp
         pascal_triangle.h
         maximum_subarray_kadane_algorithm.h
         used_concepts.h
-        minimize_number_of_coins_problem.h
+        minimize_number_of_coins.h
         main.cpp)

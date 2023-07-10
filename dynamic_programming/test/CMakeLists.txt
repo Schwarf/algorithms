@@ -21,6 +21,7 @@ add_executable(dynamic_programming_samples_test
         test_fibonacci.cpp
         test_pascal_triangle.cpp
         test_maximum_subarray_kadane_algorithm.cpp
-        test_longest_palindromic_substring.cpp)
+        test_longest_palindromic_substring.cpp
+        test_minimize_number_of_coins.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

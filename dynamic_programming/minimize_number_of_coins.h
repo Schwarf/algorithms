@@ -3,8 +3,8 @@
 // Created by andreas on 09.07.23.
 //
 
-#ifndef MINIMIZE_NUMBER_OF_COINS_PROBLEM_H
-#define MINIMIZE_NUMBER_OF_COINS_PROBLEM_H
+#ifndef MINIMIZE_NUMBER_OF_COINS_H
+#define MINIMIZE_NUMBER_OF_COINS_H
 // Given a set of coins and an amount find the minimal number of coins to get the amount
 #include <vector>
 int minimize_number_of_coins(const std::vector<int> &coins, int amount)
@@ -25,6 +25,8 @@ int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 // Bottom up or tabulation approach
 int minimize_number_of_coins_bottom_up(const std::vector<int> &coins, int amount)
 {
+	if (amount == 0)
+		return 0;
 	std::vector<int> dp(amount + 1, amount + 1);
 	for (const auto &coin: coins) {
 		if (coin <= amount)
@@ -39,4 +41,4 @@ int minimize_number_of_coins_bottom_up(const std::vector<int> &coins, int amount
 	return dp[amount] == amount + 1 ? -1 : dp[amount];
 }
 
-#endif //MINIMIZE_NUMBER_OF_COINS_PROBLEM_H
+#endif //MINIMIZE_NUMBER_OF_COINS_H
