@@ -1,4 +1,4 @@
-
++
 //
 // Created by andreas on 09.07.23.
 //
@@ -20,6 +20,31 @@ int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 		}
 	}
 	return number_of_coins == amount + 1 ? -1 : number_of_coins;
+}
+
+int minimize_top_down(const std::vector<int> &coins, int amount, std::vector<int> & memo)
+{
+	if(memo[amount] != amount+1)
+		return memo[amount];
+	if(amount==0)
+		return 0;
+	int number_of_coins{amount+1};
+	for(const auto & coin: coins)
+	{
+		if(amount > coin) {
+			auto sub_count = std::min(number_of_coins, minimize_top_down(coins, amount - coin, memo));
+			if (sub_count != -1)
+				number_of_coins = std::min(number_of_coins,  1+sub_count);
+		}
+	}
+	memo[amount] = number_of_coins != amount+1 ? number_of_coins: (int)0;
+	return number_of_coins;
+}
+
+int minimize_number_of_coins_top_down(const std::vector<int> &coins, int amount)
+{
+	std::vector<int> memo(amount+1, amount+1);
+	return minimize_top_down(coins, amount, memo);
 }
 
 // Bottom up or tabulation approach
