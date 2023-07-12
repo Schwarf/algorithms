@@ -25,7 +25,7 @@
 
 template <typename T>
 requires std::is_unsigned<T>
-void fill_graph(TreeNode<T>* root, std::unorederd_map<int, std::vector<T>> & graph)
+void fill_graph(TreeNode<T>* root, std::unordered_map<int, std::vector<T>> & graph)
 {
     if(!root)
         return;

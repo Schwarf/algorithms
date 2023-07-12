@@ -8,16 +8,18 @@
 #include <queue>
 #include <algorithm>
 
-int maximum_depth_recursive(TreeNode<int> *root)
+template<typename T>
+int maximum_depth_recursive(TreeNode<T> *root)
 {
 	if (!root)
 		return 0;
 	return 1 + std::max(maximum_depth_recursive(root->left), maximum_depth_recursive(root->right));
 }
 
-int maximum_depth(TreeNode<int> *root)
+template<typename T>
+int maximum_depth(TreeNode<T> *root)
 {
-	auto nodes_per_level = std::queue<TreeNode<int> *>();
+	auto nodes_per_level = std::queue<TreeNode<T> *>();
 	int node_count{};
 	if (!root)
 		return 0;

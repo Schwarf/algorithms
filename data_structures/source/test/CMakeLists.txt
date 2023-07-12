@@ -18,7 +18,8 @@ add_executable(test_graphs
         graphs/test_all_roads_lead_to_rome.cpp
         graphs/test_clone_graph.cpp
         graphs/test_minimal_distance_to_connect_all_points.cpp
-        graphs/test_size_of_largest_island.cpp graphs/test_maximum_marked_circles.cpp graphs/test_time_to_inform_hierachy.cpp)
+        graphs/test_size_of_largest_island.cpp graphs/test_maximum_marked_circles.cpp
+        graphs/test_time_to_inform_hierachy.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp

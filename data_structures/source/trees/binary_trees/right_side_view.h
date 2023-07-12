@@ -11,7 +11,8 @@
 // return the values of the nodes you can see ordered from top to bottom.
 
 // THE TEST INCORPORATES ITERATIVE SOLUTION
-void depth_first_search(TreeNode<int> *root, int depth, std::vector<int> &result)
+template <typename T>
+void depth_first_search(TreeNode<T> *root, int depth, std::vector<T> &result)
 {
 	if (!root)
 		return;
@@ -22,9 +23,10 @@ void depth_first_search(TreeNode<int> *root, int depth, std::vector<int> &result
 
 }
 
-std::vector<int> right_side_view(TreeNode<int> *root)
+template <typename T>
+std::vector<T> right_side_view(TreeNode<T> *root)
 {
-	std::vector<int> result;
+	std::vector<T> result;
 	depth_first_search(root, 0, result);
 	return result;
 }

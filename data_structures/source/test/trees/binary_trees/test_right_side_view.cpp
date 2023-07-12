@@ -8,18 +8,19 @@
 #include <queue>
 
 // ITERATIVE IMPLEMENTATION OF RIGHT-SIDE-VIEW
-std::vector<int> test_right_side_view(TreeNode<int> *root)
+template<typename T>
+std::vector<T> test_right_side_view(TreeNode<T> *root)
 {
 	if (!root)
 		return {};
 
-	std::vector<int> test_result;
-	std::queue<TreeNode<int> *> queue{{root}};
+	std::vector<T> test_result;
+	std::queue<TreeNode<T> *> queue{{root}};
 
 	while (!queue.empty()) {
 		const size_t size = queue.size();
 		for (size_t i = 0; i < size; ++i) {
-			TreeNode<int> *node = queue.front();
+			TreeNode<T> *node = queue.front();
 			queue.pop();
 			if (i == size - 1)
 				test_result.push_back(node->value);
