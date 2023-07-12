@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.21)
 project(dynamic_programming_samples)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -25,4 +25,4 @@ add_executable(dynamic_programming_samples main.cpp
         maximum_subarray_kadane_algorithm.h
         used_concepts.h
         minimize_number_of_coins.h
-        main.cpp)
+        main.cpp minimal_jumps_to_last_index.h)
