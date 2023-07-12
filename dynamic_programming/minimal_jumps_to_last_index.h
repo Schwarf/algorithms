@@ -10,19 +10,20 @@
 // You can assume that you can always reach the last index.
 #include <concepts>
 #include <vector>
-
+#include <iostream>
 
 template<typename T>
 requires std::is_unsigned_v<T>
-int minimal_jumps_to_last_index_recursive(std::vector<T> & distances, T start = 0)
+T minimal_jumps_to_last_index_recursive(std::vector<T> & distances, T start = 0)
 {
     if(start == distances.size() -1)
         return 0;
-    int min{1000000000};
-    for(int i{1}; i < distances[start]; ++i)
+    T min{1000000000};
+    for(int i{1}; i <= distances[start]; ++i)
     {
-        if(start+i <= distances.size() -1)
-            min = std::min(min, 1 + minimal_jumps_to_last_index_recursive(distances, start+i));
+        if(start+i <= (distances.size() -1)) {
+            min = std::min(min, 1 + minimal_jumps_to_last_index_recursive(distances, start + i));
+        }
     }
     return min;
 }
