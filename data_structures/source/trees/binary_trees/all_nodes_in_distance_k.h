@@ -5,7 +5,9 @@
 #ifndef DATA_STRUCTURES_ALL_NODES_IN_DISTANCE_K_H
 #define DATA_STRUCTURES_ALL_NODES_IN_DISTANCE_K_H
 #include <vector>
-#include <vector>
+#include <queue>
+#include <unordered_set>
+#include <unordered_map>
 #include <concepts>
 
 #include "tree_node.h"
@@ -23,7 +25,7 @@
 
 template <typename T>
 requires std::is_unsigned<T>
-void fill_graph(TreeNode<T>* root, std::vector<std::vector<T>> & graph)
+void fill_graph(TreeNode<T>* root, std::unorederd_map<int, std::vector<T>> & graph)
 {
     if(!root)
         return;
@@ -42,19 +44,50 @@ void fill_graph(TreeNode<T>* root, std::vector<std::vector<T>> & graph)
 }
 template<typename T>
 requires std::is_unsigned<T>
-std::vector<int> bfs(T start, std:::vectro<std::vector<T>> & graph)
+std::vector<T> bfs(T start, std::unorederd_map<int, std::vector<T>> & graph, int distance)
 {
-
+    std::queue<T> q{{start}};
+    std::unordered_set<T> visited;
+    std::vector<T> result;
+    int depth{};
+    while(!q.empty())
+    {
+        auto size = q.size();
+        if(depth==distance)
+        {
+            while(size--) {
+                resul.push_back(q.front());
+                q.pop();
+            }
+            return result;
+        }
+        else
+        {
+            while(size--)
+            {
+                auto current = q.front();
+                q.pop();
+                for(const auto & neighbor: graph[current])
+                {
+                    if(visited.find(neighbor) == visited.end())
+                        q.push(neighbor);
+                }
+                visisted.insert(current);
+            }
+        }
+        depth++;
+    }
+    return {};
 }
 
 
 template <typename T>
 requires std::is_unsigned<T>
-std::vector<T> all_nodes_in_distance_k(TreeNode<T> * root, TreeNode<T> * target, int max_node_index, int distance)
+std::vector<T> all_nodes_in_distance_k(TreeNode<T> * root, TreeNode<T> * target, int distance)
 {
-    std::vector<std::vector<T>> graph(max_node_index, std::vector<int>());
+    std::unorederd_map<int, std::vector<T>> graph;
     fill_graph(root, graph);
-
+    return bfs(target->value, graph, distance);
 
 }
 
