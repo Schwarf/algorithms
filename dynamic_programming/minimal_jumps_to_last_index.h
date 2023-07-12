@@ -51,4 +51,17 @@ int minimal_jumps_to_last_index_top_down(std::vector<T> &distances) {
     return memoization(distances, T{}, memo);
 }
 
+template<typename T>
+requires std::is_unsigned_v<T>
+int minimal_jumps_to_last_index_bottom_up(std::vector<T> &distances) {
+    const int n = distances.size();
+    std::vector<T> dp(n, 1000000000);
+    dp[n - 1] = 0;
+    for (int i{n - 2}; i > -1; --i) {
+        for (int j{1}; j <= distances[i] && i + j < n; ++j)
+            dp[i] = std::min(dp[i], 1 + dp[i + j]);
+    }
+    return dp[0];
+}
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_JUMPS_TO_LAST_INDEX_H
