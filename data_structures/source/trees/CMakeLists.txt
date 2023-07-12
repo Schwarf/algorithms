@@ -20,6 +20,6 @@ add_library(binary_tree_lib INTERFACE
         binary_trees/maximum_path_sum.h
         binary_trees/find_duplicate_subtrees.h
         binary_trees/is_binary_tree_complete.h
-        binary_trees/minimum_depth_of_binary_tree.h)
+        binary_trees/minimum_depth_of_binary_tree.h binary_trees/all_nodes_in_distance_k.h)
 
 add_library(segment_tree_lib INTERFACE segment_trees/segment_tree.h)
