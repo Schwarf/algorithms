@@ -147,6 +147,34 @@ protected:
 		return root;
 	}
 
+    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree()
+    {
+        auto root = new TreeNode<unsigned int>(3);
+        root->left = new TreeNode<unsigned int>(5);
+        root->right = new TreeNode<unsigned int>(1);
+        root->left->left = new TreeNode<unsigned int>(6);
+        root->left->right = new TreeNode<unsigned int>(2);
+        root->left->right->left = new TreeNode<unsigned int>(7);
+        root->left->right->right = new TreeNode<unsigned int>(4);
+        root->right->left = new TreeNode<unsigned int>(0);
+        root->right->right = new TreeNode<unsigned int>(8);
+        return std::make_pair(root, root->left);
+    }
+
+    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree2()
+    {
+        auto root = new TreeNode<unsigned int>(3);
+        root->left = new TreeNode<unsigned int>(5);
+        root->right = new TreeNode<unsigned int>(1);
+        root->left->left = new TreeNode<unsigned int>(6);
+        root->left->right = new TreeNode<unsigned int>(2);
+        root->left->right->left = new TreeNode<unsigned int>(7);
+        root->left->right->right = new TreeNode<unsigned int>(4);
+        root->right->left = new TreeNode<unsigned int>(0);
+        root->right->right = new TreeNode<unsigned int>(8);
+        return std::make_pair(root, root->left->right->left);
+    }
+
 };
 
 #endif //SETUP_BINARY_TREE_H
