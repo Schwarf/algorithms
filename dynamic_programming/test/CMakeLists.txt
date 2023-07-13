@@ -6,7 +6,7 @@ include_directories(./../)
 add_executable(dynamic_programming_samples_test
         test_min_costs_to_reach_end.cpp
         test_main.cpp
-        test_jumps.cpp
+        test_can_reach_last_index.cpp
         test_count_ways_in_2D_grid.cpp
         test_longest_increasing_subsequence.cpp
         test_maximum_length_of_same_subarray_in_two_arrays.cpp

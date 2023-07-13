@@ -8,7 +8,7 @@ add_subdirectory(test)
 
 add_executable(dynamic_programming_samples main.cpp
         count_ways_2D_grid.h
-        jumps.h
+        can_reach_last_index.h
         length_of_longest_palindromic_subsequence.h
         longest_common_subsequence.h
         longest_increasing_subsequence.h
