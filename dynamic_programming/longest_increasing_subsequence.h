@@ -6,6 +6,26 @@
 #define LONGEST_INCREASING_SUBSEQUENCE_H
 #include <vector>
 #include <algorithm>
+#include <concepts>
+
+template<typename T>
+requires std::is_arithmetic_v<T>
+int size_of_longest_increasing_subsequence_recursive(const std::vector<T> &sequence,
+													 int previous_element = std::numeric_limits<T>::min(),
+													 int index = 0)
+{
+	if (index == sequence.size() - 1)
+		return 0;
+	int exclude_current_element =
+		size_of_longest_increasing_subsequence_recursive(sequence, previous_element, index + 1);
+	int include_current_element{};
+	if (sequence[index] > previous_element)
+		include_current_element =
+			1 + size_of_longest_increasing_subsequence_recursive(sequence, sequence[index], index + 1);
+
+	return std::max(exclude_current_element, include_current_element);
+}
+
 // O(N^2)
 int size_of_longest_increasing_subsequence(const std::vector<int> &sequence)
 {
