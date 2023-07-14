@@ -14,7 +14,7 @@ int size_of_longest_increasing_subsequence_recursive(const std::vector<T> &seque
 													 int previous_element = std::numeric_limits<T>::min(),
 													 int index = 0)
 {
-	if (index == sequence.size() - 1)
+	if (index == sequence.size())
 		return 0;
 	int exclude_current_element =
 		size_of_longest_increasing_subsequence_recursive(sequence, previous_element, index + 1);
