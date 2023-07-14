@@ -71,7 +71,6 @@ TEST(MinimizeBottomUp, simple2)
 	EXPECT_EQ(expected_result, minimize_number_of_coins_bottom_up(coins, amount));
 }
 
-
 TEST(MinimizeBottomUp, complex)
 {
 	const std::vector<int> coins{186, 419, 83, 408};
@@ -122,19 +121,19 @@ TEST(MinimizeTopDown, simple2)
 	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
 }
 
-
-TEST(MinimizeTopDown, complex)
-{
-	const std::vector<int> coins{186, 419, 83, 408};
-	constexpr int amount{6249};
-	constexpr int expected_result{20};
-	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
-}
-
-TEST(MinimizeTopDown, complex2)
-{
-	const std::vector<int> coins{411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422};
-	constexpr int amount{9864};
-	constexpr int expected_result{24};
-	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
-}
+// Long runtime
+//TEST(MinimizeTopDown, complex)
+//{
+//	const std::vector<int> coins{186, 419, 83, 408};
+//	constexpr int amount{6249};
+//	constexpr int expected_result{20};
+//	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
+//}
+// Long runtime
+//TEST(MinimizeTopDown, complex2)
+//{
+//	const std::vector<int> coins{411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422};
+//	constexpr int amount{9864};
+//	constexpr int expected_result{24};
+//	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
+//}

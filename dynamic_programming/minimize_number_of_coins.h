@@ -7,7 +7,6 @@
 #define MINIMIZE_NUMBER_OF_COINS_H
 // Given a set of coins and an amount find the minimal number of coins to get the amount
 #include <vector>
-#include <iostream>
 
 static int depth{};
 
@@ -28,8 +27,6 @@ int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 
 int minimize_top_down(const std::vector<int> &coins, int amount, std::vector<int> &memo)
 {
-	depth++;
-	std::cout << depth << std::endl;
 	if (memo[amount] != -1)
 		return memo[amount];
 	if (amount == 0)
