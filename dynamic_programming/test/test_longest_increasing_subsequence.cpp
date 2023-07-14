@@ -34,58 +34,77 @@ protected:
 };
 
 
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario1)
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario1)
 {
-	auto output1 = size_of_longest_increasing_subsequence(input1);
+	auto output1 = size_of_longest_increasing_subsequence_bottom_up(input1);
 	EXPECT_EQ(result1, output1);
 }
 
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario2)
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario2)
 {
-	auto output2 = size_of_longest_increasing_subsequence(input2);
+	auto output2 = size_of_longest_increasing_subsequence_bottom_up(input2);
 	EXPECT_EQ(result2, output2);
 }
 
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario3)
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario3)
 {
-	auto output3 = size_of_longest_increasing_subsequence(input3);
+	auto output3 = size_of_longest_increasing_subsequence_bottom_up(input3);
 	EXPECT_EQ(result3, output3);
 }
 
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation_scenario4)
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario4)
 {
-	auto output4 = size_of_longest_increasing_subsequence(input4);
+	auto output4 = size_of_longest_increasing_subsequence_bottom_up(input4);
 	EXPECT_EQ(result4, output4);
 }
 
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario1)
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario5)
 {
-	auto output1 = size_of_longest_increasing_subsequence2(input1);
-	EXPECT_EQ(result1, output1);
-}
-
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario2)
-{
-	auto output2 = size_of_longest_increasing_subsequence2(input2);
-	EXPECT_EQ(result2, output2);
-}
-
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario3)
-{
-	auto output3 = size_of_longest_increasing_subsequence2(input3);
-	EXPECT_EQ(result3, output3);
-}
-
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario4)
-{
-	auto output4 = size_of_longest_increasing_subsequence2(input4);
-	EXPECT_EQ(result4, output4);
-}
-
-TEST_F(SetupLongestIncreasingSubsequence, test_first_implementation2_scenario5)
-{
-	auto output5 = size_of_longest_increasing_subsequence2(input5);
+	auto output5 = size_of_longest_increasing_subsequence_bottom_up(input5);
 	EXPECT_EQ(result5, output5);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, bottom_up_scenario6)
+{
+	auto output6 = size_of_longest_increasing_subsequence_bottom_up(input6);
+	EXPECT_EQ(result6, output6);
+}
+
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario1)
+{
+	auto output1 = size_of_longest_increasing_subsequence_tail_list(input1);
+	EXPECT_EQ(result1, output1);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario2)
+{
+	auto output2 = size_of_longest_increasing_subsequence_tail_list(input2);
+	EXPECT_EQ(result2, output2);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario3)
+{
+	auto output3 = size_of_longest_increasing_subsequence_tail_list(input3);
+	EXPECT_EQ(result3, output3);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario4)
+{
+	auto output4 = size_of_longest_increasing_subsequence_tail_list(input4);
+	EXPECT_EQ(result4, output4);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario5)
+{
+	auto output5 = size_of_longest_increasing_subsequence_tail_list(input5);
+	EXPECT_EQ(result5, output5);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, tail_list_scenario6)
+{
+	auto output6 = size_of_longest_increasing_subsequence_tail_list(input6);
+	EXPECT_EQ(result6, output6);
 }
 
 
