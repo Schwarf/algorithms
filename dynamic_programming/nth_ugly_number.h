@@ -29,4 +29,6 @@ int nth_ugly_number_recursive(int n, int num = 1)
 		next++;
 	return nth_ugly_number_recursive(n - 1, next);
 }
+
+
 #endif //NTH_UGLY_NUMBER_H
