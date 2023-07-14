@@ -100,3 +100,28 @@ TEST_F(SetupLongestIncreasingSubsequence, recursive_implementation_scenario4)
 	auto output4 = size_of_longest_increasing_subsequence_recursive(input4);
 	EXPECT_EQ(result4, output4);
 }
+
+
+TEST_F(SetupLongestIncreasingSubsequence, top_down_implementation_scenario1)
+{
+	auto output1 = size_of_longest_increasing_subsequence_top_down(input1);
+	EXPECT_EQ(result1, output1);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, top_down_implementation_scenario2)
+{
+	auto output2 = size_of_longest_increasing_subsequence_top_down(input2);
+	EXPECT_EQ(result2, output2);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, top_down_implementation_scenario3)
+{
+	auto output3 = size_of_longest_increasing_subsequence_top_down(input3);
+	EXPECT_EQ(result3, output3);
+}
+
+TEST_F(SetupLongestIncreasingSubsequence, top_down_implementation_scenario4)
+{
+	auto output4 = size_of_longest_increasing_subsequence_top_down(input4);
+	EXPECT_EQ(result4, output4);
+}

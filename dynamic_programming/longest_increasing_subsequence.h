@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <concepts>
 
+
+// Runtime complexity is 2^N because we branch into two recursive calls in each function call.
 template<typename T>
 requires std::is_arithmetic_v<T>
 int size_of_longest_increasing_subsequence_recursive(const std::vector<T> &sequence,
@@ -24,6 +26,36 @@ int size_of_longest_increasing_subsequence_recursive(const std::vector<T> &seque
 			1 + size_of_longest_increasing_subsequence_recursive(sequence, sequence[index], index + 1);
 
 	return std::max(exclude_current_element, include_current_element);
+}
+// Runtime complexity is N^2 because each cell in 2D-array memo is filled exactly once.
+template<typename T>
+requires std::is_arithmetic_v<T>
+int memoization(const std::vector<T> &sequence,
+				std::vector<std::vector<int>> &memo,
+				int current_index,
+				int previous_index)
+{
+	if (current_index == sequence.size())
+		return 0;
+	if (memo[previous_index + 1][current_index] != -1)
+		return memo[previous_index + 1][current_index];
+
+	int exclude_current_element = memoization(sequence, memo, current_index + 1, previous_index);
+	int include_current_element{};
+	if (previous_index == -1 || sequence[current_index] > sequence[previous_index])
+		include_current_element =
+			1 + memoization(sequence, memo, current_index + 1, current_index);
+
+	memo[previous_index + 1][current_index] = std::max(exclude_current_element, include_current_element);
+	return memo[previous_index + 1][current_index];
+}
+
+template<typename T>
+requires std::is_arithmetic_v<T>
+int size_of_longest_increasing_subsequence_top_down(const std::vector<T> &sequence)
+{
+	std::vector<std::vector<int>> memo(sequence.size(), std::vector<int>(sequence.size(), -1));
+	return memoization(sequence, memo, 0, -1);
 }
 
 // O(N^2)
