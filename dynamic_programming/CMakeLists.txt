@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(test)
 
+include_directories(./../data_structures/source/hash_functions/hash_function_for_pairs.h)
 
 add_executable(dynamic_programming_samples main.cpp
         count_ways_2D_grid.h
