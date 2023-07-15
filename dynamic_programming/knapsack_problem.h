@@ -20,9 +20,9 @@ struct Item
 template<typename ValueType, typename WeightType>
 requires std::is_arithmetic_v<ValueType>
 	&& std::is_arithmetic_v<WeightType>
-int knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &items,
-							   WeightType knapsack_capacity,
-							   int number_of_items = -1)
+ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &items,
+									 WeightType knapsack_capacity,
+									 int number_of_items = -1)
 {
 	if (number_of_items == -1)
 		number_of_items = items.size();
@@ -43,19 +43,19 @@ int knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &i
 template<typename ValueType, typename WeightType>
 requires std::is_arithmetic_v<ValueType>
 	&& std::is_arithmetic_v<WeightType>
-int memoization(std::vector<Item<ValueType, WeightType>> &items,
-				WeightType knapsack_capacity,
-				std::unordered_map<std::pair<int, WeightType>,
-								   ValueType,
-								   non_commutative_pair_hash<int, WeightType>> &memo,
-				int number_of_items = -1)
+ValueType memoization(const std::vector<Item<ValueType, WeightType>> &items,
+					  WeightType knapsack_capacity,
+					  std::unordered_map<std::pair<int, WeightType>,
+										 ValueType,
+										 non_commutative_pair_hash<int, WeightType>> &memo,
+					  int number_of_items = -1)
 {
 	if (number_of_items == -1)
 		number_of_items = items.size();
 	if (knapsack_capacity == WeightType{} || number_of_items == 0)
 		return 0;
 	// Check if this capacity with this number of items was computed before
-	std::pair<int, WeightType> key = std::make_pair<int, WeightType>(number_of_items, knapsack_capacity);
+	std::pair<int, WeightType> key = std::make_pair(number_of_items, knapsack_capacity);
 	if (memo.find(key) != memo.end())
 		return memo[key];
 
@@ -79,7 +79,7 @@ int memoization(std::vector<Item<ValueType, WeightType>> &items,
 template<typename ValueType, typename WeightType>
 requires std::is_arithmetic_v<ValueType>
 	&& std::is_arithmetic_v<WeightType>
-int knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>> &items, WeightType knapsack_capacity)
+ValueType knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>> &items, WeightType knapsack_capacity)
 {
 	std::unordered_map<std::pair<int, WeightType>, ValueType, non_commutative_pair_hash<int, WeightType>>
 		memo;
