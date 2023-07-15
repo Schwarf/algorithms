@@ -17,7 +17,7 @@ struct Item
 template<typename ValueType, typename WeightType>
 requires std::is_arithmetic_v<ValueType>
 	&& std::is_arithmetic_v<WeightType>
-int knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &items,
+int knapsack_problem_recursive(std::vector<Item<ValueType, WeightType>> &items,
 							   WeightType knapsack_capacity,
 							   int number_of_items = -1)
 {
@@ -32,6 +32,6 @@ int knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &i
 																					  - items[number_of_items - 1]
 																						  .weight,
 																				  number_of_items - 1),
-					knapsack_problem_recursive(items, knapsack_capacity, number_of_items));
+					knapsack_problem_recursive(items, knapsack_capacity, number_of_items - 1));
 }
 #endif //KNAPSACK_PROBLEM_H

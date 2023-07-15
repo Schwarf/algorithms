@@ -25,4 +25,6 @@ add_executable(dynamic_programming_samples main.cpp
         maximum_subarray_kadane_algorithm.h
         used_concepts.h
         minimize_number_of_coins.h
-        main.cpp minimal_jumps_to_last_index.h)
+        main.cpp
+        minimal_jumps_to_last_index.h
+        knapsack_problem.h)

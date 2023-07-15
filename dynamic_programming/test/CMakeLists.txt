@@ -23,6 +23,7 @@ add_executable(dynamic_programming_samples_test
         test_maximum_subarray_kadane_algorithm.cpp
         test_longest_palindromic_substring.cpp
         test_minimize_number_of_coins.cpp
-        test_minimal_jumps_to_last_index.cpp)
+        test_minimal_jumps_to_last_index.cpp
+        test_knapsack_problem.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
