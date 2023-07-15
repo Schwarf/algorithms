@@ -7,9 +7,9 @@
 #include <utility>
 #include <functional>
 // Weak pair hash that has is commutative
+template<class T1, class T2>
 struct commutative_pair_hash
 {
-	template<class T1, class T2>
 	std::size_t operator()(const std::pair<T1, T2> &pair) const
 	{
 		auto h1 = std::hash<T1>{}(pair.first);
@@ -26,9 +26,9 @@ struct commutative_pair_hash
 // has 'poor rational approximation', that means it's hard to approximate with a simple fraction
 // which makes it less likely that different inputs will, by coincidence, produce the same output,
 // reducing the chance of hash collisions.
+template<class T1, class T2>
 struct non_commutative_pair_hash
 {
-	template<class T1, class T2>
 	std::size_t operator()(const std::pair<T1, T2> &pair) const
 	{
 		std::size_t seed{};
