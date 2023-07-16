@@ -8,6 +8,18 @@
 #include <functional>
 // Weak pair hash that has is commutative
 template<class T1, class T2>
+struct dummy_plus_pair_hash
+{
+	std::size_t operator()(const std::pair<T1, T2> &pair) const
+	{
+		auto v1 = static_cast<T1>(pair.second);
+		auto h1 = std::hash<T1>{}(pair.first + v1);
+		return h1;
+	}
+};
+
+// Weak pair hash that has is commutative
+template<class T1, class T2>
 struct commutative_pair_hash
 {
 	std::size_t operator()(const std::pair<T1, T2> &pair) const
