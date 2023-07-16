@@ -10,7 +10,7 @@ TEST(TestUniformityOfPairHashes, integer_integer_pairs_commutative)
 {
 	std::random_device random_device;
 	std::mt19937 generator(random_device());
-	std::uniform_int_distribution<size_t> distribution(1, 1000000000);
+	std::uniform_int_distribution<int> distribution(1, 1000000000);
 	std::vector<std::pair<int, int>> input;
 	constexpr int number_of_samples = 1000000;
 	constexpr int number_of_buckets = 1000;
@@ -33,7 +33,7 @@ TEST(TestUniformityOfPairHashes, integer_integer_pairs_non_commutative)
 {
 	std::random_device random_device;
 	std::mt19937 generator(random_device());
-	std::uniform_int_distribution<size_t> distribution(1, 1000000000);
+	std::uniform_int_distribution<int> distribution(1, 1000000000);
 	std::vector<std::pair<int, int>> input;
 	constexpr int number_of_samples = 1000000;
 	constexpr int number_of_buckets = 1000;
@@ -47,6 +47,59 @@ TEST(TestUniformityOfPairHashes, integer_integer_pairs_non_commutative)
 									 int,
 									 int>::compute_chi_square_value(
 			non_commutative_pair_hash<int, int>(),
+			input,
+			number_of_buckets);
+	constexpr double chi_square{1074.3};
+	std::cout << test << std::endl;
+	EXPECT_TRUE(test < chi_square);
+}
+
+TEST(TestUniformityOfPairHashes, integer_double_pairs_commutative)
+{
+	std::random_device random_device;
+	std::mt19937 generator(random_device());
+	std::uniform_int_distribution<size_t> int_distribution(1, 1000000000);
+	std::uniform_real_distribution<double> double_distribution(0.0, 1.0);
+	std::vector<std::pair<int, double>> input;
+	constexpr int number_of_samples = 1000000;
+	constexpr int number_of_buckets = 1000;
+	for (int i{}; i < number_of_samples; ++i) {
+		auto first = int_distribution(generator);
+		auto second = double_distribution(generator);
+		input.emplace_back(first, second);
+	}
+	auto test =
+		UniformityOfPairHashFunction<decltype(commutative_pair_hash<int, double>()),
+									 int,
+									 double>::compute_chi_square_value(
+			commutative_pair_hash<int, double>(),
+			input,
+			number_of_buckets);
+	constexpr double chi_square{1074.3};
+	std::cout << test << std::endl;
+	EXPECT_TRUE(test < chi_square);
+}
+
+
+TEST(TestUniformityOfPairHashes, integer_double_pairs_non_commutative)
+{
+	std::random_device random_device;
+	std::mt19937 generator(random_device());
+	std::uniform_int_distribution<size_t> int_distribution(1, 1000000000);
+	std::uniform_real_distribution<double> double_distribution(0.0, 1.0);
+	std::vector<std::pair<int, double>> input;
+	constexpr int number_of_samples = 1000000;
+	constexpr int number_of_buckets = 1000;
+	for (int i{}; i < number_of_samples; ++i) {
+		auto first = int_distribution(generator);
+		auto second = double_distribution(generator);
+		input.emplace_back(first, second);
+	}
+	auto test =
+		UniformityOfPairHashFunction<decltype(non_commutative_pair_hash<int, double>()),
+									 int,
+									 double>::compute_chi_square_value(
+			non_commutative_pair_hash<int, double>(),
 			input,
 			number_of_buckets);
 	constexpr double chi_square{1074.3};
