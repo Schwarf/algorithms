@@ -19,18 +19,18 @@ double test_uniformity_of_pair_hash_functions(HashFunction hash_function,
 											  const std::vector<std::pair<FirstType, SecondType>> &pairs,
 											  int number_of_buckets)
 {
-	std::unordered_map<int, int> histogram;
+	std::unordered_map<int, int> frequency;
 	for (const auto &pair: pairs) {
 		int bucket = hash_function(pair) % number_of_buckets;
-		histogram[bucket]++;
+		frequency[bucket]++;
 	}
-	auto expected_count = static_cast<double>(pairs.size()) / number_of_buckets;
-	double chi_square{};
-	for (const auto &[key, value]: histogram) {
-		double difference = static_cast<double>(value) - expected_count;
-		chi_square += difference * difference / expected_count;
+	auto expected_frequency = static_cast<double>(pairs.size()) / number_of_buckets;
+	double chi_square_value{};
+	for (const auto &[key, value]: frequency) {
+		auto difference = static_cast<double>(value) - expected_frequency;
+		chi_square_value += difference * difference / expected_frequency;
 	}
-	return chi_square;
+	return chi_square_value;
 }
 
 #endif //TEST_UNIFORMITY_OF_PAIR_HASH_FUNCTIONS_H
