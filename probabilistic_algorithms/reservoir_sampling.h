@@ -20,7 +20,7 @@ std::vector<T> reservoir_sampling(const std::vector<T> &input_stream, size_t res
 		if (element_index < reservoir_size)
 			reservoir[element_index] = element;
 		else {
-			std::uniform_int_distribution<size_t> distribution(0, element_index-1);
+			std::uniform_int_distribution<size_t> distribution(0, element_index);
 			size_t reservoir_index = distribution(generator);
 			if (reservoir_index < reservoir_size)
 				reservoir[reservoir_index] = element;
@@ -48,7 +48,7 @@ std::vector<T> reservoir_sampling(const Node<T> *head, size_t reservoir_size)
 		if (element_index < reservoir_size)
 			reservoir[element_index] = current_node;
 		else {
-			std::uniform_int_distribution<size_t> distribution(0, element_index-1);
+			std::uniform_int_distribution<size_t> distribution(0, element_index);
 			size_t reservoir_index = distribution(generator);
 			if (reservoir_index < reservoir_size)
 				reservoir[reservoir_index] = current_node;
