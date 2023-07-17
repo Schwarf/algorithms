@@ -5,8 +5,12 @@
 #ifndef ADD_TWO_NUMBERS_H
 #define ADD_TWO_NUMBERS_H
 #include "node.h"
-
+#include <concepts>
+// We have a number where each digit [0-9] is provided by a node in a linked list. The least significant digit
+// is provided by head and the most significant digit is provided the last node. Given two numbers compute the
+// sum of those two numbers.
 template<typename T>
+requires std::is_signed_v<T>
 Node<T> *add_two_numbers_recursive(Node<T> *head1, Node<T> *head2, int carry_over = 0)
 {
 	if (!head1 && !head2 && carry_over == 0)
@@ -27,7 +31,11 @@ Node<T> *add_two_numbers_recursive(Node<T> *head1, Node<T> *head2, int carry_ove
 	return result;
 }
 
+// We have a number where each digit [0-9] is provided by a node in a linked list. The least significant digit
+// is provided by head and the most significant digit is provided the last node. Given two numbers compute the
+// sum of those two numbers.
 template<typename T>
+requires std::is_signed_v<T>
 Node<T> *add_two_numbers_iteratively(Node<T> *head1, Node<T> *head2)
 {
 	if (!head1 && !head2)
