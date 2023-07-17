@@ -2,12 +2,12 @@
 // Created by andreas on 19.03.23.
 //
 
-#ifndef ADD_DIGITS_VIA_LINKED_LIST_H
-#define ADD_DIGITS_VIA_LINKED_LIST_H
+#ifndef ADD_TWO_NUMBERS_H
+#define ADD_TWO_NUMBERS_H
 #include "node.h"
 
 template<typename T>
-Node<T> *add_reversed_order_recursive(Node<T> *head1, Node<T> *head2, int carry_over = 0)
+Node<T> *add_two_numbers_recursive(Node<T> *head1, Node<T> *head2, int carry_over = 0)
 {
 	if (!head1 && !head2 && carry_over == 0)
 		return nullptr;
@@ -21,14 +21,14 @@ Node<T> *add_reversed_order_recursive(Node<T> *head1, Node<T> *head2, int carry_
 	carry_over = sum / 10;
 	if (head1 || head2) {
 		auto next =
-			add_reversed_order_recursive(head1 ? head1->next : nullptr, head2 ? head2->next : nullptr, carry_over);
+			add_two_numbers_recursive(head1 ? head1->next : nullptr, head2 ? head2->next : nullptr, carry_over);
 		result->next = next;
 	}
 	return result;
 }
 
 template<typename T>
-Node<T> *add_reversed_order_iteratively(Node<T> *head1, Node<T> *head2)
+Node<T> *add_two_numbers_iteratively(Node<T> *head1, Node<T> *head2)
 {
 	if (!head1 && !head2)
 		return nullptr;
@@ -76,4 +76,4 @@ Node<T> *add_reversed_order_iteratively(Node<T> *head1, Node<T> *head2)
 	}
 	return result_head;
 }
-#endif //ADD_DIGITS_VIA_LINKED_LIST_H
+#endif //ADD_TWO_NUMBERS_H
