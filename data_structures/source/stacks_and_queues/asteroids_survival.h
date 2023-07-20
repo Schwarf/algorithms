@@ -27,11 +27,10 @@ std::vector<T> survived_asteroids(const std::vector<T> & asteroids)
                 continue;
             }
             else if(std::abs(s.top()) < std::abs(asteroid))
-            {
                 s.pop();
-                survived = false;
-                break;
-            }
+
+            survived = false;
+            break;
         }
         if(survived)
             s.push(asteroid);
