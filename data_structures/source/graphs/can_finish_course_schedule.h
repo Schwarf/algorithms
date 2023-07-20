@@ -24,6 +24,25 @@ bool can_finish_course_schedule(const std::vector<std::vector<T>> & prerequisite
         graph[prerequisite[1]].push_back(prerequisite[0]);
         in_degree[prerequisite[0]]++;
     }
-    
+    std::queue<T> q;
+    for(int i{}; i < number_of_courses; ++i)
+    {
+        if(in_degree[i] == 0)
+            q.push(i);
+    }
+    int nodes_visited{};
+    while(!q.empty())
+    {
+        auto node = q.front();
+        q.pop();
+        nodes_visited++;
+        for(const auto & neighbor: graph[node])
+        {
+            in_degree[neighbor]--;
+            if(in_degree[neighbor] == 0)
+                q.push(neighbor);
+        }
+    }
+    return nodes_visited == number_of_courses;
 }
 #endif //DATA_STRUCTURES_CAN_FINISH_COURSE_SCHEDULE_H
