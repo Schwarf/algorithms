@@ -30,13 +30,13 @@ TEST(TestAsteroidsSurvival, simple4) {
 }
 
 TEST(TestAsteroidsSurvival, simple5) {
-    const std::vector<int> asteroids{20,10, -15, 12, -9, -21, 17};
+    const std::vector<int> asteroids{20, 10, -15, 12, -9, -21, 17};
     const std::vector<int> expected_results{-21, 17};
     EXPECT_EQ(expected_results, survived_asteroids(asteroids));
 }
 
 TEST(TestAsteroidsSurvival, simple6) {
-    const std::vector<int> asteroids{5,10, -8, -10, 2, 3, 8, 9};
-    const std::vector<int> expected_results{5,2,3,8,9};
+    const std::vector<int> asteroids{5, 10, -8, -10, 2, 3, 8, 9};
+    const std::vector<int> expected_results{5, 2, 3, 8, 9};
     EXPECT_EQ(expected_results, survived_asteroids(asteroids));
 }
