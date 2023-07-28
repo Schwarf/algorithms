@@ -43,16 +43,18 @@ T max_difference_top_down(const std::vector<T> &array, int left, int right, std:
 {
 	if (memo[left][right] != T{-1})
 		return memo[left][right];
+	if (left == right)
+		return array[left];
 
-	T score_left = array[left] - max_difference(array, left + 1, right);
-	T score_right = array[right] - max_difference(array, left, right - 1);
+	T score_left = array[left] - max_difference_top_down(array, left + 1, right, memo);
+	T score_right = array[right] - max_difference_top_down(array, left, right - 1, memo);
 	memo[left][right] = std::max(score_right, score_left);
 	return memo[left][right];
 }
 
 template<typename T>
 requires std::is_arithmetic_v<T>
-bool predict_the_winner_recursive(const std::vector<T> &array)
+bool predict_the_winner_top_down(const std::vector<T> &array)
 {
 	int n = array.size();
 	std::vector<std::vector<T>> memo(n, std::vector<T>(n, T{-1}));
