@@ -19,7 +19,7 @@ add_executable(test_graphs
         graphs/test_clone_graph.cpp
         graphs/test_minimal_distance_to_connect_all_points.cpp
         graphs/test_size_of_largest_island.cpp graphs/test_maximum_marked_circles.cpp
-        graphs/test_time_to_inform_hierachy.cpp)
+        graphs/test_time_to_inform_hierachy.cpp graphs/test_can_finish_course_schedule.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
@@ -44,7 +44,7 @@ add_executable(test_stacks_and_queues
         stacks_and_queues/test_queue_array_based.cpp
         stacks_and_queues/test_lru_cache.cpp
         stacks_and_queues/monotonic_stack/test_monotonic_stack.cpp
-        stacks_and_queues/test_longest_parentheses_string.cpp)
+        stacks_and_queues/test_longest_parentheses_string.cpp stacks_and_queues/test_asteroids_survival.cpp)
 
 add_executable(test_heaps
         heaps/test_binary_heap.cpp
