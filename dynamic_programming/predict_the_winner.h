@@ -37,5 +37,26 @@ bool predict_the_winner_recursion(const std::vector<T> &array)
 	return max_difference(array, 0, n - 1) >= 0;
 }
 
+template<typename T>
+requires std::is_arithmetic_v<T>
+T max_difference_top_down(const std::vector<T> &array, int left, int right, std::vector<std::vector<T>> &memo)
+{
+	if (memo[left][right] != T{-1})
+		return memo[left][right];
+
+	T score_left = array[left] - max_difference(array, left + 1, right);
+	T score_right = array[right] - max_difference(array, left, right - 1);
+	memo[left][right] = std::max(score_right, score_left);
+	return memo[left][right];
+}
+
+template<typename T>
+requires std::is_arithmetic_v<T>
+bool predict_the_winner_recursive(const std::vector<T> &array)
+{
+	int n = array.size();
+	std::vector<std::vector<T>> memo(n, std::vector<T>(n, T{-1}));
+	return max_difference_top_down(array, 0, n - 1, memo) >= 0;
+}
 
 #endif //PREDICT_THE_WINNER_H
