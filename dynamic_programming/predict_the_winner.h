@@ -61,4 +61,21 @@ bool predict_the_winner_top_down(const std::vector<T> &array)
 	return max_difference_top_down(array, 0, n - 1, memo) >= 0;
 }
 
+template<typename T>
+requires std::is_arithmetic_v<T>
+bool predict_the_winner_bottom_up(const std::vector<T> &array)
+{
+	int n = array.size();
+	std::vector<std::vector<T>> dp(n, std::vector<T>(n));
+	for (int i{}; i < n; ++i)
+		dp[i][i] = array[i];
+	for (int index_diff = 1; index_diff < n; ++index_diff) {
+		for (int left{}; left < n - index_diff; ++left) {
+			int right = left + index_diff;
+			dp[left][right] = std::max(array[left] - dp[left + 1][right], array[right] - dp[left][right - 1]);
+		}
+	}
+	return dp[0][n - 1] >= 0;
+}
+
 #endif //PREDICT_THE_WINNER_H
