@@ -78,4 +78,20 @@ bool predict_the_winner_bottom_up(const std::vector<T> &array)
 	return dp[0][n - 1] >= 0;
 }
 
+template<typename T>
+requires std::is_arithmetic_v<T>
+bool predict_the_winner_optimized(const std::vector<T> &array)
+{
+	int n = array.size();
+	std::vector<T> dp(array);
+	for (int index_diff = 1; index_diff < n; ++index_diff) {
+		for (int left{}; left < n - index_diff; ++left) {
+			int right = left + index_diff;
+			dp[left][right] = std::max(array[left] - dp[left + 1], array[right] - dp[left]);
+		}
+	}
+	return dp[0] >= 0;
+}
+
+
 #endif //PREDICT_THE_WINNER_H
