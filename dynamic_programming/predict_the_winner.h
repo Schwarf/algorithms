@@ -87,7 +87,7 @@ bool predict_the_winner_optimized(const std::vector<T> &array)
 	for (int index_diff = 1; index_diff < n; ++index_diff) {
 		for (int left{}; left < n - index_diff; ++left) {
 			int right = left + index_diff;
-			dp[left][right] = std::max(array[left] - dp[left + 1], array[right] - dp[left]);
+			dp[left] = std::max(array[left] - dp[left + 1], array[right] - dp[left]);
 		}
 	}
 	return dp[0] >= 0;
