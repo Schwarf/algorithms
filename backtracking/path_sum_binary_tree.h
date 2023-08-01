@@ -22,8 +22,8 @@ void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector
 		result.push_back(path);
 	}
 	else {
-		sum(node->left, target_path_sum, path);
-		sum(node->right, target_path_sum, path);
+		sum(node->left, target_path_sum, path, result);
+		sum(node->right, target_path_sum, path, result);
 	}
 	// pop back to evaluate all branches of given node
 	path.pop_back();
@@ -34,7 +34,7 @@ std::vector<std::vector<T>> pathSum(TreeNode<T> *root, T target_path_sum)
 {
 	std::vector<std::vector<T>> result;
 	std::vector<T> path;
-	sum(root, target_path_sum, path);
+	sum(root, target_path_sum, path, result);
 	return result;
 }
 
