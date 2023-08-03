@@ -11,4 +11,5 @@ add_executable(backtracking
         search_word_in_character_grid.h
         path_sum_binary_tree.h
         generate_all_subsets_of_size_k.h
-        compute_all_permutations.h)
+        compute_all_permutations.h
+        letter_combinations_of_phone_numbers.h )
