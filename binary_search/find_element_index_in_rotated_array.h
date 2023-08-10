@@ -51,7 +51,7 @@ template<typename T>
 requires std::is_arithmetic_v<T>
 int find_element_index_in_rotated_array_optimized(const std::vector<T> &input, T target)
 {
-	int n = input.length;
+	int n = input.size();
 	int left{};
 	int right = n - 1;
 
