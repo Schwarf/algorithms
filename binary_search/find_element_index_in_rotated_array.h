@@ -47,4 +47,44 @@ int find_element_index_in_rotated_array(const std::vector<T> & input, T target)
 	return find_index_with_binary_search(input, left, n-1, target);
 }
 
+template<typename T>
+requires std::is_arithmetic_v<T>
+int find_element_index_in_rotated_array_optimized(const std::vector<T> &input, T target)
+{
+	int n = input.length;
+	int left{};
+	int right = n - 1;
+
+	while (left <= right) {
+		int mid = left + (right - left) / 2;
+
+		// Case 1: find target
+		if (input[mid] == target) {
+			return mid;
+		}
+
+			// Case 2: subarray on mid's left is sorted
+		else if (input[mid] >= input[left]) {
+			if (target >= input[left] && target < input[mid]) {
+				right = mid - 1;
+			}
+			else {
+				left = mid + 1;
+			}
+		}
+
+			// Case 3: subarray on mid's right is sorted
+		else {
+			if (target <= input[right] && target > input[mid]) {
+				left = mid + 1;
+			}
+			else {
+				right = mid - 1;
+			}
+		}
+	}
+
+	return -1;
+}
+
 #endif //FIND_ELEMENT_INDEX_IN_ROTATED_ARRAY_H
