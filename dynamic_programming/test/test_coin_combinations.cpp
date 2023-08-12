@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 #include "./../coin_combinations.h"
 
-TEST(CoinCombinations, simple1)
+TEST(CoinCombinationsRecursive, simple1)
 {
 	const std::vector<int> coins{1, 2, 5};
 	constexpr int amount{5};
@@ -14,7 +14,7 @@ TEST(CoinCombinations, simple1)
 	EXPECT_EQ(coin_combinations_recursive(coins, amount), expected_number_of_combinations);
 }
 
-TEST(CoinCombinations, simple2)
+TEST(CoinCombinationsRecursive, simple2)
 {
 	const std::vector<int> coins{5};
 	constexpr int amount{4};
@@ -22,7 +22,7 @@ TEST(CoinCombinations, simple2)
 	EXPECT_EQ(coin_combinations_recursive(coins, amount), expected_number_of_combinations);
 }
 
-TEST(CoinCombinations, simple3)
+TEST(CoinCombinationsRecursive, simple3)
 {
 	const std::vector<int> coins{1};
 	constexpr int amount{7};
@@ -31,7 +31,7 @@ TEST(CoinCombinations, simple3)
 }
 
 
-TEST(CoinCombinations, complex1)
+TEST(CoinCombinationsRecursive, complex1)
 {
 	const std::vector<int> coins{1, 2, 5};
 	constexpr int amount{500};
@@ -41,7 +41,7 @@ TEST(CoinCombinations, complex1)
 
 // Recursive run takes long
 /*
-TEST(CoinCombinations, complex2)
+TEST(CoinCombinationsRecursive, complex2)
 {
 	const std::vector<int> coins{3, 5, 7, 8, 9, 10, 11};
 	constexpr int amount{1000};
@@ -49,3 +49,12 @@ TEST(CoinCombinations, complex2)
 	EXPECT_EQ(coin_combinations_recursive(coins, amount), expected_number_of_combinations);
 }
 */
+
+
+TEST(CoinCombinationsTopDown, simple1)
+{
+	const std::vector<int> coins{1, 2, 5};
+	constexpr int amount{5};
+	constexpr int expected_number_of_combinations{4};
+	EXPECT_EQ(coin_combinations_top_down(coins, amount), expected_number_of_combinations);
+}
