@@ -8,7 +8,6 @@
 // Given a set of coins and an amount find the minimal number of coins to get the amount
 #include <vector>
 
-static int depth{};
 
 int minimize_number_of_coins(const std::vector<int> &coins, int amount)
 {
