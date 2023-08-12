@@ -38,6 +38,15 @@ TEST(MinimizeClassic, simple2)
 }
 
 
+TEST(MinimizeClassic, does_not_work)
+{
+	const std::vector<int> coins{7};
+	constexpr int amount{8};
+	constexpr int expected_result{-1};
+	EXPECT_EQ(expected_result, minimize_number_of_coins(coins, amount));
+}
+
+
 TEST(MinimizeBottomUp, simple1)
 {
 	const std::vector<int> coins{1, 2, 5};
@@ -70,6 +79,15 @@ TEST(MinimizeBottomUp, simple2)
 	constexpr int expected_result{6};
 	EXPECT_EQ(expected_result, minimize_number_of_coins_bottom_up(coins, amount));
 }
+
+TEST(MinimizeBottomUp, does_not_work)
+{
+	const std::vector<int> coins{7};
+	constexpr int amount{8};
+	constexpr int expected_result{-1};
+	EXPECT_EQ(expected_result, minimize_number_of_coins(coins, amount));
+}
+
 
 TEST(MinimizeBottomUp, complex)
 {
@@ -119,6 +137,14 @@ TEST(MinimizeTopDown, simple2)
 	constexpr int amount{30};
 	constexpr int expected_result{6};
 	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
+}
+
+TEST(MinimizeTopDown, does_not_work)
+{
+	const std::vector<int> coins{7};
+	constexpr int amount{8};
+	constexpr int expected_result{-1};
+	EXPECT_EQ(expected_result, minimize_number_of_coins(coins, amount));
 }
 
 // Long runtime
