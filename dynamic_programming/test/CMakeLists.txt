@@ -25,6 +25,7 @@ add_executable(dynamic_programming_samples_test
         test_minimize_number_of_coins.cpp
         test_minimal_jumps_to_last_index.cpp
         test_knapsack_problem.cpp
-        test_predict_the_winner.cpp)
+        test_predict_the_winner.cpp
+        test_coin_combinations.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

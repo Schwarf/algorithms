@@ -12,20 +12,17 @@
 // The answer is guaranteed to fit into a signed 32-bit integer.
 #include <vector>
 #include <limits>
-int coin_combinations_recursive(const std::vector<int> &coins, int amount)
+int coin_combinations_recursive(const std::vector<int> &coins, int amount, int index = 0)
 {
-	if (amount == 0) return 0;
-	int combinations = std::numeric_limits<int>::max();
-
-	for (int coin: coins) {
-		if (amount - coin >= 0) {
-			int result = coin_combinations_recursive(coins, amount - coin);
-			if (result != -1)
-				combinations = std::min(combinations, result + 1);
-		}
+	if (amount == 0) {
+		return 1;
 	}
-
-	return (combinations == std::numeric_limits<int>::max()) ? -1 : combinations;
+	if (amount < 0 || index >= coins.size()) {
+		return 0;
+	}
+	int include_current_coin = coin_combinations_recursive(coins, amount - coins[index], index);
+	int exclude_current_coin = coin_combinations_recursive(coins, amount, index + 1);
+	return include_current_coin + exclude_current_coin;
 }
 
 int top_down(const std::vector<int> &coins, int amount, std::vector<int> &memo)
