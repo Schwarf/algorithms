@@ -66,7 +66,6 @@ ValueType memoization(const std::vector<Item<ValueType, WeightType>> &items,
 
 	ValueType include_item = items[number_of_items - 1].value + memoization(items, remaining_capacity, memo,
 																			number_of_items - 1);
-
 	ValueType exclude_item = memoization(items, knapsack_capacity, memo, number_of_items - 1);
 
 	auto result = std::max(include_item, exclude_item);
