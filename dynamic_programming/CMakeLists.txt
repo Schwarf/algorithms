@@ -28,4 +28,5 @@ add_executable(dynamic_programming_samples main.cpp
         minimize_number_of_coins.h
         main.cpp
         minimal_jumps_to_last_index.h
-        knapsack_problem.h)
+        knapsack_problem.h
+        unique_paths.h)
