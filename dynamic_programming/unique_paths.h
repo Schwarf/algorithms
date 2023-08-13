@@ -12,7 +12,32 @@
 //The test cases are generated so that the answer will be less than or equal to 2 * 109.
 #include <vector>
 
-int unique_paths(int rows, int columns)
+int unique_paths_recursive(int rows, int columns)
+{
+	// We initialize with 1 because at least one path exists from each position
+	if (rows == 1 || columns == 1)
+		return 1;
+	return unique_paths_recursive(rows - 1, columns) + unique_paths_recursive(rows, columns - 1);
+}
+
+int top_down(int rows, int columns, std::vector<std::vector<int>> &memo)
+{
+	if (rows == 1 || columns == 1)
+		return 1;
+	if (memo[rows][columns] != 0)
+		return memo[rows][columns];
+	memo[rows][columns] = top_down(rows - 1, columns, memo) + top_down(rows, columns - 1, memo);
+	return memo[rows][columns];
+
+}
+
+int unique_paths_top_down(int rows, int columns)
+{
+	std::vector<std::vector<int>> memo(rows, std::vector<int>(columns, 0));
+	return top_down(rows, columns, memo);
+}
+
+int unique_paths_bottom_up(int rows, int columns)
 {
 	// We initialize with 1 because at least one path exists from each position
 	std::vector<std::vector<int>> dp(rows, std::vector<int>(columns, 1));
@@ -22,6 +47,18 @@ int unique_paths(int rows, int columns)
 		}
 	}
 	return dp[rows - 1][columns - 1];
+}
+
+int unique_paths_bottom_up_optimized(int rows, int columns)
+{
+	// We initialize with 1 because at least one path exists from each position
+	std::vector<int> dp(rows, 1);
+	for (int row{1}; row < rows; ++row) {
+		for (int col{1}; col < columns; ++col) {
+			dp[col] += dp[col-1];
+		}
+	}
+	return dp[rows - 1]
 }
 
 
