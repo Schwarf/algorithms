@@ -48,7 +48,7 @@ int unique_paths_with_obstacles_top_down(const std::vector<std::vector<int>> &ma
 	return top_down(matrix, memo, 0, 0);
 }
 
-int unique_paths_with_obstacles_bottom_up(std::vector<std::vector<int>> &matrix)
+int unique_paths_with_obstacles_bottom_up(const std::vector<std::vector<int>> &matrix)
 {
 	int rows = matrix.size();
 	int columns = matrix[0].size();
@@ -71,5 +71,22 @@ int unique_paths_with_obstacles_bottom_up(std::vector<std::vector<int>> &matrix)
 	}
 	return dp[0][0];
 }
+int unique_paths_with_obstacles_bottom_up_optimized(const std::vector<std::vector<int>> &matrix)
+{
+	const int rows = matrix.size();
+	const int columns = matrix[0].size();
+	std::vector<int> dp(columns);
+	dp[0] = 1;
 
+	for (int row = 0; row < rows; ++row)
+		for (int col = 0; col < columns; ++col)
+			if (matrix[row][col])
+				dp[col] = 0;
+			else if (col > 0)
+				dp[col] += dp[col - 1];
+
+	return dp[columns - 1];
+
+}
 #endif //unique_paths_with_obstacles_WITH_OBSTACLES_H
+
