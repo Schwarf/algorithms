@@ -55,10 +55,10 @@ int unique_paths_bottom_up_optimized(int rows, int columns)
 	std::vector<int> dp(rows, 1);
 	for (int row{1}; row < rows; ++row) {
 		for (int col{1}; col < columns; ++col) {
-			dp[col] += dp[col-1];
+			dp[col] += dp[col - 1];
 		}
 	}
-	return dp[rows - 1]
+	return dp[rows - 1];
 }
 
 
