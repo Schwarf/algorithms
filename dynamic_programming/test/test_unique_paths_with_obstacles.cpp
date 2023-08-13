@@ -79,3 +79,25 @@ TEST(UniquePathsWithObstaclesRecursive, complex1)
 	constexpr int expected_paths{13594824};
 	EXPECT_EQ(expected_paths, unique_paths_with_obstacles_recursive(matrix));
 }
+
+
+TEST(UniquePathsWithObstaclesTopDown, simple1)
+{
+	const std::vector<std::vector<int>> matrix{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+	constexpr int expected_paths{2};
+	EXPECT_EQ(expected_paths, unique_paths_with_obstacles_top_down(matrix));
+}
+
+TEST(UniquePathsWithObstaclesTopDown, simple2)
+{
+	const std::vector<std::vector<int>> matrix{{0, 1}, {0, 0}};
+	constexpr int expected_paths{1};
+	EXPECT_EQ(expected_paths, unique_paths_with_obstacles_top_down(matrix));
+}
+
+TEST(UniquePathsWithObstaclesTopDown, simple3)
+{
+	const std::vector<std::vector<int>> matrix{{0, 0, 0}, {1, 1, 1}, {0, 0, 0}};
+	constexpr int expected_paths{0};
+	EXPECT_EQ(expected_paths, unique_paths_with_obstacles_top_down(matrix));
+}

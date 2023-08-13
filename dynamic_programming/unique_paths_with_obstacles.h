@@ -24,50 +24,29 @@ int unique_paths_with_obstacles_recursive(const std::vector<std::vector<int>> &m
 	return unique_paths_with_obstacles_recursive(matrix, row + 1, col)
 		+ unique_paths_with_obstacles_recursive(matrix, row, col + 1);
 }
-/*
-int top_down(const std::vector<std::vector<int>> &matrix, int row, int col, std::vector<std::vector<int>> &memo)
+
+int top_down(const std::vector<std::vector<int>> &matrix, std::vector<std::vector<int>> &memo, int row = 0, int col = 0)
 {
+	// We initialize with 1 because at least one path exists from each position
+	if (row > matrix.size() - 1 || col > matrix[0].size() - 1)
+		return 0;
 	if (matrix[row][col] == 1)
 		return 0;
-	if (row == 1 || col == 1)
+	if (memo[row][col] != -1)
+		return memo[row][col];
+	if (row == matrix.size() - 1 && col == matrix[0].size() - 1)
 		return 1;
-	if(memo[row][col] != -1)
-
-	return unique_paths_with_obstacles_recursive(matrix, row - 1, col)
-		+ unique_paths_with_obstacles_recursive(matrix, row, col - 1);
-
+	memo[row][col] = unique_paths_with_obstacles_recursive(matrix, row + 1, col)
+		+ unique_paths_with_obstacles_recursive(matrix, row, col + 1);
+	return memo[row][col];
 }
 
-int unique_paths_with_obstacles_top_down(const std::vector<std::vector<int>> &matrix, int row, int col)
-{
-	int rows
-	std::vector<std::vector<int>> memo(rows + 1, std::vector<int>(columns + 1, -1));
-	return top_down(matrix, rows, columns, memo);
-}
-
-int unique_paths_with_obstacles_bottom_up(int rows, int columns)
+int unique_paths_with_obstacles_top_down(const std::vector<std::vector<int>> &matrix)
 {
 	// We initialize with 1 because at least one path exists from each position
-	std::vector<std::vector<int>> dp(rows, std::vector<int>(columns, 1));
-	for (int row{1}; row < rows; ++row) {
-		for (int col{1}; col < columns; ++col) {
-			dp[row][col] = dp[row - 1][col] + dp[row][col - 1];
-		}
-	}
-	return dp[rows - 1][columns - 1];
+	std::vector<std::vector<int>> memo(matrix.size(), std::vector<int>(matrix[0].size(), -1));
+	return top_down(matrix, memo, 0, 0);
 }
 
-int unique_paths_with_obstacles_bottom_up_optimized(int rows, int columns)
-{
-	// We initialize with 1 because at least one path exists from each position
-	std::vector<int> dp(rows, 1);
-	for (int col{1}; col < columns; ++col) {
-		for (int row{1}; row < rows; ++row) {
-			dp[row] += dp[row - 1];
-		}
-	}
-	return dp[rows - 1];
-}
 
-*/
 #endif //unique_paths_with_obstacles_WITH_OBSTACLES_H
