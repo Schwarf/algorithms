@@ -53,9 +53,9 @@ int unique_paths_bottom_up_optimized(int rows, int columns)
 {
 	// We initialize with 1 because at least one path exists from each position
 	std::vector<int> dp(rows, 1);
-	for (int row{1}; row < rows; ++row) {
-		for (int col{1}; col < columns; ++col) {
-			dp[col] += dp[col - 1];
+	for (int col{1}; col < columns; ++col) {
+		for (int row{1}; row < rows; ++row) {
+			dp[row] += dp[row - 1];
 		}
 	}
 	return dp[rows - 1];
