@@ -33,7 +33,7 @@ int top_down(int rows, int columns, std::vector<std::vector<int>> &memo)
 
 int unique_paths_top_down(int rows, int columns)
 {
-	std::vector<std::vector<int>> memo(rows, std::vector<int>(columns, 0));
+	std::vector<std::vector<int>> memo(rows + 1, std::vector<int>(columns + 1, 0));
 	return top_down(rows, columns, memo);
 }
 

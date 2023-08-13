@@ -87,3 +87,11 @@ TEST(UniquePathsTopDown, complex2)
 	constexpr int expected_paths{1623160};
 	EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
 }
+
+TEST(UniquePathsTopDown, complex3)
+{
+	constexpr int rows{21};
+	constexpr int columns{15};
+	constexpr int expected_paths{1391975640};
+	EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
+}
