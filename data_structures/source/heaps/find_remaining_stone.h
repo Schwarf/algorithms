@@ -22,12 +22,12 @@ T find_remaining_stone(const std::vector<T> &stones)
 		heap.insert(stone);
 	//binary_heap <int> p (stones.begin(), stones.end());
 	while (heap.size() > 1) {
-		auto stone1 = heap.pop_maximum();
-		auto stone2 = heap.pop_maximum();
+		auto stone1 = heap.pop();
+		auto stone2 = heap.pop();
 		if (stone1 != stone2)
 			heap.insert(stone1 - stone2);
 	}
-	return heap.is_empty() ? 0 : heap.pop_maximum();
+	return heap.is_empty() ? 0 : heap.pop();
 }
 
 #endif //FIND_REMAINING_STONE_H

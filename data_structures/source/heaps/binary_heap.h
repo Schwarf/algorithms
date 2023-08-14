@@ -14,7 +14,7 @@ class StackHeap
 public:
 	StackHeap() = default;
 
-	bool insert(const T &value) final
+	bool insert(const T &value)
 	{
 		if (heap_size_ == heap_capacity)
 			return false;
@@ -23,7 +23,7 @@ public:
 		return true;
 	}
 
-	T pop() final
+	T pop()
 	{
 		size_t index_for_extremum = 0;
 		auto value = elements_[index_for_extremum];
@@ -32,17 +32,17 @@ public:
 		return value;
 	}
 
-	T top() const final
+	T top() const
 	{
 		return elements_[0];
 	}
 
-	bool is_empty() const final
+	bool is_empty() const
 	{
 		return heap_size_ == 0;
 	}
 
-	size_t size() const final
+	size_t size() const
 	{
 		return heap_size_;
 	}
@@ -63,7 +63,7 @@ private:
 	{
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
 			int parent_index = (child_index - 1) >> 1;
-			if (Compare(elements_[parent_index], elements_[child_index]))
+			if (Compare()(elements_[parent_index], elements_[child_index]))
 				return;
 			swap_(child_index, parent_index);
 			child_index = parent_index;
@@ -81,7 +81,7 @@ private:
 		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_; child_index = (child_index << 1) + 1) {
 			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index + 1])
 				child_index++;
-			if (Compare(elements_[child_index], elements_[parent_index]))
+			if (Compare()(elements_[child_index], elements_[parent_index]))
 				swap_(child_index, parent_index);
 			parent_index = child_index;
 		}
