@@ -8,20 +8,11 @@
 #include <iostream>
 
 
-template<typename T, size_t heap_capacity>
-class BinaryHeap: IHeap<T>
+template<typename T, size_t heap_capacity, class Compare = std::less<T>>
+class StackHeap
 {
 public:
-	BinaryHeap()
-	{
-		// index 0 will be ignored/not used
-		elements_ = new T[heap_capacity];
-	}
-
-	~BinaryHeap()
-	{
-		delete[] elements_;
-	}
+	StackHeap() = default;
 
 	void insert(const T &value) final
 	{
@@ -58,7 +49,7 @@ public:
 	T get_element(size_t index) const final
 	{
 		if (index > heap_size_)
-			std::out_of_range(
+			throw std::out_of_range(
 				"Index " + std::to_string(index) + " in binary heap, is greater than heap size "
 					+ std::to_string(heap_size_)
 					+ "!");
@@ -78,7 +69,7 @@ public:
 
 	}
 private:
-	T *elements_;
+	T elements_[heap_capacity];
 	size_t heap_size_{};
 
 	void promote_()
@@ -101,9 +92,9 @@ private:
 	void demote_()
 	{
 		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_; child_index = (child_index << 1) + 1) {
-			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index+1])
+			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index + 1])
 				child_index++;
-			if(elements_[parent_index] < elements_[child_index])
+			if (elements_[parent_index] < elements_[child_index])
 				swap_(child_index, parent_index);
 			parent_index = child_index;
 		}

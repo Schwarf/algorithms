@@ -17,7 +17,7 @@
 template<typename T, size_t capacity>
 T find_remaining_stone(const std::vector<T> &stones)
 {
-	auto heap = BinaryHeap<int, capacity>();
+	auto heap = StackHeap<int, capacity>();
 	for (const auto &stone: stones)
 		heap.insert(stone);
 	//binary_heap <int> p (stones.begin(), stones.end());

@@ -65,7 +65,7 @@ protected:
 
 TEST_F(SetupBinaryHeap, test_binary_heap)
 {
-	auto heap = BinaryHeap<int64_t, 12>();
+	auto heap = StackHeap<int64_t, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -78,7 +78,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
 {
 	constexpr int limit = 10000;
-	auto heap = BinaryHeap<int64_t, limit>();
+	auto heap = StackHeap<int64_t, limit>();
 	int count{};
 	std::priority_queue<int64_t> expected_result;
 	while (count < limit) {
@@ -86,9 +86,8 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
 		heap.insert(element);
 		expected_result.push(element);
 	}
-	for (int i{}; i < limit; ++i)
-	{
-		EXPECT_TRUE( heap.get_maximum()==expected_result.top());
+	for (int i{}; i < limit; ++i) {
+		EXPECT_TRUE(heap.get_maximum() == expected_result.top());
 		expected_result.pop();
 		heap.pop_maximum();
 	}
@@ -97,7 +96,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_get_maximum)
 TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop_maximum)
 {
 	constexpr int limit = 10000;
-	auto heap = BinaryHeap<int64_t, limit>();
+	auto heap = StackHeap<int64_t, limit>();
 	int count{};
 	std::priority_queue<int64_t> expected_result;
 	while (count++ < limit) {
@@ -105,18 +104,16 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop_maximum)
 		heap.insert(element);
 		expected_result.push(element);
 	}
-	for (int i{}; i < limit; ++i)
-	{
-		EXPECT_TRUE( heap.pop_maximum()==expected_result.top());
+	for (int i{}; i < limit; ++i) {
+		EXPECT_TRUE(heap.pop_maximum() == expected_result.top());
 		expected_result.pop();
 	}
 }
 
 
-
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 {
-	auto heap = BinaryHeap<int64_t, 12>();
+	auto heap = StackHeap<int64_t, 12>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
@@ -147,7 +144,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum)
 
 TEST_F(SetupBinaryHeap, test_binary_heap_pop_maximum_and_insert)
 {
-	auto heap = BinaryHeap<int64_t, 20>();
+	auto heap = StackHeap<int64_t, 20>();
 	for (const auto &element: input) {
 		heap.insert(element);
 	}
