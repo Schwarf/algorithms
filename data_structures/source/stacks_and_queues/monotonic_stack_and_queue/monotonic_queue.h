@@ -41,7 +41,7 @@ public:
 		}
 	}
 
-	void pop(T value)
+	void check_pop(T value)
 	{
 		if (!deque_.empty() && value == deque_.front()) {
 			deque_.pop_front();
