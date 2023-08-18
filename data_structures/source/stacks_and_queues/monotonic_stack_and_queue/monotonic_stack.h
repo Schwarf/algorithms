@@ -10,8 +10,6 @@ template<typename T, bool is_increasing = false>
 class MonotonicStack
 {
 public:
-
-
 	void push(T value)
 	{
 		if (is_increasing)
