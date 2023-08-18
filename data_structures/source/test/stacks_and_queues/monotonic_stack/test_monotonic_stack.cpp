@@ -3,7 +3,7 @@
 //
 #include <vector>
 #include "gtest/gtest.h"
-#include "stacks_and_queues/monotonic_stack/monotonic_stack.h"
+#include "stacks_and_queues/monotonic_stack_and_queue/monotonic_stack.h"
 
 TEST(monotonic_stack, simple_increasing1)
 {

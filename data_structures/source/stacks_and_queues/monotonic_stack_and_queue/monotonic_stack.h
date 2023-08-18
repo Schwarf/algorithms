@@ -6,7 +6,7 @@
 #define MONOTONIC_STACK_H
 #include <stack>
 // Increasing here means from bottom to top. That means the greatest element is on top of the stack.
-template<typename T, bool is_increasing = false>
+template<typename T, bool is_increasing = false> requires std::totally_ordered<T>
 class MonotonicStack
 {
 public:
