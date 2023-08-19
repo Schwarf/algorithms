@@ -29,4 +29,47 @@ Node<T> *partition_linked_list_for_element(Node<T> *head, const T &element)
 	new_tail->next = nullptr;
 	return new_head;
 }
+
+// Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes
+// greater than or equal to x.
+// You should preserve the original relative order of the nodes in each of the two partitions.
+template<typename T>
+Node<T> *partition_linked_list_for_element_and_keep_order(Node<T> *head, const T &element)
+{
+	if (!head)
+		return nullptr;
+	auto first_greater_than_x = head;
+	Node<T> *prev_first = nullptr;
+	while (first_greater_than_x) {
+		if (first_greater_than_x->val >= element)
+			break;
+		prev_first = first_greater_than_x;
+		first_greater_than_x = first_greater_than_x->next;
+	}
+
+	if (!first_greater_than_x)
+		return head;
+	auto node = first_greater_than_x;
+	auto prev_node = prev_first;
+	while (node) {
+		if (node->val < element) {
+			prev_node->next = node->next;
+			if (prev_first)
+				prev_first->next = node;
+			else
+				head = node;
+
+			node->next = first_greater_than_x;
+			prev_first = node;
+			node = prev_node->next;
+		}
+		else {
+			prev_node = node;
+			node = node->next;
+		}
+	}
+	return head;
+}
+
+
 #endif //PARTITION_LINKED_LIST_FOR_ELEMENT_H
