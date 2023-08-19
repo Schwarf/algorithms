@@ -146,7 +146,6 @@ TEST_F(SetupSinglyLinkedLists, partition_element_in_order1)
 	}
 }
 
-
 TEST_F(SetupSinglyLinkedLists, partition_element_in_order2)
 {
 	const std::vector<int> input{1, 4, 3, 2, 5, 2};
@@ -154,6 +153,48 @@ TEST_F(SetupSinglyLinkedLists, partition_element_in_order2)
 	constexpr int partition_element{3};
 	head = partition_linked_list_for_element_and_keep_order(head, partition_element);
 	const std::vector<int> expected_output{1, 2, 2, 4, 3, 5};
+	int index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_output.at(index++));
+		head = head->next;
+	}
+}
+
+TEST_F(SetupSinglyLinkedLists, partition_element_in_order3)
+{
+	const std::vector<int> input{2, 1};
+	auto head = get_single_list_from_vector(input);
+	constexpr int partition_element{2};
+	head = partition_linked_list_for_element_and_keep_order(head, partition_element);
+	const std::vector<int> expected_output{1, 2};
+	int index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_output.at(index++));
+		head = head->next;
+	}
+}
+
+TEST_F(SetupSinglyLinkedLists, partition_element_in_order4)
+{
+	const std::vector<int> input{1};
+	auto head = get_single_list_from_vector(input);
+	constexpr int partition_element{2};
+	head = partition_linked_list_for_element_and_keep_order(head, partition_element);
+	const std::vector<int> expected_output{1};
+	int index{};
+	while (head) {
+		EXPECT_EQ(head->value, expected_output.at(index++));
+		head = head->next;
+	}
+}
+
+TEST_F(SetupSinglyLinkedLists, partition_element_in_order5)
+{
+	const std::vector<int> input{8, 8, 7, 9, 5, 1, 2, 3, 4, 9};
+	auto head = get_single_list_from_vector(input);
+	constexpr int partition_element{8};
+	head = partition_linked_list_for_element_and_keep_order(head, partition_element);
+	const std::vector<int> expected_output{7, 5, 1, 2, 3, 4, 8, 8, 9, 9};
 	int index{};
 	while (head) {
 		EXPECT_EQ(head->value, expected_output.at(index++));
