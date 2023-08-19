@@ -41,7 +41,7 @@ Node<T> *partition_linked_list_for_element_and_keep_order(Node<T> *head, const T
 	auto first_greater_than_x = head;
 	Node<T> *prev_first = nullptr;
 	while (first_greater_than_x) {
-		if (first_greater_than_x->val >= element)
+		if (first_greater_than_x->value >= element)
 			break;
 		prev_first = first_greater_than_x;
 		first_greater_than_x = first_greater_than_x->next;
@@ -52,7 +52,7 @@ Node<T> *partition_linked_list_for_element_and_keep_order(Node<T> *head, const T
 	auto node = first_greater_than_x;
 	auto prev_node = prev_first;
 	while (node) {
-		if (node->val < element) {
+		if (node->value < element) {
 			prev_node->next = node->next;
 			if (prev_first)
 				prev_first->next = node;
