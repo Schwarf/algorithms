@@ -20,7 +20,7 @@ public:
 			}
 		}
 		else {
-			while (!deque_.empty() && deque_.back() > deque_) {
+			while (!deque_.empty() && deque_.back() > value) {
 				deque_.pop_back();
 			}
 		}
@@ -28,7 +28,7 @@ public:
 	}
 
 	// Returns the maximum value
-	int max() const
+	T front() const
 	{
 		return deque_.front();
 	}
@@ -39,6 +39,11 @@ public:
 		if (!deque_.empty()) {
 			deque_.pop_front();
 		}
+	}
+
+	bool empty() const
+	{
+		return deque_.empty();
 	}
 
 	void check_pop(T value)
