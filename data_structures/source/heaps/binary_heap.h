@@ -27,7 +27,7 @@ public:
 	{
 		size_t index_for_extremum = 0;
 		auto value = elements_[index_for_extremum];
-		swap_(index_for_extremum, --heap_size_);
+		std::swap(elements_[index_for_extremum], elements_[--heap_size_]);
 		demote_();
 		return value;
 	}
@@ -77,27 +77,21 @@ private:
 	void promote_()
 	{
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
-			int parent_index = (child_index - 1) >> 1;
+			int parent_index = parent(child_index);
 			if (Compare()(elements_[child_index], elements_[parent_index]))
 				return;
-			swap_(child_index, parent_index);
+			std::swap(elements_[child_index], elements_[parent_index]);
 			child_index = parent_index;
 		}
 	}
 
-	void swap_(size_t index1, size_t index2)
-	{
-		auto help = elements_[index1];
-		elements_[index1] = elements_[index2];
-		elements_[index2] = help;
-	}
 	void demote_()
 	{
 		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_; child_index = (child_index << 1) + 1) {
 			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index + 1])
 				child_index++;
 			if (Compare()(elements_[parent_index], elements_[child_index]))
-				swap_(child_index, parent_index);
+				std::swap(elements_[child_index], elements_[parent_index]);
 			parent_index = child_index;
 		}
 	}
