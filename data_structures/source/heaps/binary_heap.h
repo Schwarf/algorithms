@@ -59,6 +59,21 @@ private:
 	T elements_[heap_capacity];
 	size_t heap_size_{};
 
+	int parent(int index) const
+	{
+		return (index - 1) / 2;
+	}
+
+	int left_child(int index) const
+	{
+		return 2 * index + 1;
+	}
+
+	int right_child(int index) const
+	{
+		return 2 * index + 2;
+	}
+
 	void promote_()
 	{
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
