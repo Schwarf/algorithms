@@ -11,8 +11,7 @@
 class SetupBinaryHeap: public testing::Test
 {
 public:
-	template<typename T>
-	bool is_binary_heap(T *tree, size_t highest_index)
+	bool is_max_heap(std::vector<int64_t> tree, size_t highest_index)
 	{
 		while (highest_index != 0) {
 			auto child = tree[highest_index];
@@ -23,31 +22,18 @@ public:
 		}
 		return true;
 	}
-	template<typename T>
-	bool is_heap_GfG(T arr[], size_t i, size_t n)
-	{
-		if (i >= (n - 2) / 2)
-			return true;
-
-		if (arr[i] >= arr[2 * i + 1] &&
-			arr[i] >= arr[2 * i + 2]
-			&& is_heap_GfG(arr, 2 * i + 1, n)
-			&& is_heap_GfG(arr, 2 * i + 2, n))
-			return true;
-
-		return false;
-	}
-	bool is_binary_heap(std::vector<int64_t> tree, size_t highest_index)
+	bool is_min_heap(std::vector<int64_t> tree, size_t highest_index)
 	{
 		while (highest_index != 0) {
 			auto child = tree[highest_index];
 			auto parent = tree[(highest_index - 1) / 2];
-			if (child > parent)
+			if (child < parent)
 				return false;
 			highest_index--;
 		}
 		return true;
 	}
+
 	static inline int get_random(const int &lower_bound, const int &upper_bound)
 	{
 		auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
@@ -63,7 +49,7 @@ protected:
 };
 
 
-TEST_F(SetupBinaryHeap, test_binary_heap)
+TEST_F(SetupBinaryHeap, test_binray_max_heap)
 {
 	auto max_heap = StackHeap<int64_t, 12>();
 	std::priority_queue<int64_t> q;
@@ -73,10 +59,10 @@ TEST_F(SetupBinaryHeap, test_binary_heap)
 		EXPECT_EQ(q.top(), max_heap.top());
 	}
 	std::make_heap(input.begin(), input.end());
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 }
 
-TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_top)
+TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_top)
 {
 	constexpr int limit = 10000;
 	auto max_heap = StackHeap<int64_t, limit>();
@@ -90,7 +76,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_top)
 	}
 }
 
-TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop)
+TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_pop)
 {
 	constexpr int limit = 10000;
 	auto max_heap = StackHeap<int64_t, limit>();
@@ -109,7 +95,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binary_heap_pop)
+TEST_F(SetupBinaryHeap, test_binray_max_heap_pop)
 {
 	auto max_heap = StackHeap<int64_t, 12>();
 	for (const auto &element: input) {
@@ -119,22 +105,22 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop)
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 }
 
 
-TEST_F(SetupBinaryHeap, test_binary_heap_pop_and_insert)
+TEST_F(SetupBinaryHeap, test_binray_max_heap_pop_and_insert)
 {
 	auto max_heap = StackHeap<int64_t, 20>();
 	for (const auto &element: input) {
@@ -147,7 +133,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop_and_insert)
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 
 	max_heap.insert(198);
@@ -156,16 +142,29 @@ TEST_F(SetupBinaryHeap, test_binary_heap_pop_and_insert)
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 	std::pop_heap(input.begin(), input.end());
 	EXPECT_EQ(input.back(), max_heap.pop());
 	input.pop_back();
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 
 	max_heap.insert(198);
 	input.push_back(198);
 	std::make_heap(input.begin(), input.end());
-	EXPECT_TRUE(is_binary_heap(input, input.size() - 1));
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
+}
 
+
+TEST_F(SetupBinaryHeap, test_binray_min_heap)
+{
+	auto max_heap = StackHeap<int64_t, 12, std::greater<>>();
+	std::priority_queue<int64_t, std::vector<int64_t>, std::greater<>> q;
+	for (const auto &element: input) {
+		EXPECT_TRUE(max_heap.insert(element));
+		q.push(element);
+		EXPECT_EQ(q.top(), max_heap.top());
+	}
+	std::make_heap(input.begin(), input.end());
+	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 }
