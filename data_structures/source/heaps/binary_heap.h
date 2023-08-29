@@ -47,14 +47,6 @@ public:
 		return heap_size_;
 	}
 
-	void print_array()
-	{
-		std::cout << "*********************" << std::endl;
-		for (size_t i = 0; i < heap_size_; ++i) {
-			std::cout << "heap-element[" << i + 1 << "] = " << elements_[i] << "\n";
-		}
-
-	}
 private:
 	T elements_[heap_capacity];
 	size_t heap_size_{};
