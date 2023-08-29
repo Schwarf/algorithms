@@ -158,13 +158,107 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap_pop_and_insert)
 
 TEST_F(SetupBinaryHeap, test_binray_min_heap)
 {
-	auto max_heap = StackHeap<int64_t, 12, std::greater<>>();
+	auto min_heap = StackHeap<int64_t, 12, std::greater<>>();
 	std::priority_queue<int64_t, std::vector<int64_t>, std::greater<>> q;
 	for (const auto &element: input) {
-		EXPECT_TRUE(max_heap.insert(element));
+		EXPECT_TRUE(min_heap.insert(element));
 		q.push(element);
-		EXPECT_EQ(q.top(), max_heap.top());
+		EXPECT_EQ(q.top(), min_heap.top());
 	}
-	std::make_heap(input.begin(), input.end());
-	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
+	std::make_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+}
+
+TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_top)
+{
+	constexpr int limit = 10000;
+	auto min_heap = StackHeap<int64_t, limit, std::greater<>>();
+	int count{};
+	std::priority_queue<int64_t, std::vector<int64_t>, std::greater<>> expected_result;
+	while (count < limit) {
+		auto element = input[count++];
+		min_heap.insert(element);
+		expected_result.push(element);
+		EXPECT_EQ(min_heap.top(), expected_result.top());
+	}
+}
+
+
+TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_pop)
+{
+	constexpr int limit = 10;
+	auto min_heap = StackHeap<int64_t, limit, std::greater<>>();
+	int count{};
+	std::priority_queue<int64_t, std::vector<int64_t>, std::greater<>> expected_result;
+	while (count++ < limit) {
+		auto element = get_random(-10000000, 2000000);
+		min_heap.insert(element);
+		expected_result.push(element);
+	}
+	for (int i{}; i < limit; ++i) {
+		EXPECT_EQ(min_heap.top(), expected_result.top());
+		expected_result.pop();
+		min_heap.pop();
+	}
+}
+
+
+TEST_F(SetupBinaryHeap, test_binray_min_heap_pop)
+{
+	auto min_heap = StackHeap<int64_t, 12, std::greater<>>();
+	for (const auto &element: input) {
+		min_heap.insert(element);
+	}
+	std::make_heap(input.begin(), input.end(), std::greater<>{});
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+}
+
+
+TEST_F(SetupBinaryHeap, test_binray_min_heap_pop_and_insert)
+{
+	auto min_heap = StackHeap<int64_t, 20, std::greater<>>();
+	for (const auto &element: input) {
+		min_heap.insert(element);
+	}
+
+	min_heap.insert(-2);
+	input.push_back(-2);
+	std::make_heap(input.begin(), input.end(), std::greater<>{});
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+
+	min_heap.insert(198);
+	input.push_back(198);
+	std::make_heap(input.begin(), input.end(), std::greater<>{});
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+	std::pop_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_EQ(input.back(), min_heap.pop());
+	input.pop_back();
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
+
+	min_heap.insert(198);
+	input.push_back(198);
+	std::make_heap(input.begin(), input.end(), std::greater<>{});
+	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
 }

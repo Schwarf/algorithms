@@ -82,7 +82,7 @@ private:
 	{
 		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_;
 			 child_index = left_child(child_index)) {
-			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index + 1])
+			if (child_index + 1 < heap_size_ && Compare()(elements_[child_index], elements_[child_index + 1]))
 				child_index++;
 			if (Compare()(elements_[parent_index], elements_[child_index]))
 				std::swap(elements_[child_index], elements_[parent_index]);
