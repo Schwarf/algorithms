@@ -66,16 +66,17 @@ private:
 
 	int left_child(int index) const
 	{
-		return 2 * index + 1;
+		return (index << 1) + 1;
 	}
 
 	int right_child(int index) const
 	{
-		return 2 * index + 2;
+		return (index << 1) + 2;
 	}
 
 	void promote_()
 	{
+
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
 			int parent_index = parent(child_index);
 			if (Compare()(elements_[child_index], elements_[parent_index]))
@@ -87,7 +88,8 @@ private:
 
 	void demote_()
 	{
-		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_; child_index = (child_index << 1) + 1) {
+		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_;
+			 child_index = left_child(child_index)) {
 			if (child_index + 1 < heap_size_ && elements_[child_index] < elements_[child_index + 1])
 				child_index++;
 			if (Compare()(elements_[parent_index], elements_[child_index]))

@@ -102,7 +102,7 @@ TEST_F(SetupBinaryHeap, test_binary_heap_many_random_numbers_pop)
 		expected_result.push(element);
 	}
 	for (int i{}; i < limit; ++i) {
-		EXPECT_EQ(heap.top(), expected_result.top());
+		EXPECT_EQ(heap.pop(), expected_result.top());
 		expected_result.pop();
 	}
 }
