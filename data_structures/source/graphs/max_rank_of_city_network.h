@@ -16,11 +16,10 @@
 
 template<typename T>
 requires std::is_unsigned_v<T>
-int compute_network_rank(std::vector<std::vector<T>> &roads)
+int compute_network_rank(int number_of_cities, const std::vector<std::vector<T>> &roads)
 {
-	int n = roads.size();
-	std::vector<int> count(n, 0);
-	std::vector<std::vector<bool>> directly_connected(n, std::vector<bool>(n, false));
+	std::vector<int> count(number_of_cities, 0);
+	std::vector<std::vector<bool>> directly_connected(number_of_cities, std::vector<bool>(number_of_cities, false));
 	for (const auto &road: roads) {
 		count[road[0]]++;
 		count[road[1]]++;
@@ -28,8 +27,8 @@ int compute_network_rank(std::vector<std::vector<T>> &roads)
 		directly_connected[road[1]][road[0]] = true;
 	}
 	int max_rank{};
-	for (int i{}; i < n; ++i) {
-		for (int j{i + 1}; j < n; ++j) {
+	for (int i{}; i < number_of_cities; ++i) {
+		for (int j{i + 1}; j < number_of_cities; ++j) {
 			auto rank = count[i] + count[j];
 			if (directly_connected[i][j])
 				rank--;
