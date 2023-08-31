@@ -12,13 +12,15 @@
 // means the i-th tap can cover the area [i - ranges[i], i + ranges[i]].
 // Return the minimum number of ranges that should be used to cover the whole area A.
 // Note the intervals also need to cover the area between the points [0, 1, ..., n].  If this is not possible return -1.
+
+//TAG: GREEDY
 template<typename T>
 requires std::signed_integral<T>
-int minimum_intervals_to_cover_range(int area_size, std::vector<T> ranges)
+int minimum_intervals_to_cover_range(int area_size, const std::vector<T> & ranges)
 {
 	std::vector<std::pair<T, T>> intervals;
 	for (int i{}; i <= area_size; ++i)
-		intervals.push_back({i - ranges[i], i + ranges[i]});
+		intervals.push_back({i - ranges.at(i), i + ranges.at(i)});
 	std::sort(intervals.begin(), intervals.end());
 
 	int number_of_intervals_needed{};
