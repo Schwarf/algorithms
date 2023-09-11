@@ -30,7 +30,7 @@ NodePlusRP<T> *deep_copy_linked_list_with_random_pointer(NodePlusRP<T> *head)
 	std::unordered_map<NodePlusRP<T> *, NodePlusRP<T> *> old_to_new;
 	auto current = head;
 	while (current) {
-		old_to_new[current] = new Node(current->val);
+		old_to_new[current] = new NodePlusRP<T>(current->value);
 		current = current->next;
 	}
 	current = head;

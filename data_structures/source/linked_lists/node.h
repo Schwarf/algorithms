@@ -24,19 +24,23 @@ struct Node
 
 // Node with random pointer
 template<typename T>
-struct NodePlusRP: Node<T>
+struct NodePlusRP
 {
 	NodePlusRP()
 		: random(nullptr)
 	{}
 	explicit NodePlusRP(T val)
 		:
-		Node<T>(val),
+		value(val),
+		next(nullptr),
 		random(nullptr)
 	{
 	}
 
 	NodePlusRP<T> *random;
+	T value;
+	NodePlusRP<T> *next{nullptr};
+
 };
 
 #endif //NODE_H
