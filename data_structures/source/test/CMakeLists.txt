@@ -34,7 +34,7 @@ add_executable(test_linked_lists
         linked_lists/test_add_two_numbers.cpp
         linked_lists/test_check_if_linked_list_is_palindrome.cpp
         linked_lists/test_are_linked_lists_intersecting.cpp
-        linked_lists/test_does_linked_list_have_loop.cpp linked_lists/test_swapping_nodes.cpp linked_lists/test_swap_nodes_in_pairs.cpp linked_lists/test_maximum_twin_sum.cpp linked_lists/test_deep_copy_linked_list_with_random_pointer.cpp)
+        linked_lists/test_does_linked_list_have_loop.cpp linked_lists/test_swapping_nodes.cpp linked_lists/test_swap_nodes_in_pairs.cpp linked_lists/test_maximum_twin_sum.cpp linked_lists/test_deep_copy_linked_list_with_random_pointer.cpp linked_lists/test_split_linked_list_in_parts.cpp)
 
 add_executable(test_stacks_and_queues
         stacks_and_queues/test_stack_linked_list_based.cpp

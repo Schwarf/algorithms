@@ -16,6 +16,8 @@ protected:
 	template<typename T>
 	Node<T> *get_single_list_from_vector(const std::vector<T> &input)
 	{
+		if (input.size() < 1)
+			return nullptr;
 		auto head = new Node<T>(input[0]);
 		auto node = head;
 		for (size_t i{1}; i < input.size(); ++i) {
