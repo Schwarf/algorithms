@@ -14,4 +14,4 @@ add_library(linked_list_lib INTERFACE
         are_linked_lists_intersecting.h
         does_linked_list_have_loop.h
         swapping_nodes.h
-        swap_nodes_in_pairs.h maximum_twin_sum.h deep_copy_linked_list_with_random_pointer.h)
+        swap_nodes_in_pairs.h maximum_twin_sum.h deep_copy_linked_list_with_random_pointer.h split_linked_list_in_parts.h)
