@@ -21,4 +21,23 @@ struct Node
 	T value;
 	Node<T> *next{nullptr};
 };
+
+// Node with random pointer
+template<typename T>
+struct NodePlusRP: Node<T>
+{
+	NodePlusRP()
+		: Node<T>::value(0),
+		  Node<T>::next(nullptr),
+		  random(nullptr)
+	{}
+	explicit NodePlusRP(T val)
+		:
+		Node<T>::value(val)
+	{
+	}
+
+	Node<T> *random;
+};
+
 #endif //NODE_H
