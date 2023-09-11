@@ -37,7 +37,7 @@ protected:
 
 		for (size_t i{1}; i < input.size(); ++i) {
 			node->next = new NodePlusRP<T>(input[i]);
-			node = node->next;
+			node = static_cast<NodePlusRP<int> *>(node->next);
 			help[input[i]] = node;
 		}
 		for (const auto &[from, to]: from_to) {
