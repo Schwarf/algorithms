@@ -10,6 +10,8 @@
 
 template <typename T>
 std::vector<std::vector<T>> merge_intervals(std::vector<std::vector<T>>& intervals) {
+	if (intervals.empty())
+		return{};
 	auto sorted = [](const std::vector<T> & input1,const std::vector<T> & input2)
 	{
 		return input1[0] < input2[0];

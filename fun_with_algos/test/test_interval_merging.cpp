@@ -26,6 +26,18 @@ TEST(IntervalMerging, simple3)
 	EXPECT_EQ(expected_output, merge_intervals(input));
 }
 
+TEST(IntervalMerging, simple4)
+{
+	std::vector<std::vector<int>> input{{2, 3}};
+	EXPECT_EQ(input, merge_intervals(input));
+}
+
+TEST(IntervalMerging, simple5)
+{
+	std::vector<std::vector<int>> input;
+	EXPECT_EQ(input, merge_intervals(input));
+}
+
 
 TEST(IntervalMerging, complex1)
 {
