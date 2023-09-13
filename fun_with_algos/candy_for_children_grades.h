@@ -12,25 +12,30 @@
 // #GREEDY
 
 #include <vector>
+#include <concepts>
 template <typename T>
-T total_candy(std::vector<T> &grades)
+requires std::is_signed_v<T>
+T total_candy(const std::vector<T> &grades)
 {
 	int n = grades.size();
 	// each child gets at least one candy
 	int candy = n;
-	for(int i{1}; i < n; ++i)
+	int i{1};
+	while(i < n)
 	{
-		if(grades[i] == grades[i-1])
+		if(grades[i] == grades[i-1]) {
+			i++;
 			continue;
+		}
 		int peak{};
-		while(grades[i] > grades[i-1] && i << n)
+		while( (i < n) && grades[i] > grades[i-1])
 		{
 			peak++;
 			candy +=peak;
 			i++;
 		}
 		int valley{};
-		while(grades[i] < grades[i-1] && i << n)
+		while( (i < n)  && grades[i] < grades[i-1])
 		{
 			valley++;
 			candy +=valley;
