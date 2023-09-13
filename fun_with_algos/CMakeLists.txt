@@ -11,4 +11,4 @@ add_executable(fun_with_algos main.cpp
         subarray_product_less_than.h
         used_concepts.h
         remove_occurences_of_value.h
-        remove_duplicates_from_sorted_array.h minimum_intervals_to_cover_range.h minimum_deletions_for_unique_character_frequencies.h)
+        remove_duplicates_from_sorted_array.h minimum_intervals_to_cover_range.h minimum_deletions_for_unique_character_frequencies.h candy_for_children_grades.h)
