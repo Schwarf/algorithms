@@ -27,7 +27,7 @@ void dfs(std::unordered_map<std::string, std::vector<std::string>> &graph,
 	result.push_back(current);
 }
 
-std::vector<std::string> reconstruct_itinerary(std::vector<std::vector<std::string>> &tickets)
+std::vector<std::string> reconstruct_itinerary(const std::vector<std::vector<std::string>> &tickets)
 {
 	std::unordered_map<std::string, std::vector<std::string>> graph;
 

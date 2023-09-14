@@ -19,7 +19,7 @@ add_executable(test_graphs
         graphs/test_clone_graph.cpp
         graphs/test_minimal_distance_to_connect_all_points.cpp
         graphs/test_size_of_largest_island.cpp graphs/test_maximum_marked_circles.cpp
-        graphs/test_time_to_inform_hierachy.cpp graphs/test_can_finish_course_schedule.cpp graphs/test_max_rank_of_city_network.cpp)
+        graphs/test_time_to_inform_hierachy.cpp graphs/test_can_finish_course_schedule.cpp graphs/test_max_rank_of_city_network.cpp graphs/test_reconstruct_flight_itinerary.cpp)
 
 add_executable(test_linked_lists
         linked_lists/test_singly_linked_list.cpp
