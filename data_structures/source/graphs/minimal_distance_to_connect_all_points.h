@@ -15,14 +15,14 @@ requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_
 T minimal_costs_to_connect_points(std::vector<std::vector<T>> points, DistanceFunctionType distance_function)
 {
 
-	auto comparator = [](const std::pair<T, T> &p1, const std::pair<T, T> &p2)
+	auto comparator = [](const std::pair<T, T> &p1, const std::pair<T, T> &p2) -> bool
 	{
 		return p1.second > p2.second;
 	};
 
-	std::vector<std::priority_queue<std::pair<T, T>, std::vector<std::pair<T, T>>, decltype(comparator)>>
+	std::vector<std::priority_queue<std::pair<T, T>, std::vector<std::pair<T, T>>, bool>>
 		graph(points.size(),
-			  std::priority_queue<std::pair<T, T>, std::vector<std::pair<T, T>>, decltype(comparator)>(comparator));
+			  std::priority_queue<std::pair<T, T>, std::vector<std::pair<T, T>>, bool>);
 	std::unordered_map<T, T> id_weight;
 	for (int i{}; i < points.size(); ++i) {
 		for (int j{i + 1}; j < points.size(); ++j) {
