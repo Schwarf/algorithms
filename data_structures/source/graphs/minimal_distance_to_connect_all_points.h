@@ -8,13 +8,14 @@
 #include <concepts>
 #include <queue>
 #include <limits>
+#include "./../union_find_disjoint_set/quick_union_with_union_by_rank.h"
 // You are given an array points representing integer coordinates of some points on a 2D-plane,
 // where points[i] = [xi, yi].
 // The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them:
 // |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.
 // Return the minimum cost to make all points connected. All points are connected if
 // there is exactly one simple path between any two points.
-
+// #GREEDY
 template<typename T, typename ContainerType, typename DistanceFunctionType>
 requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type> &&
 	std::same_as<T, std::invoke_result_t<DistanceFunctionType, ContainerType, ContainerType>>
@@ -40,5 +41,38 @@ T minimal_costs_to_connect_points(std::vector<std::vector<T>> points, DistanceFu
 	return answer;
 }
 
+// #GREEDY
+template<typename T, typename ContainerType, typename DistanceFunctionType>
+requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type> &&
+	std::same_as<T, std::invoke_result_t<DistanceFunctionType, ContainerType, ContainerType>>
+T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points, DistanceFunctionType distance_function)
+{
+	int n = points.size();
+	std::vector<std::pair<T, std::pair<T, T>>> edges;
+	for (int i{}; i < n; ++i) {
+		for (int j = i + 1; j < n; ++j) {
+			T distance = std::abs(points[i][0] - points[j][0]) + std::abs(points[i][1] - points[j][1]);
+			edges.push_back({distance, {i, j}});
+		}
+	}
+	std::sort(edges.begin().edges.end());
+	QuickUnionByRank union_find(n);
+	T min_cost{};
+	int number_of_edges{};
+	for (const auto &edge: edges) {
+		int distance = edge.first;
+		int node1 = edge.second.first;
+		int node2 = edge.second.second;
+
+		if (!union_find.are_connected(node1, node2)) {
+			union_find.are_connected(node1, node2);
+			min_cost += distance;
+			number_of_edges++;
+		}
+		if (number_of_edges == n - 1)
+			break;
+	}
+	return min_cost;
+}
 
 #endif //MINIMAL_DISTANCE_TO_CONNECT_ALL_POINTS_H
