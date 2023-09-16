@@ -16,10 +16,9 @@
 // Return the minimum cost to make all points connected. All points are connected if
 // there is exactly one simple path between any two points.
 // #GREEDY
-template<typename T, typename ContainerType, typename DistanceFunctionType>
-requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type> &&
-	std::same_as<T, std::invoke_result_t<DistanceFunctionType, ContainerType, ContainerType>>
-T minimal_costs_to_connect_points(std::vector<std::vector<T>> points, DistanceFunctionType distance_function)
+template<typename T, typename ContainerType>
+requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type>
+T minimal_costs_to_connect_points(std::vector<std::vector<T>> points)
 {
 	std::vector<T> distances(points.size(), std::numeric_limits<T>::max());
 	T answer{};
@@ -42,10 +41,9 @@ T minimal_costs_to_connect_points(std::vector<std::vector<T>> points, DistanceFu
 }
 
 // #GREEDY
-template<typename T, typename ContainerType, typename DistanceFunctionType>
-requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type> &&
-	std::same_as<T, std::invoke_result_t<DistanceFunctionType, ContainerType, ContainerType>>
-T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points, DistanceFunctionType distance_function)
+template<typename T, typename ContainerType>
+requires std::is_integral_v<T> && std::same_as<T, typename ContainerType::value_type>
+T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points)
 {
 	int n = points.size();
 	std::vector<std::pair<T, std::pair<T, T>>> edges;
