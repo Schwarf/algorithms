@@ -111,7 +111,7 @@ T path_with_minimum_effort2(std::vector<std::vector<T>> &heights)
 	int cols = heights[0].size();
 
 	// Initialize a 2D vector to store the minimum effort required to reach each cell
-	std::vector<std::vector<T>> minEffort(rows, vector<T>(cols, std::numeric_limits<T>::max()));
+	std::vector<std::vector<T>> minimum_effort(rows, std::vector<T>(cols, std::numeric_limits<T>::max()));
 
 	// Priority queue for Dijkstra's algorithm
 	std::priority_queue<std::tuple<T, int, int>,
@@ -120,7 +120,7 @@ T path_with_minimum_effort2(std::vector<std::vector<T>> &heights)
 
 	// Start from the top-left cell
 	pq.push(std::make_tuple(0, 0, 0));
-	minEffort[0][0] = 0;
+	minimum_effort[0][0] = 0;
 
 	// Define possible directions to move (up, down, left, right)
 	std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -141,12 +141,12 @@ T path_with_minimum_effort2(std::vector<std::vector<T>> &heights)
 			// Check if the new cell is within bounds
 			if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
 				// Calculate the effort to move to the new cell
-				int newEffort = max(currentEffort, abs(heights[newRow][newCol] - heights[currentRow][currentCol]));
+				int newEffort = std::max(currentEffort, abs(heights[newRow][newCol] - heights[currentRow][currentCol]));
 
 				// If the new effort is less than the minimum effort to reach the new cell,
 				// update the minimum effort and add the new cell to the priority queue
-				if (newEffort < minEffort[newRow][newCol]) {
-					minEffort[newRow][newCol] = newEffort;
+				if (newEffort < minimum_effort[newRow][newCol]) {
+					minimum_effort[newRow][newCol] = newEffort;
 					pq.push(std::make_tuple(newEffort, newRow, newCol));
 				}
 			}
