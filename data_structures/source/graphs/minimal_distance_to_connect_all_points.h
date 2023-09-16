@@ -53,7 +53,7 @@ T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points)
 			edges.push_back({distance, {i, j}});
 		}
 	}
-	std::sort(edges.begin().edges.end());
+	std::sort(edges.begin(), edges.end());
 	QuickUnionByRank union_find(n);
 	T min_cost{};
 	int number_of_edges{};
@@ -63,7 +63,7 @@ T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points)
 		int node2 = edge.second.second;
 
 		if (!union_find.are_connected(node1, node2)) {
-			union_find.are_connected(node1, node2);
+			union_find.union_set(node1, node2);
 			min_cost += distance;
 			number_of_edges++;
 		}
