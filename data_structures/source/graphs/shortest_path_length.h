@@ -7,13 +7,13 @@
 #include <queue>
 #include <vector>
 template<typename T>
-requires std::is_signed_v<T>
-T shortestPathLength(std::vector<std::vector<int>> &graph)
+requires std::is_unsigned_v<T>
+T shortest_path_length(std::vector<std::vector<T>> &graph)
 {
 	const int n = graph.size();
 	const int goal = (1 << n) - 1;
 
-	int ans = 0;
+	T ans{};
 	std::queue<std::pair<T, int>> q;  // (u, state)
 	std::vector<std::vector<bool>> seen(n, std::vector<bool>(1 << n));
 
