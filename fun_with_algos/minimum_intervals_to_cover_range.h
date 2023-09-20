@@ -13,7 +13,7 @@
 // Return the minimum number of ranges that should be used to cover the whole area A.
 // Note the intervals also need to cover the area between the points [0, 1, ..., n].  If this is not possible return -1.
 
-//TAG: GREEDY
+// #GREEDY
 template<typename T>
 requires std::signed_integral<T>
 int minimum_intervals_to_cover_range(int area_size, const std::vector<T> & ranges)
