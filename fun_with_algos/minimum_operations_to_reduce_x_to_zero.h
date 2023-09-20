@@ -27,21 +27,22 @@ int minimal_operations_to_reduce_x_to_zero(const ContainerType<T> &input, T x)
 	// that x can be constructed by sum-diff.
 	T difference = sum - x;
 	T current_sum{};
-	// Two pointers
-	int right{};
+	// Two pointers left and right
 	int left{};
 	int max_size{};
-	for (int i{}; i < input.size(); ++i) {
-		current_sum += input[i];
+	for (int right{}; right < input.size(); ++right) {
+		current_sum += input[right];
 		// If current_sum is larger than difference, we reduce it (from the left of input) until we are below or equal
 		// difference
 		while (current_sum > difference)
 			current_sum -= input[left++];
+		// Since we subtract later the 'max_size' to get the number of operations, we need to maximize the 'max_size'
+		// to minimize the operations
 		if (current_sum == difference)
-			max_size = std::min(max_size(), right - left + 1);
+			max_size = std::max(max_size, right - left + 1);
 	}
 
-	return max_size != 0 ? max_size : -1;
+	return max_size != 0 ? input.size() - max_size : -1;
 
 }
 #endif //MINIMUM_OPERATIONS_TO_REDUCE_X_TO_ZERO_H
