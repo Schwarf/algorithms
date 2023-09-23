@@ -29,4 +29,4 @@ add_executable(dynamic_programming_samples main.cpp
         main.cpp
         minimal_jumps_to_last_index.h
         knapsack_problem.h
-        unique_paths.h)
+        unique_paths.h longest_string_chain.h)
