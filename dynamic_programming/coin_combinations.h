@@ -50,7 +50,7 @@ int coin_combinations_bottom_up(const std::vector<int> &coins, int amount)
 {
 	std::vector<int> dp(amount + 1, 0);
 	dp[0] = 1;
-	for (int coin: coins) {
+	for (const auto &coin: coins) {
 		for (int i = coin; i <= amount; ++i) {
 			dp[i] += dp[i - coin];
 		}
