@@ -2,5 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 project(fun_with_strings)
 
 set(CMAKE_CXX_STANDARD 17)
+add_subdirectory(test)
 
-add_executable(fun_with_strings main.cpp sort_string_by_character_frequency.h steps_to_make_two_equal_sized_strings_an_anagram.h levenshtein_distance.h create_ranges_from_sorted_array.h remove_duplicate_letters.h)
+add_executable(fun_with_strings main.cpp sort_string_by_character_frequency.h steps_to_make_two_equal_sized_strings_an_anagram.h levenshtein_distance.h create_ranges_from_sorted_array.h remove_duplicate_letters.h test/test_remove_duplicates.cpp)
