@@ -1,4 +1,3 @@
-project(test_dynamic_programming_samples)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
