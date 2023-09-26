@@ -1,3 +1,3 @@
 - Algo 'can_reach_last_index' can be solved with DP but is actually solved with greedy algorithm here. Move it.
--
+- The unit test /media/linux_data/projects/cpp/algorithms/dynamic_programming/test/test_longest_string_chain.cpp:45: FAILs
 - The knapsack problem is only solved for integral weight types. Floating point ones must be treated separately?
