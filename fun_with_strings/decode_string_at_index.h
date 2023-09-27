@@ -22,7 +22,7 @@ std::string decode_at_index(const std::string & input, int k)
 	}
 	for(int j{index-1}; j > -1; --j)
 	{
-		if(std::isdigit[input[j]])
+		if(std::isdigit(input[j]))
 		{
 			length /= input[j] - '0';
 			k %= length;
