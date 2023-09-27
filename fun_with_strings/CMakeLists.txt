@@ -9,4 +9,4 @@ add_executable(fun_with_strings main.cpp
         steps_to_make_two_equal_sized_strings_an_anagram.h
         levenshtein_distance.h
         create_ranges_from_sorted_array.h
-        remove_duplicate_letters.h)
+        remove_duplicate_letters.h decode_string_at_index.h)
