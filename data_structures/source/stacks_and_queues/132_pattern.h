@@ -12,7 +12,7 @@
 // Return true if there is a 132 pattern in nums, otherwise, return false.
 template<typename T>
 requires std::is_signed_v<T>
-bool find132pattern(std::vector<T> &nums)
+bool find_132_pattern(const std::vector<T> &nums)
 {
 	std::stack<T> s;
 	int third = std::numeric_limits<T>::min();
