@@ -56,4 +56,20 @@ T maximize_product_bottom_up(T target)
 	return dp[target];
 }
 
+template<typename T>
+requires std::is_unsigned_v<T>
+T maximize_product_math(T target)
+{
+	if (target < 4)
+		return target - 1;
+	T result{1};
+	while (target > 4) {
+		result *= 3;
+		target -= 3;
+	}
+	return target * result;
+}
+
+
 #endif //MAXIMIZE_PRODUCT_FROM_GIVEN_TARGET_H
+
