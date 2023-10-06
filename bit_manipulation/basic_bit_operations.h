@@ -68,5 +68,24 @@ void clear_bits_until_position(T &number, const int bit_position)
 	number &= mask;
 }
 
+template<typename T>
+requires std::integral<T>
+int get_hamming_weight_inefficient(T &number)
+{
+	int mask = 1;
+	int weight = 0;
+
+	while (number > 0) {
+		if ((number & mask) > 0) {
+			weight++;
+			number ^= mask; // XOR with mask to set bit in number to zero (see while condition)
+		}
+
+		mask <<= 1;
+	}
+
+	return weight;
+}
+
 
 #endif //BASIC_BIT_OPERATIONS_H

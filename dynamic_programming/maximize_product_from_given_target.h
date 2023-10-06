@@ -47,9 +47,9 @@ T maximize_product_bottom_up(T target)
 		dp[i] = i;
 
 	for (T number{4}; number <= target; ++number) {
-		T result = target;
+		T result = number;
 		for (T i{2}; i < number; ++i) {
-			result = std::max(result, dp[number - i]);
+			result = std::max(result, i * dp[number - i]);
 		}
 		dp[number] = result;
 	}
