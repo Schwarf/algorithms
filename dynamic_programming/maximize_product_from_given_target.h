@@ -36,5 +36,24 @@ T maximize_product_top_down(T target)
 	return maximize(target, memo);
 }
 
+template<typename T>
+requires std::is_unsigned_v<T>
+T maximize_product_bottom_up(T target)
+{
+	if (target < 4)
+		return target - 1;
+	auto dp = std::vector<T>(target + 1, 0);
+	for (T i{1}; i < 4; ++i)
+		dp[i] = i;
+
+	for (T number{4}; number <= target; ++number) {
+		T result = target;
+		for (T i{2}; i < number; ++i) {
+			result = std::max(result, dp[number - i]);
+		}
+		dp[number] = result;
+	}
+	return dp[target];
+}
 
 #endif //MAXIMIZE_PRODUCT_FROM_GIVEN_TARGET_H
