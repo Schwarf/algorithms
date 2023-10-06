@@ -26,6 +26,6 @@ add_executable(dynamic_programming_samples_test
         test_knapsack_problem.cpp
         test_predict_the_winner.cpp
         test_coin_combinations.cpp
-        test_unique_paths.cpp test_unique_paths_with_obstacles.cpp test_longest_string_chain.cpp test_longest_common_subsequence.cpp)
+        test_unique_paths.cpp test_unique_paths_with_obstacles.cpp test_longest_string_chain.cpp test_longest_common_subsequence.cpp test_maximize_product_from_given_target.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
