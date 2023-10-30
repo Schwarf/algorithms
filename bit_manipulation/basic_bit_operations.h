@@ -69,7 +69,7 @@ void clear_bits_until_position(T &number, const int bit_position)
 }
 
 template<typename T>
-requires std::integral<T>
+requires std::unsigned_integral<T>
 int get_hamming_weight_inefficient(T &number)
 {
 	int mask = 1;
@@ -87,5 +87,12 @@ int get_hamming_weight_inefficient(T &number)
 	return weight;
 }
 
+
+template<typename T>
+requires std::unsigned_integral<T>
+int get_hamming_weight(T & number)
+{
+	return __builtin_popcount(number);
+}
 
 #endif //BASIC_BIT_OPERATIONS_H
