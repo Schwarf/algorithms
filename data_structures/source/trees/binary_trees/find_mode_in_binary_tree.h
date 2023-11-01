@@ -70,6 +70,34 @@ std::vector<T> find_mode_dfs_iterative(TreeNode<T> *root)
 	return result;
 }
 
+template<typename T>
+requires std::is_arithmetic_v<T>
+std::vector<T> find_mode_bfs(TreeNode<T> *root)
+{
+	std::unordered_map<T, int> count;
+	std::queue<TreeNode<T> *> q{{root}};
+
+	while (!q.empty()) {
+		auto current = q.front();
+		q.pop();
+		if (current->left)
+			q.push(current->left);
+		if (current->right)
+			q.push(current->right);
+		count[current->value]++;
+	}
+
+	int max{};
+	for (const auto &[value, frequency]: count) {
+		max = std::max(max, frequency);
+	}
+	std::vector<T> result;
+	for (const auto &[value, frequency]: count) {
+		if (frequency == max)
+			result.push_back(value);
+	}
+	return result;
+}
 
 #endif //FIND_MODE_IN_BINARY_TREE_H
 
