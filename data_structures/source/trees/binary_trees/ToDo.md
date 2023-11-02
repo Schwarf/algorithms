@@ -5,6 +5,7 @@ ToDo:
 - Write unit tests for maximum path sum
 - Write unit tests for find_mode_in_binary_tree.
 - Study optimal algorithm for find_mode_in_binary_tree: Morris traversal.
+- Write unit tests for count_nodes_equal_to_average_of_subtree.
 - Study segment trees in more detail and extend unit tests.
 - Implement algo to check if tree is symmetric, a mirror of itself
 - Implement algo to compute sum of binary tree of the digits from root-to-each-leaf-node
