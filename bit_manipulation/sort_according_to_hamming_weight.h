@@ -11,16 +11,16 @@
 #include "basic_bit_operations.h"
 
 template <typename Function, typename Argument>
-concept CallableWithSingleIntegralArgument = requires(Function function, Argument argument)
+concept CallableWithSingleIntegralArgument = requires(Function function, Argument &&argument)
 {
 	{function(argument) }-> std::convertible_to<size_t>;
-} && std::is_integral_v<Argument>;
+} && std::is_integral_v<std::remove_reference_t< Argument>>;
 
 template<typename T, typename HammingWeightFunction>
-requires CallableWithSingleIntegralArgument<HammingWeightFunction, T>
+requires CallableWithSingleIntegralArgument<HammingWeightFunction, T&>
 void sort_according_to_hamming_weight(std::vector<T> & input, HammingWeightFunction hamming_func)
 {
-	auto compare = [&](const T i1, const T i2)
+	auto compare = [&](T i1, T i2)
 	{
 		if(hamming_func(i1) != hamming_func(i2))
 			return hamming_func(i1) < hamming_func(i2);

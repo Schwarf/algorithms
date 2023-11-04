@@ -69,8 +69,8 @@ void clear_bits_until_position(T &number, const int bit_position)
 }
 
 template<typename T>
-requires std::unsigned_integral<T>
-int get_hamming_weight_inefficient(T &number)
+requires std::is_integral_v<T>
+int get_hamming_weight_inefficient(T number)
 {
 	int mask = 1;
 	int weight = 0;
