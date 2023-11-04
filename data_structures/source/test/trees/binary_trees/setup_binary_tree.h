@@ -18,7 +18,8 @@ protected:
 	std::vector<unsigned int> inorder{4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90};
 	std::vector<unsigned int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
 	std::vector<unsigned int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
-	std::vector<std::vector<unsigned int>> levelorder{{25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
+	std::vector<std::vector<unsigned int>>
+		levelorder{{25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
 	std::vector<std::vector<unsigned int>>
 		levelorder_inverted_tree{{25}, {50, 15}, {70, 35, 22, 10}, {90, 66, 44, 31, 24, 18, 12, 4}};
 	std::vector<std::vector<unsigned int>> levelorder_small_tree{{3}, {9, 20}, {15, 7}};
@@ -147,33 +148,65 @@ protected:
 		return root;
 	}
 
-    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree()
-    {
-        auto root = new TreeNode<unsigned int>(3);
-        root->left = new TreeNode<unsigned int>(5);
-        root->right = new TreeNode<unsigned int>(1);
-        root->left->left = new TreeNode<unsigned int>(6);
-        root->left->right = new TreeNode<unsigned int>(2);
-        root->left->right->left = new TreeNode<unsigned int>(7);
-        root->left->right->right = new TreeNode<unsigned int>(4);
-        root->right->left = new TreeNode<unsigned int>(0);
-        root->right->right = new TreeNode<unsigned int>(8);
-        return std::make_pair(root, root->left);
-    }
+	static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree()
+	{
+		auto root = new TreeNode<unsigned int>(3);
+		root->left = new TreeNode<unsigned int>(5);
+		root->right = new TreeNode<unsigned int>(1);
+		root->left->left = new TreeNode<unsigned int>(6);
+		root->left->right = new TreeNode<unsigned int>(2);
+		root->left->right->left = new TreeNode<unsigned int>(7);
+		root->left->right->right = new TreeNode<unsigned int>(4);
+		root->right->left = new TreeNode<unsigned int>(0);
+		root->right->right = new TreeNode<unsigned int>(8);
+		return std::make_pair(root, root->left);
+	}
 
-    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree2()
-    {
-        auto root = new TreeNode<unsigned int>(3);
-        root->left = new TreeNode<unsigned int>(5);
-        root->right = new TreeNode<unsigned int>(1);
-        root->left->left = new TreeNode<unsigned int>(6);
-        root->left->right = new TreeNode<unsigned int>(2);
-        root->left->right->left = new TreeNode<unsigned int>(7);
-        root->left->right->right = new TreeNode<unsigned int>(4);
-        root->right->left = new TreeNode<unsigned int>(0);
-        root->right->right = new TreeNode<unsigned int>(8);
-        return std::make_pair(root, root->left->right->left);
-    }
+	static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree2()
+	{
+		auto root = new TreeNode<unsigned int>(3);
+		root->left = new TreeNode<unsigned int>(5);
+		root->right = new TreeNode<unsigned int>(1);
+		root->left->left = new TreeNode<unsigned int>(6);
+		root->left->right = new TreeNode<unsigned int>(2);
+		root->left->right->left = new TreeNode<unsigned int>(7);
+		root->left->right->right = new TreeNode<unsigned int>(4);
+		root->right->left = new TreeNode<unsigned int>(0);
+		root->right->right = new TreeNode<unsigned int>(8);
+		return std::make_pair(root, root->left->right->left);
+	}
+
+	static std::vector<std::pair<TreeNode<int> *, int>> trees_maximum_path_sum()
+	{
+		std::vector<std::pair<TreeNode<int> *, int >> results;
+		auto root1 = new TreeNode<int>(1);
+		root1->left = new TreeNode<int>(2);
+		root1->right = new TreeNode<int>(3);
+		constexpr int result1{6};
+
+		auto root2 = new TreeNode<int>(-10);
+		root2->left = new TreeNode<int>(9);
+		root2->right = new TreeNode<int>(20);
+		root2->right->left = new TreeNode<int>(15);
+		root2->right->right = new TreeNode<int>(7);
+		constexpr int result2{42};
+
+		auto root3 = nullptr;
+		constexpr int result3{0};
+
+		auto root4 = new TreeNode<int>(9);
+		root4->left = new TreeNode<int>(-2);
+		root4->right = new TreeNode<int>(-8);
+		root4->left->left = new TreeNode<int>(25);
+		root4->right->left = new TreeNode<int>(15);
+		constexpr int result4{39};
+
+		results.push_back({root1, result1});
+		results.push_back({root2, result2});
+		results.push_back({root3, result3});
+		results.push_back({root4, result4});
+		return results;
+	}
 
 };
 
