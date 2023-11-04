@@ -19,6 +19,8 @@ int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum);
 template<typename T>
 int max_path_sum(TreeNode<T> *root)
 {
+	if (!root)
+		return T{};
 	int max_sum{INT_MIN};
 	sum_of_path_in_subtree(root, max_sum);
 	return max_sum;
