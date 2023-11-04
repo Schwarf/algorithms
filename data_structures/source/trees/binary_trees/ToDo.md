@@ -2,8 +2,8 @@ ToDo:
 
 - Write helper functions for tests to automate generation of binary trees (binary trees)
 - Write unit tests for maximum product of splitted tree (binary trees)
-- Write unit tests for maximum path sum
 - Write unit tests for find_mode_in_binary_tree.
+- Write unit tests for find two sum in binary tree
 - Study optimal algorithm for find_mode_in_binary_tree: Morris traversal.
 - Write unit tests for count_nodes_equal_to_average_of_subtree.
 - Study segment trees in more detail and extend unit tests.

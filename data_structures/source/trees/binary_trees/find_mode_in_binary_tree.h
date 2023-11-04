@@ -18,7 +18,7 @@ void parse(TreeNode<T> *root, std::unordered_map<T, int> &count)
 {
 	if (!root)
 		return;
-	count[root->val]++;
+	count[root->value]++;
 	parse(root->left, count);
 	parse(root->right, count);
 }
