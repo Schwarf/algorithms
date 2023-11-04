@@ -89,7 +89,7 @@ int get_hamming_weight_inefficient(T number)
 
 
 template<typename T>
-requires std::unsigned_integral<T>
+requires std::is_integral_v<T>
 int get_hamming_weight(T & number)
 {
 	return __builtin_popcount(number);
