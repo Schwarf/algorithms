@@ -10,14 +10,20 @@
 
 #include "basic_bit_operations.h"
 
-template<typename T>
-requires std::is_integral_v<T>
-void sort_according_to_hamming_weight(std::vector<T> & input)
+template <typename Function, typename Argument>
+concept CallableWithSingleIntegralArgument = requires(Function function, Argument argument)
+{
+	{function(argument) }-> std::convertible_to<size_t>;
+} && std::is_integral_v<Argument>;
+
+template<typename T, typename HammingWeightFunction>
+requires CallableWithSingleIntegralArgument<HammingWeightFunction, T>
+void sort_according_to_hamming_weight(std::vector<T> & input, HammingWeightFunction hamming_func)
 {
 	auto compare = [&](const T i1, const T i2)
 	{
-		if(get_hamming_weight_inefficient(i1) != get_hamming_weight_inefficient(i2))
-			return get_hamming_weight_inefficient(i1) < get_hamming_weight_inefficient(i2);
+		if(hamming_func(i1) != hamming_func(i2))
+			return hamming_func(i1) < hamming_func(i2);
 		return i1 < i2;
 	};
 	std::sort(input.begin(), input.end(), compare);
