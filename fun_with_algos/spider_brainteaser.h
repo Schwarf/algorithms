@@ -15,14 +15,14 @@
 // moving to the left and the right, return the moment when the last spider(s) fall out of the plank.
 
 template <typename T, typename = typename std::enable_if<std::is_unsigned_v<T>>>
-T getLastMoment(int n, std::vector<T>& left, std::vector<T>& right) {
+T get_last_moment(T n, const std::vector<T>& left, const std::vector<T>& right) {
 	T ans = 0;
 	for (auto num : left) {
 		ans = std::max(ans, num);
 	}
 
 	for (auto num : right) {
-		ans = max(ans, n - num);
+		ans = std::max(ans, n - num);
 	}
 
 	return ans;
