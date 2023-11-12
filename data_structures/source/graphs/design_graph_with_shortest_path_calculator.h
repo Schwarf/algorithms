@@ -24,8 +24,9 @@ class Graph
 {
 public:
 	Graph(int number_of_nodes, const std::vector<std::vector<T>> &edges_with_weights)
-		: number_of_edges_{number_of_nodes}
+		: number_of_nodes_{number_of_nodes}
 	{
+		graph.resize(number_of_nodes_);
 		for (const auto triple: edges_with_weights) {
 			graph[triple[0]].push_back({triple[1], triple[2]});
 		}
@@ -34,17 +35,17 @@ public:
 	void add_edge(const std::vector<T> &triple)
 	{
 		graph[triple[0]].push_back({triple[1], triple[2]});
-		number_of_edges_++;
 	}
 
 	int shortest_path(T start_node, T end_node)
 	{
 		std::priority_queue<std::pair<T, T>, std::vector<std::pair<T, T>>, std::greater<std::pair<T, T>>> q;
-		// ew need to track the costs since the shortest path must not be the cheaped
-		std::vector cost_for_node(number_of_edges_, std::numeric_limits<T>::max());
+		// we need to track the costs since the shortest path does not be the one with the lowest number of edges
+		std::vector cost_for_node(number_of_nodes_, std::numeric_limits<T>::max());
 		q.push({0, start_node});
 		while (!q.empty()) {
 			auto [current_cost, current_node] = q.top();
+			q.pop();
 			if (current_cost > cost_for_node[current_node])
 				continue;
 			if (current_node == end_node)
@@ -64,8 +65,8 @@ public:
 
 
 private:
-	int number_of_edges_;
-	std::unordered_map<T, std::vector<std::pair<T, T>>> graph;
+	int number_of_nodes_;
+	std::unordered_map<T, std::vector<std::vector<std::pair<T, T>>>> graph;
 };
 
 #endif //DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
