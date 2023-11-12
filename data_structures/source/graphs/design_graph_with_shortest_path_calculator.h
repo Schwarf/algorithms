@@ -75,7 +75,7 @@ class GraphFW
 {
 public:
 	GraphFW(int n, const std::vector<std::vector<T>> &edges_with_weights)
-		: n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max()/n))
+		: n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max() / n))
 	{
 		for (auto &edge: edges_with_weights) {
 			graph[edge[0]][edge[1]] = edge[2];
@@ -94,13 +94,18 @@ public:
 	}
 	void add_edge(const std::vector<T> &edge)
 	{
-		for(int i{}; i < n_; ++i)
-		{
-			for(int j{}; j < n_; ++j)
-			{
-				graph[i][j] = std::min(graph[i][j], )
+		for (int i{}; i < n_; ++i) {
+			for (int j{}; j < n_; ++j) {
+				graph[i][j] = std::min(graph[i][j], graph[i][edge[0]] + graph[edge[1]][j] + edge[2]);
 			}
 		}
+	}
+
+	int shortest_path(T start_node, T end_node)
+	{
+		if (graph[start_node][end_node] == std::numeric_limits<T>::max() / n_)
+			return -1;
+		return graph[start_node][end_node];
 	}
 
 public:
