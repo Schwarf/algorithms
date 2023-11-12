@@ -8,6 +8,7 @@
 #include <vector>
 #include <utility>
 #include <queue>
+#include <algorithm>
 // A directed weighted graph that consists of n nodes numbered from 0 to n - 1.
 // The edges of the graph are initially represented by the given array edges where edges[i] = [from, to, weight]
 // meaning that there is an edge from 'from' to 'to' with the cost 'weight'.
@@ -74,7 +75,7 @@ template<typename T> requires std::is_signed_v<T>
 class GraphFW
 {
 public:
-	GraphFW(int n, const std::vector<std::vector<T>> &edges_with_weights)
+	GraphFW(int n, std::vector<std::vector<T>> &edges_with_weights)
 		: n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max() / n))
 	{
 		for (auto &edge: edges_with_weights) {
@@ -85,7 +86,7 @@ public:
 			for (int i{}; i < n; ++i) {
 				for (int j{}; j < n; ++j) {
 					for (int k{}; k < n; ++k) {
-						graph[j][k] = std::min(graph[j][k], graph[j][i] + graph[i][k]);
+						graph[j][k] = std::min(graph[j][k], static_cast<T>(graph[j][i] + graph[i][k]));
 					}
 				}
 			}
@@ -96,7 +97,7 @@ public:
 	{
 		for (int i{}; i < n_; ++i) {
 			for (int j{}; j < n_; ++j) {
-				graph[i][j] = std::min(graph[i][j], graph[i][edge[0]] + graph[edge[1]][j] + edge[2]);
+				graph[i][j] = std::min(graph[i][j], static_cast<T>(graph[i][edge[0]] + graph[edge[1]][j] + edge[2]));
 			}
 		}
 	}
@@ -109,7 +110,7 @@ public:
 	}
 
 public:
-	std::vector<std::vector<int>> graph;
+	std::vector<std::vector<T>> graph;
 	int n_;
 };
 #endif //DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
