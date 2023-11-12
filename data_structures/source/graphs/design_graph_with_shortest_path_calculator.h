@@ -18,6 +18,7 @@
 //  - int shortestPath(int start_node, int end_node) returns the minimum cost of a path from start_node to end_node.
 //    If no path exists, return -1. The cost of a path is the sum of the costs of the edges in the path.
 
+// DIJKSTRA algorithm
 template<typename T> requires std::is_signed_v<T>
 class Graph
 {
@@ -68,4 +69,42 @@ public:
 	std::vector<std::vector<std::pair<T, T>>> graph;
 };
 
+// FLOYD-WARSHALL algorithm
+template<typename T> requires std::is_signed_v<T>
+class GraphFW
+{
+public:
+	GraphFW(int n, const std::vector<std::vector<T>> &edges_with_weights)
+		: n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max()/n))
+	{
+		for (auto &edge: edges_with_weights) {
+			graph[edge[0]][edge[1]] = edge[2];
+			for (int i{}; i < n; ++i) {
+				graph[i][i] = 0;
+			}
+			for (int i{}; i < n; ++i) {
+				for (int j{}; j < n; ++j) {
+					for (int k{}; k < n; ++k) {
+						graph[j][k] = std::min(graph[j][k], graph[j][i] + graph[i][k]);
+					}
+				}
+			}
+
+		}
+	}
+	void add_edge(const std::vector<T> &edge)
+	{
+		for(int i{}; i < n_; ++i)
+		{
+			for(int j{}; j < n_; ++j)
+			{
+				graph[i][j] = std::min(graph[i][j], )
+			}
+		}
+	}
+
+public:
+	std::vector<std::vector<int>> graph;
+	int n_;
+};
 #endif //DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
