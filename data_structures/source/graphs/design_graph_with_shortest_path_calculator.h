@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <utility>
-#include <unordered_map>
 #include <queue>
 // A directed weighted graph that consists of n nodes numbered from 0 to n - 1.
 // The edges of the graph are initially represented by the given array edges where edges[i] = [from, to, weight]
@@ -19,7 +18,7 @@
 //  - int shortestPath(int start_node, int end_node) returns the minimum cost of a path from start_node to end_node.
 //    If no path exists, return -1. The cost of a path is the sum of the costs of the edges in the path.
 
-template<typename T> requires std::is_unsigned_v<T>
+template<typename T> requires std::is_signed_v<T>
 class Graph
 {
 public:
@@ -64,9 +63,9 @@ public:
 	}
 
 
-private:
+public:
 	int number_of_nodes_;
-	std::unordered_map<T, std::vector<std::vector<std::pair<T, T>>>> graph;
+	std::vector<std::vector<std::pair<T, T>>> graph;
 };
 
 #endif //DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
