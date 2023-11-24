@@ -37,7 +37,23 @@ TEST(IsGraphAValidTree, medium1)
 TEST(IsGraphAValidTree, medium2)
 {
 	const std::vector<std::vector<unsigned int>>
-		edges{{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 0}};;
+		edges{{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 0}};
 	constexpr int number_of_nodes{11};
+	EXPECT_FALSE(is_graph_valid_tree(number_of_nodes, edges));
+}
+
+TEST(IsGraphAValidTree, simple4)
+{
+	const std::vector<std::vector<unsigned int>>
+		edges{{}};
+	constexpr int number_of_nodes{0};
+	EXPECT_FALSE(is_graph_valid_tree(number_of_nodes, edges));
+}
+
+TEST(IsGraphAValidTree, simple5)
+{
+	const std::vector<std::vector<unsigned int>>
+		edges{{0, 1}, {1, 0}};
+	constexpr int number_of_nodes{2};
 	EXPECT_FALSE(is_graph_valid_tree(number_of_nodes, edges));
 }
