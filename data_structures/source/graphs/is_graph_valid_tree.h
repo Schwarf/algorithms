@@ -9,10 +9,13 @@
 #include <vector>
 #include <queue>
 #include <concepts>
+#include <unordered_set>
 template<typename T>
 requires std::is_unsigned_v<T>
 bool is_graph_valid_tree(int number_of_nodes, const std::vector<std::vector<T>> &edges)
 {
+	if (number_of_nodes == 0 || number_of_nodes - 1 != edges.size())
+		return false;
 	std::vector<std::vector<T>> graph(number_of_nodes);
 	for (const auto &edge: edges) {
 		graph[edge[0]].push_back(edge[1]);
@@ -39,5 +42,9 @@ bool is_graph_valid_tree(int number_of_nodes, const std::vector<std::vector<T>> 
 	}
 	return true;
 }
+
+//template<typename T>
+//requires std::is_unsigned_v<T>
+//bool is_graph_valid_tree_with_set(int number_of_nodes, const std::vector<std::vector<T>> &edges)
 
 #endif //IS_GRAPH_VALID_TREE_H
