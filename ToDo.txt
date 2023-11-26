@@ -1,0 +1,4 @@
+Topics:
+- Program a segmnet tree for min, max and sum in a given range.
+- Check-out algorithms to solve the bin-packing problem.
+- Implement a Fenwick-Tree
