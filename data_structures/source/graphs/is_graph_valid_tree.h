@@ -70,7 +70,7 @@ bool is_graph_valid_tree_with_set(int number_of_nodes, const std::vector<std::ve
 	}
 
 	return seen.size() == number_of_nodes;
-
 }
+
 
 #endif //IS_GRAPH_VALID_TREE_H
