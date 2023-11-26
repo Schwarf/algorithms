@@ -15,9 +15,9 @@ T integer_division(T dividend, T divisor)
 	if (divisor == 0) {
 		throw std::overflow_error("Division by zero.");
 	}
-	else if (dividend == std::numeric_limits<int>::min() && divisor == -1) {
+	else if (dividend == std::numeric_limits<T>::min() && divisor == -1) {
 		// Handle overflow.
-		return std::numeric_limits<int>::max();
+		return std::numeric_limits<T>::max();
 	}
 	T sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
 	using unsigned_T = typename std::make_unsigned<T>::type;
