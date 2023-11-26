@@ -18,7 +18,7 @@ requires std::is_arithmetic_v<T>
 std::vector<T> sum_of_absolute_differences(const std::vector<T> &input)
 {
 	int n = input.size();
-	auto total = std::accumulate(input.begin(), input.end());
+	auto total = std::accumulate(input.begin(), input.end(), 0);
 	T left_sum{};
 	std::vector<T> result;
 	for (int i{}; i < n; ++i) {
@@ -29,6 +29,7 @@ std::vector<T> sum_of_absolute_differences(const std::vector<T> &input)
 			         - left_sum;             // and we subtract the sum of all numbers left of input[i] to get the sum of absolute differences
 		T right_total = right_sum - right_count * input[i];
 		result.push_back(left_total + right_total);
+		left_sum += input[i];
 	}
 	return result;
 }
