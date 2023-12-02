@@ -37,4 +37,34 @@ int count_beautiful_substrings(std::string s, int k) {
 	return beauties;
 }
 
+int count_beautiful_substrings_optimized(const std::string &s, int k) {
+	int n = s.length();
+	std::unordered_set<char> vowels {'a', 'e', 'o', 'u', 'i'};
+	std::vector<int> vowel_count(n + 1, 0), consonant_count(n + 1, 0);
+	int count{};
+
+	for (int i = 0; i < n; ++i) {
+		if(vowels.find(s[i]) != vowels.end()) {
+			vowel_count[i + 1] = vowel_count[i] + 1;
+			consonant_count[i+1] = consonant_count[i];
+		}
+		else {
+			consonant_count[i + 1] = consonant_count[i] + 1;
+			vowel_count[i+1] = vowel_count[i];
+		}
+	}
+
+	for (int start = 1; start <= n; ++start) {
+		for (int end = start; end <= n; ++end) {
+			int current_vowels = vowel_count[end] - vowel_count[start-1];
+			int current_consonants = consonant_count[end] - consonant_count[start-1];
+
+			if (current_vowels == current_consonants && (current_vowels * current_consonants) % k == 0) {
+				count++;
+			}
+		}
+	}
+
+	return count;
+}
 #endif //COUNT_BEAUTIFUL_SUBSTRINGS_H
