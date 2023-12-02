@@ -36,35 +36,45 @@ int count_beautiful_substrings(std::string s, int k) {
 	}
 	return beauties;
 }
+int getRoot(int k) {
+	for (int i = 1; i <= k; ++i)
+		if (i * i % k == 0)
+			return i;
+	throw;
+}
 
-int count_beautiful_substrings_optimized(const std::string &s, int k) {
-	int n = s.length();
-	std::unordered_set<char> vowels {'a', 'e', 'o', 'u', 'i'};
-	std::vector<int> vowel_count(n + 1, 0), consonant_count(n + 1, 0);
+struct PairHash {
+	size_t operator()(const std::pair<int, int>& p) const
+	{
+		return p.first ^ p.second;
+	}
+};
+
+// O(N)
+int count_beautiful_substrings_optimized(const std::string &s, int k)
+{
+	const int root = getRoot(k);
+	std::unordered_set<char> vowels{'a', 'e', 'o', 'u', 'i'};
 	int count{};
+	int vowels_count{};
+	int vowelsMinusConsonants{};
+	// {(vowels_count, vowelsMinusConsonants): count}
+	std::unordered_map<std::pair<int, int>, int, PairHash> prefix_count{{{0, 0}, 1}};
 
-	for (int i = 0; i < n; ++i) {
-		if(vowels.find(s[i]) != vowels.end()) {
-			vowel_count[i + 1] = vowel_count[i] + 1;
-			consonant_count[i+1] = consonant_count[i];
+	for (const char c: s) {
+		if (vowels.find(c) != vowels.end()) {
+			vowels_count = (vowels_count + 1) % root;
+			++vowelsMinusConsonants;
 		}
 		else {
-			consonant_count[i + 1] = consonant_count[i] + 1;
-			vowel_count[i+1] = vowel_count[i];
+			--vowelsMinusConsonants;
 		}
-	}
-
-	for (int start = 1; start <= n; ++start) {
-		for (int end = start; end <= n; ++end) {
-			int current_vowels = vowel_count[end] - vowel_count[start-1];
-			int current_consonants = consonant_count[end] - consonant_count[start-1];
-
-			if (current_vowels == current_consonants && (current_vowels * current_consonants) % k == 0) {
-				count++;
-			}
-		}
-	}
+		const std::pair<int, int> prefix{vowels_count, vowelsMinusConsonants};
+		count += prefix_count[prefix]++;
+	}	
 
 	return count;
 }
+
+
 #endif //COUNT_BEAUTIFUL_SUBSTRINGS_H
