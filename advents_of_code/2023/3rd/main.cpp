@@ -16,7 +16,7 @@ std::vector<std::vector<bool>> get_symbols(const std::vector<std::string> & cont
 						auto new_y = j + y;
 						auto new_x = i + x;
 						if (new_y >= 0 && new_x >= 0 && new_y < content.size() && new_x < line.length()) {
-							symbols[new_x][new_y] = true;
+							symbols[new_y][new_x] = true;
 						}
 					}
 				}
@@ -29,7 +29,9 @@ std::vector<std::vector<bool>> get_symbols(const std::vector<std::string> & cont
 void compute(const std::string& fileName)
 {
 	std::ifstream file(fileName);
-
+	if (!file.is_open()) {
+		std::cerr << "Unable to open file\n";
+	}
 	std::string line;
 	std::vector<std::string> content;
 	while (getline(file, line))
@@ -62,6 +64,6 @@ void compute(const std::string& fileName)
 
 int main()
 {
-	std::cout << "Hello, World!" << std::endl;
+	compute("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/3rd/test.txt");
 	return 0;
 }
