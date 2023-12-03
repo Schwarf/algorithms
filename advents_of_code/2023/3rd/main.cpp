@@ -64,6 +64,6 @@ void compute(const std::string& fileName)
 
 int main()
 {
-	compute("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/3rd/test.txt");
+	compute("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/3rd/input.txt");
 	return 0;
 }
