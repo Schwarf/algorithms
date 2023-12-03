@@ -62,7 +62,7 @@ std::vector<GameData> read_game_data(const std::string& fileName) {
 	return games;
 }
 int main() {
-	auto games = read_game_data("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/2nd/input.txt");
+	auto games = read_game_data("/media/linux_data/projects/cpp/algorithms/advqents_of_code/2023/2nd/input.txt");
 
 	// Display the extracted data
 	int total_count{};
