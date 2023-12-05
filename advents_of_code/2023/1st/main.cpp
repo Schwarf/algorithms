@@ -81,7 +81,7 @@ void counter(const std::string & line)
 }
 
 int main() {
-    std::ifstream file("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/1st/input.txt	");
+    std::ifstream file("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/1st/input.txt");
     if (!file)
     {
         std::cerr << "Error oipening file" << std::endl;
