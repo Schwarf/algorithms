@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "split.h"
 
 struct ColorCount {
 	std::string color;
@@ -18,17 +19,6 @@ struct GameData {
 	std::vector<ColorCount> colors;
 };
 
-std::vector<std::string> split(const std::string& str, char delimiter) {
-	std::vector<std::string> tokens;
-	std::string token;
-	std::istringstream tokenStream(str);
-
-	while (std::getline(tokenStream, token, delimiter)) {
-		tokens.push_back(token);
-	}
-
-	return tokens;
-}
 
 std::vector<GameData> read_game_data(const std::string& fileName) {
 	std::vector<GameData> games;
@@ -62,7 +52,7 @@ std::vector<GameData> read_game_data(const std::string& fileName) {
 	return games;
 }
 int main() {
-	auto games = read_game_data("/media/linux_data/projects/cpp/algorithms/advqents_of_code/2023/2nd/input.txt");
+	auto games = read_game_data("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/2nd/input.txt");
 
 	// Display the extracted data
 	int total_count{};
