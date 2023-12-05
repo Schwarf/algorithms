@@ -123,13 +123,13 @@ void compute_gears(const std::string& fileName)
 				{
 					if(gears[j][i].first != -1) {
 						gear = gears[j][i];
-						std::cout << gear.first << ", " << gear.second << std::endl;
+
 					}
 					number *= 10;
-					number += content[j][i]-'0';
+					number += content[j][i] - '0';
 					i++;
 				}
-				if(hash_map.find(gear) != hash_map.end())
+				if(hash_map.find(gear) != hash_map.end() && gear.first > 0)
 				{
 					total+= number*hash_map[gear];
 				}
@@ -144,6 +144,6 @@ void compute_gears(const std::string& fileName)
 
 int main()
 {
-	compute_gears("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/3rd/test.txt");
+	compute_gears("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/3rd/input.txt");
 	return 0;
 }
