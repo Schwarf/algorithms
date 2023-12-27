@@ -19,6 +19,7 @@ int number_of_dice_rolls_recursive(int max_number_of_dice, int dice_max_value, i
 	int sum{};
 	for (int i{1}; i <= dice_max_value; ++i) {
 		sum += number_of_dice_rolls_recursive(max_number_of_dice - 1, dice_max_value, target - i);
+		sum = sum % 1000000007;
 	}
 	return sum;
 }
@@ -29,17 +30,18 @@ int memoization(int max_number_of_dice, int dice_max_value, int target, std::vec
 		return 1;
 	if (target < 0 || max_number_of_dice == 0)
 		return 0;
+	if (memo[max_number_of_dice][target] != -1)
+		return memo[max_number_of_dice][target];
+
 	int sum{};
 
 	for (int i{1}; i <= dice_max_value; ++i) {
-		if (memo[max_number_of_dice - 1][target - i] != -1)
-			sum += memo[max_number_of_dice - 1][target - i];
-		else {
-			int value = memoization(max_number_of_dice - 1, dice_max_value, target - i, memo);
-			sum += value;
-			memo[max_number_of_dice - 1][target - i] = value;
+		if (target >= i) {
+			sum += memoization(max_number_of_dice - 1, dice_max_value, target - i, memo);
+			sum = sum % 1000000007;
 		}
 	}
+	memo[max_number_of_dice][target] = sum;
 	return sum;
 }
 int number_of_dice_rolls_top_down(int max_number_of_dice, int dice_max_value, int target)
