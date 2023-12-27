@@ -63,3 +63,37 @@ TEST(TestPerfectSquares, simple_recursive3)
 	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_recursive(target));
 }
 
+TEST(TestPerfectSquares, simple_top_down1)
+{
+	constexpr int target{1};
+	constexpr int expected_result{1};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_top_down(target));
+}
+
+
+TEST(TestPerfectSquares, simple_top_down2)
+{
+	constexpr int target{12};
+	constexpr int expected_result{3};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_top_down(target));
+}
+
+TEST(TestPerfectSquares, simple_top_down3)
+{
+	constexpr int target{13};
+	constexpr int expected_result{2};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_top_down(target));
+}
+TEST(TestPerfectSquares, complex_top_down1)
+{
+	constexpr int target{1791};
+	constexpr int expected_result{4};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_top_down(target));
+}
+
+TEST(TestPerfectSquares, complex_top_down2)
+{
+	constexpr int target{9773};
+	constexpr int expected_result{2};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed_top_down(target));
+}

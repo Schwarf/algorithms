@@ -20,6 +20,26 @@ int number_of_perfect_square_summands_needed_recursive(int target)
 	return min_summands;
 }
 
+int memoization(int target, std::vector<int> &memo)
+{
+	if (target == 0)
+		return 0;
+	int min_summands{target};
+	if (memo[target] != -1)
+		return memo[target];
+	for (int i{1}; i * i <= target; ++i) {
+		min_summands = std::min(min_summands, 1 + memoization(target - i * i, memo));
+	}
+	memo[target] = min_summands;
+	return min_summands;
+}
+
+int number_of_perfect_square_summands_needed_top_down(int target)
+{
+	std::vector<int> memo(target + 1, -1);
+	return memoization(target, memo);
+}
+
 int number_of_perfect_square_summands_needed(int target)
 {
 	// in this vector we count the number of perfect squares for all number until the target number
