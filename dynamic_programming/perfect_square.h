@@ -14,7 +14,7 @@ int number_of_perfect_square_summands_needed_recursive(int target)
 	if (target == 0)
 		return 0;
 	int min_summands{target};
-	for (int i{}; i * i <= target; ++i) {
+	for (int i{1}; i * i <= target; ++i) {
 		min_summands = std::min(min_summands, 1 + number_of_perfect_square_summands_needed_recursive(target - i * i));
 	}
 	return min_summands;
