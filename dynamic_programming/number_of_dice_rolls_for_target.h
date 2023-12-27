@@ -10,6 +10,19 @@
 // to roll the dice, so the sum of the face-up numbers equals target.
 // Since the answer may be too large, return it modulo 109 + 7.
 
+int number_of_dice_rolls_recursive(int max_number_of_dice, int dice_max_value, int target)
+{
+	if (max_number_of_dice == 0 && target == 0)
+		return 1;
+	if (target < 0 || max_number_of_dice == 0)
+		return 0;
+	int sum{};
+	for (int i{1}; i <= dice_max_value; ++i) {
+		sum += number_of_dice_rolls_recursive(max_number_of_dice - 1, dice_max_value, target - i);
+	}
+	return sum;
+
+}
 
 int number_of_dice_rolls_bottom_up(int max_number_of_dice, int dice_max_value, int target)
 {
@@ -19,7 +32,7 @@ int number_of_dice_rolls_bottom_up(int max_number_of_dice, int dice_max_value, i
 	for (int number_of_dice{1}; number_of_dice <= max_number_of_dice; number_of_dice++) {
 		for (int value{1}; value <= target; ++value) {
 			for (int face_value{1}; face_value <= dice_max_value; face_value++) {
-				if (value - face_value >= 0)
+				if (value >= face_value)
 					dp[number_of_dice][value] =
 						(dp[number_of_dice][value] + dp[number_of_dice - 1][value - face_value]) % MOD;
 			}

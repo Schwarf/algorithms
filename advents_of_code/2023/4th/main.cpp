@@ -3,12 +3,14 @@
 #include "split.h"
 #include <unordered_set>
 
-void read_cards(const std::string& fileName) {
+void read_cards(const std::string& fileName, int size) {
 	std::ifstream file(fileName);
-
+	std::vector<int> all_cards(size+1, 1);
 	std::string line;
 	int total{};
+	int card_index{0};
 	while (getline(file, line)) {
+		card_index++;
 		auto line_parts = split(line, ':');
 		auto cards = split(line_parts[1], '|');
 		auto winning_cards = cards[0];
@@ -28,7 +30,7 @@ void read_cards(const std::string& fileName) {
 			}
 			help.insert(num);
 		}
-		int points{};
+		int matches{0};
 		for (const auto &number: my_numbers) {
 			int num{};
 			for (const auto &c: number) {
@@ -39,13 +41,10 @@ void read_cards(const std::string& fileName) {
 			}
 			if(help.find(num) != help.end() && num != 0)
 			{
-				if(points == 0)
-					points++;
-				else
-					points <<= 1;
+				matches++;
 			}
-
 		}
+		for(int i{card_index}; i <= card_index+
 		total += points;
 	}
 	std::cout << total << std::endl;
