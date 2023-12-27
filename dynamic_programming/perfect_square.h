@@ -7,6 +7,19 @@
 // Given an integer n, return the least number of perfect square numbers needed that sum to n.
 // perfect squares: 1, 4, 9, 16,
 // https://leetcode.com/problems/perfect-squares/discuss/2837605/Complete-Intuition-Explained-oror-Recursion-greaterMemo-greaterDP
+
+
+int number_of_perfect_square_summands_needed_recursive(int target)
+{
+	if (target == 0)
+		return 0;
+	int min_summands{target};
+	for (int i{}; i * i <= target; ++i) {
+		min_summands = std::min(min_summands, 1 + number_of_perfect_square_summands_needed_recursive(target - i * i));
+	}
+	return min_summands;
+}
+
 int number_of_perfect_square_summands_needed(int target)
 {
 	// in this vector we count the number of perfect squares for all number until the target number

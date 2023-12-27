@@ -4,45 +4,38 @@
 #include "gtest/gtest.h"
 #include "perfect_square.h"
 
-class SetupPerfectSquares: public testing::Test
+
+TEST(TestPerfectSquares, simple_bottom_up1)
 {
-protected:
-	int target1{1};
-	int answer1{1};
-	int target2{12};
-	int answer2{3};
-	int target3{13};
-	int answer3{2};
-	int target4{1791};
-	int answer4{4};
-	int target5{9973};
-	int answer5{2};
-
-};
-
-
-TEST_F(SetupPerfectSquares, SetupPerfectSquare_12)
-{
-	EXPECT_EQ(answer2, number_of_perfect_square_summands_needed(target2));
+	constexpr int target{1};
+	constexpr int expected_result{1};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed(target));
 }
 
 
-TEST_F(SetupPerfectSquares, SetupPerfectSquare_13)
+TEST(TestPerfectSquares, simple_bottom_up2)
 {
-	EXPECT_EQ(answer3, number_of_perfect_square_summands_needed(target3));
+	constexpr int target{12};
+	constexpr int expected_result{3};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed(target));
 }
 
-TEST_F(SetupPerfectSquares, SetupPerfectSquare_1791)
+TEST(TestPerfectSquares, simple_bottom_up3)
 {
-	EXPECT_EQ(answer4, number_of_perfect_square_summands_needed(target4));
+	constexpr int target{13};
+	constexpr int expected_result{2};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed(target));
+}
+TEST(TestPerfectSquares, complex_bottom_up1)
+{
+	constexpr int target{1791};
+	constexpr int expected_result{4};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed(target));
 }
 
-TEST_F(SetupPerfectSquares, SetupPerfectSquare_9973)
+TEST(TestPerfectSquares, complex_bottom_up2)
 {
-	EXPECT_EQ(answer5, number_of_perfect_square_summands_needed(target5));
-}
-
-TEST_F(SetupPerfectSquares, SetupPerfectSquare_1)
-{
-	EXPECT_EQ(answer1, number_of_perfect_square_summands_needed(target1));
+	constexpr int target{9773};
+	constexpr int expected_result{2};
+	EXPECT_EQ(expected_result, number_of_perfect_square_summands_needed(target));
 }
