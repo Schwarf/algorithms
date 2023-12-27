@@ -21,7 +21,31 @@ int number_of_dice_rolls_recursive(int max_number_of_dice, int dice_max_value, i
 		sum += number_of_dice_rolls_recursive(max_number_of_dice - 1, dice_max_value, target - i);
 	}
 	return sum;
+}
 
+int memoization(int max_number_of_dice, int dice_max_value, int target, std::vector<std::vector<int>> &memo)
+{
+	if (max_number_of_dice == 0 && target == 0)
+		return 1;
+	if (target < 0 || max_number_of_dice == 0)
+		return 0;
+	int sum{};
+
+	for (int i{1}; i <= dice_max_value; ++i) {
+		if (memo[max_number_of_dice - 1][target - i] != -1)
+			sum += memo[max_number_of_dice - 1][target - i];
+		else {
+			int value = memoization(max_number_of_dice - 1, dice_max_value, target - i, memo);
+			sum += value;
+			memo[max_number_of_dice - 1][target - i] = value;
+		}
+	}
+	return sum;
+}
+int number_of_dice_rolls_top_down(int max_number_of_dice, int dice_max_value, int target)
+{
+	std::vector<std::vector<int>> memo(max_number_of_dice + 1, std::vector<int>(target + 1, -1));
+	return memoization(max_number_of_dice, dice_max_value, target, memo);
 }
 
 int number_of_dice_rolls_bottom_up(int max_number_of_dice, int dice_max_value, int target)
