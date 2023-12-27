@@ -70,6 +70,16 @@ TEST(TestNumberOfDiceRollsForTarget, simple3_recursive)
 	EXPECT_EQ(expected_result, number_of_dice_rolls_recursive(max_number_of_dice, max_dice_value, target));
 }
 
+
+TEST(TestNumberOfDiceRollsForTarget, complex_top_down)
+{
+	constexpr int max_number_of_dice{30};
+	constexpr int max_dice_value{30};
+	constexpr int target{500};
+	constexpr int expected_result{222616187};
+	EXPECT_EQ(expected_result, number_of_dice_rolls_top_down(max_number_of_dice, max_dice_value, target));
+}
+
 TEST(TestNumberOfDiceRollsForTarget, simple1_top_down)
 {
 	constexpr int max_number_of_dice{1};
