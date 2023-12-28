@@ -31,7 +31,6 @@ int number_of_decodings_recursive(std::string s)
 			count += number_of_decodings_recursive(s.substr(2));
 		}
 	}
-
 	return count;
 }
 
