@@ -32,3 +32,10 @@ TEST(TestNumberOfStringDecodings, simple4)
 	constexpr int expected_result{6};
 	EXPECT_EQ(expected_result, number_of_decodings_bottom_up(input));
 }
+
+TEST(TestNumberOfStringDecodings, complex1)
+{
+	const std::string input{"1372189438492384923849237289212127819111"};
+	constexpr int expected_result{2304};
+	EXPECT_EQ(expected_result, number_of_decodings_bottom_up(input));
+}

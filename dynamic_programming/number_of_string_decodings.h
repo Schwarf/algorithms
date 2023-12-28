@@ -15,6 +15,26 @@
 // Given a string s containing only digits, return the number of ways to decode it.
 // The test cases are generated so that the answer fits in a 32-bit integer.
 
+
+int number_of_decodings_recursive(std::string s)
+{
+	if (s.empty()) return 1;
+	if (s[0] == '0') return 0;  // String starting with '0' can't be decoded
+
+	// Recursive case for single character
+	int count = number_of_decodings_recursive(s.substr(1)); // s.substr(n) returns r-value of the string from [n, end())
+
+	// Recursive case for two characters (if valid)
+	if (s.size() >= 2) {
+		int twoDigit = stoi(s.substr(0, 2));
+		if (twoDigit >= 10 && twoDigit <= 26) {
+			count += number_of_decodings_recursive(s.substr(2));
+		}
+	}
+
+	return count;
+}
+
 int number_of_decodings_bottom_up(const std::string &s)
 {
 	if (s.empty() || s[0] == '0')
