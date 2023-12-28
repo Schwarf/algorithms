@@ -34,6 +34,26 @@ int number_of_decodings_recursive(std::string s)
 	return count;
 }
 
+// Using index argument
+int number_of_decodings_recursive2(const std::string &s, size_t index = 0)
+{
+	if (index == s.length()) return 1; // Reached the end of the string
+	if (s[index] == '0') return 0;     // Current digit is '0', no valid encoding
+
+	// Recursive call for single character
+	int count = number_of_decodings_recursive2(s, index + 1);
+
+	// Recursive call for two characters
+	if (index < s.length() - 1) {
+		int twoDigit = stoi(s.substr(index, 2));
+		if (twoDigit >= 10 && twoDigit <= 26) {
+			count += number_of_decodings_recursive2(s, index + 2);
+		}
+	}
+
+	return count;
+}
+
 int number_of_decodings_bottom_up(const std::string &s)
 {
 	if (s.empty() || s[0] == '0')
