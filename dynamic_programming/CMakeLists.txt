@@ -29,4 +29,4 @@ add_executable(dynamic_programming_samples main.cpp
         main.cpp
         minimal_jumps_to_last_index.h
         knapsack_problem.h
-        unique_paths.h longest_string_chain.h maximize_product_from_given_target.h number_of_dice_rolls_for_target.h number_of_string_decodings.h)
+        unique_paths.h longest_string_chain.h maximize_product_from_given_target.h number_of_dice_rolls_for_target.h number_of_string_decodings.h minimum_difficulty_job_schedule.h)
