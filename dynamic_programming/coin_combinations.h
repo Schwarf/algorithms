@@ -25,7 +25,7 @@ int coin_combinations_recursive(const std::vector<int> &coins, int amount, int i
 	return include_current_coin + exclude_current_coin;
 }
 
-int top_down(const std::vector<int> &coins, int amount, std::vector<std::vector<int>> &memo, int index)
+int memoization(const std::vector<int> &coins, int amount, std::vector<std::vector<int>> &memo, int index)
 {
 	if (amount < 0 || index >= coins.size()) {
 		return 0;
@@ -34,8 +34,8 @@ int top_down(const std::vector<int> &coins, int amount, std::vector<std::vector<
 		return memo[index][amount];
 	if (amount == 0)
 		return 1;
-	int include_current_coin = top_down(coins, amount - coins[index], memo, index);
-	int exclude_current_coin = top_down(coins, amount, memo, index + 1);
+	int include_current_coin = memoization(coins, amount - coins[index], memo, index);
+	int exclude_current_coin = memoization(coins, amount, memo, index + 1);
 	memo[index][amount] = include_current_coin + exclude_current_coin;
 	return memo[index][amount];
 }
@@ -43,7 +43,7 @@ int top_down(const std::vector<int> &coins, int amount, std::vector<std::vector<
 int coin_combinations_top_down(const std::vector<int> &coins, int amount, int index = 0)
 {
 	std::vector<std::vector<int>> memo(coins.size(), std::vector<int>(amount + 1, -1));
-	return top_down(coins, amount, memo, index);
+	return memoization(coins, amount, memo, index);
 }
 
 int coin_combinations_bottom_up(const std::vector<int> &coins, int amount)

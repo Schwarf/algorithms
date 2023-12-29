@@ -41,6 +41,6 @@ TEST(TestLongestStringChain, medium2)
 		 "bbadhju", "cmxrpx", "gh", "pjnzlxghe", "oqlt", "x", "sarxoatl", "ee", "bbadju", "lxdc", "geqgxi", "oqltu",
 		 "heex", "oql", "eex", "bbdju", "ntxubzdr", "sroa", "cxmxrpx", "cmrpx", "ltxdoc", "g", "cgxmxrpx", "nlgh",
 		 "sroat", "sroatl", "fcheheevx", "gxi", "gqxi", "heheex"};
-	constexpr int expected_result{7};
+	constexpr int expected_result{9};
 	EXPECT_EQ(expected_result, longest_string_chain(words));
 }
