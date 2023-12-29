@@ -14,7 +14,8 @@
 // You are given an integer array jobDifficulty and an integer d. The difficulty of the ith job is jobDifficulty[i].
 // Return the minimum difficulty of a job schedule. If you cannot find a schedule for the jobs return -1.
 
-int min_difficulty_job_schedule(const std::vector<int> &jobDifficulty, int d)
+
+int min_difficulty_job_schedule_top_down(const std::vector<int> &jobDifficulty, int d)
 {
 	int n = jobDifficulty.size();
 	if (n < d)
@@ -34,5 +35,6 @@ int min_difficulty_job_schedule(const std::vector<int> &jobDifficulty, int d)
 	}
 	return dp[n][d];
 }
+
 
 #endif //MINIMUM_DIFFICULTY_JOB_SCHEDULE_H
