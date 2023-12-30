@@ -2,10 +2,12 @@
 #include <fstream>
 #include "split.h"
 #include <unordered_set>
+#include <numeric>
 
 void read_cards(const std::string& fileName, int size) {
 	std::ifstream file(fileName);
-	std::vector<int> all_cards(size+1, 1);
+	std::vector<long> all_cards(size+1, 1);
+	all_cards[0] =0;
 	std::string line;
 	int total{};
 	int card_index{0};
@@ -44,15 +46,18 @@ void read_cards(const std::string& fileName, int size) {
 				matches++;
 			}
 		}
-		for(int i{card_index}; i <= card_index+
-		total += points;
+		for(int i{card_index+1}; i <= card_index+matches ; i++)
+		{
+			if(i <= size)
+				all_cards[i] += all_cards[card_index];
+		}
 	}
-	std::cout << total << std::endl;
+	std::cout << std::accumulate(all_cards.begin(), all_cards.end(), 0) << std::endl;
 }
 
 int main()
 {
-	read_cards("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/4th/test.txt");
+	read_cards("/media/linux_data/projects/cpp/algorithms/advents_of_code/2023/4th/input.txt", 199);
 	std::cout << "Hello, World!" << std::endl;
 	return 0;
 }
