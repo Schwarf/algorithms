@@ -6,6 +6,7 @@
 #define LRU_CACHE_H
 #include <list>
 #include <unordered_map>
+#include <optional>
 template<typename KeyType, typename ValueType>
 struct Node
 {
@@ -24,11 +25,11 @@ public:
 		: capacity(capacity)
 	{}
 
-	ValueType get(KeyType key)
+	std::optional<ValueType> get(KeyType key)
 	{
 		const auto it = keyToIterator.find(key);
 		if (it == keyToIterator.cend())
-			return -1;
+			return std::nullopt;
 
 		const auto &listIt = it->second;
 		// Move it to the front
