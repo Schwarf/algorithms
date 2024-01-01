@@ -57,7 +57,7 @@ public:
 		}
 
 		cache.emplace_front(key, value);
-		keyToIterator[key] = begin(cache);
+		keyToIterator[key] = cache.begin();
 	}
 
 private:
