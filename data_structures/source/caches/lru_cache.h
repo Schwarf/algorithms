@@ -27,19 +27,20 @@ public:
 	ValueType get(KeyType key)
 	{
 		const auto it = keyToIterator.find(key);
-		if (it == cend(keyToIterator))
+		if (it == keyToIterator.cend())
 			return -1;
 
 		const auto &listIt = it->second;
 		// Move it to the front
-		cache.splice(begin(cache), cache, listIt);
+		cache.splice(cache.begin(), cache, listIt);
 		return listIt->value;
 	}
 
 	void put(KeyType key, ValueType value)
 	{
 		// No capacity issue, just update the value
-		if (const auto it = keyToIterator.find(key) != cend(keyToIterator)) {
+		const auto it = keyToIterator.find(key);
+		if (it != keyToIterator.cend()) {
 			const auto &listIt = it->second;
 			// Move it to the front
 			cache.splice(begin(cache), cache, listIt);
