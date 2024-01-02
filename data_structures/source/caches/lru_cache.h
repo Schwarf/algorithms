@@ -8,18 +8,15 @@
 #include <unordered_map>
 #include <optional>
 template<typename KeyType, typename ValueType>
-struct Node
-{
-	KeyType key;
-	ValueType value;
-	Node(KeyType key, ValueType value)
-		: key(key), value(value)
-	{}
-};
-
-template<typename KeyType, typename ValueType>
 class LRUCache
 {
+private:
+	struct Node
+	{
+		KeyType key;
+		ValueType value;
+	};
+
 public:
 	explicit LRUCache(int capacity)
 		: capacity(capacity)
@@ -27,8 +24,8 @@ public:
 
 	std::optional<ValueType> get(KeyType key)
 	{
-		const auto it = keyToIterator.find(key);
-		if (it == keyToIterator.cend())
+		const auto it = key_to_iterator.find(key);
+		if (it == key_to_iterator.cend())
 			return std::nullopt;
 
 		const auto &listIt = it->second;
@@ -40,8 +37,8 @@ public:
 	void put(KeyType key, ValueType value)
 	{
 		// No capacity issue, just update the value
-		const auto it = keyToIterator.find(key);
-		if (it != keyToIterator.cend()) {
+		const auto it = key_to_iterator.find(key);
+		if (it != key_to_iterator.cend()) {
 			const auto &listIt = it->second;
 			// Move it to the front
 			cache.splice(begin(cache), cache, listIt);
@@ -53,12 +50,12 @@ public:
 		if (cache.size() == capacity) {
 			auto &lastNode = cache.back();
 			// We store key in node to erase it
-			keyToIterator.erase(lastNode.key);
+			key_to_iterator.erase(lastNode.key);
 			cache.pop_back();
 		}
 
 		cache.emplace_front(key, value);
-		keyToIterator[key] = cache.begin();
+		key_to_iterator[key] = cache.begin();
 	}
 
 	[[nodiscard]] size_t size() const
@@ -68,8 +65,8 @@ public:
 
 private:
 	const int capacity;
-	std::list<Node<KeyType, ValueType>> cache;
-	std::unordered_map<KeyType, typename std::list<Node<KeyType, ValueType>>::iterator> keyToIterator;
+	std::list<Node> cache;
+	std::unordered_map<KeyType, typename std::list<Node>::iterator> key_to_iterator;
 };
 
 
