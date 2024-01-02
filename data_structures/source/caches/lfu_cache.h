@@ -36,7 +36,8 @@ public:
 		}
 		// get the iterator of the list for the provided key
 		auto node_it = key_to_list_iterator[key];
-		auto node_data = *node_it;
+		// move the data of the iterator
+		auto node_data = std::move(*node_it);
 
 		// Update the frequency, by deleting the old entry (for frequency before) and adding a new one
 		// for the new/updated frequency.
