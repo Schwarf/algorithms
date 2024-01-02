@@ -36,19 +36,20 @@ public:
 		}
 		// get the iterator of the list for the provided key
 		auto node_it = key_to_list_iterator[key];
-		int frequency = node_it->frequency;
+		auto node_data = *node_it;
+
 		// Update the frequency, by deleting the old entry (for frequency before) and adding a new one
 		// for the new/updated frequency.
-		frequency_lists[frequency].erase(node_it);
-		frequency++;
-		frequency_lists[frequency].push_front(*node_it);
-		key_to_list_iterator[key] = frequency_lists[frequency].begin();
+		frequency_lists[node_data.frequency].erase(node_it);
+		node_data.frequency++;
+		frequency_lists[node_data.frequency].push_front(node_data);
+		key_to_list_iterator[key] = frequency_lists[node_data.frequency].begin();
 
 		// If minimal frequency entry is empty set a new minimal_frequency
 		if (frequency_lists[minimal_frequency].empty()) {
-			minimal_frequency = frequency;
+			minimal_frequency = node_data.frequency;
 		}
-		return node_it->value;
+		return node_data.value;
 	}
 
 	void put(KeyType key, ValueType value)

@@ -92,7 +92,7 @@ add_executable(test_union_find_disjoint_set_algorithms
         )
 
 add_executable(test_dictionaries dictionaries/test_ordered_dictionary.cpp)
-add_executable(test_caches caches/test_lru_cache.cpp)
+add_executable(test_caches caches/test_lru_cache.cpp caches/test_lfu_cache.cpp)
 
 target_link_libraries(test_graphs ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 target_link_libraries(test_linked_lists ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
