@@ -61,6 +61,11 @@ public:
 		keyToIterator[key] = cache.begin();
 	}
 
+	[[nodiscard]] size_t size() const
+	{
+		return cache.size();
+	}
+
 private:
 	const int capacity;
 	std::list<Node<KeyType, ValueType>> cache;
