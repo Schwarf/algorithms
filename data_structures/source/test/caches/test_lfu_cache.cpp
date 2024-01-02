@@ -42,7 +42,7 @@ TEST(TestLFUCache, test_eviction_policy2)
 	}
 	std::vector<int> keys2{6, 7, 8, 9, 10};
 	cache.put(keys2[0], keys2[0] * value_conversion_factor);
-	EXPECT_FALSE(cache.get(keys1[0]).has_value());
+	EXPECT_FALSE(cache.get(keys1[2]).has_value());
 	cache.put(keys2[1], keys2[1] * value_conversion_factor);
 	EXPECT_FALSE(cache.get(keys2[0]).has_value());
 	cache.put(keys2[2], keys2[2] * value_conversion_factor);
@@ -79,11 +79,11 @@ TEST(TestLFUCache, test_eviction_policy3)
 
 	cache.put(keys2[3], keys2[3] * value_conversion_factor); // put keys2[3] = 9 and evicts keys1[4] = 5
 	EXPECT_FALSE(cache.get(keys1[4]).has_value());
+	cache.get(keys2[3]); // add 2 call to keys2[3] = 9, frequency =3
 	cache.get(keys2[3]);
-	cache.get(keys2[3]);
+	cache.get(keys2[2]);// add 2 call to keys2[2] = 8, frequency =4
 	cache.get(keys2[2]);
-	cache.get(keys2[2]);
-	cache.get(keys2[0]);
+	cache.get(keys2[0]);// add one call to keys2[0] = 6, frequency = 3
 
 	cache.put(keys2[4], keys2[4] * value_conversion_factor); // put keys2[4] = 10 and evicts keys1[1] = 2
 	EXPECT_FALSE(cache.get(keys1[1]).has_value());
