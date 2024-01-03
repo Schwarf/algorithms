@@ -70,3 +70,32 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyListCase1)
 }
 
 
+TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyMatrixCase1)
+{
+	auto tuple = case1();
+	auto adjacency_matrix = std::get<1>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	constexpr unsigned int number_of_vertices{5U};
+	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
+		auto result = distances_from_source_dijkstra_matrix(start_vertex, adjacency_matrix);
+		for (int i{}; i < 5; ++i) {
+			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+		}
+	}
+}
+
+
+TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyMatrixCase1)
+{
+	auto tuple = case1();
+	auto adjacency_matrix = std::get<1>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	constexpr unsigned int number_of_vertices{5U};
+	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
+		auto result = distances_from_source_bellman_ford_matrix(start_vertex, adjacency_matrix);
+		for (int i{}; i < 5; ++i) {
+			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+		}
+	}
+}
+
