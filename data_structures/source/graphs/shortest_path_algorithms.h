@@ -50,7 +50,7 @@ std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
 															 const std::vector<std::vector<std::pair<VertexType,
 																									 DistanceType>>> &graph)
 {
-	int number_of_vertices = graph.size();
+	auto number_of_vertices = graph.size();
 	std::vector<DistanceType> distances(number_of_vertices, std::numeric_limits<DistanceType>::max());
 	distances[source] = static_cast<DistanceType>(0);
 	for (VertexType i{}; i < number_of_vertices - 1; ++i) {
