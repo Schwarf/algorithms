@@ -13,7 +13,7 @@ class StackHeap
 {
 public:
 	StackHeap() = default;
-
+	static constexpr size_t index_for_extremum{};
 	bool insert(const T &value)
 	{
 		if (heap_size_ == heap_capacity)
@@ -25,7 +25,6 @@ public:
 
 	T pop()
 	{
-		size_t index_for_extremum = 0;
 		auto value = elements_[index_for_extremum];
 		std::swap(elements_[index_for_extremum], elements_[--heap_size_]);
 		demote_();
@@ -34,7 +33,7 @@ public:
 
 	T top() const
 	{
-		return elements_[0];
+		return elements_[index_for_extremum];
 	}
 
 	bool is_empty() const
@@ -53,7 +52,7 @@ private:
 
 	int parent(int index) const
 	{
-		return (index - 1) / 2;
+		return (index - 1) >> 1;
 	}
 
 	int left_child(int index) const
@@ -68,7 +67,6 @@ private:
 
 	void promote_()
 	{
-
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
 			int parent_index = parent(child_index);
 			if (Compare()(elements_[child_index], elements_[parent_index]))
