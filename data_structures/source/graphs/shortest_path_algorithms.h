@@ -2,13 +2,43 @@
 // Created by andreas on 03.01.24.
 //
 
-#ifndef DIJSKTRA_H
-#define DIJSKTRA_H
+#ifndef SHORTEST_PATH_ALGORITHMS_H
+#define SHORTEST_PATH_ALGORITHMS_H
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <utility>
 
+template<typename VertexType, typename DistanceType>
+requires std::is_signed_v<VertexType> && std::is_arithmetic_v<DistanceType>
+std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
+															 const std::vector<std::vector<std::pair<VertexType,
+																									 DistanceType>>> &graph)
+{
+	int number_of_vertices = graph.size();
+	std::vector<DistanceType> distances(number_of_vertices, std::numeric_limits<DistanceType>::max());
+	distances[source] = static_cast<DistanceType>(0);
+	for (VertexType i{}; i < number_of_vertices - 1; ++i) {
+		for (VertexType u{}; u < number_of_vertices; ++u) {
+			for (const auto &[v, distance]: graph[u]) {
+				//prevent overflow by fist condition
+				if (distances[u] != std::numeric_limits<DistanceType>::max()
+					&& distances[u] + distance < distances[v]) {
+					distances[v] = distances[u] + distance;
+				}
+			}
+		}
+	}
+	// Check for negative-weight cycles
+	for (VertexType u = 0; u < number_of_vertices; ++u) {
+		for (const auto &[v, weight]: graph[u]) {
+			if (distances[u] != std::numeric_limits<DistanceType>::max() && distances[u] + weight < distances[v]) {
+				throw std::runtime_error("Graph contains a negative-weight cycle");
+			}
+		}
+	}
+	return distances;
+}
 
 template<typename VertexType, typename DistanceType>
 requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
@@ -47,5 +77,4 @@ std::vector<DistanceType> distances_from_source_dijkstra(VertexType source,
 	return distances_from_source_vertex;
 }
 
-
-#endif //DIJSKTRA_H
+#endif //SHORTEST_PATH_ALGORITHMS_H
