@@ -10,7 +10,42 @@
 #include <utility>
 
 template<typename VertexType, typename DistanceType>
-requires std::is_signed_v<VertexType> && std::is_arithmetic_v<DistanceType>
+requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
+std::vector<DistanceType> distances_from_source_bellman_ford_matrix(VertexType source,
+																	const std::vector<std::vector<DistanceType>> &graph)
+{
+	VertexType number_of_vertices = graph.size();
+	std::vector<DistanceType> distances(number_of_vertices, std::numeric_limits<DistanceType>::max());
+	distances[source] = static_cast<DistanceType>(0);
+
+	for (VertexType i = 0; i < number_of_vertices - 1; ++i) {
+		for (VertexType u = 0; u < number_of_vertices; ++u) {
+			for (VertexType v = 0; v < number_of_vertices; ++v) {
+				if (graph[u][v] != std::numeric_limits<DistanceType>::max() &&
+					distances[u] != std::numeric_limits<DistanceType>::max() &&
+					distances[u] + graph[u][v] < distances[v]) {
+					distances[v] = distances[u] + graph[u][v];
+				}
+			}
+		}
+	}
+
+	// Check for negative-weight cycles
+	for (VertexType u = 0; u < number_of_vertices; ++u) {
+		for (VertexType v = 0; v < number_of_vertices; ++v) {
+			if (graph[u][v] != std::numeric_limits<DistanceType>::max() &&
+				distances[u] != std::numeric_limits<DistanceType>::max() &&
+				distances[u] + graph[u][v] < distances[v]) {
+				throw std::runtime_error("Graph contains a negative-weight cycle");
+			}
+		}
+	}
+
+	return distances;
+}
+
+template<typename VertexType, typename DistanceType>
+requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
 std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
 															 const std::vector<std::vector<std::pair<VertexType,
 																									 DistanceType>>> &graph)
@@ -76,5 +111,36 @@ std::vector<DistanceType> distances_from_source_dijkstra(VertexType source,
 	}
 	return distances_from_source_vertex;
 }
+
+template<typename VertexType, typename DistanceType>
+requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
+std::vector<DistanceType> distances_from_source_dijkstra_matrix(VertexType source,
+																const std::vector<std::vector<DistanceType>> &graph)
+{
+	VertexType number_of_vertices = graph.size();
+	std::vector<DistanceType> distances(number_of_vertices, std::numeric_limits<DistanceType>::max());
+	std::set<std::pair<DistanceType, VertexType>> ordered_set;
+
+	distances[source] = static_cast<DistanceType>(0);
+	ordered_set.insert({0, source});
+
+	while (!ordered_set.empty()) {
+		VertexType u = ordered_set.begin()->second;
+		ordered_set.erase(ordered_set.begin());
+
+		for (VertexType v = 0; v < number_of_vertices; ++v) {
+			if (graph[u][v] != std::numeric_limits<DistanceType>::max()) {
+				if (distances[u] + graph[u][v] < distances[v]) {
+					ordered_set.erase({distances[v], v});
+					distances[v] = distances[u] + graph[u][v];
+					ordered_set.insert({distances[v], v});
+				}
+			}
+		}
+	}
+
+	return distances;
+}
+
 
 #endif //SHORTEST_PATH_ALGORITHMS_H
