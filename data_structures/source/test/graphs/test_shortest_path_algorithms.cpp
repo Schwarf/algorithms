@@ -40,7 +40,7 @@ public:
 
 	static std::tuple<std::vector<std::vector<std::pair<unsigned int, int>>>,
 					  std::vector<std::vector<int>>,
-					  std::vector<std::vector<unsigned int>>> case2()
+					  std::vector<std::vector<int>>> case2()
 	{
 
 
@@ -68,7 +68,7 @@ public:
 			{{5, 5}, {7, 4}},
 			{{4, 7}, {5, 3}}
 		};
-		std::vector<std::vector<unsigned int>> distance_matrix = {
+		std::vector<std::vector<int>> distance_matrix = {
 			{0, 4, 7, 6, 10, 12, 8, 21, 17, 15},
 			{4, 0, 3, 5, 9, 8, 4, 17, 13, 11},
 			{7, 3, 0, 2, 6, 11, 2, 18, 16, 13},
