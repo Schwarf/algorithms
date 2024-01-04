@@ -143,13 +143,29 @@ std::vector<DistanceType> distances_from_source_dijkstra_matrix(VertexType sourc
 }
 
 template<typename VertexType, typename DistanceType>
-std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(const std::vector<std::vector<DistanceType>> &graph);
+requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
+std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(std::vector<std::vector<DistanceType>> &graph)
+{
+	auto number_of_vertices = graph.size();
+	for (VertexType k = 0; k < number_of_vertices; ++k) {
+		for (VertexType i = 0; i < number_of_vertices; ++i) {
+			for (VertexType j = 0; j < number_of_vertices; ++j) {
+				if (graph[i][k] != std::numeric_limits<DistanceType>::max() &&
+					graph[k][j] != std::numeric_limits<DistanceType>::max() &&
+					graph[i][j] > graph[i][k] + graph[k][j]) {
+					graph[i][j] = graph[i][k] + graph[k][j];
+				}
+			}
+		}
+	}
+	return graph;
+}
 
 // Note the Floyd-Warhall algorithm operates on adjacency matrix. Therefore, adjacency lists have to be converted.
 template<typename VertexType, typename DistanceType>
 requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<std::vector<DistanceType>> distances_floyd_warshall(const std::vector<std::vector<std::pair<VertexType,
-																										DistanceType>>> &graph)
+std::vector<std::vector<DistanceType>> distances_floyd_warshall(std::vector<std::vector<std::pair<VertexType,
+																								  DistanceType>>> &graph)
 {
 	auto number_of_vertices = graph.size();
 	std::vector<std::vector<DistanceType>> graph_matrix
@@ -164,22 +180,5 @@ std::vector<std::vector<DistanceType>> distances_floyd_warshall(const std::vecto
 	return distances_floyd_warshall_matrix<VertexType, DistanceType>(graph_matrix);
 }
 
-template<typename VertexType, typename DistanceType>
-requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(const std::vector<std::vector<DistanceType>> &graph)
-{
-	auto number_of_vertices = graph.size();
-	for (VertexType k = 0; k < number_of_vertices; ++k) {
-		for (VertexType i = 0; i < number_of_vertices; ++i) {
-			for (VertexType j = 0; j < number_of_vertices; ++j) {
-				if (graph[i][k] != std::numeric_limits<DistanceType>::max() &&
-					graph[k][j] != std::numeric_limits<DistanceType>::max() &&
-					graph[i][j] > graph[i][k] + graph[k][j]) {
-					graph[i][j] = graph[i][k] + graph[k][j];
-				}
-			}
-		}
-	}
-}
 
 #endif //SHORTEST_PATH_ALGORITHMS_H
