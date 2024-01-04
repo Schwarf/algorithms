@@ -206,3 +206,19 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyMatrixCase2)
 	}
 }
 
+
+TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase1)
+{
+	auto tuple = case1();
+	auto adjacency_list = std::get<0>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	auto result = distances_floyd_warshall(adjacency_list);
+
+	for (int i{}; i < 5; ++i) {
+		for (int j{}; j < 5; ++j) {
+			EXPECT_EQ(result[i][j], distance_list[i][j]);
+		}
+
+	}
+}
+
