@@ -142,14 +142,14 @@ std::vector<DistanceType> distances_from_source_dijkstra_matrix(VertexType sourc
 	return distances;
 }
 
-template<typename VertexType, typename DistanceType>
-requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(std::vector<std::vector<DistanceType>> &graph)
+template<typename DistanceType>
+requires std::is_arithmetic_v<DistanceType>
+std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(std::vector<std::vector<DistanceType>> graph)
 {
-	auto number_of_vertices = graph.size();
-	for (VertexType k = 0; k < number_of_vertices; ++k) {
-		for (VertexType i = 0; i < number_of_vertices; ++i) {
-			for (VertexType j = 0; j < number_of_vertices; ++j) {
+	int number_of_vertices = graph.size();
+	for (int k = 0; k < number_of_vertices; ++k) {
+		for (int i = 0; i < number_of_vertices; ++i) {
+			for (int j = 0; j < number_of_vertices; ++j) {
 				if (graph[i][k] != std::numeric_limits<DistanceType>::max() &&
 					graph[k][j] != std::numeric_limits<DistanceType>::max() &&
 					graph[i][j] > graph[i][k] + graph[k][j]) {
@@ -177,7 +177,7 @@ std::vector<std::vector<DistanceType>> distances_floyd_warshall(std::vector<std:
 			graph_matrix[u][v] = distance;
 		}
 	}
-	return distances_floyd_warshall_matrix<VertexType, DistanceType>(graph_matrix);
+	return distances_floyd_warshall_matrix<DistanceType>(graph_matrix);
 }
 
 

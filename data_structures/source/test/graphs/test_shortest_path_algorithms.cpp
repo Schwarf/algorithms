@@ -223,3 +223,53 @@ TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase1)
 	}
 }
 
+
+TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase2)
+{
+	auto tuple = case2();
+	auto adjacency_list = std::get<0>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	constexpr unsigned int number_of_vertices{10U};
+	auto result = distances_floyd_warshall(adjacency_list);
+
+	for (unsigned int i{}; i < number_of_vertices; ++i) {
+		for (unsigned int j{}; j < number_of_vertices; ++j) {
+			EXPECT_EQ(result[i][j], distance_list[i][j]);
+		}
+
+	}
+}
+
+
+TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyMatrixCase1)
+{
+	auto tuple = case1();
+	auto adjacency_matrix = std::get<1>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	constexpr unsigned int number_of_vertices{10U};
+	auto result = distances_floyd_warshall_matrix(adjacency_matrix);
+
+	for (unsigned int i{}; i < number_of_vertices; ++i) {
+		for (unsigned int j{}; j < number_of_vertices; ++j) {
+			EXPECT_EQ(result[i][j], distance_list[i][j]);
+		}
+
+	}
+}
+
+
+TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyMatrixCase2)
+{
+	auto tuple = case2();
+	auto adjacency_matrix = std::get<1>(tuple);
+	auto distance_list = std::get<2>(tuple);
+	constexpr unsigned int number_of_vertices{10U};
+	auto result = distances_floyd_warshall_matrix(adjacency_matrix);
+
+	for (unsigned int i{}; i < number_of_vertices; ++i) {
+		for (unsigned int j{}; j < number_of_vertices; ++j) {
+			EXPECT_EQ(result[i][j], distance_list[i][j]);
+		}
+
+	}
+}
