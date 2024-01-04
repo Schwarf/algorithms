@@ -18,8 +18,8 @@ std::tuple<std::vector<VertexType>, std::vector<DistanceType>> minimum_spanning_
 																							  std::pair<VertexType,
 																										DistanceType>>> &graph)
 {
-	if (start_vertex < graph.size())
-		throw std::out_of_range("The start_vertex id is large than the graph size.");
+	if (start_vertex > graph.size())
+		throw std::out_of_range("The start_vertex id is larger than the graph size.");
 
 	auto number_of_vertices = graph.size();
 	std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
@@ -28,7 +28,7 @@ std::tuple<std::vector<VertexType>, std::vector<DistanceType>> minimum_spanning_
 	std::priority_queue<std::pair<DistanceType, VertexType>,
 						std::vector<std::pair<DistanceType, VertexType>>,
 						std::greater<>> pq;
-	pq.push(std::make_pair({static_cast<DistanceType>(0), start_vertex}));
+	pq.push({static_cast<DistanceType>(0), start_vertex});
 
 	weights[start_vertex] = static_cast<DistanceType>(0);
 	while (!pq.empty()) {
@@ -58,8 +58,8 @@ std::tuple<std::vector<VertexType>,
 		   std::vector<DistanceType>> minimum_spanning_tree_prim_matrix(VertexType start_vertex,
 																		const std::vector<std::vector<DistanceType>> &graph)
 {
-	if (start_vertex < graph.size())
-		throw std::out_of_range("The start_vertex id is large than the graph size.");
+	if (start_vertex > graph.size())
+		throw std::out_of_range("The start_vertex id is larger than the graph size.");
 
 	auto number_of_vertices = graph.size();
 	std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
@@ -68,7 +68,7 @@ std::tuple<std::vector<VertexType>,
 	std::priority_queue<std::pair<DistanceType, VertexType>,
 						std::vector<std::pair<DistanceType, VertexType>>,
 						std::greater<>> pq;
-	pq.push(std::make_pair({static_cast<DistanceType>(0), start_vertex}));
+	pq.push({static_cast<DistanceType>(0), start_vertex});
 
 	weights[start_vertex] = static_cast<DistanceType>(0);
 	while (!pq.empty()) {
@@ -77,7 +77,7 @@ std::tuple<std::vector<VertexType>,
 		if (visited_vertices[current_vertex])
 			continue;
 		visited_vertices[current_vertex] = true;
-		for (VertexType next_vertex; next_vertex < graph.size(); ++next_vertex) {
+		for (VertexType next_vertex{}; next_vertex < graph.size(); ++next_vertex) {
 			auto weight = graph[current_vertex][next_vertex];
 			if (!visited_vertices[next_vertex] && weights[next_vertex] > weight) {
 				weights[next_vertex] = weight;
