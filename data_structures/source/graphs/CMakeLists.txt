@@ -13,4 +13,4 @@ add_library(graphs_lib INTERFACE
         clone_graph.h
         minimal_distance_to_connect_all_points.h
         size_of_largest_island.h
-        maximum_marked_circles.h time_to_inform_hierarchy.h can_finish_course_schedule.h max_rank_of_city_network.h reconstruct_flight_itinerary.h path_with_minimum_effort.h shortest_path_length.h reconstruct_array_from_adjacent_pairs.h design_graph_with_shortest_path_calculator.h is_graph_valid_tree.h shortest_path_algorithms.h)
+        maximum_marked_circles.h time_to_inform_hierarchy.h can_finish_course_schedule.h max_rank_of_city_network.h reconstruct_flight_itinerary.h path_with_minimum_effort.h shortest_path_length.h reconstruct_array_from_adjacent_pairs.h design_graph_with_shortest_path_calculator.h is_graph_valid_tree.h shortest_path_algorithms.h minimum_spanning_tree_algorithms.h)
