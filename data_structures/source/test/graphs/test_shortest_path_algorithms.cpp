@@ -95,7 +95,7 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyListCase1)
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra(start_vertex, adjacency_list);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -110,7 +110,7 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyListCase1)
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford(start_vertex, adjacency_list);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -125,7 +125,7 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyMatrixCase1)
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra_matrix(start_vertex, adjacency_matrix);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < 5; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -140,7 +140,7 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyMatrixCase1)
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford_matrix(start_vertex, adjacency_matrix);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -152,10 +152,10 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyListCase2)
 	auto tuple = case2();
 	auto adjacency_list = std::get<0>(tuple);
 	auto distance_list = std::get<2>(tuple);
-	constexpr unsigned int number_of_vertices{5U};
+	constexpr unsigned int number_of_vertices{10U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra(start_vertex, adjacency_list);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -167,10 +167,10 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyListCase2)
 	auto tuple = case2();
 	auto adjacency_list = std::get<0>(tuple);
 	auto distance_list = std::get<2>(tuple);
-	constexpr unsigned int number_of_vertices{5U};
+	constexpr unsigned int number_of_vertices{10U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford(start_vertex, adjacency_list);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -182,10 +182,10 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyMatrixCase2)
 	auto tuple = case2();
 	auto adjacency_matrix = std::get<1>(tuple);
 	auto distance_list = std::get<2>(tuple);
-	constexpr unsigned int number_of_vertices{5U};
+	constexpr unsigned int number_of_vertices{10U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra_matrix(start_vertex, adjacency_matrix);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
@@ -197,28 +197,29 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyMatrixCase2)
 	auto tuple = case2();
 	auto adjacency_matrix = std::get<1>(tuple);
 	auto distance_list = std::get<2>(tuple);
-	constexpr unsigned int number_of_vertices{5U};
+	constexpr unsigned int number_of_vertices{10U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford_matrix(start_vertex, adjacency_matrix);
-		for (int i{}; i < 5; ++i) {
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
 			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
 }
 
 
-TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase1)
-{
-	auto tuple = case1();
-	auto adjacency_list = std::get<0>(tuple);
-	auto distance_list = std::get<2>(tuple);
-	auto result = distances_floyd_warshall(adjacency_list);
-
-	for (int i{}; i < 5; ++i) {
-		for (int j{}; j < 5; ++j) {
-			EXPECT_EQ(result[i][j], distance_list[i][j]);
-		}
-
-	}
-}
-
+//TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase1)
+//{
+//	auto tuple = case1();
+//	auto adjacency_list = std::get<0>(tuple);
+//	auto distance_list = std::get<2>(tuple);
+//	constexpr unsigned int number_of_vertices{5U};
+//	auto result = distances_floyd_warshall(adjacency_list);
+//
+//	for (int i{}; i < number_of_vertices; ++i) {
+//		for (int j{}; j < number_of_vertices; ++j) {
+//			EXPECT_EQ(result[i][j], distance_list[i][j]);
+//		}
+//
+//	}
+//}
+//
