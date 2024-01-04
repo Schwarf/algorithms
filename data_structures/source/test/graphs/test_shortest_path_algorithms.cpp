@@ -96,7 +96,7 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyListCase1)
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra(start_vertex, adjacency_list);
 		for (unsigned int i{}; i < number_of_vertices; ++i) {
-			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
 }
@@ -111,7 +111,7 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyListCase1)
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford(start_vertex, adjacency_list);
 		for (unsigned int i{}; i < number_of_vertices; ++i) {
-			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
 }
@@ -126,7 +126,7 @@ TEST_F(SetupShortestGraphTests, TestDijkstraAdjacencyMatrixCase1)
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_dijkstra_matrix(start_vertex, adjacency_matrix);
 		for (unsigned int i{}; i < 5; ++i) {
-			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
 }
@@ -141,7 +141,7 @@ TEST_F(SetupShortestGraphTests, TestBellmannFordAdjacencyMatrixCase1)
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = distances_from_source_bellman_ford_matrix(start_vertex, adjacency_matrix);
 		for (unsigned int i{}; i < number_of_vertices; ++i) {
-			EXPECT_EQ(result[i], distance_list[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result[i], distance_list[start_vertex][i]);
 		}
 	}
 }
@@ -217,7 +217,7 @@ TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyListCase1)
 
 	for (unsigned int i{}; i < number_of_vertices; ++i) {
 		for (unsigned int j{}; j < number_of_vertices; ++j) {
-			EXPECT_EQ(result[i][j], distance_list[i][j]);
+			EXPECT_FLOAT_EQ(result[i][j], distance_list[i][j]);
 		}
 
 	}
@@ -246,12 +246,12 @@ TEST_F(SetupShortestGraphTests, TestFloydWarshallAdjacencyMatrixCase1)
 	auto tuple = case1();
 	auto adjacency_matrix = std::get<1>(tuple);
 	auto distance_list = std::get<2>(tuple);
-	constexpr unsigned int number_of_vertices{10U};
+	constexpr unsigned int number_of_vertices{5U};
 	auto result = distances_floyd_warshall_matrix(adjacency_matrix);
 
 	for (unsigned int i{}; i < number_of_vertices; ++i) {
 		for (unsigned int j{}; j < number_of_vertices; ++j) {
-			EXPECT_EQ(result[i][j], distance_list[i][j]);
+			EXPECT_FLOAT_EQ(result[i][j], distance_list[i][j]);
 		}
 
 	}
