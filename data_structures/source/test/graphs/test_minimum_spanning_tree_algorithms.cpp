@@ -9,6 +9,7 @@ class SetupMSTGraphTests: public testing::Test
 public:
 	SetupMSTGraphTests() = default;
 	static constexpr auto max_uint = std::numeric_limits<unsigned int>::max();
+	static constexpr auto max_int = std::numeric_limits<int>::max();
 	static constexpr auto max_float = std::numeric_limits<float>::max();
 	static std::tuple<std::vector<std::vector<std::pair<unsigned int, float>>>,
 					  std::vector<std::vector<float>>,
@@ -49,8 +50,9 @@ public:
 							   weight_vectors_per_start_vertex,
 							   parent_vectors_per_start_vertex);
 	}
-/*
+
 	static std::tuple<std::vector<std::vector<std::pair<unsigned int, int>>>,
+					  std::vector<std::vector<int>>,
 					  std::vector<std::vector<int>>,
 					  std::vector<std::vector<unsigned int>>> case2()
 	{
@@ -80,22 +82,38 @@ public:
 			{{5, 5}, {7, 4}},
 			{{4, 7}, {5, 3}}
 		};
-		std::vector<std::vector<unsigned int>> distance_matrix = {
-			{0, 4, 7, 6, 10, 12, 8, 21, 17, 15},
-			{4, 0, 3, 5, 9, 8, 4, 17, 13, 11},
-			{7, 3, 0, 2, 6, 11, 2, 18, 16, 13},
-			{6, 5, 2, 0, 4, 13, 4, 16, 18, 11},
-			{10, 9, 6, 4, 0, 10, 8, 12, 15, 7},
-			{12, 8, 11, 13, 10, 0, 12, 9, 5, 3},
-			{8, 4, 2, 4, 8, 12, 0, 20, 17, 15},
-			{21, 17, 18, 16, 12, 9, 20, 0, 4, 12},
-			{17, 13, 16, 18, 15, 5, 17, 4, 0, 8},
-			{15, 11, 13, 11, 7, 3, 15, 12, 8, 0}
+		std::vector<std::vector<int>> weight_vectors_per_start_vertex = {
+			{0, 4, 3, 2, 4, 3, 2, 4, 5, 7},
+			{4, 0, 3, 2, 4, 3, 2, 4, 5, 7},
+			{4, 3, 0, 2, 4, 3, 2, 4, 5, 7},
+			{4, 3, 2, 0, 4, 3, 2, 4, 5, 7},
+			{4, 3, 2, 4, 0, 3, 2, 4, 5, 7},
+			{4, 3, 2, 4, 7, 0, 2, 4, 5, 3},
+			{4, 3, 2, 2, 4, 3, 0, 4, 5, 7},
+			{4, 3, 2, 4, 7, 5, 2, 0, 4, 3},
+			{4, 3, 2, 4, 7, 5, 2, 4, 0, 3},
+			{4, 3, 2, 4, 7, 3, 2, 4, 5, 0},
+		};
+		std::vector<std::vector<unsigned int>> parent_vectors_per_start_vertex = {
+			{max_uint, 0, 1, 2, 3, 9, 2, 8, 5, 4},
+			{1, max_uint, 1, 2, 3, 9, 2, 8, 5, 4},
+			{1, 2, max_uint, 2, 3, 9, 2, 8, 5, 4},
+			{1, 2, 3, max_uint, 3, 9, 2, 8, 5, 4},
+			{1, 2, 3, 4, max_uint, 9, 2, 8, 5, 4},
+			{1, 2, 3, 4, 9, max_uint, 2, 8, 5, 5},
+			{1, 2, 6, 2, 3, 9, max_uint, 8, 5, 4},
+			{1, 2, 3, 4, 9, 8, 2, max_uint, 7, 5},
+			{1, 2, 3, 4, 9, 8, 2, 8, max_uint, 5},
+			{1, 2, 3, 4, 9, 9, 2, 8, 5, max_uint},
 		};
 
-		return std::make_tuple(adjacency_list, adjacency_matrix, distance_matrix);
+
+		return std::make_tuple(adjacency_list,
+							   adjacency_matrix,
+							   weight_vectors_per_start_vertex,
+							   parent_vectors_per_start_vertex);
 	}
-*/
+
 };
 
 
@@ -103,16 +121,16 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyListCase1)
 {
 	auto tuple = case1();
 	auto adjacency_list = std::get<0>(tuple);
-	auto weight_lists = std::get<2>(tuple);
-	auto mst_lists = std::get<3>(tuple);
+	auto expected_weight_lists = std::get<2>(tuple);
+	auto expected_mst_lists = std::get<3>(tuple);
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = minimum_spanning_tree_prim(start_vertex, adjacency_list);
 		auto result_weights = std::get<1>(result);
 		auto result_mst = std::get<0>(result);
 		for (unsigned int i{}; i < number_of_vertices; ++i) {
-			EXPECT_FLOAT_EQ(result_weights[i], weight_lists[start_vertex][i]);
-			EXPECT_FLOAT_EQ(result_mst[i], mst_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
 		}
 	}
 
@@ -122,16 +140,54 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase1)
 {
 	auto tuple = case1();
 	auto adjacency_matrix = std::get<1>(tuple);
-	auto weight_lists = std::get<2>(tuple);
-	auto mst_lists = std::get<3>(tuple);
+	auto expected_weight_lists = std::get<2>(tuple);
+	auto expected_mst_lists = std::get<3>(tuple);
 	constexpr unsigned int number_of_vertices{5U};
 	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
 		auto result = minimum_spanning_tree_prim_matrix(start_vertex, adjacency_matrix);
 		auto result_weights = std::get<1>(result);
 		auto result_mst = std::get<0>(result);
 		for (unsigned int i{}; i < number_of_vertices; ++i) {
-			EXPECT_FLOAT_EQ(result_weights[i], weight_lists[start_vertex][i]);
-			EXPECT_FLOAT_EQ(result_mst[i], mst_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
+		}
+	}
+
+}
+
+TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyListCase2)
+{
+	auto tuple = case2();
+	auto adjacency_list = std::get<0>(tuple);
+	auto expected_weight_lists = std::get<2>(tuple);
+	auto expected_mst_lists = std::get<3>(tuple);
+	constexpr unsigned int number_of_vertices{10U};
+	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
+		auto result = minimum_spanning_tree_prim(start_vertex, adjacency_list);
+		auto result_weights = std::get<1>(result);
+		auto result_mst = std::get<0>(result);
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
+			EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
+		}
+	}
+
+}
+
+TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase2)
+{
+	auto tuple = case2();
+	auto adjacency_matrix = std::get<1>(tuple);
+	auto expected_weight_lists = std::get<2>(tuple);
+	auto expected_mst_lists = std::get<3>(tuple);
+	constexpr unsigned int number_of_vertices{10U};
+	for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex) {
+		auto result = minimum_spanning_tree_prim_matrix(start_vertex, adjacency_matrix);
+		auto result_weights = std::get<1>(result);
+		auto result_mst = std::get<0>(result);
+		for (unsigned int i{}; i < number_of_vertices; ++i) {
+			EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
+			EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
 		}
 	}
 
