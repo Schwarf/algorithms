@@ -44,5 +44,18 @@ int count_unique_BST_top_down(int n)
 	return memoization(n, memo);
 }
 
+int count_unique_BST_bottom_up(int n)
+{
+	std::vector<int> dp(n + 1, 0);
+	dp[0] = 1;
+	dp[1] = 1;
+	for (int i{2}; i <= n; ++i) {
+		for (int j{1}; j <= i; ++j) {
+			dp[i] += dp[j - 1] * dp[i - j];
+		}
+	}
+	return dp[n];
+}
+
 
 #endif //COUNT_UNIQUE_BINARY_SEARCH_TREES_H
