@@ -24,13 +24,13 @@ int count_unique_BST_recursive(int n)
 	return count;
 }
 
-int memoization(int n, std::vector<int> &memo)
+int memoizationUniqueBST(int n, std::vector<int> &memo)
 {
 	if (memo[n] != 0)
 		return memo[n];
 	int count{};
 	for (int i{1}; i <= n; ++i) {
-		count += memoization(i - 1, memo) * memoization(n - i, memo);
+		count += memoizationUniqueBST(i - 1, memo) * memoizationUniqueBST(n - i, memo);
 	}
 	return count;
 
@@ -41,7 +41,7 @@ int count_unique_BST_top_down(int n)
 	std::vector<int> memo(n + 1, 0);
 	memo[0] = 1;
 	memo[1] = 1;
-	return memoization(n, memo);
+	return memoizationUniqueBST(n, memo);
 }
 
 int count_unique_BST_bottom_up(int n)
