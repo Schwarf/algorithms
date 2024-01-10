@@ -207,7 +207,19 @@ protected:
 		results.push_back({root4, result4});
 		return results;
 	}
+	static TreeNode<int> *infected_tree1()
+	{
+		auto root = new TreeNode<int>(1);
+		root->right = new TreeNode<int>(3);
+		root->right->left = new TreeNode<int>(10);
+		root->right->right = new TreeNode<int>(6);
+		root->left = new TreeNode<int>(5);
+		root->left->right = new TreeNode<int>(4);
+		root->left->right->left = new TreeNode<int>(9);
+		root->left->right->right = new TreeNode<int>(2);
 
+		return root;
+	}
 };
 
 #endif //SETUP_BINARY_TREE_H

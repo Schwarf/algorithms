@@ -74,7 +74,7 @@ add_executable(test_binary_tree_algorithms
         trees/binary_trees/test_find_duplicate_subtrees.cpp
         trees/binary_trees/test_is_binary_tree_complete.cpp
         trees/binary_trees/test_minimum_depth_binary_tree.cpp
-        trees/binary_trees/test_all_nodes_in_distance_k.cpp trees/binary_trees/test_maximum_path_sum.cpp trees/binary_trees/test_find_mode_in_binary_tree.cpp trees/binary_trees/test_find_two_sum_in_binary_tree.cpp)
+        trees/binary_trees/test_all_nodes_in_distance_k.cpp trees/binary_trees/test_maximum_path_sum.cpp trees/binary_trees/test_find_mode_in_binary_tree.cpp trees/binary_trees/test_find_two_sum_in_binary_tree.cpp trees/binary_trees/test_time_to_infect_binary_tree.cpp)
 
 add_executable(test_segment_tree_algorithms
         trees/segment_trees/setup_for_segment_tree_testing.h
