@@ -220,6 +220,34 @@ protected:
 
 		return root;
 	}
+
+	static TreeNode<int> *infected_tree2()
+	{
+		auto root = new TreeNode<int>(1);
+		root->left = new TreeNode<int>(2);
+		root->right = new TreeNode<int>(3);
+
+		root->left->left = new TreeNode<int>(4);
+		root->left->right = new TreeNode<int>(5);
+
+		root->right->left = new TreeNode<int>(6);
+		root->right->right = new TreeNode<int>(7);
+
+		root->left->left->left = new TreeNode<int>(8);
+		root->left->left->right = new TreeNode<int>(9);
+
+		root->left->right->left = new TreeNode<int>(10);
+		root->left->right->right = new TreeNode<int>(11);
+
+		root->right->left->left = new TreeNode<int>(12);
+		root->right->left->right = new TreeNode<int>(13);
+
+		root->right->right->left = new TreeNode<int>(14);
+		root->right->right->right = new TreeNode<int>(15);
+
+		return root;
+	}
+
 };
 
 #endif //SETUP_BINARY_TREE_H
