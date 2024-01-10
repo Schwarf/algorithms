@@ -43,6 +43,26 @@ int time_to_infect_binary_tree(Node *root, int start_value)
 		else
 			q.pop();
 	}
+	std::queue<int> bst{{start_value}};
+	std::vector<bool> infected(graph.size(), false);
+	int time{};
+	while (!bst.empty()) {
+		int infectious_origins = bst.size();
+		while (infectious_origins > 0) {
+			auto current = bst.front();
+			bst.pop();
+			for (const auto node: graph[current]) {
+				if(!infected[node])
+				{
+					infected[node] = true;
+					bst.push(node)
+				}
+			}
+			infectious_origins--;
+		}
+		time++;
+	}
+	return time;
 }
 
 #endif //TIME_TO_INFECT_BINARY_TREE_H
