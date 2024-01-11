@@ -2,8 +2,8 @@
 // Created by andreas on 10.12.22.
 //
 
-#ifndef MAXIMUM_DIFFERENCE_BETWEE_NODE_AND_ANCESTOR_H
-#define MAXIMUM_DIFFERENCE_BETWEE_NODE_AND_ANCESTOR_H
+#ifndef MAXIMUM_DIFFERENCE_BETWEEN_NODE_AND_ANCESTOR_H
+#define MAXIMUM_DIFFERENCE_BETWEEN_NODE_AND_ANCESTOR_H
 // Given the root of a binary tree, find the maximum valueue v for which there exist different nodes a and b
 // where v = |a.value - b.value| and a is an ancestor of b.
 // A node a is an ancestor of b if either: any child of a is equal to b or any child of a is an ancestor of b.
@@ -37,7 +37,7 @@ void get_max_diff_for_node(TreeNode<int> *node, int &max)
 	get_max_diff_for_node(node->right, max);
 }
 
-// O(N^2) time complexity, O(1) space complexity
+// O(N^2) time complexity, O(N^2) space complexity because we recursively call function on stack
 int brute_force_solution(TreeNode<int> *root)
 {
 	int max{};
@@ -45,14 +45,14 @@ int brute_force_solution(TreeNode<int> *root)
 	return max;
 }
 
-int helper(TreeNode<int> *node, int current_max, int current_min)
+int dfs(TreeNode<int> *node, int current_max, int current_min)
 {
 	if (!node)
 		return current_max - current_min;
 	current_max = std::max(current_max, node->value);
 	current_min = std::min(current_min, node->value);
-	int left = helper(node->left, current_max, current_min);
-	int right = helper(node->right, current_max, current_min);
+	int left = dfs(node->left, current_max, current_min);
+	int right = dfs(node->right, current_max, current_min);
 	return std::max(left, right);
 }
 // O(N) time complexity, O(N) space complexity
@@ -60,11 +60,9 @@ int one_recursion_solution(TreeNode<int> *root)
 {
 	if (!root)
 		return 0;
-	int max = root->value;
-	int min = root->value;
-	return helper(root, max, min);
+	return dfs(root, root->value, root->value);
 
 }
 
-#endif //MAXIMUM_DIFFERENCE_BETWEE_NODE_AND_ANCESTOR_H
+#endif //MAXIMUM_DIFFERENCE_BETWEEN_NODE_AND_ANCESTOR_H
 

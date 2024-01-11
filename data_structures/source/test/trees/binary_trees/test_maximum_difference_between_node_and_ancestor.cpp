@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "trees/binary_trees/tree_node.h"
-#include "trees/binary_trees/maximum_difference_betwee_node_and_ancestor.h"
+#include "trees/binary_trees/maximum_difference_between_node_and_ancestor.h"
 class SetupTestTrees: public testing::Test
 {
 public:
