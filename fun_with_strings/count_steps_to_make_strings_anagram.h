@@ -2,8 +2,8 @@
 // Created by andreas on 03.12.22.
 //
 
-#ifndef STEPS_TO_MAKE_TWO_EQUAL_SIZED_STRINGS_AN_ANAGRAM_H
-#define STEPS_TO_MAKE_TWO_EQUAL_SIZED_STRINGS_AN_ANAGRAM_H
+#ifndef COUNT_STEPS_TO_MAKE_STRINGS_ANAGRAM_H
+#define COUNT_STEPS_TO_MAKE_STRINGS_ANAGRAM_H
 #include <string>
 #include <map>
 #include <algorithm>
@@ -50,4 +50,4 @@ int steps_to_make_anagram2(std::string s, std::string t)
 
 }
 
-#endif //STEPS_TO_MAKE_TWO_EQUAL_SIZED_STRINGS_AN_ANAGRAM_H
+#endif //COUNT_STEPS_TO_MAKE_STRINGS_ANAGRAM_H
