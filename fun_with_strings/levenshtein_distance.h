@@ -12,6 +12,12 @@ int levenshtein_distance(const std::string &word1, const std::string &word2)
 {
 	int n1 = word1.length();
 	int n2 = word2.length();
+	if(n1 == 0 && n2 == 0)
+		return 0;
+	if(n1 == 0)
+		return n2;
+	if(n2 == 0)
+		return n1;
 
 	std::vector<std::vector<int>> dp(n1 + 1, std::vector<int>(n2 + 1, 0));
 	for (int i{}; i < n1; ++i)
