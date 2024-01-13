@@ -1,1 +1,1 @@
-- Unit tests are missing for all algos but remove_duplicates.
+- Unit tests for sort_string_by_character_frequency.h are very brittle, since no order required for equal frequencies.
