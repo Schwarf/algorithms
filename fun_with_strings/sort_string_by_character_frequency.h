@@ -19,7 +19,7 @@ std::string sorted_by_character_frequency(const std::string & s )
 	std::priority_queue<std::pair<int, char>> queue;
 	// Note by default std::pair is sorted by 1st element
 	for (const auto &char_count: char_counter)
-		queue.push({char_count.second, char_count.first});
+		queue.emplace(char_count.second, char_count.first);
 	std::string result;
 	while (!queue.empty()) {
 		auto frequency = queue.top().first;
