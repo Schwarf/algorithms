@@ -1,4 +1,4 @@
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(fun_with_strings_test test_remove_duplicates.cpp test_decode_string_at_index.cpp test_count_beautiful_substrings.cpp)
+add_executable(fun_with_strings_test test_remove_duplicates.cpp test_decode_string_at_index.cpp test_count_beautiful_substrings.cpp test_create_ranges_from_sorted_array.cpp)
 target_link_libraries(fun_with_strings_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
