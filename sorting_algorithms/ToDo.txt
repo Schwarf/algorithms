@@ -1,6 +1,5 @@
 - Improve algo documentation on heap_sort, quick_sort and merge_sort
 - Bucket sort is missing
-- Shell sort is missing
 - Implement performance comparison
 - Redo quickselect implementation
 - Redo kth element in two- or n-sorted arrays
