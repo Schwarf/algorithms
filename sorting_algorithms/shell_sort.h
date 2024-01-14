@@ -14,12 +14,31 @@ concept IndexedContainer = requires(const ContainerType & container)
 };
 
 
+template <typename SequenceFunction>
+concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size_t container_size)
+{
+	{function(container_size) } -> std::same_as<std::vector<std::size_t>>;
+};
+
+
 
 template <typename InputType, typename SequenceFunction, template <typename ...>  class ContainerType>
-requires IndexedContainer<ContainerType<InputType>>
+requires IndexedContainer<ContainerType<InputType>> && SequenceFunctionTemplate<SequenceFunction>
 void shell_sort(ContainerType<InputType> & container, SequenceFunction & sequence_function)
 {
-
+	size_t size = container.size();
+	auto gaps = sequence_function(size);
+	for(const auto & gap : gaps)
+	{
+		for(auto index = gap; index < size; ++index)
+		{
+			auto temp = container[index];
+			size_t other_index{};
+			for(other_index = index; other_index >= gap && container[other_index-gap] > temp; other_index-=gap)
+				container[other_index] =container[other_index -gap];
+			container[other_index] = temp;
+		}
+	}
 }
 
 
