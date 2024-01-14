@@ -45,12 +45,10 @@ constexpr std::size_t constexpr_pow(std::size_t base, std::size_t exponent) {
 }
 
 constexpr std::size_t calculate_sedgewick_element(std::size_t i) {
-	if (i % 2 == 0) {
-
-		return 9 * constexpr_pow(4, i) - 9 * constexpr_pow(2, i) + 1;
+	if ( i & 1) {
+		return 8 * constexpr_pow(2, i) - 6 * constexpr_pow(2, (i+1)/2) + 1;
 	} else {
-		// For odd i: 8 * 4^i - 6 * 2^i + 1
-		return 8 * constexpr_pow(4, i) - 6 * constexpr_pow(2, i) + 1;
+		return 9 * constexpr_pow(2, i) - 9 * constexpr_pow(2, i/2) + 1;
 	}
 }
 
@@ -58,13 +56,28 @@ constexpr std::size_t calculate_sedgewick_element(std::size_t i) {
 
 std::vector<size_t> sedgewick_sequence(size_t container_size) {
 	std::vector<size_t> sequence{1};
+	int index{1};
 	while(sequence.back() < container_size) {
-		sequence.push_back(calculate_sedgewick_element(sequence.back()));
+		sequence.push_back(calculate_sedgewick_element(index++));
 	}
 	std::reverse(sequence.begin(), sequence.end());
 	return sequence;
 }
 
+
+std::vector<size_t> recursive_fuchs(size_t container_size) {
+	std::vector<size_t> sequence{1};
+	int index{1};
+	while(sequence.back() < container_size) {
+		if(index-3 < 0)
+			sequence.push_back(3 * sequence[index - 1] + 1 );
+		else
+			sequence.push_back(3 * sequence[index - 1] + sequence[index-3]);
+		index++;
+	}
+	std::reverse(sequence.begin(), sequence.end());
+	return sequence;
+}
 
 
 template <typename InputType, typename SequenceFunction, template <typename ...>  class ContainerType>

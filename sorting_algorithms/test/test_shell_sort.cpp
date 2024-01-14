@@ -55,7 +55,7 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence2)
 	auto input = get_N_random_number_vector(0, 10000, 1000);
 	auto expected_output{input};
 	std::sort(expected_output.begin(), expected_output.end());
-	shell_sort(input, simple_gaps);
+	shell_sort(input, sedgewick_sequence);
 	EXPECT_EQ(input, expected_output);
 }
 
@@ -64,7 +64,7 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence3)
 	auto input = get_N_random_number_vector(-1000, 1000, 523);
 	auto expected_output{input};
 	std::sort(expected_output.begin(), expected_output.end());
-	shell_sort(input, simple_gaps);
+	shell_sort(input, sedgewick_sequence);
 	EXPECT_EQ(input, expected_output);
 }
 
@@ -73,6 +73,43 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence4)
 	auto input = get_N_random_number_vector(-1000, 1000, 5689);
 	auto expected_output{input};
 	std::sort(expected_output.begin(), expected_output.end());
-	shell_sort(input, simple_gaps);
+	shell_sort(input, sedgewick_sequence);
+	EXPECT_EQ(input, expected_output);
+}
+
+TEST_F(SetupSortingTests, ShellSortFuchsSequence1)
+{
+	auto input = get_N_random_number_vector(0, 1000, 100);
+	auto expected_output{input};
+	std::sort(expected_output.begin(), expected_output.end());
+	shell_sort(input, recursive_fuchs);
+	EXPECT_EQ(input, expected_output);
+}
+
+
+TEST_F(SetupSortingTests, ShellSortFuchsSequence2)
+{
+	auto input = get_N_random_number_vector(0, 10000, 1000);
+	auto expected_output{input};
+	std::sort(expected_output.begin(), expected_output.end());
+	shell_sort(input, recursive_fuchs);
+	EXPECT_EQ(input, expected_output);
+}
+
+TEST_F(SetupSortingTests, ShellSortFuchsSequence3)
+{
+	auto input = get_N_random_number_vector(-1000, 1000, 523);
+	auto expected_output{input};
+	std::sort(expected_output.begin(), expected_output.end());
+	shell_sort(input, recursive_fuchs);
+	EXPECT_EQ(input, expected_output);
+}
+
+TEST_F(SetupSortingTests, ShellSortFuchsSequence4)
+{
+	auto input = get_N_random_number_vector(-1000, 1000, 5689);
+	auto expected_output{input};
+	std::sort(expected_output.begin(), expected_output.end());
+	shell_sort(input, recursive_fuchs);
 	EXPECT_EQ(input, expected_output);
 }
