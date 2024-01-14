@@ -10,7 +10,7 @@ template<typename ContainerType>
 concept IndexedContainer = requires(const ContainerType & container)
 {
 	{container[0] }-> std::same_as<typename ContainerType::value_type const &>;
-	{container->size()} -> std::same_as<std::size_t>;
+	{container.size()} -> std::same_as<std::size_t>;
 };
 
 
@@ -20,6 +20,17 @@ concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size
 	{function(container_size) } -> std::same_as<std::vector<std::size_t>>;
 };
 
+
+std::vector<size_t> simple_gaps(size_t container_size)
+{
+	std::vector<size_t> result;
+	while(container_size)
+	{
+		container_size >>= 1;
+		result.push_back(container_size);
+	}
+	return result;
+}
 
 
 template <typename InputType, typename SequenceFunction, template <typename ...>  class ContainerType>
