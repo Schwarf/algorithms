@@ -4,24 +4,23 @@
 
 #ifndef SHELL_SORT_H
 #define SHELL_SORT_H
-
-#include <cmath>
-
-template <int N, int K>
-struct SedgewickSequenceHelper {
-	static constexpr int value = SedgewickSequenceHelper<N-1, K>::value;
+#include <vector>
+#include <algorithm>
+template<typename ContainerType>
+concept IndexedContainer = requires(const ContainerType & container)
+{
+	{container[0] }-> std::same_as<typename ContainerType::value_type const &>;
+	{container->size()} -> std::same_as<std::size_t>;
 };
 
-template <int K>
-struct SedgewickSequenceHelper<0, K> {
-	static constexpr int value = 1;
-};
 
-template <int N>
-struct SedgewickSequence {
-	static constexpr int value = (N % 2 == 0) ? (9 * std::pow(2, N) - 9 * std::pow(2, N/2) + 1) * SedgewickSequenceHelper<N, 0>::value :
-								 (8 * std::pow(2, N) - 6 * std::pow(2, (N+1)/2) + 1) * SedgewickSequenceHelper<N, 1>::value;
-};
+
+template <typename InputType, typename SequenceFunction, template <typename ...>  class ContainerType>
+requires IndexedContainer<ContainerType<InputType>>
+void shell_sort(ContainerType<InputType> & container, SequenceFunction & sequence_function)
+{
+
+}
 
 
 #endif //SHELL_SORT_H
