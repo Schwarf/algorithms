@@ -13,7 +13,9 @@ add_executable(sorting_tests
         test_insertion_sort.cpp
         test_selection_sort.cpp
         test_bubble_sort.cpp
-        test_bitonic_sort.cpp test_shell_sort.cpp performance_measurement.h)
+        test_bitonic_sort.cpp
+        test_shell_sort.cpp
+        )
 
 include_directories(./../)
 target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
