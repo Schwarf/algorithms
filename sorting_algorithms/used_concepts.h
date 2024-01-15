@@ -20,4 +20,11 @@ concept PowerOfTwo = ((N > 0) && (std::has_single_bit(N))) || (N==0);
 template <typename Element>
 concept NoPointerElement = !std::is_pointer_v<Element>;
 
+template <typename SequenceFunction>
+concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size_t container_size)
+{
+	{function(container_size) } -> std::same_as<std::vector<std::size_t>>;
+};
+
+
 #endif //USED_CONCEPTS_H

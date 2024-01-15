@@ -6,19 +6,7 @@
 #define SHELL_SORT_H
 #include <vector>
 #include <algorithm>
-template<typename ContainerType>
-concept IndexedContainer = requires(const ContainerType & container)
-{
-	{container[0] }-> std::same_as<typename ContainerType::value_type const &>;
-	{container.size()} -> std::same_as<std::size_t>;
-};
-
-
-template <typename SequenceFunction>
-concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size_t container_size)
-{
-	{function(container_size) } -> std::same_as<std::vector<std::size_t>>;
-};
+#include "used_concepts.h"
 
 
 std::vector<size_t> simple_gaps(size_t container_size)
