@@ -50,7 +50,7 @@ public:
 		store_measurement(total_duration);
 	}
 
-	auto get_results() const
+	auto get_results()
 	{
 		return create_results();
 	}
@@ -66,7 +66,7 @@ private:
 		measurements.push_back(measurement);
 	}
 
-	[[nodiscard]] std::tuple<size_t, double, double, double> create_results() const
+	[[nodiscard]] std::tuple<size_t, double, double, double> create_results()
 	{
 		double median{};
 		if(min_heap.size() == max_heap.size())
@@ -81,17 +81,17 @@ private:
 		{
 			median = static_cast<double>(max_heap.top());
 		}
-		auto mean_std = compute_mean_and_standard_deviation(measurements);
-		return std::make_tuple<size_t, double, double>(measurements.size(), median, mean_std.first, mean_std.second);
+		auto mean_std = compute_mean_and_standard_deviation();
+		return std::make_tuple<size_t, double, double, double>(measurements.size(), std::move(median), std::move(mean_std.first), std::move(mean_std.second));
 	}
 
-	std::pair<double, double> compute_mean_and_standard_deviation(const std::vector<InputType> & data)
+	std::pair<double, double> compute_mean_and_standard_deviation()
 	{
 		// Welford's algorithm
 		int n{};
 		double mean{};
 		double sum_of_square_diff{};
-		for(auto element: data)
+		for(auto element: measurements)
 		{
 			n++;
 			auto delta = static_cast<double>(element) - mean;
