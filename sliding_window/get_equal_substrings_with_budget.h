@@ -10,12 +10,12 @@
 // Return the maximum length of a substring of s that can be changed to be the same as the corresponding substring of t
 // with a cost less than or equal to maxCost. If there is no substring from s that can be changed to its corresponding substring from t, return 0.
 #include <string>
-int equalSubstring(std::string s, std::string t, int maxCost) {
+int get_equal_substring_with_budget(std::string s, std::string t, int budget) {
 	int left{};
 	for (int right{}; right < s.length(); ++right) {
-		maxCost -= abs(s[right] - t[right]);
-		if (maxCost < 0)
-			maxCost += abs(s[left] - t[left++]);
+		budget -= abs(s[right] - t[right]);
+		if (budget < 0)
+			budget += abs(s[left] - t[left++]);
 	}
 
 	return s.length() - left;
