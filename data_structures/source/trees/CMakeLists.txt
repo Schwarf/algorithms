@@ -20,6 +20,6 @@ add_library(binary_tree_lib INTERFACE
         binary_trees/maximum_path_sum.h
         binary_trees/find_duplicate_subtrees.h
         binary_trees/is_binary_tree_complete.h
-        binary_trees/minimum_depth_of_binary_tree.h binary_trees/all_nodes_in_distance_k.h binary_trees/find_mode_in_binary_tree.h binary_trees/count_nodes_equal_to_average_of_subtree.h binary_trees/find_two_sum_in_binary_tree.h binary_trees/time_to_infect_binary_tree.h)
+        binary_trees/minimum_depth_of_binary_tree.h binary_trees/all_nodes_in_distance_k.h binary_trees/find_mode_in_binary_tree.h binary_trees/count_nodes_equal_to_average_of_subtree.h binary_trees/find_two_sum_in_binary_tree.h binary_trees/time_to_infect_binary_tree.h binary_trees/pseudo_palindromic_paths.h)
 
 add_library(segment_tree_lib INTERFACE segment_trees/segment_tree.h)
