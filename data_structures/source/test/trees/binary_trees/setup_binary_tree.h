@@ -248,7 +248,32 @@ protected:
 		return root;
 	}
 
+	static TreeNode<int> *palindromic_tree1()
+	{
+		auto root = new TreeNode<int>(2);
+		root->left = new TreeNode<int>(3);
+		root->left->right = new TreeNode<int>(1);
+		root->left->left = new TreeNode<int>(3);
+
+		root->right = new TreeNode<int>(1);
+		root->right->right = new TreeNode<int>(1);
+		return root;
+	}
+
+	static TreeNode<int> *palindromic_tree2()
+	{
+		auto root = new TreeNode<int>(2);
+		root->left = new TreeNode<int>(1);
+		root->left->right = new TreeNode<int>(3);
+		root->left->left = new TreeNode<int>(1);
+		root->left->right->left = new TreeNode<int>(1);
+
+		root->right = new TreeNode<int>(1);
+		return root;
+	}
+
 };
 
 #endif //SETUP_BINARY_TREE_H
+
 
