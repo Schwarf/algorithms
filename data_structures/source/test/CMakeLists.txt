@@ -14,7 +14,12 @@ foreach (TEST_SOURCE ${TEST_SOURCES})
 
     # Create an executable target for each test file
     add_executable(${TEST_NAME} ${TEST_SOURCE})
-
+    # add libraries
+    foreach (LIB_DIR ${LIBRARY_DIRECTORIES})
+        get_filename_component(LIB_NAME ${LIB_DIR} NAME)
+        set(TARGET_LIB "${LIB_NAME}_lib")
+        target_link_libraries(${TEST_NAME} ${TARGET_LIB})
+    endforeach ()
     # Optionally: Link libraries or set properties for each target
     target_link_libraries(${TEST_NAME} ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 endforeach ()
