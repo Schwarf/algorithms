@@ -1,1 +1,0 @@
-add_library(dictionaries_lib INTERFACE ordered_dictionary.h)

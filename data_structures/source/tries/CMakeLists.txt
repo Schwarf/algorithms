@@ -1,1 +1,0 @@
-add_library(tries_lib INTERFACE trie.h)

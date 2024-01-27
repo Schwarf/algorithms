@@ -1,1 +1,0 @@
-add_library(misc_lib INTERFACE generate_prime_numbers_up_to.h)
