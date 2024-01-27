@@ -43,22 +43,20 @@ std::vector<std::vector<T>> level_order_traversal(TreeNode<T> *root)
 template<typename T>
 std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root)
 {
-	if(!root)
-		return{};
-	std::queue<TreeNode<T>* > q{{root}};
+	if (!root)
+		return {};
+	std::queue<TreeNode<T> *> q{{root}};
 	std::vector<std::vector<T>> result;
-	while(!q.empty())
-	{
+	while (!q.empty()) {
 		int size = q.size();
-		std::vector<int> level(size);
-		for(int i{}; i < size; ++i)
-		{
+		std::vector<T> level(size);
+		for (int i{}; i < size; ++i) {
 			auto node = q.front();
 			q.pop();
 			level[i] = node->value;
-			if(node->left)
+			if (node->left)
 				q.push(node->left);
-			if(node->right)
+			if (node->right)
 				q.push(node->right);
 		}
 		result.push_back(level);
@@ -67,28 +65,25 @@ std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root)
 	return result;
 }
 
-
 template<typename T>
 std::vector<std::vector<T>> zigzag_level_order_traversal(TreeNode<T> *root)
 {
-	if(!root)
-		return{};
-	std::queue<TreeNode<T>* > q{{root}};
+	if (!root)
+		return {};
+	std::queue<TreeNode<T> *> q{{root}};
 	std::vector<std::vector<T>> result;
 	bool from_left_to_right{true};
-	while(!q.empty())
-	{
+	while (!q.empty()) {
 		int size = q.size();
-		std::vector<int> level(size);
-		for(int i{}; i < size; ++i)
-		{
+		std::vector<T> level(size);
+		for (int i{}; i < size; ++i) {
 			auto node = q.front();
 			q.pop();
-			const int index = from_left_to_right ? i : size-1-i;
+			const int index = from_left_to_right ? i : size - 1 - i;
 			level[index] = node->value;
-			if(node->left)
+			if (node->left)
 				q.push(node->left);
-			if(node->right)
+			if (node->right)
 				q.push(node->right);
 		}
 		from_left_to_right = !from_left_to_right;

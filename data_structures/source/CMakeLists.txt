@@ -42,7 +42,7 @@ foreach (SUBDIR ${ALL_SUBDIRS})
     if (IS_DIRECTORY ${SUBDIR} AND NOT SUBDIR STREQUAL "test")
         # Look for .h files in the directory
         file(GLOB H_FILES_IN_SUBDIR "${SUBDIR}/*.h")
-        # If .h files are found, add the directory to the list
+        # If .h files are found, add the .h files to a library named like the SUBDIR-name
         if (H_FILES_IN_SUBDIR)
             get_filename_component(SUBDIR_NAME ${SUBDIR} NAME)
             set(LIB_NAME "${SUBDIR_NAME}_lib")
