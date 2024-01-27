@@ -36,6 +36,8 @@ std::vector<int> compute_LPS_array(const std::string &pattern)
 // Knuth-Morris-Pratt algorithm
 std::vector<int> find_start_indices_of_pattern(const std::string &text, const std::string &pattern)
 {
+	if(pattern.empty() || text.empty())
+		return {};
 	std::vector<int> result;
 	auto lps_array = compute_LPS_array(pattern);
 	int pattern_index{};
