@@ -32,35 +32,21 @@ enable_cxx_compiler_flag_if_supported("-pedantic")
 enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
 
+set(LIBRARY_DIRECTORIES "")
 
-add_executable(main
-        main.cpp
-        binary_search_tree/avl_node.h
-        binary_search_tree/avl_tree.h)
+file(GLOB ALL_SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR}/*)
 
-add_subdirectory(hash_functions)
-add_subdirectory(linked_lists)
-add_subdirectory(stacks_and_queues)
-add_subdirectory(heaps)
-add_subdirectory(trees)
-add_subdirectory(tries)
-add_subdirectory(graphs)
+
+foreach (SUBDIR ${ALL_SUBDIRS})
+    # Check if it is a directory but not named 'test'
+    if (IS_DIRECTORY ${SUBDIR} AND NOT SUBDIR STREQUAL "test")
+        # Look for .h files in the directory
+        file(GLOB H_FILES_IN_SUBDIR "${SUBDIR}/*.h")
+        # If .h files are found, add the directory to the list
+        if (H_FILES_IN_SUBDIR)
+            list(APPEND LIBRARY_DIRECTORIES ${SUBDIR})
+        endif ()
+    endif ()
+endforeach ()
+
 add_subdirectory(test)
-add_subdirectory(miscellaneous)
-add_subdirectory(caches)
-add_subdirectory(union_find_disjoint_set)
-add_subdirectory(dictionaries)
-
-#include_directories(hash_functions)
-#include_directories(linked_lists)
-#include_directories(stacks_and_queues)
-#include_directories(heaps)
-#include_directories(tries)
-#include_directories(trees)
-#include_directories(miscellaneous)
-#include_directories(dictionaries)
-#include_directories(union_find_disjoint_set)
-#include_directories(${Boost_INCLUDE_DIRS})
-
-target_link_libraries(main linked_list_lib stacks_and_queues_lib heap_lib hash_functions_lib test_hash_function_lib misc_lib trees_lib
-        binary_tree_lib disjointset_lib dictionaries_lib)
