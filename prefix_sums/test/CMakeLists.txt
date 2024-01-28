@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(data_structures_tests)
+project(prefix_sums_tests)
 
 cmake_policy(VERSION 3.20)
 
