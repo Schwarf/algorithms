@@ -7,7 +7,9 @@ find_package(GTest REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-file(GLOB_RECURSE TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*/test_*.cpp")
+
+file(GLOB_RECURSE TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "test_*.cpp")
+
 foreach (TEST_SOURCE ${TEST_SOURCES})
     # Get a filename without an extension for the target name
     get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)

@@ -8,7 +8,7 @@
 // A submatrix x1, y1, x2, y2 is the set of all cells matrix[x][y] with x1 <= x <= x2 and y1 <= y <= y2.
 // Two submatrices (x1, y1, x2, y2) and (x1', y1', x2', y2') are different if they have some coordinate that is different: for example, if x1 != x1'.
 #include <vector>
-int number_of_submatrixes_with_target_sum(const std::vector<std::vector<int>> &matrix, int target)
+int number_of_sub_matrices_with_target_sum(const std::vector<std::vector<int>> &matrix, int target)
 {
 	int rows = matrix.size();
 	int columns = matrix[0].size();
