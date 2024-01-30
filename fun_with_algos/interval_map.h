@@ -23,13 +23,15 @@ public:
 		if(greaterEqualIntervalBeginIterator != interval_map_.begin())
 		{
 			auto previousIterator = std::prev(greaterEqualIntervalBeginIterator);
-			if((*previousIterator).first < intervalBegin)
-				interval_map_.insert(std::pair<ValueType, KeyType>{intervalBegin, mappedValue});
+			if((*previousIterator).first < intervalBegin) {
+				interval_map_.insert(previousIterator, std::make_pair(intervalBegin, std::prev(previousIterator)->second));
+				interval_map_[intervalEnd] = previousIterator->second;
+			}
 		}
 
 		// Merge intervals
 		auto currentIterator = greaterEqualIntervalBeginIterator;
-		while(currentIterator != interval_map_.end() && (*currentIterator).first <= intervalEnd)
+		while(currentIterator != interval_map_.end() && (*currentIterator).first < intervalEnd)
 		{
 			// Case: Current interval has same mappedValue as incoming mappedValue
 			if(currentIterator->second == mappedValue)
