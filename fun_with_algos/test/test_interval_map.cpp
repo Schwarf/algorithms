@@ -12,8 +12,8 @@ TEST(TestIntervalMap, simple1)
 	auto map = IntervalMap<int, float>();
 	map.add(start, end, value);
 	EXPECT_EQ(map[2], value);
-	EXPECT_EQ(map[0], value);
-	EXPECT_EQ(map[1000], value);
+	EXPECT_EQ(map[0], int{});
+	EXPECT_EQ(map[1000], int{});
 }
 
 
@@ -25,7 +25,7 @@ TEST(TestIntervalMap, simple2)
 	auto map = IntervalMap<int, double>();
 	for(int i{}; i < start.size(); ++i)
 		map.add(start[i], end[i], value[i]);
-	EXPECT_EQ(map[2], value[0]);
+	EXPECT_EQ(map[2], int{});
 	EXPECT_EQ(map[10], value[3]);
 	EXPECT_EQ(map[20], value[4]);
 }
@@ -42,7 +42,7 @@ TEST(TestIntervalMap, internalOverlap1)
 	EXPECT_EQ(map[2], values[0]);
 	EXPECT_EQ(map[3], values[0]);
 	EXPECT_EQ(map[4], values[0]);
-	EXPECT_EQ(map[5], values[0]);
+	EXPECT_EQ(map[5], char{});
 	EXPECT_EQ(map[6], values[1]);
 
 	constexpr int start{3};
@@ -52,7 +52,7 @@ TEST(TestIntervalMap, internalOverlap1)
 	EXPECT_EQ(map[2], values[0]);
 	EXPECT_EQ(map[3], value);
 	EXPECT_EQ(map[4], values[0]);
-	EXPECT_EQ(map[5], values[0]);
+	EXPECT_EQ(map[5], char{});
 	EXPECT_EQ(map[6], values[1]);
 }
 
@@ -64,11 +64,11 @@ TEST(TestIntervalMap, internalOverlap2)
 	auto map = IntervalMap<int, char>();
 	for (int i{}; i < starts.size(); ++i)
 		map.add(starts[i], ends[i], values[i]);
-	EXPECT_EQ(map[-1], values[0]);
+	EXPECT_EQ(map[-1], char{});
 	EXPECT_EQ(map[1], values[0]);
 	EXPECT_EQ(map[3], values[0]);
 	EXPECT_EQ(map[4], values[0]);
-	EXPECT_EQ(map[5], values[0]);
+	EXPECT_EQ(map[5], char{});
 
 }
 
@@ -387,4 +387,41 @@ TEST(TestIntervalMap, endIsIn2)
 	EXPECT_EQ(map[11], value);
 	EXPECT_EQ(map[12], value);
 	EXPECT_EQ(map[20], values[3]);
+}
+
+
+
+TEST(TestIntervalMap, fallback)
+{
+	const std::vector<int> starts{0, 7};
+	const std::vector<int> ends{5, 10};
+	const std::vector<char> values{'a', 'b'};
+	auto map = IntervalMap<int, char>();
+	for (int i{}; i < starts.size(); ++i)
+		map.add(starts[i], ends[i], values[i]);
+
+	EXPECT_EQ(map[6], char{});
+	EXPECT_EQ(map[7], values[1]);
+	EXPECT_EQ(map[11], char{});
+}
+
+
+
+TEST(TestIntervalMap, merging1)
+{
+	const std::vector<int> starts{0, 7, 11};
+	const std::vector<int> ends{5, 10, 13};
+	const std::vector<char> values{'a', 'b', 'c'};
+	auto map = IntervalMap<int, char>();
+	for (int i{}; i < starts.size(); ++i)
+		map.add(starts[i], ends[i], values[i]);
+
+	EXPECT_EQ(map[6], char{});
+	EXPECT_EQ(map[7], values[1]);
+	EXPECT_EQ(map[11], values[2]);
+	constexpr int start{7};
+	constexpr int end{13};
+	constexpr char value{'b'};
+	map.add(start, end, value);
+	EXPECT_EQ(map[12], values[1]);
 }
