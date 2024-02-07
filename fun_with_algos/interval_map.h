@@ -61,7 +61,7 @@ public:
 		auto end = interval_map_.find(intervalEnd);
 
 		auto beforeEnd = interval_map_.lower_bound(intervalEnd);
-		if(b2 != beforeEnd)
+		if(end != beforeEnd)
 			auto x =1;
 		if(end == interval_map_.end())
 		{
