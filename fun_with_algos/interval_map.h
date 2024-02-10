@@ -10,12 +10,28 @@
 template<typename KeyType, typename ValueType>
 class IntervalMap
 {
+private:
+	struct FloatComparator
+	{
+		template <typename FloatType>
+		bool operator()(const FloatType& lhs, const FloatType & rhs) const
+		{
+			const FloatType scaledEpsilon = std::numeric_limits<FloatType>::epsilon() * std::max(std::abs(lhs), std::abs(rhs));
+			if(rhs == FloatType{})
+
+		}
+	};
+
 
 public:
 	std::map<KeyType, ValueType> interval_map_;
-	std::map<KeyType, ValueType> m_map;
+	std::map<KeyType, ValueType, std::conditional_t<std::is_floating_point_v<KeyType>, FloatComparator, std::less<KeyType>>> m_map;
+
+
+
 	IntervalMap()
 	{
+
 		interval_map_.insert(interval_map_.end(),
 							 std::make_pair<KeyType, ValueType>(std::numeric_limits<KeyType>::min(), ValueType{}));
 	};
