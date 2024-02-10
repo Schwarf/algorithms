@@ -425,3 +425,15 @@ TEST(TestIntervalMap, merging1)
 	map.add2(start, end, value);
 	EXPECT_EQ(map[12], values[1]);
 }
+
+TEST(TestIntervalMap, floatsimple1)
+{
+	constexpr float start{1.f};
+	constexpr float end{4.f};
+	constexpr float value{1.f};
+	auto map = IntervalMap<int, float>();
+	map.add2(start, end, value);
+	EXPECT_EQ(map[2], value);
+	EXPECT_EQ(map[0], float{});
+	EXPECT_EQ(map[1000], float{});
+}

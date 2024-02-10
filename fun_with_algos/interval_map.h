@@ -7,27 +7,31 @@
 #include <map>
 #include <iterator>
 #include <utility>
+#include <cmath>
 template<typename KeyType, typename ValueType>
 class IntervalMap
 {
 private:
 	struct FloatComparator
 	{
-		template <typename FloatType>
-		bool operator()(const FloatType& lhs, const FloatType & rhs) const
+		template<typename FloatType>
+		bool operator()(const FloatType &lhs, const FloatType &rhs) const
 		{
-			const FloatType scaledEpsilon = std::numeric_limits<FloatType>::epsilon() * std::max(std::abs(lhs), std::abs(rhs));
-			if(rhs == FloatType{})
-
+			if (rhs == FloatType{})
+				return lhs < rhs;
+			if (std::fabs(static_cast<FloatType>(1) - lhs / rhs) < std::numeric_limits<FloatType>::epsilon()) {
+				return false;
+			}
+			return lhs < rhs;
 		}
 	};
 
 
 public:
 	std::map<KeyType, ValueType> interval_map_;
-	std::map<KeyType, ValueType, std::conditional_t<std::is_floating_point_v<KeyType>, FloatComparator, std::less<KeyType>>> m_map;
-
-
+	std::map<KeyType,
+			 ValueType,
+			 std::conditional_t<std::is_floating_point_v<KeyType>, FloatComparator, std::less<KeyType>>> m_map;
 
 	IntervalMap()
 	{
@@ -77,21 +81,19 @@ public:
 		auto end = interval_map_.find(intervalEnd);
 
 		auto beforeEnd = interval_map_.lower_bound(intervalEnd);
-		if(end != beforeEnd)
-			auto x =1;
-		if(end == interval_map_.end())
-		{
+		if (end != beforeEnd)
+			auto x = 1;
+		if (end == interval_map_.end()) {
 			end = interval_map_.insert(std::make_pair(intervalEnd, beforeEnd->second)).first;
 		}
-		else
-		{
+		else {
 			end->second = beforeEnd->second;
 		}
 
 		auto begin = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
 		interval_map_.erase(std::next(begin), end);
 
-		if(begin != interval_map_.begin())
+		if (begin != interval_map_.begin())
 			begin--;
 		while (begin != end) {
 			auto next = std::next(begin);
@@ -99,7 +101,6 @@ public:
 				interval_map_.erase(begin);
 			begin = next;
 		}
-
 
 	}
 
