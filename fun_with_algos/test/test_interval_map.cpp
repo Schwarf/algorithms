@@ -92,6 +92,26 @@ TEST(TestIntervalMap, internalOverlapEndEqual)
 	EXPECT_EQ(map[6], values[1]);
 }
 
+
+TEST(TestIntervalMap, nooverlap)
+{
+	const std::vector<int> starts{1, 5, 10, 15};
+	const std::vector<int> ends{5, 10, 15, 1000};
+	const std::vector<char> values{'a', 'b', 'c', 'd'};
+	auto map = IntervalMap<int, char>();
+	for (int i{}; i < starts.size() - 1; ++i)
+		map.add2(starts[i], ends[i], values[i]);
+	constexpr int start{3};
+	constexpr int end{4};
+	constexpr char value{'x'};
+	map.add2(start, end, value);
+	EXPECT_EQ(map[3], value);
+	EXPECT_EQ(map[4], values[0]);
+	EXPECT_EQ(map[5], values[1]);
+	EXPECT_EQ(map[6], values[1]);
+}
+
+
 TEST(TestIntervalMap, overlap1)
 {
 	const std::vector<int> start{1, 3, 9};

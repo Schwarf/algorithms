@@ -35,9 +35,7 @@ public:
 
 	IntervalMap()
 	{
-
-		interval_map_.insert(interval_map_.end(),
-							 std::make_pair<KeyType, ValueType>(std::numeric_limits<KeyType>::min(), ValueType{}));
+		interval_map_[std::numeric_limits<KeyType>::min()] = ValueType{};
 	};
 
 	ValueType const &operator[](const KeyType &key) const
@@ -47,28 +45,31 @@ public:
 
 	void add2(const KeyType &intervalBegin, const KeyType &intervalEnd, const ValueType &mappedValue)
 	{
-
-		// End of the input range
-		auto itEnd = interval_map_.find(intervalEnd);
-		if (auto l = interval_map_.lower_bound(intervalEnd); itEnd != interval_map_.end())
-			itEnd->second = l->second;
-		else
-			itEnd = interval_map_.insert(interval_map_.end(), std::make_pair(intervalEnd, (--l)->second));
+		// End of the input interval-range
+		auto iteratorPositionIntervalEnd = interval_map_.find(intervalEnd);
+		// lowerbound can never point to start since a default value should be always there (constructor)
+		auto lowerbound = interval_map_.lower_bound(intervalEnd);
+		// [min, 1, 2] insert 5, lowerbound points to end -> [min, 1, 2, 5] and value of key 2 is now set to key 5
+		// [min, 1, 10] insert 5, lowerbound points to 10 -> [min, 1, 5, 10] and value of key 10 is now set to key 5
+		if (iteratorPositionIntervalEnd == interval_map_.end())
+		{
+			iteratorPositionIntervalEnd = interval_map_.insert(interval_map_.end(),  std::make_pair(intervalEnd, (--lowerbound)->second));
+		}
 
 		// Beginning of the input range
-		auto itBegin = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
+		auto iteratorPositionIntervalBegin = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
 
-		// Cleanup the new range
-		interval_map_.erase(std::next(itBegin), itEnd);
+		// Cleanup intervals between newly inserted interval
+		interval_map_.erase(std::next(iteratorPositionIntervalBegin), iteratorPositionIntervalEnd);
 
-		// Make canonical
-		auto itRight = itEnd;
-		auto itLeft = (itBegin != interval_map_.begin() ? std::prev(itBegin) : itBegin);
-		while (itRight != itLeft) {
-			auto itNext = std::prev(itRight);
-			if (itRight->second == itNext->second)
-				interval_map_.erase(itRight);
-			itRight = itNext;
+		// Merge intervals between newly inserted interval
+		auto iteratorRight = iteratorPositionIntervalEnd;
+		auto iteratorLeft = iteratorPositionIntervalBegin != interval_map_.begin() ? --iteratorPositionIntervalBegin : iteratorPositionIntervalBegin;
+		while (iteratorRight != iteratorLeft) {
+			auto nextIterator = --iteratorRight;
+			if (iteratorRight->second == nextIterator->second)
+				interval_map_.erase(iteratorRight);
+			iteratorRight = nextIterator;
 		}
 	}
 
