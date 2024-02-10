@@ -2,7 +2,7 @@
 // Created by andreas on 22.11.22.
 //
 #include "gtest/gtest.h"
-#include "perfect_square.h"
+#include "perfect_squares.h"
 
 
 TEST(TestPerfectSquares, simple_bottom_up1)

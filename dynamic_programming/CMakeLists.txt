@@ -17,7 +17,7 @@ add_executable(dynamic_programming_samples main.cpp
         maximum_sum_of_array_no_adjacent_elements.h
         min_costs_to_reach_end.h
         minimum_path_through_matrix.h
-        perfect_square.h
+        perfect_squares.h
         sum_subarray_minimums.h
         trapping_rain_water.h
         maximum_number_of_uncrossing_lines.h

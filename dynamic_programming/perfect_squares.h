@@ -43,7 +43,7 @@ int number_of_perfect_square_summands_needed_top_down(int target)
 int number_of_perfect_square_summands_needed(int target)
 {
 	// in this vector we count the number of perfect squares for all number until the target number
-	std::vector<int> dp(target + 1, 1000000);
+	std::vector<int> dp(target + 1, target);
 	dp[0] = 0;
 	for (int i = 1; i <= target; ++i)
 		for (int j{}; j * j <= i; ++j)
