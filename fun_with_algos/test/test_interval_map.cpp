@@ -453,7 +453,26 @@ TEST(TestIntervalMap, floatsimple1)
 	constexpr float value{1.f};
 	auto map = IntervalMap<int, float>();
 	map.add2(start, end, value);
-	EXPECT_EQ(map[2], value);
-	EXPECT_EQ(map[0], float{});
-	EXPECT_EQ(map[1000], float{});
+	EXPECT_FLOAT_EQ(map[2], value);
+	EXPECT_FLOAT_EQ(map[0], float{});
+	EXPECT_FLOAT_EQ(map[1000], float{});
+}
+
+
+TEST(TestIntervalMap, floatNooverlap)
+{
+	const std::vector<double> starts{1.0, 5.0000000000000002, 10, 15};
+	const std::vector<double> ends{5.0, 10., 15, 1000};
+	const std::vector<char> values{'a', 'b', 'c', 'd'};
+	auto map = IntervalMap<double, char>();
+	for (int i{}; i < starts.size() - 1; ++i)
+		map.add2(starts[i], ends[i], values[i]);
+	constexpr int start{3};
+	constexpr int end{4};
+	constexpr char value{'x'};
+	map.add2(start, end, value);
+	EXPECT_EQ(map[3], value);
+	EXPECT_EQ(map[4], values[0]);
+	EXPECT_EQ(map[5], values[1]);
+	EXPECT_EQ(map[6], values[1]);
 }

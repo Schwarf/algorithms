@@ -59,17 +59,18 @@ public:
 		// Beginning of the input range
 		auto iteratorPositionIntervalBegin = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
 
-		// Cleanup intervals between newly inserted interval
+		// Cleanup between interval start and end
 		interval_map_.erase(std::next(iteratorPositionIntervalBegin), iteratorPositionIntervalEnd);
 
-		// Merge intervals between newly inserted interval
+		// Merge intervals
 		auto iteratorRight = iteratorPositionIntervalEnd;
 		auto iteratorLeft = iteratorPositionIntervalBegin != interval_map_.begin() ? --iteratorPositionIntervalBegin : iteratorPositionIntervalBegin;
 		while (iteratorRight != iteratorLeft) {
-			auto nextIterator = --iteratorRight;
-			if (iteratorRight->second == nextIterator->second)
+			auto currentIterator = iteratorRight;
+			auto previousIterator = --currentIterator;
+			if (iteratorRight->second == previousIterator->second)
 				interval_map_.erase(iteratorRight);
-			iteratorRight = nextIterator;
+			iteratorRight = currentIterator;
 		}
 	}
 
