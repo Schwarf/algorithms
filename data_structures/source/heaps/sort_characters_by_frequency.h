@@ -15,9 +15,16 @@ std::string sort_by_frequencies(std::string input)
 	for (const auto c: input) {
 		map[c]++;
 	}
-	std::priority_queue<std::pair<int, char>> q;
+	auto comparator = [](const std::pair<int, char> &p1, const std::pair<int, char> &p2) -> bool
+	{
+		if (p1.first == p2.first) {
+			return p1.second > p2.second;
+		}
+		return p1.first < p2.first;
+	};
+	std::priority_queue<std::pair<int, char>, std::vector<std::pair<int, char>>, decltype(comparator)> q(comparator);
 	for (const auto [c, frequency]: map) {
-		q.push({frequency, c});
+		q.emplace(frequency, c);
 	}
 	std::string result{};
 	while (!q.empty()) {
