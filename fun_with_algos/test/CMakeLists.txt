@@ -18,7 +18,7 @@ add_executable(test_fun_with_algos
         test_spider_brainteaser.cpp
         test_find_original_array_from_doubled_array.cpp
         test_sum_of_absolute_differences.cpp
-        test_largest_submatrix_by_moving_columns.cpp test_interval_map.cpp)
+        test_largest_submatrix_by_moving_columns.cpp test_interval_map.cpp test_interval_map2.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
