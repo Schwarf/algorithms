@@ -6,6 +6,7 @@
 #define INTERVAL_MAP2_H
 #include <map>
 #include <limits>
+#include <utility>
 template<typename K, typename V>
 class interval_map {
 public:
@@ -23,8 +24,16 @@ public:
 	// includes keyBegin, but excludes keyEnd.
 	// If !( keyBegin < keyEnd ), this designates an empty interval,
 	// and assign must do nothing.
+//	(I)   Type requirements are met: You must adhere to the specification of the key and value type given above.
+//	(II)  Correctness: Your program should produce a working interval_map with the behavior described above. In particular, pay attention to the validity of iterators. It is illegal to dereference end iterators. Consider using a checking STL implementation such as the one shipped with Visual C++ or GCC.
+//	(III) Canonicity: The representation in m_map must be canonical.
+//
+//	(IIII) Running time: Imagine your implementation is part of a library, so it should be big-O optimal. In addition:
+//		                Do not make big-O more operations on K and V than necessary because you do not know how fast operations on K/V are; remember that constructions, destructions and assignments are operations as well.
+//	                    Do not make more than one operation of amortized O(log N), in contrast to O(1), running time, where N is the number of elements in m_map.
+
 	void assign( K const& keyBegin, K const& keyEnd, V const& val ) {
-		if (keyEnd <= keyBegin)
+		if (!(keyBegin < keyEnd)) // Requirement (I) nothing else but the < operator is defined
 			return;
 
 		if(m_map.empty()) {
@@ -46,7 +55,8 @@ public:
 
 		auto lowerbound = m_map.lower_bound(keyEnd);
 		auto iteratorPositionkeyEnd = lowerbound;
-		if (lowerbound == m_map.end() || lowerbound->first != keyEnd) {
+		// Requirement (IV) we only make one O(log N) operation
+		if (lowerbound == m_map.end() || keyEnd < lowerbound->first) { // Requirement (I) nothing else but the < operator is defined
 			// Key does not exist, insert using the value from the immediate predecessor
 			auto valueToInsert = lowerbound == m_map.begin() ? m_valBegin : std::prev(lowerbound)->second;
 			// Insert at the lowerbound position, which is the correct spot for keyEnd
@@ -60,17 +70,16 @@ public:
 
 		// Cleanup between interval start and end
 		auto next = iteratorPositionkeyBegin;
-		m_map.erase(++next, iteratorPositionkeyEnd);
+		m_map.erase(++next, iteratorPositionkeyEnd); //
 
-		// Merge intervals with same values
+		// Merge intervals with same values in inserted interval range
 		auto iteratorRight = iteratorPositionkeyEnd;
 		auto iteratorLeft = iteratorPositionkeyBegin != m_map.begin() ? --iteratorPositionkeyBegin : iteratorPositionkeyBegin;
 		while (iteratorRight != iteratorLeft) {
-			auto currentIterator = iteratorRight;
-			auto previousIterator = --currentIterator;
+			auto previousIterator = std::prev(iteratorRight);
 			if (iteratorRight->second == previousIterator->second)
 				m_map.erase(iteratorRight);
-			iteratorRight = currentIterator;
+			iteratorRight = previousIterator;
 		}
 
 	}
