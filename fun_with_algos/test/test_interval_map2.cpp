@@ -536,19 +536,52 @@ int randomInt(int min, int max) {
 	return distribution(generator);
 }
 
-TEST(Testinterval_map, randomTest1_check_values)
+struct KeyTypeStruct {
+	int key;
+
+	// Constructor for ease of use
+	KeyTypeStruct() : key{} {}
+	explicit KeyTypeStruct(int k) : key(k) {}
+
+	// Copy constructor and assignment operator are implicitly defined
+
+	// Less-than comparison operator
+	bool operator<(const KeyTypeStruct& other) const {
+		return key < other.key;
+	}
+};
+
+
+struct ValueTypeStruct {
+	char value;
+
+	// Constructor for ease of use
+	ValueTypeStruct() : value{} {}
+	explicit ValueTypeStruct(char v) : value(v) {}
+
+	// Copy constructor and assignment operator are implicitly defined
+
+	// Less-than comparison operator
+	bool operator==(const ValueTypeStruct& other) const {
+		return value == other.value;
+	}
+};
+
+
+TEST(Testinterval_map, randomTest1_check_adjacent_values)
 {
-	interval_map<int, char> intervalMap('A'); // Assuming 'A' is the default value
-	for (int i = 0; i < 1000; ++i) { // Number of insertions
-		int start = randomInt(1, 100);
-		int end = randomInt(start, 100); // Ensure end is >= start
-		char value = 'A' + randomInt(0, 25); // Random char from 'A' to 'Z'
+	interval_map<int, char> intervalMap(-128); // Assuming 'A' is the default value
+	for (int i = 0; i < 250; ++i) { // Number of insertions
+		int start = randomInt(1, 1000);
+		int end = randomInt(start, 1000); // Ensure end is >= start
+		char value = -128 + randomInt(0, 250); // Random char from 'A' to 'Z'
 		intervalMap.assign(start, end, value);
 	}
 
 	// Make sure no adjacent intervals have the same value
 	int previousKey{};
-	int previousValue{};
+	char previousValue{};
+	std::cout << intervalMap.m_map.size() << std::endl;
 	for (const auto &[key, value]: intervalMap.m_map)
 	{
 		if(previousKey == 0)
@@ -559,6 +592,36 @@ TEST(Testinterval_map, randomTest1_check_values)
 		}
 		EXPECT_NE(previousValue, value);
 		EXPECT_NE(previousKey, key);
+		previousValue = value;
+		previousKey = key;
+	}
+}
+
+
+TEST(Testinterval_map, randomTest1_check_adjacent_values_struct)
+{
+	interval_map<KeyTypeStruct, ValueTypeStruct> intervalMap(ValueTypeStruct{'A'}); // Assuming 'A' is the default value
+	for (int i = 0; i < 250; ++i) { // Number of insertions
+		const auto start = KeyTypeStruct(randomInt(1, 1000));
+		const auto end = KeyTypeStruct(randomInt(start.key, 1000)); // Ensure end is >= start
+		const auto value =  ValueTypeStruct(static_cast<char>(randomInt(-100, 100))); // Random char from 'A' to 'Z'
+		intervalMap.assign(start, end, value);
+	}
+
+	// Make sure no adjacent intervals have the same value
+	KeyTypeStruct previousKey{};
+	ValueTypeStruct previousValue{};
+	std::cout << intervalMap.m_map.size() << std::endl;
+	for (const auto &[key, value]: intervalMap.m_map)
+	{
+		if(previousKey.key == 0)
+		{
+			previousKey = key;
+			previousValue = value;
+			continue;
+		}
+		EXPECT_NE(previousValue.value, value.value);
+		EXPECT_NE(previousKey.key, key.key);
 		previousValue = value;
 		previousKey = key;
 	}
