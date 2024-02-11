@@ -45,6 +45,8 @@ public:
 
 	void add2(const KeyType &intervalBegin, const KeyType &intervalEnd, const ValueType &mappedValue)
 	{
+		if (intervalEnd <= intervalBegin)
+			return;
 		// End of the input interval-range
 		auto iteratorPositionIntervalEnd = interval_map_.find(intervalEnd);
 		// lowerbound can never point to start since a default value should be always there (constructor)
@@ -80,28 +82,22 @@ public:
 		if (intervalEnd <= intervalBegin)
 			return;
 
-		auto end = interval_map_.find(intervalEnd);
-
-		auto beforeEnd = interval_map_.lower_bound(intervalEnd);
-		if (end != beforeEnd)
-			auto x = 1;
-		if (end == interval_map_.end()) {
-			end = interval_map_.insert(std::make_pair(intervalEnd, beforeEnd->second)).first;
-		}
-		else {
-			end->second = beforeEnd->second;
+		auto intervalEndPosition = interval_map_.find(intervalEnd);
+		auto lowerbound = interval_map_.lower_bound(intervalEnd);
+		if (intervalEndPosition == interval_map_.end()) {
+			intervalEndPosition = interval_map_.insert(std::make_pair(intervalEnd, lowerbound->second)).first;
 		}
 
-		auto begin = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
-		interval_map_.erase(std::next(begin), end);
+		auto intervalBeginPosition = interval_map_.insert_or_assign(intervalBegin, mappedValue).first;
+		interval_map_.erase(std::next(intervalBeginPosition), intervalEndPosition);
 
-		if (begin != interval_map_.begin())
-			begin--;
-		while (begin != end) {
-			auto next = std::next(begin);
-			if (next->second == begin->second)
-				interval_map_.erase(begin);
-			begin = next;
+		if (intervalBeginPosition != interval_map_.begin())
+			intervalBeginPosition--;
+		while (intervalBeginPosition != intervalEndPosition) {
+			auto next = std::next(intervalBeginPosition);
+			if (next->second == intervalBeginPosition->second)
+				interval_map_.erase(intervalBeginPosition);
+			intervalBeginPosition = next;
 		}
 
 	}
