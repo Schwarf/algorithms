@@ -37,8 +37,8 @@ public:
 			return;
 
 		if(m_map.empty()) {
-			m_map[keyBegin] = val;
-			m_map[keyEnd] = m_valBegin;
+			m_map.insert(m_map.end(), std::make_pair(keyBegin, val));
+			m_map.insert(m_map.end(), std::make_pair(keyEnd, m_valBegin));
 			return;
 		}
 

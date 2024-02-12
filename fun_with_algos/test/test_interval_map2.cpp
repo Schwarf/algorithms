@@ -540,7 +540,7 @@ struct KeyTypeStruct {
 	int key;
 
 	// Constructor for ease of use
-	KeyTypeStruct() : key{} {}
+	KeyTypeStruct() = delete;
 	explicit KeyTypeStruct(int k) : key(k) {}
 
 	// Copy constructor and assignment operator are implicitly defined
@@ -556,7 +556,7 @@ struct ValueTypeStruct {
 	char value;
 
 	// Constructor for ease of use
-	ValueTypeStruct() : value{} {}
+	ValueTypeStruct() = delete;
 	explicit ValueTypeStruct(char v) : value(v) {}
 
 	// Copy constructor and assignment operator are implicitly defined
@@ -609,20 +609,20 @@ TEST(Testinterval_map, randomTest1_check_adjacent_values_struct)
 	}
 
 	// Make sure no adjacent intervals have the same value
-	KeyTypeStruct previousKey{};
-	ValueTypeStruct previousValue{};
+	int previousKey{};
+	char previousValue{};
 	std::cout << intervalMap.m_map.size() << std::endl;
 	for (const auto &[key, value]: intervalMap.m_map)
 	{
-		if(previousKey.key == 0)
+		if(previousKey == 0)
 		{
-			previousKey = key;
-			previousValue = value;
+			previousKey = key.key;
+			previousValue = value.value;
 			continue;
 		}
-		EXPECT_NE(previousValue.value, value.value);
-		EXPECT_NE(previousKey.key, key.key);
-		previousValue = value;
-		previousKey = key;
+		EXPECT_NE(previousValue, value.value);
+		EXPECT_NE(previousKey, key.key);
+		previousValue = value.value;
+		previousKey = key.key;
 	}
 }
