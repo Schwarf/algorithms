@@ -19,7 +19,7 @@
 #include <vector>
 #include <queue>
 
-int furthest_building_to_reach(std::vector<int> &heights, int bricks, int ladders)
+int furthest_building_to_reach(const std::vector<int> &heights, int bricks, int ladders)
 {
 	int n = heights.size();
 	std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
