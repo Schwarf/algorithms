@@ -8,11 +8,12 @@
 int range_bitwise_and(int left, int right)
 {
 	int shift{};
-	while(left < shift)
+	// Find common prefix aka shift to the right until 'left' and 'right' are equal.
+	while(left < right)
 	{
 		left>>=1;
 		right>>=1;
-		shift+=1;
+		shift++;
 	}
 	return left << shift;
 }

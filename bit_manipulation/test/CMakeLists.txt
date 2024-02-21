@@ -12,7 +12,9 @@ add_executable(test_bit_manipulation
         test_find_unique_numbers_in_arrays.cpp
         test_counting_bits.cpp
         test_sort_according_to_hamming_weight.cpp
-        test_find_original_array_XOR.cpp test_integer_division.cpp)
+        test_find_original_array_XOR.cpp
+        test_integer_division.cpp
+        test_bitwise_and_numbers_in_range.cpp)
 
 
 target_link_libraries(test_bit_manipulation ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
