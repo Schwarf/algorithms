@@ -31,7 +31,7 @@ public:
 
 		const auto &listIt = it->second;
 		// Move it to the front
-		cache.splice(cache.end(), cache, listIt);
+		cache.splice(cache.begin(), cache, listIt);
 		return listIt->value;
 	}
 
@@ -41,8 +41,8 @@ public:
 		const auto it = key_to_iterator.find(key);
 		if (it != key_to_iterator.cend()) {
 			const auto &listIt = it->second;
-			// Move it to the end, the most recently used position is the last
-			cache.splice(end(cache), cache, listIt);
+			// Move it to the beginning, the most recently used position is the first
+			cache.splice(begin(cache), cache, listIt);
 			listIt->value = value;
 			return;
 		}
@@ -55,8 +55,8 @@ public:
 			cache.pop_front();
 		}
 
-		cache.emplace_back(key, value);
-		key_to_iterator[key] = --cache.end();
+		cache.emplace_front(key, value);
+		key_to_iterator[key] = cache.begin();
 	}
 
 	[[nodiscard]] size_t size() const
