@@ -41,4 +41,27 @@ int find_cheapest_flights(int n,
 	}
 	return distance[destination] == std::numeric_limits<int>::max() ? -1 : distance[destination];
 }
+
+int find_cheapest_flights_bellman_ford(int n,
+									   const std::vector<std::vector<int>> &flights,
+									   int source,
+									   int destination,
+									   int max_stops)
+{
+	std::vector<int> dp(n, std::numeric_limits<int>::max());
+	dp[source] = 0;
+	for (int i = 0; i <= max_stops; ++i) {
+		std::vector<int> temp(dp);
+		for (auto &flight: flights) {
+			int u = flight[0], v = flight[1], w = flight[2];
+			if (dp[u] != std::numeric_limits<int>::max() && dp[u] + w < temp[v]) {
+				temp[v] = dp[u] + w;
+			}
+		}
+		dp = temp;
+	}
+	return dp[destination] == std::numeric_limits<int>::max() ? -1 : dp[destination];
+}
+
+
 #endif //FIND_CHEAPEST_FLIGHTS_WITH_K_STOPS_H
