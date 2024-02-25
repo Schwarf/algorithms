@@ -42,7 +42,7 @@ T greatest_common_divisor_recursive(T a, T b)
 	}
 	if(b ==0)
 		return a;
-	return greatest_common_divisor_recursive(b, a % b);
+	return greatest_common_divisor_recursive(b, static_cast<T>(a % b));
 }
 
 #endif //GREATEST_COMMON_DIVISOR_H
