@@ -14,8 +14,10 @@ requires std::is_integral_v<T>
 T greatest_common_divisor(T a, T b)
 {
 	// GCD is typically defined to be positive
-	a = std::abs(a);
-	b = std::abs(b);
+	if constexpr (std::is_signed_v<T>) {
+		a = std::abs(a);
+		b = std::abs(b);
+	}
 	if(a ==0)
 		return b;
 	while(b !=0)
@@ -34,8 +36,10 @@ requires std::is_integral_v<T>
 T greatest_common_divisor_recursive(T a, T b)
 {
 	// GCD is typically defined to be positive
-	a = std::abs(a);
-	b = std::abs(b);
+	if constexpr (std::is_signed_v<T>) {
+		a = std::abs(a);
+		b = std::abs(b);
+	}
 	if(b ==0)
 		return a;
 	return greatest_common_divisor_recursive(b, a % b);
