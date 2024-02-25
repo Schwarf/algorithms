@@ -4,10 +4,10 @@
 
 #ifndef LARGEST_SUBMATRIX_BY_MOVING_COLUMNS_H
 #define LARGEST_SUBMATRIX_BY_MOVING_COLUMNS_H
-// You are given a binary matrix matrix of size m x n, and you are allowed to rearrange the
+// You are given a binary matrix of size m x n, and you are allowed to rearrange the
 // columns of the matrix in any order. The matrix only contains 1's and 0's.
-// Return the area of the largest submatrix within matrix where every element of the
-// submatrix is 1 after reordering the columns optimally.
+// Return the area of the largest sub-matrix within matrix where every element of the
+// sub-matrix is 1 after reordering the columns optimally.
 #include <vector>
 #include <concepts>
 #include <functional>
