@@ -48,9 +48,30 @@ T diameter_of_tree(TreeNode<T> *root)
 }
 
 template<typename T>
+T diameter(TreeNode<T> *node, T &result)
+{
+	// Base case: if the current node is null, return 0
+	if (!node)
+		return T{0};
+
+	// Recursively calculate the diameter of left and right subtrees
+	T left = diameter(node->left, result);
+	T right = diameter(node->right, result);
+
+	// Update the maximum diameter encountered so far
+	result = std::max(result, left + right);
+
+	// Return the depth of the current node
+	return std::max(left, right) + T{1};
+}
+
+template<typename T>
 T diameter_of_tree_optimal(TreeNode<T> *root)
 {
-
+	T result{};
+	diameter(root, result);
+	return result;
 }
+
 
 #endif //DIAMETER_OF_BINARY_TREE_H
