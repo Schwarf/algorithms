@@ -37,4 +37,24 @@ T find_bottom_left_value(TreeNode<T> *root)
 
 }
 
+// alternative is a simple BFS where the right node is visited before the left node (so in principal reversed). Same would work with DFS
+template<typename T>
+T find_bottom_left_value_bfs(TreeNode<T> *root)
+{
+	std::queue<TreeNode<T> *> q;
+	q.push(root);
+	T candidate{};
+	while (!q.empty()) {
+		candidate = q.front()->value;
+		if (q.front()->right)
+			q.push(q.front()->right);
+		if (q.front()->left)
+			q.push(q.front()->left);
+
+		q.pop();
+	}
+	return candidate;
+}
+
+
 #endif //FIND_BOTTOM_LEFT_TREE_VALUE_H
