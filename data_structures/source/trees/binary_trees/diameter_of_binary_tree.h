@@ -11,7 +11,7 @@
 //The length of a path between two nodes is represented by the number of edges between them.
 
 template<typename T>
-T bfs_help(TreeNode<T> *node)
+int bfs_help(TreeNode<T> *node)
 {
 	std::queue<TreeNode<T> *> q;
 	q.push(node);
@@ -33,9 +33,9 @@ T bfs_help(TreeNode<T> *node)
 
 // using breadth first search
 template<typename T>
-T diameter_of_tree(TreeNode<T> *root)
+int diameter_of_tree(TreeNode<T> *root)
 {
-	T max{};
+	int max{};
 	if (root->left && root->right)
 		max = std::max(max, 2 + bfs_help(root->right) + bfs_help(root->left));
 	else
@@ -48,15 +48,15 @@ T diameter_of_tree(TreeNode<T> *root)
 }
 
 template<typename T>
-T diameter(TreeNode<T> *node, T &result)
+int diameter(TreeNode<T> *node, int &result)
 {
 	// Base case: if the current node is null, return 0
 	if (!node)
-		return T{0};
+		return 0;
 
 	// Recursively calculate the diameter of left and right subtrees
-	T left = diameter(node->left, result);
-	T right = diameter(node->right, result);
+	int left = diameter(node->left, result);
+	int right = diameter(node->right, result);
 
 	// Update the maximum diameter encountered so far
 	result = std::max(result, left + right);
@@ -66,9 +66,9 @@ T diameter(TreeNode<T> *node, T &result)
 }
 
 template<typename T>
-T diameter_of_tree_optimal(TreeNode<T> *root)
+int diameter_of_tree_optimal(TreeNode<T> *root)
 {
-	T result{};
+	int result{};
 	diameter(root, result);
 	return result;
 }
