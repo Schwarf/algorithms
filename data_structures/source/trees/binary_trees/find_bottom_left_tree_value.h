@@ -9,7 +9,7 @@
 #include "tree_node.h"
 
 template<typename T>
-T findBottomLeftValue(TreeNode<T> *root)
+T find_bottom_left_value(TreeNode<T> *root)
 {
 
 	std::queue<TreeNode<T> *> q;
@@ -20,7 +20,7 @@ T findBottomLeftValue(TreeNode<T> *root)
 		bool first{true};
 		while (q.front()) {
 			if (first && q.front()->left == nullptr) {
-				candidate = q.front()->val;
+				candidate = q.front()->value;
 				first = false;
 			}
 			if (q.front()->left) {
