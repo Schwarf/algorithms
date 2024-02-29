@@ -272,6 +272,34 @@ protected:
 		return root;
 	}
 
+	static TreeNode<int> *even_odd_tree1()
+	{
+		auto root = new TreeNode<int>(1);
+		root->left = new TreeNode<int>(10);
+		root->right = new TreeNode<int>(4);
+		root->left->left = new TreeNode<int>(3);
+		root->right->left = new TreeNode<int>(7);
+		root->right->right = new TreeNode<int>(9);
+
+		root->left->left->left = new TreeNode<int>(12);
+		root->left->left->right = new TreeNode<int>(8);
+		root->right->left->left = new TreeNode<int>(6);
+		root->right->right->right = new TreeNode<int>(2);
+
+		return root;
+	}
+
+	static TreeNode<int> *even_odd_tree2()
+	{
+		auto root = new TreeNode<int>(1);
+		root->right = new TreeNode<int>(4);
+		root->right->left = new TreeNode<int>(7);
+		root->right->right = new TreeNode<int>(94819);
+		root->right->left->left = new TreeNode<int>(4);
+
+		return root;
+	}
+
 };
 
 #endif //SETUP_BINARY_TREE_H
