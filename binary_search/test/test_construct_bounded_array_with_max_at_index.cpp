@@ -13,3 +13,13 @@ TEST(TestConstructBoundedArrayWithMaxAtINdex, simple1)
 	constexpr int expected_result{2};
 	EXPECT_EQ(expected_result, max_value_from_constructed_array(array_size, index, max_sum));
 }
+
+
+TEST(TestConstructBoundedArrayWithMaxAtINdex, complex1)
+{
+	constexpr int array_size{9801};
+	constexpr int index{8469};
+	constexpr int max_sum{439132987};
+	constexpr int expected_result{48554};
+	EXPECT_EQ(expected_result, max_value_from_constructed_array(array_size, index, max_sum));
+}
