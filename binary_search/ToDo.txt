@@ -1,1 +1,1 @@
-- Add unit tests for construct_bounded_array_with_max_at_index.
+- Add more unit tests for construct_bounded_array_with_max_at_index and fix casting in algo.
