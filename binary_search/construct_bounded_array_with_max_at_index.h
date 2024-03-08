@@ -13,33 +13,34 @@
 // Return nums[index] of the constructed array.
 
 #include <type_traits>
-long long compute_sum(int index, T value, int n)
+template<typename T>
+T compute_sum(int index, T value, int n)
 {
-	long long count{};
-	// left side of index
-	if(value > index)
-		count+= (long long)(value+value-index)*(index+1)/2;
+	T count{};
+	// arithmetic sum = n*(a_1 + a_n)/2 with n = index+1, a_1 = value-index, a_n = value
+	if (value > index)
+		count += (value + value - index) * (index + 1) / 2;
 	else
-		count+= (long long)(value+1)*value/2 + (index -value+1);
+		count += (value + 1) * value / 2 + (index - value + 1);
 	// right side of index
-	if(value >= n- index)
-		count+= (long long)(value+value-n+1+index)*(n-index)/2;
+	if (value >= n - index)
+		count += (value + value - n + 1 + index) * (n - index) / 2;
 	else
-		count+= (long long)(value+1)*value/2 + (n-index -value);
+		count += (value + 1) * value / 2 + (n - index - value);
 
-	return count-value;
+	return count - value;
 }
 template<typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
-T maxValue(int n, int index, T max_sum) {
+T max_value_from_constructed_array(int n, int index, T max_sum)
+{
 	T left{1};
 	T right{max_sum};
-	while(left < right)
-	{
-		T mid = (left+right+1)/2;
-		if(compute_sum(index, mid, n) <= maxSum)
+	while (left < right) {
+		T mid = (left + right + 1) / 2;
+		if (compute_sum(index, mid, n) <= max_sum)
 			left = mid;
 		else
-			right = mid-1;
+			right = mid - 1;
 	}
 	return left;
 
