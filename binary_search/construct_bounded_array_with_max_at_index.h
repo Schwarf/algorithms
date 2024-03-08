@@ -17,13 +17,15 @@ template<typename T>
 T compute_sum(int index, T value, int n)
 {
 	T count{};
-	// arithmetic sum = n*(a_1 + a_n)/2 with n = index+1, a_1 = value-index, a_n = value
 	if (value > index)
+		// arithmetic sum = n*(a_1 + a_n)/2 with n = index+1, a_1 = value-index, a_n = value
 		count += (value + value - index) * (index + 1) / 2;
 	else
+		// index greater equal value. That means we can fill the first value indices with 1..value but then we fill with 1.
 		count += (value + 1) * value / 2 + (index - value + 1);
 	// right side of index
 	if (value >= n - index)
+		// arithmetic sum = n*(a_1 + a_n)/2 with n = n-index, a_1 = value-n+1+index, a_n = value
 		count += (value + value - n + 1 + index) * (n - index) / 2;
 	else
 		count += (value + 1) * value / 2 + (n - index - value);
