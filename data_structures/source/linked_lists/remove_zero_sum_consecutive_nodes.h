@@ -13,14 +13,15 @@ template<typename T>
 requires std::is_arithmetic_v<T>
 Node<T> *remove_zero_sum_consecutive_nodes(Node<T> *head)
 {
-	auto front = new Node<T>(T{}, head);
+	auto front = new Node<T>(T{});
+	front->next = head;
 	auto left = front;
 	while (left) {
 		// we start with head (since left==front previous head)
 		auto right = left->next;
 		int sum{};
 		while (right) {
-			sum += right->val;
+			sum += right->value;
 			if (sum == 0) {
 				left->next = right->next;
 			}
