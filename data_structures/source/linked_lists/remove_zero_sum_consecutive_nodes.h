@@ -9,6 +9,7 @@
 // After doing so, return the head of the final linked list.  You may return any such answer.
 #include "node.h"
 
+// O(N^2) time, O(1) space
 template<typename T>
 requires std::is_arithmetic_v<T>
 Node<T> *remove_zero_sum_consecutive_nodes(Node<T> *head)
@@ -31,4 +32,7 @@ Node<T> *remove_zero_sum_consecutive_nodes(Node<T> *head)
 	}
 	return front->next;
 }
+
+// O(N) time, O(N) space is missing
+
 #endif //REMOVE_ZERO_SUM_CONSECUTIVE_NODES_H
