@@ -22,4 +22,4 @@ add_executable(fun_with_algos main.cpp
         largest_submatrix_by_moving_columns.h
         interval_map.h
         interval_map2.h
-        greatest_common_divisor.h find_pivot_integer.h)
+        greatest_common_divisor.h find_pivot_integer.h product_of_array_but_current_index_value.h)
