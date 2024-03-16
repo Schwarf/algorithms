@@ -39,7 +39,7 @@ std::vector<T> get_averages_sliding_window(const std::vector<T> & nums, T k)
 	std::vector<T> result(n, -1);
 	if(2*k+1 > n)
 		return result;
-	double sum{};
+	T sum{};
 	const T div{2*k + 1};
 	for(int i{}; i < 2*k+1; ++i)
 		sum += nums[i];
