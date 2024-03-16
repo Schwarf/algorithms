@@ -13,34 +13,34 @@
 // Build and return an array avgs of length n where avgs[i] is the k-radius average for the subarray centered at index i.
 
 template <typename T>
-std::vector<double> get_averages_prefix_sum(std::vector<T> & nums, int k)
+std::vector<T> get_averages_prefix_sum(const std::vector<T> & nums, const T k)
 {
 	int n = nums.size();
 	if( k == 0)
 		return nums;
-	std::vector<double> prefix_sum(n+1, 0.0);
+	std::vector<T> prefix_sum(n+1, 0);
 	prefix_sum[0] = nums[0];
-	std::vector<double> result(n, -1.0);
+	std::vector<T> result(n, -1);
 	for(int i{}; i < n; ++i)
 		prefix_sum[i+1] = prefix_sum[i] + nums[i];
-	const double div{2.0*k + 1.0};
+	const T div{2*k + 1};
 	for(int i{k}; i < n-k; ++i)
 		result[i] = (prefix_sum[i+k+1] - prefix_sum[i-k])/div;
 	return result;
-};
+}
 
 
 template <typename T>
-std::vector<double> get_averages_sliding_window(std::vector<T> & nums, int k)
+std::vector<T> get_averages_sliding_window(const std::vector<T> & nums, T k)
 {
 	int n = nums.size();
 	if( k == 0)
 		return nums;
-	std::vector<double> result(n, -1.0);
+	std::vector<T> result(n, -1);
 	if(2*k+1 > n)
 		return result;
 	double sum{};
-	const double div{2.0*k + 1.0};
+	const T div{2*k + 1};
 	for(int i{}; i < 2*k+1; ++i)
 		sum += nums[i];
 	result[k] = sum/div;
@@ -51,7 +51,7 @@ std::vector<double> get_averages_sliding_window(std::vector<T> & nums, int k)
 	}
 	return result;
 
-};
+}
 
 
 
