@@ -22,7 +22,8 @@ add_executable(test_fun_with_algos
         test_interval_map.cpp
         test_interval_map2.cpp
         test_greatest_common_divisor.cpp
-        test_find_pivot_integer.cpp)
+        test_find_pivot_integer.cpp
+        test_insert_interval.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

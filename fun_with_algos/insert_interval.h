@@ -14,7 +14,7 @@
 #include <concepts>
 template <typename T>
 requires std::three_way_comparable<T>
-std::vector<std::vector<T>> insert_new_interval(std::vector<std::vector<T>>& intervals, std::vector<T>& new_interval) {
+std::vector<std::vector<T>> insert_new_interval(const std::vector<std::vector<T>>& intervals, std::vector<T>& new_interval) {
 	int n = intervals.size();
 	int index{};
 	std::vector<std::vector<T>> result;
@@ -28,8 +28,8 @@ std::vector<std::vector<T>> insert_new_interval(std::vector<std::vector<T>>& int
 
 	// Merging overlapping intervals
 	while (index < n && new_interval[1] >= intervals[index][0]) {
-		new_interval[0] = min(new_interval[0], intervals[index][0]);
-		new_interval[1] = max(new_interval[1], intervals[index][1]);
+		new_interval[0] = std::min(new_interval[0], intervals[index][0]);
+		new_interval[1] = std::max(new_interval[1], intervals[index][1]);
 		index++;
 	}
 	result.push_back(new_interval);
