@@ -43,4 +43,21 @@ int time_needed_for_scheduling_tasks(const std::vector<char> & tasks, int n)
 	return time;
 }
 
+int time_needed_for_scheduling_tasks_via_sort(const std::vector<char> & tasks, int n)
+{
+	std::vector<int> frequencies(26);
+	for (const auto &c: tasks) {
+		frequencies[c - 'A']++;
+	}
+	std::sort(frequencies.begin(), frequencies.end());
+	auto max_frequency = frequencies.back() - 1; // minus one because the last one needs no cooling time
+	auto idle_slots = max_frequency * n;
+	for(int i{24}; i >= 0 && frequencies[i] > 0; --i)
+	{
+		idle_slots -= std::min(max_frequency, frequencies[i]);
+	}
+	return idle_slots > 0 ? idle_slots + tasks.size(): tasks.size();
+}
+
+
 #endif //TASK_SCHEDULER_H
