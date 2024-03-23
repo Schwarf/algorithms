@@ -14,6 +14,20 @@ public:
 	SetupSinglyLinkedLists() = default;
 protected:
 	template<typename T>
+	Node<T> *get_single_list_from_vector(std::vector<T> &&input)
+	{
+		if (input.size() < 1)
+			return nullptr;
+		auto head = new Node<T>(input[0]);
+		auto node = head;
+		for (size_t i{1}; i < input.size(); ++i) {
+			node->next = new Node<T>(input[i]);
+			node = node->next;
+		}
+		return head;
+	}
+
+	template<typename T>
 	Node<T> *get_single_list_from_vector(const std::vector<T> &input)
 	{
 		if (input.size() < 1)
