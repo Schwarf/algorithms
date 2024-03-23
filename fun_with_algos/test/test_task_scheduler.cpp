@@ -4,7 +4,17 @@
 #include "gtest/gtest.h"
 #include "./../task_scheduler.h"
 
+
 TEST(TestTaskScheduler, simple1)
+{
+	const std::vector<char> tasks{'A', 'A', 'A', 'B', 'B', 'B'};
+	constexpr int minimum_intervals_between_identical_tasks{2};
+	constexpr int expected_result{8};
+	EXPECT_EQ(time_needed_for_scheduling_tasks(tasks, minimum_intervals_between_identical_tasks),
+			  expected_result);
+}
+
+TEST(TestTaskSchedulerViaSort, simple1)
 {
 	const std::vector<char> tasks{'A', 'A', 'A', 'B', 'B', 'B'};
 	constexpr int minimum_intervals_between_identical_tasks{2};
@@ -13,7 +23,7 @@ TEST(TestTaskScheduler, simple1)
 			  expected_result);
 }
 
-TEST(TestTaskScheduler, simple2)
+TEST(TestTaskSchedulerViaSort, simple2)
 {
 	const std::vector<char> tasks{'A', 'C', 'A', 'B', 'D', 'B'};
 	constexpr int minimum_intervals_between_identical_tasks{1};
@@ -22,7 +32,7 @@ TEST(TestTaskScheduler, simple2)
 			  expected_result);
 }
 
-TEST(TestTaskScheduler, simple3)
+TEST(TestTaskSchedulerViaSort, simple3)
 {
 	const std::vector<char> tasks{'A', 'C', 'A', 'B', 'D', 'B'};
 	constexpr int minimum_intervals_between_identical_tasks{8};
@@ -31,7 +41,7 @@ TEST(TestTaskScheduler, simple3)
 			  expected_result);
 }
 
-TEST(TestTaskScheduler, simple4)
+TEST(TestTaskSchedulerViaSort, simple4)
 {
 	const std::vector<char> tasks{'A', 'A', 'A', 'B', 'B', 'B'};
 	constexpr int minimum_intervals_between_identical_tasks{3};
@@ -40,7 +50,7 @@ TEST(TestTaskScheduler, simple4)
 			  expected_result);
 }
 
-TEST(TestTaskScheduler, simple5)
+TEST(TestTaskSchedulerViaSort, simple5)
 {
 	const std::vector<char> tasks
 		{'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
@@ -51,7 +61,7 @@ TEST(TestTaskScheduler, simple5)
 			  expected_result);
 }
 
-TEST(TestTaskScheduler, complex1)
+TEST(TestTaskSchedulerViaSort, complex1)
 {
 	const std::vector<char> tasks
 		{'B', 'F', 'J', 'J', 'H', 'A', 'D', 'C', 'C', 'D', 'J', 'E', 'B', 'E', 'C', 'H', 'E', 'E', 'G', 'E', 'H', 'I',
@@ -105,3 +115,4 @@ TEST(TestTaskScheduler, complex1)
 	EXPECT_EQ(time_needed_for_scheduling_tasks_via_sort(tasks, minimum_intervals_between_identical_tasks),
 			  expected_result);
 }
+
