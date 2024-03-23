@@ -37,7 +37,7 @@ void merge(Node<T> *list1, Node<T> *list2)
 }
 
 template<typename T>
-Node<T> *reorder_list(Node<T> *head)
+void reorder_list(Node<T> *head)
 {
 	if (!head || !head->next)
 		return;
