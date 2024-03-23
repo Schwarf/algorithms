@@ -18,7 +18,7 @@ struct dummy_plus_pair_hash
 	}
 };
 
-// Weak pair hash that has is commutative
+// Weak pair hash that is commutative
 template<class T1, class T2>
 struct commutative_pair_hash
 {

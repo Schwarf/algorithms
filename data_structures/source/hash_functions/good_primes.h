@@ -3,7 +3,7 @@
 //
 #include <cstddef>
 // Good primes are primes that are far away from powers of 2. E.g. 53 is almost half-way between 32(=2^5) and
-// 64(=2^6). The problem with powers of 2 is that e.g. the modulo operation (using a powers of 2, let's day k)
+// 64(=2^6). The problem with powers of 2 is that e.g. the modulo operation (using a powers of 2, let's say k)
 // will just remove the first k bits of the original value and therefore a lot of collisions can be generated.
 // A similar bias is expected with numbers close to powers of 2.
 // (TODO: CHECK THE STATEMENT ABOVE EXPLICITLY GENERATING HASHES)
