@@ -11,7 +11,7 @@
 #include <vector>
 #include <queue>
 
-int time_needed_for_scheduling_tasks(const std::vector<char> & tasks, int n)
+int time_needed_for_scheduling_tasks(const std::vector<char> & tasks, int minimum_intervals_between_identical_tasks)
 {
 	std::vector<int> frequencies(26);
 	for (const auto &c: tasks) {
@@ -26,7 +26,7 @@ int time_needed_for_scheduling_tasks(const std::vector<char> & tasks, int n)
 	int time{};
 	while(!q.empty())
 	{
-		int cycle = n+1;
+		int cycle = minimum_intervals_between_identical_tasks+1;
 		std::vector<int> store{};
 		int task_count{};
 		while(cycle-- && !q.empty())
@@ -35,15 +35,15 @@ int time_needed_for_scheduling_tasks(const std::vector<char> & tasks, int n)
 				store.push_back(q.top() -1);
 			q.pop();
 			task_count++;
-			for( auto && x : store )
+			for( auto  x : store )
 				q.push(x);
-			time += (q.empty() ? task_count : n+1);
+			time += (q.empty() ? task_count : minimum_intervals_between_identical_tasks+1);
 		}
 	}
 	return time;
 }
 
-int time_needed_for_scheduling_tasks_via_sort(const std::vector<char> & tasks, int n)
+int time_needed_for_scheduling_tasks_via_sort(const std::vector<char> & tasks, int minimum_intervals_between_identical_tasks)
 {
 	std::vector<int> frequencies(26);
 	for (const auto &c: tasks) {
@@ -51,7 +51,7 @@ int time_needed_for_scheduling_tasks_via_sort(const std::vector<char> & tasks, i
 	}
 	std::sort(frequencies.begin(), frequencies.end());
 	auto max_frequency = frequencies.back() - 1; // minus one because the last one needs no cooling time
-	auto idle_slots = max_frequency * n;
+	auto idle_slots = max_frequency * minimum_intervals_between_identical_tasks;
 	for(int i{24}; i >= 0 && frequencies[i] > 0; --i)
 	{
 		idle_slots -= std::min(max_frequency, frequencies[i]);
