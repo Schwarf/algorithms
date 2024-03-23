@@ -4,6 +4,30 @@
 #include "gtest/gtest.h"
 #include "dictionaries/ordered_dictionary.h"
 
+struct MoveOnlyType
+{
+	MoveOnlyType(int val)
+		: value(val)
+	{}
+	MoveOnlyType(const MoveOnlyType &rhs) = delete;
+	MoveOnlyType &operator=(const MoveOnlyType &rhs) = delete;
+	MoveOnlyType(MoveOnlyType &&rhs)
+		: value(rhs.value)
+	{
+		rhs.value = 0;
+	}
+	MoveOnlyType &operator=(MoveOnlyType &&rhs)
+	{
+		if (this != &rhs) {
+			value = rhs.value;
+			rhs.value = 0;
+		}
+		return *this;
+	};
+
+	int value{};
+};
+
 TEST(TestOrderedDictionary, insert_fill)
 {
 	auto keys = std::vector<char>{1, 2, 3, 4, 5, 6};
@@ -14,9 +38,7 @@ TEST(TestOrderedDictionary, insert_fill)
 		dictionary.insert(keys[i], values[i]);
 	}
 	EXPECT_EQ(keys.size(), dictionary.size());
-	EXPECT_EQ(values.size(), dictionary.size());
 }
-
 
 TEST(TestOrderedDictionary, get)
 {
@@ -56,5 +78,38 @@ TEST(TestOrderedDictionary, back)
 		EXPECT_TRUE(dictionary.back().has_value());
 		EXPECT_EQ(dictionary.back().value(), values[i].value());
 		EXPECT_EQ(dictionary.size(), i + 1);
+	}
+}
+
+TEST(TestOrderedDictionary, insert_fill_and_get_with_rvalues)
+{
+	auto dictionary = OrderedDictionary<unsigned int, std::optional<unsigned int>>();
+	constexpr int size{8};
+	for (int i{}; i < size; ++i) {
+		dictionary.insert(static_cast<unsigned int>(i), std::optional{static_cast<unsigned int>(i)});
+	}
+	EXPECT_EQ(size, dictionary.size());
+	for (int i{}; i < size; ++i) {
+		EXPECT_EQ(dictionary.get(static_cast<unsigned int>(i)), static_cast<unsigned int>(i));
+	}
+}
+
+TEST(TestOrderedDictionary, insert_fill_and_get_with_MoveOnly)
+{
+	auto dictionary = OrderedDictionary<int, std::optional<MoveOnlyType>>();
+	constexpr int size{4};
+
+	for (int i{}; i < size; ++i) {
+		auto move_only = MoveOnlyType(i);
+		std::optional<MoveOnlyType> opt_value;
+		opt_value = std::move(move_only);
+		dictionary.insert(i, std::move(opt_value));
+	}
+	EXPECT_EQ(size, dictionary.size());
+	for (int i{}; i < size; ++i) {
+		auto move_only = MoveOnlyType(i);
+		std::optional<MoveOnlyType> opt_value;
+		opt_value = std::move(move_only);
+		EXPECT_EQ(dictionary.get(i)->value, i);
 	}
 }

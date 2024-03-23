@@ -22,6 +22,13 @@ struct OrderedDictionaryNode
 	OrderedDictionaryNode(const KeyType &k, const ValueType &v)
 		: key(k), value(v), prev(nullptr), next(nullptr)
 	{}
+	OrderedDictionaryNode(const KeyType &k, ValueType &&v)
+		: key(k), value(std::move(v)), prev(nullptr), next(nullptr)
+	{}
+	OrderedDictionaryNode(KeyType &&k, ValueType &&v)
+		: key(std::move(k)), value(std::move(v)), prev(nullptr), next(nullptr)
+	{}
+
 	KeyType key;
 	ValueType value;
 	OrderedDictionaryNode<KeyType, ValueType> *prev{nullptr};
@@ -47,7 +54,45 @@ public:
 			hashmap[key]->value = value;
 			return;
 		}
-		auto new_node = new OrderedDictionaryNode<KeyType, ValueType>(key, value);
+		auto new_node = new OrderedDictionaryNode(key, value);
+		if (head == nullptr) {
+			head = new_node;
+			tail = new_node;
+		}
+		else {
+			new_node->prev = tail;
+			tail->next = new_node;
+			tail = new_node;
+		}
+		hashmap[key] = new_node;
+	}
+
+	void insert(KeyType &&key, ValueType &&value)
+	{
+		if (hashmap.find(key) != hashmap.end()) {
+			hashmap[key]->value = std::move(value);
+			return;
+		}
+		auto new_node = new OrderedDictionaryNode(std::move(key), std::move(value));
+		if (head == nullptr) {
+			head = new_node;
+			tail = new_node;
+		}
+		else {
+			new_node->prev = tail;
+			tail->next = new_node;
+			tail = new_node;
+		}
+		hashmap[new_node->key] = new_node;
+	}
+
+	void insert(const KeyType &key, ValueType &&value)
+	{
+		if (hashmap.find(key) != hashmap.end()) {
+			hashmap[key]->value = std::move(value);
+			return;
+		}
+		auto new_node = new OrderedDictionaryNode(key, std::move(value));
 		if (head == nullptr) {
 			head = new_node;
 			tail = new_node;
@@ -65,7 +110,7 @@ public:
 		if (hashmap.find(key) == hashmap.end())
 			return std::nullopt;
 		auto node = hashmap[key];
-		return node->value;
+		return std::move(node->value);
 	}
 
 	ValueType front() const
