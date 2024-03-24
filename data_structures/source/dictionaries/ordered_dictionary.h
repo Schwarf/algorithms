@@ -5,18 +5,10 @@
 #ifndef ORDERED_DICTIONARY_H
 #define ORDERED_DICTIONARY_H
 #include <unordered_map>
-
-template<typename T>
-concept Hashable = requires(T t)
-{
-	{ std::hash<T>{}(t) }-> std::same_as<std::size_t>;
-};
-
-template<typename T>
-concept OptionalType = std::same_as<T, std::optional<typename T::value_type>>;
+#include "used_concepts.h"
 
 // An ordered dictionary keeps the order of the items inserted
-template<typename KeyType, typename ValueType> requires OptionalType<ValueType>
+template<typename KeyType, typename ValueType> requires is_optional_type<ValueType>
 struct OrderedDictionaryNode
 {
 	OrderedDictionaryNode(const KeyType &k, const ValueType &v)
@@ -35,7 +27,7 @@ struct OrderedDictionaryNode
 	OrderedDictionaryNode<KeyType, ValueType> *next{nullptr};
 };
 
-template<typename KeyType, typename ValueType> requires Hashable<KeyType>
+template<typename KeyType, typename ValueType> requires is_hashable<KeyType>
 class OrderedDictionary
 {
 public:

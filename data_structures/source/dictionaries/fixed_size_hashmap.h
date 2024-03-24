@@ -6,5 +6,9 @@
 #define FIXED_SIZE_HASHMAP_H
 #include "used_concepts.h"
 
+template<typename KeyType, typename ValueType, size_t Size> requires is_hashable<KeyType>
+class FixedSizeHashmap
+{
 
+};
 #endif //FIXED_SIZE_HASHMAP_H
