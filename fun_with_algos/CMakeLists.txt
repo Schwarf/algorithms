@@ -24,4 +24,6 @@ add_executable(fun_with_algos main.cpp
         interval_map2.h
         greatest_common_divisor.h
         find_pivot_integer.h
-        insert_interval.h task_scheduler.h)
+        insert_interval.h
+        task_scheduler.h
+        find_duplicate_in_array.h)
