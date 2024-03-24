@@ -16,7 +16,7 @@ public:
 	void insert(const KeyType &key, const ValueType &value)
 	{
 		auto index = get_hash(key);
-		// Use open addressing for collisions using linear probing
+		// Use open addressing for collisions with linear probing
 		for (size_t i{}; i < Capacity; ++i) {
 			size_t try_index = (index + i) % Capacity;
 			if (!map[try_index].has_value() || map[try_index]->first == key) {

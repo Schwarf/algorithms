@@ -1,6 +1,5 @@
 ToDo:
 * Algorithms to study/implement:
-  * Fixed-size hashmap?
   * Task-scheduler with each task takes a certain amount ofb time and has a idle-time until next tasks of same
     "kind" can be scheduled. Get inspired from OS, database systems, networking, distributes systems, cloud systems.
   *  Write unit tests for "spider_brainteaser" and "find_original_array_from_doubled_array."
