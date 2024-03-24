@@ -15,7 +15,7 @@ int find_duplicate(std::vector<int>& input) {
 	for(int i{}; i < input.size(); ++i)
 	{
 		// We compute the index and negate the value at the index.
-		int index = std::abs(i);
+		int index = std::abs(input[i]);
 		// If the value at the index is already negative, we return the index because it has been visited once before/
 		if(input[index] < 0)
 			return index;
