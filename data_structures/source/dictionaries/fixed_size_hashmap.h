@@ -16,14 +16,31 @@ public:
 	void insert(const KeyType &key, const ValueType &value)
 	{
 		auto index = get_hash(key);
-
-		map[index] = std::make_pair(key, value);
+		// Use open addressing for collisions using linear probing
+		for (size_t i{}; i < Capacity; ++i) {
+			size_t try_index = (index + i) % Capacity;
+			if (!map[try_index].has_value() || map[try_index]->first == key) {
+				map[try_index] = std::make_pair(key, value);
+				return;
+			}
+		}
+		throw std::overflow_error("Hashmap is full!");
 	}
 
 	ValueType get(const KeyType &key)
 	{
 		auto index = get_hash(key);
-		return map[index].second;
+		for (size_t i = 0; i < Capacity; ++i) {
+			size_t tryIndex = (index + i) % Capacity;
+			if (map[tryIndex].has_value() && map[tryIndex]->first == key) {
+				return map[tryIndex]->second;
+			}
+			else if (!map[tryIndex].has_value()) {
+				// We hit an empty slot before finding our key, so it's not here.
+				break;
+			}
+		}
+		throw std::out_of_range("Key not found.");
 	}
 
 private:
