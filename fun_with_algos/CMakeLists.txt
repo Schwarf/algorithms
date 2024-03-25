@@ -26,4 +26,5 @@ add_executable(fun_with_algos main.cpp
         find_pivot_integer.h
         insert_interval.h
         task_scheduler.h
-        find_duplicate_in_array.h)
+        find_duplicate_in_array.h
+        find_all_duplicates_in_array.h)
