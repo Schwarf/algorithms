@@ -25,7 +25,8 @@ add_executable(test_fun_with_algos
         test_find_pivot_integer.cpp
         test_insert_interval.cpp
         test_task_scheduler.cpp
-        test_find_duplicate_in_array.cpp)
+        test_find_duplicate_in_array.cpp
+        test_find_all_duplicates_in_array.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
