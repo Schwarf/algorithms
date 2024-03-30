@@ -2,8 +2,8 @@
 // Created by andreas on 30.03.24.
 //
 
-#ifndef COUNT_SUBARRAYS_FIND_K_DIFFERENT_ELEMENTS_H
-#define COUNT_SUBARRAYS_FIND_K_DIFFERENT_ELEMENTS_H
+#ifndef COUNT_SUBARRAYS_WITH_EXACTLY_K_DIFFERENT_ELEMENTS_H
+#define COUNT_SUBARRAYS_WITH_EXACTLY_K_DIFFERENT_ELEMENTS_H
 
 // Given an integer array nums and an integer k, return the number of good subarrays of nums.
 // A good array is an array where the number of different integers in that array is exactly k.
@@ -15,27 +15,27 @@
 template <typename T>
 int count_subarrays_with_at_most_k_different_values(const std::vector<T> &input, int k)
 {
-	std::unordered_map<int, int> map;
+	std::unordered_map<int, int> frequency_map;
 	int left{};
 	int count{};
 	for(int right{}; right < input.size(); ++right)
 	{
-		map[input[right]]++;
-		while(map[input[left]] > k)
+		frequency_map[input[right]]++;
+		while(frequency_map.size() > k)
 		{
-			map[input[left]]--;
-			if(map[input[left]] == 0)
-				map.erase(input[left]);
+			frequency_map[input[left]]--;
+			if(frequency_map[input[left]] == 0)
+				frequency_map.erase(input[left]);
 			left++;
 		}
-		count += right-left+1;
+		count += (right-left+1);
 	}
 	return count;
 }
 
 template <typename T>
-int count_subarrays_with_k_different_integers(const std::vector<T> &input, int k)
+int count_subarrays_with_exactly_k_different_elements(const std::vector<T> &input, int k)
 {
 	return count_subarrays_with_at_most_k_different_values(input, k) - count_subarrays_with_at_most_k_different_values(input, k-1);
 }
-#endif //COUNT_SUBARRAYS_FIND_K_DIFFERENT_ELEMENTS_H
+#endif //COUNT_SUBARRAYS_WITH_EXACTLY_K_DIFFERENT_ELEMENTS_H
