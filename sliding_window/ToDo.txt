@@ -1,0 +1,2 @@
+- Study the sliding window approaches in more detail.
+- Work out differences and commonalities.
