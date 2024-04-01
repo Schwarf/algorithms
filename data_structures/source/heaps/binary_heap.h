@@ -47,7 +47,7 @@ public:
 	}
 
 private:
-	T elements_[heap_capacity];
+	std::array<T, heap_capacity> elements_;
 	size_t heap_size_{};
 
 	int parent(int index) const
