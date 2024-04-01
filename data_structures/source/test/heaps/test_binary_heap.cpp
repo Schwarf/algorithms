@@ -49,7 +49,7 @@ protected:
 };
 
 
-TEST_F(SetupBinaryHeap, test_binray_max_heap)
+TEST_F(SetupBinaryHeap, test_binary_max_heap)
 {
 	auto max_heap = StackHeap<int64_t, 12>();
 	std::priority_queue<int64_t> q;
@@ -62,7 +62,7 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap)
 	EXPECT_TRUE(is_max_heap(input, input.size() - 1));
 }
 
-TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_top)
+TEST_F(SetupBinaryHeap, test_binary_max_heap_many_random_numbers_top)
 {
 	constexpr int limit = 10000;
 	auto max_heap = StackHeap<int64_t, limit>();
@@ -76,7 +76,7 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_top)
 	}
 }
 
-TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_pop)
+TEST_F(SetupBinaryHeap, test_binary_max_heap_many_random_numbers_pop)
 {
 	constexpr int limit = 10000;
 	auto max_heap = StackHeap<int64_t, limit>();
@@ -95,7 +95,7 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap_many_random_numbers_pop)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_max_heap_pop)
+TEST_F(SetupBinaryHeap, test_binary_max_heap_pop)
 {
 	auto max_heap = StackHeap<int64_t, 12>();
 	for (const auto &element: input) {
@@ -120,7 +120,7 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap_pop)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_max_heap_pop_and_insert)
+TEST_F(SetupBinaryHeap, test_binary_max_heap_pop_and_insert)
 {
 	auto max_heap = StackHeap<int64_t, 20>();
 	for (const auto &element: input) {
@@ -156,7 +156,7 @@ TEST_F(SetupBinaryHeap, test_binray_max_heap_pop_and_insert)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_min_heap)
+TEST_F(SetupBinaryHeap, test_binary_min_heap)
 {
 	auto min_heap = StackHeap<int64_t, 12, std::greater<>>();
 	std::priority_queue<int64_t, std::vector<int64_t>, std::greater<>> q;
@@ -169,7 +169,7 @@ TEST_F(SetupBinaryHeap, test_binray_min_heap)
 	EXPECT_TRUE(is_min_heap(input, input.size() - 1));
 }
 
-TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_top)
+TEST_F(SetupBinaryHeap, test_binary_min_heap_many_random_numbers_top)
 {
 	constexpr int limit = 10000;
 	auto min_heap = StackHeap<int64_t, limit, std::greater<>>();
@@ -184,7 +184,7 @@ TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_top)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_pop)
+TEST_F(SetupBinaryHeap, test_binary_min_heap_many_random_numbers_pop)
 {
 	constexpr int limit = 10;
 	auto min_heap = StackHeap<int64_t, limit, std::greater<>>();
@@ -203,7 +203,7 @@ TEST_F(SetupBinaryHeap, test_binray_min_heap_many_random_numbers_pop)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_min_heap_pop)
+TEST_F(SetupBinaryHeap, test_binary_min_heap_pop)
 {
 	auto min_heap = StackHeap<int64_t, 12, std::greater<>>();
 	for (const auto &element: input) {
@@ -228,7 +228,7 @@ TEST_F(SetupBinaryHeap, test_binray_min_heap_pop)
 }
 
 
-TEST_F(SetupBinaryHeap, test_binray_min_heap_pop_and_insert)
+TEST_F(SetupBinaryHeap, test_binary_min_heap_pop_and_insert)
 {
 	auto min_heap = StackHeap<int64_t, 20, std::greater<>>();
 	for (const auto &element: input) {
