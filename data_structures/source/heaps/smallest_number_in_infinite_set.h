@@ -16,6 +16,9 @@ public:
 		: current_value(initial_value)
 	{
 	}
+	SmallestPositiveInfiniteSet()
+		: current_value(T{})
+	{}
 	// pops the smallest element that has not been pooped yet and has not been re-added
 	T pop()
 	{
