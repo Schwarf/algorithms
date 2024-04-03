@@ -2,8 +2,8 @@
 // Created by andreas on 03.04.24.
 //
 
-#ifndef DOES_WORD_IN_GRID_EXIST_H
-#define DOES_WORD_IN_GRID_EXIST_H
+#ifndef DOES_WORD_EXIST_IN_GRID_H
+#define DOES_WORD_EXIST_IN_GRID_H
 #include <vector>
 #include <string>
 
@@ -46,4 +46,4 @@ bool does_word_exist(std::vector<std::vector<char>> &grid, const std::string &wo
 	return false;
 }
 
-#endif //DOES_WORD_IN_GRID_EXIST_H
+#endif //DOES_WORD_EXIST_IN_GRID_H
