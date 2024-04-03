@@ -28,10 +28,10 @@ private:
 	{
 		const auto level = log2int(1 + index); // We add 1 since we can not deal with the zero (min) level in the log
 		if (level & 1) {
-			trickle_down_min(index);
+			trickle_down<!is_max_level>(index);
 		}
 		else {
-			trickle_down_max(index);
+			trickle_down<is_max_level>(index);
 		}
 	}
 
@@ -45,19 +45,18 @@ private:
 		return 2 * index + 2;
 	}
 
-	void trickle_down_min(int index)
+	template <bool is_max_level>
+	void trickle_down(int index)
 	{
 		if (index >= heap_.size()) {
 			throw std::invalid_argument("Index value " + std::to_string(index) + "does not exist!");
 		}
 		auto leftChild = left_child(index);
+		// Here we use
 		if(leftChild < heap_.size() && leftChild+1 < heap_.size() && )
 	}
 
-	void trickle_down_max(int index)
-	{
 
-	}
 
 	// Compute the level for index i in the min-max-heap by using floor(log2int(i))
 	int log2int(int n)
@@ -71,7 +70,7 @@ private:
 		}
 		return result;
 	}
-
+	static constexpr bool is_max_level{true};
 	std::vector<T> heap_;
 };
 
