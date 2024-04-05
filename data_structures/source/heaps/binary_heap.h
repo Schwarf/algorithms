@@ -78,13 +78,30 @@ private:
 
 	void demote_()
 	{
-		for (size_t child_index = 1, parent_index = 0; child_index < heap_size_;
-			 child_index = left_child(child_index)) {
-			if (child_index + 1 < heap_size_ && Compare()(elements_[child_index], elements_[child_index + 1]))
-				child_index++;
-			if (Compare()(elements_[parent_index], elements_[child_index]))
-				std::swap(elements_[child_index], elements_[parent_index]);
-			parent_index = child_index;
+		int index{};
+
+		while (true) {
+			auto left = left_child(index);
+			auto right = right_child(index);;
+			auto childIndexToCompare = index;
+			// Check if value at childIndexToCompare is less/greater (max/min case) than value at left
+			if (left < heap_size_ && Compare()(elements_[childIndexToCompare], elements_[left])) {
+				childIndexToCompare = left;
+			}
+			// Check if value at childIndexToCompare is less/greater (max/min case) than value at right
+			if (right < heap_size_ && Compare()(elements_[childIndexToCompare], elements_[right])) {
+				childIndexToCompare = right;
+			}
+			// If childIndexToCompare
+			if (childIndexToCompare != index) {
+				std::swap(elements_[index], elements_[childIndexToCompare]);
+				// Move down the tree
+				index = childIndexToCompare;
+			}
+			else {
+				// If we didn't swap, the heap property is restored
+				break;
+			}
 		}
 	}
 };
