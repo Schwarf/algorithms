@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-template<typename T, size_t heap_capacity, class Compare = std::less<T>>
+template<typename T, size_t heap_capacity, class Comparator = std::less<T>>
 class StackHeap
 {
 public:
@@ -49,6 +49,7 @@ public:
 private:
 	std::array<T, heap_capacity> elements_;
 	size_t heap_size_{};
+	Comparator comparator_;
 
 	int parent(int index) const
 	{
@@ -69,7 +70,7 @@ private:
 	{
 		for (int child_index = heap_size_ - 1; child_index > 0;) {
 			int parent_index = parent(child_index);
-			if (Compare()(elements_[child_index], elements_[parent_index]))
+			if (comparator_(elements_[child_index], elements_[parent_index]))
 				return;
 			std::swap(elements_[child_index], elements_[parent_index]);
 			child_index = parent_index;
@@ -85,11 +86,11 @@ private:
 			auto right = right_child(index);;
 			auto childIndexToCompare = index;
 			// Check if value at childIndexToCompare is less/greater (max/min case) than value at left
-			if (left < heap_size_ && Compare()(elements_[childIndexToCompare], elements_[left])) {
+			if (left < heap_size_ && comparator_(elements_[childIndexToCompare], elements_[left])) {
 				childIndexToCompare = left;
 			}
 			// Check if value at childIndexToCompare is less/greater (max/min case) than value at right
-			if (right < heap_size_ && Compare()(elements_[childIndexToCompare], elements_[right])) {
+			if (right < heap_size_ && comparator_(elements_[childIndexToCompare], elements_[right])) {
 				childIndexToCompare = right;
 			}
 			// If childIndexToCompare
