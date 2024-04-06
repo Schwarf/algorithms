@@ -38,6 +38,11 @@ private:
 		}
 	}
 
+	int parent(int index)
+	{
+		return (index - 1) / 2;
+	}
+
 	int left_child(int index)
 	{
 		return 2 * index + 1;
@@ -56,9 +61,30 @@ private:
 		}
 		auto leftChild = left_child(index);
 		auto rightChild = right_child(index);
-		// Here we use
+		// Determine the child to compare
 		auto childToCompare = index;
-		if (leftChild < heap_.size() && true)
+		if (leftChild < heap_.size() && (is_max_level ^ comparator_(container_[leftChild], container_[index])))
+			childToCompare = leftChild;
+		if (rightChild < heap_.size() && (is_max_level ^ comparator_(container_[rightChild], container_[index])))
+			childToCompare = rightChild;
+		// Determine the grandchild to compare. All grandchildren lie next to each other in memory.
+		auto leftLeftGrandChild = left_child(leftChild);
+		bool grandChildWasChosen{false};
+		for (int i{}; i < 4 && leftLeftGrandChild + i < heap_.size(); ++i)
+			if (compare_(heap_[leftLeftGrandChild + i], heap_[childToCompare]) ^ is_max_level) {
+				childToCompare = leftLeftGrandChild + i;
+				grandChildWasChosen = true;
+			}
+		// Are we already at the right position?
+		if (index == childToCompare)
+			return;
+		std::swap(heap_[childToCompare], heap_[index]);
+
+		if (grandChildWasChosen) {
+			if (comparator_(heap_[parent(childToCompare)], heap_[childToCompare]) ^ is_max_level)
+				std::swap(heap_[parent(childToCompare)], heap_[childToCompare]);
+			trickle_down_<is_max_level>(childToCompare);
+		}
 	}
 
 	// Compute the level for index i in the min-max-heap by using floor(log2int(i))
