@@ -2,14 +2,15 @@
 // Created by andreas on 03.04.24.
 //
 
-#ifndef MIN_MAX_HEAP_H
-#define MIN_MAX_HEAP_H
+#ifndef MAX_MIN_HEAP_H
+#define MAX_MIN_HEAP_H
 #include <concepts>
 #include <vector>
+
 #include <stdexcept>
 
 template<typename T>
-concept Orderable = requires(T a, T b)
+concept Ordered = requires(T a, T b)
 {
 	{ a < b } -> std::convertible_to<bool>;
 	{ a <= b } -> std::convertible_to<bool>;
@@ -17,23 +18,63 @@ concept Orderable = requires(T a, T b)
 	{ a >= b } -> std::convertible_to<bool>;
 };
 
-template<typename T, class Container = std::vector<T>, class Comparator = std::less<T>> requires Orderable<T>
-class min_max_heap
+template<typename T, class Container = std::vector<T>, class Comparator = std::less<T>> requires Ordered<T>
+class max_min_heap
 {
 
+public:
+	void push(T element)
+	{
+		heap_.push_back(element);
+		trickle_up(heap_.size() - 1);
 
+	}
 private:
 	Container container_;
 	Comparator comparator_;
+
+	void trickle_up(int index)
+	{
+		if (index == 0)
+			return;
+		// parent is on opposite level than index (min <--> max)
+		auto parentIndex = parent(index);
+		const auto level = log2int(1 + index); // We add 1 since we can not deal with the zero (max) level in the log
+		if (level & 1) // min level
+		{
+			if (comparator_(heap_[parentIndex], heap_[index])) {
+				std::swap(heap_[parentIndex], heap_[index]);
+				trickle_up_<true>(parentIndex);
+			}
+			else
+				trickle_up_<false>(index);
+		}
+		else {
+			if (comparator_(heap_[index], heap_[parentIndex])) {
+				std::swap(heap_[parentIndex], heap_[index]);
+				trickle_up_<false>(parentIndex);
+			}
+			else
+				trickle_up_<true>(index);
+		}
+	}
+
+	template<bool is_max_level>
+	void trickle_up_(int index)
+	{
+
+	}
 
 	// In min-max heaps, the required ordering must be established between an element, its children, and its grandchildren.
 	void trickle_down(int index)
 	{
 		const auto level = log2int(1 + index); // We add 1 since we can not deal with the zero (min) level in the log
-		if (level & 1) {
+		if (level & 1) // min level
+		{
 			trickle_down_<!is_max_level>(index);
 		}
-		else {
+		else // max level
+		{
 			trickle_down_<is_max_level>(index);
 		}
 	}
@@ -103,4 +144,4 @@ private:
 	std::vector<T> heap_;
 };
 
-#endif //MIN_MAX_HEAP_H
+#endif //MAX_MIN_HEAP_H
