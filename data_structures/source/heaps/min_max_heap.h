@@ -17,21 +17,24 @@ concept Orderable = requires(T a, T b)
 	{ a >= b } -> std::convertible_to<bool>;
 };
 
-template<typename T> requires Orderable<T>
+template<typename T, class Container = std::vector<T>, class Comparator = std::less<T>> requires Orderable<T>
 class min_max_heap
 {
 
 
 private:
+	Container container_;
+	Comparator comparator_;
+
 	// In min-max heaps, the required ordering must be established between an element, its children, and its grandchildren.
 	void trickle_down(int index)
 	{
 		const auto level = log2int(1 + index); // We add 1 since we can not deal with the zero (min) level in the log
 		if (level & 1) {
-			trickle_down<!is_max_level>(index);
+			trickle_down_<!is_max_level>(index);
 		}
 		else {
-			trickle_down<is_max_level>(index);
+			trickle_down_<is_max_level>(index);
 		}
 	}
 
@@ -45,18 +48,18 @@ private:
 		return 2 * index + 2;
 	}
 
-	template <bool is_max_level>
-	void trickle_down(int index)
+	template<bool is_max_level>
+	void trickle_down_(int index)
 	{
 		if (index >= heap_.size()) {
 			throw std::invalid_argument("Index value " + std::to_string(index) + "does not exist!");
 		}
 		auto leftChild = left_child(index);
+		auto rightChild = right_child(index);
 		// Here we use
-		if(leftChild < heap_.size() && leftChild+1 < heap_.size() && )
+		auto childToCompare = index;
+		if (leftChild < heap_.size() && true)
 	}
-
-
 
 	// Compute the level for index i in the min-max-heap by using floor(log2int(i))
 	int log2int(int n)
