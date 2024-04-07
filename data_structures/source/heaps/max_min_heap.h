@@ -4,6 +4,7 @@
 
 #ifndef MAX_MIN_HEAP_H
 #define MAX_MIN_HEAP_H
+#include <iostream>
 #include <concepts>
 #include <vector>
 
@@ -74,7 +75,6 @@ public:
 		delete_element(0);
 	}
 
-private:
 	Container heap_;
 	Comparator comparator_;
 
@@ -152,17 +152,17 @@ private:
 		}
 	}
 
-	int parent(int index)
+	int parent(int index) const
 	{
 		return (index - 1) / 2;
 	}
 
-	int left_child(int index)
+	int left_child(int index) const
 	{
 		return 2 * index + 1;
 	}
 
-	int right_child(int index)
+	int right_child(int index) const
 	{
 		return 2 * index + 2;
 	}
@@ -202,7 +202,7 @@ private:
 	}
 
 	// Compute the level for index i in the min-max-heap by using floor(log2int(i))
-	int log2int(int n)
+	int log2int(int n) const
 	{
 		if (n == 0)
 			throw std::domain_error("log2 of 0 is undefined!");
@@ -213,6 +213,65 @@ private:
 		}
 		return result;
 	}
+
+	bool is_heap() const
+	{
+		for (int index{}; index < heap_.size(); ++index) {
+			auto leftChild = left_child(index);
+			auto rightChild = right_child(index);
+			auto leftleftGrandChild = left_child(left_child(index));
+			auto leftrightGrandChild = left_child(right_child(index));
+			auto rightleftGrandChild = right_child(left_child(index));
+			auto rightrightGrandChild = right_child(right_child(index));
+			auto level = log2int(index + 1);
+
+			if (level & 1) // is min level
+			{
+				if (leftChild < heap_.size() && heap_[index] > heap_[leftChild]) {
+					std::cout << index << " min leftChild" << std::endl;
+					return false;
+				}
+				if (rightChild < heap_.size() && heap_[index] > heap_[rightChild]) {
+					std::cout << index << " min rightChild" << std::endl;
+					return false;
+				}
+				if (leftleftGrandChild < heap_.size() && heap_[index] > heap_[leftleftGrandChild]) {
+					std::cout << index << " min leftleftChild" << std::endl;
+					return false;
+				}
+				if (leftrightGrandChild < heap_.size() && heap_[index] > heap_[leftrightGrandChild]) {
+					std::cout << index << " min leftrightChild" << std::endl;
+					return false;
+				}
+				if (rightleftGrandChild < heap_.size() && heap_[index] > heap_[rightleftGrandChild]) {
+					std::cout << index << " min rightleftChild" << std::endl;
+					return false;
+				}
+				if (rightrightGrandChild < heap_.size() && heap_[index] > heap_[rightrightGrandChild]) {
+					std::cout << index << "  min  rightrightChild" << std::endl;
+					return false;
+				}
+			}
+			else { // max-level
+				if (leftChild < heap_.size() && heap_[index] < heap_[leftChild])
+					return false;
+				if (rightChild < heap_.size() && heap_[index] < heap_[rightChild])
+					return false;
+
+				if (leftleftGrandChild < heap_.size() && heap_[index] < heap_[leftleftGrandChild])
+					return false;
+				if (leftrightGrandChild < heap_.size() && heap_[index] < heap_[leftrightGrandChild])
+					return false;
+				if (rightleftGrandChild < heap_.size() && heap_[index] < heap_[rightleftGrandChild])
+					return false;
+				if (rightrightGrandChild < heap_.size() && heap_[index] < heap_[rightrightGrandChild])
+					return false;
+
+			}
+		}
+		return true;
+	}
+
 	static constexpr bool is_max_level{true};
 };
 

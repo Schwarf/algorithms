@@ -5,6 +5,8 @@
 #include "heaps/max_min_heap.h"
 #include <random>
 #include <utility>
+#include <algorithm>
+
 class SetupMaxMinHeap: public testing::Test
 {
 public:
@@ -29,6 +31,20 @@ public:
 
 		return std::make_pair(input, output);
 	}
+	template<typename T>
+	std::string VectorToString(const std::vector<T> &vec)
+	{
+		std::ostringstream oss;
+		oss << "{";
+		for (size_t i = 0; i < vec.size(); ++i) {
+			oss << vec[i];
+			if (i < vec.size() - 1) {
+				oss << ", ";
+			}
+		}
+		oss << "}";
+		return oss.str();
+	}
 
 };
 
@@ -48,6 +64,39 @@ TEST_F(SetupMaxMinHeap, TestMinAndMaxSmallSequence)
 	}
 }
 
+TEST_F(SetupMaxMinHeap, fixedsample)
+{
+	std::vector<double> input
+		{69, 320, 232, 537, 117, 959, 451, 723, 550, 761, 527, 748, 493, 492, 285, 317, 558, 757, 280, 609, 480, 462,
+		 358, 175, 685, 404, 179, 656, 953, 591, 830, 814, 408, 188, 991, 350, 165, 158, 448, 779, 959, 273, 536, 233,
+		 957, 786, 411, 976, 177, 342, 687, 138, 8, 681, 743, 132, 444, 205, 519, 48, 785, 293, 947, 983, 176, 593, 337,
+		 365, 343, 911, 114, 880, 257, 46, 568, 38, 301, 781, 203, 337, 6, 778, 131, 373, 95, 579, 991, 464, 1, 852,
+		 978, 972, 458, 984, 982, 448, 268, 604, 256, 909};
+	std::vector<double> output
+		{1, 6, 8, 38, 46, 48, 69, 95, 114, 117, 131, 132, 138, 158, 165, 175, 176, 177, 179, 188, 203, 205, 232, 233,
+		 256, 257, 268, 273, 280, 285, 293, 301, 317, 320, 337, 337, 342, 343, 350, 358, 365, 373, 404, 408, 411, 444,
+		 448, 448, 451, 458, 462, 464, 480, 492, 493, 519, 527, 536, 537, 550, 558, 568, 579, 591, 593, 604, 609, 656,
+		 681, 685, 687, 723, 743, 748, 757, 761, 778, 779, 781, 785, 786, 814, 830, 852, 880, 909, 911, 947, 953, 957,
+		 959, 959, 972, 976, 978, 982, 983, 984, 991, 991};
+	auto max_min_heap = MaxMinHeap<double>();
+	for (const auto &element: input) {
+		max_min_heap.push(element);
+	}
+	for (int i{}; i < 5; ++i) {
+
+		std::cout << "---" << std::endl;
+		std::cout << i << std::endl;
+		std::cout << output[i] << std::endl;
+		std::cout << *std::min_element(max_min_heap.heap_.begin(), max_min_heap.heap_.end()) << std::endl;
+		std::cout << max_min_heap.is_heap() << std::endl;
+		if (i == 4)
+			auto x = 1;
+		EXPECT_EQ(max_min_heap.min(), output[i]);
+		max_min_heap.pop_min();
+	}
+
+}
+
 TEST_F(SetupMaxMinHeap, TestPopMinSmallSequence)
 {
 	for (int count{}; count < 100; ++count) {
@@ -59,7 +108,9 @@ TEST_F(SetupMaxMinHeap, TestPopMinSmallSequence)
 			max_min_heap.push(element);
 		}
 		for (int i{}; i < number_of_elements / 5; ++i) {
-			EXPECT_EQ(max_min_heap.min(), output[i]);
+
+			EXPECT_EQ(max_min_heap.min(), output[i])
+							<< VectorToString<double>(input) << VectorToString<double>(output) << std::endl;
 			max_min_heap.pop_min();
 		}
 	}
