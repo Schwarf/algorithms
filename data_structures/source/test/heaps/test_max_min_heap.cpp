@@ -35,26 +35,67 @@ public:
 
 TEST_F(SetupMaxMinHeap, TestMinAndMaxSmallSequence)
 {
-	constexpr int number_of_elements{100};
-	auto [input, output] = get_random_n_numbers<int>(number_of_elements);
-	auto max_min_heap = MaxMinHeap<int>();
-	for (const auto &element: input) {
-		max_min_heap.push(element);
+	for (int count{}; count < 100; ++count) {
+
+		constexpr int number_of_elements{100};
+		auto [input, output] = get_random_n_numbers<int>(number_of_elements);
+		auto max_min_heap = MaxMinHeap<int>();
+		for (const auto &element: input) {
+			max_min_heap.push(element);
+		}
+		EXPECT_EQ(max_min_heap.min(), output.front());
+		EXPECT_EQ(max_min_heap.max(), output.back());
 	}
-	EXPECT_EQ(max_min_heap.min(), output.front());
-	EXPECT_EQ(max_min_heap.max(), output.back());
 }
 
 TEST_F(SetupMaxMinHeap, TestPopMinSmallSequence)
 {
-	constexpr int number_of_elements{100};
-	auto [input, output] = get_random_n_numbers<double>(number_of_elements);
-	auto max_min_heap = MaxMinHeap<double>();
-	for (const auto &element: input) {
-		max_min_heap.push(element);
+	for (int count{}; count < 100; ++count) {
+
+		constexpr int number_of_elements{100};
+		auto [input, output] = get_random_n_numbers<double>(number_of_elements);
+		auto max_min_heap = MaxMinHeap<double>();
+		for (const auto &element: input) {
+			max_min_heap.push(element);
+		}
+		for (int i{}; i < number_of_elements / 5; ++i) {
+			EXPECT_EQ(max_min_heap.min(), output[i]);
+			max_min_heap.pop_min();
+		}
 	}
-	for (int i{}; i < number_of_elements / 5; ++i) {
-		EXPECT_EQ(max_min_heap.min(), output[i]);
-		max_min_heap.pop_min();
+}
+
+TEST_F(SetupMaxMinHeap, TestPopMaxSmallSequence)
+{
+	for (int count{}; count < 100; ++count) {
+		constexpr int number_of_elements{100};
+		auto [input, output] = get_random_n_numbers<double>(number_of_elements);
+		auto max_min_heap = MaxMinHeap<double>();
+		for (const auto &element: input) {
+			max_min_heap.push(element);
+		}
+		for (int i{}; i < number_of_elements / 5; ++i) {
+			EXPECT_EQ(max_min_heap.max(), output[number_of_elements - 1 - i]);
+			max_min_heap.pop_max();
+		}
+	}
+}
+
+
+TEST_F(SetupMaxMinHeap, TestPopMaxMinSmallSequence)
+{
+	for (int count{}; count < 100; ++count) {
+		constexpr int number_of_elements{100};
+		auto [input, output] = get_random_n_numbers<int16_t>(number_of_elements);
+		auto max_min_heap = MaxMinHeap<int16_t>();
+		for (const auto &element: input) {
+			max_min_heap.push(element);
+		}
+		for (int i{}; i < number_of_elements / 5; ++i) {
+			EXPECT_EQ(max_min_heap.max(), output[number_of_elements - 1 - i]);
+			EXPECT_EQ(max_min_heap.min(), output[i]);
+			max_min_heap.pop_max();
+			max_min_heap.pop_min();
+		}
 	}
 }
