@@ -74,9 +74,8 @@ public:
 		delete_element(0);
 	}
 
-
 private:
-	Container container_;
+	Container heap_;
 	Comparator comparator_;
 
 	void delete_element(int index)
@@ -178,15 +177,15 @@ private:
 		auto rightChild = right_child(index);
 		// Determine the child to compare
 		auto childToCompare = index;
-		if (leftChild < heap_.size() && (is_max_level ^ comparator_(container_[leftChild], container_[index])))
+		if (leftChild < heap_.size() && (is_max_level ^ comparator_(heap_[leftChild], heap_[index])))
 			childToCompare = leftChild;
-		if (rightChild < heap_.size() && (is_max_level ^ comparator_(container_[rightChild], container_[index])))
+		if (rightChild < heap_.size() && (is_max_level ^ comparator_(heap_[rightChild], heap_[index])))
 			childToCompare = rightChild;
 		// Determine the grandchild to compare. All grandchildren lie next to each other in memory.
 		auto leftLeftGrandChild = left_child(leftChild);
 		bool grandChildWasChosen{false};
 		for (int i{}; i < 4 && leftLeftGrandChild + i < heap_.size(); ++i)
-			if (compare_(heap_[leftLeftGrandChild + i], heap_[childToCompare]) ^ is_max_level) {
+			if (comparator_(heap_[leftLeftGrandChild + i], heap_[childToCompare]) ^ is_max_level) {
 				childToCompare = leftLeftGrandChild + i;
 				grandChildWasChosen = true;
 			}
@@ -215,7 +214,6 @@ private:
 		return result;
 	}
 	static constexpr bool is_max_level{true};
-	std::vector<T> heap_;
 };
 
 #endif //MAX_MIN_HEAP_H

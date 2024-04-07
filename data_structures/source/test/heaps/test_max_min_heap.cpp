@@ -8,21 +8,22 @@
 class SetupMaxMinHeap: public testing::Test
 {
 public:
-	static inline std::pair<std::vector<int>, std::vector<int>> get_random_n_numbers(int n)
+	template<typename T>
+	static inline std::pair<std::vector<T>, std::vector<T>> get_random_n_numbers(int n)
 	{
 		if (n < 1)
-			return std::make_pair(std::vector<int>(), std::vector<int>());
+			return std::make_pair(std::vector<T>(), std::vector<T>());
 		int lower_bound{};
 		int upper_bound = 10 * n;
 		auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
-		std::vector<int> input{};
-		std::vector<int> output{};
+		std::vector<T> input{};
+		std::vector<T> output{};
 		std::random_device device;
 		auto generator = std::mt19937(device());
 		for (int i{}; i < n; ++i) {
 			auto value = int_distribution_(generator);
-			input.push_back(value);
-			output.push_back(value);
+			input.push_back(static_cast<T>(value));
+			output.push_back(static_cast<T>(value));
 		}
 		std::sort(output.begin(), output.end());
 
@@ -32,14 +33,28 @@ public:
 };
 
 
-TEST_F(SetupMaxMinHeap, SmallSequence)
+TEST_F(SetupMaxMinHeap, TestMinAndMaxSmallSequence)
 {
-	auto [input, output] = get_random_n_numbers(100);
+	constexpr int number_of_elements{100};
+	auto [input, output] = get_random_n_numbers<int>(number_of_elements);
 	auto max_min_heap = MaxMinHeap<int>();
 	for (const auto &element: input) {
-		std::cout << element << std::endl;
 		max_min_heap.push(element);
 	}
 	EXPECT_EQ(max_min_heap.min(), output.front());
 	EXPECT_EQ(max_min_heap.max(), output.back());
+}
+
+TEST_F(SetupMaxMinHeap, TestPopMinSmallSequence)
+{
+	constexpr int number_of_elements{100};
+	auto [input, output] = get_random_n_numbers<double>(number_of_elements);
+	auto max_min_heap = MaxMinHeap<double>();
+	for (const auto &element: input) {
+		max_min_heap.push(element);
+	}
+	for (int i{}; i < number_of_elements / 5; ++i) {
+		EXPECT_EQ(max_min_heap.min(), output[i]);
+		max_min_heap.pop_min();
+	}
 }
