@@ -45,4 +45,36 @@ bool is_parenthesis_string_with_wildcard_valid(std::string s)
 	return stackOpen.empty();
 }
 
+bool is_parenthesis_string_with_wildcard_valid_optimized(std::string s)
+{
+	int openCount{};
+	int closeCount{};
+	int length = s.length();
+	// Traverse the string from both ends simultaneously
+	for (int i{}; i < length; i++) {
+		// Count open parentheses or asterisks
+		if (s[i] == '(' || s[i] == '*') {
+			openCount++;
+		}
+		else {
+			openCount--;
+		}
+
+		// Count close parentheses or asterisks
+		if (s[length - i - 1] == ')' || s[length - i - 1] == '*') {
+			closeCount++;
+		}
+		else {
+			closeCount--;
+		}
+
+		// If at any point open count or close count goes negative, the string is invalid
+		if (openCount < 0 || closeCount < 0) {
+			return false;
+		}
+	}
+
+	// If open count and close count are both non-negative, the string is valid
+	return true;
+}
 #endif //VALID_PARANTHESIS_STRING_H
