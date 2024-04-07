@@ -51,7 +51,7 @@ public:
 	const T &min() const
 	{
 		if (empty())
-			throw std::underflow_error("Heap is empty. No max-element can be retrieved!");
+			throw std::underflow_error("Heap is empty. No min-element can be retrieved!");
 		if (heap_.size() == 1)
 			return heap_[0];
 		if (heap_.size() == 2)
@@ -59,10 +59,42 @@ public:
 		return comparator_(heap_[1], heap_[2]) ? heap_[1] : heap_[2];
 	}
 
+	void pop_min()
+	{
+		if (empty())
+			throw std::underflow_error("Heap is empty. No min-element can be popped!");
+		int min_index = heap_.size() == 1 ? 0 : heap_.size() == 2 ? 1 : comparator_(heap_[1], heap_[2]) ? 1 : 2;
+		delete_element(min_index);
+	}
+
+	void pop_max()
+	{
+		if (empty())
+			throw std::underflow_error("Heap is empty. No max-element can be popped!");
+		delete_element(0);
+	}
+
 
 private:
 	Container container_;
 	Comparator comparator_;
+
+	void delete_element(int index)
+	{
+		if (index >= heap_.size())
+			throw std::underflow_error("Provided index is greater than heap size!");
+
+		// The last element can be deleted without any additional operations
+		if (index == heap_.size() - 1) {
+			heap_.pop_back();
+			return;
+		}
+		// Put element to delete on last position
+		std::swap(heap_[index], heap_[heap_.size() - 1]);
+		heap_.pop_back();
+		// Restore heap property
+		trickle_down(index);
+	}
 
 	void trickle_up(int index)
 	{
