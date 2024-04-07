@@ -13,17 +13,17 @@
 
 #include<stack>
 #include<string>
-bool is_parenthesis_string_with_wildcard_valid(std::string s)
+bool is_parenthesis_string_with_wildcard_valid(std::string input)
 {
 	std::stack<int> stackOpen;
 	std::stack<int> stackStar;
-	for (int i{}; i < s.size(); ++i) {
-		if (s[i] == '*')
+	for (int i{}; i < input.size(); ++i) {
+		if (input[i] == '*')
 			stackStar.push(i);
-		else if (s[i] == '(') {
+		else if (input[i] == '(') {
 			stackOpen.push(i);
 		}
-		else if (s[i] == ')') {
+		else if (input[i] == ')') {
 			if (!stackOpen.empty())
 				stackOpen.pop();
 			else if (!stackStar.empty())
@@ -45,15 +45,15 @@ bool is_parenthesis_string_with_wildcard_valid(std::string s)
 	return stackOpen.empty();
 }
 
-bool is_parenthesis_string_with_wildcard_valid_optimized(std::string s)
+bool is_parenthesis_string_with_wildcard_valid_optimized(std::string input)
 {
 	int openCount{};
 	int closeCount{};
-	int length = s.length();
+	int length = input.length();
 	// Traverse the string from both ends simultaneously
 	for (int i{}; i < length; i++) {
 		// Count open parentheses or asterisks
-		if (s[i] == '(' || s[i] == '*') {
+		if (input[i] == '(' || input[i] == '*') {
 			openCount++;
 		}
 		else {
@@ -61,7 +61,7 @@ bool is_parenthesis_string_with_wildcard_valid_optimized(std::string s)
 		}
 
 		// Count close parentheses or asterisks
-		if (s[length - i - 1] == ')' || s[length - i - 1] == '*') {
+		if (input[length - i - 1] == ')' || input[length - i - 1] == '*') {
 			closeCount++;
 		}
 		else {
