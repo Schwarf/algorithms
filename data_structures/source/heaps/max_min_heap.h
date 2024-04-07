@@ -19,16 +19,47 @@ concept Ordered = requires(T a, T b)
 };
 
 template<typename T, class Container = std::vector<T>, class Comparator = std::less<T>> requires Ordered<T>
-class max_min_heap
+class MaxMinHeap
 {
 
 public:
+	MaxMinHeap() = default;
+
 	void push(T element)
 	{
 		heap_.push_back(element);
 		trickle_up(heap_.size() - 1);
-
 	}
+
+	size_t size() const
+	{
+		return heap_.size();
+	}
+
+	bool empty() const
+	{
+		return heap_.empty();
+	}
+
+	const T &max() const
+	{
+		if (empty())
+			throw std::underflow_error("Heap is empty. No max-element can be retrieved!");
+		return heap_[0];
+	}
+
+	const T &min() const
+	{
+		if (empty())
+			throw std::underflow_error("Heap is empty. No max-element can be retrieved!");
+		if (heap_.size() == 1)
+			return heap_[0];
+		if (heap_.size() == 2)
+			return heap_[1];
+		return comparator_(heap_[1], heap_[2]) ? heap_[1] : heap_[2];
+	}
+
+
 private:
 	Container container_;
 	Comparator comparator_;
@@ -62,6 +93,17 @@ private:
 	template<bool is_max_level>
 	void trickle_up_(int index)
 	{
+		if (index == 0)
+			return;
+		auto parentIndex = parent(index);
+		if (parentIndex == 0)
+			return;
+		auto grandParentIndex = parent(parentIndex);
+
+		if (comparator_(heap_[index], heap_[grandParentIndex]) ^ is_max_level) {
+			std::swap(heap_[grandParentIndex], heap_[index]);
+			trickle_up_<is_max_level>(grandParentIndex);
+		}
 
 	}
 
