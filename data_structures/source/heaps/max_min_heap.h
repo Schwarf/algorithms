@@ -68,6 +68,75 @@ public:
         delete_element(0);
     }
 
+    bool is_heap() const {
+        for (int index{}; index < heap_.size(); ++index) {
+            auto leftChild = left_child(index);
+            auto rightChild = right_child(index);
+            auto leftleftGrandChild = left_child(left_child(index));
+            auto leftrightGrandChild = left_child(right_child(index));
+            auto rightleftGrandChild = right_child(left_child(index));
+            auto rightrightGrandChild = right_child(right_child(index));
+            auto level = determine_level(index);
+
+            if (level & 1) // is min level
+            {
+                if (leftChild < heap_.size() && heap_[index] > heap_[leftChild]) {
+                    std::cout << index << " min leftChild" << std::endl;
+                    return false;
+                }
+                if (rightChild < heap_.size() && heap_[index] > heap_[rightChild]) {
+                    std::cout << index << " min rightChild" << std::endl;
+                    return false;
+                }
+                if (leftleftGrandChild < heap_.size() && heap_[index] > heap_[leftleftGrandChild]) {
+                    std::cout << index << " min leftleftChild" << std::endl;
+                    return false;
+                }
+                if (leftrightGrandChild < heap_.size() && heap_[index] > heap_[leftrightGrandChild]) {
+                    std::cout << index << " min leftrightChild" << std::endl;
+                    return false;
+                }
+                if (rightleftGrandChild < heap_.size() && heap_[index] > heap_[rightleftGrandChild]) {
+                    std::cout << index << " min rightleftChild" << std::endl;
+                    return false;
+                }
+                if (rightrightGrandChild < heap_.size() && heap_[index] > heap_[rightrightGrandChild]) {
+                    std::cout << index << "  min  rightrightChild" << std::endl;
+                    return false;
+                }
+            } else { // max-level
+                if (leftChild < heap_.size() && heap_[index] < heap_[leftChild]) {
+                    std::cout << index << " max leftChild" << std::endl;
+                    return false;
+                }
+                if (rightChild < heap_.size() && heap_[index] < heap_[rightChild]) {
+                    std::cout << index << " max rightChild" << std::endl;
+                    return false;
+                }
+
+                if (leftleftGrandChild < heap_.size() && heap_[index] < heap_[leftleftGrandChild]) {
+                    std::cout << index << " max leftleftChild" << std::endl;
+                    return false;
+                }
+                if (leftrightGrandChild < heap_.size() && heap_[index] < heap_[leftrightGrandChild]) {
+                    std::cout << index << " max leftrightChild" << std::endl;
+                    return false;
+                }
+                if (rightleftGrandChild < heap_.size() && heap_[index] < heap_[rightleftGrandChild]) {
+                    std::cout << index << " max rightleftChild" << std::endl;
+                    return false;
+                }
+                if (rightrightGrandChild < heap_.size() && heap_[index] < heap_[rightrightGrandChild]) {
+                    std::cout << index << " max rightrightChild" << std::endl;
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+
+private:
     Container heap_;
     Comparator comparator_;
 
@@ -128,7 +197,6 @@ public:
     // In min-max heaps, the required ordering must be established between an element, its children, and its grandchildren.
     void trickle_down(int index) {
         const auto level = determine_level(index);
-        std::cout << "LEVEL for index " << index << ": " << level << std::endl;
         if (level & 1) // min level
         {
             trickle_down_<!is_max_level>(index);
@@ -149,27 +217,22 @@ public:
         auto childToCompare = index;
         if (leftChild < heap_.size() && (is_max_level ^ comparator_(heap_[leftChild], heap_[index]))) {
             childToCompare = leftChild;
-            std::cout << "left" << std::endl;
         }
-        if (rightChild < heap_.size() && (is_max_level ^ comparator_(heap_[rightChild], heap_[index]))) {
+        if (rightChild < heap_.size() && (is_max_level ^ comparator_(heap_[rightChild], heap_[childToCompare]))) {
             childToCompare = rightChild;
-            std::cout << "right" << std::endl;
         }
         // Determine the grandchild to compare. All grandchildren lie next to each other in memory.
         auto leftLeftGrandChild = left_child(leftChild);
-        bool grandChildWasChosen{false};
         for (int i{}; i < 4 && leftLeftGrandChild + i < heap_.size(); ++i)
             if (comparator_(heap_[leftLeftGrandChild + i], heap_[childToCompare]) ^ is_max_level) {
-                std::cout << "leftleft + " << i << std::endl;
                 childToCompare = leftLeftGrandChild + i;
-                grandChildWasChosen = true;
             }
         // Are we already at the right position?
         if (index == childToCompare)
             return;
         std::swap(heap_[childToCompare], heap_[index]);
 
-        if (grandChildWasChosen) {
+        if (childToCompare - leftChild > 1) {
             if (comparator_(heap_[parent(childToCompare)], heap_[childToCompare]) ^ is_max_level)
                 std::swap(heap_[parent(childToCompare)], heap_[childToCompare]);
             trickle_down_<is_max_level>(childToCompare);
@@ -201,61 +264,6 @@ public:
         return result;
     }
 
-    bool is_heap() const {
-        for (int index{}; index < heap_.size(); ++index) {
-            auto leftChild = left_child(index);
-            auto rightChild = right_child(index);
-            auto leftleftGrandChild = left_child(left_child(index));
-            auto leftrightGrandChild = left_child(right_child(index));
-            auto rightleftGrandChild = right_child(left_child(index));
-            auto rightrightGrandChild = right_child(right_child(index));
-            auto level = determine_level(index);
-
-            if (level & 1) // is min level
-            {
-                if (leftChild < heap_.size() && heap_[index] > heap_[leftChild]) {
-                    std::cout << index << " min leftChild" << std::endl;
-                    return false;
-                }
-                if (rightChild < heap_.size() && heap_[index] > heap_[rightChild]) {
-                    std::cout << index << " min rightChild" << std::endl;
-                    return false;
-                }
-                if (leftleftGrandChild < heap_.size() && heap_[index] > heap_[leftleftGrandChild]) {
-                    std::cout << index << " min leftleftChild" << std::endl;
-                    return false;
-                }
-                if (leftrightGrandChild < heap_.size() && heap_[index] > heap_[leftrightGrandChild]) {
-                    std::cout << index << " min leftrightChild" << std::endl;
-                    return false;
-                }
-                if (rightleftGrandChild < heap_.size() && heap_[index] > heap_[rightleftGrandChild]) {
-                    std::cout << index << " min rightleftChild" << std::endl;
-                    return false;
-                }
-                if (rightrightGrandChild < heap_.size() && heap_[index] > heap_[rightrightGrandChild]) {
-                    std::cout << index << "  min  rightrightChild" << std::endl;
-                    return false;
-                }
-            } else { // max-level
-                if (leftChild < heap_.size() && heap_[index] < heap_[leftChild])
-                    return false;
-                if (rightChild < heap_.size() && heap_[index] < heap_[rightChild])
-                    return false;
-
-                if (leftleftGrandChild < heap_.size() && heap_[index] < heap_[leftleftGrandChild])
-                    return false;
-                if (leftrightGrandChild < heap_.size() && heap_[index] < heap_[leftrightGrandChild])
-                    return false;
-                if (rightleftGrandChild < heap_.size() && heap_[index] < heap_[rightleftGrandChild])
-                    return false;
-                if (rightrightGrandChild < heap_.size() && heap_[index] < heap_[rightrightGrandChild])
-                    return false;
-
-            }
-        }
-        return true;
-    }
 
     static constexpr bool is_max_level{true};
 };
