@@ -55,6 +55,7 @@ TEST_F(SetupMaxMinHeap, TestMinAndMaxSmallSequence) {
         auto max_min_heap = MaxMinHeap<int>();
         for (const auto &element: input) {
             max_min_heap.push(element);
+            EXPECT_TRUE(max_min_heap.is_heap());
         }
         EXPECT_EQ(max_min_heap.min(), output.front());
         EXPECT_EQ(max_min_heap.max(), output.back());
@@ -145,6 +146,40 @@ TEST_F(SetupMaxMinHeap, TestPopMaxMinSmallSequence) {
             EXPECT_TRUE(max_min_heap.is_heap());
             max_min_heap.pop_min();
             EXPECT_TRUE(max_min_heap.is_heap());
+        }
+    }
+}
+
+TEST_F(SetupMaxMinHeap, TestInsertPopMaxMinSmallSequence) {
+
+    for (int count{}; count < 10; count++) {
+        std::vector<int> input{3, 2, 34, 5, 13, 8, 21, 1};
+        std::vector<int> output(input.begin(), input.end());
+        std::vector<int> insertion{7, 12, 19, 17, 30, 32, 14, 16, 33, 4, 9, 11, 51, -1, 0, 27, 27, 27, 28, 28, 28, 28,
+                                   0, -1, 102, 102, 102};
+        std::random_shuffle(insertion.begin(), insertion.end());
+        auto max_min_heap = MaxMinHeap<int>();
+        constexpr int number_of_bi_insertions{10};
+        for (const auto &element: input) {
+            max_min_heap.push(element);
+            EXPECT_TRUE(max_min_heap.is_heap());
+        }
+        for (int i{}; i < number_of_bi_insertions; ++i) {
+            std::sort(output.begin(), output.end());
+            EXPECT_EQ(max_min_heap.max(), output.back());
+            EXPECT_EQ(max_min_heap.min(), output.front());
+            output.pop_back();
+            output.erase(output.begin());
+            max_min_heap.pop_max();
+            EXPECT_TRUE(max_min_heap.is_heap());
+            max_min_heap.pop_min();
+            EXPECT_TRUE(max_min_heap.is_heap());
+            max_min_heap.push(insertion[i]);
+            EXPECT_TRUE(max_min_heap.is_heap());
+            max_min_heap.push(insertion[2 * number_of_bi_insertions - 1 - i]);
+            EXPECT_TRUE(max_min_heap.is_heap());
+            output.push_back(insertion[i]);
+            output.push_back(insertion[2 * number_of_bi_insertions - 1 - i]);
         }
     }
 }
