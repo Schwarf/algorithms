@@ -46,6 +46,12 @@ public:
 
 };
 
+TEST_F(SetupMaxMinHeap, TestMinAndMaxThrowsWhenHeapEmpty) {
+    auto max_min_heap = MaxMinHeap<int>();
+    EXPECT_THROW(max_min_heap.min(), std::underflow_error);
+    EXPECT_THROW(max_min_heap.max(), std::underflow_error);
+}
+
 
 TEST_F(SetupMaxMinHeap, TestMinAndMaxSmallSequence) {
     for (int count{}; count < 100; ++count) {
@@ -127,6 +133,12 @@ TEST_F(SetupMaxMinHeap, TestPopMaxSmallSequence) {
             max_min_heap.pop_max();
         }
     }
+}
+
+TEST_F(SetupMaxMinHeap, TestPopMinAndPopMaxThrowsWhenHeapEmpty) {
+    auto max_min_heap = MaxMinHeap<int>();
+    EXPECT_THROW(max_min_heap.pop_min(), std::underflow_error);
+    EXPECT_THROW(max_min_heap.pop_max(), std::underflow_error);
 }
 
 
