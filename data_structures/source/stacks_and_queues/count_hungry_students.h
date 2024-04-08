@@ -42,5 +42,28 @@ int count_hungry_students(const std::vector<int> &students, const std::vector<in
     return qu.size();
 }
 
+int count_hungry_students_optimized(const std::vector<int> &students, const std::vector<int> &dishes) {
+    int countDish0Student{};
+    int countDish1Student{};
+    int n = students.size();
+    for (int i{}; i < n; ++i) {
+        if (students[i])
+            countDish1Student++;
+        else
+            countDish0Student++;
+    }
+    for (const auto dish: dishes) {
+        if (dish == 0 && countDish0Student == 0)
+            return countDish1Student;
+        if (dish == 1 && countDish1Student == 0)
+            return countDish0Student;
+        if (dish)
+            countDish1Student--;
+        else
+            countDish0Student--;
+    }
+    return 0;
+}
+
 #endif //DATA_STRUCTURES_HOW_MANY_CAN_NOT_EATING_LUNCH_H
 
