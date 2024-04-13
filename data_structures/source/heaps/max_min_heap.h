@@ -31,11 +31,11 @@ public:
         trickle_up(heap_.size() - 1);
     }
 
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return heap_.size();
     }
 
-    bool empty() const {
+    [[nodiscard]] bool empty() const {
         return heap_.empty();
     }
 
@@ -68,7 +68,7 @@ public:
         delete_element(0);
     }
 
-    bool is_heap() const {
+    [[nodiscard]] bool is_heap() const {
         for (int index{}; index < heap_.size(); ++index) {
             auto leftChild = left_child(index);
             auto rightChild = right_child(index);
