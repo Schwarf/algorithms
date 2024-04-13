@@ -27,7 +27,7 @@ int largest_rectangle_area_in_histogram(const std::vector<int> &histogram) {
     return result;
 }
 
-int maximal_rectangle(std::vector<std::vector<char>> &grid) {
+int find_maximal_rectangle(std::vector<std::vector<char>> &grid) {
     if (grid.empty())
         return 0;
 
