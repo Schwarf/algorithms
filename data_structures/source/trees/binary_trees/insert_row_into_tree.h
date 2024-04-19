@@ -28,36 +28,29 @@ TreeNode<T> *insert_row_into_tree(TreeNode<T> *root, T value, int depth) {
 
     std::queue<TreeNode<T> *> q;
     q.push(root);
-    int current_depth{1};
+    int current_depth{};
     while (!q.empty()) {
-        int size = q.size();
-        for (int i{}; i < size; ++i) {
+        current_depth++;
+
+        for (int i = q.size(); i > 0; --i) {
             auto node = q.front();
             q.pop();
             if (node->left)
                 q.push(node->left);
             if (node->right)
                 q.push(node->right);
-        }
-        current_depth++;
-        if (current_depth == depth - 1) {
 
-            for (int i{}; i < q.size(); ++i) {
-                auto node = q.front();
-                q.pop();
-                if (node->left) {
-                    auto left_sub_tree = node->left;
-                    node->left = new TreeNode<T>(value);
-                    node->left->left = left_sub_tree;
-                }
-                if (node->right) {
-                    auto right_sub_tree = node->right;
-                    node->right = new TreeNode<T>(value);
-                    node->right->right = right_sub_tree;
-                }
+            if (current_depth == depth - 1) {
+                auto left_sub_tree = node->left;
+                auto right_sub_tree = node->right;
+                node->left = new TreeNode<T>(value);
+                node->left->left = left_sub_tree;
+                node->right = new TreeNode<T>(value);
+                node->right->right = right_sub_tree;
             }
-            break;
         }
+        if (current_depth == depth - 1)
+            break;
     }
     return root;
 }
