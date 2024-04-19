@@ -7,4 +7,5 @@ ToDo:
 - Study segment trees in more detail and extend unit tests.
 - Implement algo to check if tree is symmetric, a mirror of itself
 - Implement algo to compute sum of binary tree of the digits from root-to-each-leaf-node
+- Add more unit tests for insert_tow_into_tree
 

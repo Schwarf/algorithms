@@ -20,10 +20,9 @@
 template<typename T>
 TreeNode<T> *insert_row_into_tree(TreeNode<T> *root, T value, int depth) {
     if (depth == 1) {
-        auto left_sub_tree = root->left;
-        root = new TreeNode<T>(value);
-        root->left = left_sub_tree;
-        return root;
+        auto new_root = new TreeNode<T>(value);
+        new_root->left = root;
+        return new_root;
     }
 
     std::queue<TreeNode<T> *> q;

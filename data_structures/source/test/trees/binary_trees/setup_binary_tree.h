@@ -320,6 +320,30 @@ protected:
 
     }
 
+    template<typename T>
+    static std::tuple<TreeNode<T> *, TreeNode<T> *, T, int> tree_and_inserted_row_tree2() {
+        constexpr int depth{1};
+        constexpr T value{-1.f};
+        auto root = new TreeNode<T>(1.f);
+        root->right = new TreeNode<T>(3.f);
+        root->left = new TreeNode<T>(4.f);
+        root->right->left = new TreeNode<T>(7.f);
+        root->right->right = new TreeNode<T>(94819.f);
+        root->right->left->left = new TreeNode<T>(4.f);
+
+        auto root2 = new TreeNode<T>(-1.f);
+        root2->left = new TreeNode<T>(1.f);
+        root2->left->right = new TreeNode<T>(3.f);
+        root2->left->left = new TreeNode<T>(4.f);
+        root2->left->right->left = new TreeNode<T>(7.f);
+        root2->left->right->right = new TreeNode<T>(94819.f);
+        root2->left->right->left->left = new TreeNode<T>(4.f);
+
+
+        return std::make_tuple(root, root2, value, depth);
+
+    }
+
 };
 
 #endif //SETUP_BINARY_TREE_H
