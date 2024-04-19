@@ -296,28 +296,29 @@ protected:
     }
 
     template<typename T>
-    static std::tuple<TreeNode<T> *, TreeNode<T> *, int, int> tree_and_inserted_row_tree() {
+    static std::tuple<TreeNode<T> *, TreeNode<T> *, T, int> tree_and_inserted_row_tree() {
         constexpr int depth{2};
-        constexpr int value{-1};
-        auto root = new TreeNode<T>(1);
-        root->right = new TreeNode<T>(4);
-        root->left = new TreeNode<T>(4);
-        root->right->left = new TreeNode<T>(7);
-        root->right->right = new TreeNode<T>(94819);
-        root->right->left->left = new TreeNode<T>(4);
+        constexpr T value{-1.f};
+        auto root = new TreeNode<T>(1.f);
+        root->right = new TreeNode<T>(4.f);
+        root->left = new TreeNode<T>(4.f);
+        root->right->left = new TreeNode<T>(7.f);
+        root->right->right = new TreeNode<T>(94819.f);
+        root->right->left->left = new TreeNode<T>(4.f);
 
-        auto root2 = new TreeNode<T>(1);
-        root2->right = new TreeNode<T>(-1);
-        root2->left = new TreeNode<T>(-1);
-        root2->right->right = new TreeNode<T>(7);
-        root2->right->right->right = new TreeNode<T>(94819);
-        root2->left->left = new TreeNode<T>(4);
+        auto root2 = new TreeNode<T>(1.f);
+        root2->right = new TreeNode<T>(-1.f);
+        root2->left = new TreeNode<T>(-1.f);
+        root2->right->right = new TreeNode<T>(4.f);
+        root2->left->left = new TreeNode<T>(4.f);
+        root2->right->right->left = new TreeNode<T>(7.f);
+        root2->right->right->right = new TreeNode<T>(94819.f);
+        root2->right->right->left->left = new TreeNode<T>(4.f);
 
 
         return std::make_tuple(root, root2, value, depth);
 
     }
-
 
 };
 
