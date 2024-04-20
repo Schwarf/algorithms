@@ -12,7 +12,7 @@
 // Determine the perimeter of the island.
 #include <vector>
 
-int island_perimeter(std::vector<std::vector<int>> &grid) {
+int island_perimeter(const std::vector<std::vector<int>> &grid) {
     int rows = grid.size();
     int columns = grid[0].size();
     int perimeter{};
