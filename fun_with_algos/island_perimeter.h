@@ -12,25 +12,29 @@
 // Determine the perimeter of the island.
 #include <vector>
 
+// Algo should also work for multiple islands
 int island_perimeter(const std::vector<std::vector<int>> &grid) {
     int rows = grid.size();
     int columns = grid[0].size();
-    int perimeter{};
+    int total_perimeter{};
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
+            int perimeter{};
             if (grid[i][j] == 1) {
+                perimeter=4;
                 // top
-                if (i == 0 || grid[i - 1][j] == 0) perimeter++;
+                if (i > 0 && grid[i - 1][j] == 1) perimeter--;
                 // bottom
-                if (i == rows - 1 || grid[i + 1][j] == 0) perimeter++;
+                if (i < rows - 1 && grid[i + 1][j] == 1) perimeter--;
                 // left
-                if (j == 0 || grid[i][j - 1] == 0) perimeter++;
+                if (j > 0 && grid[i][j - 1] == 1) perimeter--;
                 // right
-                if (j == columns - 1 || grid[i][j + 1] == 0) perimeter++;
+                if (j < columns - 1 && grid[i][j + 1] == 1) perimeter--;
             }
+            total_perimeter+=perimeter;
         }
     }
-    return perimeter;
+    return total_perimeter;
 }
 
 #endif //FUN_WITH_ALGOS_ISLAND_PERIMETER_H
