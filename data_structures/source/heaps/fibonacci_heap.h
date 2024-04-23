@@ -1,0 +1,8 @@
+//
+// Created by andreas on 23.04.24.
+//
+
+#ifndef DATA_STRUCTURES_FIBONACCI_HEAP_H
+#define DATA_STRUCTURES_FIBONACCI_HEAP_H
+
+#endif //DATA_STRUCTURES_FIBONACCI_HEAP_H
