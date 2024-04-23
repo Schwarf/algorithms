@@ -52,5 +52,56 @@ std::vector<T> find_minimum_height_trees(std::vector<std::vector<T>> &edges, int
     return leaves;
 }
 
+template<typename T>
+requires std::is_unsigned_v<T>
+std::vector<T> find_minimum_height_trees_alternative(std::vector<std::vector<T>> &edges, int n) {
+
+    if (n == 1)
+        return {T{}}; // A special case where the single node is the root.
+
+    // Step 1: Build the graph as an adjacency list.
+    std::vector<std::vector<T>> graph(n);
+    std::vector<T> degree(n, T{});
+    for (const auto &edge: edges) {
+        graph[edge[0]].push_back(edge[1]);
+        graph[edge[1]].push_back(edge[0]);
+        degree[edge[0]]++;
+        degree[edge[1]]++;
+    }
+
+    // Step 2: Initialize leaves
+    std::queue<T> leaves;
+    for (int i = 0; i < n; ++i) {
+        if (degree[i] == 1) { // It's a leaf
+            leaves.push(i);
+        }
+    }
+
+    // Step 3: Trim leaves iteratively until 1 or 2 nodes remain
+    int remaining_nodes = n;
+    while (remaining_nodes > 2) {
+        auto leaves_size = leaves.size();
+        remaining_nodes -= leaves_size;
+        for (int i{}; i < leaves_size; ++i) {
+            auto leaf = leaves.front();
+            leaves.pop();
+            for (int neighbor: graph[leaf]) {
+                if (--degree[neighbor] == T{1}) {
+                    leaves.push(neighbor);
+                }
+            }
+        }
+    }
+
+    // Collect all remaining nodes, these are the roots of MHTs
+    std::vector<T> result;
+    while (!leaves.empty()) {
+        result.push_back(leaves.front());
+        leaves.pop();
+    }
+
+    return result;
+}
+
 
 #endif //DATA_STRUCTURES_MINIMUM_HEIGHT_TREES_H
