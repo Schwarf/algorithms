@@ -23,7 +23,10 @@ int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string
         return dp[index][character];
 
     dp[index][character] = 0;
-    auto does_match = character == (input[index] - 'a');
+    auto does_match = (character == (input[index] - 'a'));
+    if (does_match)
+        dp[index][character] = 1;
+
     if (index > 0) {
         dp[index][character] = dfs(index - 1, character, dp, input, k);
         if (does_match) {
@@ -42,7 +45,7 @@ int longest_ideal_string_top_down(std::string &input, int k) {
     std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
 
     int result{};
-    for (int character{}; character < n; ++character) {
+    for (int character{}; character < 26; ++character) {
         result = std::max(result, dfs(n - 1, character, dp, input, k));
     }
 
