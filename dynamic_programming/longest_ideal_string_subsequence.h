@@ -24,26 +24,23 @@ int longest_ideal_string_top_down(const std::string &input, int k) {
 
     int result{};
     for (int i{}; i < n; ++i) {
-        result = std::max(result, )
+        result = std::max(result,)
     }
 
 }
 
-int dfs(int index , int character, std::vector<std::vector<int>> &dp, std::string & s, int k)
-{
-    if(dp[index][character] != -1)
+int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string &s, int k) {
+    if (dp[index][character] != -1)
         return dp[index][character];
 
     dp[index][character] = 0;
     auto does_match = character == ([index]-'a');
-    if(index > 0)
-    {
-        dp[index][character] = dfs(index -1, character, dp, s, k);
-        if(does_match){
-            for(int char_index{}; char_index < 26; ++char_index)
-            {
-                if(std::abs(character - char_index) <= k){
-                    dp[index][character] = std::max(dp[index][character], 1 + dfs(index-1, char_index, dp, s, k));
+    if (index > 0) {
+        dp[index][character] = dfs(index - 1, character, dp, s, k);
+        if (does_match) {
+            for (int char_index{}; char_index < 26; ++char_index) {
+                if (std::abs(character - char_index) <= k) {
+                    dp[index][character] = std::max(dp[index][character], 1 + dfs(index - 1, char_index, dp, s, k));
                 }
             }
         }
@@ -51,5 +48,26 @@ int dfs(int index , int character, std::vector<std::vector<int>> &dp, std::strin
     return dp[index][character];
 }
 
+int longest_ideal_string_bottom_up(std::string s, int k) {
+    int n = s.size();
+    std::vector<int> dp(26, 0);
+
+    int result{};
+    // Updating dp with the i-th character
+    for (int i{}; i < n; i++) {
+        int current = s[i] - 'a';
+        int best{};
+        for (int prev{}; prev < 26; prev++) {
+            if (abs(prev - current) <= k) {
+                best = std::max(best, dp[prev]);
+            }
+        }
+
+        // Appending s[i] to the previous longest ideal subsequence allowed
+        dp[current] = std::max(dp[current], best + 1);
+        result = std::max(result, dp[current]);
+    }
+    return result;
+}
 
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_LONGEST_IDEAL_STRING_SUBSEQUENCE_H
