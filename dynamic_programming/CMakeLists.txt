@@ -37,4 +37,5 @@ add_executable(dynamic_programming_samples main.cpp
         minimum_difficulty_job_schedule.h
         count_unique_binary_search_trees.h
         largest_divisible_subset.h
-        count_palindromic_substrings.h)
+        count_palindromic_substrings.h
+        longest_ideal_string_subsequence.h)
