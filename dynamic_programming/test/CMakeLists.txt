@@ -34,6 +34,7 @@ add_executable(dynamic_programming_samples_test
         test_number_of_string_decodings.cpp
         test_minimum_difficulty_job_schedule.cpp
         test_count_unique_binary_search_trees.cpp
-        test_largest_divisible_subset.cpp test_count_palindromic_substrings.cpp)
+        test_largest_divisible_subset.cpp test_count_palindromic_substrings.cpp
+        test_longest_ideal_string_subsequence.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

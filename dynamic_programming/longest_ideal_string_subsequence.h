@@ -18,35 +18,36 @@
 // Note that the alphabet order is not cyclic. For example, the absolute difference in the alphabet order of 'a'
 // and 'z' is 25, not 1.
 
-int longest_ideal_string_top_down(const std::string &input, int k) {
-    int n = input.size();
-    std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
-
-    int result{};
-    for (int i{}; i < n; ++i) {
-        result = std::max(result,)
-    }
-
-}
-
-int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string &s, int k) {
+int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string &input, int k) {
     if (dp[index][character] != -1)
         return dp[index][character];
 
     dp[index][character] = 0;
-    auto does_match = character == ([index]-'a');
+    auto does_match = character == (input[index] - 'a');
     if (index > 0) {
-        dp[index][character] = dfs(index - 1, character, dp, s, k);
+        dp[index][character] = dfs(index - 1, character, dp, input, k);
         if (does_match) {
             for (int char_index{}; char_index < 26; ++char_index) {
                 if (std::abs(character - char_index) <= k) {
-                    dp[index][character] = std::max(dp[index][character], 1 + dfs(index - 1, char_index, dp, s, k));
+                    dp[index][character] = std::max(dp[index][character], 1 + dfs(index - 1, char_index, dp, input, k));
                 }
             }
         }
     }
     return dp[index][character];
 }
+
+int longest_ideal_string_top_down(std::string &input, int k) {
+    int n = input.size();
+    std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
+
+    int result{};
+    for (int character{}; character < n; ++character) {
+        result = std::max(result, dfs(n - 1, character, dp, input, k));
+    }
+
+}
+
 
 int longest_ideal_string_bottom_up(std::string s, int k) {
     int n = s.size();
