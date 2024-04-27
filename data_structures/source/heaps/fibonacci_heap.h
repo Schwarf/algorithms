@@ -38,13 +38,38 @@ public:
         return node;
     }
 
+    ~FibonacciHeap() {
+        if (!is_empty())
+            _delete_root_list(_minimum_node);
+    }
+
+    bool is_empty() const {
+        return _minimum_node == nullptr;
+    }
+
 private:
+
+    void _delete_root_list(Node<KeyType, ValueType> *node) {
+        auto next_left = node->left;
+        do {
+            auto current_node = next_left;
+            next_left = next_left->left;
+            if (current_node->child)
+                _delete_root_list(current_node->child);
+            if (current_node != node)
+                delete current_node;
+
+        } while (next_left != node);
+        delete node;
+    }
+
     void _insert(Node<KeyType, ValueType> *node) {
-        _minimum_node = _merge(_minimum_node, node);
+        // Add node to the list of roots
+        _minimum_node = _merge_into_list(_minimum_node, node);
         _number_of_nodes++;
     }
 
-    void _merge(Node<KeyType, ValueType> *node1, Node<KeyType, ValueType> *node2) {
+    void _merge_into_list(Node<KeyType, ValueType> *node1, Node<KeyType, ValueType> *node2) {
         if (!node1)
             return node2;
         if (!node2)
@@ -80,8 +105,28 @@ private:
         node->right = node;
     }
 
+    void _promote_child_to_root(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
+        parent->child = (child = child->right ? nullptr : child->right);
+        _remove_node_from_list(child);
+        parent->number_of_children--;
+        _merge(_minimum_node, child);
+        child->parent = nullptr;
+        child->is_marked = false;
+    }
+
+    void _add_child(Node<KeyType, ValueType> *parent, Node<KeyType, ValueType> *child) {
+        child->parent = parent;
+        parent->child = _merge_into_list(parent->child, child);
+        parent->number_of_children++;
+        child->is_marked = false;
+    }
+
+    void _consolidate() {
+
+    }
+
     int _number_of_nodes{};
-    Node<KeyType, ValueType> *_minimum_node = nullptr;
+    Node<KeyType, ValueType> *_minimum_node = nullptr; // Important note: _minimum_node is the most right node.
 
 };
 
