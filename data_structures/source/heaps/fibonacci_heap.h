@@ -65,6 +65,21 @@ private:
         return node1;
     }
 
+    void _remove_node_from_list(Node<KeyType, ValueType> *node) {
+        // NOde is already removed from list;
+        if (node->right == node)
+            return;
+
+        auto left = node->left;
+        auto right = node->right;
+        // Attach left and right nodes to each other
+        left->right = right;
+        right->left = left;
+        // Self assign node left and right pointers
+        node->left = node;
+        node->right = node;
+    }
+
     int _number_of_nodes{};
     Node<KeyType, ValueType> *_minimum_node = nullptr;
 
