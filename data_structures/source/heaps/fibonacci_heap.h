@@ -36,9 +36,10 @@ class FibonacciHeap {
 public:
     Node<KeyType, ValueType> *insert(const KeyType key, const ValueType &value) {
         auto node = new Node<KeyType, ValueType>(key, value);
-
+        _insert(node);
         return node;
     }
+
 
     ~FibonacciHeap() {
         if (!is_empty())
@@ -50,6 +51,33 @@ public:
     }
 
 private:
+
+    Node<KeyType, ValueType> *_pop_min() {
+        if (!_minimum_node)
+            return nullptr;
+        auto return_node = _minimum_node;
+        _remove_parent_from_all_children(return_node->child);
+        _merge_into_list(return_node, return_node->child);
+        if (return_node == return_node->next)
+            _minimum_node = nullptr;
+        else
+            _minimum_node = _minimum_node->right;
+        _remove_node_from_list(return_node);
+        if (_minimum_node)
+            _restore_heap();
+        _number_of_nodes--;
+        return return_node;
+    }
+
+    void _remove_parent_from_all_children(Node<KeyType, ValueType> *initial_child) {
+        if (!initial_child)
+            return;
+        auto start = initial_child;
+        do {
+            initial_child->parent = nullptr;
+            initial_child = initial_child->next;
+        } while (initial_child != start);
+    }
 
     void _delete_root_list(Node<KeyType, ValueType> *node) {
         auto node_prev = node->prev;
