@@ -47,7 +47,7 @@ public:
     }
 
     ValueType pop_min() {
-        auto min_node = get_min();
+        auto min_node = _extract_min();
         auto value = min_node->value;
         delete min_node;
         return value;
@@ -58,11 +58,11 @@ public:
     }
 
 
-    bool is_empty() const {
+    [[nodiscard]] bool is_empty() const {
         return _minimum_node == nullptr;
     }
 
-    bool check_heap_property() const {
+    [[nodiscard]] bool check_heap_property() const {
         if (!_minimum_node)
             return true;
         auto current = _minimum_node;
@@ -93,7 +93,7 @@ private:
         return true;
     }
 
-    Node<KeyType, ValueType> *get_min() {
+    Node<KeyType, ValueType> *_extract_min() {
         if (!_minimum_node)
             return nullptr;
         auto return_node = _minimum_node;
