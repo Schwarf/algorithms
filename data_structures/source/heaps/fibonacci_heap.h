@@ -73,6 +73,12 @@ public:
         return true;
     }
 
+    ValueType get_min() const {
+        if (is_empty())
+            throw std::underflow_error("Fibonacci Heap is empty. No min-element can be retrieved!");
+        return _minimum_node->value;
+    }
+
 private:
 
     bool _check_node(Node<KeyType, ValueType> *node, KeyType minimum_key) {
@@ -140,7 +146,7 @@ private:
         _number_of_nodes++;
     }
 
-    void _merge_into_list(Node<KeyType, ValueType> *node1, Node<KeyType, ValueType> *node2) {
+    Node<KeyType, ValueType> *_merge_into_list(Node<KeyType, ValueType> *node1, Node<KeyType, ValueType> *node2) {
         if (!node1)
             return node2;
         if (!node2)
