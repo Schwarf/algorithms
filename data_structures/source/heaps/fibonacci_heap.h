@@ -19,8 +19,8 @@ struct Node {
     ValueType value;
     Node *child{nullptr};
     Node *parent{nullptr};
-    Node *left{this};
-    Node *right{this};
+    Node *prev{this};
+    Node *next{this};
     bool is_marked{};
     int number_of_children{};
 
@@ -50,16 +50,16 @@ public:
 private:
 
     void _delete_root_list(Node<KeyType, ValueType> *node) {
-        auto next_left = node->left;
+        auto node_prev = node->prev;
         do {
-            auto current_node = next_left;
-            next_left = next_left->left;
+            auto current_node = node_prev;
+            node_prev = node_prev->prev;
             if (current_node->child)
                 _delete_root_list(current_node->child);
             if (current_node != node)
                 delete current_node;
 
-        } while (next_left != node);
+        } while (node_prev != node);
         delete node;
     }
 
@@ -79,34 +79,34 @@ private:
             std::swap(node1, node2);
 
         // Inserting node1 before node2
-        // Remember original right and left nodes
-        auto node1_right = node1->right;
-        auto node2_left = node2->left;
-        node1->right = node2;
-        node2->left = node1;
+        // Remember original next and prev nodes
+        auto node1_next = node1->next;
+        auto node2_prev = node2->prev;
+        node1->next = node2;
+        node2->prev = node1;
 
-        node1_right->left = node2_left;
-        node2_left->right = node1_right;
+        node1_next->prev = node2_prev;
+        node2_prev->next = node1_next;
         return node1;
     }
 
     void _remove_node_from_list(Node<KeyType, ValueType> *node) {
         // NOde is already removed from list;
-        if (node->right == node)
+        if (node->next == node)
             return;
 
-        auto left = node->left;
-        auto right = node->right;
-        // Attach left and right nodes to each other
-        left->right = right;
-        right->left = left;
-        // Self assign node left and right pointers
-        node->left = node;
-        node->right = node;
+        auto prev = node->prev;
+        auto next = node->next;
+        // Attach prev and next nodes to each other
+        prev->next = next;
+        next->prev = prev;
+        // Self assign node prev and next pointers
+        node->prev = node;
+        node->next = node;
     }
 
     void _promote_child_to_root(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
-        parent->child = (child = child->right ? nullptr : child->right);
+        parent->child = (child = child->next ? nullptr : child->next);
         _remove_node_from_list(child);
         parent->number_of_children--;
         _merge(_minimum_node, child);
@@ -126,7 +126,7 @@ private:
     }
 
     int _number_of_nodes{};
-    Node<KeyType, ValueType> *_minimum_node = nullptr; // Important note: _minimum_node is the most right node.
+    Node<KeyType, ValueType> *_minimum_node = nullptr; // Important note: _minimum_node is the most next node.
 
 };
 
