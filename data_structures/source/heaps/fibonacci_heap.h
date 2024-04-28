@@ -105,6 +105,8 @@ private:
         node->next = node;
     }
 
+    // Remove child from child-list of parent, decrement parents number of children
+    //
     void _promote_child_to_root(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
         parent->child = (child = child->next ? nullptr : child->next);
         _remove_node_from_list(child);
@@ -123,6 +125,29 @@ private:
 
     void _consolidate() {
 
+    }
+
+    void _decrease_key(Node<KeyType, ValueType> *node, KeyType new_key) {
+        node->key = new_key;
+        auto parent = node->parent;
+        if (parent != nullptr && node->key < parent->key) {
+            _promote_child_to_root(node, parent);
+
+        }
+        if (node->key < _minimum_node->key)
+            _minimum_node = node;
+    }
+
+    void _propagate_promotion_to_root(Node<KeyType, ValueType> *node) {
+        auto parent = node->parent;
+        if (parent != nullptr) {
+            if (node->is_marked == false)
+                node->is_marked = true;
+            else {
+                _promote_child_to_root(node, parent);
+                _propagate_promotion_to_root(parent);
+            }
+        }
     }
 
     int _number_of_nodes{};
