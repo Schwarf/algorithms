@@ -47,7 +47,7 @@ public:
     }
 
     ValueType pop_min() {
-        auto min_node = _pop_min();
+        auto min_node = get_min();
         auto value = min_node->value;
         delete min_node;
         return value;
@@ -64,7 +64,7 @@ public:
 
 private:
 
-    Node<KeyType, ValueType> *_pop_min() {
+    Node<KeyType, ValueType> *get_min() {
         if (!_minimum_node)
             return nullptr;
         auto return_node = _minimum_node;
