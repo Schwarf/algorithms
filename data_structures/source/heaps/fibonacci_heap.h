@@ -7,6 +7,8 @@
 
 #include <concepts>
 #include <compare>
+#include <numbers>
+#include <cmath>
 
 template<typename T>
 concept strong_ordered = requires(T a, T b) {
@@ -116,15 +118,52 @@ private:
         child->is_marked = false;
     }
 
-    void _add_child(Node<KeyType, ValueType> *parent, Node<KeyType, ValueType> *child) {
+    void _add_child(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
         child->parent = parent;
         parent->child = _merge_into_list(parent->child, child);
         parent->number_of_children++;
         child->is_marked = false;
     }
 
-    void _consolidate() {
+    void _restore_heap() {
+        int max_degree = static_cast<int>(log2(_number_of_nodes) / log2_of_golden_ratio);
+        std::vector<Node<KeyType, ValueType> *> track_nodes_by_degree(max_degree + 1, nullptr);
+        std::vector<Node<KeyType, ValueType> *> root_nodes{};
+        auto node = _minimum_node;
+        do {
+            root_nodes.emplace_back(node);
+            node = node->next;
+        } while (node != _minimum_node);
 
+        for (auto &root: root_nodes) {
+            auto degree = root->number_of_children;
+            _remove_node_from_list(root);
+            while (track_nodes_by_degree[degree]) {
+                auto tmp = track_nodes_by_degree[degree];
+                if (root->key > tmp->key)
+                    std::swap(root, tmp);
+                _add_child(tmp, root);
+                track_nodes_by_degree[degree] = nullptr;
+                degree++;
+
+            }
+            track_nodes_by_degree[degree] = root;
+        }
+
+        _minimum_node = nullptr;
+        for (auto &node: track_nodes_by_degree) {
+            if (!node)
+                continue;
+            if (_minimum_node == nullptr) {
+                _minimum_node = node;
+                node->left = node->right = node; // Initialize the node's neighbors to itself
+            } else {
+                _merge(_minimum_node, node);
+                if (node->key < _minimum_node->key) {
+                    _minimum_node = node;
+                }
+            }
+        }
     }
 
     void _decrease_key(Node<KeyType, ValueType> *node, KeyType new_key) {
@@ -151,6 +190,7 @@ private:
     }
 
     int _number_of_nodes{};
+    const double log2_of_golden_ratio = log2(std::numbers::phi_v<double>);
     Node<KeyType, ValueType> *_minimum_node = nullptr; // Important note: _minimum_node is the most next node.
 
 };
