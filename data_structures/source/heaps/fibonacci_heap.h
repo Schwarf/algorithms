@@ -62,7 +62,36 @@ public:
         return _minimum_node == nullptr;
     }
 
+    bool check_heap_property() const {
+        if (!_minimum_node)
+            return true;
+        auto current = _minimum_node;
+        do {
+            if (!_check_node(_minimum_node, std::numeric_limits<KeyType>::min()))
+                return false;
+        } while (current != _minimum_node);
+        return true;
+    }
+
 private:
+
+    bool _check_node(Node<KeyType, ValueType> *node, KeyType minimum_key) {
+        if (!node)
+            return true;
+        if (node->key < minimum_key)
+            return false;
+        // Check the children
+        if (node->child) {
+            auto child = node->child;
+            do {
+                if (!_check_node(child, node->key)) {
+                    return false;
+                }
+                child = child->next;
+            } while (child != node->child);
+        }
+        return true;
+    }
 
     Node<KeyType, ValueType> *get_min() {
         if (!_minimum_node)
