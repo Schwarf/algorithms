@@ -46,6 +46,18 @@ public:
             _delete_root_list(_minimum_node);
     }
 
+    ValueType pop_min() {
+        auto min_node = _pop_min();
+        auto value = min_node->value;
+        delete min_node;
+        return value;
+    }
+
+    void decrease_key(Node<KeyType, ValueType> *node, KeyType new_key) {
+        _decrease_key(node, new_key);
+    }
+
+
     bool is_empty() const {
         return _minimum_node == nullptr;
     }
