@@ -13,4 +13,5 @@ add_executable(bit_manipulation main.cpp
         sort_according_to_hamming_weight.h
         find_original_array_XOR.h
         integer_division.h
-        bitwise_and_numbers_in_range.h)
+        bitwise_and_numbers_in_range.h
+        count_operations_to_make_xor_of_array_equal_k.h)
