@@ -14,7 +14,8 @@ add_executable(test_bit_manipulation
         test_sort_according_to_hamming_weight.cpp
         test_find_original_array_XOR.cpp
         test_integer_division.cpp
-        test_bitwise_and_numbers_in_range.cpp)
+        test_bitwise_and_numbers_in_range.cpp
+        test_count_operations_to_make_xor_of_array_equal_k.cpp)
 
 
 target_link_libraries(test_bit_manipulation ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
