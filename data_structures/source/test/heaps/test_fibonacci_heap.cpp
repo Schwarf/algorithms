@@ -112,3 +112,68 @@ TEST(TestFibonacciHeap, pop_min) {
     EXPECT_TRUE(heap.is_empty());
     EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
 }
+
+TEST(TestFibonacciHeap, decrease_key) {
+    constexpr double value1{10.0};
+    constexpr double value2{20.0};
+    constexpr double value3{30.0};
+    constexpr double value4{40.0};
+    constexpr double value5{50.0};
+    constexpr int key1{1};
+    constexpr int key2{2};
+    constexpr int key3{3};
+    constexpr int key4{4};
+    constexpr int key5{5};
+    auto heap = FibonacciHeap<int, double>();
+    auto node3 = heap.insert(key3, value3);
+    auto node2 = heap.insert(key2, value2);
+    auto node5 = heap.insert(key5, value5);
+    auto node1 = heap.insert(key1, value1);
+    auto node4 = heap.insert(key4, value4);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(heap.size(), 5);
+    EXPECT_EQ(value1, heap.get_min());
+    constexpr double new_key1{};
+    heap.decrease_key(node1, new_key1);
+    EXPECT_TRUE(heap.check_heap_property());
+    EXPECT_EQ(value1, heap.get_min());
+}
+
+
+TEST(TestFibonacciHeap, decrease_key_mix) {
+    constexpr double value1{10.0};
+    constexpr double value2{20.0};
+    constexpr double value3{30.0};
+    constexpr double value4{40.0};
+    constexpr double value5{50.0};
+    constexpr int key1{1};
+    constexpr int key2{2};
+    constexpr int key3{3};
+    constexpr int key4{4};
+    constexpr int key5{5};
+    auto heap = FibonacciHeap<int, double>();
+    auto node3 = heap.insert(key3, value3);
+    auto node2 = heap.insert(key2, value2);
+    auto node5 = heap.insert(key5, value5);
+    auto node1 = heap.insert(key1, value1);
+    auto node4 = heap.insert(key4, value4);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(heap.size(), 5);
+    EXPECT_EQ(value1, heap.get_min());
+    constexpr double new_key3{};
+    heap.decrease_key(node3, new_key3);
+    EXPECT_TRUE(heap.check_heap_property());
+    EXPECT_EQ(value3, heap.get_min());
+    constexpr double value6{60.0};
+    constexpr int key6{-1};
+    EXPECT_EQ(value3, heap.pop_min());
+    EXPECT_EQ(heap.size(), 4);
+    EXPECT_EQ(value1, heap.get_min());
+    auto node6 = heap.insert(key6, value6);
+    EXPECT_EQ(value6, heap.get_min());
+    EXPECT_EQ(heap.size(), 5);
+    constexpr int new_key5{-10};
+    heap.decrease_key(node5, new_key5);
+    EXPECT_EQ(value5, heap.get_min());
+    EXPECT_EQ(heap.size(), 5);
+}
