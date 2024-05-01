@@ -40,11 +40,15 @@ public:
         return node;
     }
 
+    int size() {
+        return _number_of_nodes;
+    }
 
     ~FibonacciHeap() {
         if (!is_empty())
             _delete_root_list(_minimum_node);
     }
+
 
     ValueType pop_min() {
         auto min_node = _extract_min();
@@ -115,7 +119,7 @@ private:
         if (return_node == return_node->next)
             _minimum_node = nullptr;
         else
-            _minimum_node = _minimum_node->right;
+            _minimum_node = _minimum_node->next;
         _remove_node_from_list(return_node);
         if (_minimum_node)
             _restore_heap();
@@ -238,9 +242,9 @@ private:
                 continue;
             if (_minimum_node == nullptr) {
                 _minimum_node = node;
-                node->left = node->right = node; // Initialize the node's neighbors to itself
+                node->prev = node->next = node; // Initialize the node's neighbors to itself
             } else {
-                _merge(_minimum_node, node);
+                _merge_into_list(_minimum_node, node);
                 if (node->key < _minimum_node->key) {
                     _minimum_node = node;
                 }

@@ -69,3 +69,46 @@ TEST(TestFibonacciHeap, merge) {
     EXPECT_TRUE(heap1.check_heap_property());
     EXPECT_EQ(heap1.get_min(), value1);
 }
+
+
+TEST(TestFibonacciHeap, pop_min) {
+    constexpr double value1{10.0};
+    constexpr double value2{20.0};
+    constexpr double value3{30.0};
+    constexpr double value4{40.0};
+    constexpr double value5{50.0};
+    constexpr int key1{1};
+    constexpr int key2{2};
+    constexpr int key3{3};
+    constexpr int key4{4};
+    constexpr int key5{5};
+    auto heap = FibonacciHeap<int, double>();
+    heap.insert(key3, value3);
+    heap.insert(key2, value2);
+    heap.insert(key5, value5);
+    heap.insert(key1, value1);
+    heap.insert(key4, value4);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(heap.size(), 5);
+    EXPECT_EQ(value1, heap.get_min());
+    EXPECT_EQ(value1, heap.pop_min());
+    EXPECT_EQ(heap.size(), 4);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(value2, heap.get_min());
+    EXPECT_EQ(value2, heap.pop_min());
+    EXPECT_EQ(heap.size(), 3);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(value3, heap.get_min());
+    EXPECT_EQ(value3, heap.pop_min());
+    EXPECT_EQ(heap.size(), 2);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(value4, heap.get_min());
+    EXPECT_EQ(value4, heap.pop_min());
+    EXPECT_EQ(heap.size(), 1);
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+    EXPECT_EQ(value5, heap.get_min());
+    EXPECT_EQ(value5, heap.pop_min());
+    EXPECT_EQ(heap.size(), 0);
+    EXPECT_TRUE(heap.is_empty());
+    EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
+}
