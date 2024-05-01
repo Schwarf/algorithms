@@ -5,7 +5,6 @@
 #include "heaps/max_min_heap.h"
 #include <random>
 #include <utility>
-#include <algorithm>
 
 class SetupMaxMinHeap : public testing::Test {
 public:

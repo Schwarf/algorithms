@@ -3,6 +3,46 @@
 //
 #include "gtest/gtest.h"
 #include "heaps/fibonacci_heap.h"
+#include <queue>
+#include <random>
+#include <unordered_map>
+
+class SetupFibonacciHeap : public testing::Test {
+public:
+    static inline std::vector<std::pair<int, double>> get_random_n_numbers(int n) {
+        if (n < 1)
+            return {};
+        int lower_bound = -10 * n;
+        int upper_bound = 10 * n;
+        auto int_distribution_ = std::uniform_int_distribution<int>(lower_bound, upper_bound);
+        auto double_distribution_ = std::uniform_real_distribution<double>(lower_bound, upper_bound);
+        std::random_device device;
+        auto generator = std::mt19937(device());
+        std::vector<std::pair<int, double>> result{};
+        for (int i{}; i < n; ++i) {
+            auto key = int_distribution_(generator);
+            auto value = double_distribution_(generator);
+            result.push_back({key, value});
+        }
+        return result;
+    }
+
+    template<typename T>
+    std::string VectorToString(const std::vector<T> &vec) {
+        std::ostringstream oss;
+        oss << "{";
+        for (size_t i = 0; i < vec.size(); ++i) {
+            oss << vec[i];
+            if (i < vec.size() - 1) {
+                oss << ", ";
+            }
+        }
+        oss << "}";
+        return oss.str();
+    }
+
+};
+
 
 TEST(TestFibonacciHeap, insert) {
     constexpr double value1{1.0};
@@ -176,4 +216,34 @@ TEST(TestFibonacciHeap, decrease_key_mix) {
     heap.decrease_key(node5, new_key5);
     EXPECT_EQ(value5, heap.get_min());
     EXPECT_EQ(heap.size(), 5);
+}
+
+TEST_F(SetupFibonacciHeap, RandomSetup) {
+    struct Comparator {
+        bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2) {
+            return node1.first > node2.first;
+        }
+    };
+    std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
+    constexpr int number_of_random_inputs{1000};
+
+
+    auto input = get_random_n_numbers(number_of_random_inputs);
+    std::unordered_map<int, Node<int, double> *> node_tracker;
+    int index{};
+    auto heap = FibonacciHeap<int, double>();
+    for (const auto &element: input) {
+        auto node = heap.insert(element.first, element.second);
+        node_tracker[index++] = node;
+        q.push({element.first, element.second});
+        EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+        if (q.size() > 100) {
+            for (int i{}; i < 33; ++i) {
+                q.pop();
+                heap.pop_min();
+                EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+            }
+        }
+    }
+
 }
