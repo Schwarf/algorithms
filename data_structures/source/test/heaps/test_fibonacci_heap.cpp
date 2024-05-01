@@ -21,15 +21,15 @@ public:
         std::vector<std::pair<int, double>> result{};
         // Currently the "order" of elements with the same key is undetermined in the Fibonacci heap. Therefore each
         // key-element can only appear once.
-        std::set<int> s;
+        std::set<int> unique_keys;
         for (int i{}; i < n; ++i) {
 
             auto key = int_distribution_(generator);
-            if (s.contains(key))
+            if (unique_keys.contains(key))
                 continue;
             auto value = double_distribution_(generator);
             result.emplace_back(key, value);
-            s.insert(key);
+            unique_keys.insert(key);
         }
         return result;
     }
@@ -254,35 +254,45 @@ TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
     }
 }
 
+
 TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
-    struct Comparator {
-        bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2) {
-            return node1.first > node2.first;
-        }
-    };
-    for (int runs{}; runs < 150; ++runs) {
-        std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
+    for (int runs{}; runs < 20; runs++) {
         constexpr int number_of_random_inputs{1000};
         auto input = get_random_n_numbers(number_of_random_inputs);
-        std::unordered_map<int, double> key_value_tracker;
-        std::unordered_map<int, Node<int, double> *> index_node_tracker;
         auto heap = FibonacciHeap<int, double>();
-        int index{};
+        std::vector<Node<int, double> *> nodes;
+        std::set<int> unique_keys;
         for (const auto &element: input) {
             auto node = heap.insert(element.first, element.second);
+            unique_keys.insert(element.first);
+            nodes.emplace_back(node);
+        }
 
-            q.push({element.first, element.second});
-            EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
-            EXPECT_EQ(q.size(), heap.size());
-            if (q.size() > 100) {
-                for (int i{}; i < 33; ++i) {
-                    q.pop();
-                    heap.pop_min();
-                    EXPECT_EQ(q.size(), heap.size());
-                    EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
 
-                }
-            }
+        constexpr int number_of_decreases{20};
+        for (int i{}; i < number_of_decreases; ++i) {
+            auto node_index = rand() % nodes.size();
+            auto node = nodes[node_index];
+            int new_key = node->key - (rand() % 100);
+            if (unique_keys.contains(new_key))
+                continue;
+            heap.decrease_key(node, new_key);
+            node->key = new_key;
+            nodes[node_index] = node;
+            unique_keys.insert(new_key);
+            EXPECT_TRUE(heap.check_heap_property());
+        }
+        std::map<int, double> map;
+        for (const auto &node: nodes) {
+            map[node->key] = node->value;
+        }
+        ASSERT_EQ(map.size(), heap.size());
+        while (!heap.is_empty()) {
+            EXPECT_EQ(map.size(), heap.size());
+            EXPECT_EQ(heap.pop_min(), map.begin()->second);
+            map.erase(map.begin());
+            EXPECT_EQ(map.size(), heap.size());
+
         }
     }
 }
