@@ -30,6 +30,20 @@ struct Node {
 };
 
 
+/**
+ * @brief Insertion behavior in the Fibonacci heap for elements with identical keys.
+ *
+ * The Fibonacci heap does not enforce a specific ordering for elements inserted with the same key value. As a result:
+ * - The relative order of elements with identical keys is indeterminate and subject to the internal state and
+ *   operations of the heap.
+ * - This means that when multiple elements with the same key are inserted into the heap, the order in which they are
+ *   returned or processed (e.g., via extract-min operations) cannot be predicted based solely on the insertion order.
+ *
+ * @note If a predictable order is required for elements with the same key, consider augmenting each key with a
+ *       secondary criterion (such as a timestamp or a unique identifier) that ensures uniqueness and enforces
+ *       a stable ordering.
+ *
+ */
 template<typename KeyType, typename ValueType> requires strong_ordered<KeyType>
 class FibonacciHeap {
 
