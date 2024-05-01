@@ -28,7 +28,7 @@ public:
             if (s.contains(key))
                 continue;
             auto value = double_distribution_(generator);
-            result.push_back({key, value});
+            result.emplace_back(key, value);
             s.insert(key);
         }
         return result;
@@ -172,11 +172,11 @@ TEST(TestFibonacciHeap, decrease_key) {
     constexpr int key4{4};
     constexpr int key5{5};
     auto heap = FibonacciHeap<int, double>();
-    auto node3 = heap.insert(key3, value3);
-    auto node2 = heap.insert(key2, value2);
-    auto node5 = heap.insert(key5, value5);
+    heap.insert(key3, value3);
+    heap.insert(key2, value2);
+    heap.insert(key5, value5);
     auto node1 = heap.insert(key1, value1);
-    auto node4 = heap.insert(key4, value4);
+    heap.insert(key4, value4);
     EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
     EXPECT_EQ(heap.size(), 5);
     EXPECT_EQ(value1, heap.get_min());
@@ -200,10 +200,10 @@ TEST(TestFibonacciHeap, decrease_key_mix) {
     constexpr int key5{5};
     auto heap = FibonacciHeap<int, double>();
     auto node3 = heap.insert(key3, value3);
-    auto node2 = heap.insert(key2, value2);
+    heap.insert(key2, value2);
     auto node5 = heap.insert(key5, value5);
-    auto node1 = heap.insert(key1, value1);
-    auto node4 = heap.insert(key4, value4);
+    heap.insert(key1, value1);
+    heap.insert(key4, value4);
     EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
     EXPECT_EQ(heap.size(), 5);
     EXPECT_EQ(value1, heap.get_min());
@@ -216,7 +216,7 @@ TEST(TestFibonacciHeap, decrease_key_mix) {
     EXPECT_EQ(value3, heap.pop_min());
     EXPECT_EQ(heap.size(), 4);
     EXPECT_EQ(value1, heap.get_min());
-    auto node6 = heap.insert(key6, value6);
+    heap.insert(key6, value6);
     EXPECT_EQ(value6, heap.get_min());
     EXPECT_EQ(heap.size(), 5);
     constexpr int new_key5{-10};
@@ -225,7 +225,7 @@ TEST(TestFibonacciHeap, decrease_key_mix) {
     EXPECT_EQ(heap.size(), 5);
 }
 
-TEST_F(SetupFibonacciHeap, RandomSetup) {
+TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
     struct Comparator {
         bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2) {
             return node1.first > node2.first;
@@ -235,12 +235,42 @@ TEST_F(SetupFibonacciHeap, RandomSetup) {
         std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
         constexpr int number_of_random_inputs{1000};
         auto input = get_random_n_numbers(number_of_random_inputs);
-        std::unordered_map<int, Node<int, double> *> node_tracker;
-        int index{};
         auto heap = FibonacciHeap<int, double>();
         for (const auto &element: input) {
             auto node = heap.insert(element.first, element.second);
-            node_tracker[index++] = node;
+            q.push({element.first, element.second});
+            EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+            EXPECT_EQ(q.size(), heap.size());
+            if (q.size() > 100) {
+                for (int i{}; i < 33; ++i) {
+                    q.pop();
+                    heap.pop_min();
+                    EXPECT_EQ(q.size(), heap.size());
+                    EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+
+                }
+            }
+        }
+    }
+}
+
+TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
+    struct Comparator {
+        bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2) {
+            return node1.first > node2.first;
+        }
+    };
+    for (int runs{}; runs < 150; ++runs) {
+        std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
+        constexpr int number_of_random_inputs{1000};
+        auto input = get_random_n_numbers(number_of_random_inputs);
+        std::unordered_map<int, double> key_value_tracker;
+        std::unordered_map<int, Node<int, double> *> index_node_tracker;
+        auto heap = FibonacciHeap<int, double>();
+        int index{};
+        for (const auto &element: input) {
+            auto node = heap.insert(element.first, element.second);
+
             q.push({element.first, element.second});
             EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
             EXPECT_EQ(q.size(), heap.size());
