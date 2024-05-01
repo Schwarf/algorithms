@@ -79,6 +79,12 @@ public:
         return _minimum_node->value;
     }
 
+    void merge(FibonacciHeap<KeyType, ValueType> &other) {
+        _minimum_node = _merge_into_list(_minimum_node, other._minimum_node);
+        _number_of_nodes += other._number_of_nodes;
+        other._minimum_node = nullptr;
+        other._number_of_nodes = 0;
+    }
 
 private:
 
