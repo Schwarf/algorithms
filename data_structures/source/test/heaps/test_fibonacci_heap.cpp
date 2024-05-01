@@ -19,10 +19,17 @@ public:
         std::random_device device;
         auto generator = std::mt19937(device());
         std::vector<std::pair<int, double>> result{};
+        // Currently the "order" of elements with the same key is undetermined in the Fibonacci heap. Therefore each
+        // key-element can only appear once.
+        std::set<int> s;
         for (int i{}; i < n; ++i) {
+
             auto key = int_distribution_(generator);
+            if (s.contains(key))
+                continue;
             auto value = double_distribution_(generator);
             result.push_back({key, value});
+            s.insert(key);
         }
         return result;
     }
@@ -224,26 +231,28 @@ TEST_F(SetupFibonacciHeap, RandomSetup) {
             return node1.first > node2.first;
         }
     };
-    std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
-    constexpr int number_of_random_inputs{1000};
+    for (int runs{}; runs < 150; ++runs) {
+        std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
+        constexpr int number_of_random_inputs{1000};
+        auto input = get_random_n_numbers(number_of_random_inputs);
+        std::unordered_map<int, Node<int, double> *> node_tracker;
+        int index{};
+        auto heap = FibonacciHeap<int, double>();
+        for (const auto &element: input) {
+            auto node = heap.insert(element.first, element.second);
+            node_tracker[index++] = node;
+            q.push({element.first, element.second});
+            EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+            EXPECT_EQ(q.size(), heap.size());
+            if (q.size() > 100) {
+                for (int i{}; i < 33; ++i) {
+                    q.pop();
+                    heap.pop_min();
+                    EXPECT_EQ(q.size(), heap.size());
+                    EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
 
-
-    auto input = get_random_n_numbers(number_of_random_inputs);
-    std::unordered_map<int, Node<int, double> *> node_tracker;
-    int index{};
-    auto heap = FibonacciHeap<int, double>();
-    for (const auto &element: input) {
-        auto node = heap.insert(element.first, element.second);
-        node_tracker[index++] = node;
-        q.push({element.first, element.second});
-        EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
-        if (q.size() > 100) {
-            for (int i{}; i < 33; ++i) {
-                q.pop();
-                heap.pop_min();
-                EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
+                }
             }
         }
     }
-
 }
