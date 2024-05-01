@@ -62,7 +62,7 @@ public:
         return _minimum_node == nullptr;
     }
 
-    [[nodiscard]] bool check_heap_property() const {
+    [[nodiscard]] bool check_heap_property() {
         if (!_minimum_node)
             return true;
         auto current = _minimum_node;
@@ -78,6 +78,7 @@ public:
             throw std::underflow_error("Fibonacci Heap is empty. No min-element can be retrieved!");
         return _minimum_node->value;
     }
+
 
 private:
 
