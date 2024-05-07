@@ -44,13 +44,15 @@ requires std::is_signed_v<T>
 Node<T>* double_number(Node<T>* head)
 {
     if(head->value > 4) {
-        auto new_head = new Node<T>();
+        auto new_head = new Node<T>(0);
+        new_head->next = head;
         head = new_head;
+
     }
-    for(auto node = head; head != nullptr; node=node->next){
-        node->value = node->value*2;
-        if (node->next != nullptr && node->next->val > 4) {
-            node->val++;
+    for(auto node = head; node != nullptr; node=node->next){
+        node->value = (node->value*2) % 10;
+        if (node->next != nullptr && node->next->value > 4) {
+            node->value++;
         }
     }
     return head;
