@@ -45,5 +45,52 @@ Node<T> * remove_larger_nodes(Node<T>* head)
     return result_list;
 }
 
+template <typename T>
+requires std::is_arithmetic_v<T>
+Node<T> * revert_list(Node<T> * head)
+{
+    Node<T> * prev = nullptr;
+    Node<T> * next = nullptr;
+    auto node = head;
+    while(node)
+    {
+        next = node->next;
+        node->next = prev;
+        prev = node;
+        node = next;
+    }
+    return prev;
+}
+
+template <typename T>
+requires std::is_arithmetic_v<T>
+Node<T> * remove_larger_nodes_double_reverse(Node<T>* head){
+    head = revert_list(head);
+    int max{};
+    auto current = head;
+    Node<T> * prev = nullptr;
+    while (current != nullptr) {
+        max = std::max(max, current->value);
+
+        // Delete nodes that are smaller than maximum
+        if (current->value < max) {
+            // Delete current by skipping
+            prev->next = current->next;
+            auto deleted = current;
+            current = current->next;
+            deleted->next = nullptr;
+        }
+
+            // Current does not need to be deleted
+        else {
+            prev = current;
+            current = current->next;
+        }
+    }
+
+    // Reverse and return the modified linked list
+    return reverseList(head);
+
+}
 
 #endif //DATA_STRUCTURES_REMOVE_LARGER_NODES_H
