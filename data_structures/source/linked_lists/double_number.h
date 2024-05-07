@@ -9,33 +9,32 @@
 #include <stack>
 
 template<typename T>
-requires std::is_signed<T>
+requires std::is_signed_v<T>
 Node<T>* double_number_stack(Node<T>* head)
 {
     std::stack<int> s;
     auto node = head;
     while(node)
     {
-        s.push(node->val);
+        s.push(node->value);
         node = node->next;
     }
-    int carry{};
-    ListNode * new_head = nullptr;
+    int val{};
+    Node<T> * new_head = nullptr;
     node = nullptr;
-    while(!s.empty())
+    while(!s.empty() || val)
     {
-        int val = (carry+ s.top()*2) % 10;
-        carry = (carry+ s.top()*2) / 10;
-        s.pop();
-        new_head = new ListNode(val);
+        if(!s.empty()) {
+            val += s.top() * 2;
+            s.pop();
+        }
+        new_head = new Node<T>(val%10);
         if(node)
             new_head->next = node;
         node = new_head;
+        val /= 10;
     }
-    if(carry){
-        new_head = new ListNode(carry);
-        new_head->next = node;
-    }
+
     return new_head;
 
 }
