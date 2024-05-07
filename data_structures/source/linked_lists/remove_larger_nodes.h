@@ -76,7 +76,7 @@ Node<T> * remove_larger_nodes_double_reverse(Node<T>* head){
         if (current->value < max) {
             // Delete current by skipping
             prev->next = current->next;
-            auto deleted = current;
+            auto     deleted = current;
             current = current->next;
             deleted->next = nullptr;
         }
@@ -89,7 +89,7 @@ Node<T> * remove_larger_nodes_double_reverse(Node<T>* head){
     }
 
     // Reverse and return the modified linked list
-    return reverseList(head);
+    return revert_list(head);
 
 }
 
