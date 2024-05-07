@@ -39,4 +39,21 @@ Node<T>* double_number_stack(Node<T>* head)
 
 }
 
+template<typename T>
+requires std::is_signed_v<T>
+Node<T>* double_number(Node<T>* head)
+{
+    if(head->value > 4) {
+        auto new_head = new Node<T>();
+        head = new_head;
+    }
+    for(auto node = head; head != nullptr; node=node->next){
+        node->value = node->value*2;
+        if (node->next != nullptr && node->next->val > 4) {
+            node->val++;
+        }
+    }
+    return head;
+}
+
 #endif //SOURCE_ADD_TWO_NUMBERS_NORMAL_FROM_H
