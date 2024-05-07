@@ -10,9 +10,9 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.71.0)
 
-if (NOT Boost_FOUND)
-    message(FATAL_ERROR "Could not find boost!")
-endif ()
+#if (NOT Boost_FOUND)
+#    message(FATAL_ERROR "Could not find boost!")
+#endif ()
 
 
 function(enable_cxx_compiler_flag_if_supported flag)
