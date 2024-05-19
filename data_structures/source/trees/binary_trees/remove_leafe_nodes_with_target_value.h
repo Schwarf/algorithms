@@ -13,11 +13,13 @@
 template<typename T>
 TreeNode<T> *remove_leaf_nodes(TreeNode<T> *root, T target) {
     if (!root)
-        return root;
-    remove_leaf_nodes(root->left, target);
-    remove_leaf_nodes(root->right, target);
-    if (!root->left && !root->right && root->value == target)
         return nullptr;
+    root->left = remove_leaf_nodes(root->left, target);
+    root->right = remove_leaf_nodes(root->right, target);
+    if (root->left == nullptr && root->right == nullptr && root->value == target) {
+        delete root;
+        return nullptr;
+    }
     return root;
 }
 
