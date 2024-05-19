@@ -10,11 +10,6 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.71.0)
 
-#if (NOT Boost_FOUND)
-#    message(FATAL_ERROR "Could not find boost!")
-#endif ()
-
-
 function(enable_cxx_compiler_flag_if_supported flag)
     string(FIND "${CMAKE_CUDA_FLAGS}" "${flag}" flag_already_set)
     if (flag_already_set EQUAL -1)
@@ -36,18 +31,15 @@ set(LIBRARY_DIRECTORIES "")
 
 file(GLOB ALL_SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR}/*)
 
-
 foreach (SUBDIR ${ALL_SUBDIRS})
-    # Check if it is a directory but not named 'test'
-    if (IS_DIRECTORY ${SUBDIR} AND NOT SUBDIR STREQUAL "test")
-        # Look for .h files in the directory
+    if (IS_DIRECTORY ${SUBDIR} AND NOT SUBDIR STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}/test")
         file(GLOB H_FILES_IN_SUBDIR "${SUBDIR}/*.h")
-        # If .h files are found, add the .h files to a library named like the SUBDIR-name
         if (H_FILES_IN_SUBDIR)
             get_filename_component(SUBDIR_NAME ${SUBDIR} NAME)
             set(LIB_NAME "${SUBDIR_NAME}_lib")
             add_library(${LIB_NAME} INTERFACE)
             target_sources(${LIB_NAME} INTERFACE ${H_FILES_IN_SUBDIR})
+            list(APPEND LIBRARY_DIRECTORIES ${SUBDIR})
         endif ()
     endif ()
 endforeach ()
