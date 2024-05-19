@@ -20,18 +20,18 @@ protected:
     std::vector<unsigned int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
     std::vector<unsigned int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
     std::vector<std::vector<unsigned int>>
-            levelorder{{25},
-                       {15, 50},
-                       {10, 22, 35, 70},
-                       {4,  12, 18, 24, 31, 44, 66, 90}};
+            level_order{{25},
+                        {15, 50},
+                        {10, 22, 35, 70},
+                        {4,  12, 18, 24, 31, 44, 66, 90}};
     std::vector<std::vector<unsigned int>>
-            levelorder_inverted_tree{{25},
-                                     {50, 15},
-                                     {70, 35, 22, 10},
-                                     {90, 66, 44, 31, 24, 18, 12, 4}};
-    std::vector<std::vector<unsigned int>> levelorder_small_tree{{3},
-                                                                 {9,  20},
-                                                                 {15, 7}};
+            level_order_inverted_tree{{25},
+                                      {50, 15},
+                                      {70, 35, 22, 10},
+                                      {90, 66, 44, 31, 24, 18, 12, 4}};
+    std::vector<std::vector<unsigned int>> level_order_small_tree{{3},
+                                                                  {9,  20},
+                                                                  {15, 7}};
     int depth{4};
 
     static TreeNode<unsigned int> *inverted_tree() {
@@ -201,10 +201,10 @@ protected:
         root4->right->left = new TreeNode<int>(15);
         constexpr int result4{39};
 
-        results.push_back({root1, result1});
-        results.push_back({root2, result2});
-        results.push_back({root3, result3});
-        results.push_back({root4, result4});
+        results.emplace_back(root1, result1);
+        results.emplace_back(root2, result2);
+        results.emplace_back(root3, result3);
+        results.emplace_back(root4, result4);
         return results;
     }
 
