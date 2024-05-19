@@ -31,3 +31,39 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple2) {
     auto expected_result = pre_order_traversal(expected_result_tree);
     EXPECT_EQ(result, expected_result);
 }
+
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple3) {
+    auto input = medium_tree_with_subtree_duplicates1();
+    constexpr unsigned int target{4U};
+    auto result_tree = remove_leaf_nodes(input, target);
+    auto expected_result_tree = new TreeNode<unsigned int>(1);
+    expected_result_tree->left = new TreeNode<unsigned int>(2);
+    expected_result_tree->right = new TreeNode<unsigned int>(3);
+    expected_result_tree->right->left = new TreeNode<unsigned int>(2);
+    auto result = pre_order_traversal(result_tree);
+    auto expected_result = pre_order_traversal(expected_result_tree);
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple4) {
+    auto input = medium_tree_with_subtree_duplicates1();
+    input->left->left = new TreeNode(4U);
+    constexpr unsigned int target{4U};
+    auto result_tree = remove_leaf_nodes(input, target);
+    auto expected_result_tree = new TreeNode<unsigned int>(1);
+    expected_result_tree->left = new TreeNode<unsigned int>(2);
+    expected_result_tree->right = new TreeNode<unsigned int>(3);
+    expected_result_tree->right->left = new TreeNode<unsigned int>(2);
+    auto result = pre_order_traversal(result_tree);
+    auto expected_result = pre_order_traversal(expected_result_tree);
+    EXPECT_EQ(result, expected_result);
+}
+
+
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple5) {
+    auto input = small_tree_with_subtree_duplicates();
+    input->value = 2U;
+    constexpr unsigned int target{2U};
+    auto result_tree = remove_leaf_nodes(input, target);
+    EXPECT_EQ(result_tree, nullptr);
+}
