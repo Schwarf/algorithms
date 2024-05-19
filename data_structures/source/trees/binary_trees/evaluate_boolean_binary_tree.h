@@ -36,6 +36,7 @@ bool evaluate_binary_tree_iterative(Node *root) {
         auto current = s.top();
         // Is leaf node?
         if (!current->left && !current->right) {
+            s.pop();
             evaluated[current] = current->value;
             continue;
         }
