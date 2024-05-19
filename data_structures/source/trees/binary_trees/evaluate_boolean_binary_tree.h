@@ -13,7 +13,10 @@
 // Return the boolean result of evaluating the root node.
 // A full binary tree is a binary tree where each node has either 0 or 2 children.
 // A leaf node is a node that has zero children.
+#include <stack>
+#include <unordered_map>
 #include "tree_node.h"
+
 
 using Node = TreeNode<int>;
 
@@ -24,5 +27,33 @@ bool evaluate_binary_tree(Node *root) {
     auto right = evaluate_binary_tree(root->right);
     return root->value == 2 ? left || right : left && right;
 }
+
+bool evaluate_binary_tree_iterative(Node *root) {
+    std::stack<Node *> s;
+    s.push(root);
+    std::unordered_map<Node *, bool> evaluated;
+    while (!s.empty()) {
+        auto current = s.top();
+        // Is leaf node?
+        if (!current->left && !current->right) {
+            evaluated[current] = current->value;
+            continue;
+        }
+
+        if (evaluated.find(current->left) != evaluated.end() && evaluated.find(current->right) != evaluated.end()) {
+            s.pop();
+            if (current->value == 2) {
+                evaluated[current] = evaluated[current->left] || evaluated[current->right];
+            } else {
+                evaluated[current] = evaluated[current->left] && evaluated[current->right];
+            }
+        } else {
+            s.push(current->left);
+            s.push(current->right);
+        }
+    }
+    return evaluated[root];
+}
+
 
 #endif //DATA_STRUCTURES_EVALUATE_BOOLEAN_BINARY_TREE_H
