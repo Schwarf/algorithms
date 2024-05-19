@@ -2,8 +2,8 @@
 // Created by andreas on 19.05.24.
 //
 
-#ifndef DATA_STRUCTURES_REMOVE_LEAFE_NODES_WITH_TARGET_VALUE_H
-#define DATA_STRUCTURES_REMOVE_LEAFE_NODES_WITH_TARGET_VALUE_H
+#ifndef DATA_STRUCTURES_REMOVE_LEAF_NODES_WITH_TARGET_VALUE_H
+#define DATA_STRUCTURES_REMOVE_LEAF_NODES_WITH_TARGET_VALUE_H
 // Given a binary tree root and an integer target, delete all the leaf nodes with value target.
 // Note that once you delete a leaf node with value target,
 // if its parent node becomes a leaf node and has the value target, it should also be deleted
@@ -24,4 +24,4 @@ TreeNode<T> *remove_leaf_nodes(TreeNode<T> *root, T target) {
 }
 
 
-#endif //DATA_STRUCTURES_REMOVE_LEAFE_NODES_WITH_TARGET_VALUE_H
+#endif //DATA_STRUCTURES_REMOVE_LEAF_NODES_WITH_TARGET_VALUE_H

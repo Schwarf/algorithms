@@ -3,7 +3,7 @@
 //
 #include "setup_binary_tree.h"
 #include "trees/binary_trees/pre_order_traversal.h"
-#include "trees/binary_trees/remove_leafe_nodes_with_target_value.h"
+#include "trees/binary_trees/remove_leaf_nodes_with_target_value.h"
 
 TEST_F(SetupBinaryTree, RemoveLeafNodesSimple1) {
     auto input = medium_tree_with_subtree_duplicates3();
