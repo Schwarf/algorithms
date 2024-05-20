@@ -10,7 +10,7 @@
 // Every row of the matrix is interpreted as a binary number, and the score of the matrix is the sum of these numbers.
 // Return the highest possible score after making any number of moves (including zero moves).
 #include <vector>
-int matrixScore(std::vector<std::vector<int>>& grid) {
+int matrix_score_after_flipping(std::vector<std::vector<int>>& grid) {
     int rows = grid.size();
     int columns = grid[0].size();
 
