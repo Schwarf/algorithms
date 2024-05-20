@@ -30,4 +30,5 @@ add_executable(fun_with_algos main.cpp
         find_all_duplicates_in_array.h
         find_first_missing_positive.h
         island_perimeter.h
-        largest_integer_with_its_negative.h)
+        largest_integer_with_its_negative.h
+        score_after_flipping_matrix.h)
