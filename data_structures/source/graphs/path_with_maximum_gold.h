@@ -1,4 +1,4 @@
-+//
+//
 // Created by andreas on 20.05.24.
 //
 
@@ -18,19 +18,19 @@ template<typename T>
 requires std::is_arithmetic_v<T>
 T dfs_backtrack(std::vector<std::vector<T>> &grid, int row, int col, int rows, int columns) {
     const std::vector<int> directions{0, 1, 0, -1, 0};
-    if (row < 0 || col < 0 || row > rows - 1 || col > columns - 1)
+    if (row < 0 || col < 0 || row > rows - 1 || col > columns - 1 || grid[row][col] == 0)
         return T{};
 
-    T gold = grid[row][col];
-    auto original_value = gold;
+    T gold{};
+    auto original_value = grid[row][col];
     grid[row][col] = T{};
     for (int direction{}; direction < 4; direction++) {
-        gold = std::max(gold, dfs_backtrack(grid, row+directions[direction], col+directions[direction+1],
+        gold = std::max(gold, dfs_backtrack(grid, row + directions[direction], col + directions[direction + 1],
                                             rows, columns));
     }
     // backtrack
     grid[row][col] = original_value;
-    return gold;
+    return gold + original_value;
 }
 
 
@@ -45,6 +45,7 @@ T path_with_maximum_gold(std::vector<std::vector<T>> &grid) {
             max = std::max(max, dfs_backtrack(grid, row, col, rows, columns));
         }
     }
+    return max;
 }
 
 #endif //DATA_STRUCTURES_PATH_WITH_MAXIMUM_GOLD_H
