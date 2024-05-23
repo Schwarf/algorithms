@@ -7,53 +7,55 @@
 #include <vector>
 #include <string>
 
-void depth_first_search(std::vector<std::vector<std::string>> &result,
-						std::vector<std::string> &&board,
-						int row,
+void depth_first_search(std::vector<std::vector<int>> &board,
+						std::vector <int> &queens,
+						int current_row,
 						int board_size,
-						std::vector<bool> &&invalid_columns,
-						std::vector<bool> &&invalid_forward_diagonals,
-						std::vector<bool> &&invalid_backward_diagonals)
+						std::vector<bool> &invalid_columns,
+						std::vector<bool> &invalid_forward_diagonals,
+						std::vector<bool> &invalid_backward_diagonals)
 {
-	if (row == board_size) {
-		result.push_back(board);
+	if (current_row == board_size) {
+		board.push_back(queens);
 		return;
 	}
-	for (int col = 0; col < board_size; ++col) {
-		if (invalid_columns[col] || invalid_backward_diagonals[col + row]
-			|| invalid_forward_diagonals[col - row + board_size - 1])
+	for (int col{}; col < board_size; ++col) {
+		if (invalid_columns[col] || invalid_backward_diagonals[col + current_row]
+			|| invalid_forward_diagonals[col - current_row + board_size - 1])
 			continue;
-		board[row][col] = 'Q';
+		queens[current_row] = col;
 		invalid_columns[col] = true;
-		invalid_backward_diagonals[col + row] = true;
-		invalid_forward_diagonals[col - row + board_size - 1] = true;
-		depth_first_search(result,
-						   std::move(board),
-						   row + 1,
-						   board_size,
-						   std::move(invalid_columns),
-						   std::move(invalid_forward_diagonals),
-						   std::move(invalid_backward_diagonals));
+		invalid_backward_diagonals[col + current_row] = true;
+		invalid_forward_diagonals[col - current_row + board_size - 1] = true;
+		depth_first_search(board,
+                           queens,
+                           current_row + 1,
+                           board_size,
+                           invalid_columns,
+                           invalid_forward_diagonals,
+                           invalid_backward_diagonals);
 		invalid_columns[col] = false;
-		invalid_backward_diagonals[col + row] = false;
-		invalid_forward_diagonals[col - row + board_size - 1] = false;
-		board[row][col] = '-';
-
+		invalid_backward_diagonals[col + current_row] = false;
+		invalid_forward_diagonals[col - current_row + board_size - 1] = false;
 	}
 }
 
-std::vector<std::vector<std::string>> solve_queen_problem(int board_size)
+std::vector<std::vector<int>> solve_queen_problem(int board_size)
 {
-	auto result = std::vector<std::vector<std::string>>();
-	auto board = std::vector<std::string>(board_size, std::string(board_size, '-'));
-	depth_first_search(result,
-					   std::move(board),
+	auto board = std::vector<std::vector<int>>();
+	auto queens = std::vector<int>(board_size,  -1);
+    auto invalid_columns = std::vector<bool>(board_size);
+    auto invalid_forward_diagonals =  std::vector<bool>(2 * board_size - 1);
+    auto invalid_backward_diagonals = std::vector<bool>(2 * board_size - 1);
+	depth_first_search(board,
+					   queens,
 					   0,
 					   board_size,
-					   std::vector<bool>(board_size),
-					   std::vector<bool>(2 * board_size - 1),
-					   std::vector<bool>(2 * board_size - 1));
-	return result;
+                       invalid_columns,
+                       invalid_forward_diagonals,
+                       invalid_backward_diagonals
+);
+	return board;
 
 }
 
