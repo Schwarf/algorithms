@@ -32,4 +32,5 @@ add_executable(fun_with_algos main.cpp
         island_perimeter.h
         largest_integer_with_its_negative.h
         score_after_flipping_matrix.h
-        can_attend_all_meetings.h)
+        can_attend_all_meetings.h
+        logger_rate_limiter.h)
