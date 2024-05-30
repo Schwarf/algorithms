@@ -11,31 +11,29 @@ A root-to-leaf path is a path starting from the root and ending at any leaf node
  */
 #include <vector>
 #include "./../data_structures/source/trees/binary_trees/tree_node.h"
+
 template<typename T>
-void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector<std::vector<T>> &result)
-{
-	if (!node)
-		return;
-	path.push_back(node->val);
-	target_path_sum -= node->val;
-	if (node->left == nullptr && node->right == nullptr && target_path_sum == 0) {
-		result.push_back(path);
-	}
-	else {
-		sum(node->left, target_path_sum, path, result);
-		sum(node->right, target_path_sum, path, result);
-	}
-	// pop back to evaluate all branches of given node
-	path.pop_back();
+void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector<std::vector<T>> &result) {
+    if (!node)
+        return;
+    path.push_back(node->val);
+    target_path_sum -= node->val;
+    if (node->left == nullptr && node->right == nullptr && target_path_sum == 0) {
+        result.push_back(path);
+    } else {
+        sum(node->left, target_path_sum, path, result);
+        sum(node->right, target_path_sum, path, result);
+    }
+    // pop back to evaluate all branches of given node
+    path.pop_back();
 }
 
 template<typename T>
-std::vector<std::vector<T>> pathSum(TreeNode<T> *root, T target_path_sum)
-{
-	std::vector<std::vector<T>> result;
-	std::vector<T> path;
-	sum(root, target_path_sum, path, result);
-	return result;
+std::vector<std::vector<T>> pathSum(TreeNode<T> *root, T target_path_sum) {
+    std::vector<std::vector<T>> result;
+    std::vector<T> path;
+    sum(root, target_path_sum, path, result);
+    return result;
 }
 
 #endif //PATH_SUM_BINARY_TREE_H
