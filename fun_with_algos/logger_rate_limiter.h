@@ -17,21 +17,12 @@ public:
     explicit Logger() = default;
     bool shall_print_message(int timestamp, const std::string & message)
     {
-        if(last_messages.find(message) != last_messages.end()) {
-            if (timestamp - last_messages[message] >= 10) {
-                last_messages[message] = timestamp;
-                return true;
-            }
-            else
-                return false;
-        }
-        else {
-            last_messages[message] = timestamp;
-            return true;
-        }
+        // if unordered_map is empty it returns default constructed int
+        if(timestamp < last_messages[message])
+            return false;
+        last_messages[message] = timestamp+10;
+        return true;
     }
-
-
 
 private:
     std::unordered_map<std::string, int> last_messages;

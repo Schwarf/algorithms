@@ -34,3 +34,12 @@ TEST(LoggerRateLimiter, simple3)
     EXPECT_TRUE(logger.shall_print_message(11, "foo"));
     EXPECT_TRUE(logger.shall_print_message(22, "foo"));
 }
+
+TEST(LoggerRateLimiter, simple4)
+{
+    auto logger = Logger();
+    EXPECT_TRUE(logger.shall_print_message(1, "foo1"));
+    EXPECT_TRUE(logger.shall_print_message(1, "foo2"));
+    EXPECT_TRUE(logger.shall_print_message(1, "foo3"));
+    EXPECT_TRUE(logger.shall_print_message(1, "foo4"));
+}
