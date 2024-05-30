@@ -15,7 +15,7 @@
 class Logger{
 public:
     explicit Logger() = default;
-    bool shall_print_message(int timestamp, std::string & message)
+    bool shall_print_message(int timestamp, const std::string & message)
     {
         if(last_messages.find(message) != last_messages.end()) {
             if (timestamp - last_messages[message] >= 10) {

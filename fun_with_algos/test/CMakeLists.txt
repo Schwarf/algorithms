@@ -30,7 +30,8 @@ add_executable(test_fun_with_algos
         test_island_perimeter.cpp
         test_largest_integer_with_its_negative.cpp
         test_score_after_flipping_matrix.cpp
-        test_can_attend_all_meetings.cpp)
+        test_can_attend_all_meetings.cpp
+        test_logger_rate_limiter.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
