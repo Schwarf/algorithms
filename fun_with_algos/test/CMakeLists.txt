@@ -29,7 +29,8 @@ add_executable(test_fun_with_algos
         test_find_all_duplicates_in_array.cpp test_find_first_missing_positive.cpp
         test_island_perimeter.cpp
         test_largest_integer_with_its_negative.cpp
-        test_score_after_flipping_matrix.cpp)
+        test_score_after_flipping_matrix.cpp
+        test_can_attend_all_meetings.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
