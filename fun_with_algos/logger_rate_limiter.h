@@ -12,6 +12,9 @@
 // It is possible that several messages arrive roughly at the same time.
 #include <unordered_map>
 #include <string>
+#include <deque>
+#include <unordered_set>
+
 class Logger{
 public:
     explicit Logger() = default;
@@ -28,5 +31,32 @@ private:
     std::unordered_map<std::string, int> last_messages;
 
 };
+
+class LoggerOnly10Seconds{
+public:
+    explicit LoggerOnly10Seconds() = default;
+    bool shall_print_message(int timestamp, const std::string & message)
+    {
+        // Remove messages older than 10 seconds
+        while(!message_queue.empty())
+        {
+            const auto [old_timestamp, old_message] = message_queue.front();
+            if(timestamp < old_timestamp + 10)
+                break;
+            message_queue.pop_front();
+            messages.erase(old_message);
+        }
+        if(messages.contains(message))
+            return false;
+        message_queue.emplace_back(timestamp, message);
+        messages.insert(message);
+    }
+
+private:
+    std::deque<std::pair<int, std::string>> message_queue;
+    std::unordered_set<std::string> messages;
+
+};
+
 
 #endif //FUN_WITH_ALGOS_LOGGER_RATE_LIMITER_H
