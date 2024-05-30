@@ -16,8 +16,8 @@ template<typename T>
 void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector<std::vector<T>> &result) {
     if (!node)
         return;
-    path.push_back(node->val);
-    target_path_sum -= node->val;
+    path.push_back(node->value);
+    target_path_sum -= node->value;
     if (node->left == nullptr && node->right == nullptr && target_path_sum == 0) {
         result.push_back(path);
     } else {
@@ -29,7 +29,7 @@ void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector
 }
 
 template<typename T>
-std::vector<std::vector<T>> pathSum(TreeNode<T> *root, T target_path_sum) {
+std::vector<std::vector<T>> path_sum(TreeNode<T> *root, T target_path_sum) {
     std::vector<std::vector<T>> result;
     std::vector<T> path;
     sum(root, target_path_sum, path, result);
