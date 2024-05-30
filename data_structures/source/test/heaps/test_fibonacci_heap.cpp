@@ -269,7 +269,7 @@ TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
         }
 
 
-        constexpr int number_of_decreases{20};
+        constexpr int number_of_decreases{50};
         for (int i{}; i < number_of_decreases; ++i) {
             auto node_index = rand() % nodes.size();
             auto node = nodes[node_index];
@@ -286,7 +286,7 @@ TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
         for (const auto &node: nodes) {
             map[node->key] = node->value;
         }
-        ASSERT_EQ(map.size(), heap.size());
+        EXPECT_EQ(map.size(), heap.size());
         while (!heap.is_empty()) {
             EXPECT_EQ(map.size(), heap.size());
             EXPECT_EQ(heap.pop_min(), map.begin()->second);
