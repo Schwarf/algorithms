@@ -15,4 +15,5 @@ add_executable(bit_manipulation main.cpp
         integer_division.h
         bitwise_and_numbers_in_range.h
         count_operations_to_make_xor_of_array_equal_k.h
-        sum_all_xor_subsets.h)
+        sum_all_xor_subsets.h
+        find_two_singular_elements.h)

@@ -16,7 +16,8 @@ add_executable(test_bit_manipulation
         test_integer_division.cpp
         test_bitwise_and_numbers_in_range.cpp
         test_count_operations_to_make_xor_of_array_equal_k.cpp
-        test_sum_all_xor_subsets.cpp)
+        test_sum_all_xor_subsets.cpp
+        test_find_two_singular_elements.cpp)
 
 
 target_link_libraries(test_bit_manipulation ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
