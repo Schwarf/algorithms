@@ -14,7 +14,14 @@ std::vector<int> find_singular_elements(std::vector<int> &input) {
     for (const auto element: input) {
         x_or ^= element;
     }
-    int right_most_bit = x_or & ~(x_or - 1);
+    // These two approaches  won't work if you reach the numeric limits of int
+    //     int right_most_bit = x_or & -x_or;
+    //     int right_most_bit = x_or & ~(x_or - 1);
+    int right_most_bit{1};
+    while((right_most_bit & x_or) == 0)
+    {
+        right_most_bit <<=1;
+    }
     int number1{};
     int number2{};
     for (const auto element: input) {
