@@ -10,6 +10,7 @@
 
 #include "tree_node.h"
 #include <vector>
+#include <stack>
 #include <unordered_set>
 
 template<typename T>
@@ -44,5 +45,37 @@ std::vector<TreeNode<T> *> delete_nodes_return_forest(TreeNode<T> *root, const s
     return result;
 }
 
+
+template<typename T>
+std::vector<TreeNode<T> *>
+delete_nodes_return_forest_iterative(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
+
+    std::unordered_set<T> to_delete_set(values_to_delete.begin(), values_to_delete.end());
+    std::stack<TreeNode<T> *> s;
+    s.push(root);
+    std::unordered_set<TreeNode<T> *> root_nodes{};
+    root_nodes.insert(root);
+    while (!s.empty()) {
+        auto current_node = s.top();
+        s.pop();
+        const auto will_node_be_deleted = to_delete_set.contains(current_node->value);
+        if (current_node->left)
+            s.push(current_node->left);
+        if (current_node->right)
+            s.push(current_node->right);
+        if (will_node_be_deleted) {
+            if (root_nodes.contain(current_node))
+                root_nodes.erase(current_node);
+            if (current_node->left)
+                root_nodes.insert(current_node->left);
+            if (current_node->right)
+                root_nodes.insert(current_node->right);
+            delete current_node;
+            current_node = nullptr;
+        }
+    }
+    std::vector<TreeNode<T> *> result(root_nodes.begin(), root_nodes.end());
+    return result;
+}
 
 #endif //DATA_STRUCTURES_DELETE_NODES_RETURN_FOREST_H
