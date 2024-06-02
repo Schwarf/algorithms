@@ -8,4 +8,7 @@ ToDo:
 - Implement algo to check if tree is symmetric, a mirror of itself
 - Implement algo to compute sum of binary tree of the digits from root-to-each-leaf-node
 - Add more unit tests for insert_tow_into_tree
+- Add more unit tests to construct_binary_tree_from_inorder_and_postorder.h
+- Add more unit tests to construct_binary_tree_from_preorder_and_inorder.h
+- Implement CORRECT iterative solution for delete_nodes_return_forest.h
 
