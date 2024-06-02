@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 #include "trees/binary_trees/pre_order_traversal.h"
 
-TEST(TestDeleteNodesReturnForest, simple1) {
+TEST(TestDeleteNodesReturnForest, delete_nodes_in_between) {
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -231,3 +231,30 @@ TEST(TestDeleteNodesReturnForest, delete_node_and_child_but_not_grandchildren) {
         EXPECT_EQ(result_values, expected_result_values);
     }
 }
+
+//TEST(TestDeleteNodesReturnForestIterative, delete_nodes_in_between) {
+//    auto input_root = new TreeNode<int>(1);
+//    input_root->left = new TreeNode<int>(2);
+//    input_root->right = new TreeNode<int>(3);
+//    input_root->left->left = new TreeNode<int>(4);
+//    input_root->left->right = new TreeNode<int>(5);
+//    input_root->right->left = new TreeNode<int>(6);
+//    input_root->right->right = new TreeNode<int>(7);
+//    const std::vector<int> value_to_delete{3, 5};
+//    auto first_expected_tree = new TreeNode<int>(1);
+//    first_expected_tree->left = new TreeNode<int>(2);
+//    first_expected_tree->left->left = new TreeNode<int>(4);
+//    auto second_expected_tree = new TreeNode(6);
+//    auto third_expected_tree = new TreeNode(7);
+//    std::vector<TreeNode<int> *> expected_result{first_expected_tree, second_expected_tree, third_expected_tree};
+//    auto result = delete_nodes_return_forest_iterative(input_root, value_to_delete);
+//    EXPECT_EQ(expected_result.size(), result.size());
+//    std::sort(result.begin(), result.end(), [](TreeNode<int> *root1, TreeNode<int> *root2) {
+//        return root1->value < root2->value;
+//    });
+//    for (int i{}; i < result.size(); ++i) {
+//        auto result_values = pre_order_traversal(result[i]);
+//        auto expected_result_values = pre_order_traversal(expected_result[i]);
+//        EXPECT_EQ(result_values, expected_result_values);
+//    }
+//}
