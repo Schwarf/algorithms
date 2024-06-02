@@ -38,7 +38,7 @@ dfs(TreeNode<T> *&node, const std::unordered_set<T> &&to_delete_values, bool is_
 }
 
 template<typename T>
-std::vector<TreeNode<T> *> delete_nodes_return_forest(TreeNode<T> *root, std::vector<T> &values_to_delete) {
+std::vector<TreeNode<T> *> delete_nodes_return_forest(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
     std::vector<TreeNode<T> *> result;
     dfs(root, {values_to_delete.begin(), values_to_delete.end()}, true, result);
     return result;
