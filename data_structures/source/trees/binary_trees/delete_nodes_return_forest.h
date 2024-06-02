@@ -20,16 +20,21 @@ dfs(TreeNode<T> *&node, const std::unordered_set<T> &&to_delete_values, bool is_
         return node;
     }
 
-    const auto will_root_be_deleted = to_delete_values.contains(node->value);
+    const auto will_node_be_deleted = to_delete_values.contains(node->value);
     // if the current node is a root node an will not be deleted we store it.
-    if (is_root_node && !will_root_be_deleted)
+    if (is_root_node && !will_node_be_deleted)
         result.push_back(node);
 
     // Check the children
-    node->left = dfs(node->left, std::move(to_delete_values), will_root_be_deleted, result);
-    node->right = dfs(node->right, std::move(to_delete_values), will_root_be_deleted, result);
-    return will_root_be_deleted ? nullptr : node;
+    node->left = dfs(node->left, std::move(to_delete_values), will_node_be_deleted, result);
+    node->right = dfs(node->right, std::move(to_delete_values), will_node_be_deleted, result);
 
+    // Delete the current node
+    if (will_node_be_deleted) {
+        delete node;
+        return nullptr;
+    }
+    return node;
 }
 
 template<typename T>
