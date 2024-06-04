@@ -2,49 +2,49 @@
 // Created by andreas on 02.06.23.
 //
 #include "gtest/gtest.h"
-#include "graphs/maximum_marked_circles.h"
+#include "graphs/detonate_maximal_number_of_bombs.h"
 
-TEST(maximum_marked_circles, simple1_bfs) {
+TEST(maximum_number, simple1_bfs) {
     std::vector<std::vector<int>> input{{2, 1, 3},
                                         {6, 1, 4}};
     int expected_result{2};
-    auto result = maximum_marked_circles<int, true>(input);
+    auto result = maximum_number<int, true>(input);
     EXPECT_EQ(expected_result, result);
 }
 
-TEST(maximum_marked_circles, simple1_dfs) {
+TEST(maximum_number, simple1_dfs) {
     std::vector<std::vector<int>> input{{2, 1, 3},
                                         {6, 1, 4}};
     int expected_result{2};
-    auto result = maximum_marked_circles<int, false>(input);
+    auto result = maximum_number<int, false>(input);
     EXPECT_EQ(expected_result, result);
 }
 
 
-TEST(maximum_marked_circles, simple2_bfs) {
+TEST(maximum_number, simple2_bfs) {
     std::vector<std::vector<int>> input{{1, 2, 3},
                                         {2, 3, 1},
                                         {3, 4, 2},
                                         {4, 5, 3},
                                         {5, 6, 4}};
     int expected_result{5};
-    auto result = maximum_marked_circles<int, true>(input);
+    auto result = maximum_number<int, true>(input);
     EXPECT_EQ(expected_result, result);
 }
 
-TEST(maximum_marked_circles, simple2_dfs) {
+TEST(maximum_number, simple2_dfs) {
     std::vector<std::vector<int>> input{{1, 2, 3},
                                         {2, 3, 1},
                                         {3, 4, 2},
                                         {4, 5, 3},
                                         {5, 6, 4}};
     int expected_result{5};
-    auto result = maximum_marked_circles<int, false>(input);
+    auto result = maximum_number<int, false>(input);
     EXPECT_EQ(expected_result, result);
 }
 
 
-TEST(maximum_marked_circles, medium_bfs) {
+TEST(maximum_number, medium_bfs) {
     std::vector<std::vector<int>> input
             {{1721, 8266, 6320},
              {6368, 2445, 2028},
@@ -62,11 +62,11 @@ TEST(maximum_marked_circles, medium_bfs) {
              {2651, 1495, 5253},
              {7209, 4628, 5618}};
     int expected_result{15};
-    auto result = maximum_marked_circles<int, true>(input);
+    auto result = maximum_number<int, true>(input);
     EXPECT_EQ(expected_result, result);
 }
 
-TEST(maximum_marked_circles, medium_dfs) {
+TEST(maximum_number, medium_dfs) {
     std::vector<std::vector<int>> input
             {{1721, 8266, 6320},
              {6368, 2445, 2028},
@@ -84,6 +84,6 @@ TEST(maximum_marked_circles, medium_dfs) {
              {2651, 1495, 5253},
              {7209, 4628, 5618}};
     int expected_result{15};
-    auto result = maximum_marked_circles<int, false>(input);
+    auto result = maximum_number<int, false>(input);
     EXPECT_EQ(expected_result, result);
 }
