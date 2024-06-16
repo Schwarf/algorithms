@@ -25,7 +25,7 @@ int maximize_capital(int k, int start_capital, std::vector<int> &profits, std::v
     std::sort(projects.begin(), projects.end());
     std::priority_queue<int> q;
     int index{};
-    for (int i{}; i < number_of_projects; ++i) {
+    for (int i{}; i < k; ++i) {
         while (index < number_of_projects && projects[index].first <= start_capital) {
             q.push(projects[index].second);
             index++;
