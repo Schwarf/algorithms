@@ -12,7 +12,7 @@
 // If it is impossible to make m bouquets return -1.
 #include <vector>
 
-int get_number_of_bouquets(std::vector<int> &bloom_days, int mid, int k) {
+int get_number_of_bouquets(std::vector<int> &bloom_days, int mid, int flowers_per_bouquet) {
     int number_of_bouquets{};
     int count{};
     for (int i{}; i < bloom_days.size(); ++i) {
@@ -21,7 +21,7 @@ int get_number_of_bouquets(std::vector<int> &bloom_days, int mid, int k) {
         else
             count = 0;
 
-        if (count == k) {
+        if (count == flowers_per_bouquet) {
             number_of_bouquets++;
             count = 0;
         }
@@ -30,7 +30,7 @@ int get_number_of_bouquets(std::vector<int> &bloom_days, int mid, int k) {
 }
 
 
-int minimal_days(std::vector<int> &bloom_days, int m, int k) {
+int minimal_days(std::vector<int> &bloom_days, int required_bouquets, int flowers_per_bouquet) {
     // First we determine the search space by extracting the earliest and the latest day a flower blooms.
     int left{std::numeric_limits<int>::max()};
     int right{std::numeric_limits<int>::min()};
@@ -46,7 +46,7 @@ int minimal_days(std::vector<int> &bloom_days, int m, int k) {
         // For each mid_value we compute how many bouquets we can generate. If
         // we exceed the number of required bouquets we store the current value and
         //
-        if (get_number_of_bouquets(bloom_days, mid, k) >= m) {
+        if (get_number_of_bouquets(bloom_days, mid, flowers_per_bouquet) >= required_bouquets) {
             minimal_days = mid;
             right = mid - 1;
         } else {
