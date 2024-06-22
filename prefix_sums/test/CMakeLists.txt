@@ -15,7 +15,8 @@ foreach (TEST_SOURCE ${TEST_SOURCES})
     get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
 
     # Create an executable target for each test file
-    add_executable(${TEST_NAME} ${TEST_SOURCE})
+    add_executable(${TEST_NAME} ${TEST_SOURCE}
+            test_number_of_subarrays.cpp)
     # Add libraries
     foreach (LIB_DIR ${LIBRARY_DIRECTORIES})
         get_filename_component(LIB_NAME ${LIB_DIR} NAME)
