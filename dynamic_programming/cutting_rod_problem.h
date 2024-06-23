@@ -47,4 +47,17 @@ int rod_cutting_memo(std::vector<int> &prices, int rod_length) {
     return cutting_memo(prices, memo, rod_length);
 }
 
+
+int rod_cutting_bottom_up(std::vector<int> &prices, int rod_length) {
+    int n = prices.size();
+    std::vector<int> dp(rod_length + 1, 0);
+    for (int i{}; i <= rod_length; ++i) {
+        for (int j{}; j <= i; ++j) {
+            int price = j < prices.size() ? prices[j] : 0;
+            dp[i] = std::max(dp[i], dp[i - j] + price);
+        }
+    }
+    return dp[rod_length];
+}
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_CUTTING_ROD_PROBLEM_H
