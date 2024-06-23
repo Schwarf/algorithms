@@ -38,4 +38,5 @@ add_executable(dynamic_programming_samples main.cpp
         count_unique_binary_search_trees.h
         largest_divisible_subset.h
         count_palindromic_substrings.h
-        longest_ideal_string_subsequence.h)
+        longest_ideal_string_subsequence.h
+        cutting_rod_problem.h)
