@@ -52,6 +52,27 @@ int memoization(const std::vector<int> &coins, int amount, std::vector<std::vect
     return memo[index][amount];
 }
 
+int memoization2(const std::vector<int> &coins, std::vector<int> &memo, int amount, int index = 0) {
+    if (amount < 0)
+        return 0;
+    if (amount == 0)
+        return 1;
+    if (memo[amount * coins.size() + index] != -1)
+        return memo[amount * coins.size() + index];
+    int result{};
+    for (int i{index}; i < coins.size(); ++i) {
+        result += coin_combinations_recursive2(coins, amount - coins[i], i);
+    }
+    memo[amount * coins.size() + index] = result;
+    return result;
+}
+
+int coin_combinations_top_down2(const std::vector<int> &coins, int amount, int index = 0) {
+    std::vector<int> memo(coins.size() * (amount + 1), -1);
+    return memoization2(coins, memo, amount, index);
+}
+
+
 int coin_combinations_top_down(const std::vector<int> &coins, int amount, int index = 0) {
     std::vector<std::vector<int>> memo(coins.size(), std::vector<int>(amount + 1, -1));
     return memoization(coins, amount, memo, index);
