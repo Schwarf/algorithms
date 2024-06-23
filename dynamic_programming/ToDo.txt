@@ -2,3 +2,4 @@
 - The unit test /media/linux_data/projects/cpp/algorithms/dynamic_programming/test/test_longest_string_chain.cpp:45: FAILs
 - The knapsack problem is only solved for integral weight types. Floating point ones must be treated separately?
 - Top-Down approach to longest_ideal_string_subsequence is buggy and untested.
+- Understand trees, subproblem graphs and topological sort in the context of dynamic programming.
