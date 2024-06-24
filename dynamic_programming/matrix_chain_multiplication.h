@@ -32,4 +32,34 @@ int minimal_matrix_chain_multiplications(std::vector<int> &matrix_dimensions, in
     return minimum;
 }
 
+
+int top_down_multiplications(std::vector<int> &matrix_dimensions, std::vector<std::vector<int>> &memo,
+                             int matrix_index1, int matrix_index2) {
+    // Initialization for external call.
+    // We have number_of_matrices+1 entries in matrix_dimensions.
+    if (matrix_index1 == matrix_index2)
+        return 0;
+    if (memo[matrix_index1][matrix_index2] != -1)
+        return memo[matrix_index1][matrix_index2];
+    int minimum = std::numeric_limits<int>::max();
+    int count{};
+    for (int k{matrix_index1}; k < matrix_index2; ++k) {
+        const int to_add =
+                matrix_dimensions[matrix_index1 - 1] * matrix_dimensions[k] * matrix_dimensions[matrix_index2];
+        count = top_down_multiplications(matrix_dimensions, memo, matrix_index1, k) +
+                top_down_multiplications(matrix_dimensions, memo, k + 1, matrix_index2) +
+                to_add;
+        minimum = std::min(minimum, count);
+    }
+    memo[matrix_index1][matrix_index2] = minimum;
+    return minimum;
+}
+
+int top_down_approach(std::vector<int> &matrix_dimensions) {
+    int matrix_index1 = 1;
+    int matrix_index2 = matrix_dimensions.size() - 1;
+    std::vector<std::vector<int>> memo(matrix_dimensions.size(), std::vector<int>(matrix_dimensions.size(), -1));
+    return top_down_multiplications(matrix_dimensions, memo, matrix_index1, matrix_index2);
+}
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_MATRIX_CHAIN_MULTIPLICATION_H
