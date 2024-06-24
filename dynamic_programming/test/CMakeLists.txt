@@ -36,6 +36,7 @@ add_executable(dynamic_programming_samples_test
         test_count_unique_binary_search_trees.cpp
         test_largest_divisible_subset.cpp test_count_palindromic_substrings.cpp
         test_longest_ideal_string_subsequence.cpp
-        test_cutting_rod_problem.cpp)
+        test_cutting_rod_problem.cpp
+        test_matrix_chain_multiplication.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
