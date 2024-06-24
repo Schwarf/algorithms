@@ -62,4 +62,25 @@ int top_down_approach(std::vector<int> &matrix_dimensions) {
     return top_down_multiplications(matrix_dimensions, memo, matrix_index1, matrix_index2);
 }
 
+int bottom_up_approach(const std::vector<int> &matrix_dimensions) {
+    int n = matrix_dimensions.size() - 1; // number of matrices
+    std::vector<std::vector<int>> dp(n, std::vector<int>(n, 0));
+
+    for (int length = 2; length <= n; ++length) {
+        for (int i = 0; i < n - length + 1; ++i) {
+            int j = i + length - 1;
+            dp[i][j] = std::numeric_limits<int>::max();
+            for (int k = i; k < j; ++k) {
+                int cost = dp[i][k] + dp[k + 1][j] +
+                           matrix_dimensions[i] * matrix_dimensions[k + 1] * matrix_dimensions[j + 1];
+                if (cost < dp[i][j]) {
+                    dp[i][j] = cost;
+                }
+            }
+        }
+    }
+    return dp[0][n - 1];
+}
+
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_MATRIX_CHAIN_MULTIPLICATION_H
