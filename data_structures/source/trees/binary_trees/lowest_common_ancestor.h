@@ -13,14 +13,14 @@
 #include "tree_node.h"
 
 template<typename T>
-TreeNode<T> *least_common_ancestor(TreeNode<T> *root, T value1, T value2) {
+TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2) {
     if (!root)
         return nullptr;
     if (root->value == value1 || root->value == value2)
         return root;
 
-    auto left_lca = least_common_ancestor(root->left, value1, value2);
-    auto right_lca = least_common_ancestor(root->right, value1, value2);
+    auto left_lca = lowest_common_ancestor(root->left, value1, value2);
+    auto right_lca = lowest_common_ancestor(root->right, value1, value2);
 
     if (!left_lca)
         return right_lca;
