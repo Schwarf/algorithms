@@ -75,7 +75,7 @@ TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool 
 }
 
 template<typename T>
-TreeNode<T> *lowest_common_ancestor_iterative(TreeNode<T> *root, T value1, T value2) {
+TreeNode<T> *find_lowest_common_ancestor_iterative(TreeNode<T> *root, T value1, T value2) {
 
     if (!root) return nullptr;
 
