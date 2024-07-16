@@ -4,9 +4,11 @@
 
 #ifndef CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
 #define CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
+
 #include <vector>
 #include "tree_node.h"
 #include <unordered_map>
+
 /*
 
 Preorder traversal follows Root -> Left -> Right, therefore, given the preorder array preorder, we have easy access
@@ -35,37 +37,35 @@ Algorithm
 
 template<typename T>
 TreeNode<T> *_construct_tree(std::vector<T> &preorder,
-							 int left,
-							 int right,
-							 int &pre_order_index,
-							 std::unordered_map<T, int> &inorder_value_to_index)
-{
-	if (left > right)
-		return nullptr;
-	int root_value = preorder[pre_order_index++];
-	auto root = new TreeNode<T>(root_value);
-	root->left = _construct_tree(preorder,
-								 left,
-								 inorder_value_to_index[root_value] - 1,
-								 pre_order_index,
-								 inorder_value_to_index);
-	root->right = _construct_tree(preorder,
-								  inorder_value_to_index[root_value] + 1,
-								  right,
-								  pre_order_index,
-								  inorder_value_to_index);
-	return root;
+                             int left,
+                             int right,
+                             int &pre_order_index,
+                             std::unordered_map<T, int> &inorder_value_to_index) {
+    if (left > right)
+        return nullptr;
+    int root_value = preorder[pre_order_index++];
+    auto root = new TreeNode<T>(root_value);
+    root->left = _construct_tree(preorder,
+                                 left,
+                                 inorder_value_to_index[root_value] - 1,
+                                 pre_order_index,
+                                 inorder_value_to_index);
+    root->right = _construct_tree(preorder,
+                                  inorder_value_to_index[root_value] + 1,
+                                  right,
+                                  pre_order_index,
+                                  inorder_value_to_index);
+    return root;
 }
 
 template<typename T>
-TreeNode<T> *construct_from_preorder_and_inorder(std::vector<T> &pre_order, std::vector<T> &in_order)
-{
-	std::unordered_map<T, int> inorder_value_to_index;
-	int pre_order_index{};
-	for (int i = 0; i < in_order.size(); ++i)
-		inorder_value_to_index[in_order[i]] = i;
+TreeNode<T> *construct_from_preorder_and_inorder(std::vector<T> &pre_order, std::vector<T> &in_order) {
+    std::unordered_map<T, int> inorder_value_to_index;
+    int pre_order_index{};
+    for (int i = 0; i < in_order.size(); ++i)
+        inorder_value_to_index[in_order[i]] = i;
 
-	return _construct_tree(pre_order, 0, pre_order.size() - 1, pre_order_index, inorder_value_to_index);
+    return _construct_tree(pre_order, 0, pre_order.size() - 1, pre_order_index, inorder_value_to_index);
 
 }
 

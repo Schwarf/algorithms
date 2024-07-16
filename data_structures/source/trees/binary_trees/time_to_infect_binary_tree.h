@@ -16,53 +16,53 @@
 #include <unordered_map>
 #include <queue>
 #include "tree_node.h"
+
 using Node = TreeNode<int>;
-int time_to_infect_binary_tree(Node *root, int start_value)
-{
-	// convert tree to graph
-	std::unordered_map<int, std::vector<int>> graph;
-	std::queue<Node *> q{{root}};
-	q.push(nullptr);
-	while (!q.empty()) {
-		if (q.front() != nullptr) {
-			while (q.front() != nullptr) {
-				auto current = q.front();
-				q.pop();
-				if (current->left) {
-					graph[current->value].push_back(current->left->value);
-					graph[current->left->value].push_back(current->value);
-					q.push(current->left);
-				}
-				if (current->right) {
-					graph[current->value].push_back(current->right->value);
-					graph[current->right->value].push_back(current->value);
-					q.push(current->right);
-				}
-			}
-			q.push(nullptr);
-		}
-		else
-			q.pop();
-	}
-	std::queue<int> bst{{start_value}};
-	std::vector<bool> infected(graph.size(), false);
-	int time{-1};
-	while (!bst.empty()) {
-		int infectious_origins = bst.size();
-		while (infectious_origins > 0) {
-			auto current = bst.front();
-			bst.pop();
-			for (const auto node: graph[current]) {
-				if (!infected[node]) {
-					infected[node] = true;
-					bst.push(node);
-				}
-			}
-			infectious_origins--;
-		}
-		time++;
-	}
-	return time;
+
+int time_to_infect_binary_tree(Node *root, int start_value) {
+    // convert tree to graph
+    std::unordered_map<int, std::vector<int>> graph;
+    std::queue<Node *> q{{root}};
+    q.push(nullptr);
+    while (!q.empty()) {
+        if (q.front() != nullptr) {
+            while (q.front() != nullptr) {
+                auto current = q.front();
+                q.pop();
+                if (current->left) {
+                    graph[current->value].push_back(current->left->value);
+                    graph[current->left->value].push_back(current->value);
+                    q.push(current->left);
+                }
+                if (current->right) {
+                    graph[current->value].push_back(current->right->value);
+                    graph[current->right->value].push_back(current->value);
+                    q.push(current->right);
+                }
+            }
+            q.push(nullptr);
+        } else
+            q.pop();
+    }
+    std::queue<int> bst{{start_value}};
+    std::vector<bool> infected(graph.size(), false);
+    int time{-1};
+    while (!bst.empty()) {
+        int infectious_origins = bst.size();
+        while (infectious_origins > 0) {
+            auto current = bst.front();
+            bst.pop();
+            for (const auto node: graph[current]) {
+                if (!infected[node]) {
+                    infected[node] = true;
+                    bst.push(node);
+                }
+            }
+            infectious_origins--;
+        }
+        time++;
+    }
+    return time;
 }
 
 #endif //TIME_TO_INFECT_BINARY_TREE_H

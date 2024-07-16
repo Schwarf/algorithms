@@ -17,24 +17,22 @@ template<typename T>
 int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum);
 
 template<typename T>
-int max_path_sum(TreeNode<T> *root)
-{
-	if (!root)
-		return T{};
-	int max_sum{INT_MIN};
-	sum_of_path_in_subtree(root, max_sum);
-	return max_sum;
+int max_path_sum(TreeNode<T> *root) {
+    if (!root)
+        return T{};
+    int max_sum{INT_MIN};
+    sum_of_path_in_subtree(root, max_sum);
+    return max_sum;
 }
 
 template<typename T>
-int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum)
-{
-	if (!node)
-		return {};
-	int path_sum_left = std::max(sum_of_path_in_subtree(node->left, max_sum), 0);
-	int path_sum_right = std::max(sum_of_path_in_subtree(node->right, max_sum), 0);
-	max_sum = std::max(max_sum, path_sum_left + path_sum_right + node->value);
-	return std::max(path_sum_left + node->value, path_sum_right + node->value);
+int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum) {
+    if (!node)
+        return {};
+    int path_sum_left = std::max(sum_of_path_in_subtree(node->left, max_sum), 0);
+    int path_sum_right = std::max(sum_of_path_in_subtree(node->right, max_sum), 0);
+    max_sum = std::max(max_sum, path_sum_left + path_sum_right + node->value);
+    return std::max(path_sum_left + node->value, path_sum_right + node->value);
 }
 
 #endif //MAXIMUM_PATH_SUM_H

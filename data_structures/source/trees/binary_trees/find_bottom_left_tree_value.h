@@ -9,51 +9,49 @@
 #include "tree_node.h"
 
 template<typename T>
-T find_bottom_left_value(TreeNode<T> *root)
-{
+T find_bottom_left_value(TreeNode<T> *root) {
 
-	std::queue<TreeNode<T> *> q;
-	q.push(root);
-	int candidate{};
-	while (!q.empty()) {
-		q.push(nullptr);
-		bool first{true};
-		while (q.front()) {
-			if (first && q.front()->left == nullptr) {
-				candidate = q.front()->value;
-				first = false;
-			}
-			if (q.front()->left) {
-				q.push(q.front()->left);
-			}
-			if (q.front()->right) {
-				q.push(q.front()->right);
-			}
-			q.pop();
-		}
-		q.pop();
-	}
-	return candidate;
+    std::queue<TreeNode<T> *> q;
+    q.push(root);
+    int candidate{};
+    while (!q.empty()) {
+        q.push(nullptr);
+        bool first{true};
+        while (q.front()) {
+            if (first && q.front()->left == nullptr) {
+                candidate = q.front()->value;
+                first = false;
+            }
+            if (q.front()->left) {
+                q.push(q.front()->left);
+            }
+            if (q.front()->right) {
+                q.push(q.front()->right);
+            }
+            q.pop();
+        }
+        q.pop();
+    }
+    return candidate;
 
 }
 
 // alternative is a simple BFS where the right node is visited before the left node (so in principal reversed). Same would work with DFS
 template<typename T>
-T find_bottom_left_value_bfs(TreeNode<T> *root)
-{
-	std::queue<TreeNode<T> *> q;
-	q.push(root);
-	T candidate{};
-	while (!q.empty()) {
-		candidate = q.front()->value;
-		if (q.front()->right)
-			q.push(q.front()->right);
-		if (q.front()->left)
-			q.push(q.front()->left);
+T find_bottom_left_value_bfs(TreeNode<T> *root) {
+    std::queue<TreeNode<T> *> q;
+    q.push(root);
+    T candidate{};
+    while (!q.empty()) {
+        candidate = q.front()->value;
+        if (q.front()->right)
+            q.push(q.front()->right);
+        if (q.front()->left)
+            q.push(q.front()->left);
 
-		q.pop();
-	}
-	return candidate;
+        q.pop();
+    }
+    return candidate;
 }
 
 

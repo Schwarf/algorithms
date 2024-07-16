@@ -4,6 +4,7 @@
 
 #ifndef DATA_STRUCTURES_ALL_NODES_IN_DISTANCE_K_H
 #define DATA_STRUCTURES_ALL_NODES_IN_DISTANCE_K_H
+
 #include <vector>
 #include <queue>
 #include <unordered_set>
@@ -26,51 +27,42 @@
 
 template<typename T>
 requires std::is_unsigned_v<T>
-void fill_graph(TreeNode<T>* root, std::unordered_map<int, std::vector<T>> & graph)
-{
-    if(!root)
+void fill_graph(TreeNode<T> *root, std::unordered_map<int, std::vector<T>> &graph) {
+    if (!root)
         return;
-    if(root->left)
-    {
+    if (root->left) {
         graph[root->value].push_back(root->left->value);
         graph[root->left->value].push_back(root->value);
         fill_graph(root->left, graph);
     }
-    if(root->right)
-    {
+    if (root->right) {
         graph[root->value].push_back(root->right->value);
         graph[root->right->value].push_back(root->value);
         fill_graph(root->right, graph);
     }
 }
+
 template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<T> bfs(T start, std::unordered_map<int, std::vector<T>> & graph, int distance)
-{
+std::vector<T> bfs(T start, std::unordered_map<int, std::vector<T>> &graph, int distance) {
     std::queue<T> q{{start}};
     std::unordered_set<T> visited;
     std::vector<T> result;
     int depth{};
-    while(!q.empty())
-    {
+    while (!q.empty()) {
         auto size = q.size();
-        if(depth==distance)
-        {
-            while(size--) {
+        if (depth == distance) {
+            while (size--) {
                 result.push_back(q.front());
                 q.pop();
             }
             return result;
-        }
-        else
-        {
-            while(size--)
-            {
+        } else {
+            while (size--) {
                 auto current = q.front();
                 q.pop();
-                for(const auto & neighbor: graph[current])
-                {
-                    if(visited.find(neighbor) == visited.end())
+                for (const auto &neighbor: graph[current]) {
+                    if (visited.find(neighbor) == visited.end())
                         q.push(neighbor);
                 }
                 visited.insert(current);
@@ -82,10 +74,9 @@ std::vector<T> bfs(T start, std::unordered_map<int, std::vector<T>> & graph, int
 }
 
 
-template <typename T>
+template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<T> all_nodes_in_distance_k(TreeNode<T> * root, TreeNode<T> * target, int distance)
-{
+std::vector<T> all_nodes_in_distance_k(TreeNode<T> *root, TreeNode<T> *target, int distance) {
     std::unordered_map<int, std::vector<T>> graph;
     fill_graph(root, graph);
     return bfs(target->value, graph, distance);

@@ -6,11 +6,10 @@
 #include "trees/binary_trees/maximum_path_sum.h"
 
 
-TEST_F(SetupBinaryTree, all)
-{
-	auto cases = trees_maximum_path_sum();
-	for (const auto &[root, result]: cases) {
-		EXPECT_EQ(max_path_sum(root), result);
-	}
+TEST_F(SetupBinaryTree, all) {
+    auto cases = trees_maximum_path_sum();
+    for (const auto &[root, result]: cases) {
+        EXPECT_EQ(max_path_sum(root), result);
+    }
 }
 

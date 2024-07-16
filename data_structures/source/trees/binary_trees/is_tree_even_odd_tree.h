@@ -13,41 +13,41 @@
 #include <queue>
 
 template<typename T>
-bool is_even_odd_tree(TreeNode<T> *root)
-{
-	std::queue<TreeNode<T> *> q;
+bool is_even_odd_tree(TreeNode<T> *root) {
+    std::queue<TreeNode<T> *> q;
 
-	q.push(root);
-	int level{-1};
-	while (!q.empty()) {
-		level++;
-		int q_size = q.size();
-		int last = (level & 1) ? 20000000 : 0;
-		for (int i{}; i < q_size; ++i) {
-			auto node = q.front();
-			q.pop();
-			if (node->left)
-				q.push(node->left);
-			if (node->right)
-				q.push(node->right);
-			if (!(level & 1)) {
-				if (last >= node->value)
-					return false;
-				if (!(node->value & 1))
-					return false;
+    q.push(root);
+    int level{-1};
+    while (!q.empty()) {
+        level++;
+        int q_size = q.size();
+        int last = (level & 1) ? 20000000 : 0;
+        for (int i{}; i < q_size; ++i) {
+            auto node = q.front();
+            q.pop();
+            if (node->left)
+                q.push(node->left);
+            if (node->right)
+                q.push(node->right);
+            if (!(level & 1)) {
+                if (last >= node->value)
+                    return false;
+                if (!(node->value & 1))
+                    return false;
 
-			}
-			if ((level & 1)) {
-				if (last <= node->value)
-					return false;
-				if ((node->value & 1))
-					return false;
-			}
+            }
+            if ((level & 1)) {
+                if (last <= node->value)
+                    return false;
+                if ((node->value & 1))
+                    return false;
+            }
 
-			last = node->value;
-		}
-	}
-	return true;
+            last = node->value;
+        }
+    }
+    return true;
 }
+
 #endif //IS_TREE_EVEN_ODD_TREE_H
 

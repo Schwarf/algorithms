@@ -14,53 +14,49 @@
 #include <algorithm>
 #include "tree_node.h"
 
-void get_max_diff(TreeNode<int> *node, const int &root_value, int &max_diff)
-{
-	if (!node || node->value == root_value)
-		return;
-	max_diff = std::max(max_diff, std::abs(node->value - root_value));
-	get_max_diff(node->left, root_value, max_diff);
-	get_max_diff(node->right, root_value, max_diff);
+void get_max_diff(TreeNode<int> *node, const int &root_value, int &max_diff) {
+    if (!node || node->value == root_value)
+        return;
+    max_diff = std::max(max_diff, std::abs(node->value - root_value));
+    get_max_diff(node->left, root_value, max_diff);
+    get_max_diff(node->right, root_value, max_diff);
 }
 
-void get_max_diff_for_node(TreeNode<int> *node, int &max)
-{
-	if (!node)
-		return;
-	int max_left{};
-	int max_right{};
-	get_max_diff(node->left, node->value, max_left);
-	get_max_diff(node->right, node->value, max_right);
-	auto local_max = std::max(max_left, max_right);
-	max = std::max(local_max, max);
-	get_max_diff_for_node(node->left, max);
-	get_max_diff_for_node(node->right, max);
+void get_max_diff_for_node(TreeNode<int> *node, int &max) {
+    if (!node)
+        return;
+    int max_left{};
+    int max_right{};
+    get_max_diff(node->left, node->value, max_left);
+    get_max_diff(node->right, node->value, max_right);
+    auto local_max = std::max(max_left, max_right);
+    max = std::max(local_max, max);
+    get_max_diff_for_node(node->left, max);
+    get_max_diff_for_node(node->right, max);
 }
 
 // O(N^2) time complexity, O(N^2) space complexity because we recursively call function on stack
-int brute_force_solution(TreeNode<int> *root)
-{
-	int max{};
-	get_max_diff_for_node(root, max);
-	return max;
+int brute_force_solution(TreeNode<int> *root) {
+    int max{};
+    get_max_diff_for_node(root, max);
+    return max;
 }
 
-int dfs(TreeNode<int> *node, int current_max, int current_min)
-{
-	if (!node)
-		return current_max - current_min;
-	current_max = std::max(current_max, node->value);
-	current_min = std::min(current_min, node->value);
-	int left = dfs(node->left, current_max, current_min);
-	int right = dfs(node->right, current_max, current_min);
-	return std::max(left, right);
+int dfs(TreeNode<int> *node, int current_max, int current_min) {
+    if (!node)
+        return current_max - current_min;
+    current_max = std::max(current_max, node->value);
+    current_min = std::min(current_min, node->value);
+    int left = dfs(node->left, current_max, current_min);
+    int right = dfs(node->right, current_max, current_min);
+    return std::max(left, right);
 }
+
 // O(N) time complexity, O(N) space complexity
-int one_recursion_solution(TreeNode<int> *root)
-{
-	if (!root)
-		return 0;
-	return dfs(root, root->value, root->value);
+int one_recursion_solution(TreeNode<int> *root) {
+    if (!root)
+        return 0;
+    return dfs(root, root->value, root->value);
 
 }
 
