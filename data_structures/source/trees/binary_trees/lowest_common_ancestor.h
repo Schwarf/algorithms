@@ -11,6 +11,8 @@
 // (where we allow a node to be a descendant of itself)."
 
 #include "tree_node.h"
+#include <unordered_set>
+#include <stack>
 
 template<typename T>
 TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool &found1, bool &found2);
@@ -74,6 +76,51 @@ TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool 
 
 template<typename T>
 TreeNode<T> *lowest_common_ancestor_iterative(TreeNode<T> *root, T value1, T value2) {
+
+    if (!root) return nullptr;
+
+    TreeNode<T> *node1 = find_node(root, value1);
+    TreeNode<T> *node2 = find_node(root, value2);
+    // If either value is not found we return nullptr
+    if (!node1 || !node2)
+        return nullptr;
+
+    // Map to store parent pointers of each node
+    std::unordered_map<TreeNode<T> *, TreeNode<T> *> parent;
+    parent[root] = nullptr;
+
+    std::stack<TreeNode<T> *> stack;
+    stack.push(root);
+
+    // Traverse the tree until both nodes are found
+    while (!stack.empty() && (parent.find(node1) == parent.end() || parent.find(node2) == parent.end())) {
+        TreeNode<T> *node = stack.top();
+        stack.pop();
+
+        if (node->left) {
+            parent[node->left] = node;
+            stack.push(node->left);
+        }
+
+        if (node->right) {
+            parent[node->right] = node;
+            stack.push(node->right);
+        }
+    }
+
+    // Create a set of ancestors for node node1
+    std::unordered_set<TreeNode<T> *> ancestors;
+    while (node1) {
+        ancestors.insert(node1);
+        node1 = parent[node1];
+    }
+
+    // Traverse the ancestors of node2 until a common ancestor is found
+    while (ancestors.find(node2) == ancestors.end()) {
+        node2 = parent[node2];
+    }
+
+    return node2;
 }
 
 
