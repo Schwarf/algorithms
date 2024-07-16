@@ -147,7 +147,7 @@ TreeNode<T> *find_lca(TreeNode<T> *node, T value1, T value2) {
 }
 
 template<typename T>
-bool find_path(TreeNode<T> *node, int value, std::string path) {
+bool find_path(TreeNode<T> *node, int value, std::string &path) {
     if (!node)
         return false;
     if (node->value == value)
@@ -161,7 +161,7 @@ bool find_path(TreeNode<T> *node, int value, std::string path) {
     // go down right tree
 
     path.push_back('R');
-    if (find_path(node->left, value, path))
+    if (find_path(node->right, value, path))
         return true;
     // backtrack, remove right tree if not found
     path.pop_back();
