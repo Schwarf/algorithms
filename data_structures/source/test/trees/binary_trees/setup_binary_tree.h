@@ -357,6 +357,70 @@ protected:
         std::string result{"UURL"};
         return std::make_tuple(root, start_value, end_value, result);
     }
+
+    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions2() {
+        auto root = new TreeNode<int>(13);
+        root->left = new TreeNode<int>(5);
+        root->left->left = new TreeNode<int>(7);
+        root->left->left->left = new TreeNode<int>(3);
+
+        root->right = new TreeNode<int>(4);
+        root->right->left = new TreeNode<int>(8);
+        root->right->left->right = new TreeNode<int>(12);
+        root->right->left->right->left = new TreeNode<int>(11);
+
+        root->right->right = new TreeNode<int>(6);
+        root->right->right->right = new TreeNode<int>(1);
+        root->right->right->left = new TreeNode<int>(9);
+        root->right->right->left->right = new TreeNode<int>(10);
+        root->right->right->left->right->left = new TreeNode<int>(2);
+        constexpr int start_value{3};
+        constexpr int end_value{2};
+        std::string result{"UUURRLRL"};
+        return std::make_tuple(root, start_value, end_value, result);
+    }
+
+
+    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions3() {
+        auto root = new TreeNode<int>(13);
+        root->left = new TreeNode<int>(5);
+        root->left->left = new TreeNode<int>(7);
+        root->left->left->left = new TreeNode<int>(3);
+
+        root->right = new TreeNode<int>(4);
+        root->right->left = new TreeNode<int>(8);
+        root->right->left->right = new TreeNode<int>(12);
+        root->right->left->right->left = new TreeNode<int>(11);
+
+        root->right->right = new TreeNode<int>(6);
+        root->right->right->right = new TreeNode<int>(1);
+        root->right->right->left = new TreeNode<int>(9);
+        root->right->right->left->right = new TreeNode<int>(10);
+        root->right->right->left->right->left = new TreeNode<int>(2);
+        constexpr int start_value{4};
+        constexpr int end_value{2};
+        std::string result{"RLRL"};
+        return std::make_tuple(root, start_value, end_value, result);
+    }
+
+    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions4() {
+        auto root = new TreeNode<int>(2);
+        root->left = new TreeNode<int>(1);
+        constexpr int start_value{2};
+        constexpr int end_value{1};
+        std::string result{"L"};
+        return std::make_tuple(root, start_value, end_value, result);
+    }
+
+    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions5() {
+        auto root = new TreeNode<int>(2);
+        root->left = new TreeNode<int>(1);
+        constexpr int start_value{1};
+        constexpr int end_value{2};
+        std::string result{"U"};
+        return std::make_tuple(root, start_value, end_value, result);
+    }
+
 };
 
 #endif //SETUP_BINARY_TREE_H
