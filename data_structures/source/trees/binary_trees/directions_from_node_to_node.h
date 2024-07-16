@@ -20,12 +20,16 @@
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <concepts>
+#include <iostream>
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // solution without back tracking
 // we build a graph, then we bfs through the graph. Startting from start_node we track all nodes (strings) in 
 // a hashmap until we reach end_node. The we use the tracking-hashmap to construct the direction-string.
 template<typename T>
+requires std::is_integral_v<T>
 TreeNode<T> *find_start_node(TreeNode<T> *node, T start_value) {
     if (node == nullptr)
         return node;
@@ -39,6 +43,7 @@ TreeNode<T> *find_start_node(TreeNode<T> *node, T start_value) {
 }
 
 template<typename T>
+requires std::is_integral_v<T>
 void fill_parent_map(TreeNode<T> *node, std::unordered_map<T, TreeNode<T> *> &parent_map) {
     if (!node)
         return;
@@ -55,18 +60,23 @@ void fill_parent_map(TreeNode<T> *node, std::unordered_map<T, TreeNode<T> *> &pa
 }
 
 template<typename T>
+requires std::is_integral_v<T>
 std::string backtrack_string(TreeNode<T> *node,
                              std::unordered_map<TreeNode<T> *, std::pair<TreeNode<T> *, std::string>> path_tracker) {
     std::string path;
+    std::unordered_set<TreeNode<T> *> visited;
     while (path_tracker.count(node)) {
+        visited.insert(node);
         path += path_tracker[node].second;
         node = path_tracker[node].first;
     }
+    std::reverse(path.begin(), path.end());
     return path;
 
 }
 
 template<typename T>
+requires std::is_integral_v<T>
 std::string get_directions(TreeNode<T> *root, T start_value, T end_value) {
     // create undirected graph with the help of a parent map that tracks the parent of each node
     std::unordered_map<T, TreeNode<T> *> parent_map;
@@ -77,6 +87,7 @@ std::string get_directions(TreeNode<T> *root, T start_value, T end_value) {
     q.push(start_node);
     std::unordered_set<TreeNode<T> *> visited;
     std::unordered_map<TreeNode<T> *, std::pair<TreeNode<T> *, std::string>> string_tracker;
+    visited.insert(start_node);
     while (!q.empty()) {
         auto current = q.front();
         q.pop();
@@ -109,5 +120,7 @@ std::string get_directions(TreeNode<T> *root, T start_value, T end_value) {
 }
 // end solution without back tracking
 // ---------------------------------------------------------------------------------------------------------------------
+
+
 
 #endif //DATA_STRUCTURES_DIRECTIONS_FROM_NODE_TO_NODE_H

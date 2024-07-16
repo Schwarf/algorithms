@@ -344,8 +344,22 @@ protected:
 
     }
 
+
+    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions1() {
+        auto root = new TreeNode<int>(5);
+        root->left = new TreeNode<int>(1);
+        root->right = new TreeNode<int>(2);
+        root->left->left = new TreeNode<int>(3);
+        root->right->left = new TreeNode<int>(6);
+        root->right->right = new TreeNode<int>(4);
+        constexpr int start_value{3};
+        constexpr int end_value{6};
+        std::string result{"UURL"};
+        return std::make_tuple(root, start_value, end_value, result);
+    }
 };
 
 #endif //SETUP_BINARY_TREE_H
+
 
 
