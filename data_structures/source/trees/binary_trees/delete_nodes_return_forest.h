@@ -12,6 +12,7 @@
 #include <vector>
 #include <stack>
 #include <unordered_set>
+#include <queue>
 
 template<typename T>
 TreeNode<T> *
@@ -48,93 +49,42 @@ std::vector<TreeNode<T> *> delete_nodes_return_forest(TreeNode<T> *root, const s
 
 template<typename T>
 std::vector<TreeNode<T> *>
-delete_nodes_return_forest_iterative(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
+delete_nodes_return_forest_bfs(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
     if (!root) return {};
 
-    std::unordered_set<T> to_delete_set(values_to_delete.begin(), values_to_delete.end());
-    std::stack<std::pair<TreeNode<T> **, TreeNode<T> **>> s; // Stack of pointers to pointers of nodes
-    std::unordered_set<TreeNode<T> *> root_nodes;
+    std::unordered_set<T> to_delete(values_to_delete.begin(), values_to_delete.end());
+    std::queue<TreeNode<T> *> q;
+    std::vector<TreeNode<T> *> roots;
 
     // Push the root node with a pointer to a nullptr parent
-    s.push({&root, nullptr});
+    q.push(root);
 
     // Handle the root node separately to correctly add it to root_nodes if it should not be deleted
-    if (!to_delete_set.contains(root->value)) {
-        root_nodes.insert(root);
-    }
+    while (!q.empty()) {
+        auto current = q.front();
+        q.pop();
 
-    while (!s.empty()) {
-        auto [current_node_ptr, parent_ptr] = s.top();
-        s.pop();
-        TreeNode<T> *current_node = *current_node_ptr;
+        if (current->left) {
+            q.push(current->left);
+            if (to_delete.find(current->left->value) != to_delete.end())
+                current->left = nullptr;
+        }
+        if (current->right) {
+            q.push(current->right);
+            if (to_delete.find(current->right->value) != to_delete.end())
+                current->right = nullptr;
+        }
 
-        if (!current_node) continue; // Skip if the current node is already deleted
-
-        const auto will_node_be_deleted = to_delete_set.contains(current_node->value);
-
-        if (current_node->left)
-            s.push({&(current_node->left), current_node_ptr});
-        if (current_node->right)
-            s.push({&(current_node->right), current_node_ptr});
-
-        if (will_node_be_deleted) {
-            if (root_nodes.contains(current_node))
-                root_nodes.erase(current_node);
-            if (current_node->left && !to_delete_set.contains(current_node->left->value))
-                root_nodes.insert(current_node->left);
-            if (current_node->right && !to_delete_set.contains(current_node->right->value))
-                root_nodes.insert(current_node->right);
-
-            // Update the parent's pointer to the current node to nullptr
-            if (parent_ptr && *parent_ptr) {
-                if ((*parent_ptr)->left == current_node)
-                    (*parent_ptr)->left = nullptr;
-                else if ((*parent_ptr)->right == current_node)
-                    (*parent_ptr)->right = nullptr;
-            }
-
-            *current_node_ptr = nullptr; // Disconnect the current node from the tree
-            delete current_node; // Delete the current node
+        if (to_delete.find(current->value) != to_delete.end()) {
+            if (current->left)
+                roots.push_back(current->left);
+            if (current->right)
+                roots.push_back(current->right);
         }
     }
-
-    std::vector<TreeNode<T> *> result(root_nodes.begin(), root_nodes.end());
-    return result;
+    if (to_delete.find(root->value) == to_delete.end())
+        roots.push_back(root);
+    return roots;
 }
-//
-//template<typename T>
-//std::vector<TreeNode<T> *>
-//delete_nodes_return_forest_iterative(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
-//
-//    std::unordered_set<T> to_delete_set(values_to_delete.begin(), values_to_delete.end());
-//    std::stack<TreeNode<T> **> s;
-//    s.push(&root);
-//    std::unordered_set<TreeNode<T> *> root_nodes{};
-//    if (!to_delete_set.contains(root->value))
-//        root_nodes.insert(root);
-//
-//    while (!s.empty()) {
-//        auto current_node_ptr = s.top();
-//        s.pop();
-//        auto current_node = *current_node_ptr;
-//        const auto will_node_be_deleted = to_delete_set.contains(current_node->value);
-//        if (current_node->left)
-//            s.push(&current_node->left);
-//        if (current_node->right)
-//            s.push(&current_node->right);
-//        if (will_node_be_deleted) {
-//            if (root_nodes.contains(current_node))
-//                root_nodes.erase(current_node);
-//            if (current_node->left && !to_delete_set.contains(current_node->left->value))
-//                root_nodes.insert(current_node->left);
-//            if (current_node->right && !to_delete_set.contains(current_node->right->value))
-//                root_nodes.insert(current_node->right);
-//            *current_node_ptr = nullptr;
-//            delete current_node;
-//        }
-//    }
-//    std::vector<TreeNode<T> *> result(root_nodes.begin(), root_nodes.end());
-//    return result;
-//}
 
 #endif //DATA_STRUCTURES_DELETE_NODES_RETURN_FOREST_H
