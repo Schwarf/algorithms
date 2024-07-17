@@ -467,6 +467,12 @@ TEST(TestDeleteNodesReturnForestIterative, delete_node_and_child_but_not_grandch
 /////////////////////////////////////// BFS - WITH NODE DELETION ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void collect_node_addresses(TreeNode<int> *node, std::unordered_map<TreeNode<int> *, int> &addresses) {
+    if (!node) return;
+    addresses.insert({node, node->value});
+    collect_node_addresses(node->left, addresses);
+    collect_node_addresses(node->right, addresses);
+}
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_nodes_in_between) {
     auto input_root = new TreeNode<int>(1);
@@ -476,6 +482,10 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_nodes_in_between) 
     input_root->left->right = new TreeNode<int>(5);
     input_root->right->left = new TreeNode<int>(6);
     input_root->right->right = new TreeNode<int>(7);
+    // Get the node addresses
+    std::unordered_map<TreeNode<int> *, int> node_addresses;
+    collect_node_addresses(input_root, node_addresses);
+
     const std::vector<int> value_to_delete{3, 5};
     auto first_expected_tree = new TreeNode<int>(1);
     first_expected_tree->left = new TreeNode<int>(2);
@@ -493,7 +503,13 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_nodes_in_between) 
         auto expected_result_values = pre_order_traversal(expected_result[i]);
         EXPECT_EQ(result_values, expected_result_values);
     }
-    EXPECT_TRUE(TestTracker::getInstance().wasNodeDeleted(input_root->right));
+    for (const auto [node, value]: node_addresses) {
+        if (value == 3 || value == 5) {
+            EXPECT_TRUE(TestTracker::getInstance().wasNodeDeleted(node));
+        } else {
+            EXPECT_FALSE(TestTracker::getInstance().wasNodeDeleted(node));
+        }
+    }
 }
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, empty_tree) {
