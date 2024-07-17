@@ -96,11 +96,27 @@ delete_nodes_return_forest_bfs_with_correct_deletion(TreeNode<T> *root, const st
     std::queue<TreeNode<T> *> q;
     std::vector<TreeNode<T> *> roots;
 
-    // Check if the root node is marked for deletion
     if (to_delete.find(root->value) == to_delete.end()) {
-        roots.push_back(root); // root is not to be deleted, add as a root of a new tree
+        roots.push_back(root);
+        q.push(root);
+    } else {
+        // If root is to be deleted, handle its children first
+        if (root->left) {
+            if (to_delete.find(root->left->value) == to_delete.end()) {
+                roots.push_back(root->left);
+            }
+            q.push(root->left);
+        }
+        if (root->right) {
+            if (to_delete.find(root->right->value) == to_delete.end()) {
+                roots.push_back(root->right);
+            }
+            q.push(root->right);
+        }
+        TestTracker::getInstance().addDeletedNode(root); // Track deletion of the root node
+        delete root;
+        root = nullptr;
     }
-    q.push(root);
 
     while (!q.empty()) {
         auto current = q.front();
