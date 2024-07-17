@@ -525,6 +525,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, empty_tree) {
 }
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_root_node) {
+    TestTracker::getInstance().clear();
+
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -556,6 +558,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_root_node) {
 }
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, all_nodes_deleted) {
+    TestTracker::getInstance().clear();
+
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -581,6 +585,7 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, all_nodes_deleted) {
 }
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_leaf_nodes) {
+    TestTracker::getInstance().clear();
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -614,6 +619,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_leaf_nodes) {
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_multiple_deletions) {
     // Creating a larger binary tree
+    TestTracker::getInstance().clear();
+
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -671,6 +678,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_multiple_delet
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_deletions_various_levels) {
     // Creating a larger binary tree
+    TestTracker::getInstance().clear();
+
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
@@ -731,6 +740,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_deletions_vari
 
 TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_node_and_child_but_not_grandchildren) {
     // Creating a larger binary tree
+    TestTracker::getInstance().clear();
+
     auto input_root = new TreeNode<int>(1);
     input_root->left = new TreeNode<int>(2);
     input_root->right = new TreeNode<int>(3);
