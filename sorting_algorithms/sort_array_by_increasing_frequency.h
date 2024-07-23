@@ -40,7 +40,7 @@ void sort_by_increasing_frequency(Container & input)
     {
         for(int i{}; i < pair.second; ++i)
         {
-            input[index++] = pair.second;
+            input[index++] = pair.first;
         }
     }
  }
