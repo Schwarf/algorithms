@@ -34,4 +34,22 @@ std::string sort_by_frequencies(std::string input) {
     return result;
 }
 
+
+std::string sort_by_frequencies_simple(std::string input) {
+    std::unordered_map<char, int> frequencies;
+    for(const auto c : input)
+    {
+        frequencies[c]++;
+    }
+    auto comparator = [&](const char & c1, const char & c2) -> bool
+    {
+        if(frequencies[c1] == frequencies[c2])
+            return c1 < c2;
+        return frequencies[c1] > frequencies[c2];
+    };
+
+    std::sort(input.begin(), input.end(), comparator);
+    return input;
+}
+
 #endif //SORT_CHARACTERS_BY_FREQUENCY_H
