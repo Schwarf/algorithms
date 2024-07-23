@@ -16,7 +16,8 @@ add_executable(sorting_tests
         test_bitonic_sort.cpp
         test_shell_sort.cpp
         test_sort_characters_by_frequency.cpp
-        )
+        test_sort_array_by_increasing_frequency.cpp
+)
 
 include_directories(./../)
 target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
