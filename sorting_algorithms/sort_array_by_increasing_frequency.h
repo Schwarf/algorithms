@@ -16,7 +16,7 @@ requires IndexedContainer<Container> && NoPointerElement<typename Container::val
 void sort_by_increasing_frequency(Container & input)
 {
     using element_type = typename Container::value_type;
-    std::map<typename Container::value_type, int> frequencies;
+    std::map<element_type , int> frequencies;
     for(const auto element: input)
     {
         frequencies[element]++;
@@ -44,5 +44,23 @@ void sort_by_increasing_frequency(Container & input)
         }
     }
  }
+
+template<typename Container>
+requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && Sortable<typename Container::value_type>
+void sort_by_increasing_frequency_simple(Container & input)
+{
+    using element_type = typename Container::value_type;
+    std::unordered_map<element_type , int> frequencies;
+    for(const auto & element: input)
+        frequencies[element]++;
+
+    auto comparator = [&](const element_type & element1, const element_type & element2){
+        if(frequencies[element1] == frequencies[element2])
+            return element1 > element2;
+        return frequencies[element1] < frequencies[element2];
+    };
+
+    std::sort(input.begin(), input.end(), comparator);
+}
 
 #endif //SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H
