@@ -9,7 +9,7 @@
 #include "used_concepts.h"
 
 template<typename Container>
-requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
+requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && Sortable<typename Container::value_type>
 void insertion_sort(Container &container) {
     auto size = container.size();
     for (size_t index1 = 0; index1 < size; ++index1) {

@@ -18,6 +18,13 @@ concept IndexedContainer = requires(Container c)
 template<std::size_t N>
 concept PowerOfTwo = ((N > 0) && (std::has_single_bit(N))) || (N == 0);
 
+template <typename T>
+concept Sortable = requires(T a, T b) {
+    { std::declval<T&>() = std::declval<T&>() } -> std::same_as<T&>;
+    { std::declval<T&>() = std::declval<T>() } -> std::same_as<T&>;
+    { std::declval<const T&>() < std::declval<const T&>() } -> std::convertible_to<bool>;
+};
+
 template<typename Element>
 concept NoPointerElement = !std::is_pointer_v<Element>;
 

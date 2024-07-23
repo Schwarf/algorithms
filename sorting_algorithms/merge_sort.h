@@ -9,7 +9,8 @@
 
 // When we merge we have in the beginning two elements
 template<typename Container>
-requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
+requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> &&
+         Sortable<typename Container::value_type>
 void merge(Container &container, int left, int mid, int right) {
     auto help = container;
     int first_half_index = left;
