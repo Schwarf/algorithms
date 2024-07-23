@@ -15,6 +15,7 @@ add_executable(sorting_tests
         test_bubble_sort.cpp
         test_bitonic_sort.cpp
         test_shell_sort.cpp
+        test_sort_characters_by_frequency.cpp
         )
 
 include_directories(./../)

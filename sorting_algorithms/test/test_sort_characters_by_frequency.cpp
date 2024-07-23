@@ -2,7 +2,7 @@
 // Created by andreas on 10.02.24.
 //
 #include "gtest/gtest.h"
-#include "heaps/sort_characters_by_frequency.h"
+#include "sort_characters_by_frequency.h"
 
 TEST(SortCharactersByFrequency, simple1)
 {
