@@ -35,6 +35,7 @@ add_executable(sort main.cpp
         shell_sort.h
         bubble_sort.h
         bitonic_sort.h
-        sort_characters_by_frequency.h)
+        sort_characters_by_frequency.h
+        sort_array_by_increasing_frequency.h)
 
 
