@@ -11,22 +11,21 @@
 // A subarray is a contiguous non-empty sequence of elements within an array.
 #include <vector>
 #include <unordered_map>
-int max_subarray_length(const std::vector<int> & input, int max_frequency)
-{
-	int result{};
-	int left{-1};
-	std::unordered_map<int, int> frequency;
-	for(int right{}; right < input.size(); right++)
-	{
-		frequency[input[right]]++;
-		while(frequency[input[right]] > max_frequency)
-		{
-			left++;
-			frequency[input[left]]--;
-		}
-		result = std::max(result, right-left);
-	}
-	return result;
+
+int max_subarray_length(const std::vector<int> &input, int max_frequency) {
+    int result{};
+    int left{-1};
+    std::unordered_map<int, int> frequency;
+    for (int right{}; right < input.size(); right++) {
+        frequency[input[right]]++;
+        while (frequency[input[right]] > max_frequency) {
+            left++;
+            frequency[input[left]]--;
+        }
+        result = std::max(result, right - left);
+    }
+    return result;
 
 }
+
 #endif //FIND_LONGEST_SUBARRAY_WITH_AT_MOST_K_FREQUENCY_H

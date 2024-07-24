@@ -12,30 +12,28 @@
 #include <vector>
 #include <unordered_map>
 
-template <typename T>
-int count_subarrays_with_at_most_k_different_values(const std::vector<T> &input, int k)
-{
-	std::unordered_map<int, int> frequency_map;
-	int left{};
-	int count{};
-	for(int right{}; right < input.size(); ++right)
-	{
-		frequency_map[input[right]]++;
-		while(frequency_map.size() > k)
-		{
-			frequency_map[input[left]]--;
-			if(frequency_map[input[left]] == 0)
-				frequency_map.erase(input[left]);
-			left++;
-		}
-		count += (right-left+1);
-	}
-	return count;
+template<typename T>
+int count_subarrays_with_at_most_k_different_values(const std::vector<T> &input, int k) {
+    std::unordered_map<int, int> frequency_map;
+    int left{};
+    int count{};
+    for (int right{}; right < input.size(); ++right) {
+        frequency_map[input[right]]++;
+        while (frequency_map.size() > k) {
+            frequency_map[input[left]]--;
+            if (frequency_map[input[left]] == 0)
+                frequency_map.erase(input[left]);
+            left++;
+        }
+        count += (right - left + 1);
+    }
+    return count;
 }
 
-template <typename T>
-int count_subarrays_with_exactly_k_different_elements(const std::vector<T> &input, int k)
-{
-	return count_subarrays_with_at_most_k_different_values(input, k) - count_subarrays_with_at_most_k_different_values(input, k-1);
+template<typename T>
+int count_subarrays_with_exactly_k_different_elements(const std::vector<T> &input, int k) {
+    return count_subarrays_with_at_most_k_different_values(input, k) -
+           count_subarrays_with_at_most_k_different_values(input, k - 1);
 }
+
 #endif //COUNT_SUBARRAYS_WITH_EXACTLY_K_DIFFERENT_ELEMENTS_H
