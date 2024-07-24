@@ -21,12 +21,12 @@ template <typename T>
 requires std::is_integral_v<T> && std::is_unsigned_v<T>
 std::vector<T> sort_jumbled_numbers(std::vector<T> & mapping, std::vector<T> & values)
 {
-    std::vector<T> mapped_values;
+    std::unordered_map<T, T> mapped_values;
     for(auto value : values)
     {
         auto current = value;
         if(current == 0)
-            mapped_values.push_back(mapping[0]);
+            mapped_values[0] = mapping[0];
         else {
             int place{1};
             T mapped_value{};
@@ -35,7 +35,7 @@ std::vector<T> sort_jumbled_numbers(std::vector<T> & mapping, std::vector<T> & v
                 current /= 10;
                 place *= 10;
             }
-            mapped_values.push_back(mapped_value);
+            mapped_values[value] = mapped_value;
         }
     }
 

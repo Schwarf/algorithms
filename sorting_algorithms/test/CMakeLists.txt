@@ -17,6 +17,7 @@ add_executable(sorting_tests
         test_shell_sort.cpp
         test_sort_characters_by_frequency.cpp
         test_sort_array_by_increasing_frequency.cpp
+        test_sort_jumbled_numbers.cpp
 )
 
 include_directories(./../)
