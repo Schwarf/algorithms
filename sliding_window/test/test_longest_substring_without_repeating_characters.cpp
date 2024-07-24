@@ -8,7 +8,7 @@
 TEST(TestLongestSubstringWithoutRepeatingCharacters, simple1)
 {
 	const std::string input{"acabnhjkbahb"};
-	constexpr int expected_result{6};
+	constexpr int expected_result{7};
 	EXPECT_EQ(expected_result, longest_substring_without_repeating_character(input));
 }
 
