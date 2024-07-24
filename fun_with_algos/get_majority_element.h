@@ -11,7 +11,7 @@
 // The majority element in an array of length n appears at least n/2 times in the array. Find it. input-element between
 // +/- 10^9
 template<typename T>
-T get_majority_element_hashmap(const std::vector <T> &input) {
+T get_majority_element_hashmap(const std::vector<T> &input) {
     std::unordered_map<T, int> counter;
     for (const auto &element: input) {
         if (++counter[element] > input.size() / 2)
@@ -24,7 +24,7 @@ T get_majority_element_hashmap(const std::vector <T> &input) {
 template<typename T>
 requires std::is_integral_v<T>
 
-T get_majority_element_bit_manipulation(const std::vector <T> &input) {
+T get_majority_element_bit_manipulation(const std::vector<T> &input) {
     T majority_element{};
     // Works because we are between +/-10**9
     for (int i{}; i < 32; ++i) {
@@ -41,7 +41,7 @@ T get_majority_element_bit_manipulation(const std::vector <T> &input) {
 
 // Should work for all types
 template<typename T>
-T get_majority_element_boyer_moore(const std::vector <T> &input, T initial_candidate) {
+T get_majority_element_boyer_moore(const std::vector<T> &input, T initial_candidate) {
     int count{};
     // Works because we are between +/-10**9
     T candidate = initial_candidate;

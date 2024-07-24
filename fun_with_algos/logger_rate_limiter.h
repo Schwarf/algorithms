@@ -15,15 +15,15 @@
 #include <deque>
 #include <unordered_set>
 
-class Logger{
+class Logger {
 public:
     explicit Logger() = default;
-    bool shall_print_message(int timestamp, const std::string & message)
-    {
+
+    bool shall_print_message(int timestamp, const std::string &message) {
         // if unordered_map is empty it returns default constructed int
-        if(timestamp < last_messages[message])
+        if (timestamp < last_messages[message])
             return false;
-        last_messages[message] = timestamp+10;
+        last_messages[message] = timestamp + 10;
         return true;
     }
 
@@ -32,21 +32,20 @@ private:
 
 };
 
-class LoggerOnly10Seconds{
+class LoggerOnly10Seconds {
 public:
     explicit LoggerOnly10Seconds() = default;
-    bool shall_print_message(int timestamp, const std::string & message)
-    {
+
+    bool shall_print_message(int timestamp, const std::string &message) {
         // Remove messages older than 10 seconds
-        while(!message_queue.empty())
-        {
+        while (!message_queue.empty()) {
             const auto [old_timestamp, old_message] = message_queue.front();
-            if(timestamp < old_timestamp + 10)
+            if (timestamp < old_timestamp + 10)
                 break;
             message_queue.pop_front();
             messages.erase(old_message);
         }
-        if(messages.contains(message))
+        if (messages.contains(message))
             return false;
         message_queue.emplace_back(timestamp, message);
         messages.insert(message);

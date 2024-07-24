@@ -11,44 +11,41 @@
 #include <vector>
 // Easy-peasy: Sort and find the duplicate. Here we concentrate on O(N) solutions.
 
-int find_duplicate(std::vector<int>& input) {
-	for(int i{}; i < input.size(); ++i)
-	{
-		// We compute the index and negate the value at the index.
-		int index = std::abs(input[i]);
-		// If the value at the index is already negative, we return the index because it has been visited once before/
-		if(input[index] < 0)
-			return index;
-		// HERE we negate
-		input[index] = -input[index];
-	}
-	return -1;
+int find_duplicate(std::vector<int> &input) {
+    for (int i{}; i < input.size(); ++i) {
+        // We compute the index and negate the value at the index.
+        int index = std::abs(input[i]);
+        // If the value at the index is already negative, we return the index because it has been visited once before/
+        if (input[index] < 0)
+            return index;
+        // HERE we negate
+        input[index] = -input[index];
+    }
+    return -1;
 }
 
 // Due to the given problem structure (n+1) numbers in [1, n] with a duplicate, we can approach this problem like
 // a linked list. We use slow and fast runner in linked list and use them to find the begining of a cycle in
 // linked list.
 
-int find_duplicate_linked_list(const std::vector<int>& input) {
-	int slow = input[0];
-	int fast = input[0];
-	// Find the intersection point of the two pointers
-	do {
-		slow = input[slow];
-		fast = input[input[fast]];
-	} while (slow != fast);
+int find_duplicate_linked_list(const std::vector<int> &input) {
+    int slow = input[0];
+    int fast = input[0];
+    // Find the intersection point of the two pointers
+    do {
+        slow = input[slow];
+        fast = input[input[fast]];
+    } while (slow != fast);
 
 
-	// Find the entrance of the cycle
-	slow = input[0];
-	while (slow != fast) {
-		slow = input[slow];
-		fast = input[fast];
-	}
-	return slow;
+    // Find the entrance of the cycle
+    slow = input[0];
+    while (slow != fast) {
+        slow = input[slow];
+        fast = input[fast];
+    }
+    return slow;
 }
-
-
 
 
 #endif //FIND_DUPLICATE_IN_ARRAY_H

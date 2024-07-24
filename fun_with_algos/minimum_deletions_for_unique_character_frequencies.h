@@ -13,26 +13,24 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
-int minimum_deletions(const std::string & input)
-{
-	std::vector<int> frequencies(26, 0);
-	for(const auto & c: input)
-		frequencies[c-'a']++;
-	std::unordered_set<int> frequency_count;
-	int deletions{};
-	for(auto & frequency : frequencies)
-	{
-		if(frequency > 0)
-		{
-			while(frequency >0 && frequency_count.find(frequency) != frequency_count.end())
-			{
-				deletions++;
-				frequency--;
-			}
-			if(frequency > 0)
-				frequency_count.insert(frequency);
-		}
-	}
-	return deletions;
+
+int minimum_deletions(const std::string &input) {
+    std::vector<int> frequencies(26, 0);
+    for (const auto &c: input)
+        frequencies[c - 'a']++;
+    std::unordered_set<int> frequency_count;
+    int deletions{};
+    for (auto &frequency: frequencies) {
+        if (frequency > 0) {
+            while (frequency > 0 && frequency_count.find(frequency) != frequency_count.end()) {
+                deletions++;
+                frequency--;
+            }
+            if (frequency > 0)
+                frequency_count.insert(frequency);
+        }
+    }
+    return deletions;
 }
+
 #endif //MINIMUM_DELETIONS_FOR_UNIQUE_CHARACTER_FREQUENCIES_H

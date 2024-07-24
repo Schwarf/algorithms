@@ -4,6 +4,7 @@
 
 #ifndef REMOVE_OCCURENCES_OF_VALUE_H
 #define REMOVE_OCCURENCES_OF_VALUE_H
+
 #include <vector>
 // Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.
 // The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
@@ -15,15 +16,13 @@
 // - Return k.
 
 template<typename T>
-int remove_value(std::vector<int> & elements, T value_to_remove)
-{
-	int index{};
-	for(const auto & element: elements)
-	{
-		if(element != value_to_remove)
-			elements[index++] = element;
-	}
-	return index;
+int remove_value(std::vector<int> &elements, T value_to_remove) {
+    int index{};
+    for (const auto &element: elements) {
+        if (element != value_to_remove)
+            elements[index++] = element;
+    }
+    return index;
 }
 
 #endif //REMOVE_OCCURENCES_OF_VALUE_H

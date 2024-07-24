@@ -21,7 +21,7 @@ int island_perimeter(const std::vector<std::vector<int>> &grid) {
         for (int j = 0; j < columns; ++j) {
             int perimeter{};
             if (grid[i][j] == 1) {
-                perimeter=4;
+                perimeter = 4;
                 // top
                 if (i > 0 && grid[i - 1][j] == 1) perimeter--;
                 // bottom
@@ -31,7 +31,7 @@ int island_perimeter(const std::vector<std::vector<int>> &grid) {
                 // right
                 if (j < columns - 1 && grid[i][j + 1] == 1) perimeter--;
             }
-            total_perimeter+=perimeter;
+            total_perimeter += perimeter;
         }
     }
     return total_perimeter;

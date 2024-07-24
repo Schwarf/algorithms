@@ -4,8 +4,7 @@
 #include "gtest/gtest.h"
 #include "./../logger_rate_limiter.h"
 
-TEST(LoggerRateLimiter, simple1)
-{
+TEST(LoggerRateLimiter, simple1) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(2, "bar"));
@@ -16,8 +15,7 @@ TEST(LoggerRateLimiter, simple1)
 }
 
 
-TEST(LoggerRateLimiter, simple2)
-{
+TEST(LoggerRateLimiter, simple2) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(1, "bar"));
@@ -27,16 +25,14 @@ TEST(LoggerRateLimiter, simple2)
     EXPECT_TRUE(logger.shall_print_message(21, "foo"));
 }
 
-TEST(LoggerRateLimiter, simple3)
-{
+TEST(LoggerRateLimiter, simple3) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(11, "foo"));
     EXPECT_TRUE(logger.shall_print_message(22, "foo"));
 }
 
-TEST(LoggerRateLimiter, simple4)
-{
+TEST(LoggerRateLimiter, simple4) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo1"));
     EXPECT_TRUE(logger.shall_print_message(1, "foo2"));
@@ -44,8 +40,7 @@ TEST(LoggerRateLimiter, simple4)
     EXPECT_TRUE(logger.shall_print_message(1, "foo4"));
 }
 
-TEST(LoggerRateLimiter10Seconds, simple1)
-{
+TEST(LoggerRateLimiter10Seconds, simple1) {
     auto logger = LoggerOnly10Seconds();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(2, "bar"));
@@ -56,8 +51,7 @@ TEST(LoggerRateLimiter10Seconds, simple1)
 }
 
 
-TEST(LoggerRateLimiter10Seconds, simple2)
-{
+TEST(LoggerRateLimiter10Seconds, simple2) {
     auto logger = LoggerOnly10Seconds();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(1, "bar"));
@@ -67,16 +61,14 @@ TEST(LoggerRateLimiter10Seconds, simple2)
     EXPECT_TRUE(logger.shall_print_message(21, "foo"));
 }
 
-TEST(LoggerRateLimiter10Seconds, simple3)
-{
+TEST(LoggerRateLimiter10Seconds, simple3) {
     auto logger = LoggerOnly10Seconds();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(11, "foo"));
     EXPECT_TRUE(logger.shall_print_message(22, "foo"));
 }
 
-TEST(LoggerRateLimiter10Seconds, simple4)
-{
+TEST(LoggerRateLimiter10Seconds, simple4) {
     auto logger = LoggerOnly10Seconds();
     EXPECT_TRUE(logger.shall_print_message(1, "foo1"));
     EXPECT_TRUE(logger.shall_print_message(1, "foo2"));

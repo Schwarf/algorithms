@@ -4,6 +4,7 @@
 
 #ifndef REMOVE_DUPLICATES_FROM_SORTED_ARRAY_H
 #define REMOVE_DUPLICATES_FROM_SORTED_ARRAY_H
+
 #include <vector>
 // Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each
 // unique element appears only once. The relative order of the elements should be kept the same.
@@ -13,18 +14,15 @@
 // - Return k.
 
 
-template <typename T>
-int remove_duplicates_from_sorted_array(std::vector<T> & elements)
-{
-	int index{1};
-	for (int i{1}; i < elements.size(); ++i)
-	{
-		if(elements[i-1] != elements[i])
-		{
-			elements[index++] = elements[i];
-		}
-	}
-	return index;
+template<typename T>
+int remove_duplicates_from_sorted_array(std::vector<T> &elements) {
+    int index{1};
+    for (int i{1}; i < elements.size(); ++i) {
+        if (elements[i - 1] != elements[i]) {
+            elements[index++] = elements[i];
+        }
+    }
+    return index;
 }
 
 #endif //REMOVE_DUPLICATES_FROM_SORTED_ARRAY_H

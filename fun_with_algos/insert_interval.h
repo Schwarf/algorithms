@@ -12,34 +12,36 @@
 // Return intervals after the insertion.
 #include <vector>
 #include <concepts>
-template <typename T>
+
+template<typename T>
 requires std::three_way_comparable<T>
-std::vector<std::vector<T>> insert_new_interval(const std::vector<std::vector<T>>& intervals, std::vector<T>& new_interval) {
-	int n = intervals.size();
-	int index{};
-	std::vector<std::vector<T>> result;
+std::vector<std::vector<T>>
+insert_new_interval(const std::vector<std::vector<T>> &intervals, std::vector<T> &new_interval) {
+    int n = intervals.size();
+    int index{};
+    std::vector<std::vector<T>> result;
 
-	// Compare ending point of intervals to starting point of new_interval and
-	// add until new_interval start is lower than endpoint of exiting interval
-	while (index < n && intervals[index][1] < new_interval[0]) {
-		result.push_back(intervals[index]);
-		index++;
-	}
+    // Compare ending point of intervals to starting point of new_interval and
+    // add until new_interval start is lower than endpoint of exiting interval
+    while (index < n && intervals[index][1] < new_interval[0]) {
+        result.push_back(intervals[index]);
+        index++;
+    }
 
-	// Merging overlapping intervals
-	while (index < n && new_interval[1] >= intervals[index][0]) {
-		new_interval[0] = std::min(new_interval[0], intervals[index][0]);
-		new_interval[1] = std::max(new_interval[1], intervals[index][1]);
-		index++;
-	}
-	result.push_back(new_interval);
+    // Merging overlapping intervals
+    while (index < n && new_interval[1] >= intervals[index][0]) {
+        new_interval[0] = std::min(new_interval[0], intervals[index][0]);
+        new_interval[1] = std::max(new_interval[1], intervals[index][1]);
+        index++;
+    }
+    result.push_back(new_interval);
 
-	// Add remaining intervals
-	while (index < n) {
-		result.push_back(intervals[index]);
-		index++;
-	}
-	return result;
+    // Add remaining intervals
+    while (index < n) {
+        result.push_back(intervals[index]);
+        index++;
+    }
+    return result;
 }
 
 

@@ -15,7 +15,7 @@
 // -1000 <= nums[i] <= 1000
 // nums[i] != 0
 
- int largest_integer_with_its_negative(std::vector<int> &input) {
+int largest_integer_with_its_negative(std::vector<int> &input) {
     std::sort(input.begin(), input.end());
     int left{};
     int right = input.size() - 1;
