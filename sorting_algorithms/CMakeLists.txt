@@ -22,6 +22,8 @@ enable_cxx_compiler_flag_if_supported("-Wextra")
 enable_cxx_compiler_flag_if_supported("-pedantic")
 enable_cxx_compiler_flag_if_supported("-std=c++17")
 enable_cxx_compiler_flag_if_supported("-O0")
+enable_cxx_compiler_flag_if_supported("-Werror")
+enable_cxx_compiler_flag_if_supported("-Wno-sign-compare") # Disable specific warning
 
 add_subdirectory(test)
 add_executable(sort main.cpp
