@@ -4,6 +4,7 @@
 
 #ifndef MINIMUM_DIFFICULTY_JOB_SCHEDULE_H
 #define MINIMUM_DIFFICULTY_JOB_SCHEDULE_H
+
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -15,25 +16,24 @@
 // Return the minimum difficulty of a job schedule. If you cannot find a schedule for the jobs return -1.
 
 
-int min_difficulty_job_schedule_top_down(const std::vector<int> &jobDifficulty, int d)
-{
-	int n = jobDifficulty.size();
-	if (n < d)
-		return -1;
-	if (n == d)
-		return std::accumulate(jobDifficulty.begin(), jobDifficulty.end(), 0);
-	std::vector<std::vector<int>> dp(n + 1, std::vector<int>(d + 1, 1000000));
-	dp[0][0] = 0;
-	for (int day{1}; day <= d; ++day) {
-		for (int i{day}; i <= n; ++i) {
-			int maxDiff = 0;
-			for (int k = i; k >= day; --k) {
-				maxDiff = std::max(maxDiff, jobDifficulty[k - 1]);
-				dp[i][day] = std::min(dp[i][day], dp[k - 1][day - 1] + maxDiff);
-			}
-		}
-	}
-	return dp[n][d];
+int min_difficulty_job_schedule_top_down(const std::vector<int> &jobDifficulty, int d) {
+    int n = jobDifficulty.size();
+    if (n < d)
+        return -1;
+    if (n == d)
+        return std::accumulate(jobDifficulty.begin(), jobDifficulty.end(), 0);
+    std::vector<std::vector<int>> dp(n + 1, std::vector<int>(d + 1, 1000000));
+    dp[0][0] = 0;
+    for (int day{1}; day <= d; ++day) {
+        for (int i{day}; i <= n; ++i) {
+            int maxDiff = 0;
+            for (int k = i; k >= day; --k) {
+                maxDiff = std::max(maxDiff, jobDifficulty[k - 1]);
+                dp[i][day] = std::min(dp[i][day], dp[k - 1][day - 1] + maxDiff);
+            }
+        }
+    }
+    return dp[n][d];
 }
 
 

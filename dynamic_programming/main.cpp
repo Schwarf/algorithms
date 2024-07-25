@@ -4,7 +4,6 @@
 #include <iostream>
 #include "minimize_number_of_coins.h"
 
-int main()
-{
+int main() {
 
 }

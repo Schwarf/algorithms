@@ -16,27 +16,26 @@
 #include <string>
 #include <algorithm>
 #include <unordered_map>
-int longest_string_chain(std::vector<std::string> &words)
-{
-	std::unordered_map<std::string, int> counter;
-	std::sort(words.begin(), words.end(), [](const std::string &word1, const std::string &word2)
-	{
-		return word1.length() < word2.length();
-	});
-	// The minimum size is one, since at least one word forms a chain.
-	int max_chain_length{0};
-	for (const auto &current_word: words) {
-		counter[current_word] = 1;
-		for (int i{}; i < current_word.size(); ++i) {
-			const std::string
-				possible_predecessor = current_word.substr(0, i) + current_word.substr(i + 1);
-			if (counter.find(possible_predecessor) != counter.end()) {
-				counter[current_word] = std::max(counter[current_word], counter[possible_predecessor] + 1);
-			}
-		}
-		max_chain_length = std::max(max_chain_length, counter[current_word]);
-	}
-	return max_chain_length;
+
+int longest_string_chain(std::vector<std::string> &words) {
+    std::unordered_map<std::string, int> counter;
+    std::sort(words.begin(), words.end(), [](const std::string &word1, const std::string &word2) {
+        return word1.length() < word2.length();
+    });
+    // The minimum size is one, since at least one word forms a chain.
+    int max_chain_length{0};
+    for (const auto &current_word: words) {
+        counter[current_word] = 1;
+        for (int i{}; i < current_word.size(); ++i) {
+            const std::string
+                    possible_predecessor = current_word.substr(0, i) + current_word.substr(i + 1);
+            if (counter.find(possible_predecessor) != counter.end()) {
+                counter[current_word] = std::max(counter[current_word], counter[possible_predecessor] + 1);
+            }
+        }
+        max_chain_length = std::max(max_chain_length, counter[current_word]);
+    }
+    return max_chain_length;
 }
 
 #endif //LONGEST_STRING_CHAIN_H
