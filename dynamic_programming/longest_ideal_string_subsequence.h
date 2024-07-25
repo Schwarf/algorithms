@@ -40,16 +40,16 @@ int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string
     return dp[index][character];
 }
 
-int longest_ideal_string_top_down(std::string &input, int k) {
-    int n = input.size();
-    std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
-
-    int result{};
-    for (int character{}; character < 26; ++character) {
-        result = std::max(result, dfs(n - 1, character, dp, input, k));
-    }
-
-}
+//int longest_ideal_string_top_down(std::string &input, int k) {
+//    int n = input.size();
+//    std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
+//
+//    int result{};
+//    for (int character{}; character < 26; ++character) {
+//        result = std::max(result, dfs(n - 1, character, dp, input, k));
+//    }
+//
+//}
 
 
 int longest_ideal_string_bottom_up(std::string s, int k) {

@@ -22,7 +22,6 @@ int cutting(std::vector<int> &prices, int length) {
 }
 
 int rod_cutting(std::vector<int> &prices, int rod_length) {
-    int n = prices.size();
     return cutting(prices, rod_length);
 }
 
@@ -42,14 +41,14 @@ int cutting_memo(std::vector<int> &prices, std::vector<int> &memo, int length) {
 }
 
 int rod_cutting_memo(std::vector<int> &prices, int rod_length) {
-    int n = prices.size();
+//    int n = prices.size();
     std::vector<int> memo(rod_length + 1, -1);
     return cutting_memo(prices, memo, rod_length);
 }
 
 
 int rod_cutting_bottom_up(std::vector<int> &prices, int rod_length) {
-    int n = prices.size();
+//    int n = prices.size();
     std::vector<int> dp(rod_length + 1, 0);
     for (int i{}; i <= rod_length; ++i) {
         for (int j{}; j <= i; ++j) {

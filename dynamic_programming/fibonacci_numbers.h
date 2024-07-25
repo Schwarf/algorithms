@@ -13,7 +13,7 @@ unsigned long long n_th_fibonacci_number(int n) {
     if (n > 50)
         throw std::out_of_range("We only compute fibonacci numbers up to 50");
 
-    unsigned long long help[n + 1];
+    std::vector<long long> help(n + 1);
     help[0] = 0;
     help[1] = 1;
     for (int i{2}; i < n + 1; ++i)
