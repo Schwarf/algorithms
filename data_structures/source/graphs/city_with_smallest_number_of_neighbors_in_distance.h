@@ -15,22 +15,45 @@
 #include <limits>
 
 void
-dijkstra(int n, const std::vector<std::vector<std::pair<int, int>>> &graph, std::vector<int> &shortest_paths_distance,
+dijkstra(int n, const std::vector<std::vector<std::pair<int, int>>> &graph, std::vector<int> &shortest_path_distances,
          int start) {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(start, 0);
-    std::fill(shortest_paths_distance.begin(), shortest_paths_distance.end(), std::numeric_limits<int>::max());
-    shortest_paths_distance[start] = 0;
+    std::fill(shortest_path_distances.begin(), shortest_path_distances.end(), std::numeric_limits<int>::max());
+    shortest_path_distances[start] = 0;
     while (!q.empty()) {
         auto [current_city, current_distance] = q.top();
         q.pop();
-        if (current_distance > shortest_paths_distance[current_city])
+        if (current_distance > shortest_path_distances[current_city])
             continue;
         for (const auto &[neighbor, distance]: graph[current_city]) {
-            if (shortest_paths_distance[neighbor] > distance + current_distance) {
-                shortest_paths_distance[neighbor] = distance + current_distance;
-                q.emplace(neighbor, shortest_paths_distance[neighbor]);
+            if (shortest_path_distances[neighbor] > distance + current_distance) {
+                shortest_path_distances[neighbor] = distance + current_distance;
+                q.emplace(neighbor, shortest_path_distances[neighbor]);
             }
+        }
+    }
+}
+
+void bellman_ford(int n, const std::vector<std::vector<int>> &edges,
+                  std::vector<int> &shortest_path_distances, int start) {
+    std::fill(shortest_path_distances.begin(), shortest_path_distances.end(), std::numeric_limits<int>::max());
+    shortest_path_distances[start] = 0;
+    for (int city{1}; city < n; ++city) {
+        for (const auto &edge: edges) {
+            auto start = edge[0];
+            auto end = edge[1];
+            auto weight = edge[2];
+            if (shortest_path_distances[start] != std::numeric_limits<int>::max() &&
+                shortest_path_distances[start] + weight < shortest_path_distances[end]) {
+                shortest_path_distances[end] = shortest_path_distances[start] + weight;
+            }
+            // Since we have undirected graph we have to update both directions
+            if (shortest_path_distances[end] != std::numeric_limits<int>::max() &&
+                shortest_path_distances[end] + weight < shortest_path_distances[start]) {
+                shortest_path_distances[start] = shortest_path_distances[end] + weight;
+            }
+
         }
     }
 }
@@ -49,6 +72,39 @@ city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<i
 
     for (int city{}; city < n; ++city) {
         dijkstra(n, graph, shortest_paths[city], city);
+    }
+
+    // get city with the fewest number of reachable cities given max_allowed_distance constraint
+    int result_city{-1};
+    int count{n};
+    for (int city{}; city < n; ++city) {
+        int reachable_count{};
+        for (int i{}; i < n; ++i) {
+            if (i == city)
+                continue;
+            if (shortest_paths[city][i] <= max_allowed_distance) {
+                reachable_count++;
+            }
+        }
+        if (reachable_count <= count) {
+            count = reachable_count;
+            result_city = city;
+        }
+    }
+    return result_city;
+}
+
+
+int
+city_with_smallest_number_of_neighbors_bellman_ford(int n, std::vector<std::vector<int>> &edges,
+                                                    int max_allowed_distance) {
+    std::vector<std::vector<int>> shortest_paths(n, std::vector<int>(n, std::numeric_limits<int>::max()));
+    for (int i{}; i < n; ++i) {
+        shortest_paths[i][i] = 0;
+    }
+
+    for (int city{}; city < n; ++city) {
+        bellman_ford(n, edges, shortest_paths[city], city);
     }
 
     // get city with the fewest number of reachable cities given max_allowed_distance constraint
