@@ -77,18 +77,18 @@ city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<i
     // get city with the fewest number of reachable cities given max_allowed_distance constraint
     int result_city{-1};
     int count{n};
-    for (int city{}; city < n; ++city) {
+    for (int city1{}; city1 < n; ++city1) {
         int reachable_count{};
-        for (int i{}; i < n; ++i) {
-            if (i == city)
+        for (int city2{}; city2 < n; ++city2) {
+            if (city2 == city1)
                 continue;
-            if (shortest_paths[city][i] <= max_allowed_distance) {
+            if (shortest_paths[city1][city2] <= max_allowed_distance) {
                 reachable_count++;
             }
         }
         if (reachable_count <= count) {
             count = reachable_count;
-            result_city = city;
+            result_city = city1;
         }
     }
     return result_city;
@@ -110,18 +110,18 @@ city_with_smallest_number_of_neighbors_bellman_ford(int n, std::vector<std::vect
     // get city with the fewest number of reachable cities given max_allowed_distance constraint
     int result_city{-1};
     int count{n};
-    for (int city{}; city < n; ++city) {
+    for (int city1{}; city1 < n; ++city1) {
         int reachable_count{};
-        for (int i{}; i < n; ++i) {
-            if (i == city)
+        for (int city2{}; city2 < n; ++city2) {
+            if (city2 == city1)
                 continue;
-            if (shortest_paths[city][i] <= max_allowed_distance) {
+            if (shortest_paths[city1][city2] <= max_allowed_distance) {
                 reachable_count++;
             }
         }
         if (reachable_count <= count) {
             count = reachable_count;
-            result_city = city;
+            result_city = city1;
         }
     }
     return result_city;
@@ -152,7 +152,26 @@ city_with_smallest_number_of_neighbors_floyd_warshall(int n, std::vector<std::ve
     }
 
     floyd_warshall(n, distance_matrix);
+    // get city with the fewest number of reachable cities given max_allowed_distance constraint
+    int result_city{-1};
+    int count{n};
+    for (int city1{}; city1 < n; ++city1) {
+        int reachable_count{};
+        for (int city2{}; city2 < n; ++city2) {
+            if (city2 == city1)
+                continue;
+            if (distance_matrix[city1][city2] <= max_allowed_distance) {
+                reachable_count++;
+            }
+        }
+        if (reachable_count <= count) {
+            count = reachable_count;
+            result_city = city1;
+        }
+    }
+    return result_city;
 
 }
+
 
 #endif //DATA_STRUCTURES_CITY_WITH_SMALLEST_NUMBER_OF_NEIGHBORS_IN_DISTANCE_H
