@@ -39,8 +39,8 @@ int
 city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<int>> &edges, int max_allowed_distance) {
     std::vector<std::vector<std::pair<int, int>>> graph(n);
     for (const auto &edge: edges) {
-        graph[edge[0]].push_back({edge[1], edge[2]});
-        graph[edge[1]].push_back({edge[0], edge[2]});
+        graph[edge[0]].emplace_back(edge[1], edge[2]);
+        graph[edge[1]].emplace_back(edge[0], edge[2]);
     }
     std::vector<std::vector<int>> shortest_paths(n, std::vector<int>(n, std::numeric_limits<int>::max()));
     for (int i{}; i < n; ++i) {
@@ -48,7 +48,7 @@ city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<i
     }
 
     for (int city{}; city < n; ++city) {
-        dijkstra(n, graph, shortest_paths[city], n);
+        dijkstra(n, graph, shortest_paths[city], city);
     }
 
     // get city with the fewest number of reachable cities given max_allowed_distance constraint
