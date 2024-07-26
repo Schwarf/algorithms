@@ -126,14 +126,16 @@ city_with_smallest_number_of_neighbors_bellman_ford(int n, std::vector<std::vect
     }
     return result_city;
 }
-
+    
 void floyd_warshall(int n, std::vector<std::vector<int>> &distance_matrix) {
     for (int transition_city{}; transition_city < n; ++transition_city) {
         for (int start_city{}; start_city < n; ++start_city) {
             for (int end_city{}; end_city < n; ++end_city) {
-                distance_matrix[start_city][end_city] = std::min(distance_matrix[start_city][end_city],
-                                                                 distance_matrix[start_city][transition_city] +
-                                                                 distance_matrix[transition_city][end_city]);
+                if (distance_matrix[start_city][transition_city] != std::numeric_limits<int>::max() &&
+                    distance_matrix[transition_city][end_city] != std::numeric_limits<int>::max())
+                    distance_matrix[start_city][end_city] = std::min(distance_matrix[start_city][end_city],
+                                                                     distance_matrix[start_city][transition_city] +
+                                                                     distance_matrix[transition_city][end_city]);
             }
         }
     }
