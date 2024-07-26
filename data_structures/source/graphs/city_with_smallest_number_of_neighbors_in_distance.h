@@ -193,7 +193,7 @@ void shortest_path_first(int n, const std::vector<std::vector<std::pair<int, int
                 shortest_path_distances[neighbor_city] = shortest_path_distances[current_city] + distance;
                 update_count[neighbor_city]++;
                 q.push(neighbor_city);
-                if (update_count[neighbor_city] > 0) // Should not happen here but to see the algo's work.
+                if (update_count[neighbor_city] > n) // Should not happen here but to see the algo is working.
                     std::cerr << "Negative weight cycle detected" << std::endl;
             }
         }
