@@ -67,16 +67,15 @@ long long minimum_cost_to_convert_string(std::string &source, std::string &targe
     return total_costs;
 }
 
-void floyd_warshall(const std::vector<std::vector<long long>> &graph,
-                    std::vector<std::vector<long long>> &conversion_costs) {
+void floyd_warshall(std::vector<std::vector<long long>> &conversion_costs) {
     for (int transition_char{}; transition_char < 26; ++transition_char) {
         for (int start_char{}; start_char < 26; ++start_char) {
             for (int end_char{}; end_char < 26; ++end_char) {
-                if (graph[start_char][transition_char] != std::numeric_limits<long long>::max() &&
-                    graph[transition_char][end_char] != std::numeric_limits<long long>::max()) {
+                if (conversion_costs[start_char][transition_char] != std::numeric_limits<long long>::max() &&
+                    conversion_costs[transition_char][end_char] != std::numeric_limits<long long>::max()) {
                     conversion_costs[start_char][end_char] = std::min(conversion_costs[start_char][end_char],
-                                                                      graph[start_char][transition_char] +
-                                                                      graph[transition_char][end_char]);
+                                                                      conversion_costs[start_char][transition_char] +
+                                                                      conversion_costs[transition_char][end_char]);
                 }
             }
         }
@@ -87,15 +86,15 @@ void floyd_warshall(const std::vector<std::vector<long long>> &graph,
 long long
 minimum_cost_to_convert_string_floyd_warshall(std::string &source, std::string &target, std::vector<char> &original,
                                               std::vector<char> &changed, std::vector<int> &costs) {
-    std::vector<std::vector<long long>> graph(26, std::vector<long long>(26, std::numeric_limits<long long>::max()));
-    int n = original.size();
-    for (int i{}; i < n; ++i) {
-        graph[original[i] - 'a'][changed[i] - 'a'] = costs[i];
-    }
     std::vector<std::vector<long long>> conversion_costs(26, std::vector<long long>(26,
                                                                                     std::numeric_limits<long long>::max()));
 
-    floyd_warshall(graph, conversion_costs);
+    for (int i{}; i < original.size(); ++i) {
+        conversion_costs[original[i] - 'a'][changed[i] - 'a'] = static_cast<long long>(costs[i]);
+    }
+
+
+    floyd_warshall(conversion_costs);
     long long total_costs{};
     for (int i{}; i < source.length(); ++i) {
         if (source[i] != target[i]) {
