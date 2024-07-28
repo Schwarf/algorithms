@@ -90,7 +90,8 @@ minimum_cost_to_convert_string_floyd_warshall(std::string &source, std::string &
                                                                                     std::numeric_limits<long long>::max()));
 
     for (int i{}; i < original.size(); ++i) {
-        conversion_costs[original[i] - 'a'][changed[i] - 'a'] = static_cast<long long>(costs[i]);
+        conversion_costs[original[i] - 'a'][changed[i] - 'a'] = std::min(
+                conversion_costs[original[i] - 'a'][changed[i] - 'a'], static_cast<long long>(costs[i]));
     }
 
 
