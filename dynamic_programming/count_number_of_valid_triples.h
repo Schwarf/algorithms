@@ -28,4 +28,27 @@ int valid_triple(std::vector<int> &input) {
 }
 
 
+// O(N^2)
+int valid_triple_dp(std::vector<int> &input) {
+    int n = input.size();
+    int count_valid_triples{};
+    for (int middle{}; middle < n; ++middle) {
+
+        int leftSmaller{};
+        int rightLarger{};
+        for (int i = middle - 1; i > -1; --i)
+            if (input[i] < input[middle])
+                leftSmaller++;
+        for (int i = middle + 1; i < n; ++i)
+            if (input[i] > input[middle])
+                rightLarger++;
+
+        auto leftLarger = middle - leftSmaller;
+        auto rightSmaller = n - middle - 1 - rightLarger;
+        count_valid_triples += leftSmaller * rightLarger + leftLarger * rightSmaller;
+    }
+    return count_valid_triples;
+}
+
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_COUNT_NUMBER_OF_VALID_TRIPLES_H
