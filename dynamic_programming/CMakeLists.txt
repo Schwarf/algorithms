@@ -59,4 +59,5 @@ add_executable(dynamic_programming_samples main.cpp
         count_palindromic_substrings.h
         longest_ideal_string_subsequence.h
         cutting_rod_problem.h
-        matrix_chain_multiplication.h)
+        matrix_chain_multiplication.h
+        count_number_of_valid_triples.h)
