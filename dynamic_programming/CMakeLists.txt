@@ -60,4 +60,5 @@ add_executable(dynamic_programming_samples main.cpp
         longest_ideal_string_subsequence.h
         cutting_rod_problem.h
         matrix_chain_multiplication.h
-        count_number_of_valid_triples.h)
+        count_number_of_valid_triples.h
+        minimal_operations_to_create_valid_string.h)
