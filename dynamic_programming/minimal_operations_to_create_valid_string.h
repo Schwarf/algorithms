@@ -47,4 +47,17 @@ int operations_to_create_valid_string_stack(const std::string &input) {
     return delete_count;
 }
 
+// O(N) time complexity, O(1) space complexity
+int operations_to_create_valid_string_optimized_dp(const std::string &input) {
+    int count_b{};
+    int delete_count{};
+    for (const auto &c: input) {
+        if (c == 'b')
+            count_b++;
+        else
+            delete_count = std::min(delete_count + 1, count_b);
+    }
+    return delete_count;
+}
+
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_OPERATIONS_TO_CREATE_VALID_STRING_H
