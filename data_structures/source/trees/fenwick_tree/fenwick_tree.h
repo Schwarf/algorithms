@@ -12,9 +12,9 @@ class FenwickTree {
 public:
     FenwickTree() = default;
 
-    FenwickTree(const std::vector<T> &data) {
+    explicit FenwickTree(const std::vector<T> &data) {
         size = data.size() + 1;
-        binary_indexed_tree = std::vector<T>(T{}, size);
+        binary_indexed_tree = std::vector<T>(size, T{});
         for (int i{}; i < data.size(); ++i) {
             update(i, data[i]);
         }
