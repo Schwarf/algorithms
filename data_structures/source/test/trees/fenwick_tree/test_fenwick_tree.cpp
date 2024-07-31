@@ -41,3 +41,35 @@ TEST(FenwickTreeTest, UpdatesAtBoundaries) {
     EXPECT_EQ(fenwick_tree.get_sum(0, 0), expected_result_update1);
     EXPECT_EQ(fenwick_tree.get_sum(4, 4), expected_result_update2);
 }
+
+// Test Initialization with floating-point numbers
+TEST(FenwickTreeTest, InitializesCorrectlyWithFloats) {
+    std::vector<double> data = {0.1, 0.2, 0.3, 0.4, 0.5};
+    FenwickTree<double> ft(data);
+    EXPECT_NEAR(ft.get_sum(0, 4), 1.5, 1e-5);
+}
+
+// Test updates with max int
+TEST(FenwickTreeTest, HandleMaxIntUpdates) {
+    std::vector<int> data = {0, 0, 0, 0, 0};
+    FenwickTree<int> ft(data);
+    ft.update(2, std::numeric_limits<int>::max());
+    EXPECT_EQ(ft.get_sum(2, 2), std::numeric_limits<int>::max());
+}
+
+// Test update with negative values
+TEST(FenwickTreeTest, HandlesNegativeUpdates) {
+    std::vector<int> data = {5, 5, 5, 5, 5};
+    FenwickTree<int> ft(data);
+    ft.update(2, -3);
+    EXPECT_EQ(ft.get_sum(0, 4), 22);
+}
+
+// Floating point precision test
+TEST(FenwickTreeTest, FloatingPointPrecision) {
+    std::vector<float> data = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+    FenwickTree<float> ft(data);
+    ft.update(0, 0.000001f);
+    ft.update(4, -0.000001f);
+    EXPECT_NEAR(ft.get_sum(0, 4), 5.0f, 1e-5);
+}
