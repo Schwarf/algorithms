@@ -39,6 +39,7 @@ add_executable(dynamic_programming_samples_test
         test_cutting_rod_problem.cpp
         test_matrix_chain_multiplication.cpp
         test_count_numbers_of_valid_triples.cpp
-        test_minimal_operations_to_create_valid_string.cpp)
+        test_minimal_operations_to_create_valid_string.cpp
+        test_minimal_height_book_shelves.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

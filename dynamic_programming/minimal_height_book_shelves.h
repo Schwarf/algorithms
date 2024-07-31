@@ -25,18 +25,16 @@ dp_helper(std::vector<std::vector<int>> &books, int shelf_width, std::vector<std
 
     if (memo[book_index][remaining_width] != 0)
         return memo[book_index][remaining_width];
-    auto option1_height = maxHeight +
-                          dp_helper(books, shelf_width, memo, book_index + 1, shelf_width - current_book[0],
-                                    current_book[1]);
+    auto remain_on_shelf_height =
+            maxHeight + dp_helper(books, shelf_width, memo, book_index + 1, shelf_width - current_book[0],
+                                  current_book[1]);
     if (remaining_width >= current_book[0]) {
-        int option2_height = dp_helper(
-                books, shelf_width, memo, book_index + 1,
-                remaining_width - current_book[0], newHeight);
-        memo[book_index][remaining_width] =
-                std::min(option1_height, option2_height);
+        int put_new_shel_height = dp_helper(books, shelf_width, memo, book_index + 1,
+                                            remaining_width - current_book[0], newHeight);
+        memo[book_index][remaining_width] = std::min(remain_on_shelf_height, put_new_shel_height);
         return memo[book_index][remaining_width];
     }
-    memo[book_index][remaining_width] = option1_height;
+    memo[book_index][remaining_width] = remain_on_shelf_height;
     return memo[book_index][remaining_width];
 }
 
