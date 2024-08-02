@@ -39,7 +39,7 @@ int swaps_needed_brute_force(const std::vector<int> &input){
     }
 
     return number_of_swaps;
-};
+}
 
 
 
