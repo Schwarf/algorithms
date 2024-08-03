@@ -20,7 +20,7 @@ int shortest_path_binray_matrix_bfs(std::vector<std::vector<int>> &matrix) {
 
     int length{};
     std::queue<std::pair<int, int>> q;
-    q.push({0, 0});
+    q.emplace(0, 0);
     // We use the 1 value as block for already visited nodes.
     matrix[0][0] = 1;
     while (!q.empty()) {
@@ -33,35 +33,35 @@ int shortest_path_binray_matrix_bfs(std::vector<std::vector<int>> &matrix) {
                 return length;
             if (row + 1 < n && column + 1 < n && matrix[row + 1][column + 1] == 0) {
                 matrix[row + 1][column + 1] = 1;
-                q.push({row + 1, column + 1});
+                q.emplace(row + 1, column + 1);
             }
             if (row + 1 < n && column - 1 > -1 && matrix[row + 1][column - 1] == 0) {
                 matrix[row + 1][column - 1] = 1;
-                q.push({row + 1, column - 1});
+                q.emplace(row + 1, column - 1);
             }
             if (row - 1 > -1 && column - 1 > -1 && matrix[row - 1][column - 1] == 0) {
                 matrix[row - 1][column - 1] = 1;
-                q.push({row - 1, column - 1});
+                q.emplace(row - 1, column - 1);
             }
             if (row - 1 > -1 && column + 1 < n && matrix[row - 1][column + 1] == 0) {
                 matrix[row - 1][column + 1] = 1;
-                q.push({row - 1, column + 1});
+                q.emplace(row - 1, column + 1);
             }
             if (row + 1 < n && matrix[row + 1][column] == 0) {
                 matrix[row + 1][column] = 1;
-                q.push({row + 1, column});
+                q.emplace(row + 1, column);
             }
             if (row - 1 > -1 && matrix[row - 1][column] == 0) {
                 matrix[row - 1][column] = 1;
-                q.push({row - 1, column});
+                q.emplace(row - 1, column);
             }
             if (column + 1 < n && matrix[row][column + 1] == 0) {
                 matrix[row][column + 1] = 1;
-                q.push({row, column + 1});
+                q.emplace(row, column + 1);
             }
             if (column - 1 > -1 && matrix[row][column - 1] == 0) {
                 matrix[row][column - 1] = 1;
-                q.push({row, column - 1});
+                q.emplace(row, column - 1);
             }
 
         }
