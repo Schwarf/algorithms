@@ -14,7 +14,7 @@ TEST(MinimalHeightBookShelvesTopDownDP, simple1) {
                                         {1, 2}};
     constexpr int shelf_width{4};
     constexpr int expected_result{6};
-    EXPECT_EQ(minimal_height_shelves(books, shelf_width), expected_result);
+    EXPECT_EQ(minimal_height_shelves_top_down(books, shelf_width), expected_result);
 }
 
 TEST(MinimalHeightBookShelvesTopDownDP, simple2) {
@@ -23,7 +23,7 @@ TEST(MinimalHeightBookShelvesTopDownDP, simple2) {
                                         {3, 2}};
     constexpr int shelf_width{6};
     constexpr int expected_result{4};
-    EXPECT_EQ(minimal_height_shelves(books, shelf_width), expected_result);
+    EXPECT_EQ(minimal_height_shelves_top_down(books, shelf_width), expected_result);
 }
 
 
@@ -230,5 +230,5 @@ TEST(MinimalHeightBookShelvesTopDownDP, complex1) {
                                         {95,  89}};
     constexpr int shelf_width{200};
     constexpr int expected_result{15672};
-    EXPECT_EQ(minimal_height_shelves(books, shelf_width), expected_result);
+    EXPECT_EQ(minimal_height_shelves_top_down(books, shelf_width), expected_result);
 }
