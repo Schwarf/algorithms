@@ -55,6 +55,7 @@ int minimal_height_shelves_bottom_up(std::vector<std::vector<int>> &books, int s
         // new shelf built to hold current book
         int remaining_shelf_width = shelfWidth - books[i - 1][0];
         int max_height = books[i - 1][1];
+        // We assume we start a new shelf for the current book
         dp[i] = dp[i - 1] + max_height;
 
         int j = i - 1;
