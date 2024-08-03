@@ -58,9 +58,9 @@ int minimal_height_shelves_bottom_up(std::vector<std::vector<int>> &books, int s
         // We assume we start a new shelf for the current book
         dp[i] = dp[i - 1] + max_height;
 
+        // Now we check all possibilities when previous books are added to the current shelf
+        // as long as they fit (remaining_shelf_width plus current book greater 0).
         int j = i - 1;
-        // calculate the height when previous books are added onto a new
-        // shelf
         while (j > 0 && remaining_shelf_width - books[j - 1][0] >= 0) {
             remaining_shelf_width -= books[j - 1][0];
             max_height = std::max(max_height, books[j - 1][1]);
