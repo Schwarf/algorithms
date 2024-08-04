@@ -8,7 +8,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple1) {
     std::vector<std::vector<int>> input{{0, 1},
                                         {1, 0}};
     constexpr int expected_result{2};
-    EXPECT_EQ(expected_result, shortest_path_binray_matrix_bfs(input));
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple2) {
@@ -16,7 +16,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple2) {
                                         {1, 1, 0},
                                         {1, 1, 0}};
     constexpr int expected_result{4};
-    EXPECT_EQ(expected_result, shortest_path_binray_matrix_bfs(input));
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple3) {
@@ -24,7 +24,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple3) {
                                         {1, 1, 0},
                                         {1, 1, 0}};
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binray_matrix_bfs(input));
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple4) {
@@ -32,7 +32,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple4) {
                                         {1, 1, 1},
                                         {0, 0, 0}};
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binray_matrix_bfs(input));
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
 }
 
 
@@ -138,5 +138,5 @@ TEST(ShortestPathBNinaryMatrixBFS, complex1) {
                                         {0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0},
                                         {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0}};
     constexpr int expected_result{146};
-    EXPECT_EQ(expected_result, shortest_path_binray_matrix_bfs(input));
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
 }
