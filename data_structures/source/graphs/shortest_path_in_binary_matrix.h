@@ -72,9 +72,10 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
 int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
-    q.emplace(0, 0);
-    int length{};
+    q.emplace(n - 1, 0); // Chebyshev Distance: h=max( abs(n−1−0),abs(n−1−0)) = n−1
     std::vector<int> distances(n * n, std::numeric_limits<int>::max());
+    std::vector<bool> visited(n * n);
+    // Each node costs one
     distances[0] = 1;
     const std::vector<std::pair<int, int>> directions{{0,  1},
                                                       {1,  0},
@@ -85,21 +86,34 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
                                                       {1,  1},
                                                       {-1, -1}};
     while (!q.empty()) {
-        auto current_coordinates = q.top();
+        auto current = q.top();
         q.pop();
-        auto x = current_coordinates.first;
-        auto y = current_coordinates.second;
+        int current_idx = current.second;
+        int x = current_idx / n;
+        int y = current_idx % n;
+
+        // If we reach the goal
         if (x == n - 1 && y == n - 1)
-            return length;
-        for (const auto &direction: directions) {
-            int delta_x = direction.first + x;
-            int delta_y = direction.second + y;
-            if (delta_x < 0 || delta_x > n - 1 || delta_y < 0 || delta_y > n - 1 || matrix[delta_x][delta_x] == 1 ||
-                distances[delta_x * n + delta_y] <= distances[x * n + y] + 1)
-                continue;
-            distances[delta_x * n + delta_y] = distances[x * n + y] + 1;
-            q.emplace(distances[delta_x * n + delta_y] + std::max(abs(n - 1 - x), abs(n - 1 - y)),
-                      delta_x * n + delta_y);
+            return distances[current_idx];
+
+        // Skip processing if already visited
+        if (visited[current_idx])
+            continue;
+        visited[current_idx] = true;
+
+        // Explore all possible directions
+        for (const auto &dir: directions) {
+            int new_x = x + dir.first;
+            int new_y = y + dir.second;
+            if (new_x >= 0 && new_x < n && new_y >= 0 && new_y < n && matrix[new_x][new_y] == 0) {
+                int new_idx = new_x * n + new_y;
+                int new_distance = distances[current_idx] + 1;
+                if (new_distance < distances[new_idx]) {
+                    distances[new_idx] = new_distance;
+                    int heuristic = std::abs(n - 1 - new_x) + std::abs(n - 1 - new_y); // Manhattan distance to goal
+                    q.emplace(distances[new_idx] + heuristic, new_idx);
+                }
+            }
         }
     }
     return -1;
