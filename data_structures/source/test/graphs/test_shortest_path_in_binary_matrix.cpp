@@ -45,6 +45,43 @@ TEST(ShortestPathBNinaryMatrixBFS, simple5) {
 }
 
 
+TEST(ShortestPathBNinaryMatrixBFS, simple6) {
+    std::vector<std::vector<int>> input{{0, 1, 1, 0, 0, 0},
+                                        {0, 1, 0, 1, 1, 0},
+                                        {0, 1, 1, 0, 1, 0},
+                                        {0, 0, 0, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 0}};
+    constexpr int expected_result{14};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+}
+
+TEST(ShortestPathBNinaryMatrixBFS, simple7) {
+    std::vector<std::vector<int>> input{{0, 1, 1, 1, 1, 1, 1, 1},
+                                        {0, 1, 1, 0, 0, 0, 0, 0},
+                                        {0, 1, 0, 1, 1, 1, 1, 0},
+                                        {0, 1, 0, 1, 1, 1, 1, 0},
+                                        {0, 1, 1, 0, 0, 1, 1, 0},
+                                        {0, 1, 1, 1, 1, 0, 1, 0},
+                                        {0, 0, 0, 0, 0, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 0}};
+    constexpr int expected_result{25};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+}
+
+TEST(ShortestPathBNinaryMatrixBFS, simple8) {
+    std::vector<std::vector<int>> input{{0, 0, 1, 0, 0, 0, 0},
+                                        {0, 1, 0, 0, 0, 0, 1},
+                                        {0, 0, 1, 0, 1, 0, 0},
+                                        {0, 0, 0, 1, 1, 1, 0},
+                                        {1, 0, 0, 1, 1, 0, 0},
+                                        {1, 1, 1, 1, 1, 0, 1},
+                                        {0, 0, 1, 0, 0, 0, 0}};
+    constexpr int expected_result{10};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+}
+
+
 TEST(ShortestPathBNinaryMatrixBFS, complex1) {
     std::vector<std::vector<int>> input{{0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1},
                                         {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1},
@@ -191,8 +228,45 @@ TEST(ShortestPathBNinaryMatrixAStar, simple5) {
     EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
 }
 
+TEST(ShortestPathBNinaryMatrixAStar, simple6) {
+    std::vector<std::vector<int>> input{{0, 1, 1, 0, 0, 0},
+                                        {0, 1, 0, 1, 1, 0},
+                                        {0, 1, 1, 0, 1, 0},
+                                        {0, 0, 0, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 0}};
+    constexpr int expected_result{14};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+}
+
+TEST(ShortestPathBNinaryMatrixAStar, simple7) {
+    std::vector<std::vector<int>> input{{0, 1, 1, 1, 1, 1, 1, 1},
+                                        {0, 1, 1, 0, 0, 0, 0, 0},
+                                        {0, 1, 0, 1, 1, 1, 1, 0},
+                                        {0, 1, 0, 1, 1, 1, 1, 0},
+                                        {0, 1, 1, 0, 0, 1, 1, 0},
+                                        {0, 1, 1, 1, 1, 0, 1, 0},
+                                        {0, 0, 0, 0, 0, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 0}};
+    constexpr int expected_result{25};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+}
+
+TEST(ShortestPathBNinaryMatrixAStar, simple8) {
+    std::vector<std::vector<int>> input{{0, 0, 1, 0, 0, 0, 0},
+                                        {0, 1, 0, 0, 0, 0, 1},
+                                        {0, 0, 1, 0, 1, 0, 0},
+                                        {0, 0, 0, 1, 1, 1, 0},
+                                        {1, 0, 0, 1, 1, 0, 0},
+                                        {1, 1, 1, 1, 1, 0, 1},
+                                        {0, 0, 1, 0, 0, 0, 0}};
+    constexpr int expected_result{10};
+    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+}
+
 
 TEST(ShortestPathBNinaryMatrixAStar, complex1) {
+    constexpr int expected_result{146};
     std::vector<std::vector<int>> input{{0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1},
                                         {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1},
                                         {0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1},
@@ -293,6 +367,5 @@ TEST(ShortestPathBNinaryMatrixAStar, complex1) {
                                         {0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1},
                                         {0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0},
                                         {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0}};
-    constexpr int expected_result{146};
     EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
 }

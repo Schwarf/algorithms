@@ -74,7 +74,6 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(n - 1, 0); // Chebyshev Distance: h=max( abs(n−1−0),abs(n−1−0)) = n−1
     std::vector<int> distances(n * n, std::numeric_limits<int>::max());
-    std::vector<bool> visited(n * n);
     // Each node costs one
     distances[0] = 1;
     const std::vector<std::pair<int, int>> directions{{0,  1},
@@ -97,9 +96,6 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
             return distances[current_idx];
 
         // Skip processing if already visited
-        if (visited[current_idx])
-            continue;
-        visited[current_idx] = true;
 
         // Explore all possible directions
         for (const auto &dir: directions) {
@@ -112,7 +108,9 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
                     distances[new_idx] = new_distance;
                     int heuristic = std::abs(n - 1 - new_x) + std::abs(n - 1 - new_y); // Manhattan distance to goal
                     q.emplace(distances[new_idx] + heuristic, new_idx);
+                    matrix[new_x][new_y] = 1;
                 }
+
             }
         }
     }
