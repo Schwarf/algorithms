@@ -11,6 +11,21 @@
 #include <vector>
 #include <queue>
 
+// For debugging purpose we track the path
+std::vector<std::pair<int, int>>
+reconstruct_path(std::vector<std::vector<std::pair<int, int>>> &parent, int n) {
+    std::vector<std::pair<int, int>> path;
+    for (int x = n - 1, y = n - 1; parent[x][y] != std::make_pair(x, y);) {
+        path.emplace_back(x, y);
+        auto p = parent[x][y];
+        x = p.first;
+        y = p.second;
+    }
+    path.emplace_back(0, 0); // add the start node
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
 int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
     if (matrix[0][0] == 1 || matrix[n - 1][n - 1])
@@ -31,6 +46,10 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
                                                    {-1, 0},
                                                    {0,  1},
                                                    {0,  -1}};
+
+    std::vector<std::vector<std::pair<int, int>>> parents(n, std::vector<std::pair<int, int>>(n)); // DEBUGGING
+    parents[0][0] = {0, 0};  // DEBUGGING
+
     while (!q.empty()) {
         int q_size = q.size();
         length++;
@@ -39,14 +58,21 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
             q.pop();
 
             if (row == n - 1 && column == n - 1) {
+                auto path = reconstruct_path(parents, n); // DEBUGGING
+                for (auto &[x, y]: path) { // DEBUGGING
+                    std::cout << "(" << x << ", " << y << ") -> "; // DEBUGGING
+                }
+                std::cout << "End\n"; // DEBUGGING
                 return length;
             }
 
             for (const auto &[dx, dy]: directions) {
+
                 int nx = row + dx, ny = column + dy;
                 if (nx >= 0 && nx < n && ny >= 0 && ny < n && matrix[nx][ny] == 0) {
                     matrix[nx][ny] = 1;
                     q.emplace(nx, ny);
+                    parents[nx][ny] = {row, column};
                 }
             }
         }
