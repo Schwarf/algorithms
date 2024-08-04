@@ -1,8 +1,9 @@
 //
 // Created by andreas on 03.08.24.
 //
-#include "graphs/shortest_path_in_binary_matrix.h"
 #include "gtest/gtest.h"
+#include "graphs/shortest_path_in_binary_matrix.h"
+
 
 TEST(ShortestPathBNinaryMatrixBFS, simple1) {
     std::vector<std::vector<int>> input{{0, 1},

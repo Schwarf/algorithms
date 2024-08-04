@@ -23,51 +23,37 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
     q.emplace(0, 0);
     // We use the 1 value as block for already visited nodes.
     matrix[0][0] = 1;
+    std::vector<std::pair<int, int>> directions = {{1,  1},
+                                                   {1,  -1},
+                                                   {-1, -1},
+                                                   {-1, 1},
+                                                   {1,  0},
+                                                   {-1, 0},
+                                                   {0,  1},
+                                                   {0,  -1}};
     while (!q.empty()) {
         int q_size = q.size();
         length++;
         while (q_size--) {
             auto [row, column] = q.front();
             q.pop();
-            if (row == n - 1 && column == n - 1)
+
+            if (row == n - 1 && column == n - 1) {
                 return length;
-            if (row + 1 < n && column + 1 < n && matrix[row + 1][column + 1] == 0) {
-                matrix[row + 1][column + 1] = 1;
-                q.emplace(row + 1, column + 1);
-            }
-            if (row + 1 < n && column - 1 > -1 && matrix[row + 1][column - 1] == 0) {
-                matrix[row + 1][column - 1] = 1;
-                q.emplace(row + 1, column - 1);
-            }
-            if (row - 1 > -1 && column - 1 > -1 && matrix[row - 1][column - 1] == 0) {
-                matrix[row - 1][column - 1] = 1;
-                q.emplace(row - 1, column - 1);
-            }
-            if (row - 1 > -1 && column + 1 < n && matrix[row - 1][column + 1] == 0) {
-                matrix[row - 1][column + 1] = 1;
-                q.emplace(row - 1, column + 1);
-            }
-            if (row + 1 < n && matrix[row + 1][column] == 0) {
-                matrix[row + 1][column] = 1;
-                q.emplace(row + 1, column);
-            }
-            if (row - 1 > -1 && matrix[row - 1][column] == 0) {
-                matrix[row - 1][column] = 1;
-                q.emplace(row - 1, column);
-            }
-            if (column + 1 < n && matrix[row][column + 1] == 0) {
-                matrix[row][column + 1] = 1;
-                q.emplace(row, column + 1);
-            }
-            if (column - 1 > -1 && matrix[row][column - 1] == 0) {
-                matrix[row][column - 1] = 1;
-                q.emplace(row, column - 1);
             }
 
+            for (const auto &[dx, dy]: directions) {
+                int nx = row + dx, ny = column + dy;
+                if (nx >= 0 && nx < n && ny >= 0 && ny < n && matrix[nx][ny] == 0) {
+                    matrix[nx][ny] = 1;
+                    q.emplace(nx, ny);
+                }
+            }
         }
     }
     return -1;
 }
+
 
 int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
