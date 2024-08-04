@@ -54,4 +54,5 @@ add_executable(fun_with_algos main.cpp
         largest_integer_with_its_negative.h
         score_after_flipping_matrix.h
         can_attend_all_meetings.h
-        logger_rate_limiter.h)
+        logger_rate_limiter.h
+        range_sum_of_sorted_subarrays.h)
