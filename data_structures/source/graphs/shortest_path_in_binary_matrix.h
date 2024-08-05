@@ -47,8 +47,8 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
                                                    {0,  1},
                                                    {0,  -1}};
 
-    std::vector<std::vector<std::pair<int, int>>> parents(n, std::vector<std::pair<int, int>>(n)); // DEBUGGING
-    parents[0][0] = {0, 0};  // DEBUGGING
+//    std::vector<std::vector<std::pair<int, int>>> parents(n, std::vector<std::pair<int, int>>(n)); // DEBUGGING
+//    parents[0][0] = {0, 0};  // DEBUGGING
 
     while (!q.empty()) {
         int q_size = q.size();
@@ -58,11 +58,11 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
             q.pop();
 
             if (row == n - 1 && column == n - 1) {
-                auto path = reconstruct_path(parents, n); // DEBUGGING
-                for (auto &[x, y]: path) { // DEBUGGING
-                    std::cout << "(" << x << ", " << y << ") -> "; // DEBUGGING
-                }
-                std::cout << "End\n"; // DEBUGGING
+//                auto path = reconstruct_path(parents, n); // DEBUGGING
+//                for (auto &[x, y]: path) { // DEBUGGING
+//                    std::cout << "(" << x << ", " << y << ") -> "; // DEBUGGING
+//                }
+//                std::cout << "End\n"; // DEBUGGING
                 return length;
             }
 
@@ -72,7 +72,7 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
                 if (nx >= 0 && nx < n && ny >= 0 && ny < n && matrix[nx][ny] == 0) {
                     matrix[nx][ny] = 1;
                     q.emplace(nx, ny);
-                    parents[nx][ny] = {row, column};
+//                    parents[nx][ny] = {row, column}; // DEBUGGING
                 }
             }
         }
@@ -86,16 +86,17 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(n - 1, 0); // Chebyshev Distance: h=max( abs(n−1−0),abs(n−1−0)) = n−1
     std::vector<int> distances(n * n, std::numeric_limits<int>::max());
+//    std::vector<std::vector<std::pair<int, int>>> parents(n, std::vector<std::pair<int, int>>(n)); // DEBUGGING
     // Each node costs one
     distances[0] = 1;
-    const std::vector<std::pair<int, int>> directions{{0,  1},
-                                                      {1,  0},
-                                                      {0,  -1},
-                                                      {-1, 0},
-                                                      {1,  -1},
-                                                      {-1, 1},
-                                                      {1,  1},
-                                                      {-1, -1}};
+    std::vector<std::pair<int, int>> directions = {{1,  1},
+                                                   {1,  -1},
+                                                   {-1, -1},
+                                                   {-1, 1},
+                                                   {1,  0},
+                                                   {-1, 0},
+                                                   {0,  1},
+                                                   {0,  -1}};
     while (!q.empty()) {
         auto current = q.top();
         q.pop();
@@ -104,8 +105,15 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
         int y = current_idx % n;
 
         // If we reach the goal
-        if (x == n - 1 && y == n - 1)
+        if (x == n - 1 && y == n - 1) {
+//            auto path = reconstruct_path(parents, n); // DEBUGGING
+//            for (auto &[x, y]: path) { // DEBUGGING
+//                std::cout << "(" << x << ", " << y << ") -> "; // DEBUGGING
+//            }
+//            std::cout << "End\n"; // DEBUGGING
+
             return distances[current_idx];
+        }
 
         // Skip processing if already visited
 
@@ -121,6 +129,7 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
                     int heuristic = std::abs(n - 1 - new_x) + std::abs(n - 1 - new_y); // Manhattan distance to goal
                     q.emplace(distances[new_idx] + heuristic, new_idx);
                     matrix[new_x][new_y] = 1;
+//                    parents[new_x][new_y] = {x, y}; // DEBUGGING
                 }
 
             }
