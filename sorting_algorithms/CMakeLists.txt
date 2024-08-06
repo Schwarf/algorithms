@@ -39,6 +39,7 @@ add_executable(sort main.cpp
         bitonic_sort.h
         sort_characters_by_frequency.h
         sort_array_by_increasing_frequency.h
-        sort_jumbled_numbers.h)
+        sort_jumbled_numbers.h
+        minimum_number_of_dial_pushes_for_word.h)
 
 
