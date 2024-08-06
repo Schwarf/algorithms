@@ -12,22 +12,22 @@
 #include <vector>
 #include <string>
 
-int minimum_dial_pushes(std::string word) {
-    std::vector<int> letters(26);
+int minimum_dial_pushes(std::string & word) {
+    std::vector<int> letter_frequencies(26);
     for (const auto c: word) {
-        letters[c - 'a']++;
+        letter_frequencies[c - 'a']++;
     }
-    std::sort(letters.begin(), letters.end(), std::greater<>());
+    std::sort(letter_frequencies.begin(), letter_frequencies.end(), std::greater<>());
     int pushes{};
     for (int i{}; i < 26; ++i) {
         if (i < 8)
-            pushes += letters[i];
+            pushes += letter_frequencies[i];
         else if (i < 16)
-            pushes += 2 * letters[i];
+            pushes += 2 * letter_frequencies[i];
         else if (i < 24)
-            pushes += 3 * letters[i];
+            pushes += 3 * letter_frequencies[i];
         else
-            pushes += 4 * letters[i];
+            pushes += 4 * letter_frequencies[i];
     }
     return pushes;
 
