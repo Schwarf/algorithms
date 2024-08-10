@@ -11,7 +11,7 @@
 // is provided by head and the most significant digit is provided the last node. Given two numbers compute the
 // sum of those two numbers.
 template<typename T>
-Node<T> remove_kth_to_last_node(Node<T> *head, int k) {
+Node<T> *remove_kth_to_last_node(Node<T> *head, int k) {
     auto fast = head;
     auto slow = head;
     while (k--) {
