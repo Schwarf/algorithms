@@ -8,10 +8,9 @@
 #include "node.h"
 
 template<typename T>
-bool does_linked_list_have_loop(Node<T> *head, Node<T> *&node) {
-    node = nullptr;
+Node<T> *does_linked_list_have_loop(Node<T> *head) {
     if (!head)
-        return false;
+        return nullptr;
     auto fast = head;
     auto slow = head;
     while (fast && fast->next) {
@@ -21,17 +20,15 @@ bool does_linked_list_have_loop(Node<T> *head, Node<T> *&node) {
             break;
     }
     if (!fast || !fast->next)
-        return false;
-
+        return nullptr;
     fast = head;
     while (slow != fast) {
         slow = slow->next;
         fast = fast->next;
     }
-    node = fast;
-    return true;
+    auto node = fast;
+    return node;
 }
-
 
 #endif //DOES_LINKED_LIST_HAVE_LOOP_H
 
