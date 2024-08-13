@@ -49,7 +49,7 @@ void get_combinations(std::vector<std::vector<T>> & results, std::vector<T>& cur
          ++i) {
         if (i == index || input[i] != input[i - 1]) {
             current_combination.push_back(input[i]);
-            combination2(results, current_combination, input, target - input[i], i + 1);
+            get_combinations(results, current_combination, input, target - input[i], i + 1);
             current_combination.pop_back();
         }
     }
@@ -64,7 +64,7 @@ std::vector<std::vector<T>> find_all_combinations_backtracking(std::vector<T> & 
     std::sort(input.begin(), input.end());
     std::vector<std::vector<T>> results;
     std::vector<T> current_combination;
-    combination2(results, current_combination, input, target, 0);
+    get_combinations(results, current_combination, input, target, 0);
     return results;
 }
 
