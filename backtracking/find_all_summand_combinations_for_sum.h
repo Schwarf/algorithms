@@ -37,4 +37,36 @@ std::vector<std::vector<T>> find_all_combinations_brute_force(std::vector<T> & i
     return std::vector<std::vector<int>>(results.begin(), results.end());
 }
 
+
+template <typename T>
+void get_combinations(std::vector<std::vector<T>> & results, std::vector<T>& current_combination, std::vector<T> & input, T target, int index)
+{
+    if(target ==0) {
+        results.push_back(current_combination);
+        return;
+    }
+    for (int i = index; i < input.size() && target >= input[i];
+         ++i) {
+        if (i == index || input[i] != input[i - 1]) {
+            current_combination.push_back(input[i]);
+            combination2(results, current_combination, input, target - input[i], i + 1);
+            current_combination.pop_back();
+        }
+    }
+
+
+}
+
+template <typename T>
+requires std::is_integral_v<T>
+std::vector<std::vector<T>> find_all_combinations_backtracking(std::vector<T> & input, T target)
+{
+    std::sort(input.begin(), input.end());
+    std::vector<std::vector<T>> results;
+    std::vector<T> current_combination;
+    combination2(results, current_combination, input, target, 0);
+    return results;
+}
+
+
 #endif //BACKTRACKING_FIND_ALL_COMBINATIONS_TO_SUM_UP_TO_TARGET_H
