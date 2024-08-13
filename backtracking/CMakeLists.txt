@@ -12,4 +12,5 @@ add_executable(backtracking
         path_sum_binary_tree.h
         generate_all_subsets_of_size_k.h
         compute_all_permutations.h
-        letter_combinations_of_phone_numbers.h )
+        letter_combinations_of_phone_numbers.h
+        find_all_summand_combinations_for_sum.h)
