@@ -16,7 +16,8 @@ add_executable(test_binary_search
         test_search_sorted_2d_matrix.cpp
         test_find_element_index_in_rotated_array.cpp
         test_construct_bounded_array_with_max_at_index.cpp
-        test_minimum_number_of_days.cpp)
+        test_minimum_number_of_days.cpp
+        test_find_kth_smallest_distance.cpp)
 
 
 target_link_libraries(test_binary_search ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

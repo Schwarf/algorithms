@@ -18,13 +18,13 @@ int smallest_distance_pair_brute_force1(std::vector<int>& nums, int k) {
         }
     }
     int count{};
-    for(const auto & [k, v]: distances)
+    for(const auto & [distance, frequency]: distances)
     {
-        for(int i{}; i < v; ++i)
+        for(int i{}; i < frequency; ++i)
         {
             count++;
             if(count == k)
-                return k;
+                return distance;
         }
     }
     return {};
