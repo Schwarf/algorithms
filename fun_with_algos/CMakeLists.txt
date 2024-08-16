@@ -55,4 +55,5 @@ add_executable(fun_with_algos main.cpp
         score_after_flipping_matrix.h
         can_attend_all_meetings.h
         logger_rate_limiter.h
-        range_sum_of_sorted_subarrays.h)
+        range_sum_of_sorted_subarrays.h
+        maximum_distance_in_arrays.h)
