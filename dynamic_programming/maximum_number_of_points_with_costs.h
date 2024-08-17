@@ -52,8 +52,8 @@ long long get_maximum_cost_dp(std::vector<std::vector<int>> &matrix) {
             left_maxima[col] = std::max(left_maxima[col - 1] - 1, previous_row[col]);
         }
         // Now the same for right
-        right_maxima[columns-1] = previous_row[columns-1];
-        for (int col{columns-2}; col > -1; --col) {
+        right_maxima[columns - 1] = previous_row[columns - 1];
+        for (int col{columns - 2}; col > -1; --col) {
             right_maxima[col] = std::max(right_maxima[col + 1] - 1, previous_row[col]);
         }
         // Now we find the maximum for the current row
@@ -65,7 +65,6 @@ long long get_maximum_cost_dp(std::vector<std::vector<int>> &matrix) {
     return *std::max_element(previous_row.begin(), previous_row.end());
 }
 
-}
 
 #endif //DYNAMIC_PROGRAMMING_SAMPLES_MAXIMUM_NUMBER_OF_POINTS_WITH_COSTS_H
 
