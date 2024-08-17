@@ -16,4 +16,5 @@ add_executable(binary_search main.cpp
         construct_bounded_array_with_max_at_index.h
         median_of_two_sorted_arrays.h search_sorted_2d_matrix.h find_element_index_in_rotated_array.h
         minimum_number_of_days.h
-        find_kth_smallest_distance.h)
+        find_kth_smallest_distance.h
+        range_sum_of_sorted_subarrays.h)

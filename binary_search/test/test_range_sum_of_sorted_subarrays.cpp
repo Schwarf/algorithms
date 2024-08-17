@@ -2,7 +2,7 @@
 // Created by andreas on 04.08.24.
 //
 #include "gtest/gtest.h"
-#include "./../range_sum_of_sorted_subarrays.h"
+#include "../range_sum_of_sorted_subarrays.h"
 
 TEST(TestRangeSumSortedSubArraysBruteForce, simple1) {
     std::vector<int> input{1, 2, 3, 4};
