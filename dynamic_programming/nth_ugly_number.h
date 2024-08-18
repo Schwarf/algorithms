@@ -21,13 +21,18 @@ bool is_ugly(int num) {
     return false;
 }
 
-int nth_ugly_number_recursive(int n, int num = 1) {
-    if (n == 1)
-        return num;
-    int next = num + 1;
-    while (!is_ugly(next))
-        next++;
-    return nth_ugly_number_recursive(n - 1, next);
+int nth_ugly_number_brute_force(int n) {
+    int count{};
+    int current{1};
+    while (true) {
+        if (is_ugly(current)) {
+            count++;
+            if (count == n)
+                return current;
+        }
+        current++;
+    }
+    return -1;
 }
 
 // O(n) time complexity, O(n) space complexity
