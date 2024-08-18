@@ -37,8 +37,8 @@ int nth_ugly_number(int n) {
     int count{1};
     while (count < n) {
         int value2 = ugly[index2] * 2;
-        int value3 = ugly[index2] * 3;
-        int value5 = ugly[index2] * 5;
+        int value3 = ugly[index3] * 3;
+        int value5 = ugly[index5] * 5;
         int value = std::min({value2, value3, value5});
         if (value == value2)
             index2++;
