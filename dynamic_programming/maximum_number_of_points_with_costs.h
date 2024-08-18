@@ -8,7 +8,7 @@
 // You are given a n x m matrix. The goal is to maximize your point score. Yuo can pick one element from
 // each row of the matrix and add it to your score. But for each score added you have to subtract a cost value.
 // The cost value is given as the absolute difference of column indices between the column in the current row and
-// and the column chosen in the row before.
+// the column chosen in the row before.
 #include <vector>
 
 // O(N^2 *M) N is number of columns, M number of rows, Space-complexity O(N*M)

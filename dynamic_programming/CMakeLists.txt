@@ -63,4 +63,5 @@ add_executable(dynamic_programming_samples main.cpp
         count_number_of_valid_triples.h
         minimal_operations_to_create_valid_string.h
         minimal_height_book_shelves.h
-        maximum_number_of_points_with_costs.h)
+        maximum_number_of_points_with_costs.h
+        nth_ugly_number.h)
