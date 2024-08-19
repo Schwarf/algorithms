@@ -57,7 +57,7 @@ int minimum_copy_paste_operations_top_down(int n) {
     return 1 + count_operations(n, 1, 1, memo);
 }
 
-
+// O(n^2) time complexity, O(n) space complexity
 int minimum_copy_paste_operations_bottom_up(int n) {
     std::vector<int> dp(n + 1, 1000);
 
@@ -74,6 +74,25 @@ int minimum_copy_paste_operations_bottom_up(int n) {
     }
 
     return dp[n];
+}
+
+// optimal strategy is prime factorization because the total number of operations can be expressed as:
+// 1. g_1 + g_2 + g_3 + ... g_i
+// 2. After g_1 we have g_1 "characters", then after g_2 we have g_1 x g_2 characters so in general
+//    g_1 x g_2 x g_3 x ...  = n
+// Each composite factor can be split further (until it cannot) which corresponds to integer prime factorization
+// O(n) time complexity, O(1) space_complexity
+int minimum_copy_paste_operations_prime_factorization(int n) {
+    int result{};
+    int prime_factor_candidate{2};
+    while (n > 1) {
+        while (n % prime_factor_candidate == 0) {
+            result += prime_factor_candidate;
+            n /= prime_factor_candidate;
+        }
+        prime_factor_candidate++;
+    }
+    return result;
 }
 
 
