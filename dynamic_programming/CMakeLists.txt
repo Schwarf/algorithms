@@ -64,4 +64,5 @@ add_executable(dynamic_programming_samples main.cpp
         minimal_operations_to_create_valid_string.h
         minimal_height_book_shelves.h
         maximum_number_of_points_with_costs.h
-        nth_ugly_number.h)
+        nth_ugly_number.h
+        minimum_copy_paste_operations.h)
