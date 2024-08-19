@@ -99,3 +99,53 @@ TEST(TestMinimumCopyPasteOperationsTopDown, simple7) {
     constexpr int expected_result{863};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple1) {
+    constexpr int input{3};
+    constexpr int expected_result{3};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple2) {
+    constexpr int input{1};
+    constexpr int expected_result{0};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple3) {
+    constexpr int input{10};
+    constexpr int expected_result{7};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple4) {
+    constexpr int input{21};
+    constexpr int expected_result{10};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple5) {
+    // prime number inputs should return themselves
+    constexpr int input{47};
+    constexpr int expected_result{47};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple6) {
+    // prime number inputs should return themselves
+    constexpr int input{761};
+    constexpr int expected_result{761};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
+
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple7) {
+    // prime number inputs should return themselves
+    constexpr int input{863};
+    constexpr int expected_result{863};
+    EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
+}
