@@ -42,6 +42,7 @@ add_executable(dynamic_programming_samples_test
         test_minimal_operations_to_create_valid_string.cpp
         test_minimal_height_book_shelves.cpp
         test_maximum_number_of_points_with_costs.cpp
-        test_nth_ugly_number.cpp)
+        test_nth_ugly_number.cpp
+        test_minimum_copy_paste_operations.cpp)
 
 target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
