@@ -34,6 +34,15 @@ TEST(TestCountPalindromicSubstringsNoDP, simple5) {
     EXPECT_EQ(expected_result, count_palindromic_substrings_no_dynamic_programming(input));
 }
 
+TEST(TestCountPalindromicSubstringsNoDP, simple7) {
+    const std::string input{"ttttttttttttttttttttt"};
+    constexpr int expected_result{231};
+    EXPECT_EQ(expected_result, count_palindromic_substrings_no_dynamic_programming(input));
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 TEST(TestCountPalindromicSubstringsWithDP, simple1) {
     const std::string input{"abc"};
@@ -62,5 +71,11 @@ TEST(TestCountPalindromicSubstringsWithDP, simple4) {
 TEST(TestCountPalindromicSubstringsWithDP, simple5) {
     const std::string input{"cuuedxumdolqdytmcudgqmxcwelatcphpvmqqgahbgjklekehgsulsyuhdxaggumsqpktltsytkoo"};
     constexpr int expected_result{84};
+    EXPECT_EQ(expected_result, count_palindromic_substrings_with_dp(input));
+}
+
+TEST(TestCountPalindromicSubstringsWithDP, simple6) {
+    const std::string input{"ttttttttttttttttttttt"};
+    constexpr int expected_result{231};
     EXPECT_EQ(expected_result, count_palindromic_substrings_with_dp(input));
 }
