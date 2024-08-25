@@ -37,7 +37,7 @@ helper_to_determine_resulting_city(std::vector<std::vector<int>> &distance_matri
 }
 
 void
-dijkstra(int n, const std::vector<std::vector<std::pair<int, int>>> &graph, std::vector<int> &shortest_path_distances,
+dijkstra(const std::vector<std::vector<std::pair<int, int>>> &graph, std::vector<int> &shortest_path_distances,
          int start) {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(start, 0);
@@ -94,7 +94,7 @@ city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<i
     }
 
     for (int city{}; city < n; ++city) {
-        dijkstra(n, graph, shortest_paths[city], city);
+        dijkstra(graph, shortest_paths[city], city);
     }
 
     // get city with the fewest number of reachable cities given max_allowed_distance constraint

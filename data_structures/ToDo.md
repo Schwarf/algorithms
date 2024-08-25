@@ -3,4 +3,5 @@
 - add transform sorted linked list to BST
 - extend Trie implementations
     - Provide alphabet mapping function in Constructor to work e.g. only with english lower case letters
-    - Provide wildcard character that matches any non-empty character see 
+    - Provide wildcard character that matches any non-empty character see
+- Last test for AStar algorithm in "test_shortest_path_in_binary_matrix.cpp" fails. 
