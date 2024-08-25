@@ -8,7 +8,7 @@
 
 TEST_F(SetupBinaryTree, test_postorder_traversal) {
     auto root = SetupBinaryTree::binary_tree_root();
-    auto result = post_order_traversal(root);
+    auto result = post_order_traversal_iterative(root);
     for (size_t index = 0; index < postorder.size(); ++index) {
         EXPECT_EQ(result.at(index), postorder.at(index));
     }
