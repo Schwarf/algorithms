@@ -21,3 +21,11 @@ TEST_F(SetupBinaryTree, test_postorder_traversal_recursive) {
         EXPECT_EQ(result.at(index), postorder.at(index));
     }
 }
+
+TEST_F(SetupBinaryTree, test_postorder_traversal_morris) {
+    auto root = SetupBinaryTree::binary_tree_root();
+    auto result = post_order_traversal_morris(root);
+    for (size_t index = 0; index < postorder.size(); ++index) {
+        EXPECT_EQ(result.at(index), postorder.at(index));
+    }
+}

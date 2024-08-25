@@ -56,7 +56,7 @@ void revert_subtree_links(TreeNode<T> *start_node, TreeNode<T> *end_node) {
 
     TreeNode<T> *previous = nullptr;
     auto current = start_node;
-    auto next = previous;
+    TreeNode<T> *next = nullptr;
     while (current != end_node) {
         next = current->right;
         current->right = previous;
@@ -83,13 +83,13 @@ std::vector<T> post_order_traversal_morris(TreeNode<T> *root) {
             predecessor = root->left;
             // Find the rightmost node in the left subtree or the thread back to the current node
             while (predecessor->right && predecessor->right != root) {
-                predecessor->right = predecessor;
+                predecessor = predecessor->right;
             }
 
             // At this point predecessor is either nullptr or points to root
 
             // Create thread to root
-            if (!predecessor) {
+            if (!predecessor->right) {
                 predecessor->right = root;
                 root = root->left;
             } else {
