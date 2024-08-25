@@ -8,27 +8,24 @@
 
 #include "node.h"
 
-template <typename T>
-Node<T> * kth_to_last_element(Node<T> * head, int k)
-{
-	if(!head || k==0)
-		return head;
-	int steps{k};
-	auto forward = head;
-	while(forward && steps)
-	{
-		forward = forward->next;
-		steps--;
-	}
-	if(!forward)
-		return head;
-	auto backward = head;
-	while(forward)
-	{
-		forward = forward->next;
-		backward = backward->next;
-	}
-	return backward;
+template<typename T>
+Node<T> *kth_to_last_element(Node<T> *head, int k) {
+    if (!head || k == 0)
+        return head;
+    int steps{k};
+    auto front = head;
+    while (front && steps) {
+        front = front->next;
+        steps--;
+    }
+    if (!front)
+        return head;
+    auto tail = head;
+    while (front) {
+        front = front->next;
+        tail = tail->next;
+    }
+    return tail;
 }
 
 #endif //KTH_TO_LAST_H

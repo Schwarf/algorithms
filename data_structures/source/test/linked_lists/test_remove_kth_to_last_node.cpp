@@ -42,7 +42,6 @@ TEST_F(SetupSinglyLinkedLists, TestRemovekthToLastNodeSimple3) {
     std::vector<int> expected_output{};
     constexpr int k{1};
     auto input_list = get_single_list_from_vector(input);
-    auto output_list = get_single_list_from_vector(expected_output);
 
     auto result = remove_kth_to_last_node(input_list, k);
     EXPECT_FALSE(result);

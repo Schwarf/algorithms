@@ -9,7 +9,6 @@ TEST_F(SetupSinglyLinkedLists, does_linked_list_have_loop_yes) {
     auto head = get_single_list_from_vector(input);
     head->next->next->next->next->next = head->next;
     auto expected_node = head->next;
-    Node<short> *result_node;
     EXPECT_EQ(does_linked_list_have_loop(head), expected_node);
 }
 
