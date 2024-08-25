@@ -36,7 +36,6 @@ TEST_F(SetupQueue, test_front) {
     for (const auto &element: input) {
         queue->enqueue(element);
     }
-    auto help = reference_queue->size();
     auto reference_element = reference_queue->front();
     EXPECT_EQ(reference_element, queue->front());
     reference_queue->pop();
