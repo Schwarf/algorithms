@@ -237,7 +237,6 @@ TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
         auto input = get_random_n_numbers(number_of_random_inputs);
         auto heap = FibonacciHeap<int, double>();
         for (const auto &element: input) {
-            auto node = heap.insert(element.first, element.second);
             q.push({element.first, element.second});
             EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
             EXPECT_EQ(q.size(), heap.size());
