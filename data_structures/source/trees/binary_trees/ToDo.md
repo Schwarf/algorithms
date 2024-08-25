@@ -10,4 +10,5 @@ ToDo:
 - Add more unit tests for insert_tow_into_tree
 - Add more unit tests to construct_binary_tree_from_inorder_and_postorder.h
 - Add more unit tests to construct_binary_tree_from_preorder_and_inorder.h
+- Study Morris algorithm in more detail and implement it for inorder and pre-order traversal of binary trees.
 
