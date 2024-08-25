@@ -20,7 +20,9 @@ TEST(TestInsertBitSequenceIntoBitString, simple)
 	for (int i{}; i < 31; ++i)
 	{
 		if(expected_bits[i])
+        {
 			EXPECT_TRUE(has_bit(bitstring, i));
+        }
 	}
 }
 
@@ -45,6 +47,8 @@ TEST(TestInsertBitSequenceIntoBitString, simple2)
 	{
 		std::cout << has_bit(bitstring, i) << ", ";
 		if(expected_bits[i])
-			EXPECT_TRUE(has_bit(bitstring, i));
+        {
+            EXPECT_TRUE(has_bit(bitstring, i));
+        }
 	}
 }

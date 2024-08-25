@@ -30,7 +30,7 @@ bool has_bit(const T number, const int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
 	return (number & (1 << bit_position)) != 0;
-};
+}
 
 template<typename T>
 requires std::integral<T>
@@ -38,7 +38,7 @@ void set_bit(T &number, const int bit_position)
 {
 	is_valid_bit_position<T>(bit_position);
 	number |= (1 << bit_position);
-};
+}
 
 
 template<typename T>
@@ -48,7 +48,7 @@ void clear_bit(T &number, const int bit_position)
 	is_valid_bit_position<T>(bit_position);
 	T mask = ~(1 << bit_position);
 	number &= mask;
-};
+}
 
 template<typename T>
 requires std::integral<T>
