@@ -6,30 +6,27 @@
 
 TEST(TestRangeSumSortedSubArraysBruteForce, simple1) {
     std::vector<int> input{1, 2, 3, 4};
-    constexpr int n{4};
     constexpr int left{1};
     constexpr int right{5};
     constexpr int expected_result{13};
-    EXPECT_EQ(expected_result, range_sum_brute_force(input, n, left, right));
+    EXPECT_EQ(expected_result, range_sum_brute_force(input, left, right));
 }
 
 TEST(TestRangeSumSortedSubArraysBruteForce, simple2) {
     std::vector<int> input{1, 2, 3, 4};
-    constexpr int n{4};
     constexpr int left{3};
     constexpr int right{4};
     constexpr int expected_result{6};
-    EXPECT_EQ(expected_result, range_sum_brute_force(input, n, left, right));
+    EXPECT_EQ(expected_result, range_sum_brute_force(input, left, right));
 }
 
 
 TEST(TestRangeSumSortedSubArraysBruteForce, simple3) {
     std::vector<int> input{1, 2, 3, 4};
-    constexpr int n{4};
     constexpr int left{1};
     constexpr int right{10};
     constexpr int expected_result{50};
-    EXPECT_EQ(expected_result, range_sum_brute_force(input, n, left, right));
+    EXPECT_EQ(expected_result, range_sum_brute_force(input, left, right));
 }
 
 TEST(TestRangeSumSortedSubArraysBruteForce, complex1) {
@@ -89,11 +86,10 @@ TEST(TestRangeSumSortedSubArraysBruteForce, complex1) {
                            100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
                            100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
                            100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
-    constexpr int n{1000};
     constexpr int left{1};
     constexpr int right{500500};
     constexpr int expected_result{716699888};
-    EXPECT_EQ(expected_result, range_sum_brute_force(input, n, left, right));
+    EXPECT_EQ(expected_result, range_sum_brute_force(input, left, right));
 }
 
 TEST(TestRangeSumSortedSubArraysBinarySearchSlidingWindow, simple1) {

@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <numeric>
 
-int range_sum_brute_force(std::vector<int> &input, int n, int left, int right) {
+int range_sum_brute_force(std::vector<int> &input, int left, int right) {
     std::vector<int> sub_sums;
     for (int i = 0; i < input.size(); i++) {
         int sum = 0;
