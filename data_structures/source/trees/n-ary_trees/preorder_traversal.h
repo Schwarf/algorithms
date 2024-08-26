@@ -6,7 +6,7 @@
 #define DATA_STRUCTURES_PREORDER_TRAVERSAL_H
 
 #include "tree_node.h"
-#include <queue>
+#include <stack>
 
 template<typename T>
 void preorder_traversal(TreeNode<T> *node, std::vector<T> &result) {
@@ -32,14 +32,14 @@ std::vector<T> preorder_traversal_iterative(TreeNode<T> *root) {
     if (!root)
         return {};
     std::vector<T> result;
-    std::queue<TreeNode<T> *> q;
-    q.push(root);
-    while (!q.empty()) {
-        auto node = q.front();
-        q.pop();
+    std::stack<TreeNode<T> *> stack;
+    stack.push(root);
+    while (!stack.empty()) {
+        auto node = stack.top();
+        stack.pop();
         result.push_back(node->value);
-        for (const auto &child: node->children) {
-            q.push(child);
+        for (auto it = node->children.rbegin(); it != node->children.rend(); it++) {
+            stack.push(*it);
         }
     }
     return result;
