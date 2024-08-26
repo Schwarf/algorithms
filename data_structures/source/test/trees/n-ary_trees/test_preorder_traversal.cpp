@@ -5,13 +5,13 @@
 #include "gtest/gtest.h"
 
 TEST(TestPreorderTraversalRecursive, simple1) {
-    auto tree = new TreeNode<int>(1);
-    tree->children.push_back(new TreeNode<int>(3));
-    tree->children.push_back(new TreeNode<int>(2));
-    tree->children.push_back(new TreeNode<int>(4));
-    tree->children[0]->children.push_back(new TreeNode<int>(5));
-    tree->children[0]->children.push_back(new TreeNode<int>(6));
-    const std::vector<int> expected_output{1, 3, 5, 6, 2, 4};
+    auto tree = new TreeNode<unsigned short>(1);
+    tree->children.push_back(new TreeNode<unsigned short>(3));
+    tree->children.push_back(new TreeNode<unsigned short>(2));
+    tree->children.push_back(new TreeNode<unsigned short>(4));
+    tree->children[0]->children.push_back(new TreeNode<unsigned short>(5));
+    tree->children[0]->children.push_back(new TreeNode<unsigned short>(6));
+    const std::vector<unsigned short> expected_output{1, 3, 5, 6, 2, 4};
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
 
