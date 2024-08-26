@@ -29,4 +29,24 @@ std::vector<T> postorder_traversal_recursive(TreeNode<T> *root) {
     return result;
 }
 
+template<typename T>
+std::vector<T> postorder_traversal_iterative(TreeNode<T> *root) {
+    if (!root)
+        return {};
+    std::stack<TreeNode<T> *> stack;
+    std::vector<T> result;
+    stack.push(root);
+    while (!stack.empty()) {
+        auto node = stack.top();
+        stack.pop();
+        result.push_back(node->value);
+        for (const auto &child: node->children) {
+            stack.push(child);
+        }
+    }
+    std::reverse(result.begin(), result.end());
+    return result;
+}
+
+
 #endif //DATA_STRUCTURES_POSTORDER_TRAVERSAL_H
