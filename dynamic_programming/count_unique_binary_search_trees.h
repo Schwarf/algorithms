@@ -9,6 +9,7 @@
 // Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes
 // of unique values from 1 to n.
 // For n=1,3 the numbers are 1 and 5
+// This is principle nothing else but computing the Catalan number C_n.
 
 int count_unique_BST_recursive(int n) {
     if (n == 0 || n == 1)
@@ -46,6 +47,9 @@ int count_unique_BST_bottom_up(int n) {
     std::vector<int> dp(n + 1, 0);
     dp[0] = 1;
     dp[1] = 1;
+
+    // The outer loop computes the ith Catalan number
+    // The inner loop implements the formula: C_i = \Sum_{j=1}^i C_{j−1} \times C_{i-j}
     for (int i{2}; i <= n; ++i) {
         for (int j{1}; j <= i; ++j) {
             dp[i] += dp[j - 1] * dp[i - j];
