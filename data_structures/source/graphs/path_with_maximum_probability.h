@@ -53,8 +53,8 @@ max_probability_path_dijkstra(int n, std::vector<std::vector<int>> &edges, std::
     for (int edge_count{}; edge_count < edges.size(); ++edge_count) {
         const auto node1 = edges[edge_count][0];
         const auto node2 = edges[edge_count][1];
-        graph[node1].emplace_back(probabilities[edge_count], node2);
-        graph[node2].emplace_back(probabilities[edge_count], node1);
+        graph[node1].emplace_back(node2, probabilities[edge_count]);
+        graph[node2].emplace_back(node1, probabilities[edge_count]);
     }
     while (!q.empty()) {
         const auto [probability, node] = q.top();
