@@ -80,3 +80,76 @@ TEST(TestCountSubIslandsBFS, simple4) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST(TestCountSubIslandsDFS, simple1) {
+    std::vector<std::vector<int>> grid1{{1, 1, 1, 0, 0},
+                                        {0, 1, 1, 1, 1},
+                                        {0, 0, 0, 0, 0},
+                                        {1, 0, 0, 0, 0},
+                                        {1, 1, 0, 1, 1}};
+    std::vector<std::vector<int>> grid2{{1, 1, 1, 0, 0},
+                                        {0, 0, 1, 1, 1},
+                                        {0, 1, 0, 0, 0},
+                                        {1, 0, 1, 1, 0},
+                                        {0, 1, 0, 1, 0}};
+
+    constexpr int expected_result{3};
+    EXPECT_EQ(expected_result, count_sub_islands_dfs(grid1, grid2));
+}
+
+
+TEST(TestCountSubIslandsDFS, simple2) {
+    std::vector<std::vector<int>> grid1{{1, 0, 1, 0, 1},
+                                        {1, 1, 1, 1, 1},
+                                        {0, 0, 0, 0, 0},
+                                        {1, 1, 1, 1, 1},
+                                        {1, 0, 1, 0, 1}};
+    std::vector<std::vector<int>> grid2{{0, 0, 0, 0, 0},
+                                        {1, 1, 1, 1, 1},
+                                        {0, 1, 0, 1, 0},
+                                        {0, 1, 0, 1, 0},
+                                        {1, 0, 0, 0, 1}};
+
+    constexpr int expected_result{2};
+    EXPECT_EQ(expected_result, count_sub_islands_dfs(grid1, grid2));
+}
+
+TEST(TestCountSubIslandsDFS, simple3) {
+    std::vector<std::vector<int>> grid1{{1, 0, 1, 0, 1},
+                                        {1, 1, 1, 1, 1},
+                                        {0, 0, 0, 0, 0},
+                                        {1, 1, 1, 1, 1},
+                                        {1, 0, 1, 0, 1}};
+    std::vector<std::vector<int>> grid2{{0, 0, 0, 0, 0},
+                                        {1, 1, 1, 1, 1},
+                                        {0, 1, 0, 1, 0},
+                                        {0, 1, 0, 1, 0},
+                                        {0, 0, 0, 0, 0}};
+
+    constexpr int expected_result{};
+    EXPECT_EQ(expected_result, count_sub_islands_dfs(grid1, grid2));
+}
+
+TEST(TestCountSubIslandsDFS, simple4) {
+    std::vector<std::vector<int>> grid1{{0, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+                                        {1, 0, 1, 1, 1, 0, 1, 1, 1, 1},
+                                        {1, 0, 1, 1, 0, 1, 1, 1, 1, 1},
+                                        {1, 0, 1, 1, 0, 1, 1, 1, 1, 1},
+                                        {1, 0, 1, 1, 1, 1, 1, 0, 1, 1},
+                                        {1, 1, 0, 0, 1, 1, 1, 0, 0, 1},
+                                        {1, 1, 0, 1, 1, 0, 0, 1, 1, 0},
+                                        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                                        {1, 0, 0, 1, 1, 0, 1, 1, 1, 1}};
+    std::vector<std::vector<int>> grid2{{0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
+                                        {1, 0, 0, 1, 1, 1, 0, 0, 1, 0},
+                                        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+                                        {1, 0, 0, 1, 0, 0, 1, 0, 1, 1},
+                                        {0, 1, 1, 1, 0, 1, 0, 1, 1, 0},
+                                        {1, 1, 1, 0, 0, 0, 1, 0, 1, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                                        {1, 1, 1, 0, 0, 0, 1, 0, 1, 1},
+                                        {1, 1, 1, 1, 1, 1, 0, 1, 1, 0}};
+
+    constexpr int expected_result{2};
+    EXPECT_EQ(expected_result, count_sub_islands_dfs(grid1, grid2));
+}
