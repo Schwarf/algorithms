@@ -74,4 +74,35 @@ max_probability_path_dijkstra(int n, std::vector<std::vector<int>> &edges, std::
 }
 
 
+double
+max_probability_path_shortest_path_faster_algorithm(int n, std::vector<std::vector<int>> &edges,
+                                                    std::vector<double> &probabilities,
+                                                    int start_node, int end_node) {
+    std::vector<std::vector<std::pair<int, double>>> graph(n);
+    std::vector<bool> visited(n);
+    // build an adjacency list to represent graph
+    for (int edge_count{}; edge_count < edges.size(); ++edge_count) {
+        const auto node1 = edges[edge_count][0];
+        const auto node2 = edges[edge_count][1];
+        graph[node1].emplace_back(node2, probabilities[edge_count]);
+        graph[node2].emplace_back(node1, probabilities[edge_count]);
+    }
+    std::vector<double> maximum_probability(n);
+    maximum_probability[start_node] = 1.0;
+
+    std::queue<int> q;
+    q.emplace(start_node);
+    while (!q.empty()) {
+        auto current_node = q.front();
+        q.pop();
+        for (const auto &[next_node, next_probability]: graph[current_node]) {
+            if (maximum_probability[current_node] * next_probability > maximum_probability[next_node]) {
+                maximum_probability[next_node] = maximum_probability[current_node] * next_probability;
+                q.emplace(next_node);
+            }
+        }
+    }
+    return maximum_probability[end_node];
+}
+
 #endif //DATA_STRUCTURES_PATH_WITH_MAXIMUM_PROBABILITY_H
