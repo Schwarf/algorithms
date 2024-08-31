@@ -12,6 +12,7 @@
 // If there is no path from start to end, return 0. Your answer will be accepted if it differs from the
 // correct answer by at most 1e-5.
 #include <vector>
+#include <queue>
 
 double
 max_probability_path_bellman_ford(int n, std::vector<std::vector<int>> &edges, std::vector<double> &probabilities,
@@ -23,15 +24,14 @@ max_probability_path_bellman_ford(int n, std::vector<std::vector<int>> &edges, s
         auto has_update = false;
         // We update for each
         for (int edge_count{}; edge_count < edges.size(); ++edge_count) {
-            auto node1 = edges[edge_count][0];
-            auto node2 = edges[edge_count][1];
-            auto probability = probabilities[edge_count];
-            if (maximum_probability[node1] * probability > maximum_probability[node2]) {
-                maximum_probability[node2] = maximum_probability[node1] * probability;
+            const auto node1 = edges[edge_count][0];
+            const auto node2 = edges[edge_count][1];
+            if (maximum_probability[node1] * probabilities[edge_count] > maximum_probability[node2]) {
+                maximum_probability[node2] = maximum_probability[node1] * probabilities[edge_count];
                 has_update = true;
             }
-            if (maximum_probability[node2] * probability > maximum_probability[node1]) {
-                maximum_probability[node1] = maximum_probability[node2] * probability;
+            if (maximum_probability[node2] * probabilities[edge_count] > maximum_probability[node1]) {
+                maximum_probability[node1] = maximum_probability[node2] * probabilities[edge_count];
                 has_update = true;
             }
         }
@@ -41,5 +41,37 @@ max_probability_path_bellman_ford(int n, std::vector<std::vector<int>> &edges, s
     return maximum_probability[end_node];
 
 }
+
+double
+max_probability_path_dijkstra(int n, std::vector<std::vector<int>> &edges, std::vector<double> &probabilities,
+                              int start_node, int end_node) {
+    std::vector<std::vector<std::pair<int, double>>> graph(n);
+    std::priority_queue<std::pair<double, int>> q;
+    q.emplace(1.0, start_node);
+    std::vector<bool> visited(n);
+    // build an adjacency list to represent graph
+    for (int edge_count{}; edge_count < edges.size(); ++edge_count) {
+        const auto node1 = edges[edge_count][0];
+        const auto node2 = edges[edge_count][1];
+        graph[node1].emplace_back(probabilities[edge_count], node2);
+        graph[node2].emplace_back(probabilities[edge_count], node1);
+    }
+    while (!q.empty()) {
+        const auto [probability, node] = q.top();
+        q.pop();
+        if (node == end_node)
+            return probability;
+        if (visited[node])
+            continue;
+        visited[node] = true;
+        for (const auto &[next_node, next_probability]: graph[node]) {
+            if (visited[next_node])
+                continue;
+            q.emplace(next_probability * probability, next_node);
+        }
+    }
+    return 0;
+}
+
 
 #endif //DATA_STRUCTURES_PATH_WITH_MAXIMUM_PROBABILITY_H
