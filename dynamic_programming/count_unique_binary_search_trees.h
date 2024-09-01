@@ -58,5 +58,17 @@ int count_unique_BST_bottom_up(int n) {
     return dp[n];
 }
 
+// This only works well up to small numbers of n because of integer overflow
+// careful here we use integer division so the formula in line 69 must be exactly like that
+int count_unique_BST_bottom_up_other_catalan_formula(int n) {
+    std::vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 1;
+
+    for (int i{2}; i <= n; ++i) {
+        dp[i] = (4 * (i - 1) + 2) * dp[i - 1] / (i + 1);
+    }
+    return dp[n];
+}
 
 #endif //COUNT_UNIQUE_BINARY_SEARCH_TREES_H
