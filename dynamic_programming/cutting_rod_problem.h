@@ -7,6 +7,9 @@
 
 // Kerling Enterprises buys long steel rods and cuts them into shorter rods, which it then sells. Each cut is free.
 // The management of Kerling Enterprises wants to know the best way to cut up the rods.
+// Given a rod of a certain length, and list of prices where a rod of length i provides the price
+// prices[i] obtain the maximum total price for the rod. Cutting is free.
+
 #include <vector>
 #include <utility>
 
