@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include "./../largest_divisible_subset.h"
 
-TEST(TestLargestDivisibleSubset, simepl1) {
+TEST(TestLargestDivisibleSubset, simple1) {
     std::vector<int> input{1, 2, 3, 4, 8, 16};
     std::vector<int> expected_result{1, 2, 4, 8, 16};
     auto result = largest_divisible_subset(input);
@@ -12,7 +12,7 @@ TEST(TestLargestDivisibleSubset, simepl1) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST(TestLargestDivisibleSubset, simepl2) {
+TEST(TestLargestDivisibleSubset, simple2) {
     std::vector<int> input{1, 2, 3};
     std::vector<int> expected_result{1, 2};
     auto result = largest_divisible_subset(input);
