@@ -10,7 +10,7 @@
 #include "trees/binary_trees/tree_node.h"
 
 
-class SetupBinaryTree : public testing::Test {
+class SetupBinaryTree : virtual public testing::Test {
 public:
     SetupBinaryTree() = default;
 

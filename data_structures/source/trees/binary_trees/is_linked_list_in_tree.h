@@ -9,11 +9,11 @@
 // connected in the binary tree otherwise return False.
 // In this context downward path means a path that starts at some node and goes downwards.
 #include "tree_node.h"
-#include "./../../../linked_lists/node.h"
+#include "./../../linked_lists/node.h"
 #include <queue>
 
 template<typename T>
-bool is_in_tree(Node <T> *head, TreeNode<T> *node) {
+bool is_in_tree(Node<T> *head, TreeNode<T> *node) {
     if (!head)
         return true;
     if (!node)
@@ -29,7 +29,7 @@ bool is_in_tree(Node <T> *head, TreeNode<T> *node) {
 
 
 template<typename T>
-bool is_linked_list_in_tree(Node <T> *head, TreeNode<T> *root) {
+bool is_linked_list_in_tree(Node<T> *head, TreeNode<T> *root) {
     if (!head)
         return true;
     if (!root)
