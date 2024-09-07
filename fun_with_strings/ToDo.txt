@@ -1,2 +1,1 @@
-- The Knuth-Morris_Pratt algorithm is missing:
 - Unit tests for sort_string_by_character_frequency.h are very brittle, since no order required for equal frequencies.
