@@ -145,8 +145,8 @@ TEST(TestSimulatedAnnealing, difficult)
 	}
 	auto mean =
 		std::accumulate(approximate_results.cbegin(), approximate_results.cend(), 0.0) / approximate_results.size();
-	auto mean_deviations =
-		std::accumulate(deviation_results.cbegin(), deviation_results.cend(), 0.0) / approximate_results.size();
+//	auto mean_deviations =
+//		std::accumulate(deviation_results.cbegin(), deviation_results.cend(), 0.0) / approximate_results.size();
 	auto sum_of_squared_difference = std::transform_reduce(approximate_results.begin(), approximate_results.end(), 0.0,
 														   std::plus<>(), [mean](double x)
 														   { return (x - mean) * (x - mean); });
