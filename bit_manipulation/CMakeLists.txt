@@ -36,4 +36,5 @@ add_executable(bit_manipulation main.cpp
         bitwise_and_numbers_in_range.h
         count_operations_to_make_xor_of_array_equal_k.h
         sum_all_xor_subsets.h
-        find_two_singular_elements.h)
+        find_two_singular_elements.h
+        find_longest_substring_with_even_vowl_count.h)
