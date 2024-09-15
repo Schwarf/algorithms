@@ -8,7 +8,6 @@
 // For each query i compute the XOR of elements from lefti to righti (that is, arr[lefti] XOR arr[lefti + 1] XOR ... XOR arr[righti] ).
 // Return an array answer where answer[i] is the answer to the ith query.
 #include <vector>
-#include <vector>
 
 std::vector<int> xor_queries(std::vector<int> & input_array, std::vector<std::vector<int>> & queries)
 {
