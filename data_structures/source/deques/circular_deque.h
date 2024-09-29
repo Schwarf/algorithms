@@ -23,15 +23,15 @@
 
 template<typename T>
 class CircularDeque {
-    int max_size{};
+    int capacity{};
     int size{};
     NodeDLL<T> *head{nullptr};
     NodeDLL<T> *tail{nullptr};
 public:
-    explicit CircularDeque(int k) : max_size{k} {}
+    explicit CircularDeque(int k) : capacity{k} {}
 
     bool insert_front(T value) {
-        if (size == max_size)
+        if (size == capacity)
             return false;
         if (!head) {
             head = new NodeDLL<T>(value);
@@ -49,7 +49,7 @@ public:
     }
 
     bool insert_back(T value) {
-        if (size == max_size)
+        if (size == capacity)
             return false;
         if (!tail) {
             tail = new NodeDLL<T>(value);
@@ -123,9 +123,77 @@ public:
     }
 
     bool is_full() {
-        return size == max_size;
+        return size == capacity;
+    }
+};
+
+
+template<typename T>
+class CircularDequeArray {
+    std::vector<T> queue;
+    int capacity{};
+    int size{};
+    int front_index{};
+    int back_index{};
+public:
+    explicit CircularDequeArray(int k) : capacity{k} {
+        queue = std::vector<T>(capacity);
+        back_index = capacity - 1;
     }
 
+    bool insert_front(T value) {
+        if (is_full())
+            return false;
+        front_index = (front_index - 1 + capacity) % capacity;
+        queue[front_index] = value;
+        size++;
+        return true;
+    }
+
+    bool insert_back(T value) {
+        if (is_full())
+            return false;
+        back_index = (back_index + 1) % capacity;
+        queue[back_index] = value;
+        size++;
+        return true;
+    }
+
+    bool delete_front() {
+        if (is_empty())
+            return false;
+        front_index = (front_index + 1) % capacity;
+        size--;
+        return true;
+    }
+
+    bool delete_back() {
+        if (is_empty())
+            return false;
+        back_index = (back_index - 1 + capacity) % capacity;
+        size--;
+        return true;
+    }
+
+    std::optional<T> get_front() {
+        if (is_empty())
+            return {};
+        return queue[front_index];
+    }
+
+    std::optional<T> get_back() {
+        if (is_empty())
+            return {};
+        return queue[back_index];
+    }
+
+    bool is_empty() {
+        return size == 0;
+    }
+
+    bool is_full() {
+        return size == capacity;
+    }
 };
 
 #endif //DATA_STRUCTURES_CIRCULAR_DEQUE_H
