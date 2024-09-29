@@ -22,13 +22,13 @@
 
 
 template<typename T>
-class circular_deque {
+class CircularDeque {
     int max_size{};
     int size{};
     NodeDLL<T> *head{nullptr};
     NodeDLL<T> *tail{nullptr};
 public:
-    explicit circular_deque(int k) : max_size{k} {}
+    explicit CircularDeque(int k) : max_size{k} {}
 
     bool insert_front(T value) {
         if (size == max_size)
@@ -48,7 +48,7 @@ public:
         return true;
     }
 
-    bool insert_rear(T value) {
+    bool insert_back(T value) {
         if (size == max_size)
             return false;
         if (!tail) {
@@ -86,7 +86,7 @@ public:
         return true;
     }
 
-    bool delete_rear() {
+    bool delete_back() {
         if (!tail)
             return false;
 
@@ -117,6 +117,15 @@ public:
             return {};
         return tail->value;
     }
+
+    bool is_empty() {
+        return size == 0;
+    }
+
+    bool is_full() {
+        return size == max_size;
+    }
+
 };
 
 #endif //DATA_STRUCTURES_CIRCULAR_DEQUE_H
