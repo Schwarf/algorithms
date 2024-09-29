@@ -1,0 +1,8 @@
+//
+// Created by andreas on 29.09.24.
+//
+
+#ifndef DATA_STRUCTURES_CIRCULAR_DEQUE_H
+#define DATA_STRUCTURES_CIRCULAR_DEQUE_H
+
+#endif //DATA_STRUCTURES_CIRCULAR_DEQUE_H
