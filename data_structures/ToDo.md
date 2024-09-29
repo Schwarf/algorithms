@@ -7,3 +7,4 @@
 - Last test for AStar algorithm in "test_shortest_path_in_binary_matrix.cpp" fails.
 - One test for Fibonacci heap fails see "test_fibonacci_heap.cpp". It is "RandomSetupPopMin" that might only fail
   occasionally.
+- Circular deque tests are missing for multiple insertions, deletions, getting elements.
