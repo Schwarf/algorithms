@@ -42,6 +42,7 @@ public:
             return {};
         std::optional<T> value{stack[stack_index]};
         stack_index = (stack_index + 1) % capacity;
+        size--;
         return value;
     }
 
