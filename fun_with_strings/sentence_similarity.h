@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-bool areSentencesSimilar(std::string &sentence1, std::string &sentence2) {
+bool are_sentences_similar(std::string &sentence1, std::string &sentence2) {
     std::stringstream ss1(sentence1), ss2(sentence2);
     std::string word;
     std::vector<std::string> tokens1, tokens2;
@@ -29,7 +29,7 @@ bool areSentencesSimilar(std::string &sentence1, std::string &sentence2) {
     while (ss2 >> word)
         tokens2.push_back(word);
     if(tokens1.size() > tokens2.size())
-        return areSentencesSimilar(sentence2, sentence1);
+        return are_sentences_similar(sentence2, sentence1);
 
     int start{};
     int end1 = tokens1.size()-1;
