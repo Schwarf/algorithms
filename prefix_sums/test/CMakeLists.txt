@@ -16,7 +16,8 @@ foreach (TEST_SOURCE ${TEST_SOURCES})
 
     # Create an executable target for each test file
     add_executable(${TEST_NAME} ${TEST_SOURCE}
-            test_number_of_subarrays.cpp)
+            test_number_of_subarrays.cpp
+            test_make_divisible_by_value.cpp)
     # Add libraries
     foreach (LIB_DIR ${LIBRARY_DIRECTORIES})
         get_filename_component(LIB_NAME ${LIB_DIR} NAME)

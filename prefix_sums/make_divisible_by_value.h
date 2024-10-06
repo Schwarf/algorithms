@@ -11,6 +11,7 @@
 #include <vector>
 #include <numeric>
 
+// O(N^2)
 int min_size_of_subarray_brute_force(std::vector<int> & input, int value)
 {
     int n= input.size();
