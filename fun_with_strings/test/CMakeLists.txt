@@ -11,5 +11,6 @@ add_executable(fun_with_strings_test
         test_are_strings_close.cpp
         test_knuth_morris_pratt_algo.cpp
         test_compare_version_number.cpp
-        test_sentence_similarity.cpp)
+        test_sentence_similarity.cpp
+        test_permutation_include_in_string.cpp)
 target_link_libraries(fun_with_strings_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
