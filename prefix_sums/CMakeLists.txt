@@ -40,7 +40,8 @@ enable_cxx_compiler_flag_if_supported("-Wno-sign-compare") # Disable specific wa
 file(GLOB HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 set(LIB_NAME "prefix_sums_lib")
 add_library(${LIB_NAME} INTERFACE
-        number_of_subarrays.h)
+        number_of_subarrays.h
+        make_divisible_by_value.h)
 target_sources(${LIB_NAME} INTERFACE ${HEADER_FILES})
 
 add_subdirectory(test)
