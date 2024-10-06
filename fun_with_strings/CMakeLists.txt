@@ -35,4 +35,5 @@ add_executable(fun_with_strings main.cpp
         count_beautiful_substrings.h
         are_two_strings_close.h
         knuth_morris_pratt_algo.h
-        compare_version_numbers.h)
+        compare_version_numbers.h
+        sentence_similarity.h)
