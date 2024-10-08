@@ -37,4 +37,5 @@ add_executable(fun_with_strings main.cpp
         knuth_morris_pratt_algo.h
         compare_version_numbers.h
         sentence_similarity.h
-        permutation_included_in_string.h)
+        permutation_included_in_string.h
+        minimum_length_after_removing_substrings.h)
