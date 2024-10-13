@@ -56,4 +56,4 @@ add_executable(fun_with_algos main.cpp
         can_attend_all_meetings.h
         logger_rate_limiter.h
         maximum_distance_in_arrays.h
-        "largest_min_max_index_gap .h")
+        "largest_extremum_index_gap .h")

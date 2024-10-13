@@ -2,8 +2,8 @@
 // Created by andreas on 13.10.24.
 //
 
-#ifndef FUN_WITH_ALGOS_LARGEST_MIN_MAX_INDEX_GAP_H
-#define FUN_WITH_ALGOS_LARGEST_MIN_MAX_INDEX_GAP_H
+#ifndef FUN_WITH_ALGOS_LARGEST_EXTREMUM_INDEX_GAP_H
+#define FUN_WITH_ALGOS_LARGEST_EXTREMUM_INDEX_GAP_H
 // LC-962
 // A min-max-index-gap in an integer array nums is a pair (i, j) for which i < j and nums[i] <= nums[j]. The width of such a gap is j - i.
 // Given an integer array input, return the maximum min-max-index-gap in input.
@@ -14,7 +14,7 @@
 #include <numeric>
 
 template<typename T, typename Comparator = std::less<T>>
-int largest_min_max_index_gap_sort(std::vector<T> &input, Comparator comparator = Comparator()) {
+int largest_extremum_index_gap_sort(std::vector<T> &input, Comparator comparator = Comparator()) {
     int n = input.size();
     if (n < 2)
         return 0;
@@ -89,4 +89,4 @@ int largest_min_max_index_gap_stack(std::vector<T> &input) {
 }
 
 
-#endif //FUN_WITH_ALGOS_LARGEST_MIN_MAX_INDEX_GAP_H
+#endif //FUN_WITH_ALGOS_LARGEST_EXTREMUM_INDEX_GAP_H
