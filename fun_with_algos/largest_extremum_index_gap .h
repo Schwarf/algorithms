@@ -64,21 +64,21 @@ int largest_extremum_index_gap_two_pointers(std::vector<T> &input, Comparator co
     return max_gap;
 }
 
-template<typename T>
-int largest_min_max_index_gap_stack(std::vector<T> &input) {
+template<typename T, typename Comparator = std::less<T>>
+int largest_extremum_index_gap_stack(std::vector<T> &input, Comparator comparator = Comparator()) {
     int n = input.size();
     if (n < 2)
         return 0;
     std::stack<int> index_stack;
     // Fill stack with indices in increasing order of values in input
     for (int i{}; i < n; ++i) {
-        if (index_stack.empty() || input[index_stack.top()] > input[i]) {
+        if (index_stack.empty() || comparator(input[i], input[index_stack.top()]) ) {
             index_stack.push(i);
         }
     }
     int max_gap{};
     for (int j = n - 1; j > -1; j--) {
-        while (!index_stack.empty() && input[index_stack.top()] <= input[j]) {
+        while (!index_stack.empty() && !comparator(input[j], input[index_stack.top()]) ) {
             max_gap = std::max(max_gap, j - index_stack.top());
             index_stack.pop();
         }
