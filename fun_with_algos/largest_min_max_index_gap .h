@@ -27,7 +27,7 @@ T largest_min_max_index_gap_sort(std::vector<T> &input) {
     });
 
     int min_index_so_far = n;
-    int max_gap = 0;
+    T max_gap{};
     for (int i{}; i < n; ++i) {
         max_gap = std::max(max_gap, indices[i] - min_index_so_far);
         min_index_so_far = std::min(min_index_so_far, indices[i]);
@@ -48,7 +48,7 @@ T largest_min_max_index_gap_two_pointers(std::vector<T> &input) {
     }
     int left{};
     int right{};
-    int max_gap{};
+    T max_gap{};
     while(right < n)
     {
         while(left < right && input[left] > right_maximums[right])
@@ -59,6 +59,32 @@ T largest_min_max_index_gap_two_pointers(std::vector<T> &input) {
         right++;
     }
 
+    return max_gap;
+}
+
+template<typename T>
+T largest_min_max_index_gap_stack(std::vector<T> &input) {
+    int n = input.size();
+    if (n < 2)
+        return 0;
+    std::stack<int> index_stack;
+    // Fill stack with indices in increasing order of values in input
+    for(int i{}; i < n; ++i)
+    {
+        if(index_stack.empty() || input[index_stack.top()] > input[i])
+        {
+            index_stack.push(i);
+        }
+    }
+    T max_gap{};
+    for(int j = n-1;  j >-1; j--)
+    {
+        while(!index_stack.empty() && input[index_stack.top()] <= input[j])
+        {
+            max_gap = std::max(max_gap, j - index_stack.top());
+            index_stack.pop();
+        }
+    }
     return max_gap;
 }
 
