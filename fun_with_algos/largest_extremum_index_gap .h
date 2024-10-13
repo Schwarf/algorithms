@@ -35,27 +35,29 @@ int largest_extremum_index_gap_sort(std::vector<T> &input, Comparator comparator
     return max_gap;
 }
 
-template<typename T>
-int largest_min_max_index_gap_two_pointers(std::vector<T> &input) {
+template<typename T, typename Comparator = std::less<T>>
+int largest_extremum_index_gap_two_pointers(std::vector<T> &input, Comparator comparator = Comparator()) {
     int n = input.size();
     if (n < 2)
         return 0;
-    std::vector<T> right_maximums(n);
-    right_maximums[n-1] = input[n-1];
-    for(int i{n-2}; i>=0; i--)
-    {
-        right_maximums[i] = std::max(right_maximums[i+1], input[i]);
+    std::vector<T> right_extremums(n);
+    right_extremums[n - 1] = input[n - 1];
+    for (int i{n - 2}; i >= 0; i--) {
+        if constexpr (std::is_same_v<Comparator, std::less<T>>)
+            right_extremums[i] = std::max(right_extremums[i + 1], input[i]);
+        else if ((std::is_same_v<Comparator, std::greater<T>>))
+            right_extremums[i] = std::min(right_extremums[i + 1], input[i]);
     }
     int left{};
     int right{};
     int max_gap{};
-    while(right < n)
-    {
-        while(left < right && input[left] > right_maximums[right])
-        {
+    while (right < n) {
+        // Note that std::less and std::greater are NOT symmetric. The call
+        // comparator(right_extremums[right], input[left]) is the correct one.
+        while (left < right && comparator(right_extremums[right], input[left])) {
             left++;
         }
-        max_gap = std::max(max_gap, right -left);
+        max_gap = std::max(max_gap, right - left);
         right++;
     }
 
@@ -69,18 +71,14 @@ int largest_min_max_index_gap_stack(std::vector<T> &input) {
         return 0;
     std::stack<int> index_stack;
     // Fill stack with indices in increasing order of values in input
-    for(int i{}; i < n; ++i)
-    {
-        if(index_stack.empty() || input[index_stack.top()] > input[i])
-        {
+    for (int i{}; i < n; ++i) {
+        if (index_stack.empty() || input[index_stack.top()] > input[i]) {
             index_stack.push(i);
         }
     }
     int max_gap{};
-    for(int j = n-1;  j >-1; j--)
-    {
-        while(!index_stack.empty() && input[index_stack.top()] <= input[j])
-        {
+    for (int j = n - 1; j > -1; j--) {
+        while (!index_stack.empty() && input[index_stack.top()] <= input[j]) {
             max_gap = std::max(max_gap, j - index_stack.top());
             index_stack.pop();
         }
