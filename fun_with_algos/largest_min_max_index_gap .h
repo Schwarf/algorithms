@@ -13,8 +13,8 @@
 #include <algorithm>
 #include <numeric>
 
-template<typename T>
-int largest_min_max_index_gap_sort(std::vector<T> &input) {
+template<typename T, typename Comparator = std::less<T>>
+int largest_min_max_index_gap_sort(std::vector<T> &input, Comparator comparator = Comparator()) {
     int n = input.size();
     if (n < 2)
         return 0;
@@ -23,7 +23,7 @@ int largest_min_max_index_gap_sort(std::vector<T> &input) {
     // Sort indices based on corresponding values in input.
     // Indices are reordered so that input-elements are arranged in increasing order
     std::sort(indices.begin(), indices.end(), [&](int i, int j) {
-        return input[i] != input[j] ? input[i] < input[j] : i < j;
+        return comparator(input[i], input[j]) || (input[i] == input[j] && i < j);
     });
 
     int min_index_so_far = n;
