@@ -48,3 +48,40 @@ TEST_F(SetupBinaryTree, TestCousinReplacementSimple4) {
     auto result = flatten(level_order_traversal(tree_result));
     EXPECT_EQ(result, expected_result);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_F(SetupBinaryTree, TestCousinReplacementRunningSimple1) {
+    auto tree = small_binary_tree_root();
+    auto expected_result = std::vector<unsigned int>(5);
+    auto tree_result = replace_values_with_cousin_sum_running_sum(tree);
+    auto result = pre_order_traversal(tree_result);
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupBinaryTree, TestCousinReplacementRunningSimple2) {
+    auto tree = medium_tree_with_subtree_duplicates1();
+    auto expected_result = std::vector<unsigned int>{0, 0, 6, 0, 4, 0, 4};
+    auto tree_result = replace_values_with_cousin_sum_running_sum(tree);
+    auto result = pre_order_traversal(tree_result);
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupBinaryTree, TestCousinReplacementRunningSimple3) {
+    auto tree = new TreeNode<float>(5.f);
+    auto expected_result = std::vector<float>{0.f};
+    auto tree_result = replace_values_with_cousin_sum_running_sum(tree);
+    auto result = pre_order_traversal(tree_result);
+    EXPECT_EQ(result, expected_result);
+}
+
+
+TEST_F(SetupBinaryTree, TestCousinReplacementRunningSimple4) {
+    auto tree = binary_tree_root();
+    auto expected_result = std::vector<unsigned int>{0, 0, 0, 105, 105, 32, 32, 273, 273, 247, 247, 214, 214, 133, 133};
+    auto tree_result = replace_values_with_cousin_sum_running_sum(tree);
+    auto result = flatten(level_order_traversal(tree_result));
+    EXPECT_EQ(result, expected_result);
+}
