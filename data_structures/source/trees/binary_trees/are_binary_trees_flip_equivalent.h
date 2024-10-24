@@ -21,16 +21,16 @@ bool are_flip_equivalent_recursive(TreeNode<T> *root1, TreeNode<T> *root2) {
         return false;
     }
     // Corresponding values differ
-    if (root1->val != root2->val) {
+    if (root1->value != root2->value) {
         return false;
     }
 
     // Check if corresponding subtrees are flip equivalent
-    bool no_swap = flipEquiv(root1->left, root2->left) &&
-                   flipEquiv(root1->right, root2->right);
+    bool no_swap = are_flip_equivalent_recursive(root1->left, root2->left) &&
+            are_flip_equivalent_recursive(root1->right, root2->right);
     // Check if opposite subtrees are flip equivalent
-    bool swap = flipEquiv(root1->left, root2->right) &&
-                flipEquiv(root1->right, root2->left);
+    bool swap = are_flip_equivalent_recursive(root1->left, root2->right) &&
+            are_flip_equivalent_recursive(root1->right, root2->left);
 
     return swap || no_swap;
 }
