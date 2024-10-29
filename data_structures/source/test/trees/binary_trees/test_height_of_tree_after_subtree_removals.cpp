@@ -13,3 +13,17 @@ TEST_F(SetupBinaryTree, RemoveSubtreesViaQueriesSimple2) {
     auto tuple = trees_and_heights_after_removing_subtrees2();
     EXPECT_EQ(height_of_trees(std::get<0>(tuple), std::get<1>(tuple)), std::get<2>(tuple));
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_F(SetupBinaryTree, RemoveSubtreesViaQueriesOneTraversalSimple1) {
+    auto tuple = trees_and_heights_after_removing_subtrees1();
+    EXPECT_EQ(height_of_trees_one_traversal(std::get<0>(tuple), std::get<1>(tuple)), std::get<2>(tuple));
+}
+
+TEST_F(SetupBinaryTree, RemoveSubtreesViaQueriesOneTraversalSimple2) {
+    auto tuple = trees_and_heights_after_removing_subtrees2();
+    EXPECT_EQ(height_of_trees_one_traversal(std::get<0>(tuple), std::get<1>(tuple)), std::get<2>(tuple));
+}

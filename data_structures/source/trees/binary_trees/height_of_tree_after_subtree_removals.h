@@ -96,7 +96,8 @@ int compute_height(TreeNode<T> *node, std::unordered_map<TreeNode<T> *, int> &he
     if (height_cache.find(node) != height_cache.end())
         return height_cache[node];
 
-    height_cache[node] = 1 + std::max(height(node->left, height_cache), height(node->right, height_cache));
+    height_cache[node] =
+            1 + std::max(compute_height(node->left, height_cache), compute_height(node->right, height_cache));
     return height_cache[node];
 }
 
@@ -108,9 +109,11 @@ void dfs(TreeNode<T> *node, int depth, int max_height_so_far, std::unordered_map
         return;
 
     result_map[node->value] = max_height_so_far;
-    dfs(node->left, depth + 1, std::max(max_height_so_far, depth + 1 + height(node->right, height_cache)), result_map,
+    dfs(node->left, depth + 1, std::max(max_height_so_far, depth + 1 + compute_height(node->right, height_cache)),
+        result_map,
         height_cache);
-    dfs(node->right, depth + 1, std::max(max_height_so_far, depth + 1 + height(node->left, height_cache)), result_map,
+    dfs(node->right, depth + 1, std::max(max_height_so_far, depth + 1 + compute_height(node->left, height_cache)),
+        result_map,
         height_cache);
 
 
