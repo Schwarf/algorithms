@@ -435,6 +435,24 @@ protected:
         std::vector<int> heights{2, 3, 3, 2};
         return std::make_tuple(root, subtree_nodes, heights);
     }
+
+    static std::tuple<TreeNode<unsigned short> *, std::vector<unsigned short>, std::vector<int>>
+    trees_and_heights_after_removing_subtrees2() {
+
+        auto root = new TreeNode<unsigned short>(5);
+        root->left = new TreeNode<unsigned short>(8);
+        root->right = new TreeNode<unsigned short>(9);
+        root->left->left = new TreeNode<unsigned short>(2);
+        root->left->right = new TreeNode<unsigned short>(1);
+        root->right->left = new TreeNode<unsigned short>(3);
+        root->right->right = new TreeNode<unsigned short>(7);
+        root->left->left->left = new TreeNode<unsigned short>(4);
+        root->left->left->right = new TreeNode<unsigned short>(6);
+        std::vector<unsigned short> subtree_nodes{3, 2, 4, 8};
+        std::vector<int> heights{3, 2, 3, 2};
+        return std::make_tuple(root, subtree_nodes, heights);
+    }
+
 };
 
 #endif //SETUP_BINARY_TREE_H
