@@ -24,6 +24,7 @@
 // No query does contain the root value
 
 #include <vector>
+#include <unordered_map>
 #include "tree_node.h"
 
 // Global static variables
@@ -86,6 +87,51 @@ std::vector<int> height_of_trees(TreeNode<T> *root, const std::vector<T> &querie
 
     return query_results;
 }
+
+template<typename T>
+requires std::is_unsigned_v<T>
+int compute_height(TreeNode<T> *node, std::unordered_map<TreeNode<T> *, int> &height_cache) {
+    if (!node)
+        return -1;
+    if (height_cache.find(node) != height_cache.end())
+        return height_cache[node];
+
+    height_cache[node] = 1 + std::max(height(node->left, height_cache), height(node->right, height_cache));
+    return height_cache[node];
+}
+
+template<typename T>
+requires std::is_unsigned_v<T>
+void dfs(TreeNode<T> *node, int depth, int max_height_so_far, std::unordered_map<T, int> &result_map,
+         std::unordered_map<TreeNode<T> *, int> &height_cache) {
+    if (!node)
+        return;
+
+    result_map[node->value] = max_height_so_far;
+    dfs(node->left, depth + 1, std::max(max_height_so_far, depth + 1 + height(node->right, height_cache)), result_map,
+        height_cache);
+    dfs(node->right, depth + 1, std::max(max_height_so_far, depth + 1 + height(node->left, height_cache)), result_map,
+        height_cache);
+
+
+}
+
+
+template<typename T>
+requires std::is_unsigned_v<T>
+std::vector<int> height_of_trees_one_traversal(TreeNode<T> *root, const std::vector<T> &queries) {
+
+    std::unordered_map<T, int> result_map;
+    std::unordered_map<TreeNode<T> *, int> height_cache;
+
+    dfs(root, 0, 0, result_map, height_cache);
+    std::vector<int> result(queries.size());
+    for (int i = 0; i < queries.size(); i++) {
+        result[i] = result_map[queries[i]];
+    }
+    return result;
+}
+
 
 #endif //DATA_STRUCTURES_HEIGHT_OF_TREE_AFTER_SUBTREE_REMOVALS_H
 
