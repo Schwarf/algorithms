@@ -26,47 +26,66 @@
 #include <vector>
 #include "tree_node.h"
 
+// Global static variables
+int max_height_after_removal[100001];  // Array to store max height after removing each node
+int current_max_height = 0;            // Variable to track current maximum height
+
+// Left-to-right traversal function
 template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<T>
-left_right_traversal(TreeNode<T> *node, std::vector<T> &node_heights, int current_height, int current_max_height) {
-    if (!node)
-        return;
-    node_heights[node->value] = current_max_height;
+void traverse_left_to_right(TreeNode<T> *node, int current_height) {
+    if (!node) return;
+
+    // Store the maximum height if this node were removed
+    max_height_after_removal[node->value] = current_max_height;
+
+    // Update the current maximum height
     current_max_height = std::max(current_max_height, current_height);
-    left_right_traversal(node->left, current_height + 1, current_max_height);
-    left_right_traversal(node->right, current_height + 1, current_max_height);
+
+    // Traverse left subtree first, then right
+    traverse_left_to_right(node->left, current_height + 1);
+    traverse_left_to_right(node->right, current_height + 1);
 }
 
+// Right-to-left traversal function
 template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<T>
-right_left_traversal(TreeNode<T> *node, std::vector<T> &node_heights, int current_height, int current_max_height) {
-    if (!node)
-        return;
-    node_heights[node->value] = current_max_height;
-    current_max_height = std::max(current_max_height, current_height);
-    left_right_traversal(node->right, current_height + 1, current_max_height);
-    left_right_traversal(node->left, current_height + 1, current_max_height);
+void traverse_right_to_left(TreeNode<T> *node, int current_height) {
+    if (!node) return;
 
+    // Update the maximum height if this node were removed
+    max_height_after_removal[node->value] = std::max(max_height_after_removal[node->value], current_max_height);
+
+    // Update the current maximum height
+    current_max_height = std::max(current_height, current_max_height);
+
+    // Traverse right subtree first, then left
+    traverse_right_to_left(node->right, current_height + 1);
+    traverse_right_to_left(node->left, current_height + 1);
 }
 
+// Main function to handle queries and return results
 template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<T> height_of_trees(TreeNode<T> *root, std::vector<T> queries) {
-    int current_max_height{};
-    // we deal with a maximum of 100000 nodes
-    std::vector<T> node_heights(100001);
-    left_right_traversal(root, 0, current_max_height);
+std::vector<int> height_of_trees(TreeNode<T> *root, const std::vector<T> &queries) {
+    // Reset global variables
     current_max_height = 0;
-    right_left_traversal(root, 0, current_max_height);
-    std::vector<int> heights;
-    for (int i{}; i < queries.size(); ++i) {
-        heights[i] = node_heights[queries[i]];
-    }
-    return heights;
-}
 
+    // Perform left-to-right traversal
+    traverse_left_to_right(root, 0);
+
+    // Reset current_max_height and perform right-to-left traversal
+    current_max_height = 0;
+    traverse_right_to_left(root, 0);
+
+    // Process queries using precomputed heights
+    std::vector<int> query_results;
+    for (T query: queries) {
+        query_results.push_back(max_height_after_removal[query]);
+    }
+
+    return query_results;
+}
 
 #endif //DATA_STRUCTURES_HEIGHT_OF_TREE_AFTER_SUBTREE_REMOVALS_H
 

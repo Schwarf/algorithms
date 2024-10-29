@@ -1,4 +1,4 @@
-    //
+//
 // Created by andreas on 09.05.22.
 //
 
@@ -421,6 +421,20 @@ protected:
         return std::make_tuple(root, start_value, end_value, result);
     }
 
+    static std::tuple<TreeNode<unsigned int> *, std::vector<unsigned int>, std::vector<int>>
+    trees_and_heights_after_removing_subtrees1() {
+
+        auto root = new TreeNode<unsigned int>(1);
+        root->left = new TreeNode<unsigned int>(3);
+        root->right = new TreeNode<unsigned int>(4);
+        root->left->left = new TreeNode<unsigned int>(2);
+        root->right->left = new TreeNode<unsigned int>(6);
+        root->right->right = new TreeNode<unsigned int>(5);
+        root->right->right->right = new TreeNode<unsigned int>(7);
+        std::vector<unsigned int> subtree_nodes{4, 6, 3, 5};
+        std::vector<int> heights{2, 3, 3, 2};
+        return std::make_tuple(root, subtree_nodes, heights);
+    }
 };
 
 #endif //SETUP_BINARY_TREE_H
