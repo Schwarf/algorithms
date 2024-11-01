@@ -26,7 +26,7 @@ public:
     Graph(int number_of_nodes, const std::vector<std::vector<T>> &edges_with_weights)
             : number_of_nodes_{number_of_nodes} {
         graph.resize(number_of_nodes_);
-        for (const auto triple: edges_with_weights) {
+        for (const auto & triple: edges_with_weights) {
             graph[triple[0]].push_back({triple[1], triple[2]});
         }
     }

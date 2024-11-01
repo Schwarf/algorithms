@@ -4,8 +4,8 @@
 
 #ifndef USED_CONCEPTS_H
 #define USED_CONCEPTS_H
-#include <type_traits>
 #include <functional>
+#include <optional>
 
 // Define a concept to check if a type is hashable.
 template<typename T>
