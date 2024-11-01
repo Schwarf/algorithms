@@ -5,7 +5,7 @@
 #ifndef MINIMUM_TIME_TO_SCHEDULE_N_BUS_TRIPS_H
 #define MINIMUM_TIME_TO_SCHEDULE_N_BUS_TRIPS_H
 #include "used_concepts.h"
-
+#include <algorithm>
 template <typename Container, typename ReturnType>
 requires IndexedContainerWithUnsignedIntegralElements<Container> && UnsignedInteger64Bit<ReturnType>
 ReturnType minimum_time_to_schedule_n_bus_trips(const Container & bus_times, int total_trips)

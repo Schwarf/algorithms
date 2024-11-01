@@ -5,6 +5,7 @@
 #ifndef MINIMUM_SPEED_TO_EAT_BANANAS_IN_N_HOURS_H
 #define MINIMUM_SPEED_TO_EAT_BANANAS_IN_N_HOURS_H
 #include "used_concepts.h"
+#include <algorithm>
 // Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas.
 // The guards have gone and will come back in h hours.
 // Koko can decide her bananas-per-hour eating speed of k.
