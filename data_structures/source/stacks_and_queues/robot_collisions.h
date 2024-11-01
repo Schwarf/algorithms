@@ -22,6 +22,7 @@
 #include <string>
 #include <stack>
 #include <numeric>
+#include <algorithm>
 
 std::vector<int> survivedRobotsHealths(std::vector<int> &positions,
                                        std::vector<int> &healths, std::string directions) {

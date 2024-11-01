@@ -2,6 +2,8 @@
 // Created by andreas on 19.03.23.
 //
 
+#include <algorithm>
+
 #include "setup_singly_linked_lists.h"
 #include "linked_lists/partition_linked_list_for_element.h"
 

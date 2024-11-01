@@ -2,6 +2,7 @@
 // Created by andreas on 15.03.23.
 //
 
+#include <algorithm>
 #include "setup_doubly_linked_lists.h"
 #include "linked_lists/remove_duplicates_dll.h"
 

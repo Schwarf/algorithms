@@ -15,14 +15,11 @@
 //  'U' means to go from a node to its parent node.
 // Return the step-by-step directions of the shortest path from node s to node t.
 #include "tree_node.h"
-#include <vector>
 #include <string>
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
-#include <concepts>
-#include <iostream>
-
+#include <algorithm>
 
 // ---------------------------------------------------------------------------------------------------------------------
 // solution with back tracking

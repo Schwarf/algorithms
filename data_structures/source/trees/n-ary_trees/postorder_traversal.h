@@ -7,6 +7,7 @@
 
 #include "tree_node.h"
 #include <stack>
+#include <algorithm>
 
 template<typename T>
 void postorder_traversal(TreeNode<T> *node, std::vector<T> &result) {
