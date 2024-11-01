@@ -7,6 +7,7 @@
 // Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
 // determine if a person could attend all meetings.
 #include <vector>
+#include <algorithm>
 
 bool can_attend_all_meetings(std::vector<std::vector<int>> &meetings) {
     std::sort(meetings.begin(), meetings.end(),

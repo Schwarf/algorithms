@@ -9,6 +9,7 @@
 // There is only one repeated number in input, return this repeated number.
 // You must solve the problem without modifying the array input and uses only constant extra space.
 #include <vector>
+#include <algorithm>
 // Easy-peasy: Sort and find the duplicate. Here we concentrate on O(N) solutions.
 
 int find_duplicate(std::vector<int> &input) {

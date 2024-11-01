@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "./../find_two_singular_elements.h"
-#include <ranges>
+#include <algorithm>
 
 TEST(TestFindTwoSingularElements, simple1) {
     std::vector<int> input{-2, 1, 2, 1, 2, 4, 4, 6};
