@@ -16,10 +16,12 @@ template <typename T>
 requires std::is_arithmetic_v<T>
 static void generic_sorting_benchmark(benchmark::State& state, const std::function<void(std::vector<T>&)>& sort_func) {
     std::vector<T> data(state.range(0));
-    std::mt19937 generator(427891);
-    std::generate(data.begin(), data.end(), generator);
-
     for (auto _ : state) {
+        int seed = static_cast<int>(state.iterations()); // Using the iteration count as a seed
+        std::mt19937 generator(seed);
+
+        // Fill the vector with new random data each time
+        std::generate(data.begin(), data.end(), generator);
         auto temp = data;
         benchmark::DoNotOptimize(temp);
 
