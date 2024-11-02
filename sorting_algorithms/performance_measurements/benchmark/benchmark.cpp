@@ -10,7 +10,7 @@
 #include "./../../insertion_sort.h"
 #include "./../../merge_sort.h"
 #include "./../../quick_sort.h"
-
+#include <iostream>
 
 template <typename T>
 requires std::is_arithmetic_v<T>
@@ -74,4 +74,16 @@ BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_insertion_sort, my_insertio
 BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_merge_sort, my_merge_sort<int>)->Arg(10000);
 BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_quick_sort, my_quick_sort<int>)->Arg(10000);
 
-BENCHMARK_MAIN();
+int main(int argc, char** argv) {
+    // Compiler check
+#ifdef __clang__
+    std::cout << "Compiled with Clang, version: " << __clang_version__ << std::endl;
+#else
+    std::cout << "Not using Clang!" << std::endl;
+#endif
+
+    // Initialize and run benchmarks
+    ::benchmark::Initialize(&argc, argv);
+    ::benchmark::RunSpecifiedBenchmarks();
+    return 0;
+}
