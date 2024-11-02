@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 99)
 include(CheckCXXCompilerFlag)
 
+find_package(benchmark REQUIRED)
 
 function(enable_cxx_compiler_flag_if_supported flag)
     string(FIND "${CMAKE_CXX_FLAGS}" "${flag}" flag_already_set)
@@ -26,6 +27,7 @@ enable_cxx_compiler_flag_if_supported("-Werror")
 enable_cxx_compiler_flag_if_supported("-Wno-sign-compare") # Disable specific warning
 
 add_subdirectory(test)
+add_subdirectory(performance_measurements/benchmark)
 add_executable(sort main.cpp
         heap_sort.h
         quick_sort.h
