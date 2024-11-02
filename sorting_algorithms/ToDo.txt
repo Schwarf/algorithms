@@ -1,6 +1,6 @@
 - Improve algo documentation on heap_sort, quick_sort and merge_sort
 - Bucket sort is missing
-- Implement performance comparison
 - Redo quickselect implementation
 - Redo kth element in two- or n-sorted arrays
 - Bitonic sort is just implemented but not explained ... sorting networks
+- In performance comparison. gtest is compiled with gcc-XXX? Why does it work with clang-18?
