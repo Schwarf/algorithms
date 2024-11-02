@@ -11,7 +11,7 @@ template<typename Container>
 requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && Sortable<typename Container::value_type>
 void heapify(Container &container, int n, int index) {
 
-    int index_largest_element = index; // index is root element and shall be largest of 3 (root, left, right child)
+    int index_largest_element = index; // index is root element and shall be largest of 3 (root, left child, right child)
     int index_left_child = 2 * index + 1;
     int index_right_child = 2 * index + 2;
 
