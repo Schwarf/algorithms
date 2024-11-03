@@ -54,7 +54,7 @@ public:
         return node;
     }
 
-    int size() {
+    [[nodiscard]] int size() const  {
         return _number_of_nodes;
     }
 
@@ -212,7 +212,7 @@ private:
     void _promote_child_to_root(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
         parent->child = (child == child->next ? nullptr : child->next);
         _remove_node_from_list(child);
-        parent->number_of_children--;
+        --parent->number_of_children;
         _merge_into_list(_minimum_node, child);
         child->parent = nullptr;
         child->is_marked = false;
@@ -221,7 +221,7 @@ private:
     void _add_child(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
         child->parent = parent;
         parent->child = _merge_into_list(parent->child, child);
-        parent->number_of_children++;
+        ++parent->number_of_children;
         child->is_marked = false;
     }
 
@@ -244,23 +244,23 @@ private:
                     std::swap(root, tmp);
                 _add_child(tmp, root);
                 track_nodes_by_degree[degree] = nullptr;
-                degree++;
+                ++degree;
 
             }
             track_nodes_by_degree[degree] = root;
         }
 
         _minimum_node = nullptr;
-        for (auto &node: track_nodes_by_degree) {
-            if (!node)
+        for (auto &other_node: track_nodes_by_degree) {
+            if (!other_node)
                 continue;
             if (_minimum_node == nullptr) {
-                _minimum_node = node;
-                node->prev = node->next = node; // Initialize the node's neighbors to itself
+                _minimum_node = other_node;
+                other_node->prev = other_node->next = other_node; // Initialize the node's neighbors to itself
             } else {
-                _merge_into_list(_minimum_node, node);
-                if (node->key < _minimum_node->key) {
-                    _minimum_node = node;
+                _merge_into_list(_minimum_node, other_node);
+                if (other_node->key < _minimum_node->key) {
+                    _minimum_node = other_node;
                 }
             }
         }

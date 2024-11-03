@@ -19,7 +19,7 @@ public:
         std::random_device device;
         auto generator = std::mt19937(device());
         std::vector<std::pair<int, double>> result{};
-        // Currently the "order" of elements with the same key is undetermined in the Fibonacci heap. Therefore each
+        // Currently the "order" of elements with the same key is undetermined in the Fibonacci heap. Therefor each
         // key-element can only appear once.
         std::set<int> unique_keys;
         for (int i{}; i < n; ++i) {
@@ -237,7 +237,8 @@ TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
         auto input = get_random_n_numbers(number_of_random_inputs);
         auto heap = FibonacciHeap<int, double>();
         for (const auto &element: input) {
-            q.push({element.first, element.second});
+            q.emplace(element.first, element.second);
+            heap.insert(element.first, element.second);
             EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
             EXPECT_EQ(q.size(), heap.size());
             if (q.size() > 100) {
