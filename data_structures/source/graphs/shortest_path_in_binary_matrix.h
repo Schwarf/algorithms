@@ -12,7 +12,7 @@
 #include <queue>
 
 // For debugging purpose we track the path
-std::vector<std::pair<int, int>>
+inline std::vector<std::pair<int, int>>
 reconstruct_path(std::vector<std::vector<std::pair<int, int>>> &parent, int n) {
     std::vector<std::pair<int, int>> path;
     for (int x = n - 1, y = n - 1; parent[x][y] != std::make_pair(x, y);) {
@@ -26,7 +26,7 @@ reconstruct_path(std::vector<std::vector<std::pair<int, int>>> &parent, int n) {
     return path;
 }
 
-int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
+inline int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
     if (matrix[0][0] == 1 || matrix[n - 1][n - 1])
         return -1;
@@ -81,7 +81,7 @@ int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>> &matrix) {
 }
 
 
-int astar_algorithm(std::vector<std::vector<int>> &matrix) {
+inline int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(n - 1, 0); // Chebyshev Distance: h=max( abs(n−1−0),abs(n−1−0)) = n−1
@@ -138,7 +138,7 @@ int astar_algorithm(std::vector<std::vector<int>> &matrix) {
     return -1;
 }
 
-int shortest_path_binary_matrix_astar(std::vector<std::vector<int>> &matrix) {
+inline int shortest_path_binary_matrix_astar(std::vector<std::vector<int>> &matrix) {
     int n = matrix.size();
     if (matrix[0][0] || matrix[n - 1][n - 1])
         return -1;
