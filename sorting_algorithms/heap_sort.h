@@ -13,6 +13,11 @@
 #include <vector>
 #include <algorithm>
 
+
+// Heap-sort works similar like the heap-data structure. Depending on the sorting (ascending or descending)
+// we heapify the entire array. Then we swap the extremum-value to the last position.
+// We reduce the size of the heap (not the array) and repeat the above procedure until the whole array is sorted.
+
 // Assuming IndexedContainer and NoPointerElement concepts are defined elsewhere
 // IndexedContainer checks if the container is indexable, and NoPointerElement checks if elements are not pointers
 
@@ -62,10 +67,14 @@ void heap_sort(Container &container, Comparator comparator = Comparator()) {
     if (!container.size())
         return;
     int n = container.size();
-
+    // Ignore all leaves since they are considered in heapify
+    // We ensure that each subtree rooted at the non-leaf nodes (starting at n/2 -1) becomes a valid heap.
+    // The extremum-element (max or min) is put at index=0.
     for (int index = n / 2 - 1; index >= 0; --index)
         heapify(container, n, index, comparator);
 
+    // Now we have know the extremum element and we put in the last position.
+    // Then we heapify the remaining container for [0, n-1)
     for (int index = n - 1; index > 0; --index) {
         std::swap(container[0], container[index]);
         heapify(container, index, 0, comparator);
@@ -79,10 +88,14 @@ void heap_sort(Container &container, Comparator comparator = Comparator()) {
     if (!container.size())
         return;
     int n = container.size();
-
+    // Ignore all leaves since they are considered in heapify
+    // We ensure that each subtree rooted at the non-leaf nodes (starting at n/2 -1) becomes a valid heap.
+    // The extremum-element (max or min) is put at index=0.
     for (int index = n / 2 - 1; index >= 0; --index)
         heapify(container, n, index, comparator);
 
+    // Now we have know the extremum element and we put in the last position.
+    // Then we heapify the remaining container for [0, n-1)
     for (int index = n - 1; index > 0; --index) {
         std::swap(*container[0], *container[index]);
         heapify(container, index, 0, comparator);

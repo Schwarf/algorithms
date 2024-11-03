@@ -8,4 +8,4 @@
 - One test for Fibonacci heap fails see "test_fibonacci_heap.cpp". It is "RandomSetupPopMin" that might only fail
   occasionally.
 - Circular deque tests are missing for multiple insertions, deletions, getting elements.
-- Double check the API of a segment tree: Is it possible to get min, max and sum in a given range? 
+- Double-check the API of a segment tree: Is it possible to get min, max and sum in a given range? 
