@@ -166,12 +166,14 @@ private:
     bool has_cycle_{};
 };
 
-template <typename T>
-    requires std::is_signed_v<T>
+
+
+template <typename NodeType>
+requires std::is_signed_v<NodeType>
 class DirectedGraph
 {
 public:
-    explicit DirectedGraph(const std::vector<std::pair<T, T>>& edges)
+    explicit DirectedGraph(const std::vector<std::pair<NodeType, NodeType>>& edges)
     {
         for (const auto& edge : edges)
         {
@@ -180,7 +182,7 @@ public:
     }
 
     // Add a directed edge from 'src' to 'dest'
-    void add_edge(T source_node, T destination_node)
+    void add_edge(NodeType source_node, NodeType destination_node)
     {
         // Check if the edge is valid and does not already exist
         if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[
@@ -204,9 +206,9 @@ public:
     }
 
     // Get all nodes in the graph
-    std::unordered_set<T> get_all_nodes() const
+    std::unordered_set<NodeType> get_all_nodes() const
     {
-        std::unordered_set<T> nodes;
+        std::unordered_set<NodeType> nodes;
         for (const auto& [node, neighbors] : adjacency_list)
         {
             nodes.insert(node);
@@ -233,8 +235,8 @@ public:
 
 private:
     // Adjacency list: each node points to a set of nodes it has edges to
-    std::unordered_map<T, std::unordered_set<T>> adjacency_list;
-    std::unordered_map<T, bool> node_map; // Tracks existing nodes to count only unique nodes
+    std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
+    std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
     int node_count{}; // Counter for unique nodes
     int edge_count{}; // Counter for unique edges
 };
