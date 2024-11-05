@@ -224,3 +224,19 @@ TEST_F(SetupGraph, test_invalid_edge2) {
     }
 
 }
+
+
+TEST_F(SetupGraph, constructor)
+{
+    constexpr int expected_number_of_edges{12};
+    constexpr int expected_number_of_nodes{8};
+    DirectedGraph<int> digraph{{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8,7}};
+    EXPECT_EQ(digraph.get_edge_count(), expected_number_of_edges);
+    EXPECT_EQ(digraph.get_node_count(), expected_number_of_nodes);
+    EXPECT_EQ(digraph.get_neighbors(1).size(), 1);
+    EXPECT_EQ(digraph.get_neighbors(2).size(), 2);
+    EXPECT_EQ(digraph.get_neighbors(3).size(), 2);
+    EXPECT_EQ(digraph.get_neighbors(4).size(), 1);
+    EXPECT_EQ(digraph.get_neighbors(5).size(), 2);
+    EXPECT_EQ(digraph.get_neighbors(6).size(), 0);
+}

@@ -5,6 +5,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <unordered_map>
+#include <vector>
 #include <set>
 #include <memory>
 #include <algorithm>
@@ -173,7 +174,7 @@ requires std::is_signed_v<NodeType>
 class DirectedGraph
 {
 public:
-    explicit DirectedGraph(const std::vector<std::pair<NodeType, NodeType>>& edges)
+    explicit DirectedGraph(const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
     {
         for (const auto& edge : edges)
         {
@@ -189,6 +190,7 @@ public:
             source_node].end())
         {
             adjacency_list[source_node].insert(destination_node);
+            adjacency_list[destination_node];
             ++edge_count; // Increment edge count for a new valid edge
 
             // Check if src or dest are new nodes
