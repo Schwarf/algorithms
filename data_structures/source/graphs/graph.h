@@ -182,6 +182,16 @@ public:
         }
     }
 
+    DirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
+    {
+        for(const auto& node : nodes)
+            adjacency_list[node];
+        for (const auto& edge : edges)
+        {
+            add_edge(edge.first, edge.second);
+        }
+    }
+
     // Add a directed edge from 'src' to 'dest'
     void add_edge(NodeType source_node, NodeType destination_node)
     {
@@ -190,7 +200,7 @@ public:
             source_node].end())
         {
             adjacency_list[source_node].insert(destination_node);
-            adjacency_list[destination_node];
+
             ++edge_count; // Increment edge count for a new valid edge
 
             // Check if src or dest are new nodes
