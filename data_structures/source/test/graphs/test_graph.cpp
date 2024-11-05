@@ -245,8 +245,8 @@ TEST_F(SetupGraph, constructor)
 {
     constexpr int expected_number_of_edges{12};
     constexpr int expected_number_of_nodes{8};
-    DirectedGraph<int> digraph{
-        {1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}
+    DirectedGraph<int> digraph{{1,2,3,4,5,6,7,8},
+        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}
     };
     EXPECT_EQ(digraph.get_edge_count(), expected_number_of_edges);
     EXPECT_EQ(digraph.get_node_count(), expected_number_of_nodes);
@@ -260,7 +260,7 @@ TEST_F(SetupGraph, constructor)
 
 TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes)
 {
-    DirectedGraph<int> digraph{{2, 1}, {2, 3}, {3, 4}, {3, 5}, {4, 2}, {4, 5}, {6, 4}};
+    DirectedGraph<int> digraph{{1,2,3,4,5,6}, {{2, 1}, {2, 3}, {3, 4}, {3, 5}, {4, 2}, {4, 5}, {6, 4}}};
     EXPECT_EQ(digraph.get_neighbors(1).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(2).size(), 2);
     EXPECT_EQ(digraph.get_neighbors(3).size(), 2);

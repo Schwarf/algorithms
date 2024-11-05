@@ -174,13 +174,6 @@ requires std::is_signed_v<NodeType>
 class DirectedGraph
 {
 public:
-    explicit DirectedGraph(const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
-    {
-        for (const auto& edge : edges)
-        {
-            add_edge(edge.first, edge.second);
-        }
-    }
 
     DirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
     {
