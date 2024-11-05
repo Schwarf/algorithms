@@ -54,6 +54,55 @@ TEST(TestTarjanAlgoSSC, simple3)
 }
 
 
+TEST(TestTarjanAlgoSSC, simple_chain)
+{
+    DirectedGraph<int> digraph{
+            {1, 2, 3, 4, 5, 6}, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
+    };
+
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{6};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{{1}, {2},{3},{4},{5},{6}};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+TEST(TestTarjanAlgoSSC, binary_tree)
+{
+    DirectedGraph<int> digraph{{1,2,3,4,5,6,7}, {{1, 2}, {1, 3}, {2, 4}, {2, 5}, {3, 6 }, {3, 7}}};
+
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{7};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{{1},{2},{3},{4},{5},{6},{7}};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+
+TEST(TestTarjanAlgoSSC, disconnected_nodes)
+{
+    DirectedGraph<int> digraph{{1,2,3,4}, {}};
+
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{4};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{{1},{2},{3},{4}};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+
+TEST(TestTarjanAlgoSSC, simple6)
+{
+    DirectedGraph<int> digraph{{}, {}};
+
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{0};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+
 TEST(TestTarjanAlgoSSC, medium1)
 {
     DirectedGraph<int> digraph{
