@@ -57,41 +57,44 @@ TEST(TestTarjanAlgoSSC, simple3)
 TEST(TestTarjanAlgoSSC, simple_chain)
 {
     DirectedGraph<int> digraph{
-            {1, 2, 3, 4, 5, 6}, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
+        {1, 2, 3, 4, 5, 6}, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
     };
 
     auto ssc_sets = strongly_connected_components_tarjan(digraph);
     constexpr int expected_number_of_strongly_connected_components{6};
     EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
-    std::set<std::set<int>> expected_sscs{{1}, {2},{3},{4},{5},{6}};
+    std::set<std::set<int>> expected_sscs{{1}, {2}, {3}, {4}, {5}, {6}};
     EXPECT_EQ(ssc_sets, expected_sscs);
 }
 
 TEST(TestTarjanAlgoSSC, binary_tree)
 {
-    DirectedGraph<int> digraph{{1,2,3,4,5,6,7}, {{1, 2}, {1, 3}, {2, 4}, {2, 5}, {3, 6 }, {3, 7}}};
+    DirectedGraph<int> digraph{{1, 2, 3, 4, 5, 6, 7}, {{1, 2}, {1, 3}, {2, 4}, {2, 5}, {3, 6}, {3, 7}}};
 
     auto ssc_sets = strongly_connected_components_tarjan(digraph);
     constexpr int expected_number_of_strongly_connected_components{7};
     EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
-    std::set<std::set<int>> expected_sscs{{1},{2},{3},{4},{5},{6},{7}};
+    std::set<std::set<int>> expected_sscs{{1}, {2}, {3}, {4}, {5}, {6}, {7}};
     EXPECT_EQ(ssc_sets, expected_sscs);
 }
 
 
 TEST(TestTarjanAlgoSSC, disconnected_nodes)
 {
-    DirectedGraph<int> digraph{{1,2,3,4}, {}};
+    DirectedGraph<int> digraph{{1, 2, 3, 4}, {}};
 
     auto ssc_sets = strongly_connected_components_tarjan(digraph);
     constexpr int expected_number_of_strongly_connected_components{4};
     EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
-    std::set<std::set<int>> expected_sscs{{1},{2},{3},{4}};
+    std::set<std::set<int>> expected_sscs{{1}, {2}, {3}, {4}};
     EXPECT_EQ(ssc_sets, expected_sscs);
 }
 
+/// MISSING CASES:
+/// - Self loops
+/// - Combinations of the above
 
-TEST(TestTarjanAlgoSSC, simple6)
+TEST(TestTarjanAlgoSSC, empty_graph)
 {
     DirectedGraph<int> digraph{{}, {}};
 
@@ -102,8 +105,30 @@ TEST(TestTarjanAlgoSSC, simple6)
     EXPECT_EQ(ssc_sets, expected_sscs);
 }
 
+TEST(TestTarjanAlgoSSC, single_self_loop)
+{
+    DirectedGraph<int> digraph{{1}, {{1, 1}}};
 
-TEST(TestTarjanAlgoSSC, medium1)
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{1};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{{1}};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+TEST(TestTarjanAlgoSSC, multiple_self_loop_weakly_connected)
+{
+    DirectedGraph<int> digraph{{1, 2, 3}, {{1, 1}, {1, 2}, {2, 2}, {2, 3}, {3, 3}}};
+
+    auto ssc_sets = strongly_connected_components_tarjan(digraph);
+    constexpr int expected_number_of_strongly_connected_components{3};
+    EXPECT_EQ(ssc_sets.size(), expected_number_of_strongly_connected_components);
+    std::set<std::set<int>> expected_sscs{{1}, {2}, {3}};
+    EXPECT_EQ(ssc_sets, expected_sscs);
+}
+
+
+TEST(TestTarjanAlgoSSC, medium_complexity1)
 {
     DirectedGraph<int> digraph{
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
@@ -127,15 +152,16 @@ TEST(TestTarjanAlgoSSC, medium1)
 }
 
 
-TEST(TestTarjanAlgoSSC, medium2)
+TEST(TestTarjanAlgoSSC, medium_complexity2)
 {
     DirectedGraph<int> digraph{
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
-        {{1, 18}, {2, 9}, {2, 10}, {3, 9},
-            {4, 9}, {4, 18}, {5, 1},{5, 13}, {6, 1}, {6, 2},
-            {6, 3}, {6, 8}, {6, 13},{7, 4}, {7, 9}, {7, 15},
-            {8, 16}, {8, 19}, {9, 5},{9, 11}, {10, 12}, {11, 7},
-            {12, 11}, {12, 20}, {13, 15},{15, 11}, {17, 1}, {17, 3},
+        {
+            {1, 18}, {2, 9}, {2, 10}, {3, 9},
+            {4, 9}, {4, 18}, {5, 1}, {5, 13}, {6, 1}, {6, 2},
+            {6, 3}, {6, 8}, {6, 13}, {7, 4}, {7, 9}, {7, 15},
+            {8, 16}, {8, 19}, {9, 5}, {9, 11}, {10, 12}, {11, 7},
+            {12, 11}, {12, 20}, {13, 15}, {15, 11}, {17, 1}, {17, 3},
             {17, 18}, {18, 17}
         }
     };
