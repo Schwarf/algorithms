@@ -15,8 +15,16 @@ void dfs_ssc_trajan(NodeType current_node, const DirectedGraph<NodeType>& graph,
          std::unordered_map<NodeType, int>& ancestor_reachability_value, std::stack<NodeType>& scc_candidates,
          std::unordered_set<NodeType>& in_active_path, std::set<std::set<NodeType>>& SCCs, int& discovery_index) {
 
-    discovery_order[current_node] = ancestor_reachability_value[current_node] = discovery_index++;
+    // Discovery order keeps track of the order in which each node was first visited during DFS.
+    discovery_order[current_node] = discovery_index++;
+    // Ancestor reachability value tracks the smallest discovery index reachable from current_node,
+    // including back edges within the current DFS path. Initially, it is set to the node's own discovery order.
+    ancestor_reachability_value[current_node] = discovery_order[current_node];
+    // This adds current_node to the stack of nodes that are potential candidates for the current SCC.
+    // Nodes remain in scc_candidates until we identify the root of the SCC they belong to.
     scc_candidates.push(current_node);
+    // This marks current_node as being in the active DFS path, meaning it is part of the current exploration.
+    // Nodes in in_active_path are still being considered for SCC formation.
     in_active_path.insert(current_node);
 
     for (auto neighbor : graph.get_neighbors(current_node)) {
@@ -30,7 +38,7 @@ void dfs_ssc_trajan(NodeType current_node, const DirectedGraph<NodeType>& graph,
         }
     }
 
-    // Check if current node is a root node of a strongly connected component
+    // Check if current node is a ROOT node of a strongly connected component
     if (ancestor_reachability_value[current_node] == discovery_order[current_node]) {
         std::set<NodeType> scc;
         NodeType node;
