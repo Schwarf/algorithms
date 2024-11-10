@@ -38,4 +38,5 @@ add_executable(fun_with_strings main.cpp
         compare_version_numbers.h
         sentence_similarity.h
         permutation_included_in_string.h
-        minimum_length_after_removing_substrings.h)
+        minimum_length_after_removing_substrings.h
+        are_strings_equal_upto_rotation.h)
