@@ -4,46 +4,53 @@
 #include "gtest/gtest.h"
 #include "./../minimum_copy_paste_operations.h"
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple1) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple1)
+{
     constexpr int input{3};
     constexpr int expected_result{3};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple2) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple2)
+{
     constexpr int input{1};
     constexpr int expected_result{0};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple3) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple3)
+{
     constexpr int input{10};
     constexpr int expected_result{7};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple4) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple4)
+{
     constexpr int input{21};
     constexpr int expected_result{10};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple5) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple5)
+{
     // prime number inputs should return themselves
     constexpr int input{47};
     constexpr int expected_result{47};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple6) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple6)
+{
     // prime number inputs should return themselves
     constexpr int input{761};
     constexpr int expected_result{761};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_recursive(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsRecursive, simple7) {
+TEST(TestMinimumCopyPasteOperationsRecursive, simple7)
+{
     // prime number inputs should return themselves
     constexpr int input{863};
     constexpr int expected_result{863};
@@ -54,46 +61,53 @@ TEST(TestMinimumCopyPasteOperationsRecursive, simple7) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple1) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple1)
+{
     constexpr int input{3};
     constexpr int expected_result{3};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple2) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple2)
+{
     constexpr int input{1};
     constexpr int expected_result{0};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple3) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple3)
+{
     constexpr int input{10};
     constexpr int expected_result{7};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple4) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple4)
+{
     constexpr int input{21};
     constexpr int expected_result{10};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple5) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple5)
+{
     // prime number inputs should return themselves
     constexpr int input{47};
     constexpr int expected_result{47};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple6) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple6)
+{
     // prime number inputs should return themselves
     constexpr int input{761};
     constexpr int expected_result{761};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_top_down(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsTopDown, simple7) {
+TEST(TestMinimumCopyPasteOperationsTopDown, simple7)
+{
     // prime number inputs should return themselves
     constexpr int input{863};
     constexpr int expected_result{863};
@@ -104,46 +118,53 @@ TEST(TestMinimumCopyPasteOperationsTopDown, simple7) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple1) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple1)
+{
     constexpr int input{3};
     constexpr int expected_result{3};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple2) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple2)
+{
     constexpr int input{1};
     constexpr int expected_result{0};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple3) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple3)
+{
     constexpr int input{10};
     constexpr int expected_result{7};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple4) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple4)
+{
     constexpr int input{21};
     constexpr int expected_result{10};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple5) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple5)
+{
     // prime number inputs should return themselves
     constexpr int input{47};
     constexpr int expected_result{47};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple6) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple6)
+{
     // prime number inputs should return themselves
     constexpr int input{761};
     constexpr int expected_result{761};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_bottom_up(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsBottomUp, simple7) {
+TEST(TestMinimumCopyPasteOperationsBottomUp, simple7)
+{
     // prime number inputs should return themselves
     constexpr int input{863};
     constexpr int expected_result{863};
@@ -155,46 +176,53 @@ TEST(TestMinimumCopyPasteOperationsBottomUp, simple7) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple1) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple1)
+{
     constexpr int input{3};
     constexpr int expected_result{3};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple2) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple2)
+{
     constexpr int input{1};
     constexpr int expected_result{0};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple3) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple3)
+{
     constexpr int input{10};
     constexpr int expected_result{7};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple4) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple4)
+{
     constexpr int input{21};
     constexpr int expected_result{10};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple5) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple5)
+{
     // prime number inputs should return themselves
     constexpr int input{47};
     constexpr int expected_result{47};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple6) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple6)
+{
     // prime number inputs should return themselves
     constexpr int input{761};
     constexpr int expected_result{761};
     EXPECT_EQ(expected_result, minimum_copy_paste_operations_prime_factorization(input));
 }
 
-TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple7) {
+TEST(TestMinimumCopyPasteOperationsPrimeFactorization, simple7)
+{
     // prime number inputs should return themselves
     constexpr int input{863};
     constexpr int expected_result{863};

@@ -5,28 +5,32 @@
 #include "gtest/gtest.h"
 #include "./../unique_paths.h"
 
-TEST(UniquePathsRecursive, simple1) {
+TEST(UniquePathsRecursive, simple1)
+{
     constexpr int rows{3};
     constexpr int columns{7};
     constexpr int expected_paths{28};
     EXPECT_EQ(expected_paths, unique_paths_recursive(rows, columns));
 }
 
-TEST(UniquePathsRecursive, simple2) {
+TEST(UniquePathsRecursive, simple2)
+{
     constexpr int rows{2};
     constexpr int columns{3};
     constexpr int expected_paths{3};
     EXPECT_EQ(expected_paths, unique_paths_recursive(rows, columns));
 }
 
-TEST(UniquePathsRecursive, simple3) {
+TEST(UniquePathsRecursive, simple3)
+{
     constexpr int rows{1};
     constexpr int columns{1};
     constexpr int expected_paths{1};
     EXPECT_EQ(expected_paths, unique_paths_recursive(rows, columns));
 }
 
-TEST(UniquePathsRecursive, complex1) {
+TEST(UniquePathsRecursive, complex1)
+{
     constexpr int rows{14};
     constexpr int columns{10};
     constexpr int expected_paths{497420};
@@ -34,7 +38,8 @@ TEST(UniquePathsRecursive, complex1) {
 }
 
 
-TEST(UniquePathsRecursive, complex2) {
+TEST(UniquePathsRecursive, complex2)
+{
     constexpr int rows{7};
     constexpr int columns{30};
     constexpr int expected_paths{1623160};
@@ -42,28 +47,32 @@ TEST(UniquePathsRecursive, complex2) {
 }
 
 
-TEST(UniquePathsTopDown, simple1) {
+TEST(UniquePathsTopDown, simple1)
+{
     constexpr int rows{3};
     constexpr int columns{7};
     constexpr int expected_paths{28};
     EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
 }
 
-TEST(UniquePathsTopDown, simple2) {
+TEST(UniquePathsTopDown, simple2)
+{
     constexpr int rows{2};
     constexpr int columns{3};
     constexpr int expected_paths{3};
     EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
 }
 
-TEST(UniquePathsTopDown, simple3) {
+TEST(UniquePathsTopDown, simple3)
+{
     constexpr int rows{1};
     constexpr int columns{1};
     constexpr int expected_paths{1};
     EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
 }
 
-TEST(UniquePathsTopDown, complex1) {
+TEST(UniquePathsTopDown, complex1)
+{
     constexpr int rows{14};
     constexpr int columns{10};
     constexpr int expected_paths{497420};
@@ -71,14 +80,16 @@ TEST(UniquePathsTopDown, complex1) {
 }
 
 
-TEST(UniquePathsTopDown, complex2) {
+TEST(UniquePathsTopDown, complex2)
+{
     constexpr int rows{7};
     constexpr int columns{30};
     constexpr int expected_paths{1623160};
     EXPECT_EQ(expected_paths, unique_paths_top_down(rows, columns));
 }
 
-TEST(UniquePathsTopDown, complex3) {
+TEST(UniquePathsTopDown, complex3)
+{
     constexpr int rows{21};
     constexpr int columns{15};
     constexpr int expected_paths{1391975640};
@@ -86,28 +97,32 @@ TEST(UniquePathsTopDown, complex3) {
 }
 
 
-TEST(UniquePathsBottomUp, simple1) {
+TEST(UniquePathsBottomUp, simple1)
+{
     constexpr int rows{3};
     constexpr int columns{7};
     constexpr int expected_paths{28};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up(rows, columns));
 }
 
-TEST(UniquePathsBottomUp, simple2) {
+TEST(UniquePathsBottomUp, simple2)
+{
     constexpr int rows{2};
     constexpr int columns{3};
     constexpr int expected_paths{3};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up(rows, columns));
 }
 
-TEST(UniquePathsBottomUp, simple3) {
+TEST(UniquePathsBottomUp, simple3)
+{
     constexpr int rows{1};
     constexpr int columns{1};
     constexpr int expected_paths{1};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up(rows, columns));
 }
 
-TEST(UniquePathsBottomUp, complex1) {
+TEST(UniquePathsBottomUp, complex1)
+{
     constexpr int rows{14};
     constexpr int columns{10};
     constexpr int expected_paths{497420};
@@ -115,14 +130,16 @@ TEST(UniquePathsBottomUp, complex1) {
 }
 
 
-TEST(UniquePathsBottomUp, complex2) {
+TEST(UniquePathsBottomUp, complex2)
+{
     constexpr int rows{7};
     constexpr int columns{30};
     constexpr int expected_paths{1623160};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up(rows, columns));
 }
 
-TEST(UniquePathsBottomUp, complex3) {
+TEST(UniquePathsBottomUp, complex3)
+{
     constexpr int rows{21};
     constexpr int columns{15};
     constexpr int expected_paths{1391975640};
@@ -130,28 +147,32 @@ TEST(UniquePathsBottomUp, complex3) {
 }
 
 
-TEST(UniquePathsOptimized, simple1) {
+TEST(UniquePathsOptimized, simple1)
+{
     constexpr int rows{3};
     constexpr int columns{7};
     constexpr int expected_paths{28};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up_optimized(rows, columns));
 }
 
-TEST(UniquePathsOptimized, simple2) {
+TEST(UniquePathsOptimized, simple2)
+{
     constexpr int rows{2};
     constexpr int columns{3};
     constexpr int expected_paths{3};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up_optimized(rows, columns));
 }
 
-TEST(UniquePathsOptimized, simple3) {
+TEST(UniquePathsOptimized, simple3)
+{
     constexpr int rows{1};
     constexpr int columns{1};
     constexpr int expected_paths{1};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up_optimized(rows, columns));
 }
 
-TEST(UniquePathsOptimized, complex1) {
+TEST(UniquePathsOptimized, complex1)
+{
     constexpr int rows{14};
     constexpr int columns{10};
     constexpr int expected_paths{497420};
@@ -159,14 +180,16 @@ TEST(UniquePathsOptimized, complex1) {
 }
 
 
-TEST(UniquePathsOptimized, complex2) {
+TEST(UniquePathsOptimized, complex2)
+{
     constexpr int rows{7};
     constexpr int columns{30};
     constexpr int expected_paths{1623160};
     EXPECT_EQ(expected_paths, unique_paths_bottom_up_optimized(rows, columns));
 }
 
-TEST(UniquePathsOptimized, complex3) {
+TEST(UniquePathsOptimized, complex3)
+{
     constexpr int rows{21};
     constexpr int columns{15};
     constexpr int expected_paths{1391975640};

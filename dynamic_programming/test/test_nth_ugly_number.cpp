@@ -4,69 +4,81 @@
 #include "gtest/gtest.h"
 #include "./../nth_ugly_number.h"
 
-TEST(TestNthUglyNumberBruteForce, simple1) {
+TEST(TestNthUglyNumberBruteForce, simple1)
+{
     constexpr int n{1};
     constexpr int expected_result{1};
     EXPECT_EQ(expected_result, nth_ugly_number_brute_force(n));
 }
 
-TEST(TestNthUglyNumberBruteForce, simple2) {
+TEST(TestNthUglyNumberBruteForce, simple2)
+{
     constexpr int n{10};
     constexpr int expected_result{12};
     EXPECT_EQ(expected_result, nth_ugly_number_brute_force(n));
 }
 
-TEST(TestNthUglyNumberBruteForce, simple4) {
+TEST(TestNthUglyNumberBruteForce, simple4)
+{
     constexpr int n{31};
     constexpr int expected_result{81};
     EXPECT_EQ(expected_result, nth_ugly_number_brute_force(n));
 }
 
-TEST(TestNthUglyNumberBruteForce, simple5) {
+TEST(TestNthUglyNumberBruteForce, simple5)
+{
     constexpr int n{49};
     constexpr int expected_result{240};
     EXPECT_EQ(expected_result, nth_ugly_number_brute_force(n));
 }
 
-TEST(TestNthUglyNumberBruteForce, simple6) {
+TEST(TestNthUglyNumberBruteForce, simple6)
+{
     constexpr int n{999};
     constexpr int expected_result{51018336};
     EXPECT_EQ(expected_result, nth_ugly_number_brute_force(n));
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
-TEST(TestNthUglyNumber, simple1) {
+TEST(TestNthUglyNumber, simple1)
+{
     constexpr int n{1};
     constexpr int expected_result{1};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
 }
 
-TEST(TestNthUglyNumber, simple2) {
+TEST(TestNthUglyNumber, simple2)
+{
     constexpr int n{10};
     constexpr int expected_result{12};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
 }
 
-TEST(TestNthUglyNumber, simple4) {
+TEST(TestNthUglyNumber, simple4)
+{
     constexpr int n{31};
     constexpr int expected_result{81};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
 }
 
-TEST(TestNthUglyNumber, simple5) {
+TEST(TestNthUglyNumber, simple5)
+{
     constexpr int n{49};
     constexpr int expected_result{240};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
 }
 
-TEST(TestNthUglyNumber, simple6) {
+TEST(TestNthUglyNumber, simple6)
+{
     constexpr int n{999};
     constexpr int expected_result{51018336};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
 }
 
-TEST(TestNthUglyNumber, simple7) {
+TEST(TestNthUglyNumber, simple7)
+{
     constexpr int n{1690};
     constexpr int expected_result{2123366400};
     EXPECT_EQ(expected_result, nth_ugly_number(n));
@@ -76,37 +88,43 @@ TEST(TestNthUglyNumber, simple7) {
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
-TEST(TestNthUglyNumberSet, simple1) {
+TEST(TestNthUglyNumberSet, simple1)
+{
     constexpr int n{1};
     constexpr int expected_result{1};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
 }
 
-TEST(TestNthUglyNumberSet, simple2) {
+TEST(TestNthUglyNumberSet, simple2)
+{
     constexpr int n{10};
     constexpr int expected_result{12};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
 }
 
-TEST(TestNthUglyNumberSet, simple4) {
+TEST(TestNthUglyNumberSet, simple4)
+{
     constexpr int n{31};
     constexpr int expected_result{81};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
 }
 
-TEST(TestNthUglyNumberSet, simple5) {
+TEST(TestNthUglyNumberSet, simple5)
+{
     constexpr int n{49};
     constexpr int expected_result{240};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
 }
 
-TEST(TestNthUglyNumberSet, simple6) {
+TEST(TestNthUglyNumberSet, simple6)
+{
     constexpr int n{999};
     constexpr int expected_result{51018336};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
 }
 
-TEST(TestNthUglyNumberSet, simple7) {
+TEST(TestNthUglyNumberSet, simple7)
+{
     constexpr int n{1690};
     constexpr int expected_result{2123366400};
     EXPECT_EQ(expected_result, nth_ugly_number_set(n));
