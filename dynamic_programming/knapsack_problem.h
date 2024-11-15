@@ -10,20 +10,21 @@
 #include <unordered_map>
 #include "./../data_structures/source/hash_functions/hash_function_for_pairs.h"
 
-template<typename ValueType, typename WeightType> requires std::is_arithmetic_v<ValueType>
-                                                           && std::is_arithmetic_v<WeightType> &&
-                                                           std::is_integral_v<WeightType>
-struct Item {
+template <typename ValueType, typename WeightType> requires std::is_arithmetic_v<ValueType> && std::is_integral_v<
+    WeightType>
+struct Item
+{
     ValueType value;
     WeightType weight;
 };
 
-template<typename ValueType, typename WeightType>
-requires std::is_arithmetic_v<ValueType>
-         && std::is_arithmetic_v<WeightType> && std::is_integral_v<WeightType>
-ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>> &items,
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType>
+    && std::is_arithmetic_v<WeightType> && std::is_integral_v<WeightType>
+ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>>& items,
                                      WeightType knapsack_capacity,
-                                     int item_index = -1) {
+                                     int item_index = -1)
+{
     if (item_index == -1)
         item_index = items.size();
     if (knapsack_capacity == WeightType{} || item_index == 0)
@@ -34,21 +35,21 @@ ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightTyp
 
     auto remaining_capacity = knapsack_capacity - items[item_index - 1].weight;
     ValueType include_item = items[item_index - 1].value + knapsack_problem_recursive(items, remaining_capacity,
-                                                                                      item_index - 1);
+        item_index - 1);
     ValueType exclude_item = knapsack_problem_recursive(items, knapsack_capacity, item_index - 1);
 
     return std::max(include_item, exclude_item);
 }
 
-template<typename ValueType, typename WeightType>
-requires std::is_arithmetic_v<ValueType>
-         && std::is_arithmetic_v<WeightType> && std::is_integral_v<WeightType>
-ValueType memoization(const std::vector<Item<ValueType, WeightType>> &items,
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+ValueType memoization(const std::vector<Item<ValueType, WeightType>>& items,
                       WeightType knapsack_capacity,
                       std::unordered_map<std::pair<int, WeightType>,
-                              ValueType,
-                              non_commutative_pair_hash<int, WeightType>> &memo,
-                      int item_index = -1) {
+                                         ValueType,
+                                         non_commutative_pair_hash<int, WeightType>>& memo,
+                      int item_index = -1)
+{
     if (item_index == -1)
         item_index = items.size();
     if (knapsack_capacity == WeightType{} || item_index == 0)
@@ -71,33 +72,34 @@ ValueType memoization(const std::vector<Item<ValueType, WeightType>> &items,
     memo[key] = result;
 
     return result;
-
 }
 
-template<typename ValueType, typename WeightType>
-requires std::is_arithmetic_v<ValueType>
-         && std::is_arithmetic_v<WeightType> && std::is_integral_v<WeightType>
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
 ValueType
-knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>> &items, WeightType knapsack_capacity) {
+knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>>& items, WeightType knapsack_capacity)
+{
     std::unordered_map<std::pair<int, WeightType>, ValueType, non_commutative_pair_hash<int, WeightType>>
-            memo;
+        memo;
     return memoization(items, knapsack_capacity, memo);
 }
 
-template<typename ValueType, typename WeightType>
-requires std::is_arithmetic_v<ValueType>
-         && std::is_arithmetic_v<WeightType> && std::is_integral_v<WeightType>
-ValueType knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightType>> &items,
-                                     WeightType knapsack_capacity) {
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+ValueType knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightType>>& items,
+                                     WeightType knapsack_capacity)
+{
     int number_of_items = items.size();
     std::vector<std::vector<ValueType>> dp(number_of_items + 1, std::vector<ValueType>(knapsack_capacity + 1, 0));
-    for (int i{1}; i <= number_of_items; ++i) {
-        for (WeightType weight{1}; weight <= knapsack_capacity; ++weight) {
+    for (int i{1}; i <= number_of_items; ++i)
+    {
+        for (WeightType weight{1}; weight <= knapsack_capacity; ++weight)
+        {
             dp[i][weight] = dp[i - 1][weight];
-            if (items[i - 1].weight <= weight) {
+            if (items[i - 1].weight <= weight)
+            {
                 dp[i][weight] =
-                        std::max(items[i - 1].value + dp[i - 1][weight - items[i - 1].weight], dp[i - 1][weight]);
-
+                    std::max(items[i - 1].value + dp[i - 1][weight - items[i - 1].weight], dp[i - 1][weight]);
             }
         }
     }
