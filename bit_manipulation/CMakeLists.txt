@@ -39,4 +39,5 @@ add_executable(bit_manipulation main.cpp
         find_two_singular_elements.h
         find_longest_substring_with_even_vowl_count.h
         xor_queries_for_subarrays.h
-        can_array_be_sorted.h)
+        can_array_be_sorted.h
+        longest_combination_with_bitwise_and.h)
