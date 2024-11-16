@@ -17,7 +17,7 @@ void bubble_sort(Container &container) {
     bool have_elements_been_swapped{};
     do {
         have_elements_been_swapped = false;
-        for (size_t index = 0; index < size; ++index) {
+        for (size_t index{}; index < size; ++index) {
             if (container[index + 1] < container[index]) {
                 std::swap(container[index + 1], container[index]);
                 have_elements_been_swapped = true;
@@ -26,5 +26,6 @@ void bubble_sort(Container &container) {
     } while (have_elements_been_swapped);
 
 }
+
 
 #endif //BUBBLE_SORT_H
