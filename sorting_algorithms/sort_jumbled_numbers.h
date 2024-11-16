@@ -18,7 +18,7 @@
 #include <concepts>
 
 template <typename T>
-requires std::is_integral_v<T> && std::is_unsigned_v<T>
+requires std::is_unsigned_v<T>
 std::vector<T> sort_jumbled_numbers(std::vector<T> & mapping, std::vector<T> & values)
 {
     std::unordered_map<T, T> mapped_values;
