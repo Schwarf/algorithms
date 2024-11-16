@@ -19,7 +19,8 @@ add_executable(test_bit_manipulation
         test_sum_all_xor_subsets.cpp
         test_find_two_singular_elements.cpp
         test_find_longest_substring_with_even_vowl_count.cpp
-        test_xor_queries_for_subarrays.cpp)
+        test_xor_queries_for_subarrays.cpp
+        test_can_array_be_sorted.cpp)
 
 
 target_link_libraries(test_bit_manipulation ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

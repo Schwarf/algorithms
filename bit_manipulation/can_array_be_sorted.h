@@ -24,7 +24,7 @@ bool can_array_be_sorted_bubble_sort(std::vector<int> & input)
             if (input[j] >= input[j + 1]) {
                 if (__builtin_popcount(input[j]) == __builtin_popcount(input[j + 1])) {
                     // Swap the elements
-                    swap(input[j], input[j + 1]);
+                    std::swap(input[j], input[j + 1]);
                     } else {
                         return false;
                     }
@@ -35,7 +35,7 @@ bool can_array_be_sorted_bubble_sort(std::vector<int> & input)
 }
 
 
-bool can_array_be_sorted(vector<int>& input) {
+bool can_array_be_sorted(std::vector<int>& input) {
     // Number of set bits of the elements in the current segment
     int number_of_set_bits = __builtin_popcount(input[0]);
     int maximum_of_segment = input[0];
