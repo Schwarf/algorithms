@@ -33,8 +33,7 @@ int shortest_subarray_with_sum(std::vector<int>& input, int target_sum)
 int shortest_subarray_with_sum_with_negatives(std::vector<int>& input, int target_sum)
 {
     int n = input.size();
-    int shortest_subarray_size = n + 1;
-    int left{};
+    int shortest_subarray_size = INT_MAX;
     long long sum{};
     std::priority_queue<std::pair<long long, int>, std::vector<std::pair<long long, int>>, std::greater<>>
         prefix_sum_heap;
@@ -53,7 +52,7 @@ int shortest_subarray_with_sum_with_negatives(std::vector<int>& input, int targe
         }
         prefix_sum_heap.emplace(sum, i);
     }
-    return shortest_subarray_size != n + 1 ? shortest_subarray_size : 0;
+    return shortest_subarray_size != n + 1 ? shortest_subarray_size : -1;
 }
 
 
