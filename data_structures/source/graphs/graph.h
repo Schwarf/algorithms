@@ -189,8 +189,7 @@ public:
     void add_edge(NodeType source_node, NodeType destination_node)
     {
         // Check if the edge is valid and does not already exist
-        if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[
-            source_node].end())
+        if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
         {
             adjacency_list[source_node].insert(destination_node);
 
@@ -246,5 +245,86 @@ private:
     int edge_count{}; // Counter for unique edges
 };
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// UndirectedGraph
+template <typename NodeType>
+requires std::is_signed_v<NodeType>
+class UndirectedGraph
+{
+public:
+    UndirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
+    {
+        for(const auto& node : nodes)
+            adjacency_list[node];
+        for (const auto& edge : edges)
+        {
+            add_edge(edge.first, edge.second);
+        }
+    }
+
+    // Add an undirected edge between 'source_node' and 'destination_node'
+    void add_edge(NodeType source_node, NodeType destination_node)
+    {
+        // Check if the edge is valid and does not already exist in either direction
+        // (since each edge is added bidirectional we check only one direction)
+        if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
+        {
+            adjacency_list[source_node].insert(destination_node);
+            adjacency_list[destination_node].insert(source_node); // Make the edge bidirectional
+
+            ++edge_count; // Increment edge count for a new valid edge
+
+            // Check if nodes are new and update node count
+            if (!node_map.contains(source_node))
+            {
+                node_map[source_node] = true;
+                ++node_count;
+            }
+            if (!node_map.contains(destination_node))
+            {
+                node_map[destination_node] = true;
+                ++node_count;
+            }
+        }
+    }
+
+    // Get all nodes in the graph
+    std::unordered_set<NodeType> get_all_nodes() const
+    {
+        std::unordered_set<NodeType> nodes;
+        for (const auto& [node, neighbors] : adjacency_list)
+        {
+            nodes.insert(node);
+        }
+        return nodes;
+    }
+
+    // Get adjacent nodes of a given node
+    const std::unordered_set<int>& get_neighbors(int node) const
+    {
+        return adjacency_list.at(node);
+    }
+
+    // Get the total number of nodes in the graph
+    int get_node_count() const
+    {
+        return node_count;
+    }
+
+    // Get the total number of edges in the graph
+    int get_edge_count() const
+    {
+        return edge_count;
+    }
+
+private:
+    std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
+    std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
+    int node_count{}; // Counter for unique nodes
+    int edge_count{}; // Counter for unique edges
+};
 
 #endif //GRAPH_H
