@@ -22,6 +22,35 @@ TEST(TestTarjanAlgoBi, simple2)
     auto graph = UndirectedGraph<int>{{1, 2, 3}, {{1, 2}, {2, 3}, {1, 3}}};
 
     auto result = biconnected_components_tarjan(graph);
-    std::set<std::set<int>> expected_result{{1,2,3}};
+    std::set<std::set<int>> expected_result{{1, 2, 3}};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST(TestTarjanAlgoBi, simple3)
+{
+    auto graph = UndirectedGraph<int>{{1, 2, 3}, {{1, 2}, {2, 3}}};
+
+    auto result = biconnected_components_tarjan(graph);
+    std::set<std::set<int>> expected_result{{1, 2}, {2, 3}};
+    EXPECT_EQ(result, expected_result);
+}
+
+
+TEST(TestTarjanAlgoBi, simple4)
+{
+    auto graph = UndirectedGraph<int>{
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {
+            {1, 2}, {1, 5}, {2, 3}, {2, 4}, {2, 7}, {2, 10}, {3, 4}, {3, 9}, {
+                4, 5
+            },
+            {4, 6}, {4, 8}, {4, 10}, {5, 6}, {5, 7}, {5, 10}, {6, 7}, {
+                6, 8
+            },
+            {7, 9}, {9, 10}
+        }
+    };
+
+    auto result = biconnected_components_tarjan(graph);
+    std::set<std::set<int>> expected_result{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
     EXPECT_EQ(result, expected_result);
 }
