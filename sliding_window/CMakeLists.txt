@@ -34,6 +34,7 @@ add_executable(sliding_window main.cpp
         find_longest_subarray_with_at_most_k_frequency.h
         count_subarrays_where_max_appears_k_times.h
         count_subarrays_with_exactly_k_different_elements.h
-        minimum_swaps_to_group_ones.h)
+        minimum_swaps_to_group_ones.h
+        smallest_subarray_with_sum.h)
 
 
