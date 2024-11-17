@@ -1,88 +1,104 @@
-//
-// Created by andreas on 03.11.24.
-//
-
-#ifndef TARJAN_ALGORITHM_H
-#define TARJAN_ALGORITHM_H
-
 // This is an implementation of the tarjan algorithm for undirected graphs. We assume the vertices are
 // given as std::vector<std::vector<'integral_type'>> where each inner vector consists of two nodes [source, destination]
-#include "used_concepts.h"
-#include <vector>
-#include <iostream>  // For debugging output
-#include <stack>
+//
+// Created by andreas on 05.11.24.
+//
 
+#ifndef TARJAN_ALGORITHM_UNDIRECTED_GRAPH_H
+#define TARJAN_ALGORITHM_UNDIRECTED_GRAPH_H
+
+#include <stack>
 #include "graph.h"
 
-template <typename T>
-void dfs_tarjan(std::vector<std::vector<T>>& graph, T node, std::vector<bool>& visited,
-                           std::vector<T>& discovery_time,
-                           std::vector<T>& ancestor_reachability_value, std::vector<T>& parent, int& time)
+template <typename NodeType>
+requires std::is_signed_v<NodeType>
+void dfs_bcc_tarjan(NodeType current_node, NodeType parent, const UndirectedGraph<NodeType>& graph,
+                    std::unordered_map<NodeType, int>& discovery_order,
+                    std::unordered_map<NodeType, int>& ancestor_reachability_value,
+                    std::stack<std::pair<NodeType, NodeType>>& edge_stack,
+                    std::set<std::set<NodeType>>& biconnected_components,
+                    int& discovery_index)
 {
-    visited[node] = true;
-    discovery_time[node] = ancestor_reachability_value[node] = ++time;
+    // Initialize discovery order and ancestor reachability value
+    discovery_order[current_node] = discovery_index++;
+    ancestor_reachability_value[current_node] = discovery_order[current_node];
+    int children = 0; // Count of children in DFS
 
-    std::cout << "Visiting node " << node << " | discovery_time: " << discovery_time[node]
-        << " | ancestor_reachability_value: " << ancestor_reachability_value[node] << std::endl;
-
-    for (auto neighbor_node : graph[node])
+    for (auto neighbor : graph.get_neighbors(current_node))
     {
-        if (!visited[neighbor_node])
+        if (!discovery_order.contains(neighbor)) // If neighbor is not visited
         {
-            // Expand the DFS tree
-            parent[neighbor_node] = node;
-            dfs_tarjan(graph, neighbor_node, visited, discovery_time, ancestor_reachability_value, parent, time);
+            children++;
+            edge_stack.push({current_node, neighbor}); // Push the edge onto the stack
+            dfs_bcc_tarjan(neighbor, current_node, graph, discovery_order, ancestor_reachability_value,
+                           edge_stack, biconnected_components, discovery_index);
 
-            // Update ancestor reachability based on DFS child
-            ancestor_reachability_value[node] = std::min(ancestor_reachability_value[node],
-                                                         ancestor_reachability_value[neighbor_node]);
+            // Check if subtree rooted at neighbor has a connection back to an ancestor of current_node
+            ancestor_reachability_value[current_node] = std::min(ancestor_reachability_value[current_node],
+                                                                 ancestor_reachability_value[neighbor]);
 
-            std::cout << "Backtracking to node " << node << " from child " << neighbor_node
-                << " | Updated ancestor_reachability_value: " << ancestor_reachability_value[node] << std::endl;
+            // If current_node is an articulation point, pop edges to form a biconnected component
+            if ((parent == -1 && children > 1) || (parent != -1 && ancestor_reachability_value[neighbor] >= discovery_order[current_node]))
+            {
+                std::set<NodeType> biconnected_component;
+                std::pair<NodeType, NodeType> edge;
+                do
+                {
+                    edge = edge_stack.top();
+                    edge_stack.pop();
+                    biconnected_component.insert(edge.first);
+                    biconnected_component.insert(edge.second);
+                } while (edge != std::make_pair(current_node, neighbor));
+                biconnected_components.insert(biconnected_component);
+            }
         }
-        else if (neighbor_node != parent[node])
+        else if (neighbor != parent && discovery_order[neighbor] < discovery_order[current_node])
         {
-            // Update low value for back edges
-            ancestor_reachability_value[node] = std::min(ancestor_reachability_value[node],
-                                                         discovery_time[neighbor_node]);
-
-            std::cout << "Found back edge from node " << node << " to ancestor " << neighbor_node
-                << " | Updated ancestor_reachability_value: " << ancestor_reachability_value[node] << std::endl;
+            // Update ancestor reachability and push edge to stack for back edge
+            ancestor_reachability_value[current_node] = std::min(ancestor_reachability_value[current_node],
+                                                                 discovery_order[neighbor]);
+            edge_stack.push({current_node, neighbor});
         }
     }
 }
 
-
-template <typename T>
-std::pair<std::vector<T>, std::vector<T>> tarjan_algorithm(std::vector<std::vector<T>>& edges,
-                                                                      int number_of_nodes)
+template <typename NodeType>
+requires std::is_signed_v<NodeType>
+std::set<std::set<NodeType>> biconnected_components_tarjan(const UndirectedGraph<NodeType>& graph)
 {
-    std::vector<std::vector<T>> graph(number_of_nodes);
-    for (const auto& edge : edges)
-    {
-        graph[edge[0]].push_back(edge[1]);
-        graph[edge[1]].push_back(edge[0]);
-    }
-    T invalid = -1;
+    std::unordered_map<NodeType, int> discovery_order;
+    std::unordered_map<NodeType, int> ancestor_reachability_value;
+    std::stack<std::pair<NodeType, NodeType>> edge_stack;
+    std::set<std::set<NodeType>> biconnected_components;
+    int discovery_index = 0;
 
-    std::vector visited(number_of_nodes, false);
-    std::vector<T> discovery_time(number_of_nodes, invalid);
-    std::vector<T> ancestor_reachability_value(number_of_nodes, invalid);
-    std::vector<T> parent(number_of_nodes, invalid);
-    int time{};
-
-    for (T node{}; node < number_of_nodes; ++node)
+    // Run DFS for each unvisited node to find all biconnected components
+    for (auto node : graph.get_all_nodes())
     {
-        if (!visited[node])
+        if (!discovery_order.contains(node))
         {
-            std::cout << "\nStarting DFS at node " << node << std::endl;
-            dfs_tarjan(graph, node, visited, discovery_time, ancestor_reachability_value, parent, time);
+            dfs_bcc_tarjan(node, -1, graph, discovery_order, ancestor_reachability_value, edge_stack,
+                           biconnected_components, discovery_index);
+
+            // Remaining edges in stack form a biconnected component
+            if (!edge_stack.empty())
+            {
+                std::set<NodeType> biconnected_component;
+                while (!edge_stack.empty())
+                {
+                    auto edge = edge_stack.top();
+                    edge_stack.pop();
+                    biconnected_component.insert(edge.first);
+                    biconnected_component.insert(edge.second);
+                }
+                biconnected_components.insert(biconnected_component);
+            }
         }
     }
-    return std::make_pair(ancestor_reachability_value, discovery_time);
+
+    return biconnected_components;
 }
 
+#endif // TARJAN_ALGORITHM_UNDIRECTED_GRAPH_H
 
 
-
-#endif //LR_PLANARITY_TEST_H
