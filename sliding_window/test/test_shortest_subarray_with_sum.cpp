@@ -2,14 +2,14 @@
 // Created by andreas on 17.11.24.
 //
 #include "gtest/gtest.h"
-#include "smallest_subarray_with_sum.h"
+#include "shortest_subarray_with_sum.h"
 
 TEST(TestSmallestSubaaryWithSum, simple1)
 {
     std::vector<int> input{2, 3, 1, 2, 4, 3};
     constexpr int target_sum{7};
     constexpr int expected_result{2};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 TEST(TestSmallestSubaaryWithSum, simple2)
@@ -17,7 +17,7 @@ TEST(TestSmallestSubaaryWithSum, simple2)
     std::vector<int> input{1, 4, 4};
     constexpr int target_sum{4};
     constexpr int expected_result{1};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 TEST(TestSmallestSubaaryWithSum, simple3)
@@ -25,7 +25,7 @@ TEST(TestSmallestSubaaryWithSum, simple3)
     std::vector<int> input{1, 4, 4};
     constexpr int target_sum{5};
     constexpr int expected_result{2};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 TEST(TestSmallestSubaaryWithSum, simple4)
@@ -33,7 +33,7 @@ TEST(TestSmallestSubaaryWithSum, simple4)
     std::vector<int> input{1, 4, 4};
     constexpr int target_sum{9};
     constexpr int expected_result{3};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 TEST(TestSmallestSubaaryWithSum, simple5)
@@ -41,7 +41,7 @@ TEST(TestSmallestSubaaryWithSum, simple5)
     std::vector<int> input{1, 4, 4};
     constexpr int target_sum{10};
     constexpr int expected_result{0};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 
@@ -50,7 +50,7 @@ TEST(TestSmallestSubaaryWithSum, medium1)
     std::vector<int> input{12,28,83,4,25,26,25,2,25,25,25,12};
     constexpr int target_sum{213};
     constexpr int expected_result{8};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 
@@ -79,7 +79,7 @@ TEST(TestSmallestSubaaryWithSum, complex1)
     };
     constexpr int target_sum{697439};
     constexpr int expected_result{132};
-    EXPECT_EQ(expected_result, smallest_subarray_with_sum(input, target_sum));
+    EXPECT_EQ(expected_result, shortest_subarray_with_sum(input, target_sum));
 }
 
 

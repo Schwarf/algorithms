@@ -6,9 +6,9 @@
 #define SMALLEST_SUBARRAY_WITH_SUM_H
 #include <algorithm>
 #include <vector>
-    // Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray
+// Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray
 // whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
-int smallest_subarray_with_sum(std::vector<int> & input, int target_sum)
+int shortest_subarray_with_sum(std::vector<int> & input, int target_sum)
 {
     int n = input.size();
     int answer = n+1;
