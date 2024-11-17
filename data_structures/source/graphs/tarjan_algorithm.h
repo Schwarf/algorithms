@@ -49,6 +49,11 @@ void dfs_bcc_tarjan(NodeType current_node, NodeType parent, const UndirectedGrap
                     biconnected_component.insert(edge.first);
                     biconnected_component.insert(edge.second);
                 } while (edge != std::make_pair(current_node, neighbor));
+
+                // Add this if we require that two vertices (one edge) do not form a bi connected component.
+                // if (biconnected_component.size() > 2) {
+                //     biconnected_components.insert(biconnected_component);
+                // }
                 biconnected_components.insert(biconnected_component);
             }
         }
@@ -91,6 +96,11 @@ std::set<std::set<NodeType>> biconnected_components_tarjan(const UndirectedGraph
                     biconnected_component.insert(edge.first);
                     biconnected_component.insert(edge.second);
                 }
+                // Add this if we require that two vertices (one edge) do not form a bi connected component.
+                // if (biconnected_component.size() > 2) {
+                //     biconnected_components.insert(biconnected_component);
+                // }
+
                 biconnected_components.insert(biconnected_component);
             }
         }
