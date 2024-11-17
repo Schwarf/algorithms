@@ -19,8 +19,8 @@ int smallest_subarray_with_sum(std::vector<int> & input, int target_sum)
         sum += input[i];
         while(sum >= target_sum)
         {
-            sum -= input[left++];
             answer = std::min(answer, i-left+1);
+            sum -= input[left++];
         }
     }
     return answer != n+1 ? answer : 0;
