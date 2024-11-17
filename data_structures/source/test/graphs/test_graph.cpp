@@ -245,7 +245,8 @@ TEST_F(SetupGraph, constructor)
 {
     constexpr int expected_number_of_edges{12};
     constexpr int expected_number_of_nodes{8};
-    DirectedGraph<int> digraph{{1,2,3,4,5,6,7,8},
+    DirectedGraph<int> digraph{
+        {1, 2, 3, 4, 5, 6, 7, 8},
         {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}
     };
     EXPECT_EQ(digraph.get_edge_count(), expected_number_of_edges);
@@ -260,7 +261,7 @@ TEST_F(SetupGraph, constructor)
 
 TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes)
 {
-    DirectedGraph<int> digraph{{1,2,3,4,5,6}, {{2, 1}, {2, 3}, {3, 4}, {3, 5}, {4, 2}, {4, 5}, {6, 4}}};
+    DirectedGraph<int> digraph{{1, 2, 3, 4, 5, 6}, {{2, 1}, {2, 3}, {3, 4}, {3, 5}, {4, 2}, {4, 5}, {6, 4}}};
     EXPECT_EQ(digraph.get_neighbors(1).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(2).size(), 2);
     EXPECT_EQ(digraph.get_neighbors(3).size(), 2);
@@ -288,3 +289,47 @@ TEST_F(SetupGraph, get_neighbors_up_to_two_edges)
     EXPECT_EQ(digraph.get_neighbors(3), (std::unordered_set<int>{1, 4, 6}));
     EXPECT_EQ(digraph.get_neighbors(4), (std::unordered_set<int>{1,2}));
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+TEST_F(SetupGraph, constructor_undirected)
+{
+    constexpr int expected_number_of_edges{12}; // 12 edges even though they are bidirectional
+    constexpr int expected_number_of_nodes{8};
+    UndirectedGraph<int> graph{
+        {1, 2, 3, 4, 5, 6, 7, 8},
+        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}
+    };
+    EXPECT_EQ(graph.get_edge_count(), expected_number_of_edges);
+    EXPECT_EQ(graph.get_node_count(), expected_number_of_nodes);
+    EXPECT_EQ(graph.get_neighbors(1).size(), 2);
+    EXPECT_EQ(graph.get_neighbors(2).size(), 3);
+    EXPECT_EQ(graph.get_neighbors(3).size(), 4);
+    EXPECT_EQ(graph.get_neighbors(4).size(), 3);
+    EXPECT_EQ(graph.get_neighbors(5).size(), 3);
+    EXPECT_EQ(graph.get_neighbors(6).size(), 2);
+    EXPECT_EQ(graph.get_neighbors(7).size(), 4);
+    EXPECT_EQ(graph.get_neighbors(8).size(), 3);
+}
+
+TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes_undirected)
+{
+    UndirectedGraph<int> graph{{1, 2, 3, 4, 5, 6}, {{2, 1}, {2, 3}, {3, 4}, {3, 5}, {4, 2}, {4, 5}, {6, 4}}};
+    EXPECT_EQ(graph.get_neighbors(1).size(), 1);
+    EXPECT_EQ(graph.get_neighbors(2).size(), 3);
+    EXPECT_EQ(graph.get_neighbors(3).size(), 3);
+    EXPECT_EQ(graph.get_neighbors(4).size(), 4);
+    EXPECT_EQ(graph.get_neighbors(5).size(), 2);
+    EXPECT_EQ(graph.get_neighbors(6).size(), 1);
+    EXPECT_EQ(graph.get_neighbors(1), (std::unordered_set<int>{2}));
+    EXPECT_EQ(graph.get_neighbors(2), (std::unordered_set<int>{1, 3, 4}));
+    EXPECT_EQ(graph.get_neighbors(3), (std::unordered_set<int>{2, 4, 5}));
+    EXPECT_EQ(graph.get_neighbors(4), (std::unordered_set<int>{2, 3, 5, 6}));
+    EXPECT_EQ(graph.get_neighbors(5), (std::unordered_set<int>{3, 4}));
+    EXPECT_EQ(graph.get_neighbors(6), (std::unordered_set<int>{4}));
+}
+
