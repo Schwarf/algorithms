@@ -11,7 +11,8 @@ add_executable(sliding_window_test
         test_count_subarrays_where_max_appears_k_times.cpp
         test_count_subarrays_find_k_different_elements.h.cpp
         test_minimum_swaps_to_group_ones.cpp
-        test_shortest_subarray_with_sum.cpp)
+        test_shortest_subarray_with_sum.cpp
+        test_max_sum_of_distinct_subarrays_with_given_length.cpp)
 
 
 target_link_libraries(sliding_window_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
