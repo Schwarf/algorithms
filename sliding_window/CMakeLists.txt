@@ -35,6 +35,7 @@ add_executable(sliding_window main.cpp
         count_subarrays_where_max_appears_k_times.h
         count_subarrays_with_exactly_k_different_elements.h
         minimum_swaps_to_group_ones.h
-        shortest_subarray_with_sum.h)
+        shortest_subarray_with_sum.h
+        max_sum_of_distinct_subarrays_with_given_length.h)
 
 
