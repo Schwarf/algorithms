@@ -1,7 +1,7 @@
 //
 // Created by andreas on 05.11.24.
 //
-#include "graphs/strongly_connected_components_tarjan.h"
+#include "graphs/advanced/strongly_connected_components_tarjan.h"
 #include "gtest/gtest.h"
 
 TEST(TestTarjanAlgoSSC, simple1)

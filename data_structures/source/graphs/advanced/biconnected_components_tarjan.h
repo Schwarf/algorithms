@@ -8,7 +8,7 @@
 #define TARJAN_ALGORITHM_UNDIRECTED_GRAPH_H
 
 #include <stack>
-#include "graph.h"
+#include "./../graph.h"
 
 template <typename NodeType>
 requires std::is_signed_v<NodeType>
