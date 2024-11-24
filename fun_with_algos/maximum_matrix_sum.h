@@ -9,7 +9,10 @@
 // Two elements are considered adjacent if and only if they share a border.
 // Your goal is to maximize the summation of the matrix's elements. Return the maximum sum of the matrix's elements
 // using the operation mentioned above.
+#include <limits>
 #include <vector>
+#include <cmath>
+
 long long maximum_matrix_sum(std::vector<std::vector<int>> &matrix)
 {
     int n = matrix.size();
@@ -22,8 +25,8 @@ long long maximum_matrix_sum(std::vector<std::vector<int>> &matrix)
         {
             if(matrix[r][c] <= 0)
                 negative_count++;
-            min = std::min(min, matrix[r][c]);
-            sum += abs(matrix[r][c]);
+            min = std::min(min, std::abs(matrix[r][c]));
+            sum += std::abs(matrix[r][c]);
         }
     }
     if(negative_count & 1)
