@@ -35,7 +35,8 @@ add_executable(test_fun_with_algos
         test_logger_rate_limiter.cpp
         test_maximum_distance_in_arrays.cpp
         test_largest_min_max_index_gap.cpp
-        test_maximum_matrix_sum.cpp)
+        test_maximum_matrix_sum.cpp
+        test_flip_columns_to_maximize_equal_rows.cpp)
 
 include_directories(./../)
 target_link_libraries(test_fun_with_algos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
