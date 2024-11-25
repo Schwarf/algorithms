@@ -57,4 +57,5 @@ add_executable(fun_with_algos main.cpp
         logger_rate_limiter.h
         maximum_distance_in_arrays.h
         "largest_extremum_index_gap .h"
-        maximum_matrix_sum.h)
+        maximum_matrix_sum.h
+        flip_columns_to_maximize_equal_rows.h)
