@@ -22,8 +22,9 @@ double simulated_annealing_algorithm(ContainerType<InnerContainerType<T>> &conta
 									 double cooling_rate,
 									 double minimal_temperature)
 {
-	std::mt19937 random_generator(std::random_device{}());
-	std::uniform_real_distribution<double> distribution(0.0, 1.0);
+	static std::random_device random_device;
+	static std::mt19937 random_generator(random_device());
+	static std::uniform_real_distribution<double> distribution(0.0, 1.0);
 	auto current_value = object_function(container);
 	double temperature = initial_temperature;
 	while (temperature > minimal_temperature) {
