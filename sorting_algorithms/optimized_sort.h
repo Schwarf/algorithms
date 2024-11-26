@@ -6,31 +6,7 @@
 #define OPTIMIZED_SORT_H
 #include <algorithm>
 #include <limits>
-
-
-template <std::random_access_iterator RandomAccessIterator, typename Comparator>
-bool insertion_sort(RandomAccessIterator begin, RandomAccessIterator end, Comparator comp,
-                    const int max_distance = std::numeric_limits<int>::max())
-{
-    for (auto iterator = begin + 1; iterator < end; ++iterator)
-    {
-        auto element = std::move(*iterator);
-        decltype(iterator) other_iterator;
-        int distance{};
-
-        for (other_iterator = iterator; other_iterator > begin && comp(element, *(other_iterator - 1)); --
-             other_iterator)
-        {
-            *other_iterator = std::move(*(other_iterator - 1));
-            if (++distance > max_distance)
-                return false;
-        }
-
-        *other_iterator = element;
-    }
-
-    return true;
-}
+#include <bits/random.h>
 
 
 template <typename T, typename Comparator>
@@ -96,4 +72,48 @@ constexpr void sort6(T& a, T& b, T& c, T& d, T& e, T& f, Comparator comparator)
     sort_net2(b, d, comparator);
     sort_net2(c, d, comparator);
 };
+
+template<typename RandomIterator, typename Comparator>
+typename std::iterator_traits<RandomIterator>::value_type
+choose_pivot(RandomIterator low, RandomIterator high, Comparator comp) {
+    static std::random_device random_device;
+    static std::mt19937 mersenne_twister_engine(random_device());
+    static std::uniform_int_distribution<> distribution(0, std::numeric_limits<int>::max());
+
+    const auto size = high - low + 1;
+
+    typename std::iterator_traits<RandomIterator>::value_type x = *(low + distribution(mersenne_twister_engine) % size);
+    typename std::iterator_traits<RandomIterator>::value_type y = *(low + distribution(mersenne_twister_engine) % size);
+    typename std::iterator_traits<RandomIterator>::value_type z = *(low + distribution(mersenne_twister_engine) % size);
+
+    sort3(x, y, z, comp); // Sort three elements to pick the median as pivot
+    return y; // Median of three for better partitioning
+}
+
+
+template <std::random_access_iterator RandomAccessIterator, typename Comparator>
+bool insertion_sort(RandomAccessIterator begin, RandomAccessIterator end, Comparator comp,
+                    const int max_distance = std::numeric_limits<int>::max())
+{
+    for (auto iterator = begin + 1; iterator < end; ++iterator)
+    {
+        auto element = std::move(*iterator);
+        decltype(iterator) other_iterator;
+        int distance{};
+
+        for (other_iterator = iterator; other_iterator > begin && comp(element, *(other_iterator - 1)); --
+             other_iterator)
+        {
+            *other_iterator = std::move(*(other_iterator - 1));
+            if (++distance > max_distance)
+                return false;
+        }
+
+        *other_iterator = element;
+    }
+
+    return true;
+}
+
+
 #endif //OPTIMIZED_SORT_H
