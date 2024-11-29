@@ -95,27 +95,27 @@ choose_pivot(RandomIterator begin, RandomIterator end, Comparator comparator)
     return value2; // Median of three for better partitioning
 }
 
-template<std::random_access_iterator RandomIterator, typename Comparator>
-std::pair<RandomIterator, RandomIterator> three_way_partition(RandomIterator begin, RandomIterator end, Comparator comparator) {
-    assert(high - low + 1 >= 7);
-
+template <std::random_access_iterator RandomIterator, typename Comparator>
+std::pair<RandomIterator, RandomIterator> three_way_partition(RandomIterator begin, RandomIterator end,
+                                                              Comparator comparator)
+{
     RandomIterator lower = begin;
     RandomIterator higher = end;
     auto pivot = choose_pivot(begin, end, comparator);
 
     auto iterator = begin;
-    while (iterator <= higher) {
+    while (iterator <= higher)
+    {
         if (comparator(*iterator, pivot))
             std::iter_swap(lower++, iterator++);
         else if (comparator(pivot, *iterator))
             std::iter_swap(iterator, higher--);
         else
-            iterator++;
+            ++iterator;
     }
 
     return std::make_pair(lower, higher);
 }
-
 
 
 template <std::random_access_iterator RandomAccessIterator, typename Comparator>
