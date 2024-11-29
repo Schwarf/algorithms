@@ -19,6 +19,7 @@ add_executable(sorting_tests
         test_sort_array_by_increasing_frequency.cpp
         test_sort_jumbled_numbers.cpp
         test_minimum_number_of_dial_pushes_for_word.cpp
+        test_optimized_sort.cpp
 )
 
 include_directories(./../)
