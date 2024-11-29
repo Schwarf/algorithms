@@ -153,7 +153,7 @@ template <std::random_access_iterator RandomAccessIterator, typename Comparator>
 void optimized_sort(RandomAccessIterator begin, RandomAccessIterator end, unsigned int depth, Comparator comparator)
 {
     constexpr int insertion_sort_threshold{25};
-    constexpr int maximal_distance{15};
+    // constexpr int maximal_distance{15};
 
     while (begin <= end)
     {
@@ -183,7 +183,7 @@ void optimized_sort(RandomAccessIterator begin, RandomAccessIterator end, unsign
         default:
             break;
         }
-        if (distance < insertion_sort_threshold)
+        if (distance <= insertion_sort_threshold)
         {
             insertion_sort(begin, end + 1, comparator);
             return;
@@ -195,9 +195,6 @@ void optimized_sort(RandomAccessIterator begin, RandomAccessIterator end, unsign
             return;
         }
 
-        // try gambling ? (optimization)
-        if (insertion_sort(begin, end + 1, comparator, maximal_distance))
-            return;
 
         auto partition_indices = three_way_partition(begin, end, comparator);
 
