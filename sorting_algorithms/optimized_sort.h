@@ -74,25 +74,15 @@ constexpr void sort_six(ValueType& a, ValueType& b, ValueType& c, ValueType& d, 
     sort_net_two(c, d, comparator);
 };
 
+
 template <std::random_access_iterator RandomIterator, typename Comparator>
 typename std::iterator_traits<RandomIterator>::value_type
-choose_pivot(RandomIterator begin, RandomIterator end, Comparator comparator)
-{
-    static std::random_device random_device;
-    static std::mt19937 mersenne_twister_engine(random_device());
-    static std::uniform_int_distribution<> distribution(0, std::numeric_limits<int>::max());
-
-    const auto size = end - begin + 1;
-
-    typename std::iterator_traits<RandomIterator>::value_type value1 = *(begin + distribution(mersenne_twister_engine) %
-        size);
-    typename std::iterator_traits<RandomIterator>::value_type value2 = *(begin + distribution(mersenne_twister_engine) %
-        size);
-    typename std::iterator_traits<RandomIterator>::value_type value3 = *(begin + distribution(mersenne_twister_engine) %
-        size);
-
-    sort_three(value1, value2, value3, comparator); // Sort three elements to pick the median as pivot
-    return value2; // Median of three for better partitioning
+choose_pivot(RandomIterator begin, RandomIterator end, Comparator comparator) {
+    auto middle = begin + (end - begin) / 2; // Middle index
+    if (comparator(*middle, *begin)) std::iter_swap(middle, begin);
+    if (comparator(*(end - 1), *begin)) std::iter_swap(end - 1, begin);
+    if (comparator(*(end - 1), *middle)) std::iter_swap(end - 1, middle);
+    return *middle;
 }
 
 template <std::random_access_iterator RandomIterator, typename Comparator>
@@ -153,8 +143,6 @@ template <std::random_access_iterator RandomAccessIterator, typename Comparator>
 void optimized_sort(RandomAccessIterator begin, RandomAccessIterator end, unsigned int depth, Comparator comparator)
 {
     constexpr int insertion_sort_threshold{25};
-    // constexpr int maximal_distance{15};
-
     while (begin <= end)
     {
         const auto distance = end - begin + 1;
@@ -162,7 +150,6 @@ void optimized_sort(RandomAccessIterator begin, RandomAccessIterator end, unsign
         if (distance <= 1)
             return;
 
-        /* For very small ranges (< 7 elements) we use a sorting network */
         switch (distance)
         {
         case 2:
