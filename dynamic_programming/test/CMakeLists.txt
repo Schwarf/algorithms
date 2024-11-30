@@ -1,8 +1,9 @@
+project(test_dynamic_programming)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(./../)
-add_executable(dynamic_programming_samples_test
+add_executable(test_dynamic_programming
         test_min_costs_to_reach_end.cpp
         test_main.cpp
         test_can_reach_last_index.cpp
@@ -45,4 +46,7 @@ add_executable(dynamic_programming_samples_test
         test_nth_ugly_number.cpp
         test_minimum_copy_paste_operations.cpp)
 
-target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)
+
+#target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
