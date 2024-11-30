@@ -29,7 +29,7 @@ enable_cxx_compiler_flag_if_supported("-Wno-sign-compare") # Disable specific wa
 
 add_subdirectory(test)
 add_subdirectory(performance_measurements/benchmark)
-add_executable(sort main.cpp
+add_executable(sort
         heap_sort.h
         quick_sort.h
         counting_sort.h

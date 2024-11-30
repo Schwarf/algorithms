@@ -40,11 +40,11 @@ add_subdirectory(fun_with_arrays)
 add_subdirectory(fun_with_strings)
 add_subdirectory(prefix_sums)
 #add_subdirectory(probabilistic_algorithms)
-#add_subdirectory(sliding_window)
+add_subdirectory(sliding_window)
 #add_subdirectory(sorting_algorithms)
 #add_subdirectory(template_reminders)
 
-#include(${ALGORITHM_DIR}/Definitions.cmake)
+
 
 
 

@@ -1,8 +1,9 @@
+project(test_sliding_windows)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(./../)
-add_executable(sliding_window_test
+add_executable(test_sliding_windows
         test_number_of_substrings.cpp
         test_longest_substring_without_repeating_characters.cpp
         test_get_equal_substring_with_budget.cpp
@@ -14,5 +15,5 @@ add_executable(sliding_window_test
         test_shortest_subarray_with_sum.cpp
         test_max_sum_of_distinct_subarrays_with_given_length.cpp)
 
-
-target_link_libraries(sliding_window_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_sliding_windows GTest::GTest GTest::Main pthread)
+add_test(NAME TestSlidingWindows COMMAND test_sliding_windows)
