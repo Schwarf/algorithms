@@ -133,7 +133,7 @@ std::string addBinary(std::string &a, std::string &b)
 		a = one + a;
 	return a;
 }
-}
+
 
 int main()
 {

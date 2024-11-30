@@ -2,7 +2,7 @@
 // Created by andreas on 21.09.22.
 //
 
-int draw_line(unsigned char *screen_array, int width, int x1, int x2, int y)
+void draw_line(unsigned char *screen_array, int width, int x1, int x2, int y)
 {
 	constexpr int number_of_bits = 8;
 	int first_full_byte = x1 / number_of_bits;
