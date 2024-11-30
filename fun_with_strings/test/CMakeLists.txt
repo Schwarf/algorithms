@@ -1,6 +1,8 @@
+project(test_fun_with_strings)
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(fun_with_strings_test
+include_directories(./../)
+add_executable(test_fun_with_strings
         test_remove_duplicates.cpp
         test_decode_string_at_index.cpp
         test_count_beautiful_substrings.cpp
@@ -15,4 +17,6 @@ add_executable(fun_with_strings_test
         test_permutation_include_in_string.cpp
         test_minimum_length_after_removing_substrings.cpp
         test_are_strings_equal_upto_rotation.cpp)
-target_link_libraries(fun_with_strings_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+
+target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
+add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)

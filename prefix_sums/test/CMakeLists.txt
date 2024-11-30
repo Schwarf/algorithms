@@ -1,30 +1,15 @@
-cmake_minimum_required(VERSION 3.20)
-project(prefix_sums_tests)
-
-cmake_policy(VERSION 3.20)
+project(test_prefix_sums)
 
 find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(./../)
+add_executable(test_prefix_sums
+        test_contiguous_array.cpp
+        test_k_radius_subarray_averages.cpp
+        test_make_divisible_by_value.cpp
+        test_number_of_sub_matrices_that_sum_to_target.cpp
+        test_number_of_subarrays.cpp
+        test_product_of_array_but_current_index_value.cpp)
 
-include_directories(${CMAKE_SOURCE_DIR})
-
-
-file(GLOB_RECURSE TEST_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "test_*.cpp")
-
-foreach (TEST_SOURCE ${TEST_SOURCES})
-    # Get a filename without an extension for the target name
-    get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
-
-    # Create an executable target for each test file
-    add_executable(${TEST_NAME} ${TEST_SOURCE}
-            test_number_of_subarrays.cpp
-            test_make_divisible_by_value.cpp)
-    # Add libraries
-    foreach (LIB_DIR ${LIBRARY_DIRECTORIES})
-        get_filename_component(LIB_NAME ${LIB_DIR} NAME)
-        set(TARGET_LIB "${LIB_NAME}_lib")
-        target_link_libraries(${TEST_NAME} ${TARGET_LIB})
-    endforeach ()
-    # Link libraries or set properties for each target
-    target_link_libraries(${TEST_NAME} ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
-endforeach ()
-
+target_link_libraries(test_prefix_sums GTest::GTest GTest::Main pthread)
+add_test(NAME PrefixSumsTests COMMAND test_prefix_sums)
