@@ -11,7 +11,6 @@
 #include <vector>
 int maximize_equal_rows(std::vector<std::vector<int>>& matrix)
 {
-    auto columns = matrix[0].size();
     int max_identical_rows{};
     for(auto & row : matrix)
     {
