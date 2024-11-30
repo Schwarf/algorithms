@@ -93,18 +93,18 @@ std::pair<RandomIterator, RandomIterator> three_way_partition(RandomIterator beg
     RandomIterator higher = end;
     auto pivot = choose_pivot(begin, end, comparator);
 
-    auto iterator = begin;
-    while (iterator <= higher)
+    auto current = begin;
+    while (current <= higher)
     {
-        if (comparator(*iterator, pivot))
-            std::iter_swap(lower++, iterator++);
-        else if (comparator(pivot, *iterator))
-            std::iter_swap(iterator, higher--);
+        if (comparator(*current, pivot))
+            std::iter_swap(lower++, current++); // Move pivot to the left
+        else if (comparator(pivot, *current))
+            std::iter_swap(current, higher--); // Move pivot to the right
         else
-            ++iterator;
+            ++current;
     }
 
-    return std::make_pair(lower, higher);
+    return {lower, higher};
 }
 
 
