@@ -18,19 +18,9 @@ endfunction()
 enable_cxx_compiler_flag_if_supported("-Wall")
 enable_cxx_compiler_flag_if_supported("-Wextra")
 enable_cxx_compiler_flag_if_supported("-pedantic")
-enable_cxx_compiler_flag_if_supported("-std=c++17")
+enable_cxx_compiler_flag_if_supported("-std=c++20")
 enable_cxx_compiler_flag_if_supported("-O0")
 enable_cxx_compiler_flag_if_supported("-Werror")
 enable_cxx_compiler_flag_if_supported("-Wno-sign-compare") # Disable specific warning
 
 add_subdirectory(test)
-
-add_executable(backtracking
-        main.cpp
-        queens_problem.h
-        search_word_in_character_grid.h
-        path_sum_binary_tree.h
-        generate_all_subsets_of_size_k.h
-        compute_all_permutations.h
-        letter_combinations_of_phone_numbers.h
-        find_all_summand_combinations_for_sum.h)

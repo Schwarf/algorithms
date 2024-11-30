@@ -11,8 +11,8 @@
 // - The sum of all the elements of nums does not exceed maxSum.
 // - nums[index] is maximized.
 // Return nums[index] of the constructed array.
-
 #include <type_traits>
+
 template<typename T>
 long long compute_sum(int index, T value, int n)
 {
