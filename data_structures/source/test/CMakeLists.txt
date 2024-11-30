@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(data_structures_tests)
-
-cmake_policy(VERSION 3.20)
+project(test_data_structures)
 
 find_package(GTest REQUIRED)
 
@@ -22,7 +20,11 @@ function(create_test_executable_for_subdir subdir)
             target_link_libraries(${TEST_NAME}_tests ${TARGET_LIB})
         endforeach ()
 
+        # Link Google Test and pthread
         target_link_libraries(${TEST_NAME}_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+
+        # Register the test executable with CTest
+        add_test(NAME ${TEST_NAME}_tests COMMAND ${TEST_NAME}_tests)
     endif ()
 endfunction()
 
