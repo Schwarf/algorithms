@@ -1,0 +1,5 @@
+add_subdirectory(arrays_and_strings)
+add_subdirectory(bit_manipulation)
+add_subdirectory(recursion_and_dynamic_programming)
+add_subdirectory(stacks_and_queues)
+add_subdirectory(trees_and_graphs)
