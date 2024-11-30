@@ -16,4 +16,4 @@ add_executable(test_sliding_windows
         test_max_sum_of_distinct_subarrays_with_given_length.cpp)
 
 target_link_libraries(test_sliding_windows GTest::GTest GTest::Main pthread)
-add_test(NAME TestSlidingWindows COMMAND test_sliding_windows)
+add_test(NAME SlidingWindowsTests COMMAND test_sliding_windows)

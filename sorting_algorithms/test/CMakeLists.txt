@@ -1,10 +1,10 @@
-project(test_sorting)
+project(test_sorting_algorithms)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(./../)
 
-
-add_executable(sorting_tests
+add_executable(test_sorting_algorithms
         test_heap_sort.cpp
         test_setup.h
         test_quick_sort.cpp
@@ -22,5 +22,6 @@ add_executable(sorting_tests
         test_optimized_sort.cpp
 )
 
-include_directories(./../)
-target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+#target_link_libraries(sorting_tests ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
+target_link_libraries(test_sorting_algorithms GTest::GTest GTest::Main pthread)
+add_test(NAME SortingAlgorithmsTests COMMAND test_sorting_algorithms)
