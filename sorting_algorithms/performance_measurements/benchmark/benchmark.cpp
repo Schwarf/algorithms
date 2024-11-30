@@ -10,6 +10,7 @@
 #include "./../../insertion_sort.h"
 #include "./../../merge_sort.h"
 #include "./../../quick_sort.h"
+#include "./../../optimized_sort.h"
 #include <iostream>
 
 template <typename T>
@@ -57,14 +58,18 @@ template <typename T>
 requires std::is_arithmetic_v<T>
 void my_quick_sort(std::vector<T>& v) { quick_sort(v); }
 
+template <typename T>
+requires std::is_arithmetic_v<T>
+void my_optimized_sort(std::vector<T>& v) { optimized_sort(v, std::less()); }
 
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_sort, std_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_stable_sort, std_stable_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_heap_sort, my_heap_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
-// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_insertion_sort, my_insertion_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
-// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_merge_sort, my_merge_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_quick_sort, my_quick_sort<int>)->RangeMultiplier(10)->Range(100, 1000000);
 
+BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_sort, std_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_stable_sort, std_stable_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_heap_sort, my_heap_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_insertion_sort, my_insertion_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_merge_sort, my_merge_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_quick_sort, my_quick_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
+BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_optimized_sort, my_optimized_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
 
 int main(int argc, char** argv) {
     // Compiler check
