@@ -1,0 +1,1 @@
+- Warnings promoted tp errors appear when build in Release-Config (-O3 optimization)
