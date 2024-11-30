@@ -45,7 +45,6 @@ TEST(TestInsertBitSequenceIntoBitString, simple2)
 	insert_bit_sequence_into_bitstring(bitstring, bit_sequence, left_start, right_end);
 	for (int i{}; i < 31; ++i)
 	{
-		std::cout << has_bit(bitstring, i) << ", ";
 		if(expected_bits[i])
         {
             EXPECT_TRUE(has_bit(bitstring, i));

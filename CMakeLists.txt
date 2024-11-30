@@ -31,7 +31,7 @@ enable_testing()
 
 add_subdirectory(backtracking)
 add_subdirectory(binary_search)
-#add_subdirectory(bit_manipulation)
+add_subdirectory(bit_manipulation)
 #add_subdirectory(CTCI)
 #add_subdirectory(data_structures/source)
 #add_subdirectory(dynamic_programming)

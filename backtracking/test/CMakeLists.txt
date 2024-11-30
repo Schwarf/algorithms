@@ -14,4 +14,4 @@ add_executable(test_backtracking
 #target_link_libraries(test_backtracking ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 
 target_link_libraries(test_backtracking GTest::GTest GTest::Main pthread)
-add_test(NAME BinarySearchTests COMMAND test_backtracking)
+add_test(NAME BackTrackingTests COMMAND test_backtracking)
