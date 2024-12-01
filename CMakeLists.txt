@@ -42,7 +42,7 @@ add_subdirectory(prefix_sums)
 #add_subdirectory(probabilistic_algorithms)
 add_subdirectory(sliding_window)
 add_subdirectory(sorting_algorithms)
-#add_subdirectory(template_reminders)
+add_subdirectory(template_reminders)
 
 
 

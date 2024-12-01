@@ -44,7 +44,6 @@ int main() {
 	MyClass<MyType> obj;
 	obj.foo(42);
 
-	Outer<Inner<int>> out;
 	Outer<Inner<int>>::Nested<int> nestedObj;
 	nestedObj.foo();
 	return 0;

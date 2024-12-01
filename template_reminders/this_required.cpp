@@ -25,5 +25,6 @@ public:
 int main()
 {
 	auto derived =Derived<int>();
+	derived.foo();
 	return 0;
 }
