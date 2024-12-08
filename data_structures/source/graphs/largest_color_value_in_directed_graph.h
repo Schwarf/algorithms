@@ -16,7 +16,7 @@
 // Return the largest color value of any valid path in the given graph, or -1 if the graph contains a cycle.
 
 // TAG: Topological sort
-int largest_color_value_in_DAG(std::string & colors, std::vector<std::vector<int>> & edges)
+int largest_color_value_in_directed_graph(std::string & colors, std::vector<std::vector<int>> & edges)
 {
     int n = colors.size();
     std::vector<std::vector<int>> graph(n);
