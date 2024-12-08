@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "graphs/largest_color_value_in_directed_graph.h"
+#include "graphs/topological_sort/largest_color_value_in_directed_graph.h"
 
 TEST(TestLargestColorValueInDirectedGraph, simple1)
 {

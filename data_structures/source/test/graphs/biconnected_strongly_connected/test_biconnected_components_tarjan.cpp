@@ -2,7 +2,7 @@
 // Created by andreas on 04.11.24.
 //
 
-#include "graphs/advanced/biconnected_components_tarjan.h"
+#include "graphs/biconnected_strongly_connected/biconnected_components_tarjan.h"
 #include "gtest/gtest.h"
 
 TEST(TestTarjanAlgoBi, simple1)
