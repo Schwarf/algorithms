@@ -9,7 +9,8 @@ add_executable(test_prefix_sums
         test_make_divisible_by_value.cpp
         test_number_of_sub_matrices_that_sum_to_target.cpp
         test_number_of_subarrays.cpp
-        test_product_of_array_but_current_index_value.cpp)
+        test_product_of_array_but_current_index_value.cpp
+        test_query_subarrays_with_different_parity_neighbors.cpp)
 
 target_link_libraries(test_prefix_sums GTest::GTest GTest::Main pthread)
 add_test(NAME PrefixSumsTests COMMAND test_prefix_sums)
