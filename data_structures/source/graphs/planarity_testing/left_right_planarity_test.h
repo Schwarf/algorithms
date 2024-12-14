@@ -4,20 +4,51 @@
 
 #ifndef LEFT_RIGHT_PLANARITY_TEST_H
 #define LEFT_RIGHT_PLANARITY_TEST_H
+#include <optional>
+
 #include "graphs/graph.h"
 
-
-template<typename NodeType>
-bool is_planar(UndirectedGraph<NodeType> & graph)
+struct Interval
 {
-    // Check Euler's formula
-    if(graph.get_edge_count() > 2 && graph.get_edge_count() > 3 * graph.get_node_count() -6)
-        return false;
-    std::vector<NodeType> roots;
-    std::unordered_map<NodeType, int> heights;
-    
+    std::optional<int> start{};
+    std::optional<int> end{};
+};
 
-}
+class ConflictPair
+{
+    Interval left{};
+    Interval right{};
+
+public:
+    explicit ConflictPair(const Interval& left = Interval(), const Interval& right = Interval())
+        : left(left), right(right)
+    {
+    }
+
+    // Accessor for L
+    [[nodiscard]] const Interval& getL() const
+    {
+        return left;
+    }
+
+    // Accessor for R
+    [[nodiscard]] const Interval& getR() const
+    {
+        return right;
+    }
+
+    // Mutator for L
+    void setL(const Interval& interval)
+    {
+        left = interval;
+    }
+
+    // Mutator for R
+    void setR(const Interval& interval)
+    {
+        right = interval;
+    }
+};
 
 
 #endif //LEFT_RIGHT_PLANARITY_TEST_H
