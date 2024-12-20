@@ -33,8 +33,8 @@ template <typename NodeType>
 class PlanarityTest
 {
     using Edge = std::pair<NodeType, NodeType>; // Define an edge type for convenience
-    constexpr auto lowpt_not_assigned = std::numeric_limits<int>::min();
-    constexpr auto no_parent = std::numeric_limits<NodeType>::max();
+    constexpr auto reachability_not_assigned = std::numeric_limits<int>::max();
+    constexpr auto no_parent = std::numeric_limits<EdgeHashType>::max();
     constexpr auto invalid_height = std::numeric_limits<int>::max();
 
 public:
@@ -55,8 +55,8 @@ public:
             for (const auto& neighbor : graph.get_neighbors(node))
             {
                 Edge edge = make_edge(node, neighbor);
-                reachability_value[edge] = lowpt_not_assigned;
-                reachability_value2[edge] = lowpt_not_assigned;
+                reachability_value[edge] = reachability_not_assigned;
+                reachability_value2[edge] = reachability_not_assigned;
                 parent_edge_map[edge] = no_parent;
                 nesting_depth[edge] = 0; // Default to 0
             }
@@ -103,7 +103,7 @@ public:
                 }
 
                 // Update lowpoints of parent edge
-                if (parent_edge != Edge{})
+                if (parent_edge != no_parent)
                 {
                     // Parent edge is valid
                     if (reachability_value[dfs_edge_hash] < reachability_value[parent_edge])
