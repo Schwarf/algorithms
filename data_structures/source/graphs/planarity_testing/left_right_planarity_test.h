@@ -69,12 +69,12 @@ public:
     {
         for (const auto& current_node : graph.get_all_nodes())
         {
-            if (height[current_node] == std::numeric_limits<int>::max())
+            if (height[current_node] == invalid_height)
             {
-                // Node is unvisited
+                // Node is unvisited, mark it as root.
                 height[current_node] = 0;
-                roots.push_back(current_node); // Add to roots
-                dfs_orientation(current_node); // Call DFS1 starting from this root
+                roots.push_back(current_node);
+                dfs_orientation(current_node);
             }
         }
     }
@@ -87,56 +87,55 @@ public:
         for (const auto& neighbor : graph.get_neighbors(current_node))
         {
             // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
-            Edge dfs_edge = make_edge(current_node, neighbor);
+            Edge current_edge = make_edge(current_node, neighbor);
 
-            if (visited_edges.find(dfs_edge) == visited_edges.end())
+            if (visited_edges.find(current_edge) == visited_edges.end())
             {
-                // Mark the edge as oriented
-                visited_edges.insert(dfs_edge);
-
-                // Initialize lowpoints
-                reachability_value[dfs_edge] = height[current_node];
-                reachability_value2[dfs_edge] = height[current_node];
+                // Mark the edge as oriented and visited
+                visited_edges.insert(current_edge);
+                // Set the
+                reachability_value[current_edge] = height[current_node];
+                reachability_value2[current_edge] = height[current_node];
 
                 if (height[neighbor] == invalid_height)
                 {
-                    // Tree edge
-                    parent_edge_map[neighbor] = dfs_edge;
+                    // Found a DFS-tree edge
+                    parent_edge_map[neighbor] = current_edge;
                     height[neighbor] = height[current_node] + 1;
                     dfs_orientation(neighbor);
                 }
                 else
                 {
-                    // Back edge
-                    reachability_value[dfs_edge] = height[neighbor];
+                    // Found a back edge
+                    reachability_value[current_edge] = height[neighbor];
                 }
 
                 // Determine nesting depth
-                nesting_depth[dfs_edge] = 2 * reachability_value[dfs_edge];
-                if (reachability_value2[dfs_edge] < height[current_node])
+                nesting_depth[current_edge] = 2 * reachability_value[current_edge];
+                if (reachability_value2[current_edge] < height[current_node])
                 {
-                    nesting_depth[dfs_edge] += 1; // Chordal adjustment
+                    nesting_depth[current_edge] += 1; // Chordal adjustment
                 }
 
-                // Update lowpoints of parent edge
+                // Update reachability_values of parent edge
                 if (parent_edge != Edge{})
                 {
                     // Parent edge is valid
-                    if (reachability_value[dfs_edge] < reachability_value[parent_edge])
+                    if (reachability_value[current_edge] < reachability_value[parent_edge])
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value[parent_edge],
-                                                                    reachability_value2[dfs_edge]);
-                        reachability_value[parent_edge] = reachability_value[dfs_edge];
+                                                                    reachability_value2[current_edge]);
+                        reachability_value[parent_edge] = reachability_value[current_edge];
                     }
-                    else if (reachability_value[dfs_edge] > reachability_value[parent_edge])
+                    else if (reachability_value[current_edge] > reachability_value[parent_edge])
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value2[parent_edge],
-                                                                    reachability_value[dfs_edge]);
+                                                                    reachability_value[current_edge]);
                     }
                     else
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value2[parent_edge],
-                                                                    reachability_value2[dfs_edge]);
+                                                                    reachability_value2[current_edge]);
                     }
                 }
             }
