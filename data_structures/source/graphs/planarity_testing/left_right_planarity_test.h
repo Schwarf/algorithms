@@ -64,6 +64,26 @@ public:
         }
     }
 
+    void sort_adjacency_list_by_nesting_depth() {
+        for (auto& [node, neighbors] : graph) {
+            std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b) {
+                return nesting_depth[make_edge(node, a)] < nesting_depth[make_edge(node, b)];
+            });
+        }
+    }
+
+    void dfs_testing(NodeType current_node)
+    {
+
+    }
+    void testing_planarity()
+    {
+        sort_adjacency_list_by_nesting_depth();
+        for(const auto root_node : roots)
+        {
+            dfs_testing(root_node);
+        }
+    }
 
     void orientation()
     {
