@@ -13,13 +13,14 @@
 #include <vector>
 #include <utility> /
 
-using EdgeHashType = size_t;
-
-template <typename NodeType>
-EdgeHashType compute_edge_hash(const std::pair<NodeType, NodeType>& edge)
+struct EdgeHash
 {
-    return std::hash<NodeType>()(edge.first) ^ (std::hash<NodeType>()(edge.second) << 1);
-}
+    template <typename T>
+    std::size_t operator()(const std::pair<T, T>& edge) const
+    {
+        return std::hash<T>()(edge.first) ^ std::hash<T>()(edge.second);
+    }
+};
 
 template <typename NodeType>
 std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
@@ -33,8 +34,8 @@ template <typename NodeType>
 class PlanarityTest
 {
     using Edge = std::pair<NodeType, NodeType>; // Define an edge type for convenience
-    constexpr auto reachability_not_assigned = std::numeric_limits<int>::max();
-    constexpr auto no_parent = std::numeric_limits<EdgeHashType>::max();
+    constexpr auto lowpt_not_assigned = std::numeric_limits<int>::min();
+    constexpr auto no_parent = std::numeric_limits<NodeType>::max();
     constexpr auto invalid_height = std::numeric_limits<int>::max();
 
 public:
@@ -55,8 +56,8 @@ public:
             for (const auto& neighbor : graph.get_neighbors(node))
             {
                 Edge edge = make_edge(node, neighbor);
-                reachability_value[edge] = reachability_not_assigned;
-                reachability_value2[edge] = reachability_not_assigned;
+                reachability_value[edge] = lowpt_not_assigned;
+                reachability_value2[edge] = lowpt_not_assigned;
                 parent_edge_map[edge] = no_parent;
                 nesting_depth[edge] = 0; // Default to 0
             }
@@ -64,7 +65,21 @@ public:
     }
 
 
-    void dfs(NodeType current_node)
+    void orientation()
+    {
+        for (const auto& current_node : graph.get_all_nodes())
+        {
+            if (height[current_node] == std::numeric_limits<int>::max())
+            {
+                // Node is unvisited
+                height[current_node] = 0;
+                roots.push_back(current_node); // Add to roots
+                dfs_orientation(current_node); // Call DFS1 starting from this root
+            }
+        }
+    }
+
+    void dfs_orientation(NodeType current_node)
     {
         // Retrieve the parent edge for the current vertex
         auto parent_edge = parent_edge_map[current_node];
@@ -72,55 +87,56 @@ public:
         for (const auto& neighbor : graph.get_neighbors(current_node))
         {
             // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
-            const auto dfs_edge_hash = compute_edge_hash(make_edge(current_node, neighbor));
-            if (visited_edges.find(dfs_edge_hash) == visited_edges.end())
+            Edge dfs_edge = make_edge(current_node, neighbor);
+
+            if (visited_edges.find(dfs_edge) == visited_edges.end())
             {
                 // Mark the edge as oriented
-                visited_edges.insert(dfs_edge_hash);
+                visited_edges.insert(dfs_edge);
 
                 // Initialize lowpoints
-                reachability_value[dfs_edge_hash] = height[current_node];
-                reachability_value2[dfs_edge_hash] = height[current_node];
+                reachability_value[dfs_edge] = height[current_node];
+                reachability_value2[dfs_edge] = height[current_node];
 
                 if (height[neighbor] == invalid_height)
                 {
                     // Tree edge
-                    parent_edge_map[neighbor] = dfs_edge_hash;
+                    parent_edge_map[neighbor] = dfs_edge;
                     height[neighbor] = height[current_node] + 1;
-                    dfs(neighbor);
+                    dfs_orientation(neighbor);
                 }
                 else
                 {
                     // Back edge
-                    reachability_value[dfs_edge_hash] = height[neighbor];
+                    reachability_value[dfs_edge] = height[neighbor];
                 }
 
                 // Determine nesting depth
-                nesting_depth[dfs_edge_hash] = 2 * reachability_value[dfs_edge_hash];
-                if (reachability_value2[dfs_edge_hash] < height[current_node])
+                nesting_depth[dfs_edge] = 2 * reachability_value[dfs_edge];
+                if (reachability_value2[dfs_edge] < height[current_node])
                 {
-                    nesting_depth[dfs_edge_hash] += 1; // Chordal adjustment
+                    nesting_depth[dfs_edge] += 1; // Chordal adjustment
                 }
 
                 // Update lowpoints of parent edge
-                if (parent_edge != no_parent)
+                if (parent_edge != Edge{})
                 {
                     // Parent edge is valid
-                    if (reachability_value[dfs_edge_hash] < reachability_value[parent_edge])
+                    if (reachability_value[dfs_edge] < reachability_value[parent_edge])
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value[parent_edge],
-                                                                    reachability_value2[dfs_edge_hash]);
-                        reachability_value[parent_edge] = reachability_value[dfs_edge_hash];
+                                                                    reachability_value2[dfs_edge]);
+                        reachability_value[parent_edge] = reachability_value[dfs_edge];
                     }
-                    else if (reachability_value[dfs_edge_hash] > reachability_value[parent_edge])
+                    else if (reachability_value[dfs_edge] > reachability_value[parent_edge])
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value2[parent_edge],
-                                                                    reachability_value[dfs_edge_hash]);
+                                                                    reachability_value[dfs_edge]);
                     }
                     else
                     {
                         reachability_value2[parent_edge] = std::min(reachability_value2[parent_edge],
-                                                                    reachability_value2[dfs_edge_hash]);
+                                                                    reachability_value2[dfs_edge]);
                     }
                 }
             }
@@ -129,14 +145,14 @@ public:
 
 private:
     const UndirectedGraph<NodeType>& graph;
-
+    std::vector<NodeType> roots; // Stores the roots of all connected components
     // Variables corresponding to the table
     std::unordered_map<NodeType, int> height; // Height of each node
-    std::unordered_map<EdgeHashType, int> reachability_value; // Lowpoint of each edge
-    std::unordered_map<EdgeHashType, int> reachability_value2; // Second-lowest point
-    std::unordered_map<EdgeHashType, int> nesting_depth; // Nesting depth
-    std::unordered_map<NodeType, EdgeHashType> parent_edge_map; // Parent edge of each node
-    std::unordered_set<EdgeHashType> visited_edges;
+    std::unordered_map<Edge, int, EdgeHash> reachability_value; // Lowpoint of each edge
+    std::unordered_map<Edge, int, EdgeHash> reachability_value2; // Second-lowest point
+    std::unordered_map<Edge, int, EdgeHash> nesting_depth; // Nesting depth
+    std::unordered_map<NodeType, Edge> parent_edge_map; // Parent edge of each node
+    std::unordered_set<Edge, EdgeHash> visited_edges;
 };
 
 
