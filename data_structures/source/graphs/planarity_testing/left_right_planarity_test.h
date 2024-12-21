@@ -14,7 +14,20 @@
 #include <vector>
 #include <utility> /
 
+template <typename NodeType>
+using Edge = std::pair<NodeType, NodeType>;
 
+template <typename NodeType>
+struct ConflictPair {
+    std::vector<Edge<NodeType>> L; // Left interval of edges
+    std::vector<Edge<NodeType>> R; // Right interval of edges
+
+    ConflictPair() = default;
+
+    // Constructor with initial intervals
+    ConflictPair(const std::vector<Edge<NodeType>>& left, const std::vector<Edge<NodeType>>& right)
+        : L(left), R(right) {}
+};
 
 
 struct EdgeHash
@@ -185,7 +198,7 @@ private:
 
     std::unordered_map<NodeType, Edge> parent_edge_map; // Parent edge of each node
     std::unordered_set<Edge, EdgeHash> visited_edges;
-    std::stack<NodeType> s;
+    std::stack<ConflictPair<NodeType>> stack;
 };
 
 
