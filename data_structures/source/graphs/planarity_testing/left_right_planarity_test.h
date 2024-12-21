@@ -10,8 +10,12 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <limits>
+#include <stack>
 #include <vector>
 #include <utility> /
+
+
+
 
 struct EdgeHash
 {
@@ -74,7 +78,14 @@ public:
 
     void dfs_testing(NodeType current_node)
     {
+        auto parent_edge = parent_edge_map[current_node];
+        for (const auto& neighbor : graph.get_neighbors(current_node))
+        {
+            Edge current_edge = make_edge(current_node, neighbor); // Create the edge
 
+            // Track the stack's state for the current edge
+            stack_bottom[current_edge] = S.empty() ? -1 : S.top(); // Use -1 to indicate an empty stack
+        }
     }
     void testing_planarity()
     {
@@ -170,8 +181,11 @@ private:
     std::unordered_map<Edge, int, EdgeHash> reachability_value; // Lowpoint of each edge
     std::unordered_map<Edge, int, EdgeHash> reachability_value2; // Second-lowest point
     std::unordered_map<Edge, int, EdgeHash> nesting_depth; // Nesting depth
+    std::unordered_map<Edge, int, EdgeHash> stack_bottom;
+
     std::unordered_map<NodeType, Edge> parent_edge_map; // Parent edge of each node
     std::unordered_set<Edge, EdgeHash> visited_edges;
+    std::stack<NodeType> s;
 };
 
 
