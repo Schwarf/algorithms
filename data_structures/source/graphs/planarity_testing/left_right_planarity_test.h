@@ -97,7 +97,19 @@ public:
             Edge current_edge = make_edge(current_node, neighbor); // Create the edge
 
             // Track the stack's state for the current edge
-            stack_bottom[current_edge] = S.empty() ? -1 : S.top(); // Use -1 to indicate an empty stack
+            stack_bottom[neighbor] = stack.empty() ? -1 : stack.top(); // Use -1 to indicate an empty stack
+            if (current_edge == parent_edge[neighbor])
+            {
+                dfs_testing(neighbor);
+            }
+            else
+            {
+                reachability_value[current_edge] = current_edge;
+                ConflictPair<NodeType> conflict_pair;
+                conflict_pair.L = {};
+                conflict_pair.R = {current_edge};
+                stack.push(conflict_pair);
+            }
         }
     }
     void testing_planarity()
@@ -195,6 +207,7 @@ private:
     std::unordered_map<Edge, int, EdgeHash> reachability_value2; // Second-lowest point
     std::unordered_map<Edge, int, EdgeHash> nesting_depth; // Nesting depth
     std::unordered_map<Edge, int, EdgeHash> stack_bottom;
+    std::unordered_map<Edge, Edge, EdgeHash> reachability_edge;
 
     std::unordered_map<NodeType, Edge> parent_edge_map; // Parent edge of each node
     std::unordered_set<Edge, EdgeHash> visited_edges;
