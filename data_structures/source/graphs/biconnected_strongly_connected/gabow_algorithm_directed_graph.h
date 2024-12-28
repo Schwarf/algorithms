@@ -5,7 +5,7 @@
 #ifndef STRONGLY_CONNECTED_COMPONENTS_GABOW_H
 #define STRONGLY_CONNECTED_COMPONENTS_GABOW_H
 #include <stack>
-#include "graph.h"
+#include "graphs/graph.h"
 
 template <typename NodeType>
 void gabow_dfs(NodeType current_node, const DirectedGraph<NodeType>& graph,

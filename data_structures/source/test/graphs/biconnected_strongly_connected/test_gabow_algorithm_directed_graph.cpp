@@ -1,7 +1,7 @@
 //
 // Created by andreas on 07.11.24.
 //
-#include "graphs/gabow_algorithm_directed_graph.h"
+#include "../../../graphs/biconnected_strongly_connected/gabow_algorithm_directed_graph.h"
 #include "gtest/gtest.h"
 
 TEST(TestgabowAlgoSSC, simple1)
