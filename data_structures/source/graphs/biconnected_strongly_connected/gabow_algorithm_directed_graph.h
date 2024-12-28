@@ -9,32 +9,32 @@
 
 template <typename NodeType>
 void gabow_dfs(NodeType current_node, const DirectedGraph<NodeType>& graph,
-               std::unordered_map<NodeType, int>& dicover_order,
+               std::unordered_map<NodeType, int>& discover_order,
                std::stack<NodeType>& path_stack, std::stack<int>& boundary_stack,
                std::unordered_set<NodeType>& identified_scc_nodes,
                std::set<std::set<NodeType>>& SCCs, int& current_index)
 {
-    dicover_order[current_node] = current_index++;
+    discover_order[current_node] = current_index++;
     path_stack.push(current_node);
-    boundary_stack.push(dicover_order[current_node]);
+    boundary_stack.push(discover_order[current_node]);
 
     for (auto& neighbor : graph.get_neighbors(current_node))
     {
-        if (!dicover_order.contains(neighbor))
+        if (!discover_order.contains(neighbor))
         {
-            gabow_dfs(neighbor, graph, dicover_order, path_stack, boundary_stack, identified_scc_nodes, SCCs,
+            gabow_dfs(neighbor, graph, discover_order, path_stack, boundary_stack, identified_scc_nodes, SCCs,
                       current_index);
         }
         if (!identified_scc_nodes.contains(neighbor))
         {
-            while (boundary_stack.top() > dicover_order[neighbor])
+            while (boundary_stack.top() > discover_order[neighbor])
             {
                 boundary_stack.pop();
             }
         }
     }
 
-    if (boundary_stack.top() == dicover_order[current_node])
+    if (boundary_stack.top() == discover_order[current_node])
     {
         boundary_stack.pop();
         std::set<NodeType> scc;
