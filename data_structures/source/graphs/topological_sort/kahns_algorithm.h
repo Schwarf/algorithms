@@ -12,22 +12,22 @@
 template <typename NodeType>
 std::vector<NodeType> kahns_algorithm(const DirectedGraph<NodeType>& graph)
 {
-    std::vector<NodeType> in_degree(graph.get_all_nodes());
+    std::unordered_map<NodeType, int> in_degree;
     std::vector<NodeType> topological_order;
     for(const auto node: graph.get_all_nodes())
     {
-        for(const auto neighbor: graph.get_all_neighbours(node))
+        for(const auto neighbor: graph.get_neighbors(node))
         {
-            ++in_degree[neighbor];
+            in_degree[neighbor] += 1;
         }
     }
 
     // Find all start nodes
     std::queue<NodeType> queue;
-    for(int i{}; i < in_degree.size(); ++i)
+    for(const auto node: graph.get_all_nodes())
     {
-        if(in_degree[i] == 0)
-            queue.push(i);
+        if(in_degree[node] == 0)
+            queue.push(node);
     }
 
     while(!queue.empty())
@@ -35,9 +35,9 @@ std::vector<NodeType> kahns_algorithm(const DirectedGraph<NodeType>& graph)
         auto current = queue.front();
         queue.pop();
         topological_order.push_back(current);
-        for(const auto neighbor: graph.get_all_neighbours(current))
+        for(const auto neighbor: graph.get_neighbors(current))
         {
-            --in_degree[neighbor];
+            in_degree[neighbor] -= 1;
             if(in_degree[neighbor] == 0)
                 queue.push(neighbor);
         }
