@@ -53,6 +53,7 @@ public:
             height[node] = none;
             parent_edges[node] = invalid_edge;
         }
+        adjacency_list = graph.get_adjacent_list();
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
@@ -126,73 +127,62 @@ private:
         }
     }
 
-    void dfs_orientation(NodeType start_node)
+    void dfs_orientation(NodeType current_node)
     {
         // Retrieve the parent edge for the current vertex
-        std::stack<NodeType> dfs_stack;
-        dfs_stack.push(start_node);
-        std::unordered_map<NodeType, size_t> next_edge_index;
-        std::unordered_map<Edge, bool, EdgeHash> skip_edge_initialization;
-        while (!dfs_stack.empty())
+        auto parent_edge = parent_edge[current_node];
+
+        for (const auto& neighbor : graph.get_neighbors(current_node))
         {
-            auto current_node = dfs_stack.top();
-            auto parent_edge = parent_edges[current_node];
-            dfs_stack.pop();
-            auto& neighbors = graph.get_neighbors(current_node);
-            auto neighbor_iterator = neighbors.begin();
-            auto& index = next_edge_index[current_node];
-            for (; neighbor_iterator != neighbors.end(); ++neighbor_iterator, ++index)
+            // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
+            auto current_edge = make_edge(current_node, neighbor);
+            auto current_reversed_edge = make_edge(current_node, neighbor);
+
+            if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
+                continue;
+            // Mark the edge as oriented and visited
+            visited_edges.insert(current_edge);
+            dfs_graph.add_edge(current_node, neighbor);
+            // Set the
+            low_pt[current_edge] = height[current_node];
+            low_pt2[current_edge] = height[current_node];
+
+            if (height[neighbor] == none)
             {
-                auto neighbor = *neighbor_iterator;
-                auto current_edge = make_edge(current_node, neighbor);
-                if (!skip_edge_initialization[current_edge])
-                {
-                    const auto reverse_edge = make_edge(neighbor, current_edge);
-                    if (dfs_graph.get_all_edges().contains(reverse_edge) ||
-                        dfs_graph.get_all_edges().contains(current_edge))
-                    {
-                        ++index;
-                        continue;
-                    }
-                    dfs_graph.insert_edge(current_edge, neighbor);
-                    low_pt[current_edge] = height[current_node];
-                    low_pt2[current_edge] = height[current_node];
-                    if (!height.contains(neighbor)) // found a tree edge, since neighbor has not been found yet
-                    {
-                        parent_edges[neighbor] = current_edge;
-                        height[neighbor] = height[current_node] + 1;
-                        dfs_stack.push(current_node);
-                        dfs_stack.push(neighbor);
-                        skip_edge_initialization[current_edge] = true;
-                        break;
-                    }
-                    low_pt[current_edge] = height[neighbor];
-                }
-                // determine nesting graph
-                nesting_depth[current_edge] = 2 * low_pt[neighbor];
-                if (low_pt2[neighbor] < height[current_node])
-                {
-                    ++nesting_depth[current_edge];
-                }
+                // Found a DFS-tree edge
+                parent_edges[neighbor] = current_edge;
+                height[neighbor] = height[current_node] + 1;
+                dfs_orientation(neighbor);
+            }
+            else
+            {
+                // Found a back edge
+                low_pt[current_edge] = height[neighbor];
+            }
 
-                if (parent_edge != no_parent)
-                {
-                    if (low_pt[current_edge] < low_pt[parent_edge])
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt[parent_edge], low_pt2[current_edge]);
-                        low_pt[parent_edge] = low_pt[current_edge];
-                    }
-                    else if(low_pt[current_edge] > low_pt[parent_edge])
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt[current_edge]);
-                    }
-                    else
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt2[current_edge]);
-                    }
+            // Determine nesting depth
+            nesting_depth[current_edge] = 2 * low_pt[current_edge];
+            if (low_pt2[current_edge] < height[current_node])
+            {
+                nesting_depth[current_edge] += 1; // Chordal adjustment
+            }
 
+            // Update reachability_values (aka low_points) of parent edge
+            if (parent_edge != no_parent)
+            {
+                if (low_pt[current_edge] < low_pt[parent_edge])
+                {
+                    low_pt2[parent_edge] = std::min(low_pt[parent_edge],low_pt2[current_edge]);
+                    low_pt[parent_edge] = low_pt[current_edge];
                 }
-                ++index;
+                else if (low_pt[current_edge] > low_pt[parent_edge])
+                {
+                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge],low_pt[current_edge]);
+                }
+                else
+                {
+                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge],low_pt2[current_edge]);
+                }
             }
         }
     }
@@ -207,8 +197,8 @@ private:
     std::unordered_map<Edge, int, EdgeHash> low_pt2{}; // Second-lowest point
     std::unordered_map<Edge, int, EdgeHash> nesting_depth{}; // Nesting depth
     std::unordered_map<Edge, int, EdgeHash> stack_bottom{};
-    std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list{};
-    std::unordered_map<NodeType, std::vector<NodeType>> ordered_adjacency_list{};
+    std::unordered_map<NodeType, std::unordered_set<NodeType>> &adjacency_list;
+    std::unordered_map<NodeType, std::unordered_set<NodeType>> ordered_adjacency_list;
     std::unordered_map<Edge, int, EdgeHash> ref{};
     std::unordered_map<Edge, int, EdgeHash> side{};
     std::unordered_map<Edge, Edge, EdgeHash> lowpt_edge{};

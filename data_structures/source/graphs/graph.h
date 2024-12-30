@@ -328,10 +328,16 @@ public:
     }
 
     // Get adjacent nodes of a given node
-    const std::unordered_set<int>& get_neighbors(int node) const
+    const std::unordered_set<NodeType>& get_neighbors(int node) const
     {
         return adjacency_list.at(node);
     }
+
+    const std::unordered_map<NodeType, std::unordered_set<NodeType>>& get_adjacency_list() const
+    {
+        return adjacency_list;
+    }
+
 
     // Get the total number of nodes in the graph
     int get_node_count() const
@@ -349,6 +355,7 @@ public:
     {
         return edge_set;
     }
+
 
 private:
     std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
