@@ -71,7 +71,7 @@ public:
 private:
     void sort_adjacency_list_by_nesting_depth()
     {
-        for (auto& [node, neighbors] : graph)
+        for (auto& [node, neighbors] : dfs_graph)
         {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
             {
@@ -80,26 +80,24 @@ private:
         }
     }
 
-    void dfs_testing(NodeType current_node)
+    bool dfs_testing(NodeType start_node)
     {
-        auto parent_edge = parent_edge[current_node];
-        for (const auto& neighbor : graph.get_neighbors(current_node))
+        auto parent_edge = parent_edges[start_node];
+        for (const auto neighbor : dfs_graph.get_neighbors(start_node))
         {
-            Edge current_edge = make_edge(current_node, neighbor); // Create the edge
+            auto current_edge = make_edge(start_node, neighbor); // Create the edge
 
             // Track the stack's state for the current edge
             stack_bottom[neighbor] = stack.empty() ? -1 : stack.top(); // Use -1 to indicate an empty stack
-            if (current_edge == parent_edge[neighbor])
+            if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
-                dfs_testing(neighbor);
+                if (!dfs_testing(neighbor))
+                    return false;
             }
-            else
+            else // back edge ? add explanation
             {
                 low_pt[current_edge] = current_edge;
-                ConflictPair<NodeType> conflict_pair;
-                conflict_pair.L = {};
-                conflict_pair.R = {current_edge};
-                stack.push(conflict_pair);
+                stack.push(ConflictPair<NodeType>({}, current_edge)); // Interval  is missing.
             }
         }
     }

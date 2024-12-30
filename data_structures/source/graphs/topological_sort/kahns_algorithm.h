@@ -42,7 +42,7 @@ std::vector<NodeType> kahns_algorithm(const DirectedGraph<NodeType>& graph)
                 queue.push(neighbor);
         }
     }
-    if(topological_order.size() != graph.get_all_nodes().size())
+    if(topological_order.size() != graph.get_node_count())
         return {};
 
     return topological_order;

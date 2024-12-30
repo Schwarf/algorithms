@@ -278,7 +278,7 @@ template <typename NodeType>
 class UndirectedGraph
 {
 public:
-    UndirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
+    UndirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
     {
         for(const auto& node : nodes)
             adjacency_list[node];
@@ -317,13 +317,8 @@ public:
     }
 
     // Get all nodes in the graph
-    std::unordered_set<NodeType> get_all_nodes() const
+    std::vector<NodeType> get_all_nodes() const
     {
-        std::unordered_set<NodeType> nodes;
-        for (const auto& [node, neighbors] : adjacency_list)
-        {
-            nodes.insert(node);
-        }
         return nodes;
     }
 
@@ -361,6 +356,7 @@ private:
     std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
     std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
     std::unordered_set<Edge<NodeType>, EdgeHash> edge_set;
+    std::vector<NodeType> nodes;
     int node_count{}; // Counter for unique nodes
     int edge_count{}; // Counter for unique edges
 };
