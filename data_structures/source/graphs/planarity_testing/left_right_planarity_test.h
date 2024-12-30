@@ -8,23 +8,36 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <limits>
+#include <optional>
 #include <stack>
 #include <vector>
 #include <utility>
 #include "graphs/graph.h"
 
+template <typename NodeType>
+struct Interval {
+    Edge<NodeType> low{};  // Represents the lower bound of the interval
+    Edge<NodeType> high{}; // Represents the upper bound of the interval
+
+    // Default constructor
+    Interval() = default;
+
+    // Constructor with specific low and high values
+    Interval(const Edge<NodeType>& low, const Edge<NodeType>& high)
+        : low(low), high(high) {}
+};
 
 template <typename NodeType>
 struct ConflictPair
 {
-    std::vector<Edge<NodeType>> L; // Left interval of edges
-    std::vector<Edge<NodeType>> R; // Right interval of edges
+    Interval<NodeType> left{}; // Left interval of edges
+    Interval<NodeType> right{}; // Right interval of edges
 
     ConflictPair() = default;
 
     // Constructor with initial intervals
-    ConflictPair(const std::vector<Edge<NodeType>>& left, const std::vector<Edge<NodeType>>& right)
-        : L(left), R(right)
+    ConflictPair(const Interval<NodeType>& left, const Interval<NodeType>& right)
+        : left(left), right(right)
     {
     }
 };
