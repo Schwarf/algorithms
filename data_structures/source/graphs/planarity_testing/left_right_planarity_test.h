@@ -15,7 +15,8 @@
 
 
 template <typename NodeType>
-struct ConflictPair {
+struct ConflictPair
+{
     std::vector<Edge<NodeType>> L; // Left interval of edges
     std::vector<Edge<NodeType>> R; // Right interval of edges
 
@@ -23,10 +24,10 @@ struct ConflictPair {
 
     // Constructor with initial intervals
     ConflictPair(const std::vector<Edge<NodeType>>& left, const std::vector<Edge<NodeType>>& right)
-        : L(left), R(right) {}
+        : L(left), R(right)
+    {
+    }
 };
-
-
 
 
 template <typename NodeType>
@@ -39,6 +40,7 @@ class PlanarityTest
     static constexpr int none = std::numeric_limits<int>::max();
     static constexpr std::pair<NodeType, NodeType> invalid_edge = std::make_pair(none, none);
     bool is_planar{};
+
 public:
     explicit PlanarityTest(const UndirectedGraph<NodeType>& graph)
         : graph(graph), dfs_graph()
@@ -54,23 +56,24 @@ public:
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
-
     }
+
     void run()
     {
-        if(graph.get_node_count()  > 2 && graph.get_edges().size() > 3* graph.get_node_count() - 6)
+        if (graph.get_node_count() > 2 && graph.get_edges().size() > 3 * graph.get_node_count() - 6)
         {
             is_planar = false;
             return;
         }
-
-
     }
 
 private:
-    void sort_adjacency_list_by_nesting_depth() {
-        for (auto& [node, neighbors] : graph) {
-            std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b) {
+    void sort_adjacency_list_by_nesting_depth()
+    {
+        for (auto& [node, neighbors] : graph)
+        {
+            std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
+            {
                 return nesting_depth[make_edge(node, a)] < nesting_depth[make_edge(node, b)];
             });
         }
@@ -99,10 +102,11 @@ private:
             }
         }
     }
+
     void check_planarity()
     {
         sort_adjacency_list_by_nesting_depth();
-        for(const auto root_node : roots)
+        for (const auto root_node : roots)
         {
             dfs_testing(root_node);
         }
@@ -132,31 +136,68 @@ private:
         while (!dfs_stack.empty())
         {
             auto current_node = dfs_stack.top();
+            auto parent_edge = parent_edges[current_node];
             dfs_stack.pop();
-            auto & neighbors = graph.get_neighbors(current_node);
+            auto& neighbors = graph.get_neighbors(current_node);
             auto neighbor_iterator = neighbors.begin();
-            auto & index = next_edge_index[current_node];
+            auto& index = next_edge_index[current_node];
             for (; neighbor_iterator != neighbors.end(); ++neighbor_iterator, ++index)
             {
                 auto neighbor = *neighbor_iterator;
                 auto current_edge = make_edge(current_node, neighbor);
-                if(!skip_edge_initialization[current_edge])
+                if (!skip_edge_initialization[current_edge])
                 {
-                    auto reverse_edge = make_edge(neighbor, current_edge);
-                    if(dfs_graph.get_all_edges().contains(reverse_edge) || dfs_graph.get_all_edges().contains(current_edge))
+                    const auto reverse_edge = make_edge(neighbor, current_edge);
+                    if (dfs_graph.get_all_edges().contains(reverse_edge) ||
+                        dfs_graph.get_all_edges().contains(current_edge))
                     {
                         ++index;
                         continue;
                     }
-
+                    dfs_graph.insert_edge(current_edge, neighbor);
+                    low_pt[current_edge] = height[current_node];
+                    low_pt2[current_edge] = height[current_node];
+                    if (!height.contains(neighbor)) // found a tree edge, since neighbor has not been found yet
+                    {
+                        parent_edges[neighbor] = current_edge;
+                        height[neighbor] = height[current_node] + 1;
+                        dfs_stack.push(current_node);
+                        dfs_stack.push(neighbor);
+                        skip_edge_initialization[current_edge] = true;
+                        break;
+                    }
+                    low_pt[current_edge] = height[neighbor];
+                }
+                // determine nesting graph
+                nesting_depth[current_edge] = 2 * low_pt[neighbor];
+                if (low_pt2[neighbor] < height[current_node])
+                {
+                    ++nesting_depth[current_edge];
                 }
 
+                if (parent_edge != no_parent)
+                {
+                    if (low_pt[current_edge] < low_pt[parent_edge])
+                    {
+                        low_pt2[parent_edge] = std::min(low_pt[parent_edge], low_pt2[current_edge]);
+                        low_pt[parent_edge] = low_pt[current_edge];
+                    }
+                    else if(low_pt[current_edge] > low_pt[parent_edge])
+                    {
+                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt[current_edge]);
+                    }
+                    else
+                    {
+                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt2[current_edge]);
+                    }
 
+                }
+                ++index;
             }
         }
     }
 
-private:
+    // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
     const UndirectedGraph<NodeType>& graph;
     DirectedGraph<NodeType>& dfs_graph;
     std::vector<NodeType> roots; // Stores the roots of all connected components
