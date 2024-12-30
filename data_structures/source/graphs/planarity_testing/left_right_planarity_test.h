@@ -142,6 +142,13 @@ private:
                 auto current_edge = make_edge(current_node, neighbor);
                 if(!skip_edge_initialization[current_edge])
                 {
+                    auto reverse_edge = make_edge(neighbor, current_edge);
+                    if(dfs_graph.get_all_edges().contains(reverse_edge) || dfs_graph.get_all_edges().contains(current_edge))
+                    {
+                        ++index;
+                        continue;
+                    }
+
                 }
 
 

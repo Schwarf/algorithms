@@ -169,6 +169,24 @@ private:
 };
 
 
+template <typename NodeType>
+using Edge = std::pair<NodeType, NodeType>;
+
+struct EdgeHash
+{
+    template <typename T>
+    std::size_t operator()(const std::pair<T, T>& edge) const
+    {
+        return std::hash<T>()(edge.first) ^ std::hash<T>()(edge.second);
+    }
+};
+
+
+template <typename NodeType>
+std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
+{
+    return std::make_pair(u, v);
+}
 
 template <typename NodeType>
 requires std::is_signed_v<NodeType>
@@ -183,6 +201,7 @@ public:
         for (const auto& edge : edges)
         {
             add_edge(edge.first, edge.second);
+            edge_set.insert(edge);
         }
     }
 
@@ -190,6 +209,7 @@ public:
     void add_edge(NodeType source_node, NodeType destination_node)
     {
         // Check if the edge is valid and does not already exist
+
         if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
         {
             adjacency_list[source_node].insert(destination_node);
@@ -242,6 +262,7 @@ private:
     // Adjacency list: each node points to a set of nodes it has edges to
     std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
     std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
+    std::unordered_set<Edge<NodeType>, EdgeHash> edge_set;
     int node_count{}; // Counter for unique nodes
     int edge_count{}; // Counter for unique edges
 };
@@ -251,24 +272,6 @@ private:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// UndirectedGraph
-template <typename NodeType>
-using Edge = std::pair<NodeType, NodeType>;
-
-struct EdgeHash
-{
-    template <typename T>
-    std::size_t operator()(const std::pair<T, T>& edge) const
-    {
-        return std::hash<T>()(edge.first) ^ std::hash<T>()(edge.second);
-    }
-};
-
-
-template <typename NodeType>
-std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
-{
-    return std::make_pair(u, v);
-}
 
 
 template <typename NodeType>
@@ -340,6 +343,11 @@ public:
     int get_edge_count() const
     {
         return edge_count;
+    }
+
+    std::unordered_set<Edge<NodeType>> get_all_edges() const
+    {
+        return edge_set;
     }
 
 private:
