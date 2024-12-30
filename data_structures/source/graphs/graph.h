@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <unordered_set>
 
+
 template <typename id_T, typename data_T>
 struct GraphNode
 {
@@ -251,6 +252,26 @@ private:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// UndirectedGraph
 template <typename NodeType>
+using Edge = std::pair<NodeType, NodeType>;
+
+struct EdgeHash
+{
+    template <typename T>
+    std::size_t operator()(const std::pair<T, T>& edge) const
+    {
+        return std::hash<T>()(edge.first) ^ std::hash<T>()(edge.second);
+    }
+};
+
+
+template <typename NodeType>
+std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
+{
+    return std::make_pair(u, v);
+}
+
+
+template <typename NodeType>
 class UndirectedGraph
 {
 public:
@@ -269,6 +290,8 @@ public:
     {
         // Check if the edge is valid and does not already exist in either direction
         // (since each edge is added bidirectional we check only one direction)
+        edge_set.insert(make_edge(source_node, destination_node));
+        edge_set.insert(make_edge(destination_node, source_node));
         if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
         {
             adjacency_list[source_node].insert(destination_node);
@@ -322,6 +345,7 @@ public:
 private:
     std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
     std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
+    std::unordered_set<Edge<NodeType>, EdgeHash> edge_set;
     int node_count{}; // Counter for unique nodes
     int edge_count{}; // Counter for unique edges
 };

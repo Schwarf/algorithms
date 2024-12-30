@@ -4,18 +4,15 @@
 
 #ifndef LEFT_RIGHT_PLANARITY_TEST_H
 #define LEFT_RIGHT_PLANARITY_TEST_H
-#include <optional>
-#include "graphs/graph.h"
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
 #include <limits>
 #include <stack>
 #include <vector>
-#include <utility> /
+#include <utility>
+#include "graphs/graph.h"
 
-template <typename NodeType>
-using Edge = std::pair<NodeType, NodeType>;
 
 template <typename NodeType>
 struct ConflictPair {
@@ -30,20 +27,6 @@ struct ConflictPair {
 };
 
 
-struct EdgeHash
-{
-    template <typename T>
-    std::size_t operator()(const std::pair<T, T>& edge) const
-    {
-        return std::hash<T>()(edge.first) ^ std::hash<T>()(edge.second);
-    }
-};
-
-template <typename NodeType>
-std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
-{
-    return std::make_pair(u, v);
-}
 
 
 template <typename NodeType>
@@ -51,10 +34,11 @@ template <typename NodeType>
 class PlanarityTest
 {
     using Edge = std::pair<NodeType, NodeType>; // Define an edge type for convenience
-    constexpr auto lowpt_not_assigned = std::numeric_limits<int>::min();
-    constexpr auto no_parent = std::numeric_limits<NodeType>::max();
-    constexpr auto none = std::numeric_limits<int>::max();
-    constexpr auto invalid_edge = std::make_pair(none, none);
+    static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
+    static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
+    static constexpr int none = std::numeric_limits<int>::max();
+    static constexpr std::pair<NodeType, NodeType> invalid_edge = std::make_pair(none, none);
+    bool is_planar{};
 public:
     explicit PlanarityTest(const UndirectedGraph<NodeType>& graph)
         : graph(graph), dfs_graph()
@@ -65,14 +49,25 @@ public:
         for (const auto& node : nodes)
         {
             height[node] = none;
-            parent_edge[node] = invalid_edge;
+            parent_edges[node] = invalid_edge;
         }
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
 
     }
+    void run()
+    {
+        if(graph.get_node_count()  > 2 && graph.get_edges().size() > 3* graph.get_node_count() - 6)
+        {
+            is_planar = false;
+            return;
+        }
 
+
+    }
+
+private:
     void sort_adjacency_list_by_nesting_depth() {
         for (auto& [node, neighbors] : graph) {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b) {
@@ -104,7 +99,7 @@ public:
             }
         }
     }
-    void testing_planarity()
+    void check_planarity()
     {
         sort_adjacency_list_by_nesting_depth();
         for(const auto root_node : roots)
@@ -127,65 +122,29 @@ public:
         }
     }
 
-    void dfs_orientation(NodeType current_node)
+    void dfs_orientation(NodeType start_node)
     {
         // Retrieve the parent edge for the current vertex
-        auto parent_edge = parent_edge[current_node];
-
-        for (const auto& neighbor : graph.get_neighbors(current_node))
+        std::stack<NodeType> dfs_stack;
+        dfs_stack.push(start_node);
+        std::unordered_map<NodeType, size_t> next_edge_index;
+        std::unordered_map<Edge, bool, EdgeHash> skip_edge_initialization;
+        while (!dfs_stack.empty())
         {
-            // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
-            Edge current_edge = make_edge(current_node, neighbor);
-
-            if (visited_edges.find(current_edge) == visited_edges.end())
+            auto current_node = dfs_stack.top();
+            dfs_stack.pop();
+            auto & neighbors = graph.get_neighbors(current_node);
+            auto neighbor_iterator = neighbors.begin();
+            auto & index = next_edge_index[current_node];
+            for (; neighbor_iterator != neighbors.end(); ++neighbor_iterator, ++index)
             {
-                // Mark the edge as oriented and visited
-                visited_edges.insert(current_edge);
-                // Set the
-                low_pt[current_edge] = height[current_node];
-                low_pt2[current_edge] = height[current_node];
-
-                if (height[neighbor] == none)
+                auto neighbor = *neighbor_iterator;
+                auto current_edge = make_edge(current_node, neighbor);
+                if(!skip_edge_initialization[current_edge])
                 {
-                    // Found a DFS-tree edge
-                    parent_edge[neighbor] = current_edge;
-                    height[neighbor] = height[current_node] + 1;
-                    dfs_orientation(neighbor);
-                }
-                else
-                {
-                    // Found a back edge
-                    low_pt[current_edge] = height[neighbor];
                 }
 
-                // Determine nesting depth
-                nesting_depth[current_edge] = 2 * low_pt[current_edge];
-                if (low_pt2[current_edge] < height[current_node])
-                {
-                    nesting_depth[current_edge] += 1; // Chordal adjustment
-                }
 
-                // Update reachability_values of parent edge
-                if (parent_edge != Edge{})
-                {
-                    // Parent edge is valid
-                    if (low_pt[current_edge] < low_pt[parent_edge])
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt[parent_edge],
-                                                                    low_pt2[current_edge]);
-                        low_pt[parent_edge] = low_pt[current_edge];
-                    }
-                    else if (low_pt[current_edge] > low_pt[parent_edge])
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge],
-                                                                    low_pt[current_edge]);
-                    }
-                    else
-                    {
-                        low_pt2[parent_edge] = std::min(low_pt2[parent_edge],
-                                                                    low_pt2[current_edge]);
-                    }
-                }
             }
         }
     }
@@ -208,7 +167,7 @@ private:
     std::unordered_map<NodeType, Edge, EdgeHash> left_ref{};
     std::unordered_map<NodeType, Edge, EdgeHash> right_ref{};
 
-    std::unordered_map<NodeType, Edge> parent_edge; // Parent edge of each node
+    std::unordered_map<NodeType, Edge> parent_edges; // Parent edge of each node
     std::unordered_set<Edge, EdgeHash> visited_edges;
     std::stack<ConflictPair<NodeType>> stack{};
 };

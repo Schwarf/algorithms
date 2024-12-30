@@ -6,7 +6,7 @@
 #define TARJAN_ALGORITHM_DIRECTED_GRAPH_H
 
 #include <stack>
-#include "./../graph.h"
+#include "graphs/graph.h"
 
 
 template <typename NodeType>
