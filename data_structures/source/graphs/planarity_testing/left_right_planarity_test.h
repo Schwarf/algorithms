@@ -15,17 +15,27 @@
 #include "graphs/graph.h"
 
 template <typename NodeType>
-struct Interval {
-    Edge<NodeType> low{};  // Represents the lower bound of the interval
-    Edge<NodeType> high{}; // Represents the upper bound of the interval
+struct Interval
+{
+    Edge<NodeType> low{NoneEdge<NodeType>}; // Represents the lower bound of the interval
+    Edge<NodeType> high{NoneEdge<NodeType>}; // Represents the upper bound of the interval
 
     // Default constructor
     Interval() = default;
 
     // Constructor with specific low and high values
     Interval(const Edge<NodeType>& low, const Edge<NodeType>& high)
-        : low(low), high(high) {}
+        : low(low), high(high)
+    {
+    }
+
+    bool is_empty() const
+    {
+        return low==NoneEdge<NodeType>() && high==NoneEdge<NodeType>();
+    }
 };
+
+
 
 template <typename NodeType>
 struct ConflictPair
@@ -40,6 +50,12 @@ struct ConflictPair
         : left(left), right(right)
     {
     }
+
+    void swap()
+    {
+        std::swap(left, right);
+    }
+
 };
 
 
@@ -93,12 +109,13 @@ private:
         }
     }
 
-    bool dfs_testing(NodeType start_node)
+
+    bool dfs_testing(NodeType current_node)
     {
-        auto parent_edge = parent_edges[start_node];
-        for (const auto neighbor : dfs_graph.get_neighbors(start_node))
+        auto parent_edge = parent_edges[current_node];
+        for (const auto neighbor : dfs_graph.get_neighbors(current_node))
         {
-            auto current_edge = make_edge(start_node, neighbor); // Create the edge
+            auto current_edge = make_edge(current_node, neighbor); // Create the edge
 
             // Track the stack's state for the current edge
             stack_bottom[neighbor] = stack.empty() ? -1 : stack.top(); // Use -1 to indicate an empty stack
@@ -110,7 +127,50 @@ private:
             else // back edge ? add explanation
             {
                 low_pt[current_edge] = current_edge;
-                stack.push(ConflictPair<NodeType>({}, current_edge)); // Interval  is missing.
+                stack.push(ConflictPair<NodeType>(Interval<NodeType>{},
+                                                  Interval<NodeType>(current_edge, current_edge)));
+            }
+
+            if (low_pt[current_edge] < height[current_node])
+            {
+                if(neighbor == )
+            }
+        }
+
+        return true;
+    }
+
+    bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
+    {
+        auto help_conflict_pair = ConflictPair<NodeType>();
+        while(stack.top() != stack_bottom[edge])
+        {
+            auto current_conflict_pair = stack.top();
+            stack.pop();
+            if (!current_conflict_pair.left.is_empty())
+            {
+                current_conflict_pair.swap();
+            }
+            if (!current_conflict_pair.left.is_empty())
+            {
+                return false;
+            }
+            if(low_pt[current_conflict_pair.left] > low_pt[parent_edge])
+            {
+                if(help_conflict_pair.right.is_empty())
+                {
+                    help_conflict_pair.right = current_conflict_pair.right;
+                }
+                else
+                {
+                    ref[help_conflict_pair.right.low] = current_conflict_pair.right.high;
+                }
+
+                help_conflict_pair.right.low = current_conflict_pair.right.low;
+            }
+            else
+            {
+                ref[current_conflict_pair.right.low] = low_pt[parent_edge];
             }
         }
     }
@@ -136,6 +196,12 @@ private:
                 dfs_orientation(current_node);
             }
         }
+    }
+
+
+    bool conflicting(const Interval<NodeType> & interval, const Edge<NodeType>& edge)
+    {
+        return !interval.is_empty() && low_pt[interval.high] > low_pt[edge];
     }
 
     void dfs_orientation(NodeType current_node)
@@ -183,16 +249,16 @@ private:
             {
                 if (low_pt[current_edge] < low_pt[parent_edge])
                 {
-                    low_pt2[parent_edge] = std::min(low_pt[parent_edge],low_pt2[current_edge]);
+                    low_pt2[parent_edge] = std::min(low_pt[parent_edge], low_pt2[current_edge]);
                     low_pt[parent_edge] = low_pt[current_edge];
                 }
                 else if (low_pt[current_edge] > low_pt[parent_edge])
                 {
-                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge],low_pt[current_edge]);
+                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt[current_edge]);
                 }
                 else
                 {
-                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge],low_pt2[current_edge]);
+                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt2[current_edge]);
                 }
             }
         }
@@ -208,7 +274,7 @@ private:
     std::unordered_map<Edge, int, EdgeHash> low_pt2{}; // Second-lowest point
     std::unordered_map<Edge, int, EdgeHash> nesting_depth{}; // Nesting depth
     std::unordered_map<Edge, int, EdgeHash> stack_bottom{};
-    std::unordered_map<NodeType, std::unordered_set<NodeType>> &adjacency_list;
+    std::unordered_map<NodeType, std::unordered_set<NodeType>>& adjacency_list;
     std::unordered_map<NodeType, std::unordered_set<NodeType>> ordered_adjacency_list;
     std::unordered_map<Edge, int, EdgeHash> ref{};
     std::unordered_map<Edge, int, EdgeHash> side{};
