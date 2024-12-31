@@ -14,55 +14,52 @@
 #include <utility>
 #include "graphs/graph.h"
 
-template <typename NodeType>
-struct Interval
-{
-    Edge<NodeType> low{NoneEdge<NodeType>}; // Represents the lower bound of the interval
-    Edge<NodeType> high{NoneEdge<NodeType>}; // Represents the upper bound of the interval
-
-    // Default constructor
-    Interval() = default;
-
-    // Constructor with specific low and high values
-    Interval(const Edge<NodeType>& low, const Edge<NodeType>& high)
-        : low(low), high(high)
-    {
-    }
-
-    bool is_empty() const
-    {
-        return low==NoneEdge<NodeType>() && high==NoneEdge<NodeType>();
-    }
-};
-
-
-
-template <typename NodeType>
-struct ConflictPair
-{
-    Interval<NodeType> left{}; // Left interval of edges
-    Interval<NodeType> right{}; // Right interval of edges
-
-    ConflictPair() = default;
-
-    // Constructor with initial intervals
-    ConflictPair(const Interval<NodeType>& left, const Interval<NodeType>& right)
-        : left(left), right(right)
-    {
-    }
-
-    void swap()
-    {
-        std::swap(left, right);
-    }
-
-};
-
 
 template <typename NodeType>
     requires std::is_signed_v<NodeType>
 class PlanarityTest
 {
+    struct Interval
+    {
+        Edge<NodeType> low{NoneEdge<NodeType>}; // Represents the lower bound of the interval
+        Edge<NodeType> high{NoneEdge<NodeType>}; // Represents the upper bound of the interval
+
+        // Default constructor
+        Interval() = default;
+
+        // Constructor with specific low and high values
+        Interval(const Edge<NodeType>& low, const Edge<NodeType>& high)
+            : low(low), high(high)
+        {
+        }
+
+        bool is_empty() const
+        {
+            return low == NoneEdge<NodeType>() && high == NoneEdge<NodeType>();
+        }
+    };
+
+
+    struct ConflictPair
+    {
+        Interval<NodeType> left{}; // Left interval of edges
+        Interval<NodeType> right{}; // Right interval of edges
+
+        ConflictPair() = default;
+
+        // Constructor with initial intervals
+        ConflictPair(const Interval<NodeType>& left, const Interval<NodeType>& right)
+            : left(left), right(right)
+        {
+        }
+
+        void swap()
+        {
+            std::swap(left, right);
+        }
+    };
+
+
     using Edge = std::pair<NodeType, NodeType>; // Define an edge type for convenience
     static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
     static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
@@ -133,7 +130,8 @@ private:
 
             if (low_pt[current_edge] < height[current_node])
             {
-                if(neighbor == )
+                if (neighbor ==)
+
             }
         }
 
@@ -143,7 +141,7 @@ private:
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
         auto help_conflict_pair = ConflictPair<NodeType>();
-        while(stack.top() != stack_bottom[edge])
+        while (stack.top() != stack_bottom[edge])
         {
             auto current_conflict_pair = stack.top();
             stack.pop();
@@ -155,9 +153,9 @@ private:
             {
                 return false;
             }
-            if(low_pt[current_conflict_pair.left] > low_pt[parent_edge])
+            if (low_pt[current_conflict_pair.left] > low_pt[parent_edge])
             {
-                if(help_conflict_pair.right.is_empty())
+                if (help_conflict_pair.right.is_empty())
                 {
                     help_conflict_pair.right = current_conflict_pair.right;
                 }
@@ -173,6 +171,38 @@ private:
                 ref[current_conflict_pair.right.low] = low_pt[parent_edge];
             }
         }
+
+        while (conflicting(stack.top().left, edge) || conflicting(stack.top().right, edge))
+        {
+            auto current_conflict_pair = stack.top();
+            stack.pop();
+            if (conflicting(current_conflict_pair.right, edge))
+            {
+                current_conflict_pair.swap();
+            }
+            if (conflicting(current_conflict_pair.right, edge))
+            {
+                return false;
+            }
+            ref[help_conflict_pair.right.low] = current_conflict_pair.right.high;
+            if(current_conflict_pair.right.low != NoneEdge<NodeType>)
+            {
+                help_conflict_pair.right = current_conflict_pair.right;
+            }
+            if(help_conflict_pair.left.is_empty())
+            {
+                help_conflict_pair.left = current_conflict_pair.left;
+            }
+            else
+            {
+                ref[help_conflict_pair.left.low] = current_conflict_pair.left.high;
+            }
+            help_conflict_pair.left.low = current_conflict_pair.left.low;
+        }
+
+        if (!help_conflict_pair.left.is_empty() && help_conflict_pair.right.is_empty())
+            stack.push(help_conflict_pair);
+        return true;
     }
 
     void check_planarity()
@@ -199,7 +229,7 @@ private:
     }
 
 
-    bool conflicting(const Interval<NodeType> & interval, const Edge<NodeType>& edge)
+    bool conflicting(const Interval<NodeType>& interval, const Edge<NodeType>& edge)
     {
         return !interval.is_empty() && low_pt[interval.high] > low_pt[edge];
     }

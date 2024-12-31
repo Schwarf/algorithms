@@ -175,6 +175,7 @@ using Edge = std::pair<NodeType, NodeType>;
 template <typename NodeType>
 constexpr Edge<NodeType> NoneEdge = {std::numeric_limits<NodeType>::max(), std::numeric_limits<NodeType>::max()};
 
+
 struct EdgeHash
 {
     template <typename T>
