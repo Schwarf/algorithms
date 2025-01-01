@@ -268,10 +268,10 @@ TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes)
     EXPECT_EQ(digraph.get_neighbors(4).size(), 2);
     EXPECT_EQ(digraph.get_neighbors(5).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(6).size(), 1);
-    EXPECT_EQ(digraph.get_neighbors(2), (std::unordered_set<int>{1, 3}));
-    EXPECT_EQ(digraph.get_neighbors(3), (std::unordered_set<int>{4, 5}));
-    EXPECT_EQ(digraph.get_neighbors(4), (std::unordered_set<int>{2, 5}));
-    EXPECT_EQ(digraph.get_neighbors(6), (std::unordered_set<int>{4}));
+    EXPECT_EQ(digraph.get_neighbors(2), (std::vector<int>{1, 3}));
+    EXPECT_EQ(digraph.get_neighbors(3), (std::vector<int>{4, 5}));
+    EXPECT_EQ(digraph.get_neighbors(4), (std::vector<int>{2, 5}));
+    EXPECT_EQ(digraph.get_neighbors(6), (std::vector<int>{4}));
 }
 
 TEST_F(SetupGraph, get_neighbors_up_to_two_edges)
@@ -285,9 +285,9 @@ TEST_F(SetupGraph, get_neighbors_up_to_two_edges)
     EXPECT_EQ(digraph.get_neighbors(4).size(), 2);
     EXPECT_EQ(digraph.get_neighbors(5).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(6).size(), 0);
-    EXPECT_EQ(digraph.get_neighbors(2), (std::unordered_set<int>{1, 4}));
-    EXPECT_EQ(digraph.get_neighbors(3), (std::unordered_set<int>{1, 4, 6}));
-    EXPECT_EQ(digraph.get_neighbors(4), (std::unordered_set<int>{1,2}));
+    EXPECT_EQ(digraph.get_neighbors(2), (std::vector<int>{1, 4}));
+    EXPECT_EQ(digraph.get_neighbors(3), (std::vector<int>{1, 4, 6}));
+    EXPECT_EQ(digraph.get_neighbors(4), (std::vector<int>{1,2}));
 }
 
 
@@ -325,11 +325,11 @@ TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes_undirected)
     EXPECT_EQ(graph.get_neighbors(4).size(), 4);
     EXPECT_EQ(graph.get_neighbors(5).size(), 2);
     EXPECT_EQ(graph.get_neighbors(6).size(), 1);
-    EXPECT_EQ(graph.get_neighbors(1), (std::unordered_set<int>{2}));
-    EXPECT_EQ(graph.get_neighbors(2), (std::unordered_set<int>{1, 3, 4}));
-    EXPECT_EQ(graph.get_neighbors(3), (std::unordered_set<int>{2, 4, 5}));
-    EXPECT_EQ(graph.get_neighbors(4), (std::unordered_set<int>{2, 3, 5, 6}));
-    EXPECT_EQ(graph.get_neighbors(5), (std::unordered_set<int>{3, 4}));
-    EXPECT_EQ(graph.get_neighbors(6), (std::unordered_set<int>{4}));
+    EXPECT_EQ(graph.get_neighbors(1), (std::vector<int>{2}));
+    EXPECT_EQ(graph.get_neighbors(2), (std::vector<int>{1, 3, 4}));
+    EXPECT_EQ(graph.get_neighbors(3), (std::vector<int>{2, 4, 5}));
+    EXPECT_EQ(graph.get_neighbors(4), (std::vector<int>{3, 2, 5, 6}));
+    EXPECT_EQ(graph.get_neighbors(5), (std::vector<int>{3, 4}));
+    EXPECT_EQ(graph.get_neighbors(6), (std::vector<int>{4}));
 }
 

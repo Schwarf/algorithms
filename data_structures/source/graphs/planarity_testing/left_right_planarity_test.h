@@ -42,13 +42,13 @@ class PlanarityTest
 
     struct ConflictPair
     {
-        Interval<NodeType> left{}; // Left interval of edges
-        Interval<NodeType> right{}; // Right interval of edges
+        Interval left{}; // Left interval of edges
+        Interval right{}; // Right interval of edges
 
         ConflictPair() = default;
 
         // Constructor with initial intervals
-        ConflictPair(const Interval<NodeType>& left, const Interval<NodeType>& right)
+        ConflictPair(const Interval& left, const Interval& right)
             : left(left), right(right)
         {
         }
@@ -60,7 +60,6 @@ class PlanarityTest
     };
 
 
-    using Edge = std::pair<NodeType, NodeType>; // Define an edge type for convenience
     static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
     static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
     static constexpr int none = std::numeric_limits<int>::max();
@@ -79,7 +78,6 @@ public:
             height[node] = none;
             parent_edges[node] = invalid_edge;
         }
-        adjacency_list = graph.get_adjacent_list();
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
@@ -124,13 +122,13 @@ private:
             else // back edge ? add explanation
             {
                 low_pt[current_edge] = current_edge;
-                stack.push(ConflictPair<NodeType>(Interval<NodeType>{},
-                                                  Interval<NodeType>(current_edge, current_edge)));
+                stack.push(ConflictPair(Interval{},Interval(current_edge, current_edge)));
             }
 
             if (low_pt[current_edge] < height[current_node])
             {
-                if (neighbor ==)
+                if (neighbor == current_edge)
+                    break;
 
             }
         }
@@ -140,7 +138,7 @@ private:
 
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
-        auto help_conflict_pair = ConflictPair<NodeType>();
+        auto help_conflict_pair = ConflictPair{};
         while (stack.top() != stack_bottom[edge])
         {
             auto current_conflict_pair = stack.top();
@@ -229,14 +227,14 @@ private:
     }
 
 
-    bool conflicting(const Interval<NodeType>& interval, const Edge<NodeType>& edge)
+    bool conflicting(const Interval& interval, const Edge<NodeType>& edge)
     {
         return !interval.is_empty() && low_pt[interval.high] > low_pt[edge];
     }
 
     void dfs_orientation(NodeType current_node)
     {
-        // Retrieve the parent edge for the current vertex
+        // Retrieve the parent edge for the curradjacency_listent vertex
         auto parent_edge = parent_edge[current_node];
 
         for (const auto& neighbor : graph.get_neighbors(current_node))
@@ -300,21 +298,20 @@ private:
     std::vector<NodeType> roots; // Stores the roots of all connected components
     // Variables corresponding to the table
     std::unordered_map<NodeType, int> height; // Height of each node
-    std::unordered_map<Edge, int, EdgeHash> low_pt{}; // Lowpoint of each edge
-    std::unordered_map<Edge, int, EdgeHash> low_pt2{}; // Second-lowest point
-    std::unordered_map<Edge, int, EdgeHash> nesting_depth{}; // Nesting depth
-    std::unordered_map<Edge, int, EdgeHash> stack_bottom{};
-    std::unordered_map<NodeType, std::unordered_set<NodeType>>& adjacency_list;
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt{}; // Lowpoint of each edge
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt2{}; // Second-lowest point
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> nesting_depth{}; // Nesting depth
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> stack_bottom{};
     std::unordered_map<NodeType, std::unordered_set<NodeType>> ordered_adjacency_list;
-    std::unordered_map<Edge, int, EdgeHash> ref{};
-    std::unordered_map<Edge, int, EdgeHash> side{};
-    std::unordered_map<Edge, Edge, EdgeHash> lowpt_edge{};
-    std::unordered_map<NodeType, Edge, EdgeHash> left_ref{};
-    std::unordered_map<NodeType, Edge, EdgeHash> right_ref{};
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> ref{};
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
+    std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> lowpt_edge{};
+    std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> left_ref{};
+    std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> right_ref{};
 
-    std::unordered_map<NodeType, Edge> parent_edges; // Parent edge of each node
-    std::unordered_set<Edge, EdgeHash> visited_edges;
-    std::stack<ConflictPair<NodeType>> stack{};
+    std::unordered_map<NodeType, Edge<NodeType>> parent_edges; // Parent edge of each node
+    std::unordered_set<Edge<NodeType>, EdgeHash> visited_edges;
+    std::stack<ConflictPair> stack{};
 };
 
 

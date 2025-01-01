@@ -48,7 +48,6 @@ TEST_F(SetupTopologicalSortTesting, simple1)
     };
     std::vector<int> expected_result{1, 2, 3, 4, 5, 6, 7, 10, 8, 9};
     auto computed_order = kahns_algorithm(digraph);
-    EXPECT_EQ(kahns_algorithm(digraph), expected_result);
     verify_topological_order(digraph, computed_order);
 }
 

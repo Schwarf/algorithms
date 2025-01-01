@@ -205,7 +205,6 @@ public:
         for (const auto& edge : edges)
         {
             add_edge(edge.first, edge.second);
-            edge_set.insert(edge);
         }
     }
 
@@ -214,9 +213,10 @@ public:
     {
         // Check if the edge is valid and does not already exist
 
-        if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
+        if (source_node != destination_node && !edge_set.contains(make_edge(source_node, destination_node)))
         {
-            adjacency_list[source_node].insert(destination_node);
+            edge_set.insert(make_edge(source_node, destination_node));
+            adjacency_list[source_node].push_back(destination_node);
 
             ++edge_count; // Increment edge count for a new valid edge
 
@@ -246,7 +246,7 @@ public:
     }
 
     // Get adjacent nodes of a given node
-    const std::unordered_set<int>& get_neighbors(int node) const
+    const std::vector<NodeType>& get_neighbors(int node) const
     {
         return adjacency_list.at(node);
     }
@@ -264,7 +264,7 @@ public:
 
 private:
     // Adjacency list: each node points to a set of nodes it has edges to
-    std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
+    std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list;
     std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
     std::unordered_set<Edge<NodeType>, EdgeHash> edge_set;
     int node_count{}; // Counter for unique nodes
@@ -297,12 +297,13 @@ public:
     {
         // Check if the edge is valid and does not already exist in either direction
         // (since each edge is added bidirectional we check only one direction)
-        edge_set.insert(make_edge(source_node, destination_node));
-        edge_set.insert(make_edge(destination_node, source_node));
-        if (source_node != destination_node && adjacency_list[source_node].find(destination_node) == adjacency_list[source_node].end())
+        if (source_node != destination_node && !edge_set.contains(make_edge(source_node, destination_node)) &&
+            !edge_set.contains(make_edge(destination_node, source_node)))
         {
-            adjacency_list[source_node].insert(destination_node);
-            adjacency_list[destination_node].insert(source_node); // Make the edge bidirectional
+            edge_set.insert(make_edge(source_node, destination_node));
+            edge_set.insert(make_edge(destination_node, source_node));
+            adjacency_list[source_node].push_back(destination_node);
+            adjacency_list[destination_node].push_back(source_node); // Make the edge bidirectional
 
             ++edge_count; // Increment edge count for a new valid edge
 
@@ -327,7 +328,7 @@ public:
     }
 
     // Get adjacent nodes of a given node
-    const std::unordered_set<NodeType>& get_neighbors(int node) const
+    const std::vector<NodeType>& get_neighbors(int node) const
     {
         return adjacency_list.at(node);
     }
@@ -357,7 +358,7 @@ public:
 
 
 private:
-    std::unordered_map<NodeType, std::unordered_set<NodeType>> adjacency_list;
+    std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list;
     std::unordered_map<NodeType, bool> node_map; // Tracks existing nodes to count only unique nodes
     std::unordered_set<Edge<NodeType>, EdgeHash> edge_set;
     std::vector<NodeType> nodes;
