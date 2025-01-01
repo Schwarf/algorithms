@@ -262,6 +262,11 @@ public:
         return edge_count;
     }
 
+    const std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() const
+    {
+        return adjacency_list;
+    }
+
 private:
     // Adjacency list: each node points to a set of nodes it has edges to
     std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list;
@@ -333,7 +338,7 @@ public:
         return adjacency_list.at(node);
     }
 
-    const std::unordered_map<NodeType, std::unordered_set<NodeType>>& get_adjacency_list() const
+    const std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() const
     {
         return adjacency_list;
     }

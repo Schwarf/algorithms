@@ -81,6 +81,7 @@ public:
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
+        ordered_adjacency_list = graph.get_adjacency_list();
     }
 
     void run()
@@ -95,7 +96,7 @@ public:
 private:
     void sort_adjacency_list_by_nesting_depth()
     {
-        for (auto& [node, neighbors] : dfs_graph)
+        for (auto& [node, neighbors] : ordered_adjacency_list)
         {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
             {
@@ -302,7 +303,7 @@ private:
     std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt2{}; // Second-lowest point
     std::unordered_map<Edge<NodeType>, int, EdgeHash> nesting_depth{}; // Nesting depth
     std::unordered_map<Edge<NodeType>, int, EdgeHash> stack_bottom{};
-    std::unordered_map<NodeType, std::unordered_set<NodeType>> ordered_adjacency_list;
+    std::unordered_map<NodeType, std::vector<NodeType>> ordered_adjacency_list;
     std::unordered_map<Edge<NodeType>, int, EdgeHash> ref{};
     std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> lowpt_edge{};
