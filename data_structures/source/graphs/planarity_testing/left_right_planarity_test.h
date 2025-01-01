@@ -122,15 +122,16 @@ private:
             }
             else // back edge ? add explanation
             {
-                low_pt[current_edge] = current_edge;
+                lowpt_edge[current_edge] = current_edge;
                 stack.push(ConflictPair(Interval{},Interval(current_edge, current_edge)));
             }
 
             if (low_pt[current_edge] < height[current_node])
             {
-                if (neighbor == current_edge)
-                    break;
-
+                if(neighbor == ordered_adjacency_list[current_node][0])
+                {
+                    lowpt_edge[parent_edge] = lowpt_edge[current_edge];
+                }
             }
         }
 
@@ -167,7 +168,7 @@ private:
             }
             else
             {
-                ref[current_conflict_pair.right.low] = low_pt[parent_edge];
+                ref[current_conflict_pair.right.low] = lowpt_edge[parent_edge];
             }
         }
 
