@@ -88,7 +88,6 @@ public:
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
         dfs_graph = DirectedGraph<NodeType>{graph_.get_all_nodes(), {}};
-        ordered_adjacency_list = graph_.get_adjacency_list();
     }
 
     void run()
@@ -120,6 +119,8 @@ private:
 
     void sort_adjacency_list_by_nesting_depth()
     {
+        ordered_adjacency_list = dfs_graph.get_adjacency_list();
+
         for (auto& [node, neighbors] : ordered_adjacency_list)
         {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
@@ -133,11 +134,11 @@ private:
     bool dfs_testing(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
-        for (const auto neighbor : dfs_graph.get_neighbors(current_node))
+        for (const auto neighbor : ordered_adjacency_list[current_node])
         {
             auto current_edge = make_edge(current_node, neighbor); // Create the edge
 
-            // Track the stack's state for the current edge
+            // TODO
             stack_bottom[current_edge] = stack.empty() ? ConflictPair{} : stack.top(); // Use -1 to indicate an empty stack
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
