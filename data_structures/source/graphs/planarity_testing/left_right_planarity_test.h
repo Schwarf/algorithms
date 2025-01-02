@@ -35,7 +35,7 @@ class PlanarityTest
 
         bool is_empty() const
         {
-            return low == NoneEdge<NodeType>() && high == NoneEdge<NodeType>();
+            return low == NoneEdge<NodeType> && high == NoneEdge<NodeType>;
         }
     };
 
@@ -56,6 +56,15 @@ class PlanarityTest
         void swap()
         {
             std::swap(left, right);
+        }
+
+        int get_lowest_lowpt()
+        {
+            if(left.empty())
+                return low_pt[right.low];
+            if(right.empty())
+                return low_pt[left.low];
+            return std::min(low_pt[right.low], low_pt[left.low]);
         }
     };
 
@@ -134,9 +143,69 @@ private:
                 }
             }
         }
+        if (parent_edge != invalid_edge)
+            remove_back_edges(parent_edge);
 
         return true;
     }
+
+    void remove_back_edges(const Edge<NodeType>& edge)
+    {
+        auto parent_node = edge.first;
+        while (!stack.empty() && stack.top().get_lowest_lowpt() == height[parent_node])
+        {
+            auto conflict_pair = stack.top();
+            stack.pop();
+            if (conflict_pair.left.low != NoneEdge<NodeType>)
+                side[conflict_pair.left.low] = -1;
+        }
+
+        if (!stack.empty())
+        {
+            auto conflict_pair = stack.top();
+            stack.pop();
+            while(conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high[1] == parent_node)
+            {
+                conflict_pair.left.high = ref[conflict_pair.left.high];
+            }
+            if (conflict_pair.left.high == NoneEdge<NodeType> && conflict_pair.left.low != NoneEdge<NodeType>)
+            {
+                ref[conflict_pair.left.low] = conflict_pair.right.low;
+                side[conflict_pair.left.low] = -1;
+                conflict_pair.left.low = NoneEdge<NodeType>;
+            }
+            while(conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high[1] == parent_node)
+            {
+                conflict_pair.right.high = ref[conflict_pair.rigth.high];
+            }
+
+            if (conflict_pair.right.high == NoneEdge<NodeType> && conflict_pair.right.low != NoneEdge<NodeType>)
+            {
+                ref[conflict_pair.right.low] = conflict_pair.left.low;
+                side[conflict_pair.right.low] = -1;
+                conflict_pair.right.low = NoneEdge<NodeType>;
+            }
+            stack.push(conflict_pair);
+        }
+
+
+        if (low_pt[edge] < height[parent_node])
+        {
+            auto highest_return_edge_left = stack.top().left.high;
+            auto highest_return_edge_right = stack.top().right.high;
+            if(highest_return_edge_left != NoneEdge<NodeType> && (highest_return_edge_right != NoneEdge<NodeType> ||
+                low_pt[highest_return_edge_left] > low_pt[highest_return_edge_right]))
+            {
+                ref[edge] = highest_return_edge_left;
+            }
+            else
+            {
+                ref[edge] = highest_return_edge_right;
+            }
+        }
+    }
+
+
 
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
