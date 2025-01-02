@@ -31,9 +31,37 @@ public:
 
     static UndirectedGraph<int> complete_graph_k5()
     {
-        UndirectedGraph<int> graph{{1, 2, 3, 4, 5}, {{1, 2}, {1, 3}, {1, 4}, {1, 5},
-                                                                {2, 3}, {2, 4}, {2, 5},
-                                                                {3, 4}, {3, 5}, {4, 5}}};
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5}, {
+                {1, 2}, {1, 3}, {1, 4}, {1, 5},
+                {2, 3}, {2, 4}, {2, 5},
+                {3, 4}, {3, 5}, {4, 5}
+            }
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int> generalized_petersen_graph_5_1()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {
+                {1, 2}, {1, 5}, {1, 6}, {2, 3}, {2, 7}, {3, 4},
+                {3, 8}, {4, 5}, {4, 9}, {5, 10}, {6, 7}, {6, 10},
+                {7, 8}, {8, 9}, {9, 10}
+            }
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int> generalized_petersen_graph_5_2()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {
+                {1, 3}, {1, 4}, {1, 6}, {2, 4}, {2, 5}, {2, 7},
+                {3, 5}, {3, 8}, {4, 9}, {5, 10}, {6, 7}, {6, 10},
+                {7, 8}, {8, 9}, {9, 10}
+            }
+        };
         return graph;
     }
 
@@ -68,6 +96,22 @@ TEST_F(SetupLeftRightPlanarityTesting, StarGraph)
 TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK5)
 {
     auto graph = complete_graph_k5();
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_1)
+{
+    auto graph = generalized_petersen_graph_5_1();
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_2)
+{
+    auto graph = generalized_petersen_graph_5_2();
     PlanarityTest<int> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
