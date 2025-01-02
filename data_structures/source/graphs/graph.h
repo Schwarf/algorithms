@@ -197,8 +197,18 @@ requires std::is_signed_v<NodeType>
 class DirectedGraph
 {
 public:
-
+    DirectedGraph() = default;
     DirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
+    {
+        for(const auto& node : nodes)
+            adjacency_list[node];
+        for (const auto& edge : edges)
+        {
+            add_edge(edge.first, edge.second);
+        }
+    }
+
+    DirectedGraph(const std::vector<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
     {
         for(const auto& node : nodes)
             adjacency_list[node];
@@ -287,6 +297,7 @@ template <typename NodeType>
 class UndirectedGraph
 {
 public:
+    UndirectedGraph() = default;
     UndirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
     {
         for(const auto& node : nodes)
@@ -296,6 +307,17 @@ public:
             add_edge(edge.first, edge.second);
         }
     }
+
+    UndirectedGraph(const std::vector<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
+    {
+        for(const auto& node : nodes)
+            adjacency_list[node];
+        for (const auto& edge : edges)
+        {
+            add_edge(edge.first, edge.second);
+        }
+    }
+
 
     // Add an undirected edge between 'source_node' and 'destination_node'
     void add_edge(NodeType source_node, NodeType destination_node)

@@ -1,4 +1,4 @@
-//
+    //
 // Created by andreas on 14.12.24.
 //
 
@@ -39,6 +39,11 @@ class PlanarityTest
         }
     };
 
+    friend bool operator==(const Interval& lhs, const Interval& rhs) {
+        return lhs.low ==rhs.low && lhs.high == rhs.high;
+    }
+
+
 
     struct ConflictPair
     {
@@ -58,26 +63,20 @@ class PlanarityTest
             std::swap(left, right);
         }
 
-        int get_lowest_lowpt()
-        {
-            if(left.empty())
-                return low_pt[right.low];
-            if(right.empty())
-                return low_pt[left.low];
-            return std::min(low_pt[right.low], low_pt[left.low]);
-        }
     };
 
-
+    friend bool operator==(const ConflictPair& lhs, const ConflictPair& rhs) {
+        return lhs.left == rhs.left && lhs.right == rhs.right;
+    }
     static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
     static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
     static constexpr int none = std::numeric_limits<int>::max();
     bool is_planar{};
 
 public:
-    explicit PlanarityTest(const UndirectedGraph<NodeType>& graph)
-        : graph(graph), dfs_graph()
+    explicit PlanarityTest(UndirectedGraph<NodeType>& graph)
     {
+        graph_ = graph;
         auto nodes = graph.get_all_nodes();
 
         // Initialize `height` for all nodes
@@ -88,13 +87,13 @@ public:
         }
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
-        dfs_graph = DirectedGraph<NodeType>{{graph.get_edges()}, {}};
-        ordered_adjacency_list = graph.get_adjacency_list();
+        dfs_graph = DirectedGraph<NodeType>{graph_.get_all_nodes(), {}};
+        ordered_adjacency_list = graph_.get_adjacency_list();
     }
 
     void run()
     {
-        if (graph.get_node_count() > 2 && graph.get_edges().size() > 3 * graph.get_node_count() - 6)
+        if (graph_.get_node_count() > 2 && graph_.get_edge_count() > 3 * graph_.get_node_count() - 6)
         {
             is_planar = false;
             return;
@@ -109,6 +108,16 @@ public:
     }
 
 private:
+
+    int get_lowest_lowpt(const ConflictPair& conflict_pair)
+    {
+        if(conflict_pair.left.is_empty())
+            return low_pt[conflict_pair.right.low];
+        if(conflict_pair.right.is_empty())
+            return low_pt[conflict_pair.left.low];
+        return std::min(low_pt[conflict_pair.right.low], low_pt[conflict_pair.left.low]);
+    }
+
     void sort_adjacency_list_by_nesting_depth()
     {
         for (auto& [node, neighbors] : ordered_adjacency_list)
@@ -129,7 +138,7 @@ private:
             auto current_edge = make_edge(current_node, neighbor); // Create the edge
 
             // Track the stack's state for the current edge
-            stack_bottom[neighbor] = stack.empty() ? -1 : stack.top(); // Use -1 to indicate an empty stack
+            stack_bottom[current_edge] = stack.empty() ? ConflictPair{} : stack.top(); // Use -1 to indicate an empty stack
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
                 if (!dfs_testing(neighbor))
@@ -164,7 +173,7 @@ private:
     void remove_back_edges(const Edge<NodeType>& edge)
     {
         auto parent_node = edge.first;
-        while (!stack.empty() && stack.top().get_lowest_lowpt() == height[parent_node])
+        while (!stack.empty() && get_lowest_lowpt(stack.top()) == height[parent_node])
         {
             auto conflict_pair = stack.top();
             stack.pop();
@@ -176,7 +185,7 @@ private:
         {
             auto conflict_pair = stack.top();
             stack.pop();
-            while(conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high[1] == parent_node)
+            while(conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high.second == parent_node)
             {
                 conflict_pair.left.high = ref[conflict_pair.left.high];
             }
@@ -186,9 +195,9 @@ private:
                 side[conflict_pair.left.low] = -1;
                 conflict_pair.left.low = NoneEdge<NodeType>;
             }
-            while(conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high[1] == parent_node)
+            while(conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
             {
-                conflict_pair.right.high = ref[conflict_pair.rigth.high];
+                conflict_pair.right.high = ref[conflict_pair.right.high];
             }
 
             if (conflict_pair.right.high == NoneEdge<NodeType> && conflict_pair.right.low != NoneEdge<NodeType>)
@@ -233,7 +242,7 @@ private:
             {
                 return false;
             }
-            if (low_pt[current_conflict_pair.left] > low_pt[parent_edge])
+            if (low_pt[current_conflict_pair.right.low] > low_pt[parent_edge])
             {
                 if (help_conflict_pair.right.is_empty())
                 {
@@ -296,7 +305,7 @@ private:
 
     void orientation()
     {
-        for (const auto& current_node : graph.get_all_nodes())
+        for (const auto& current_node : graph_.get_all_nodes())
         {
             if (height[current_node] == none)
             {
@@ -317,9 +326,9 @@ private:
     void dfs_orientation(NodeType current_node)
     {
         // Retrieve the parent edge for the curradjacency_listent vertex
-        auto parent_edge = parent_edge[current_node];
+        auto parent_edge = parent_edges[current_node];
 
-        for (const auto& neighbor : graph.get_neighbors(current_node))
+        for (const auto& neighbor : graph_.get_neighbors(current_node))
         {
             // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
             auto current_edge = make_edge(current_node, neighbor);
@@ -355,7 +364,7 @@ private:
             }
 
             // Update reachability_values (aka low_points) of parent edge
-            if (parent_edge != no_parent)
+            if (parent_edge != NoneEdge<NodeType>)
             {
                 if (low_pt[current_edge] < low_pt[parent_edge])
                 {
@@ -375,17 +384,17 @@ private:
     }
 
     // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
-    const UndirectedGraph<NodeType>& graph;
-    DirectedGraph<NodeType>& dfs_graph;
+    UndirectedGraph<NodeType> graph_;
+    DirectedGraph<NodeType> dfs_graph;
     std::vector<NodeType> roots; // Stores the roots of all connected components
     // Variables corresponding to the table
     std::unordered_map<NodeType, int> height; // Height of each node
     std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt{}; // Lowpoint of each edge
     std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt2{}; // Second-lowest point
     std::unordered_map<Edge<NodeType>, int, EdgeHash> nesting_depth{}; // Nesting depth
-    std::unordered_map<Edge<NodeType>, int, EdgeHash> stack_bottom{};
+    std::unordered_map<Edge<NodeType>, ConflictPair, EdgeHash> stack_bottom{};
     std::unordered_map<NodeType, std::vector<NodeType>> ordered_adjacency_list;
-    std::unordered_map<Edge<NodeType>, int, EdgeHash> ref{};
+    std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> ref{};
     std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> lowpt_edge{};
     std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> left_ref{};
