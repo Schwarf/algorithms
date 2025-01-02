@@ -332,7 +332,7 @@ private:
         {
             // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
             auto current_edge = make_edge(current_node, neighbor);
-            auto current_reversed_edge = make_edge(current_node, neighbor);
+            auto current_reversed_edge = make_edge(neighbor, current_node);
 
             if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
                 continue;

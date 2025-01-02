@@ -96,6 +96,18 @@ public:
         };
         return graph;
     }
+
+    static UndirectedGraph<short> utility_graph()
+    {
+        UndirectedGraph<short> graph{
+                {1, 2, 3, 4, 5, 6}, {
+                    {1, 4}, {1, 5}, {1, 6},
+                    {2, 4}, {2, 5}, {2, 6},
+                    {3, 4}, {3, 5}, {3, 6}}
+        };
+        return graph;
+    }
+
 };
 
 
@@ -167,6 +179,14 @@ TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_1)
 TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_2)
 {
     auto graph = generalized_petersen_graph_5_2();
+    PlanarityTest<short> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, UtilityGraph)
+{
+    auto graph = utility_graph();
     PlanarityTest<short> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
