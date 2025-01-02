@@ -72,7 +72,6 @@ class PlanarityTest
     static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
     static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
     static constexpr int none = std::numeric_limits<int>::max();
-    static constexpr std::pair<NodeType, NodeType> invalid_edge = std::make_pair(none, none);
     bool is_planar{};
 
 public:
@@ -85,7 +84,7 @@ public:
         for (const auto& node : nodes)
         {
             height[node] = none;
-            parent_edges[node] = invalid_edge;
+            parent_edges[node] = NoneEdge<NodeType>;
         }
 
         // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
@@ -100,6 +99,13 @@ public:
             is_planar = false;
             return;
         }
+        orientation();
+        check_planarity();
+    }
+
+    bool is_graph_planar() const
+    {
+        return is_planar;
     }
 
 private:
@@ -141,9 +147,15 @@ private:
                 {
                     lowpt_edge[parent_edge] = lowpt_edge[current_edge];
                 }
+                else
+                {
+                    if(!apply_constraints(current_edge, parent_edge))
+                        return false;
+                }
+
             }
         }
-        if (parent_edge != invalid_edge)
+        if (parent_edge != NoneEdge<NodeType>)
             remove_back_edges(parent_edge);
 
         return true;
@@ -204,7 +216,6 @@ private:
             }
         }
     }
-
 
 
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
@@ -279,7 +290,7 @@ private:
         sort_adjacency_list_by_nesting_depth();
         for (const auto root_node : roots)
         {
-            dfs_testing(root_node);
+            is_planar = dfs_testing(root_node);
         }
     }
 
