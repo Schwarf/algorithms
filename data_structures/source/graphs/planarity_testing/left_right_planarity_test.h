@@ -210,7 +210,7 @@ private:
         }
 
 
-        if (low_pt[edge] < height[parent_node])
+        if (!stack.empty() && low_pt[edge] < height[parent_node])
         {
             auto highest_return_edge_left = stack.top().left.high;
             auto highest_return_edge_right = stack.top().right.high;
@@ -230,7 +230,7 @@ private:
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
         auto help_conflict_pair = ConflictPair{};
-        while (stack.top() != stack_bottom[edge])
+        while (!stack.empty() &&  stack.top() != stack_bottom[edge])
         {
             auto current_conflict_pair = stack.top();
             stack.pop();
@@ -261,7 +261,7 @@ private:
             }
         }
 
-        while (conflicting(stack.top().left, edge) || conflicting(stack.top().right, edge))
+        while (!stack.empty() && (conflicting(stack.top().left, edge) || conflicting(stack.top().right, edge)))
         {
             auto current_conflict_pair = stack.top();
             stack.pop();
