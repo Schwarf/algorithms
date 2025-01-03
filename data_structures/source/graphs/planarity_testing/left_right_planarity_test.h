@@ -116,9 +116,7 @@ private:
 
     void sort_adjacency_list_by_nesting_depth()
     {
-        ordered_adjacency_list = dfs_graph.get_adjacency_list();
-
-        for (auto& [node, neighbors] : ordered_adjacency_list)
+        for (auto & [node, neighbors] : dfs_graph.get_adjacency_list())
         {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
             {
@@ -131,7 +129,7 @@ private:
     bool dfs_testing(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
-        for (const auto neighbor : ordered_adjacency_list[current_node])
+        for (const auto neighbor : dfs_graph.get_adjacency_list()[current_node])
         {
             auto current_edge = make_edge(current_node, neighbor);
             stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top();
@@ -149,7 +147,7 @@ private:
 
             if (low_pt[current_edge] < height[current_node])
             {
-                if (neighbor == ordered_adjacency_list[current_node][0])
+                if (neighbor == dfs_graph.get_adjacency_list()[current_node][0])
                 {
                     lowpt_edge[parent_edge] = lowpt_edge[current_edge];
                 }
@@ -321,7 +319,6 @@ private:
 
     void dfs_orientation(NodeType current_node)
     {
-        // Retrieve the parent edge for the curradjacency_listent vertex
         auto parent_edge = parent_edges[current_node];
 
         for (const auto& neighbor : graph_.get_neighbors(current_node))

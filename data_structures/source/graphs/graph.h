@@ -272,7 +272,7 @@ public:
         return edge_count;
     }
 
-    const std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() const
+    std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() &
     {
         return adjacency_list;
     }
