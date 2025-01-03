@@ -171,10 +171,10 @@ private:
         auto parent_node = edge.first;
         while (!stack.empty() && get_lowest_lowpt(stack.top()) == height[parent_node])
         {
-            auto conflict_pair = stack.top();
+            // auto conflict_pair = stack.top();
             stack.pop();
-            if (conflict_pair.left.low != NoneEdge<NodeType>)
-                side[conflict_pair.left.low] = -1;
+            // if (conflict_pair.left.low != NoneEdge<NodeType>)
+            //     side[conflict_pair.left.low] = -1;
         }
 
         if (!stack.empty())
@@ -188,7 +188,7 @@ private:
             if (conflict_pair.left.high == NoneEdge<NodeType> && conflict_pair.left.low != NoneEdge<NodeType>)
             {
                 ref[conflict_pair.left.low] = conflict_pair.right.low;
-                side[conflict_pair.left.low] = -1;
+                // side[conflict_pair.left.low] = -1;
                 conflict_pair.left.low = NoneEdge<NodeType>;
             }
             while (conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
@@ -199,7 +199,7 @@ private:
             if (conflict_pair.right.high == NoneEdge<NodeType> && conflict_pair.right.low != NoneEdge<NodeType>)
             {
                 ref[conflict_pair.right.low] = conflict_pair.left.low;
-                side[conflict_pair.right.low] = -1;
+                // side[conflict_pair.right.low] = -1;
                 conflict_pair.right.low = NoneEdge<NodeType>;
             }
             stack.push(conflict_pair);
@@ -391,10 +391,10 @@ private:
     std::unordered_map<Edge<NodeType>, ConflictPair, EdgeHash> stack_bottom{};
     std::unordered_map<NodeType, std::vector<NodeType>> ordered_adjacency_list;
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> ref{};
-    std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
+    // std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> lowpt_edge{};
-    std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> left_ref{};
-    std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> right_ref{};
+    // std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> left_ref{};
+    // std::unordered_map<NodeType, Edge<NodeType>, EdgeHash> right_ref{};
 
     std::unordered_map<NodeType, Edge<NodeType>> parent_edges; // Parent edge of each node
     std::unordered_set<Edge<NodeType>, EdgeHash> visited_edges;
