@@ -136,6 +136,20 @@ public:
         return graph;
     }
 
+    static UndirectedGraph<int> complete_tripartite_graph_k333()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9}, {
+                {1, 4}, {1, 5}, {1, 6},
+                {2, 4}, {2, 5}, {2, 6},
+                {3, 4}, {3, 5}, {3, 6},
+                {1, 7}, {1, 8}, {1, 9},
+                {2, 7}, {2, 8}, {2, 9},
+                {3, 7}, {3, 8}, {3, 9}
+            }
+        };
+        return graph;
+    }
     static UndirectedGraph<int32_t> random_planar_graph_50_nodes()
     {
         UndirectedGraph<int32_t> graph{
@@ -530,6 +544,14 @@ TEST_F(SetupLeftRightPlanarityTesting, UtilityGraph)
 {
     auto graph = utility_graph();
     PlanarityTest<short> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteTripartiteGraphK333)
+{
+    auto graph = complete_tripartite_graph_k333();
+    PlanarityTest<int> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
 }
