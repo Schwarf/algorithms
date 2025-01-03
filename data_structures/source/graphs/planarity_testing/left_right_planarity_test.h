@@ -65,6 +65,8 @@ class PlanarityTest
 
     };
 
+    const ConflictPair NoneConflictPair{Interval{}, Interval{}};
+
     friend bool operator==(const ConflictPair& lhs, const ConflictPair& rhs) {
         return lhs.left == rhs.left && lhs.right == rhs.right;
     }
@@ -139,7 +141,7 @@ private:
             auto current_edge = make_edge(current_node, neighbor); // Create the edge
 
             // TODO
-            stack_bottom[current_edge] = stack.empty() ? ConflictPair{} : stack.top(); // Use -1 to indicate an empty stack
+            stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top(); // Use -1 to indicate an empty stack
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
                 if (!dfs_testing(neighbor))
@@ -290,7 +292,7 @@ private:
             help_conflict_pair.left.low = current_conflict_pair.left.low;
         }
 
-        if (!help_conflict_pair.left.is_empty() && help_conflict_pair.right.is_empty())
+        if ( !(help_conflict_pair.left.is_empty() && help_conflict_pair.right.is_empty()))
             stack.push(help_conflict_pair);
         return true;
     }
