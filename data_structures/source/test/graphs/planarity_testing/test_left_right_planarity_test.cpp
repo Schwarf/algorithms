@@ -29,6 +29,33 @@ public:
         return graph;
     }
 
+    static UndirectedGraph<int> tree_graph()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6}, {{1, 2}, {1, 3}, {3, 4}, {3, 5}, {5, 6}}
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int> wheel_graph()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6}, {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int> grid_graph_3x3()
+    {
+        UndirectedGraph<int> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9}, {
+                {1, 2}, {2, 3}, {4, 5}, {5, 6}, {7, 8}, {8, 9},
+                {1, 4}, {2, 5}, {3, 6}, {4, 7}, {5, 8}, {6, 9}
+            }
+        };
+        return graph;
+    }
+
     static UndirectedGraph<int> complete_graph_k3()
     {
         UndirectedGraph<int> graph{
@@ -376,6 +403,29 @@ public:
         };
         return graph;
     }
+
+    static UndirectedGraph<int64_t> random_planar_connected_graph_51_nodes()
+    {
+        UndirectedGraph<int64_t> graph{
+            {
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+                37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
+            },
+            {
+                {1, 15}, {1, 18}, {1, 25}, {1, 44}, {1, 50}, {2, 16}, {2, 26},
+                {3, 39}, {3, 47}, {4, 9}, {4, 13}, {4, 23}, {5, 25}, {6, 45},
+                {6, 46}, {7, 37}, {7, 46}, {8, 10}, {8, 19}, {8, 21}, {8, 29},
+                {9, 45}, {11, 33}, {12, 41}, {12, 51}, {13, 48}, {14, 20}, {15, 42},
+                {15, 46}, {15, 50}, {16, 48}, {17, 20}, {18, 27}, {19, 31}, {20, 30},
+                {21, 48}, {22, 24}, {23, 30}, {23, 51}, {24, 29}, {25, 39},
+                {26, 29}, {26, 32}, {26, 33}, {27, 49}, {28, 30}, {28, 37},
+                {28, 51}, {29, 31}, {31, 33}, {32, 48}, {34, 37}, {34, 38}, {34, 49},
+                {35, 51}, {36, 47}, {38, 40}, {38, 43}, {39, 47}, {44, 51}, {45, 50}
+            }
+        };
+        return graph;
+    }
 };
 
 
@@ -398,6 +448,30 @@ TEST_F(SetupLeftRightPlanarityTesting, CycleGraph)
 TEST_F(SetupLeftRightPlanarityTesting, StarGraph)
 {
     auto graph = star_graph();
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TreeGraph)
+{
+    auto graph = tree_graph();
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, WheelGraph)
+{
+    auto graph = wheel_graph();
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, GridGraph3x3)
+{
+    auto graph = grid_graph_3x3();
     PlanarityTest<int> test(graph);
     test.run();
     EXPECT_TRUE(test.is_graph_planar());
@@ -482,4 +556,12 @@ TEST_F(SetupLeftRightPlanarityTesting, RandomNonPlanarGraph50Nodes)
     PlanarityTest<int16_t> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarConnectedGraph51Nodes)
+{
+    auto graph = random_planar_connected_graph_51_nodes();
+    PlanarityTest<int64_t> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
 }
