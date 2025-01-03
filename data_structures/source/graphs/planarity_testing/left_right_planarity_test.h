@@ -71,25 +71,20 @@ class PlanarityTest
         return lhs.left == rhs.left && lhs.right == rhs.right;
     }
 
-    static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
-    static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
-    static constexpr int none = std::numeric_limits<int>::max();
+    static constexpr int NoneHeight = std::numeric_limits<int>::max();
     bool is_planar{};
 
 public:
     explicit PlanarityTest(UndirectedGraph<NodeType>& graph)
+        : graph_(graph)
     {
-        graph_ = graph;
-        auto nodes = graph.get_all_nodes();
-
-        // Initialize `height` for all nodes
-        for (const auto& node : nodes)
+        // Initialize `height` and parent edges
+        for (const auto& node : graph_.get_all_nodes())
         {
-            height[node] = none;
+            height[node] = NoneHeight;
             parent_edges[node] = NoneEdge<NodeType>;
         }
-
-        // Initialize `lowpt`, `lowpt2`, and `nesting_depth` for all edges
+        // initialize all nodes for dfs-walk (orientation)
         dfs_graph = DirectedGraph<NodeType>{graph_.get_all_nodes(), {}};
     }
 
@@ -138,11 +133,9 @@ private:
         auto parent_edge = parent_edges[current_node];
         for (const auto neighbor : ordered_adjacency_list[current_node])
         {
-            auto current_edge = make_edge(current_node, neighbor); // Create the edge
-
-            // TODO
+            auto current_edge = make_edge(current_node, neighbor);
             stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top();
-            // Use -1 to indicate an empty stack
+
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
                 if (!dfs_testing(neighbor))
@@ -310,7 +303,7 @@ private:
     {
         for (const auto& current_node : graph_.get_all_nodes())
         {
-            if (height[current_node] == none)
+            if (height[current_node] == NoneHeight)
             {
                 // Node is unvisited, mark it as root.
                 height[current_node] = 0;
@@ -346,7 +339,7 @@ private:
             low_pt[current_edge] = height[current_node];
             low_pt2[current_edge] = height[current_node];
 
-            if (height[neighbor] == none)
+            if (height[neighbor] == NoneHeight)
             {
                 // Found a DFS-tree edge
                 parent_edges[neighbor] = current_edge;
@@ -387,7 +380,7 @@ private:
     }
 
     // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
-    UndirectedGraph<NodeType> graph_;
+    const UndirectedGraph<NodeType>& graph_;
     DirectedGraph<NodeType> dfs_graph;
     std::vector<NodeType> roots; // Stores the roots of all connected components
     // Variables corresponding to the table
