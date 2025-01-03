@@ -1,4 +1,4 @@
-    //
+//
 // Created by andreas on 14.12.24.
 //
 
@@ -39,10 +39,10 @@ class PlanarityTest
         }
     };
 
-    friend bool operator==(const Interval& lhs, const Interval& rhs) {
-        return lhs.low ==rhs.low && lhs.high == rhs.high;
+    friend bool operator==(const Interval& lhs, const Interval& rhs)
+    {
+        return lhs.low == rhs.low && lhs.high == rhs.high;
     }
-
 
 
     struct ConflictPair
@@ -62,14 +62,15 @@ class PlanarityTest
         {
             std::swap(left, right);
         }
-
     };
 
     const ConflictPair NoneConflictPair{Interval{}, Interval{}};
 
-    friend bool operator==(const ConflictPair& lhs, const ConflictPair& rhs) {
+    friend bool operator==(const ConflictPair& lhs, const ConflictPair& rhs)
+    {
         return lhs.left == rhs.left && lhs.right == rhs.right;
     }
+
     static constexpr int lowpt_not_assigned = std::numeric_limits<int>::min();
     static constexpr NodeType no_parent = std::numeric_limits<NodeType>::max();
     static constexpr int none = std::numeric_limits<int>::max();
@@ -109,12 +110,11 @@ public:
     }
 
 private:
-
     int get_lowest_lowpt(const ConflictPair& conflict_pair)
     {
-        if(conflict_pair.left.is_empty())
+        if (conflict_pair.left.is_empty())
             return low_pt[conflict_pair.right.low];
-        if(conflict_pair.right.is_empty())
+        if (conflict_pair.right.is_empty())
             return low_pt[conflict_pair.left.low];
         return std::min(low_pt[conflict_pair.right.low], low_pt[conflict_pair.left.low]);
     }
@@ -141,7 +141,8 @@ private:
             auto current_edge = make_edge(current_node, neighbor); // Create the edge
 
             // TODO
-            stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top(); // Use -1 to indicate an empty stack
+            stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top();
+            // Use -1 to indicate an empty stack
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
                 if (!dfs_testing(neighbor))
@@ -150,21 +151,20 @@ private:
             else // back edge ? add explanation
             {
                 lowpt_edge[current_edge] = current_edge;
-                stack.push(ConflictPair(Interval{},Interval(current_edge, current_edge)));
+                stack.push(ConflictPair(Interval{}, Interval(current_edge, current_edge)));
             }
 
             if (low_pt[current_edge] < height[current_node])
             {
-                if(neighbor == ordered_adjacency_list[current_node][0])
+                if (neighbor == ordered_adjacency_list[current_node][0])
                 {
                     lowpt_edge[parent_edge] = lowpt_edge[current_edge];
                 }
                 else
                 {
-                    if(!apply_constraints(current_edge, parent_edge))
+                    if (!apply_constraints(current_edge, parent_edge))
                         return false;
                 }
-
             }
         }
         if (parent_edge != NoneEdge<NodeType>)
@@ -188,7 +188,7 @@ private:
         {
             auto conflict_pair = stack.top();
             stack.pop();
-            while(conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high.second == parent_node)
+            while (conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high.second == parent_node)
             {
                 conflict_pair.left.high = ref[conflict_pair.left.high];
             }
@@ -198,7 +198,7 @@ private:
                 side[conflict_pair.left.low] = -1;
                 conflict_pair.left.low = NoneEdge<NodeType>;
             }
-            while(conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
+            while (conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
             {
                 conflict_pair.right.high = ref[conflict_pair.right.high];
             }
@@ -217,7 +217,7 @@ private:
         {
             auto highest_return_edge_left = stack.top().left.high;
             auto highest_return_edge_right = stack.top().right.high;
-            if(highest_return_edge_left != NoneEdge<NodeType> && (highest_return_edge_right != NoneEdge<NodeType> ||
+            if (highest_return_edge_left != NoneEdge<NodeType> && (highest_return_edge_right != NoneEdge<NodeType> ||
                 low_pt[highest_return_edge_left] > low_pt[highest_return_edge_right]))
             {
                 ref[edge] = highest_return_edge_left;
@@ -233,7 +233,7 @@ private:
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
         auto help_conflict_pair = ConflictPair{};
-        while (!stack.empty() &&  stack.top() != stack_bottom[edge])
+        while (!stack.empty() && stack.top() != stack_bottom[edge])
         {
             auto current_conflict_pair = stack.top();
             stack.pop();
@@ -277,11 +277,11 @@ private:
                 return false;
             }
             ref[help_conflict_pair.right.low] = current_conflict_pair.right.high;
-            if(current_conflict_pair.right.low != NoneEdge<NodeType>)
+            if (current_conflict_pair.right.low != NoneEdge<NodeType>)
             {
                 help_conflict_pair.right = current_conflict_pair.right;
             }
-            if(help_conflict_pair.left.is_empty())
+            if (help_conflict_pair.left.is_empty())
             {
                 help_conflict_pair.left = current_conflict_pair.left;
             }
@@ -292,7 +292,7 @@ private:
             help_conflict_pair.left.low = current_conflict_pair.left.low;
         }
 
-        if ( !(help_conflict_pair.left.is_empty() && help_conflict_pair.right.is_empty()))
+        if (!help_conflict_pair.left.is_empty() || !help_conflict_pair.right.is_empty())
             stack.push(help_conflict_pair);
         return true;
     }
