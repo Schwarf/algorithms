@@ -95,8 +95,22 @@ public:
             is_planar = false;
             return;
         }
-        orientation();
-        check_planarity();
+        for (const auto& current_node : graph_.get_all_nodes())
+        {
+            if (height[current_node] == NoneHeight)
+            {
+                // Node is unvisited, mark it as root.
+                height[current_node] = 0;
+                roots.push_back(current_node);
+                dfs_orientation_recursive(current_node);
+            }
+        }
+        sort_adjacency_list_by_nesting_depth();
+        for (const auto root_node : roots)
+        {
+            is_planar = dfs_testing_recursive(root_node);
+        }
+
     }
 
     bool is_graph_planar() const
@@ -289,29 +303,6 @@ private:
         if (!help_conflict_pair.left.is_empty() || !help_conflict_pair.right.is_empty())
             stack.push(help_conflict_pair);
         return true;
-    }
-
-    void check_planarity()
-    {
-        sort_adjacency_list_by_nesting_depth();
-        for (const auto root_node : roots)
-        {
-            is_planar = dfs_testing_recursive(root_node);
-        }
-    }
-
-    void orientation()
-    {
-        for (const auto& current_node : graph_.get_all_nodes())
-        {
-            if (height[current_node] == NoneHeight)
-            {
-                // Node is unvisited, mark it as root.
-                height[current_node] = 0;
-                roots.push_back(current_node);
-                dfs_orientation(current_node);
-            }
-        }
     }
 
 
