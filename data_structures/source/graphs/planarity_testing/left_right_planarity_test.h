@@ -4,7 +4,6 @@
 
 #ifndef LEFT_RIGHT_PLANARITY_TEST_H
 #define LEFT_RIGHT_PLANARITY_TEST_H
-#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
 #include <limits>
@@ -75,6 +74,8 @@ class PlanarityTest
     bool is_planar{};
 
 public:
+    static int counter;
+
     explicit PlanarityTest(UndirectedGraph<NodeType>& graph)
         : graph_(graph)
     {
@@ -102,15 +103,14 @@ public:
                 // Node is unvisited, mark it as root.
                 height[current_node] = 0;
                 roots.push_back(current_node);
-                dfs_orientation_recursive(current_node);
+                dfs_orientation(current_node);
             }
         }
         sort_adjacency_list_by_nesting_depth();
         for (const auto root_node : roots)
         {
-            is_planar = dfs_testing_recursive(root_node);
+            is_planar = dfs_testing(root_node);
         }
-
     }
 
     bool is_graph_planar() const
@@ -130,7 +130,7 @@ private:
 
     void sort_adjacency_list_by_nesting_depth()
     {
-        for (auto & [node, neighbors] : dfs_graph.get_adjacency_list())
+        for (auto& [node, neighbors] : dfs_graph.get_adjacency_list())
         {
             std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
             {
@@ -139,8 +139,193 @@ private:
         }
     }
 
+    void dfs_orientation(NodeType start_node)
+    {
+        std::stack<NodeType> dfs_stack{{start_node}};
+        auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
 
+        while (!dfs_stack.empty())
+        {
+            auto current_node = dfs_stack.top();
+            dfs_stack.pop();
+            auto parent_edge = parent_edges[current_node];
+            auto processed_neighbors = std::unordered_set<NodeType>{};
 
+            for (const auto& neighbor : graph_.get_neighbors(current_node))
+            {
+                if (processed_neighbors.contains(neighbor))
+                    continue;
+                processed_neighbors.insert(neighbor);
+                auto current_edge = make_edge(current_node, neighbor);
+                if (!preprocessed_edges.contains(current_edge))
+                {
+                    auto current_reversed_edge = make_edge(neighbor, current_node);
+                    if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
+                        continue;
+                    visited_edges.insert(current_edge);
+                    dfs_graph.add_edge(current_node, neighbor);
+                    lowest_point[current_edge] = height[current_node];
+                    second_lowest_point[current_edge] = height[current_node];
+                    if (height[neighbor] == NoneHeight) // Tree edge
+                    {
+                        parent_edges[neighbor] = current_edge;
+                        height[neighbor] = height[current_node] + 1;
+                        dfs_stack.push(current_node); // Need to revisit
+                        dfs_stack.push(neighbor);
+                        preprocessed_edges.insert(current_edge);
+                        break;
+                    }
+                    // back edge
+                    lowest_point[current_edge] = height[neighbor];
+                }
+
+                nesting_depth[current_edge] = 2 * lowest_point[current_edge];
+                if (second_lowest_point[current_edge] < height[current_node])
+                {
+                    nesting_depth[current_edge] += 1;
+                }
+
+                if (parent_edge != NoneEdge<NodeType>)
+                {
+                    if (lowest_point[current_edge] < lowest_point[parent_edge])
+                    {
+                        second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge],
+                                                                    second_lowest_point[current_edge]);
+                        lowest_point[parent_edge] = lowest_point[current_edge];
+                    }
+                    else if (lowest_point[current_edge] > lowest_point[parent_edge])
+                    {
+                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
+                                                                    lowest_point[current_edge]);
+                    }
+                    else
+                    {
+                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
+                                                                    second_lowest_point[current_edge]);
+                    }
+                }
+            }
+        }
+    }
+
+    void dfs_orientation_recursive(NodeType current_node)
+    {
+        auto parent_edge = parent_edges[current_node];
+
+        for (const auto& neighbor : graph_.get_neighbors(current_node))
+        {
+            // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
+            auto current_edge = make_edge(current_node, neighbor);
+            auto current_reversed_edge = make_edge(neighbor, current_node);
+
+            if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
+                continue;
+            // Mark the edge as oriented and visited
+            visited_edges.insert(current_edge);
+            dfs_graph.add_edge(current_node, neighbor);
+            // Set the
+            lowest_point[current_edge] = height[current_node];
+            second_lowest_point[current_edge] = height[current_node];
+
+            if (height[neighbor] == NoneHeight)
+            {
+                // Found a DFS-tree edge
+                parent_edges[neighbor] = current_edge;
+                height[neighbor] = height[current_node] + 1;
+                dfs_orientation_recursive(neighbor);
+            }
+            else
+            {
+                // Found a back edge
+                lowest_point[current_edge] = height[neighbor];
+            }
+
+            // Determine nesting depth
+            nesting_depth[current_edge] = 2 * lowest_point[current_edge];
+            if (second_lowest_point[current_edge] < height[current_node])
+            {
+                nesting_depth[current_edge] += 1; // Chordal adjustment
+            }
+
+            // Update reachability_values (aka low_points) of parent edge
+            if (parent_edge != NoneEdge<NodeType>)
+            {
+                if (lowest_point[current_edge] < lowest_point[parent_edge])
+                {
+                    second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge],
+                                                                second_lowest_point[current_edge]);
+                    lowest_point[parent_edge] = lowest_point[current_edge];
+                }
+                else if (lowest_point[current_edge] > lowest_point[parent_edge])
+                {
+                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
+                                                                lowest_point[current_edge]);
+                }
+                else
+                {
+                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
+                                                                second_lowest_point[current_edge]);
+                }
+            }
+        }
+    }
+
+    bool dfs_testing(NodeType start_node)
+    {
+        std::stack<NodeType> dfs_stack{{start_node}};
+        auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
+        while (!dfs_stack.empty())
+        {
+            auto current_node = dfs_stack.top();
+            dfs_stack.pop();
+            auto parent_edge = parent_edges[current_node];
+            bool call_remove_back_edges{true};
+            auto processed_neighbors = std::unordered_set<NodeType>{};
+
+            for (const auto neighbor : dfs_graph.get_adjacency_list()[current_node])
+            {
+                if (processed_neighbors.contains(neighbor))
+                    continue;
+                processed_neighbors.insert(neighbor);
+
+                auto current_edge = make_edge(current_node, neighbor);
+                if (!preprocessed_edges.contains(current_edge))
+                {
+                    stack_bottom[current_edge] = stack.empty() ? NoneConflictPair : stack.top();
+                    if (current_edge == parent_edges[neighbor])
+                    {
+                        dfs_stack.push(current_node);
+                        dfs_stack.push(neighbor);
+                        preprocessed_edges.insert(current_edge);
+                        call_remove_back_edges = false;
+                        break;
+                    }
+                    lowpt_edge[current_edge] = current_edge;
+                    stack.push(ConflictPair(Interval{}, Interval(current_edge, current_edge)));
+                }
+
+                if (lowest_point[current_edge] < height[current_node])
+                {
+                    if (neighbor == dfs_graph.get_adjacency_list()[current_node][0])
+                    {
+                        lowpt_edge[parent_edge] = lowpt_edge[current_edge];
+                    }
+                    else
+                    {
+                        if (!apply_constraints(current_edge, parent_edge))
+                            return false;
+                    }
+                }
+            }
+
+            if (call_remove_back_edges)
+            {
+                if (parent_edge != NoneEdge<NodeType>)
+                    remove_back_edges(parent_edge);
+            }
+        }
+        return true;
+    }
 
 
     bool dfs_testing_recursive(NodeType current_node)
@@ -311,131 +496,6 @@ private:
         return !interval.is_empty() && lowest_point[interval.high] > lowest_point[edge];
     }
 
-
-    void dfs_orientation(NodeType start_node)
-    {
-        std::stack<NodeType> dfs_stack{{start_node}};
-        auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
-
-        while(!dfs_stack.empty())
-        {
-            auto current_node = dfs_stack.top();
-            dfs_stack.pop();
-            auto parent_edge = parent_edges[current_node];
-            auto processed_neighbors = std::unordered_set<NodeType>{};
-
-            for (const auto& neighbor : graph_.get_neighbors(current_node))
-            {
-                if(processed_neighbors.contains(neighbor))
-                    continue;
-                processed_neighbors.insert(neighbor);
-                auto current_edge = make_edge(current_node, neighbor);
-                if(!preprocessed_edges.contains(current_edge))
-                {
-                    auto current_reversed_edge = make_edge(neighbor, current_node);
-                    if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
-                        continue;
-                    visited_edges.insert(current_edge);
-                    dfs_graph.add_edge(current_node, neighbor);
-                    lowest_point[current_edge] = height[current_node];
-                    second_lowest_point[current_edge] = height[current_node];
-                    if(height[neighbor] == NoneHeight) // Tree edge
-                    {
-                        parent_edges[neighbor] = current_edge;
-                        height[neighbor] = height[current_node] + 1;
-                        dfs_stack.push(current_node); // Need to revisit
-                        dfs_stack.push(neighbor);
-                        preprocessed_edges.insert(current_edge);
-                        break;
-                    }
-                    // back edge
-                    lowest_point[current_edge] = height[neighbor];
-                }
-
-                nesting_depth[current_edge] = 2*lowest_point[current_edge];
-                if(second_lowest_point[current_edge] < height[current_node])
-                {
-                    nesting_depth[current_edge] += 1;
-                }
-
-                if(parent_edge != NoneEdge<NodeType>)
-                {
-                    if (lowest_point[current_edge] < lowest_point[parent_edge])
-                    {
-                        second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
-                        lowest_point[parent_edge] = lowest_point[current_edge];
-                    }
-                    else if (lowest_point[current_edge] > lowest_point[parent_edge])
-                    {
-                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
-                    }
-                    else
-                    {
-                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
-                    }
-                }
-            }
-        }
-    }
-
-    void dfs_orientation_recursive(NodeType current_node)
-    {
-        auto parent_edge = parent_edges[current_node];
-
-        for (const auto& neighbor : graph_.get_neighbors(current_node))
-        {
-            // We orient the edges in the undirected graph according the DFS-tree current_node --> neighbor
-            auto current_edge = make_edge(current_node, neighbor);
-            auto current_reversed_edge = make_edge(neighbor, current_node);
-
-            if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
-                continue;
-            // Mark the edge as oriented and visited
-            visited_edges.insert(current_edge);
-            dfs_graph.add_edge(current_node, neighbor);
-            // Set the
-            lowest_point[current_edge] = height[current_node];
-            second_lowest_point[current_edge] = height[current_node];
-
-            if (height[neighbor] == NoneHeight)
-            {
-                // Found a DFS-tree edge
-                parent_edges[neighbor] = current_edge;
-                height[neighbor] = height[current_node] + 1;
-                dfs_orientation_recursive(neighbor);
-            }
-            else
-            {
-                // Found a back edge
-                lowest_point[current_edge] = height[neighbor];
-            }
-
-            // Determine nesting depth
-            nesting_depth[current_edge] = 2 * lowest_point[current_edge];
-            if (second_lowest_point[current_edge] < height[current_node])
-            {
-                nesting_depth[current_edge] += 1; // Chordal adjustment
-            }
-
-            // Update reachability_values (aka low_points) of parent edge
-            if (parent_edge != NoneEdge<NodeType>)
-            {
-                if (lowest_point[current_edge] < lowest_point[parent_edge])
-                {
-                    second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
-                    lowest_point[parent_edge] = lowest_point[current_edge];
-                }
-                else if (lowest_point[current_edge] > lowest_point[parent_edge])
-                {
-                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
-                }
-                else
-                {
-                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
-                }
-            }
-        }
-    }
 
     // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
     const UndirectedGraph<NodeType>& graph_;
