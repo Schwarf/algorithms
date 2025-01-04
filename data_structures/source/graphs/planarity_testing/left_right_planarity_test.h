@@ -108,10 +108,10 @@ private:
     int get_lowest_lowpt(const ConflictPair& conflict_pair)
     {
         if (conflict_pair.left.is_empty())
-            return low_pt[conflict_pair.right.low];
+            return lowest_point[conflict_pair.right.low];
         if (conflict_pair.right.is_empty())
-            return low_pt[conflict_pair.left.low];
-        return std::min(low_pt[conflict_pair.right.low], low_pt[conflict_pair.left.low]);
+            return lowest_point[conflict_pair.left.low];
+        return std::min(lowest_point[conflict_pair.right.low], lowest_point[conflict_pair.left.low]);
     }
 
     void sort_adjacency_list_by_nesting_depth()
@@ -126,7 +126,7 @@ private:
     }
 
 
-    bool dfs_testing(NodeType current_node)
+    bool dfs_testing_recursive(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
         for (const auto neighbor : dfs_graph.get_adjacency_list()[current_node])
@@ -136,7 +136,7 @@ private:
 
             if (current_edge == parent_edges[neighbor]) // tree edge ? add explanation
             {
-                if (!dfs_testing(neighbor))
+                if (!dfs_testing_recursive(neighbor))
                     return false;
             }
             else // back edge ? add explanation
@@ -145,7 +145,7 @@ private:
                 stack.push(ConflictPair(Interval{}, Interval(current_edge, current_edge)));
             }
 
-            if (low_pt[current_edge] < height[current_node])
+            if (lowest_point[current_edge] < height[current_node])
             {
                 if (neighbor == dfs_graph.get_adjacency_list()[current_node][0])
                 {
@@ -204,12 +204,12 @@ private:
         }
 
 
-        if (!stack.empty() && low_pt[edge] < height[parent_node])
+        if (!stack.empty() && lowest_point[edge] < height[parent_node])
         {
             auto highest_return_edge_left = stack.top().left.high;
             auto highest_return_edge_right = stack.top().right.high;
             if (highest_return_edge_left != NoneEdge<NodeType> && (highest_return_edge_right != NoneEdge<NodeType> ||
-                low_pt[highest_return_edge_left] > low_pt[highest_return_edge_right]))
+                lowest_point[highest_return_edge_left] > lowest_point[highest_return_edge_right]))
             {
                 ref[edge] = highest_return_edge_left;
             }
@@ -236,7 +236,7 @@ private:
             {
                 return false;
             }
-            if (low_pt[current_conflict_pair.right.low] > low_pt[parent_edge])
+            if (lowest_point[current_conflict_pair.right.low] > lowest_point[parent_edge])
             {
                 if (help_conflict_pair.right.is_empty())
                 {
@@ -293,7 +293,7 @@ private:
         sort_adjacency_list_by_nesting_depth();
         for (const auto root_node : roots)
         {
-            is_planar = dfs_testing(root_node);
+            is_planar = dfs_testing_recursive(root_node);
         }
     }
 
@@ -306,7 +306,7 @@ private:
                 // Node is unvisited, mark it as root.
                 height[current_node] = 0;
                 roots.push_back(current_node);
-                dfs_orientation(current_node);
+                dfs_orientation_recusrive(current_node);
             }
         }
     }
@@ -314,10 +314,10 @@ private:
 
     bool conflicting(const Interval& interval, const Edge<NodeType>& edge)
     {
-        return !interval.is_empty() && low_pt[interval.high] > low_pt[edge];
+        return !interval.is_empty() && lowest_point[interval.high] > lowest_point[edge];
     }
 
-    void dfs_orientation(NodeType current_node)
+    void dfs_orientation_recusrive(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
 
@@ -333,25 +333,25 @@ private:
             visited_edges.insert(current_edge);
             dfs_graph.add_edge(current_node, neighbor);
             // Set the
-            low_pt[current_edge] = height[current_node];
-            low_pt2[current_edge] = height[current_node];
+            lowest_point[current_edge] = height[current_node];
+            second_lowest_point[current_edge] = height[current_node];
 
             if (height[neighbor] == NoneHeight)
             {
                 // Found a DFS-tree edge
                 parent_edges[neighbor] = current_edge;
                 height[neighbor] = height[current_node] + 1;
-                dfs_orientation(neighbor);
+                dfs_orientation_recusrive(neighbor);
             }
             else
             {
                 // Found a back edge
-                low_pt[current_edge] = height[neighbor];
+                lowest_point[current_edge] = height[neighbor];
             }
 
             // Determine nesting depth
-            nesting_depth[current_edge] = 2 * low_pt[current_edge];
-            if (low_pt2[current_edge] < height[current_node])
+            nesting_depth[current_edge] = 2 * lowest_point[current_edge];
+            if (second_lowest_point[current_edge] < height[current_node])
             {
                 nesting_depth[current_edge] += 1; // Chordal adjustment
             }
@@ -359,18 +359,18 @@ private:
             // Update reachability_values (aka low_points) of parent edge
             if (parent_edge != NoneEdge<NodeType>)
             {
-                if (low_pt[current_edge] < low_pt[parent_edge])
+                if (lowest_point[current_edge] < lowest_point[parent_edge])
                 {
-                    low_pt2[parent_edge] = std::min(low_pt[parent_edge], low_pt2[current_edge]);
-                    low_pt[parent_edge] = low_pt[current_edge];
+                    second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
+                    lowest_point[parent_edge] = lowest_point[current_edge];
                 }
-                else if (low_pt[current_edge] > low_pt[parent_edge])
+                else if (lowest_point[current_edge] > lowest_point[parent_edge])
                 {
-                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt[current_edge]);
+                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
                 }
                 else
                 {
-                    low_pt2[parent_edge] = std::min(low_pt2[parent_edge], low_pt2[current_edge]);
+                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
                 }
             }
         }
@@ -382,11 +382,10 @@ private:
     std::vector<NodeType> roots; // Stores the roots of all connected components
     // Variables corresponding to the table
     std::unordered_map<NodeType, int> height; // Height of each node
-    std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt{}; // Lowpoint of each edge
-    std::unordered_map<Edge<NodeType>, int, EdgeHash> low_pt2{}; // Second-lowest point
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> lowest_point{}; // Lowpoint of each edge
+    std::unordered_map<Edge<NodeType>, int, EdgeHash> second_lowest_point{}; // Second-lowest point
     std::unordered_map<Edge<NodeType>, int, EdgeHash> nesting_depth{}; // Nesting depth
     std::unordered_map<Edge<NodeType>, ConflictPair, EdgeHash> stack_bottom{};
-    std::unordered_map<NodeType, std::vector<NodeType>> ordered_adjacency_list;
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> ref{};
     // std::unordered_map<Edge<NodeType>, int, EdgeHash> side{};
     std::unordered_map<Edge<NodeType>, Edge<NodeType>, EdgeHash> lowpt_edge{};
