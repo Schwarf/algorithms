@@ -126,6 +126,9 @@ private:
     }
 
 
+
+
+
     bool dfs_testing_recursive(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
@@ -306,7 +309,7 @@ private:
                 // Node is unvisited, mark it as root.
                 height[current_node] = 0;
                 roots.push_back(current_node);
-                dfs_orientation_recusrive(current_node);
+                dfs_orientation(current_node);
             }
         }
     }
@@ -317,7 +320,74 @@ private:
         return !interval.is_empty() && lowest_point[interval.high] > lowest_point[edge];
     }
 
-    void dfs_orientation_recusrive(NodeType current_node)
+
+    void dfs_orientation(NodeType start_node)
+    {
+        std::stack<NodeType> dfs_stack{{start_node}};
+        auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
+
+        while(!dfs_stack.empty())
+        {
+            auto current_node = dfs_stack.top();
+            dfs_stack.pop();
+            auto parent_edge = parent_edges[current_node];
+            auto processed_neighbors = std::unordered_set<NodeType>{};
+
+            for (const auto& neighbor : graph_.get_neighbors(current_node))
+            {
+                if(processed_neighbors.contains(neighbor))
+                    continue;
+                processed_neighbors.insert(neighbor);
+                auto current_edge = make_edge(current_node, neighbor);
+                if(!preprocessed_edges.contains(current_edge))
+                {
+                    auto current_reversed_edge = make_edge(neighbor, current_node);
+                    if (visited_edges.contains(current_edge) || visited_edges.contains(current_reversed_edge))
+                        continue;
+                    visited_edges.insert(current_edge);
+                    dfs_graph.add_edge(current_node, neighbor);
+                    lowest_point[current_edge] = height[current_node];
+                    second_lowest_point[current_edge] = height[current_node];
+                    if(height[neighbor] == NoneHeight) // Tree edge
+                    {
+                        parent_edges[neighbor] = current_edge;
+                        height[neighbor] = height[current_node] + 1;
+                        dfs_stack.push(current_node); // Need to revisit
+                        dfs_stack.push(neighbor);
+                        preprocessed_edges.insert(current_edge);
+                        break;
+                    }
+                    // back edge
+                    lowest_point[current_edge] = height[neighbor];
+                }
+
+                nesting_depth[current_edge] = 2*lowest_point[current_edge];
+                if(second_lowest_point[current_edge] < height[current_node])
+                {
+                    nesting_depth[current_edge] += 1;
+                }
+
+                if(parent_edge != NoneEdge<NodeType>)
+                {
+                    if (lowest_point[current_edge] < lowest_point[parent_edge])
+                    {
+                        second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
+                        lowest_point[parent_edge] = lowest_point[current_edge];
+                    }
+                    else if (lowest_point[current_edge] > lowest_point[parent_edge])
+                    {
+                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
+                    }
+                    else
+                    {
+                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
+                    }
+                }
+            }
+        }
+    }
+
+    void dfs_orientation_recursive(NodeType current_node)
     {
         auto parent_edge = parent_edges[current_node];
 
@@ -341,7 +411,7 @@ private:
                 // Found a DFS-tree edge
                 parent_edges[neighbor] = current_edge;
                 height[neighbor] = height[current_node] + 1;
-                dfs_orientation_recusrive(neighbor);
+                dfs_orientation_recursive(neighbor);
             }
             else
             {
