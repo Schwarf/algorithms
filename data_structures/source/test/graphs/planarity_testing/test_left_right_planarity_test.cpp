@@ -587,3 +587,153 @@ TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarConnectedGraph51Nodes)
     test.run();
     EXPECT_TRUE(test.is_graph_planar());
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_F(SetupLeftRightPlanarityTesting, PathGraphRecursive)
+{
+    auto graph = path_graph();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CycleGraphRecursive)
+{
+    auto graph = cycle_graph();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, StarGraphRecursive)
+{
+    auto graph = star_graph();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TreeGraphRecursive)
+{
+    auto graph = tree_graph();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, WheelGraphRecursive)
+{
+    auto graph = wheel_graph();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, GridGraph3x3Recursive)
+{
+    auto graph = grid_graph_3x3();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK3Recursive)
+{
+    auto graph = complete_graph_k3();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK4Recursive)
+{
+    auto graph = complete_graph_k4();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK5Recursive)
+{
+    auto graph = complete_graph_k5();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK6Recursive)
+{
+    auto graph = complete_graph_k6();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_1Recursive)
+{
+    auto graph = generalized_petersen_graph_5_1();
+    PlanarityTest<short> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, PetersenGraph_5_2Recursive)
+{
+    auto graph = generalized_petersen_graph_5_2();
+    PlanarityTest<short> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, UtilityGraphRecursive)
+{
+    auto graph = utility_graph();
+    PlanarityTest<short> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CompleteTripartiteGraphK333Recursive)
+{
+    auto graph = complete_tripartite_graph_k333();
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarGraph50NodesRecursive)
+{
+    auto graph = random_planar_graph_50_nodes();
+    PlanarityTest<int32_t> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarGraph100NodesRecursive)
+{
+    auto graph = random_planar_graph_100_nodes();
+    PlanarityTest<int32_t> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, RandomNonPlanarGraph50NodesRecursive)
+{
+    auto graph = random_nonplanar_graph_50_nodes();
+    PlanarityTest<int16_t> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarConnectedGraph51NodesRecursive)
+{
+    auto graph = random_planar_connected_graph_51_nodes();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
