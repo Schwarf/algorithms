@@ -107,9 +107,11 @@ public:
             }
         }
         sort_adjacency_list_by_nesting_depth();
+        is_planar = true;
         for (const auto root_node : roots)
         {
-            is_planar = dfs_testing(root_node);
+                if(!dfs_testing(root_node))
+                    is_planar = false;
         }
     }
 
@@ -130,6 +132,7 @@ public:
                 dfs_orientation_recursive(current_node);
             }
         }
+
         sort_adjacency_list_by_nesting_depth();
         for (const auto root_node : roots)
         {

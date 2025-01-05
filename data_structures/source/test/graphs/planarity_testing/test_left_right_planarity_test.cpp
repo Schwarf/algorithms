@@ -440,6 +440,29 @@ public:
         };
         return graph;
     }
+
+    static UndirectedGraph<int64_t> two_graphs_one_planar_one_nonplanar()
+    {
+        // path_graph and utility_graph
+        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{1, 2}, {2, 3}, {3, 4},
+                            {1, 4}, {1, 5}, {1, 6},
+                            {2, 4}, {2, 5}, {2, 6},
+                            {3, 4}, {3, 5}, {3, 6}}
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int64_t> two_graphs_one_nonplanar_one_planar()
+    {
+        // path_graph and utility_graph
+        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{7, 8}, {8, 9}, {9, 10},
+                            {5, 8}, {5, 9}, {5, 10},
+                            {6, 8}, {6, 9}, {6, 10},
+                            {7, 8}, {7, 9}, {7, 10}}
+        };
+        return graph;
+    }
+
 };
 
 
@@ -588,8 +611,24 @@ TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarConnectedGraph51Nodes)
     EXPECT_TRUE(test.is_graph_planar());
 }
 
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOnePlanarOneNonPlanar)
+{
+    auto graph = two_graphs_one_planar_one_nonplanar();
+    PlanarityTest<int64_t> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOneNonPlanarOnePlanar)
+{
+    auto graph = two_graphs_one_nonplanar_one_planar();
+    PlanarityTest<int64_t> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
