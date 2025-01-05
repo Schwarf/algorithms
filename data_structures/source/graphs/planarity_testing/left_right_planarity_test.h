@@ -113,6 +113,30 @@ public:
         }
     }
 
+    void run_recursive()
+    {
+        if (graph_.get_node_count() > 2 && graph_.get_edge_count() > 3 * graph_.get_node_count() - 6)
+        {
+            is_planar = false;
+            return;
+        }
+        for (const auto& current_node : graph_.get_all_nodes())
+        {
+            if (height[current_node] == NoneHeight)
+            {
+                // Node is unvisited, mark it as root.
+                height[current_node] = 0;
+                roots.push_back(current_node);
+                dfs_orientation_recursive(current_node);
+            }
+        }
+        sort_adjacency_list_by_nesting_depth();
+        for (const auto root_node : roots)
+        {
+            is_planar = dfs_testing_recursive(root_node);
+        }
+    }
+
     bool is_graph_planar() const
     {
         return is_planar;
@@ -426,7 +450,7 @@ private:
     bool apply_constraints(const Edge<NodeType>& edge, const Edge<NodeType>& parent_edge)
     {
         auto help_conflict_pair = ConflictPair{};
-        while (!stack.empty() && stack.top() != stack_bottom[edge])
+        do
         {
             auto current_conflict_pair = stack.top();
             stack.pop();
@@ -455,7 +479,7 @@ private:
             {
                 ref[current_conflict_pair.right.low] = lowpt_edge[parent_edge];
             }
-        }
+        } while(!stack.empty() && (stack.top() != stack_bottom[edge]));
 
         while (!stack.empty() && (conflicting(stack.top().left, edge) || conflicting(stack.top().right, edge)))
         {
