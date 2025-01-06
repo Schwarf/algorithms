@@ -318,10 +318,10 @@ private:
             {
                 neighbor_iterators[current_node] = dfs_graph.get_adjacency_list()[current_node].begin();
             }
-            auto& iterator = neighbor_iterators[current_node];
-            while ( iterator !=dfs_graph.get_adjacency_list()[current_node].end())
+            auto& neighbor_iterator = neighbor_iterators[current_node];
+            while ( neighbor_iterator !=dfs_graph.get_adjacency_list()[current_node].end())
             {
-                auto neighbor = *iterator;
+                auto neighbor = *neighbor_iterator;
 
                 auto current_edge = make_edge(current_node, neighbor);
                 if (!preprocessed_edges.contains(current_edge))
@@ -352,7 +352,7 @@ private:
                             return false;
                     }
                 }
-                ++iterator;
+                ++neighbor_iterator;
             }
 
             if (call_remove_back_edges)
@@ -420,7 +420,7 @@ private:
             stack.pop();
             while (conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high.second == parent_node)
             {
-                conflict_pair.left.high = ref[conflict_pair.left.high];
+                conflict_pair.left.high =  ref.contains(conflict_pair.left.high) ? ref[conflict_pair.left.high] : NoneEdge<NodeType>;
             }
             if (conflict_pair.left.high == NoneEdge<NodeType> && conflict_pair.left.low != NoneEdge<NodeType>)
             {
@@ -430,7 +430,7 @@ private:
             }
             while (conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
             {
-                conflict_pair.right.high = ref[conflict_pair.right.high];
+                conflict_pair.right.high = ref.contains(conflict_pair.right.high) ? ref[conflict_pair.right.high] : NoneEdge<NodeType>;
             }
 
             if (conflict_pair.right.high == NoneEdge<NodeType> && conflict_pair.right.low != NoneEdge<NodeType>)
