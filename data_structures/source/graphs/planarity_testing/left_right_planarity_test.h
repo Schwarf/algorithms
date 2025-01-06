@@ -4,6 +4,7 @@
 
 #ifndef LEFT_RIGHT_PLANARITY_TEST_H
 #define LEFT_RIGHT_PLANARITY_TEST_H
+#include <fstream>
 #include <unordered_map>
 #include <unordered_set>
 #include <limits>
@@ -12,7 +13,9 @@
 #include <vector>
 #include <utility>
 #include "graphs/graph.h"
+#include "json.hpp"
 
+using json = nlohmann::json;
 
 template <typename NodeType>
     requires std::is_signed_v<NodeType>
@@ -132,7 +135,7 @@ public:
                 dfs_orientation_recursive(current_node);
             }
         }
-
+        dump_to_json();
         sort_adjacency_list_by_nesting_depth();
         is_planar = true;
         for (const auto root_node : roots)
@@ -525,6 +528,17 @@ private:
         return !interval.is_empty() && lowest_point[interval.high] > lowest_point[edge];
     }
 
+    void dump_to_json()
+    {
+        json output;
+        for(const auto & [node, h]: height)
+        {
+            output["heights"][std::to_string(node)] = h;
+        }
+        
+        std::ofstream file("dump.json");
+        file << output.dump(4);
+    }
 
     // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
     const UndirectedGraph<NodeType>& graph_;
