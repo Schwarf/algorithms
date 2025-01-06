@@ -111,7 +111,6 @@ public:
         }
         sort_adjacency_list_by_nesting_depth();
         is_planar = true;
-        dump_to_json();
 
         for (const auto root_node : roots)
         {
@@ -308,19 +307,21 @@ private:
     {
         std::stack<NodeType> dfs_stack{{start_node}};
         auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
+        auto neighbor_iterators = std::unordered_map<NodeType, decltype(dfs_graph.get_adjacency_list()[start_node].begin())>{};
         while (!dfs_stack.empty())
         {
             auto current_node = dfs_stack.top();
             dfs_stack.pop();
             auto parent_edge = parent_edges[current_node];
             bool call_remove_back_edges{true};
-            auto processed_neighbors = std::unordered_set<NodeType>{};
-
-            for (const auto neighbor : dfs_graph.get_adjacency_list()[current_node])
+            if (!neighbor_iterators.contains(current_node))
             {
-                if (processed_neighbors.contains(neighbor))
-                    continue;
-                processed_neighbors.insert(neighbor);
+                neighbor_iterators[current_node] = dfs_graph.get_adjacency_list()[current_node].begin();
+            }
+            auto& iterator = neighbor_iterators[current_node];
+            while ( iterator !=dfs_graph.get_adjacency_list()[current_node].end())
+            {
+                auto neighbor = *iterator;
 
                 auto current_edge = make_edge(current_node, neighbor);
                 if (!preprocessed_edges.contains(current_edge))
@@ -346,10 +347,12 @@ private:
                     }
                     else
                     {
+                        dump_to_json();
                         if (!apply_constraints(current_edge, parent_edge))
                             return false;
                     }
                 }
+                ++iterator;
             }
 
             if (call_remove_back_edges)
