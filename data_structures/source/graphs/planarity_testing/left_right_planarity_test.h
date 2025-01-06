@@ -110,6 +110,7 @@ public:
             }
         }
         sort_adjacency_list_by_nesting_depth();
+        dump_to_json();
         is_planar = true;
         for (const auto root_node : roots)
         {
@@ -135,7 +136,7 @@ public:
                 dfs_orientation_recursive(current_node);
             }
         }
-        dump_to_json();
+
         sort_adjacency_list_by_nesting_depth();
         is_planar = true;
         for (const auto root_node : roots)
@@ -535,7 +536,24 @@ private:
         {
             output["heights"][std::to_string(node)] = h;
         }
-        
+        for(const auto & [edge, value]: lowest_point)
+        {
+            output["lowpt"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+        }
+        for(const auto & [edge, value]: second_lowest_point)
+        {
+            output["lowpt2"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+        }
+        for(const auto & [edge, value]: nesting_depth)
+        {
+            output["nesting"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+        }
+
+        for(const auto & [node, neighbors]: dfs_graph.get_adjacency_list())
+        {
+            output["ordered"][std::to_string(node)] = neighbors;
+        }
+
         std::ofstream file("dump.json");
         file << output.dump(4);
     }
