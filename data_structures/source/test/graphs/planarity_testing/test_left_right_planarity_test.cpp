@@ -776,3 +776,19 @@ TEST_F(SetupLeftRightPlanarityTesting, RandomPlanarConnectedGraph51NodesRecursiv
     test.run_recursive();
     EXPECT_TRUE(test.is_graph_planar());
 }
+
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOnePlanarOneNonPlanarRecursive)
+{
+    auto graph = two_graphs_one_planar_one_nonplanar();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOneNonPlanarOnePlanarRecursive)
+{
+    auto graph = two_graphs_one_nonplanar_one_planar();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
