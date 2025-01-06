@@ -1,0 +1,1 @@
+- Check if lowest_point.contains(..) calls are necessary.

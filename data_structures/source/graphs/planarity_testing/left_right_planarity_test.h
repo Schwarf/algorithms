@@ -110,8 +110,9 @@ public:
             }
         }
         sort_adjacency_list_by_nesting_depth();
-        dump_to_json();
         is_planar = true;
+        dump_to_json();
+
         for (const auto root_node : roots)
         {
                 if(!dfs_testing(root_node))
@@ -337,7 +338,7 @@ private:
                     stack.push(ConflictPair(Interval{}, Interval(current_edge, current_edge)));
                 }
 
-                if (lowest_point[current_edge] < height[current_node])
+                if (lowest_point.contains(current_edge) &&  lowest_point[current_edge] < height[current_node])
                 {
                     if (neighbor == dfs_graph.get_adjacency_list()[current_node][0])
                     {
@@ -471,7 +472,8 @@ private:
             {
                 return false;
             }
-            if (lowest_point[current_conflict_pair.right.low] > lowest_point[parent_edge])
+            if (lowest_point.contains(current_conflict_pair.right.low) && lowest_point.contains(parent_edge) &&
+                lowest_point[current_conflict_pair.right.low] > lowest_point[parent_edge])
             {
                 if (help_conflict_pair.right.is_empty())
                 {
@@ -526,7 +528,7 @@ private:
 
     bool conflicting(const Interval& interval, const Edge<NodeType>& edge)
     {
-        return !interval.is_empty() && lowest_point[interval.high] > lowest_point[edge];
+        return !interval.is_empty() && lowest_point.contains(interval.high) && lowest_point.contains(edge) && lowest_point[interval.high] > lowest_point[edge];
     }
 
     void dump_to_json()
@@ -552,6 +554,10 @@ private:
         for(const auto & [node, neighbors]: dfs_graph.get_adjacency_list())
         {
             output["ordered"][std::to_string(node)] = neighbors;
+        }
+        for(const auto & [key_edge, value_edge]: lowpt_edge)
+        {
+            output["lowpt_edge"]["("+std::to_string(key_edge.first)+", "+std::to_string(key_edge.second)+")"] = {value_edge.first, value_edge.second};
         }
 
         std::ofstream file("dump.json");
