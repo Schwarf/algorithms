@@ -420,7 +420,8 @@ private:
             stack.pop();
             while (conflict_pair.left.high != NoneEdge<NodeType> && conflict_pair.left.high.second == parent_node)
             {
-                conflict_pair.left.high =  ref.contains(conflict_pair.left.high) ? ref[conflict_pair.left.high] : NoneEdge<NodeType>;
+                auto it = ref.find(conflict_pair.left.high);
+                conflict_pair.left.high = (it != ref.end()) ? it->second : NoneEdge<NodeType>;
             }
             if (conflict_pair.left.high == NoneEdge<NodeType> && conflict_pair.left.low != NoneEdge<NodeType>)
             {
@@ -430,7 +431,8 @@ private:
             }
             while (conflict_pair.right.high != NoneEdge<NodeType> && conflict_pair.right.high.second == parent_node)
             {
-                conflict_pair.right.high = ref.contains(conflict_pair.right.high) ? ref[conflict_pair.right.high] : NoneEdge<NodeType>;
+                auto it = ref.find(conflict_pair.right.high);
+                conflict_pair.right.high = (it != ref.end()) ? it->second : NoneEdge<NodeType>;
             }
 
             if (conflict_pair.right.high == NoneEdge<NodeType> && conflict_pair.right.low != NoneEdge<NodeType>)
