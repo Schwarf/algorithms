@@ -62,13 +62,36 @@ public:
         }
         return graph;
     }
-    static UndirectedGraph<int> wheel_graph()
+
+    static UndirectedGraph<int> wheel_graph(const int num_nodes)
     {
-        UndirectedGraph<int> graph{
-            {1, 2, 3, 4, 5, 6}, {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
-        };
+        UndirectedGraph<int> graph;
+        if (num_nodes < 4) {
+            throw std::invalid_argument("A wheel graph requires at least 4 nodes.");
+        }
+        graph.add_node(1);
+        // Form cycle
+        for (int i{2}; i <= num_nodes; ++i) {
+            graph.add_node(i);
+            if(i > 2)
+                graph.add_edge(i-1, i);
+        }
+        graph.add_edge(num_nodes, 2); // Close the cycle
+
+        // Connect center to cycle
+        for (int i = 2; i <= num_nodes; ++i) {
+            graph.add_edge(1, i);
+        }
         return graph;
     }
+
+    // static UndirectedGraph<int> wheel_graph()
+    // {
+    //     UndirectedGraph<int> graph{
+    //         {1, 2, 3, 4, 5, 6}, {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
+    //     };
+    //     return graph;
+    // }
 
     static UndirectedGraph<int> grid_graph_3x3()
     {
@@ -581,10 +604,13 @@ TEST_F(SetupLeftRightPlanarityTesting, TreeGraph)
 
 TEST_F(SetupLeftRightPlanarityTesting, WheelGraph)
 {
-    auto graph = wheel_graph();
-    PlanarityTest<int> test(graph);
-    test.run();
-    EXPECT_TRUE(test.is_graph_planar());
+    for (int number_of_nodes{4}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = wheel_graph(number_of_nodes);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
 }
 
 TEST_F(SetupLeftRightPlanarityTesting, GridGraph3x3)
@@ -793,10 +819,13 @@ TEST_F(SetupLeftRightPlanarityTesting, TreeGraphRecursive)
 
 TEST_F(SetupLeftRightPlanarityTesting, WheelGraphRecursive)
 {
-    auto graph = wheel_graph();
-    PlanarityTest<int> test(graph);
-    test.run_recursive();
-    EXPECT_TRUE(test.is_graph_planar());
+    for (int number_of_nodes{4}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = wheel_graph(number_of_nodes);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
 }
 
 TEST_F(SetupLeftRightPlanarityTesting, GridGraph3x3Recursive)
