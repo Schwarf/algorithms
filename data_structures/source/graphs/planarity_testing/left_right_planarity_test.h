@@ -115,7 +115,10 @@ public:
         for (const auto root_node : roots)
         {
                 if(!dfs_testing(root_node))
+                {
                     is_planar = false;
+                    break;
+                }
         }
     }
 
@@ -142,7 +145,10 @@ public:
         for (const auto root_node : roots)
         {
             if(!dfs_testing_recursive(root_node))
+            {
                 is_planar = false;
+                break;
+            }
         }
     }
 
