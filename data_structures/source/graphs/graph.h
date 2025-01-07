@@ -321,6 +321,7 @@ public:
     void add_node(const NodeType& node)
     {
         nodes.emplace_back(node);
+        adjacency_list[node] = {};
     }
 
     // Add an undirected edge between 'source_node' and 'destination_node'

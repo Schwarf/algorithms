@@ -517,6 +517,24 @@ public:
 };
 
 
+TEST_F(SetupLeftRightPlanarityTesting, EmptyGraph)
+{
+    auto graph = UndirectedGraph<int>{};
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, SingleNode)
+{
+        auto graph = UndirectedGraph<int>{};
+        graph.add_node(1);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+}
+
+
 TEST_F(SetupLeftRightPlanarityTesting, PathGraph)
 {
     for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
@@ -710,6 +728,24 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanar)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+TEST_F(SetupLeftRightPlanarityTesting, EmptyGraphRecursive)
+{
+    auto graph = UndirectedGraph<int>{};
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, SingleNodeRecursive)
+{
+    auto graph = UndirectedGraph<int>{};
+    graph.add_node(1);
+    PlanarityTest<int> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
 
 TEST_F(SetupLeftRightPlanarityTesting, PathGraphRecursive)
 {
