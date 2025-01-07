@@ -318,6 +318,10 @@ public:
         }
     }
 
+    void add_node(const NodeType& node)
+    {
+        nodes.emplace_back(node);
+    }
 
     // Add an undirected edge between 'source_node' and 'destination_node'
     void add_edge(NodeType source_node, NodeType destination_node)
