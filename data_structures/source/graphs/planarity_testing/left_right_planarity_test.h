@@ -408,10 +408,7 @@ private:
         auto parent_node = edge.first;
         while (!stack.empty() && get_lowest_lowpt(stack.top()) == height[parent_node])
         {
-            // auto conflict_pair = stack.top();
             stack.pop();
-            // if (conflict_pair.left.low != NoneEdge<NodeType>)
-            //     side[conflict_pair.left.low] = -1;
         }
 
         if (!stack.empty())

@@ -463,6 +463,32 @@ public:
         return graph;
     }
 
+    static UndirectedGraph<int64_t> two_random_graphs_both_planar_10_nodes_each()
+    {
+        // path_graph and utility_graph
+        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+            {{1 , 10}, { 1 , 13}, { 1 , 17}, { 1 , 18}, { 2 , 12}, { 3 , 7},
+                { 3 , 8}, { 3 , 20}, {4 , 8}, { 4 , 16}, { 5 , 10}, { 6 , 19},
+                { 7 , 9}, { 7 , 11}, { 7 , 15}, {7 , 20}, { 11 , 14}, { 12 , 19},
+                { 17 , 18}, { 17 , 19}, { 18 , 19}}
+        };
+        return graph;
+    }
+
+    static UndirectedGraph<int64_t> three_random_graphs_two_planar_one_non_planar()
+    {
+        // path_graph and utility_graph
+        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33},
+            {{1 , 11}, { 2 , 3}, { 2 , 9}, { 2 , 11}, { 3 , 5}, { 3 , 9}, { 4 , 5}, { 4 , 9},
+                {5 , 8}, { 5 , 11}, { 6 , 9}, { 6 , 11}, { 6 , 12}, { 7 , 10}, { 7 , 12},
+                {10 , 11}, { 13 , 15}, { 13 , 18}, { 13 , 20}, { 13 , 22}, { 14 , 15}, { 14 , 17},
+                {14 , 23}, { 15 , 18}, { 15 , 19}, { 15 , 22}, { 16 , 20}, { 17 , 25}, {18 , 20},
+                { 18 , 21}, { 18 , 22}, { 20 , 21}, { 21 , 23}, { 24 , 25}, { 27 , 28}, {27 , 31},
+                { 27 , 32}, { 27 , 33}, { 28 , 29}, { 28 , 30}, { 28 , 31}, {28 , 32}, { 28 , 33}, { 29 , 30}, { 30 , 32}, { 30 , 33}, { 31 , 32}, { 31 , 33}}
+        };
+        return graph;
+    }
+
 };
 
 
@@ -622,6 +648,22 @@ TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOnePlanarOneNonPlanar)
 TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOneNonPlanarOnePlanar)
 {
     auto graph = two_graphs_one_nonplanar_one_planar();
+    PlanarityTest<int64_t> test(graph);
+    test.run();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsBothPlanar10NodesEach)
+{
+    auto graph = two_random_graphs_both_planar_10_nodes_each();
+    PlanarityTest<int64_t> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanar)
+{
+    auto graph = three_random_graphs_two_planar_one_non_planar();
     PlanarityTest<int64_t> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
@@ -788,6 +830,22 @@ TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOnePlanarOneNonPlanarRecursive)
 TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsOneNonPlanarOnePlanarRecursive)
 {
     auto graph = two_graphs_one_nonplanar_one_planar();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TwoGraphsBothPlanar10NodesEachRecursive)
+{
+    auto graph = two_random_graphs_both_planar_10_nodes_each();
+    PlanarityTest<int64_t> test(graph);
+    test.run_recursive();
+    EXPECT_TRUE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanarRecursive)
+{
+    auto graph = three_random_graphs_two_planar_one_non_planar();
     PlanarityTest<int64_t> test(graph);
     test.run_recursive();
     EXPECT_FALSE(test.is_graph_planar());
