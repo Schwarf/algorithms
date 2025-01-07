@@ -39,8 +39,9 @@ public:
 
     static UndirectedGraph<int> star_graph(const int num_nodes)
     {
-        UndirectedGraph<int> graph;
-        if (num_nodes < 2) return graph; // No star graph possible with less than 2 nodes
+        UndirectedGraph<int> graph{};
+        if (num_nodes < 2)
+            return graph;
 
         graph.add_node(1); // Center
         for (int i{2}; i <= num_nodes; ++i)
@@ -85,13 +86,31 @@ public:
         return graph;
     }
 
-    // static UndirectedGraph<int> wheel_graph()
-    // {
-    //     UndirectedGraph<int> graph{
-    //         {1, 2, 3, 4, 5, 6}, {{1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}
-    //     };
-    //     return graph;
-    // }
+    static UndirectedGraph<int> grid_graph(const int rows, const int cols) {
+        UndirectedGraph<int> graph;
+        for(int i{1}; i <= rows*cols; ++i)
+        {
+            graph.add_node(i);
+        }
+
+        for (int row {}; row < rows; ++row) {
+            for (int col{}; col < cols; ++col) {
+                const auto currentNode = row * cols + col;
+
+                // Connect to the right neighbor
+                if (col + 1 < cols) {
+                    graph.add_edge(currentNode, currentNode + 1);
+                }
+
+                // Connect to the bottom neighbor
+                if (row + 1 < rows) {
+                    graph.add_edge(currentNode, currentNode + cols);
+                }
+            }
+        }
+
+        return graph;
+    }
 
     static UndirectedGraph<int> grid_graph_3x3()
     {
@@ -616,6 +635,21 @@ TEST_F(SetupLeftRightPlanarityTesting, GridGraph3x3)
     test.run();
     EXPECT_TRUE(test.is_graph_planar());
 }
+
+TEST_F(SetupLeftRightPlanarityTesting, GridGraph)
+{
+    for (int number_of_rows{2}; number_of_rows <= 10; ++number_of_rows)
+    {
+        for (int number_of_columns{2}; number_of_columns <= 10; ++number_of_columns)
+        {
+            auto graph = grid_graph(number_of_rows, number_of_columns);
+            PlanarityTest<int> test(graph);
+            test.run();
+            EXPECT_TRUE(test.is_graph_planar());
+        }
+    }
+}
+
 
 TEST_F(SetupLeftRightPlanarityTesting, CompleteGraphK3)
 {

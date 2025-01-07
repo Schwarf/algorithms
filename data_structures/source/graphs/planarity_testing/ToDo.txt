@@ -1,1 +1,1 @@
-- Check if lowest_point.contains(..) calls are necessary.
+- The tests ar incredible slow. Probably the graph-class is just very inefficient (e.g. the APIs for adding nodes).
