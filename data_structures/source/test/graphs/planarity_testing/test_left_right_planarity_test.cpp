@@ -10,11 +10,11 @@ class SetupLeftRightPlanarityTesting : public testing::Test
 {
 public:
     SetupLeftRightPlanarityTesting() = default;
-
-    static UndirectedGraph<int64_t> path_graph(int num_nodes)
+    static constexpr int max_number_of_nodes{50};
+    static UndirectedGraph<int64_t> path_graph(const int num_nodes)
     {
         UndirectedGraph<int64_t> graph;
-        for (int i = 1; i <= num_nodes; ++i)
+        for (int i{1}; i <= num_nodes; ++i)
         {
             graph.add_node(i);
             if (i > 1)
@@ -23,10 +23,10 @@ public:
         return graph;
     }
 
-    static UndirectedGraph<int> cycle_graph(int num_nodes)
+    static UndirectedGraph<int> cycle_graph(const int num_nodes)
     {
         UndirectedGraph<int> graph;
-        for (int i = 1; i <= num_nodes; ++i)
+        for (int i{1}; i <= num_nodes; ++i)
         {
             graph.add_node(i);
             if (i > 1)
@@ -37,13 +37,13 @@ public:
         return graph;
     }
 
-    static UndirectedGraph<int> star_graph(int num_nodes)
+    static UndirectedGraph<int> star_graph(const int num_nodes)
     {
         UndirectedGraph<int> graph;
         if (num_nodes < 2) return graph; // No star graph possible with less than 2 nodes
 
         graph.add_node(1); // Center
-        for (int i = 2; i <= num_nodes; ++i)
+        for (int i{2}; i <= num_nodes; ++i)
         {
             graph.add_node(i);
             graph.add_edge(1, i);
@@ -51,10 +51,10 @@ public:
         return graph;
     }
 
-    static UndirectedGraph<int> tree_graph(int num_nodes)
+    static UndirectedGraph<int> tree_graph(const int num_nodes)
     {
         UndirectedGraph<int> graph;
-        for (int i = 1; i <= num_nodes; ++i)
+        for (int i{1}; i <= num_nodes; ++i)
         {
             graph.add_node(i);
             if (i > 1)
@@ -519,9 +519,9 @@ public:
 
 TEST_F(SetupLeftRightPlanarityTesting, PathGraph)
 {
-    for (int nodes = 2; nodes <= 20; ++nodes)
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
     {
-        auto graph = path_graph(nodes);
+        auto graph = path_graph(number_of_nodes);
         PlanarityTest<int64_t> test(graph);
         test.run();
         EXPECT_TRUE(test.is_graph_planar());
@@ -530,9 +530,9 @@ TEST_F(SetupLeftRightPlanarityTesting, PathGraph)
 
 TEST_F(SetupLeftRightPlanarityTesting, CycleGraph)
 {
-    for (int nodes = 2; nodes <= 20; ++nodes)
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
     {
-        auto graph = cycle_graph(nodes);
+        auto graph = cycle_graph(number_of_nodes);
         PlanarityTest<int> test(graph);
         test.run();
         EXPECT_TRUE(test.is_graph_planar());
@@ -541,9 +541,9 @@ TEST_F(SetupLeftRightPlanarityTesting, CycleGraph)
 
 TEST_F(SetupLeftRightPlanarityTesting, StarGraph)
 {
-    for (int nodes = 2; nodes <= 20; ++nodes)
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
     {
-        auto graph = star_graph(nodes);
+        auto graph = star_graph(number_of_nodes);
         PlanarityTest<int> test(graph);
         test.run();
         EXPECT_TRUE(test.is_graph_planar());
@@ -552,9 +552,9 @@ TEST_F(SetupLeftRightPlanarityTesting, StarGraph)
 
 TEST_F(SetupLeftRightPlanarityTesting, TreeGraph)
 {
-    for (int nodes = 2; nodes <= 20; ++nodes)
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
     {
-        auto graph = tree_graph(nodes);
+        auto graph = tree_graph(number_of_nodes);
         PlanarityTest<int> test(graph);
         test.run();
         EXPECT_TRUE(test.is_graph_planar());
@@ -711,37 +711,49 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanar)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// TEST_F(SetupLeftRightPlanarityTesting, PathGraphRecursive)
-// {
-//     auto graph = path_graph();
-//     PlanarityTest<int64_t> test(graph);
-//     test.run_recursive();
-//     EXPECT_TRUE(test.is_graph_planar());
-// }
-//
-// TEST_F(SetupLeftRightPlanarityTesting, CycleGraphRecursive)
-// {
-//     auto graph = cycle_graph();
-//     PlanarityTest<int> test(graph);
-//     test.run_recursive();
-//     EXPECT_TRUE(test.is_graph_planar());
-// }
-//
-// TEST_F(SetupLeftRightPlanarityTesting, StarGraphRecursive)
-// {
-//     auto graph = star_graph();
-//     PlanarityTest<int> test(graph);
-//     test.run_recursive();
-//     EXPECT_TRUE(test.is_graph_planar());
-// }
-//
-// TEST_F(SetupLeftRightPlanarityTesting, TreeGraphRecursive)
-// {
-//     auto graph = tree_graph();
-//     PlanarityTest<int> test(graph);
-//     test.run_recursive();
-//     EXPECT_TRUE(test.is_graph_planar());
-// }
+TEST_F(SetupLeftRightPlanarityTesting, PathGraphRecursive)
+{
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = path_graph(number_of_nodes);
+        PlanarityTest<int64_t> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, CycleGraphRecursive)
+{
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = cycle_graph(number_of_nodes);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, StarGraphRecursive)
+{
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = star_graph(number_of_nodes);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, TreeGraphRecursive)
+{
+    for (int number_of_nodes{2}; number_of_nodes <= max_number_of_nodes; ++number_of_nodes)
+    {
+        auto graph = tree_graph(number_of_nodes);
+        PlanarityTest<int> test(graph);
+        test.run();
+        EXPECT_TRUE(test.is_graph_planar());
+    }
+}
 
 TEST_F(SetupLeftRightPlanarityTesting, WheelGraphRecursive)
 {
