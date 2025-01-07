@@ -491,7 +491,6 @@ public:
 
     static UndirectedGraph<int64_t> two_graphs_one_planar_one_nonplanar()
     {
-        // path_graph and utility_graph
         UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{1, 2}, {2, 3}, {3, 4},
                             {1, 4}, {1, 5}, {1, 6},
                             {2, 4}, {2, 5}, {2, 6},
@@ -502,7 +501,6 @@ public:
 
     static UndirectedGraph<int64_t> two_graphs_one_nonplanar_one_planar()
     {
-        // path_graph and utility_graph
         UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{7, 8}, {8, 9}, {9, 10},
                             {5, 8}, {5, 9}, {5, 10},
                             {6, 8}, {6, 9}, {6, 10},
@@ -513,7 +511,6 @@ public:
 
     static UndirectedGraph<int64_t> two_random_graphs_both_planar_10_nodes_each()
     {
-        // path_graph and utility_graph
         UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
             {{1 , 10}, { 1 , 13}, { 1 , 17}, { 1 , 18}, { 2 , 12}, { 3 , 7},
                 { 3 , 8}, { 3 , 20}, {4 , 8}, { 4 , 16}, { 5 , 10}, { 6 , 19},
@@ -525,7 +522,6 @@ public:
 
     static UndirectedGraph<int64_t> three_random_graphs_two_planar_one_non_planar()
     {
-        // path_graph and utility_graph
         UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33},
             {{1 , 11}, { 2 , 3}, { 2 , 9}, { 2 , 11}, { 3 , 5}, { 3 , 9}, { 4 , 5}, { 4 , 9},
                 {5 , 8}, { 5 , 11}, { 6 , 9}, { 6 , 11}, { 6 , 12}, { 7 , 10}, { 7 , 12},
