@@ -188,13 +188,10 @@ private:
             auto current_node = dfs_stack.top();
             dfs_stack.pop();
             auto parent_edge = parent_edges[current_node];
-            auto processed_neighbors = std::unordered_set<NodeType>{};
 
             for (const auto& neighbor : graph_.get_neighbors(current_node))
             {
-                if (processed_neighbors.contains(neighbor))
-                    continue;
-                processed_neighbors.insert(neighbor);
+                auto neighbors = graph_.get_neighbors(current_node);
                 auto current_edge = make_edge(current_node, neighbor);
                 if (!preprocessed_edges.contains(current_edge))
                 {
@@ -353,7 +350,7 @@ private:
                     }
                     else
                     {
-                        dump_to_json();
+//                        dump_to_json();
                         if (!apply_constraints(current_edge, parent_edge))
                             return false;
                     }
