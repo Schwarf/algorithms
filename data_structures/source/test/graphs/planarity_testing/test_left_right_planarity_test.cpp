@@ -11,6 +11,7 @@ class SetupLeftRightPlanarityTesting : public testing::Test
 public:
     SetupLeftRightPlanarityTesting() = default;
     static constexpr int max_number_of_nodes{50};
+
     static UndirectedGraph<int64_t> path_graph(const int num_nodes)
     {
         UndirectedGraph<int64_t> graph;
@@ -67,43 +68,51 @@ public:
     static UndirectedGraph<int> wheel_graph(const int num_nodes)
     {
         UndirectedGraph<int> graph;
-        if (num_nodes < 4) {
+        if (num_nodes < 4)
+        {
             throw std::invalid_argument("A wheel graph requires at least 4 nodes.");
         }
         graph.add_node(1);
         // Form cycle
-        for (int i{2}; i <= num_nodes; ++i) {
+        for (int i{2}; i <= num_nodes; ++i)
+        {
             graph.add_node(i);
-            if(i > 2)
-                graph.add_edge(i-1, i);
+            if (i > 2)
+                graph.add_edge(i - 1, i);
         }
         graph.add_edge(num_nodes, 2); // Close the cycle
 
         // Connect center to cycle
-        for (int i = 2; i <= num_nodes; ++i) {
+        for (int i = 2; i <= num_nodes; ++i)
+        {
             graph.add_edge(1, i);
         }
         return graph;
     }
 
-    static UndirectedGraph<int> grid_graph(const int rows, const int cols) {
+    static UndirectedGraph<int> grid_graph(const int rows, const int cols)
+    {
         UndirectedGraph<int> graph;
-        for(int i{1}; i <= rows*cols; ++i)
+        for (int i{1}; i <= rows * cols; ++i)
         {
             graph.add_node(i);
         }
 
-        for (int row {}; row < rows; ++row) {
-            for (int col{}; col < cols; ++col) {
+        for (int row{}; row < rows; ++row)
+        {
+            for (int col{}; col < cols; ++col)
+            {
                 const auto currentNode = row * cols + col;
 
                 // Connect to the right neighbor
-                if (col + 1 < cols) {
+                if (col + 1 < cols)
+                {
                     graph.add_edge(currentNode, currentNode + 1);
                 }
 
                 // Connect to the bottom neighbor
-                if (row + 1 < rows) {
+                if (row + 1 < rows)
+                {
                     graph.add_edge(currentNode, currentNode + cols);
                 }
             }
@@ -217,6 +226,7 @@ public:
         };
         return graph;
     }
+
     static UndirectedGraph<int32_t> random_planar_graph_50_nodes()
     {
         UndirectedGraph<int32_t> graph{
@@ -510,48 +520,92 @@ public:
 
     static UndirectedGraph<int64_t> two_graphs_one_planar_one_nonplanar()
     {
-        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{1, 2}, {2, 3}, {3, 4},
-                            {1, 4}, {1, 5}, {1, 6},
-                            {2, 4}, {2, 5}, {2, 6},
-                            {3, 4}, {3, 5}, {3, 6}}
+        UndirectedGraph<int64_t> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {
+                {1, 2}, {2, 3}, {3, 4},
+                {1, 4}, {1, 5}, {1, 6},
+                {2, 4}, {2, 5}, {2, 6},
+                {3, 4}, {3, 5}, {3, 6}
+            }
         };
         return graph;
     }
 
     static UndirectedGraph<int64_t> two_graphs_one_nonplanar_one_planar()
     {
-        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {{7, 8}, {8, 9}, {9, 10},
-                            {5, 8}, {5, 9}, {5, 10},
-                            {6, 8}, {6, 9}, {6, 10},
-                            {7, 8}, {7, 9}, {7, 10}}
+        UndirectedGraph<int64_t> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, {
+                {7, 8}, {8, 9}, {9, 10},
+                {5, 8}, {5, 9}, {5, 10},
+                {6, 8}, {6, 9}, {6, 10},
+                {7, 8}, {7, 9}, {7, 10}
+            }
         };
         return graph;
     }
 
     static UndirectedGraph<int64_t> two_random_graphs_both_planar_10_nodes_each()
     {
-        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
-            {{1 , 10}, { 1 , 13}, { 1 , 17}, { 1 , 18}, { 2 , 12}, { 3 , 7},
-                { 3 , 8}, { 3 , 20}, {4 , 8}, { 4 , 16}, { 5 , 10}, { 6 , 19},
-                { 7 , 9}, { 7 , 11}, { 7 , 15}, {7 , 20}, { 11 , 14}, { 12 , 19},
-                { 17 , 18}, { 17 , 19}, { 18 , 19}}
+        UndirectedGraph<int64_t> graph{
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+            {
+                {1, 10}, {1, 13}, {1, 17}, {1, 18}, {2, 12}, {3, 7},
+                {3, 8}, {3, 20}, {4, 8}, {4, 16}, {5, 10}, {6, 19},
+                {7, 9}, {7, 11}, {7, 15}, {7, 20}, {11, 14}, {12, 19},
+                {17, 18}, {17, 19}, {18, 19}
+            }
         };
         return graph;
     }
 
     static UndirectedGraph<int64_t> three_random_graphs_two_planar_one_non_planar()
     {
-        UndirectedGraph<int64_t> graph{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33},
-            {{1 , 11}, { 2 , 3}, { 2 , 9}, { 2 , 11}, { 3 , 5}, { 3 , 9}, { 4 , 5}, { 4 , 9},
-                {5 , 8}, { 5 , 11}, { 6 , 9}, { 6 , 11}, { 6 , 12}, { 7 , 10}, { 7 , 12},
-                {10 , 11}, { 13 , 15}, { 13 , 18}, { 13 , 20}, { 13 , 22}, { 14 , 15}, { 14 , 17},
-                {14 , 23}, { 15 , 18}, { 15 , 19}, { 15 , 22}, { 16 , 20}, { 17 , 25}, {18 , 20},
-                { 18 , 21}, { 18 , 22}, { 20 , 21}, { 21 , 23}, { 24 , 25}, { 27 , 28}, {27 , 31},
-                { 27 , 32}, { 27 , 33}, { 28 , 29}, { 28 , 30}, { 28 , 31}, {28 , 32}, { 28 , 33}, { 29 , 30}, { 30 , 32}, { 30 , 33}, { 31 , 32}, { 31 , 33}}
+        UndirectedGraph<int64_t> graph{
+            {
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                29, 30, 31, 32, 33
+            },
+            {
+                {1, 11}, {2, 3}, {2, 9}, {2, 11}, {3, 5}, {3, 9}, {4, 5}, {4, 9},
+                {5, 8}, {5, 11}, {6, 9}, {6, 11}, {6, 12}, {7, 10}, {7, 12},
+                {10, 11}, {13, 15}, {13, 18}, {13, 20}, {13, 22}, {14, 15}, {14, 17},
+                {14, 23}, {15, 18}, {15, 19}, {15, 22}, {16, 20}, {17, 25}, {18, 20},
+                {18, 21}, {18, 22}, {20, 21}, {21, 23}, {24, 25}, {27, 28}, {27, 31},
+                {27, 32}, {27, 33}, {28, 29}, {28, 30}, {28, 31}, {28, 32}, {28, 33}, {29, 30}, {30, 32}, {30, 33},
+                {31, 32}, {31, 33}
+            }
         };
         return graph;
     }
 
+    static UndirectedGraph<int> generateGeneralizedPetersenGraph(int n, int k)
+    {
+        UndirectedGraph<int> graph{};
+
+        // Add vertices for the outer and inner cycles
+        for (int i{1}; i <= 2 * n; ++i)
+            graph.add_node(i);
+
+        // Add edges for the outer cycle
+        for (int i = 1; i <= n; ++i)
+        {
+            graph.add_edge(i, (i % n) + 1); // Outer cycle
+        }
+
+        // Add edges for the inner cycle
+        for (int i = 1; i <= n; ++i)
+        {
+            graph.add_edge(n + i, n + ((i + k - 1) % n) + 1); // Inner cycle
+        }
+
+        // Add edges for the spokes
+        for (int i = 1; i <= n; ++i)
+        {
+            graph.add_edge(i, n + i); // Spokes
+        }
+
+        return graph;
+    }
 };
 
 
@@ -565,11 +619,11 @@ TEST_F(SetupLeftRightPlanarityTesting, EmptyGraph)
 
 TEST_F(SetupLeftRightPlanarityTesting, SingleNode)
 {
-        auto graph = UndirectedGraph<int>{};
-        graph.add_node(1);
-        PlanarityTest<int> test(graph);
-        test.run();
-        EXPECT_TRUE(test.is_graph_planar());
+    auto graph = UndirectedGraph<int>{};
+    graph.add_node(1);
+    PlanarityTest<int> test(graph);
+    test.run();
+    EXPECT_TRUE(test.is_graph_planar());
 }
 
 
@@ -778,6 +832,60 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanar)
     PlanarityTest<int64_t> test(graph);
     test.run();
     EXPECT_FALSE(test.is_graph_planar());
+}
+
+TEST_F(SetupLeftRightPlanarityTesting, generalizedPetersenGraph)
+{
+    std::vector<unsigned char> expected_results{
+        1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,\
+        0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,\
+        0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,\
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+        0, 0
+    };
+    int result_index{};
+    for(int n = 3; n <= 50; ++n)
+    {
+        for (int k = 1; k <= std::floor(n / 2); ++k)
+        {
+            if (!( !(n & 1) && k == n / 2))
+            {
+                auto graph = generateGeneralizedPetersenGraph(n, k);
+                PlanarityTest<int32_t> test(graph);
+                test.run();
+                EXPECT_EQ(test.is_graph_planar(),expected_results[result_index++]);
+                int x{};
+                if(expected_results[result_index++] == 0)
+                    x = 1;
+                if(expected_results[result_index++] == 1)
+                    x = 1;
+                EXPECT_EQ(1,x);
+            }
+        }
+    }
+
 }
 
 
@@ -994,3 +1102,4 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanarRecursive
     test.run_recursive();
     EXPECT_FALSE(test.is_graph_planar());
 }
+
