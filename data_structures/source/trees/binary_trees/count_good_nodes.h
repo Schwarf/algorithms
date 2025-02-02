@@ -48,5 +48,32 @@ T count_good_nodes_dfs(TreeNode<T>* root)
     return count;
 }
 
+template <typename T>
+T count_good_nodes_bfs(TreeNode<T>* root)
+{
+    if(!root)
+        return T{};
+    T max{-10000000};
+    int count{};
+    std::queue<TreeNode<T> *> q{{root}};
+    do
+    {
+        auto current = q.front();
+        q.pop();
+        if(current->value >= max)
+        {
+            max = current->value;
+            count++;
+        }
+        if(current->left)
+            q.push(current->left);
+        if(current->right)
+            q.push(current->right);
+
+    }while(!q.empty());
+
+    return count;
+}
+
 
 #endif //COUNT_GOOD_NODES_H
