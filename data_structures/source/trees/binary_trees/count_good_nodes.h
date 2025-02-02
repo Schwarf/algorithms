@@ -12,7 +12,8 @@
 // Each node's value is between [-10^5, 10^5].
 
 template <typename T>
-int count_good_nodes_dfs_recursive(TreeNode<T>* root, T max = -1000000)
+requires std::is_signed_v<T>
+int count_good_nodes_dfs_recursive(TreeNode<T>* root, T max = std::numeric_limits<T>::min())
 {
     if(!root)
         return 0;
@@ -22,11 +23,12 @@ int count_good_nodes_dfs_recursive(TreeNode<T>* root, T max = -1000000)
 }
 
 template <typename T>
+requires std::is_signed_v<T>
 T count_good_nodes_dfs(TreeNode<T>* root)
 {
     if(!root)
         return T{};
-    T max{-10000000};
+    T max{std::numeric_limits<T>::min()};
     int count{};
     std::stack<TreeNode<T> *> s{{root}};
     do
@@ -49,11 +51,12 @@ T count_good_nodes_dfs(TreeNode<T>* root)
 }
 
 template <typename T>
+requires std::is_signed_v<T>
 T count_good_nodes_bfs(TreeNode<T>* root)
 {
     if(!root)
         return T{};
-    T max{-10000000};
+    T max{std::numeric_limits<T>::min()};
     int count{};
     std::queue<TreeNode<T> *> q{{root}};
     do
