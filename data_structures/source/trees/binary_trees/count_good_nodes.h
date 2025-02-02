@@ -24,16 +24,18 @@ int count_good_nodes_dfs_recursive(TreeNode<T>* root, T max = std::numeric_limit
 
 template <typename T>
 requires std::is_signed_v<T>
-T count_good_nodes_dfs(TreeNode<T>* root)
+int count_good_nodes_dfs(TreeNode<T>* root)
 {
+
     if(!root)
         return T{};
     T max{std::numeric_limits<T>::min()};
     int count{};
-    std::stack<TreeNode<T> *> s{{root}};
+    std::stack<std::pair<TreeNode<T>*, int>> s;
+    s.push({root, max});
     do
     {
-        auto current = s.top();
+        auto [current, max] = s.top();
         s.pop();
         if(current->value >= max)
         {
@@ -41,9 +43,9 @@ T count_good_nodes_dfs(TreeNode<T>* root)
             count++;
         }
         if(current->left)
-            s.push(current->left);
+            s.emplace(current->left, max);
         if(current->right)
-            s.push(current->right);
+            s.emplace(current->right, max);
 
     }while(!s.empty());
 
