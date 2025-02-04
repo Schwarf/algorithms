@@ -67,3 +67,37 @@ TEST_F(SetupBinaryTree, TestCountGoodNodesDFSSimple4)
     EXPECT_EQ(expected_result, count_good_nodes_dfs(tree));
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+TEST_F(SetupBinaryTree, TestCountGoodNodesbfsSimple1)
+{
+    auto tree = even_odd_tree2();
+    constexpr int expected_result{4};
+    EXPECT_EQ(expected_result, count_good_nodes_bfs(tree));
+}
+
+TEST_F(SetupBinaryTree, TestCountGoodNodesbfsSimple2)
+{
+    auto tree = palindromic_tree2();
+    constexpr int expected_result{2};
+    EXPECT_EQ(expected_result, count_good_nodes_bfs(tree));
+}
+
+TEST_F(SetupBinaryTree, TestCountGoodNodesbfsSimple3)
+{
+    auto tree = new TreeNode<short>(1);
+    constexpr int expected_result{1};
+    EXPECT_EQ(expected_result, count_good_nodes_bfs(tree));
+}
+
+
+TEST_F(SetupBinaryTree, TestCountGoodNodesbfsSimple4)
+{
+    auto tree = even_odd_tree1();
+    constexpr int expected_result{6};
+    EXPECT_EQ(expected_result, count_good_nodes_bfs(tree));
+}
+

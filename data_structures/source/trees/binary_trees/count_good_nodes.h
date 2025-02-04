@@ -4,6 +4,8 @@
 
 #ifndef COUNT_GOOD_NODES_H
 #define COUNT_GOOD_NODES_H
+#include <memory>
+
 #include "tree_node.h"
 #include <stack>
 #include <queue>
@@ -29,10 +31,9 @@ int count_good_nodes_dfs(TreeNode<T>* root)
 
     if(!root)
         return T{};
-    T max{std::numeric_limits<T>::min()};
     int count{};
     std::stack<std::pair<TreeNode<T>*, int>> s;
-    s.push({root, max});
+    s.push({root, std::numeric_limits<T>::min()});
     do
     {
         auto [current, max] = s.top();
@@ -54,16 +55,16 @@ int count_good_nodes_dfs(TreeNode<T>* root)
 
 template <typename T>
 requires std::is_signed_v<T>
-T count_good_nodes_bfs(TreeNode<T>* root)
+int count_good_nodes_bfs(TreeNode<T>* root)
 {
     if(!root)
         return T{};
-    T max{std::numeric_limits<T>::min()};
     int count{};
-    std::queue<TreeNode<T> *> q{{root}};
+    std::queue<std::pair<TreeNode<T> *, int>> q;
+    q.emplace(root, std::numeric_limits<T>::min());
     do
     {
-        auto current = q.front();
+        auto [current, max] = q.front();
         q.pop();
         if(current->value >= max)
         {
@@ -71,14 +72,15 @@ T count_good_nodes_bfs(TreeNode<T>* root)
             count++;
         }
         if(current->left)
-            q.push(current->left);
+            q.emplace(current->left, max);
         if(current->right)
-            q.push(current->right);
+            q.emplace(current->right, max);
 
     }while(!q.empty());
 
     return count;
 }
 
+std::shared_ptr<int>
 
 #endif //COUNT_GOOD_NODES_H
