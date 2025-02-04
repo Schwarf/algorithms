@@ -16,7 +16,8 @@ add_executable(test_fun_with_strings
         test_sentence_similarity.cpp
         test_permutation_include_in_string.cpp
         test_minimum_length_after_removing_substrings.cpp
-        test_are_strings_equal_upto_rotation.cpp)
+        test_are_strings_equal_upto_rotation.cpp
+        test_decode_string.cpp)
 
 target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)
