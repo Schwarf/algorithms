@@ -9,7 +9,8 @@ add_executable(test_backtracking
         test_queens_problem.cpp
         test_path_sum_binray_tree.cpp
         test_letter_combinations_of_phone_numbers.cpp
-        test_find_all_summand_combinations_for_sum.cpp)
+        test_find_all_summand_combinations_for_sum.cpp
+        test_construct_lexicographically_largest_sequence.cpp)
 
 #target_link_libraries(test_backtracking ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
 
