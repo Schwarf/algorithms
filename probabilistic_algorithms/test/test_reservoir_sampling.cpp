@@ -3,6 +3,7 @@
 //
 
 #include "gtest/gtest.h"
+#include <ranges>
 #include "reservoir_sampling.h"
 
 TEST(reservoir_sampling, test_size)

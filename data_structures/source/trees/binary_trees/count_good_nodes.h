@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "tree_node.h"
+#include <limits>
 #include <stack>
 #include <queue>
 // Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
@@ -80,7 +81,5 @@ int count_good_nodes_bfs(TreeNode<T>* root)
 
     return count;
 }
-
-std::shared_ptr<int>
 
 #endif //COUNT_GOOD_NODES_H
