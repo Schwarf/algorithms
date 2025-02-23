@@ -52,8 +52,21 @@ TEST(TestConstructBinaryTreeFromPreorderTraversal, no_uniqueness)
     auto tree2 = new TreeNode<int>(1);
     tree2->left = new TreeNode<int>(2);
 
-
     auto result = construct_binary_tree_from_preorder<int>(input);
     EXPECT_EQ(pre_order_traversal(result), pre_order_traversal(tree));
     EXPECT_EQ(pre_order_traversal(result), pre_order_traversal(tree2));
+}
+
+TEST(TestConstructBinaryTreeFromPreorderTraversal, simple4)
+{
+    std::string input{"1-2--3---4-5--6---7"};
+    auto tree = new TreeNode<int>(1);
+    tree->left = new TreeNode<int>(2);
+    tree->left->left = new TreeNode<int>(3);
+    tree->left->left->left = new TreeNode<int>(4);
+    tree->right = new TreeNode<int>(5);
+    tree->right->left = new TreeNode<int>(6);
+    tree->right->left->left = new TreeNode<int>(7);
+    auto result = construct_binary_tree_from_preorder<int>(input);
+    EXPECT_EQ(pre_order_traversal(result), pre_order_traversal(tree));
 }
