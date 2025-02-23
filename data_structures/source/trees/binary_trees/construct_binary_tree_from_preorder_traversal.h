@@ -15,6 +15,8 @@
 #include <stack>
 #include <string>
 
+// NOTE: This reconstruction is not unique because, in a pre-order traversal,
+// a root node with only a left child produces the same order as a root node with only a right child.
 template <typename T>
 TreeNode<T>* construct_binary_tree_from_preorder(std::string preorder_traversal)
 {
