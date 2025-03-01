@@ -10,7 +10,7 @@
 #include <vector>
 #include <queue>
 
-std::string no_same_adjacent_chars(const std::string & s) {
+std::string no_equal_adjacent_chars(const std::string & s) {
     std::vector<int> char_count(26, 0);
     for(const auto c: s)
     {
