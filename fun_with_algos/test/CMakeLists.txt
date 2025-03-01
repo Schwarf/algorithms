@@ -36,8 +36,7 @@ add_executable(test_fun_with_algos
         test_maximum_distance_in_arrays.cpp
         test_largest_min_max_index_gap.cpp
         test_maximum_matrix_sum.cpp
-        test_flip_columns_to_maximize_equal_rows.cpp
-        test_find_ksum_in_array.cpp)
+        test_flip_columns_to_maximize_equal_rows.cpp)
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithAlgorithmsTests COMMAND test_fun_with_algos)

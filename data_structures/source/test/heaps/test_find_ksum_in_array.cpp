@@ -2,7 +2,7 @@
 // Created by andreas on 01.03.25.
 //
 #include "gtest/gtest.h"
-#include "find_ksum_in_array.h"
+#include "heaps/find_ksum_in_array.h"
 
 TEST(TestKSumInArray, simple1)
 {
