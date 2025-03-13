@@ -82,8 +82,4 @@ int count_spikes_optimized(std::vector<int> & prices, int k)
     return spike_count;
 }
 
-int count_spikes_heaps(std::vector<int> & prices, int k)
-{
-    std::priority_queue<int> left;
-}
 #endif //COUNT_PRICE_SPIKES_H
