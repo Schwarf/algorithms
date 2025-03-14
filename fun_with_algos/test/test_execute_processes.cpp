@@ -25,3 +25,24 @@ TEST(TestExecuteProcesses, simple3)
     constexpr int expected_result{23};
     EXPECT_EQ(time_to_execute_process(processes), expected_result);
 }
+
+TEST(TestExecuteProcesses, simple4)
+{
+    std::vector<int> processes = {1, 1, 1, 1, 1};
+    constexpr int expected_result{5};
+    EXPECT_EQ(time_to_execute_process(processes), expected_result);
+}
+
+TEST(TestExecuteProcesses, simple5)
+{
+    std::vector<int> processes = {2, 2, 2, 2, 10, 10, 5};
+    constexpr int expected_result{25};
+    EXPECT_EQ(time_to_execute_process(processes), expected_result);
+}
+
+TEST(TestExecuteProcesses, simple6)
+{
+    std::vector<int> processes = {2, 3, 5, 1};
+    constexpr int expected_result{11};
+    EXPECT_EQ(time_to_execute_process(processes), expected_result);
+}

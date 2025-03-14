@@ -29,43 +29,30 @@
 int time_to_execute_process(std::vector<int>& processes)
 {
     int n = processes.size();
-    std::unordered_map<int, std::deque<int>> processes_index;
+    std::unordered_map<int, std::vector<int>> processes_index;
 
     // Build a map where each processes time has a list of its indices
     for (int i = 0; i < n; i++) {
         processes_index[processes[i]].push_back(i);
     }
 
-    int totalTime = 0;
+    int total_time = 0;
 
     for (int i = 0; i < n; i++) {
-        int currExecTime = processes[i];
-        totalTime += currExecTime; // Add execution time
-
+        total_time += processes[i]; // Add execution time
         // Get the list of indices that had the same execution time originally
-        std::deque<int>& indexes = processes_index[currExecTime];
+        std::vector <int>& indexes = processes_index[processes[i]];
 
         if (!indexes.empty() && indexes.front() == i) {
-            indexes.pop_front(); // Remove the executed process
 
             // Update execution times for the remaining cohesive processes
-            int newExecTime = ceil(currExecTime / 2.0);
+            int new_execution_time = ceil(processes[i] / 2.0);
             for (int index : indexes) {
-                processes[index] = newExecTime; // Update the execution time
+                processes[index] = new_execution_time; // Update the execution time
             }
-
-            // If updated execution time exists, update its map entry
-            if (newExecTime > 0) {
-                processes_index[newExecTime].insert(
-                    processes_index[newExecTime].end(), indexes.begin(), indexes.end()
-                );
-            }
-
-            // Clear old cohesive group
-            indexes.clear();
         }
     }
-    return totalTime;
+    return total_time;
 }
 
 #endif //EXECUTE_PROCESSES_H
