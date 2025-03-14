@@ -1,7 +1,6 @@
 ToDo:
 
 * Finish implementation and tests for:
-  * priorities_after_execution
   * find_review_score
 * Algorithms to study/implement:
     * Task-scheduler with each task takes a certain amount ofb time and has a idle-time until next tasks of same

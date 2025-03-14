@@ -74,5 +74,67 @@ int get_max_shared_priority(const std::vector<int>& priorities) {
 }
 
 
+struct Indices {
+    int index1;
+    int index2;
+    int max_priority_value;
+    Indices(int i1, int i2, int max_value) : index1(i1), index2(i2), max_priority_value(max_value) {}
+};
+
+
+Indices get_max_shared_priority(std::unordered_map<int, std::vector<int>> & frequency_map) {
+    int max_shared_priority = 0;
+    for (const auto& entry : frequency_map) {
+        if (entry.second.size() >= 2) {
+            max_shared_priority = std::max(max_shared_priority, entry.first);
+        }
+    }
+
+    if (max_shared_priority == 0) {
+        return Indices(-1, -1, max_shared_priority);
+    }
+
+    std::vector<int>& indexes = frequency_map[max_shared_priority];
+    int index1 = indexes.front();
+    indexes.erase(indexes.begin());
+    int index2 = indexes.front();
+    indexes.erase(indexes.begin());
+
+    return Indices(index1, index2, max_shared_priority);
+}
+
+std::vector<int> priorities_after_execution(std::vector<int> priorities) {
+    std::unordered_map<int, std::vector<int>> frequency_map;
+
+    for (size_t i = 0; i < priorities.size(); i++) {
+        frequency_map[priorities[i]].push_back(i);
+    }
+
+    std::vector<int> ans;
+    while (true) {
+        Indices max_shared_priority_index = get_max_shared_priority(frequency_map);
+        int maxSharedPriority = max_shared_priority_index.max_priority_value;
+        if (maxSharedPriority == 0) {
+            for (int p : priorities) {
+                if (p != -1) {
+                    ans.push_back(p);
+                }
+            }
+            break;
+        }
+
+        int index1 = max_shared_priority_index.index1;
+        int index2 = max_shared_priority_index.index2;
+        int newPriority = floor(maxSharedPriority / 2.0);
+        priorities[index2] = newPriority;
+        priorities[index1] = -1;
+
+        frequency_map[newPriority].push_back(index2);
+        std::sort(frequency_map[newPriority].begin(), frequency_map[newPriority].end());
+    }
+
+    return ans;
+}
+
 
 #endif //PRIORITIES_AFTER_EXECUTION_H
