@@ -43,7 +43,8 @@ add_executable(test_fun_with_algos
         test_min_swaps_for_palindrome.cpp
         test_count_price_spikes.cpp
         test_find_review_score.cpp
-        test_priorities_after_execution.cpp)
+        test_priorities_after_execution.cpp
+        test_process_queries_on_cart.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
