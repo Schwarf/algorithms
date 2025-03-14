@@ -25,49 +25,54 @@
 //Returns
 //    int[]: the final priorities of the remaining processes
 #include <algorithm>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <cmath>
 #include <iostream>
 #include <ostream>
 #include <set>
 
-std::vector<int> priorities_after_execution(std::vector<int> & process_priorities)
-{
-    std::multimap<int, int, std::greater<int>> priorities;
-    std::map<int, int> index_value;
-    for (int i = 0; i < process_priorities.size(); ++i) {
-        priorities.emplace(process_priorities[i], i); // (priority, index)
-        index_value[i] = process_priorities[i];
+int get_max_shared_priority(const std::vector<int>& priorities) {
+    std::unordered_map<int, int> frequency_map;
+    int max_shared_priority = 0;
+
+    // Build a frequency map of priorities
+    for (int priority : priorities) {
+        frequency_map[priority]++;
+        if (frequency_map[priority] > 1 && priority > max_shared_priority) {
+            max_shared_priority = priority;
+        }
     }
 
-    // Print to verify correct order
-    for (auto it = priorities.begin(); it != priorities.end(); it = priorities.upper_bound(it->first)) {
-        int priority = it->first;
-        auto range = priorities.equal_range(priority);
-        auto first_it = range.first;
-        auto second_it = std::next(first_it); // Seco
+    return max_shared_priority; // Return the highest shared priority
+}
 
-        if (second_it == priorities.end()) {
-            ++it; // Move to the next key
-            continue;
+    std::vector<int> priorities_after_execution_brute_force(std::vector<int> priorities) {
+    while (true) {
+        // Step 1: Find the maximum shared priority
+        int max_shared_priority = get_max_shared_priority(priorities);
+        if (max_shared_priority == 0) {
+            break; // Terminate if no shared priority is found
         }
 
-        // Erase the first occurrence
-        priorities.erase(first_it);
-
-        // Extract, modify, and reinsert the second occurrence
-        int new_value = std::floor(second_it->second / 2.0);
-
-        priorities.erase(second_it); // Remove second occurrence
-        priorities.emplace(priority, new_value); // Reinsert modified value
-        // Move to the next key safely
-        it = priorities.upper_bound(priority);
+        bool first_found = false;
+        for (size_t i = 0; i < priorities.size(); i++) {
+            if (priorities[i] == max_shared_priority) {
+                if (!first_found) {
+                    // O(N) operation
+                    priorities.erase(priorities.begin() + i);
+                    i--; // Adjust the index after removal
+                    first_found = true;
+                } else {
+                    priorities[i] = floor(max_shared_priority / 2.0);
+                    break;
+                }
+            }
+        }
     }
-    std::vector<int> result;
-    for (const auto & [index, value] : index_value) {
-        result.push_back(value);
-    }
-    return result;
+    return priorities; // Return the final priorities
 }
+
+
+
 #endif //PRIORITIES_AFTER_EXECUTION_H
