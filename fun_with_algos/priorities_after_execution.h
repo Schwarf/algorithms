@@ -28,9 +28,6 @@
 #include <unordered_map>
 #include <vector>
 #include <cmath>
-#include <iostream>
-#include <ostream>
-#include <set>
 
 int get_max_shared_priority(const std::vector<int>& priorities) {
     std::unordered_map<int, int> frequency_map;
