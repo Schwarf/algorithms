@@ -46,7 +46,8 @@ add_executable(test_fun_with_algos
         test_priorities_after_execution.cpp
         test_process_queries_on_cart.cpp
         test_execute_processes.cpp
-        test_minimal_data_costs.cpp)
+        test_minimal_data_costs.cpp
+        test_dropped_requests.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
