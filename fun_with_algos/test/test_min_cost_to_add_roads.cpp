@@ -19,3 +19,20 @@ TEST(TestMinCostToAddRoads, simple2)
     constexpr int expected_result{-1};
     EXPECT_EQ(min_cost_to_add_roads(N, connections), expected_result);
 }
+
+
+TEST(TestMinCostToAddRoadsPrim, simple1)
+{
+    std::vector<std::vector<int>> connections = {{1, 2, 5}, {1, 3, 6}, {2, 3, 1}};
+    constexpr int N{3};
+    constexpr int expected_result{6};
+    EXPECT_EQ(min_cost_to_add_roads_prim(N, connections), expected_result);
+}
+
+TEST(TestMinCostToAddRoadsPrim, simple2)
+{
+    std::vector<std::vector<int>> connections = {{1, 2, 3}, {3, 4, 4}};
+    constexpr int N{4};
+    constexpr int expected_result{-1};
+    EXPECT_EQ(min_cost_to_add_roads_prim(N, connections), expected_result);
+}

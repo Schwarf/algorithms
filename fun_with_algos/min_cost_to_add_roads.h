@@ -73,5 +73,48 @@ int min_cost_to_add_roads(int N, std::vector<std::vector<int>>& connections) {
     // Check if all cities are connected
     return (edges_count == N - 1) ? total_cost : -1;
 }
+int min_cost_to_add_roads_prim(int N, std::vector<std::vector<int>>& connections) {
+    // Sort connections based on cost
+    std::vector<std::vector<std::pair<int, int>>> graph(N + 1);
+    for (const auto& connection : connections) {
+        int u = connection[0], v = connection[1], cost = connection[2];
+        graph[u].emplace_back(v, cost);
+        graph[v].emplace_back(u, cost);
+    }
+    std::vector<bool> visited(N + 1, false);
+    int total_cost = 0;
+    int edges_used = 0;
+    // Min-heap (priority queue) where each element is (cost, city)
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
 
+    // Start with city 1 (arbitrary start point) with cost 0
+    minHeap.push({0, 1});
+
+    // While there are edges to process and we haven't connected all cities
+    while (!minHeap.empty() && edges_used < N) {
+        auto [cost, city] = minHeap.top();
+        minHeap.pop();
+
+        // If this city is already visited, skip it
+        if (visited[city])
+            continue;
+
+        // Mark the city as visited and add the cost
+        visited[city] = true;
+        total_cost += cost;
+        edges_used++;
+
+        // For every neighbor of the current city, if it's not visited, add the edge to the heap
+        for (const auto& neighbor : graph[city]) {
+            int nextCity = neighbor.first;
+            int nextCost = neighbor.second;
+            if (!visited[nextCity]) {
+                minHeap.push({nextCost, nextCity});
+            }
+        }
+    }
+
+    // If we have connected all N cities, edgesUsed should equal N
+    return (edges_used == N) ? total_cost : -1;
+}
 #endif //MIN_COST_TO_ADD_ROADS_H
