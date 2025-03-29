@@ -11,7 +11,7 @@
 // given that you can eliminate at most k obstacles. If it is not possible to find such walk return -1.
 #include <queue>
 #include <vector>
-int shortest_path_with_k_obstactles(std::vector<std::vector<int>> grid, int k)
+int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, int k)
 {
     int rows = grid.size(), columns = grid[0].size();
     if(rows == 0 || columns == 0)
