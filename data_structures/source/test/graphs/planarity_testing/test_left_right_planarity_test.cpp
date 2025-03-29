@@ -836,7 +836,7 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanar)
 
 TEST_F(SetupLeftRightPlanarityTesting, generalizedPetersenGraph)
 {
-    std::vector<unsigned char> expected_results{
+    std::vector<bool> expected_results{
         1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0,\
         0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,\
         0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,\
