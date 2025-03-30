@@ -15,40 +15,43 @@
 // For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
 // You may assume all tickets form at least one valid itinerary. You must use all the tickets once and only once.
 
-void dfs(std::unordered_map<std::string, std::vector<std::string>> &graph,
-		 std::string &current,
-		 std::vector<std::string> &result)
+void dfs(std::unordered_map<std::string, std::vector<std::string>>& graph,
+         std::string& current,
+         std::vector<std::string>& result)
 {
-	while (!graph[current].empty()) {
-		auto next = graph[current].back();
-		graph[current].pop_back();
-		dfs(graph, next, result);
-	}
-	result.push_back(current);
+    while (!graph[current].empty())
+    {
+        auto next = graph[current].back();
+        graph[current].pop_back();
+        dfs(graph, next, result);
+    }
+    result.push_back(current);
 }
 
-std::vector<std::string> reconstruct_itinerary(const std::vector<std::vector<std::string>> &tickets)
+std::vector<std::string> reconstruct_itinerary(const std::vector<std::vector<std::string>>& tickets)
 {
-	std::unordered_map<std::string, std::vector<std::string>> graph;
+    std::unordered_map<std::string, std::vector<std::string>> graph;
 
-	// Create a graph from the given tickets
-	for (const std::vector<std::string> &ticket: tickets) {
-		graph[ticket[0]].push_back(ticket[1]);
-	}
+    // Create a graph from the given tickets
+    for (const std::vector<std::string>& ticket : tickets)
+    {
+        graph[ticket[0]].push_back(ticket[1]);
+    }
 
-	// Sort the destinations in lexical order to satisfy the requirement
-	for (auto &pair: graph) {
-		sort(pair.second.begin(), pair.second.end(), std::greater<std::string>());
-	}
+    // Sort the destinations in lexical order to satisfy the requirement
+    for (auto& pair : graph)
+    {
+        sort(pair.second.begin(), pair.second.end(), std::greater<std::string>());
+    }
 
-	std::vector<std::string> result;
-	std::string start = "JFK";
-	dfs(graph, start, result);
+    std::vector<std::string> result;
+    std::string start = "JFK";
+    dfs(graph, start, result);
 
-	// Reverse the result to get the correct order
-	reverse(result.begin(), result.end());
+    // Reverse the result to get the correct order
+    reverse(result.begin(), result.end());
 
-	return result;
+    return result;
 }
 
 #endif //RECONSTRUCT_FLIGHT_ITINERARY_H

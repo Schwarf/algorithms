@@ -9,7 +9,8 @@
 // You may assume all four edges of the grid are all surrounded by water.
 #include <vector>
 
-void dfs(std::vector<std::vector<char>> &grid, int row, int col) {
+void dfs(std::vector<std::vector<char>>& grid, int row, int col)
+{
     int n = grid.size();
     int m = grid[0].size();
     if (row > n - 1 || col > m - 1 || row < 0 || col < 0)
@@ -25,13 +26,17 @@ void dfs(std::vector<std::vector<char>> &grid, int row, int col) {
 }
 
 
-int number_of_islands(std::vector<std::vector<char>> &grid) {
+int number_of_islands(std::vector<std::vector<char>>& grid)
+{
     int n = grid.size();
     int m = grid[0].size();
     int number{};
-    for (int i{}; i < n; ++i) {
-        for (int j{}; j < m; ++j) {
-            if (grid[i][j] == '1') {
+    for (int i{}; i < n; ++i)
+    {
+        for (int j{}; j < m; ++j)
+        {
+            if (grid[i][j] == '1')
+            {
                 number++;
                 dfs(grid, i, j);
             }

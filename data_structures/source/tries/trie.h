@@ -10,22 +10,27 @@
 // https://leetcode.com/problems/word-search-ii/
 
 
-template<size_t alphabet_size>
-struct TrieNode {
-    TrieNode *children[alphabet_size];
+template <size_t alphabet_size>
+struct TrieNode
+{
+    TrieNode* children[alphabet_size];
     bool is_end_of_word{};
 };
 
-template<size_t alphabet_size>
-class Trie {
+template <size_t alphabet_size>
+class Trie
+{
 public:
-    Trie() {
+    Trie()
+    {
         root_ = get_new_node();
     }
 
-    void insert(const std::string &key) {
+    void insert(const std::string& key)
+    {
         auto node = root_;
-        for (const auto &character: key) {
+        for (const auto& character : key)
+        {
             int trie_index = character;
             if (!node->children[trie_index])
                 node->children[trie_index] = get_new_node();
@@ -34,13 +39,16 @@ public:
         node->is_end_of_word = true;
     }
 
-    void remove(const std::string &key) {
+    void remove(const std::string& key)
+    {
         remove(root_, key, 0);
     }
 
-    bool search(const std::string &key) {
+    bool search(const std::string& key)
+    {
         auto node = root_;
-        for (const auto &character: key) {
+        for (const auto& character : key)
+        {
             auto trie_index = static_cast<int>(character);
             if (!node->children[trie_index])
                 return false;
@@ -49,9 +57,11 @@ public:
         return node->is_end_of_word;
     }
 
-    bool prefix(const std::string &key) {
+    bool prefix(const std::string& key)
+    {
         auto node = root_;
-        for (const auto &character: key) {
+        for (const auto& character : key)
+        {
             auto trie_index = character;
             if (!node->children[trie_index])
                 return false;
@@ -61,20 +71,24 @@ public:
     }
 
 private:
-    bool has_node_children(TrieNode<alphabet_size> *node) {
+    bool has_node_children(TrieNode<alphabet_size>* node)
+    {
         for (int i{}; i < alphabet_size; i++)
             if (node->children[i])
                 return true;
         return false;
     }
 
-    TrieNode<alphabet_size> *remove(TrieNode<alphabet_size> *node, const std::string &key, size_t depth) {
+    TrieNode<alphabet_size>* remove(TrieNode<alphabet_size>* node, const std::string& key, size_t depth)
+    {
         if (!node)
             return nullptr;
-        if (depth == key.size()) {
+        if (depth == key.size())
+        {
             if (node->is_end_of_word)
                 node->is_end_of_word = false;
-            if (has_node_children(node) == false) {
+            if (has_node_children(node) == false)
+            {
                 delete (node);
                 node = nullptr;
             }
@@ -82,21 +96,23 @@ private:
         }
         auto trie_index = static_cast<size_t>(key[depth]);
         node->children[trie_index] = remove(node->children[trie_index], key, depth + 1);
-        if (has_node_children(node) == false && node->is_end_of_word == false) {
+        if (has_node_children(node) == false && node->is_end_of_word == false)
+        {
             delete node;
             node = nullptr;
         }
         return node;
     }
 
-    TrieNode<alphabet_size> *get_new_node() {
+    TrieNode<alphabet_size>* get_new_node()
+    {
         auto new_node = new TrieNode<alphabet_size>();
         for (size_t index = 0; index < alphabet_size; ++index)
             new_node->children[index] = nullptr;
         return new_node;
     }
 
-    TrieNode<alphabet_size> *root_;
+    TrieNode<alphabet_size>* root_;
 };
 
 

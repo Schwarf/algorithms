@@ -16,19 +16,23 @@
 // std::optional<T> pop() Pops and returns the top of the stack.
 // void increment(int k, int val) Increments the bottom k elements of the stack by val. If there are less than k elements in the stack, increment all the elements in the stack.
 
-template<typename T>
-class IncrementStack {
+template <typename T>
+class IncrementStack
+{
 private:
     int capacity{};
     int size{};
     std::vector<T> stack;
     int stack_index{};
+
 public:
-    explicit IncrementStack(int max_size) : capacity(max_size) {
+    explicit IncrementStack(int max_size) : capacity(max_size)
+    {
         stack = std::vector<T>(capacity);
     }
 
-    void push(T value) {
+    void push(T value)
+    {
         if (size == capacity)
             return;
 
@@ -37,7 +41,8 @@ public:
         size++;
     }
 
-    std::optional<T> pop() {
+    std::optional<T> pop()
+    {
         if (size == 0)
             return {};
         std::optional<T> value{stack[stack_index]};
@@ -46,18 +51,18 @@ public:
         return value;
     }
 
-    void increment(T value, int k) {
+    void increment(T value, int k)
+    {
         auto index = capacity - 1;
         auto s = size;
-        while (s && k) {
+        while (s && k)
+        {
             stack[index] += value;
             index--;
             s--;
             k--;
         }
-
     }
-
 };
 
 

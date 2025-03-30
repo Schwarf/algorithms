@@ -14,21 +14,21 @@
 #include <vector>
 #include <queue>
 
-long long pick_gifts(std::vector<int>& gifts, int k) {
+long long pick_gifts(std::vector<int>& gifts, int k)
+{
     std::priority_queue<int> q(gifts.begin(), gifts.end());
-    for(int i{}; i < k; ++i)
+    for (int i{}; i < k; ++i)
     {
         int new_value = q.top();
         q.pop();
         q.push(std::sqrt(new_value));
     }
     long long result{};
-    while(!q.empty())
+    while (!q.empty())
     {
-        result+= q.top();
+        result += q.top();
         q.pop();
     }
     return result;
-
 }
 #endif //TAKE_GIFTS_FROM_GREATEST_PILE_H

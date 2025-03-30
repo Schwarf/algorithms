@@ -12,14 +12,15 @@
 #include "node.h"
 
 template <typename T>
-requires std::is_arithmetic_v<T>
-Node<T> * remove_larger_nodes(Node<T>* head)
+    requires std::is_arithmetic_v<T>
+Node<T>* remove_larger_nodes(Node<T>* head)
 {
     std::stack<Node<T>*> stack;
     Node<T>* current = head;
 
     // Add nodes to the stack
-    while (current != nullptr) {
+    while (current != nullptr)
+    {
         stack.push(current);
         current = current->next;
     }
@@ -30,11 +31,13 @@ Node<T> * remove_larger_nodes(Node<T>* head)
     auto result_list = new Node<T>(maximum);
 
     // Remove nodes from the stack and add to result
-    while (!stack.empty()) {
+    while (!stack.empty())
+    {
         current = stack.top();
         stack.pop();
         // Add new node with current's value to front of the result if node value greater-equal current value
-        if (current->value >= maximum){
+        if (current->value >= maximum)
+        {
             auto newNode = new Node<T>(current->value);
             newNode->next = result_list;
             result_list = newNode;
@@ -46,13 +49,13 @@ Node<T> * remove_larger_nodes(Node<T>* head)
 }
 
 template <typename T>
-requires std::is_arithmetic_v<T>
-Node<T> * revert_list(Node<T> * head)
+    requires std::is_arithmetic_v<T>
+Node<T>* revert_list(Node<T>* head)
 {
-    Node<T> * prev = nullptr;
-    Node<T> * next = nullptr;
+    Node<T>* prev = nullptr;
+    Node<T>* next = nullptr;
     auto node = head;
-    while(node)
+    while (node)
     {
         next = node->next;
         node->next = prev;
@@ -63,26 +66,30 @@ Node<T> * revert_list(Node<T> * head)
 }
 
 template <typename T>
-requires std::is_arithmetic_v<T>
-Node<T> * remove_larger_nodes_double_reverse(Node<T>* head){
+    requires std::is_arithmetic_v<T>
+Node<T>* remove_larger_nodes_double_reverse(Node<T>* head)
+{
     head = revert_list(head);
     int max{};
     auto current = head;
-    Node<T> * prev = nullptr;
-    while (current != nullptr) {
+    Node<T>* prev = nullptr;
+    while (current != nullptr)
+    {
         max = std::max(max, current->value);
 
         // Delete nodes that are smaller than maximum
-        if (current->value < max) {
+        if (current->value < max)
+        {
             // Delete current by skipping
             prev->next = current->next;
-            auto     deleted = current;
+            auto deleted = current;
             current = current->next;
             deleted->next = nullptr;
         }
 
-            // Current does not need to be deleted
-        else {
+        // Current does not need to be deleted
+        else
+        {
             prev = current;
             current = current->next;
         }
@@ -90,7 +97,6 @@ Node<T> * remove_larger_nodes_double_reverse(Node<T>* head){
 
     // Reverse and return the modified linked list
     return revert_list(head);
-
 }
 
 #endif //DATA_STRUCTURES_REMOVE_LARGER_NODES_H

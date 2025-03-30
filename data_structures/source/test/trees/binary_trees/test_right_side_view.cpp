@@ -8,18 +8,21 @@
 #include <queue>
 
 // ITERATIVE IMPLEMENTATION OF RIGHT-SIDE-VIEW
-template<typename T>
-std::vector<T> test_right_side_view(TreeNode<T> *root) {
+template <typename T>
+std::vector<T> test_right_side_view(TreeNode<T>* root)
+{
     if (!root)
         return {};
 
     std::vector<T> test_result;
-    std::queue<TreeNode<T> *> queue{{root}};
+    std::queue<TreeNode<T>*> queue{{root}};
 
-    while (!queue.empty()) {
+    while (!queue.empty())
+    {
         const size_t size = queue.size();
-        for (size_t i = 0; i < size; ++i) {
-            TreeNode<T> *node = queue.front();
+        for (size_t i = 0; i < size; ++i)
+        {
+            TreeNode<T>* node = queue.front();
             queue.pop();
             if (i == size - 1)
                 test_result.push_back(node->value);
@@ -34,13 +37,13 @@ std::vector<T> test_right_side_view(TreeNode<T> *root) {
 }
 
 
-TEST_F(SetupBinaryTree, test_right_side_view) {
+TEST_F(SetupBinaryTree, test_right_side_view)
+{
     auto root = SetupBinaryTree::binary_tree_root();
     auto result = right_side_view(root);
     auto test_result = test_right_side_view(root);
-    for (int index = 0; index < result.size(); ++index) {
+    for (int index = 0; index < result.size(); ++index)
+    {
         EXPECT_EQ(result[index], test_result[index]);
     }
 }
-
-

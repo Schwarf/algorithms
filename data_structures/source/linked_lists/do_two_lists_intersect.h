@@ -9,32 +9,38 @@
 
 #include "node.h"
 
-template<typename T>
-Node<T> *do_lists_intersect(Node<T> *head1, Node<T> *head2) {
+template <typename T>
+Node<T>* do_lists_intersect(Node<T>* head1, Node<T>* head2)
+{
     auto node1 = head1;
     auto node2 = head2;
     int size1{};
     int size2{};
-    while (node1->next) {
+    while (node1->next)
+    {
         size1++;
         node1 = node1->next;
     }
-    while (node2->next) {
+    while (node2->next)
+    {
         size2++;
         node2 = node2->next;
     }
     if (node1 != node2)
         return nullptr;
 
-    while (size1 > size2) {
+    while (size1 > size2)
+    {
         head1 = head1->next;
         size1--;
     }
-    while (size2 > size1) {
+    while (size2 > size1)
+    {
         head2 = head2->next;
         size2--;
     }
-    while (head1 != head2) {
+    while (head1 != head2)
+    {
         head1 = head1->next;
         head2 = head2->next;
     }

@@ -21,19 +21,25 @@
 // boolean is_full() Returns true if the deque is full, or false otherwise.
 
 
-template<typename T>
-class CircularDeque {
+template <typename T>
+class CircularDeque
+{
     int capacity{};
     int size{};
-    NodeDLL<T> *head{nullptr};
-    NodeDLL<T> *tail{nullptr};
-public:
-    explicit CircularDeque(int k) : capacity{k} {}
+    NodeDLL<T>* head{nullptr};
+    NodeDLL<T>* tail{nullptr};
 
-    bool insert_front(T value) {
+public:
+    explicit CircularDeque(int k) : capacity{k}
+    {
+    }
+
+    bool insert_front(T value)
+    {
         if (size == capacity)
             return false;
-        if (!head) {
+        if (!head)
+        {
             head = new NodeDLL<T>(value);
             tail = head;
             size++;
@@ -48,10 +54,12 @@ public:
         return true;
     }
 
-    bool insert_back(T value) {
+    bool insert_back(T value)
+    {
         if (size == capacity)
             return false;
-        if (!tail) {
+        if (!tail)
+        {
             tail = new NodeDLL<T>(value);
             head = tail;
             size++;
@@ -66,11 +74,13 @@ public:
         return true;
     }
 
-    bool delete_front() {
+    bool delete_front()
+    {
         if (!head)
             return false;
 
-        if (!head->next) {
+        if (!head->next)
+        {
             delete head;
             size--;
             head = nullptr;
@@ -86,11 +96,13 @@ public:
         return true;
     }
 
-    bool delete_back() {
+    bool delete_back()
+    {
         if (!tail)
             return false;
 
-        if (!tail->previous) {
+        if (!tail->previous)
+        {
             delete tail;
             size--;
             head = nullptr;
@@ -106,42 +118,50 @@ public:
         return true;
     }
 
-    std::optional<T> get_front() {
+    std::optional<T> get_front()
+    {
         if (!head)
             return {};
         return head->value;
     }
 
-    std::optional<T> get_back() {
+    std::optional<T> get_back()
+    {
         if (!tail)
             return {};
         return tail->value;
     }
 
-    bool is_empty() {
+    bool is_empty()
+    {
         return size == 0;
     }
 
-    bool is_full() {
+    bool is_full()
+    {
         return size == capacity;
     }
 };
 
 
-template<typename T>
-class CircularDequeArray {
+template <typename T>
+class CircularDequeArray
+{
     std::vector<T> queue;
     int capacity{};
     int size{};
     int front_index{};
     int back_index{};
+
 public:
-    explicit CircularDequeArray(int k) : capacity{k} {
+    explicit CircularDequeArray(int k) : capacity{k}
+    {
         queue = std::vector<T>(capacity);
         back_index = capacity - 1;
     }
 
-    bool insert_front(T value) {
+    bool insert_front(T value)
+    {
         if (is_full())
             return false;
         front_index = (front_index - 1 + capacity) % capacity;
@@ -150,7 +170,8 @@ public:
         return true;
     }
 
-    bool insert_back(T value) {
+    bool insert_back(T value)
+    {
         if (is_full())
             return false;
         back_index = (back_index + 1) % capacity;
@@ -159,7 +180,8 @@ public:
         return true;
     }
 
-    bool delete_front() {
+    bool delete_front()
+    {
         if (is_empty())
             return false;
         front_index = (front_index + 1) % capacity;
@@ -167,7 +189,8 @@ public:
         return true;
     }
 
-    bool delete_back() {
+    bool delete_back()
+    {
         if (is_empty())
             return false;
         back_index = (back_index - 1 + capacity) % capacity;
@@ -175,26 +198,29 @@ public:
         return true;
     }
 
-    std::optional<T> get_front() {
+    std::optional<T> get_front()
+    {
         if (is_empty())
             return {};
         return queue[front_index];
     }
 
-    std::optional<T> get_back() {
+    std::optional<T> get_back()
+    {
         if (is_empty())
             return {};
         return queue[back_index];
     }
 
-    bool is_empty() {
+    bool is_empty()
+    {
         return size == 0;
     }
 
-    bool is_full() {
+    bool is_full()
+    {
         return size == capacity;
     }
 };
 
 #endif //DATA_STRUCTURES_CIRCULAR_DEQUE_H
-

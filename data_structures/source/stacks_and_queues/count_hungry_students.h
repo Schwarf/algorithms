@@ -18,22 +18,27 @@
 #include <stack>
 #include <vector>
 
-int count_hungry_students(const std::vector<int> &students, const std::vector<int> &dishes) {
+int count_hungry_students(const std::vector<int>& students, const std::vector<int>& dishes)
+{
     int n = students.size();
     std::stack<int> st;
     std::queue<int> qu;
-    for (int i{}; i < n; ++i) {
+    for (int i{}; i < n; ++i)
+    {
         st.push(dishes[n - 1 - i]);
         qu.push(students[i]);
-
     }
     int last_served{};
-    while (!qu.empty() && last_served < qu.size()) {
-        if (st.top() == qu.front()) {
+    while (!qu.empty() && last_served < qu.size())
+    {
+        if (st.top() == qu.front())
+        {
             last_served = 0;
             st.pop();
             qu.pop();
-        } else {
+        }
+        else
+        {
             last_served++;
             qu.push(qu.front());
             qu.pop();
@@ -42,17 +47,20 @@ int count_hungry_students(const std::vector<int> &students, const std::vector<in
     return qu.size();
 }
 
-int count_hungry_students_optimized(const std::vector<int> &students, const std::vector<int> &dishes) {
+int count_hungry_students_optimized(const std::vector<int>& students, const std::vector<int>& dishes)
+{
     int countDish0Student{};
     int countDish1Student{};
     int n = students.size();
-    for (int i{}; i < n; ++i) {
+    for (int i{}; i < n; ++i)
+    {
         if (students[i])
             countDish1Student++;
         else
             countDish0Student++;
     }
-    for (const auto dish: dishes) {
+    for (const auto dish : dishes)
+    {
         if (dish == 0 && countDish0Student == 0)
             return countDish1Student;
         if (dish == 1 && countDish1Student == 0)
@@ -66,4 +74,3 @@ int count_hungry_students_optimized(const std::vector<int> &students, const std:
 }
 
 #endif //DATA_STRUCTURES_HOW_MANY_CAN_NOT_EATING_LUNCH_H
-

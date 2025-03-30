@@ -193,14 +193,16 @@ std::pair<NodeType, NodeType> make_edge(NodeType u, NodeType v)
 }
 
 template <typename NodeType>
-requires std::is_signed_v<NodeType>
+    requires std::is_signed_v<NodeType>
 class DirectedGraph
 {
 public:
     DirectedGraph() = default;
-    DirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
+
+    DirectedGraph(const std::initializer_list<NodeType>& nodes,
+                  const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
     {
-        for(const auto& node : nodes)
+        for (const auto& node : nodes)
             adjacency_list[node];
         for (const auto& edge : edges)
         {
@@ -210,7 +212,7 @@ public:
 
     DirectedGraph(const std::vector<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges)
     {
-        for(const auto& node : nodes)
+        for (const auto& node : nodes)
             adjacency_list[node];
         for (const auto& edge : edges)
         {
@@ -298,9 +300,11 @@ class UndirectedGraph
 {
 public:
     UndirectedGraph() = default;
-    UndirectedGraph(const std::initializer_list<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
+
+    UndirectedGraph(const std::initializer_list<NodeType>& nodes,
+                    const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
     {
-        for(const auto& node : nodes)
+        for (const auto& node : nodes)
             adjacency_list[node];
         for (const auto& edge : edges)
         {
@@ -308,9 +312,10 @@ public:
         }
     }
 
-    UndirectedGraph(const std::vector<NodeType>& nodes, const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
+    UndirectedGraph(const std::vector<NodeType>& nodes,
+                    const std::initializer_list<std::pair<NodeType, NodeType>>& edges) : nodes{nodes}
     {
-        for(const auto& node : nodes)
+        for (const auto& node : nodes)
             adjacency_list[node];
         for (const auto& edge : edges)
         {
@@ -387,7 +392,6 @@ public:
     {
         return edge_set;
     }
-
 
 private:
     std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list;

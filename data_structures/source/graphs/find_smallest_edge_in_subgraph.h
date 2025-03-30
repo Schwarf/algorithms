@@ -16,21 +16,22 @@
 // As function template we have to provide the maximal edge value as 4th argument.
 // As function template we have to provide the default value if the vertices are not connected as 5th argument.
 
-template<typename VertexType>
-requires VertexRequirement<VertexType>
-VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<VertexType>> &vertices,
-                                               const VertexType &start_vertex,
-                                               const VertexType &end_vertex,
-                                               const VertexType &max_edge_value,
-                                               const VertexType &not_connected_value) {
-
+template <typename VertexType>
+    requires VertexRequirement<VertexType>
+VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<VertexType>>& vertices,
+                                               const VertexType& start_vertex,
+                                               const VertexType& end_vertex,
+                                               const VertexType& max_edge_value,
+                                               const VertexType& not_connected_value)
+{
     if (vertices.empty())
         throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
     if (vertices.size() == 1)
         return vertices[0][2];
     // Transform into graph representation with adjacency list
     std::vector<std::vector<std::pair<VertexType, VertexType>>> graph(vertices.size() + 1);
-    for (const auto &edge: vertices) {
+    for (const auto& edge : vertices)
+    {
         graph[edge[0]].push_back({edge[1], edge[2]});
         graph[edge[1]].push_back({edge[0], edge[2]});
     }
@@ -39,11 +40,14 @@ VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
     VertexType minimum{max_edge_value};
     std::vector<bool> visited(vertices.size() + 1);
     bool end_vertex_found{};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto node = q.front();
         q.pop();
-        for (const auto &edge: graph[node]) {
-            if (!visited[edge.first]) {
+        for (const auto& edge : graph[node])
+        {
+            if (!visited[edge.first])
+            {
                 visited[edge.first] = true;
                 minimum = std::min(minimum, edge.second);
                 if (edge.first == end_vertex)
@@ -55,21 +59,22 @@ VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
 }
 
 
-template<typename VertexType>
-requires VertexRequirement<VertexType>
-VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<VertexType>> &vertices,
-                                               const VertexType &start_vertex,
-                                               const VertexType &end_vertex,
-                                               const VertexType &max_edge_value,
-                                               const VertexType &not_connected_value) {
-
+template <typename VertexType>
+    requires VertexRequirement<VertexType>
+VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<VertexType>>& vertices,
+                                               const VertexType& start_vertex,
+                                               const VertexType& end_vertex,
+                                               const VertexType& max_edge_value,
+                                               const VertexType& not_connected_value)
+{
     if (vertices.empty())
         throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
     if (vertices.size() == 1)
         return vertices[0][2];
     // Transform into graph representation with adjacency list
     std::vector<std::vector<std::pair<VertexType, VertexType>>> graph(vertices.size() + 1);
-    for (const auto &edge: vertices) {
+    for (const auto& edge : vertices)
+    {
         graph[edge[0]].push_back({edge[1], edge[2]});
         graph[edge[1]].push_back({edge[0], edge[2]});
     }
@@ -78,11 +83,14 @@ VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<Ver
     VertexType minimum{max_edge_value};
     std::vector<bool> visited(vertices.size() + 1);
     bool end_vertex_found{};
-    while (!s.empty()) {
+    while (!s.empty())
+    {
         auto node = s.top();
         s.pop();
-        for (const auto &edge: graph[node]) {
-            if (!visited[edge.first]) {
+        for (const auto& edge : graph[node])
+        {
+            if (!visited[edge.first])
+            {
                 visited[edge.first] = true;
                 minimum = std::min(minimum, edge.second);
                 if (edge.first == end_vertex)
@@ -94,14 +102,16 @@ VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<Ver
 }
 
 
-template<typename VertexType>
-requires VertexRequirement<VertexType>
+template <typename VertexType>
+    requires VertexRequirement<VertexType>
 void dfs(VertexType node, VertexType end_vertex,
-         const std::vector<std::vector<std::pair<VertexType, VertexType>>> &graph,
-         std::vector<bool> &visited,
-         VertexType &answer, bool &end_vertex_found) {
+         const std::vector<std::vector<std::pair<VertexType, VertexType>>>& graph,
+         std::vector<bool>& visited,
+         VertexType& answer, bool& end_vertex_found)
+{
     visited[node] = true;
-    for (const auto &edge: graph[node]) {
+    for (const auto& edge : graph[node])
+    {
         answer = std::min(answer, edge.second);
         if (edge.first == end_vertex)
             end_vertex_found = true;
@@ -110,21 +120,22 @@ void dfs(VertexType node, VertexType end_vertex,
     }
 }
 
-template<typename VertexType>
-requires VertexRequirement<VertexType>
-VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::vector<VertexType>> &vertices,
-                                                         const VertexType &start_vertex,
-                                                         const VertexType &end_vertex,
-                                                         const VertexType &max_edge_value,
-                                                         const VertexType &not_connected_value) {
-
+template <typename VertexType>
+    requires VertexRequirement<VertexType>
+VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::vector<VertexType>>& vertices,
+                                                         const VertexType& start_vertex,
+                                                         const VertexType& end_vertex,
+                                                         const VertexType& max_edge_value,
+                                                         const VertexType& not_connected_value)
+{
     if (vertices.empty())
         throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
     if (vertices.size() == 1)
         return vertices[0][2];
     // Transform into graph representation with adjacency list
     std::vector<std::vector<std::pair<VertexType, VertexType>>> graph(vertices.size() + 1);
-    for (const auto &edge: vertices) {
+    for (const auto& edge : vertices)
+    {
         graph[edge[0]].push_back({edge[1], edge[2]});
         graph[edge[1]].push_back({edge[0], edge[2]});
     }

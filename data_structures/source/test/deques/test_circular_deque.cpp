@@ -6,7 +6,8 @@
 #include "deques/circular_deque.h"
 
 
-TEST(TestCircularDeque, InsertFront) {
+TEST(TestCircularDeque, InsertFront)
+{
     auto deque = CircularDeque<int>(3);
     EXPECT_TRUE(deque.insert_front(1));
     EXPECT_TRUE(deque.insert_front(2));
@@ -14,7 +15,8 @@ TEST(TestCircularDeque, InsertFront) {
     EXPECT_FALSE(deque.insert_front(4));
 }
 
-TEST(TestCircularDeque, InsertBack) {
+TEST(TestCircularDeque, InsertBack)
+{
     auto deque = CircularDeque<int>(3);
     EXPECT_TRUE(deque.insert_back(1));
     EXPECT_TRUE(deque.insert_back(2));
@@ -22,7 +24,8 @@ TEST(TestCircularDeque, InsertBack) {
     EXPECT_FALSE(deque.insert_back(4));
 }
 
-TEST(TestCircularDeque, DeleteFront) {
+TEST(TestCircularDeque, DeleteFront)
+{
     auto deque = CircularDeque<int>(3);
     EXPECT_TRUE(deque.insert_front(1));
     EXPECT_TRUE(deque.insert_front(2));
@@ -35,7 +38,8 @@ TEST(TestCircularDeque, DeleteFront) {
 }
 
 
-TEST(TestCircularDeque, DeleteBack) {
+TEST(TestCircularDeque, DeleteBack)
+{
     auto deque = CircularDeque<int>(3);
     EXPECT_TRUE(deque.insert_back(1));
     EXPECT_TRUE(deque.insert_back(2));
@@ -47,7 +51,8 @@ TEST(TestCircularDeque, DeleteBack) {
     EXPECT_FALSE(deque.delete_back());
 }
 
-TEST(TestCircularDeque, GetFront) {
+TEST(TestCircularDeque, GetFront)
+{
     auto deque = CircularDeque<uint8_t>(5);
     constexpr uint8_t value1{1};
     constexpr uint8_t value2{2};
@@ -71,10 +76,10 @@ TEST(TestCircularDeque, GetFront) {
     EXPECT_TRUE(deque.insert_front(value4));
     EXPECT_TRUE(deque.get_front().has_value());
     EXPECT_EQ(deque.get_front().value(), value4);
-
 }
 
-TEST(TestCircularDeque, GetBack) {
+TEST(TestCircularDeque, GetBack)
+{
     auto deque = CircularDeque<uint8_t>(5);
     constexpr uint8_t value1{1};
     constexpr uint8_t value2{2};
@@ -101,7 +106,8 @@ TEST(TestCircularDeque, GetBack) {
 }
 
 
-TEST(TestCircularDeque, IsEmpty) {
+TEST(TestCircularDeque, IsEmpty)
+{
     auto deque = CircularDeque<uint8_t>(2);
     EXPECT_TRUE(deque.is_empty());
     deque.insert_front(1);
@@ -110,7 +116,8 @@ TEST(TestCircularDeque, IsEmpty) {
     EXPECT_TRUE(deque.is_empty());
 }
 
-TEST(TestCircularDeque, IsFull) {
+TEST(TestCircularDeque, IsFull)
+{
     auto deque = CircularDeque<uint8_t>(2);
     EXPECT_FALSE(deque.is_full());
     deque.insert_front(1);
@@ -125,7 +132,8 @@ TEST(TestCircularDeque, IsFull) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(TestCircularDequeArray, InsertFront) {
+TEST(TestCircularDequeArray, InsertFront)
+{
     auto deque = CircularDequeArray<int>(3);
     EXPECT_TRUE(deque.insert_front(1));
     EXPECT_TRUE(deque.insert_front(2));
@@ -133,7 +141,8 @@ TEST(TestCircularDequeArray, InsertFront) {
     EXPECT_FALSE(deque.insert_front(4));
 }
 
-TEST(TestCircularDequeArray, InsertBack) {
+TEST(TestCircularDequeArray, InsertBack)
+{
     auto deque = CircularDequeArray<int>(3);
     EXPECT_TRUE(deque.insert_back(1));
     EXPECT_TRUE(deque.insert_back(2));
@@ -141,7 +150,8 @@ TEST(TestCircularDequeArray, InsertBack) {
     EXPECT_FALSE(deque.insert_back(4));
 }
 
-TEST(TestCircularDequeArray, DeleteFront) {
+TEST(TestCircularDequeArray, DeleteFront)
+{
     auto deque = CircularDequeArray<int>(3);
     EXPECT_TRUE(deque.insert_front(1));
     EXPECT_TRUE(deque.insert_front(2));
@@ -154,7 +164,8 @@ TEST(TestCircularDequeArray, DeleteFront) {
 }
 
 
-TEST(TestCircularDequeArray, DeleteBack) {
+TEST(TestCircularDequeArray, DeleteBack)
+{
     auto deque = CircularDequeArray<int>(3);
     EXPECT_TRUE(deque.insert_back(1));
     EXPECT_TRUE(deque.insert_back(2));
@@ -166,7 +177,8 @@ TEST(TestCircularDequeArray, DeleteBack) {
     EXPECT_FALSE(deque.delete_back());
 }
 
-TEST(TestCircularDequeArray, GetFront) {
+TEST(TestCircularDequeArray, GetFront)
+{
     auto deque = CircularDequeArray<uint8_t>(5);
     constexpr uint8_t value1{1};
     constexpr uint8_t value2{2};
@@ -190,10 +202,10 @@ TEST(TestCircularDequeArray, GetFront) {
     EXPECT_TRUE(deque.insert_front(value4));
     EXPECT_TRUE(deque.get_front().has_value());
     EXPECT_EQ(deque.get_front().value(), value4);
-
 }
 
-TEST(TestCircularDequeArray, GetBack) {
+TEST(TestCircularDequeArray, GetBack)
+{
     auto deque = CircularDequeArray<uint8_t>(5);
     constexpr uint8_t value1{1};
     constexpr uint8_t value2{2};
@@ -220,7 +232,8 @@ TEST(TestCircularDequeArray, GetBack) {
 }
 
 
-TEST(TestCircularDequeArray, IsEmpty) {
+TEST(TestCircularDequeArray, IsEmpty)
+{
     auto deque = CircularDequeArray<uint8_t>(2);
     EXPECT_TRUE(deque.is_empty());
     deque.insert_front(1);
@@ -229,7 +242,8 @@ TEST(TestCircularDequeArray, IsEmpty) {
     EXPECT_TRUE(deque.is_empty());
 }
 
-TEST(TestCircularDequeArray, IsFull) {
+TEST(TestCircularDequeArray, IsFull)
+{
     auto deque = CircularDequeArray<uint8_t>(2);
     EXPECT_FALSE(deque.is_full());
     deque.insert_front(1);

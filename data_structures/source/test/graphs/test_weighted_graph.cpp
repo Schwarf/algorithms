@@ -4,7 +4,8 @@
 #include "gtest/gtest.h"
 #include "graphs/weighted_graph.h"
 
-class SetupWeightedGraph : public testing::Test {
+class SetupWeightedGraph : public testing::Test
+{
 public:
     SetupWeightedGraph() = default;
 
@@ -17,7 +18,8 @@ protected:
     int weight6 = 66, weight7 = 77, weight8 = 88;
     int invalid_id = 10;
 
-    WeightedGraph<int, int, int> get_graph2(GraphNodePtr<int, int> &start_node) const {
+    WeightedGraph<int, int, int> get_graph2(GraphNodePtr<int, int>& start_node) const
+    {
         WeightedGraph<int, int, int> graph;
         const std::shared_ptr<GraphNode<int, int>> vertex0(new GraphNode<int, int>(0, 0));
         const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(1, 1));
@@ -35,7 +37,8 @@ protected:
         return graph;
     }
 
-    WeightedGraph<int, int, int> get_graph(GraphNodePtr<int, int> &start_node) const {
+    WeightedGraph<int, int, int> get_graph(GraphNodePtr<int, int>& start_node) const
+    {
         WeightedGraph<int, int, int> graph;
         const std::shared_ptr<GraphNode<int, int>> vertex0(new GraphNode<int, int>(0, 0));
         const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(1, 1));
@@ -71,10 +74,10 @@ protected:
         start_node = vertex0;
         return graph;
     }
-
 };
 
-TEST_F(SetupWeightedGraph, test_add_edge_vertexs) {
+TEST_F(SetupWeightedGraph, test_add_edge_vertexs)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -89,7 +92,8 @@ TEST_F(SetupWeightedGraph, test_add_edge_vertexs) {
     EXPECT_EQ(graph.get_vertex_by_id(id4), nullptr);
 }
 
-TEST_F(SetupWeightedGraph, test_weight_for_added_edge_vertexs) {
+TEST_F(SetupWeightedGraph, test_weight_for_added_edge_vertexs)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -103,7 +107,8 @@ TEST_F(SetupWeightedGraph, test_weight_for_added_edge_vertexs) {
     EXPECT_EQ(graph.get_edge_weight(vertex2->id, vertex3->id), weight3);
 }
 
-TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge_vertexs) {
+TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge_vertexs)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -113,17 +118,20 @@ TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge_vertexs) {
     graph.add_edge(vertex1, vertex3, weight2);
     graph.add_edge(vertex2, vertex3, weight3);
     std::string message = "The destination vertex id=" + std::to_string(vertex4->id) + " does not exist in the graph!";
-    try {
+    try
+    {
         graph.get_edge_weight(vertex1->id, vertex4->id);
         FAIL() << "Expected std::invalid_argument";
     }
-    catch (std::invalid_argument const &err) {
+    catch (std::invalid_argument const& err)
+    {
         EXPECT_TRUE(err.what() == message);
     }
 }
 
 
-TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge) {
+TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -131,19 +139,22 @@ TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge) {
     graph.add_edge(vertex1, vertex2, weight1);
     graph.add_edge(vertex1, vertex3, weight2);
     std::string message = "The edge with source id " + std::to_string(vertex2->id) + " and destination id "
-                          + std::to_string(vertex3->id) + " does not exist in the graph!";
+        + std::to_string(vertex3->id) + " does not exist in the graph!";
 
-    try {
+    try
+    {
         graph.get_edge_weight(vertex2->id, vertex3->id);
         FAIL() << "Expected std::invalid_argument";
     }
-    catch (std::invalid_argument const &err) {
+    catch (std::invalid_argument const& err)
+    {
         EXPECT_TRUE(err.what() == message);
     }
 }
 
 
-TEST_F(SetupWeightedGraph, test_get_neighbours_by_vertex) {
+TEST_F(SetupWeightedGraph, test_get_neighbours_by_vertex)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -161,7 +172,8 @@ TEST_F(SetupWeightedGraph, test_get_neighbours_by_vertex) {
     EXPECT_TRUE(graph.get_neighbors(vertex4).empty());
 }
 
-TEST_F(SetupWeightedGraph, test_add_vertices_then_vertexs) {
+TEST_F(SetupWeightedGraph, test_add_vertices_then_vertexs)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -183,7 +195,8 @@ TEST_F(SetupWeightedGraph, test_add_vertices_then_vertexs) {
 }
 
 
-TEST_F(SetupWeightedGraph, test_get_neighbours_by_id) {
+TEST_F(SetupWeightedGraph, test_get_neighbours_by_id)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -202,7 +215,8 @@ TEST_F(SetupWeightedGraph, test_get_neighbours_by_id) {
 }
 
 
-TEST_F(SetupWeightedGraph, test_size) {
+TEST_F(SetupWeightedGraph, test_size)
+{
     auto graph = WeightedGraph<int, int, int>();
     EXPECT_EQ(graph.number_of_vertices(), 0);
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
@@ -217,7 +231,8 @@ TEST_F(SetupWeightedGraph, test_size) {
     EXPECT_EQ(graph.number_of_vertices(), 4);
 }
 
-TEST_F(SetupWeightedGraph, test_add_vertex) {
+TEST_F(SetupWeightedGraph, test_add_vertex)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -232,7 +247,8 @@ TEST_F(SetupWeightedGraph, test_add_vertex) {
     EXPECT_EQ(graph.number_of_vertices(), 4);
 }
 
-TEST_F(SetupWeightedGraph, test_erase_vertex) {
+TEST_F(SetupWeightedGraph, test_erase_vertex)
+{
     auto graph = WeightedGraph<int, int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -249,11 +265,13 @@ TEST_F(SetupWeightedGraph, test_erase_vertex) {
     EXPECT_EQ(graph.number_of_vertices(), 4);
     EXPECT_TRUE(graph.erase_vertex(id1));
     std::string message = "The destination vertex id=" + std::to_string(vertex1->id) + " does not exist in the graph!";
-    try {
+    try
+    {
         graph.get_edge_weight(vertex5->id, vertex1->id);
         FAIL() << "Expected std::invalid_argument";
     }
-    catch (std::invalid_argument const &err) {
+    catch (std::invalid_argument const& err)
+    {
         std::cout << err.what() << std::endl;
         EXPECT_TRUE(err.what() == message);
     }
@@ -265,32 +283,39 @@ TEST_F(SetupWeightedGraph, test_erase_vertex) {
 }
 
 
-TEST_F(SetupWeightedGraph, simple_prim_graph2) {
+TEST_F(SetupWeightedGraph, simple_prim_graph2)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph2(start_node);
     auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
-    std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{std::make_pair(1, std::make_pair(0, 2)),
-                                                                      std::make_pair(2, std::make_pair(1, 3)),
-                                                                      std::make_pair(3, std::make_pair(0, 6)),
-                                                                      std::make_pair(4, std::make_pair(1, 5))};
-    for (const auto &element: expected_minimum_spanning_tree) {
+    std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{
+        std::make_pair(1, std::make_pair(0, 2)),
+        std::make_pair(2, std::make_pair(1, 3)),
+        std::make_pair(3, std::make_pair(0, 6)),
+        std::make_pair(4, std::make_pair(1, 5))
+    };
+    for (const auto& element : expected_minimum_spanning_tree)
+    {
         EXPECT_EQ(minimum_spanning_tree[element.first], element.second);
     }
 }
 
-TEST_F(SetupWeightedGraph, simple_prim_graph) {
+TEST_F(SetupWeightedGraph, simple_prim_graph)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph(start_node);
     auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
     int expected_total_distance = 37;
     int total_distance{};
-    for (const auto &[first, second]: minimum_spanning_tree) {
+    for (const auto& [first, second] : minimum_spanning_tree)
+    {
         total_distance += second.second;
     }
     EXPECT_EQ(total_distance, expected_total_distance);
 }
 
-TEST_F(SetupWeightedGraph, test_primitive_djikstra) {
+TEST_F(SetupWeightedGraph, test_primitive_djikstra)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph(start_node);
     auto shortest_path = graph.primitive_dijkstra(start_node);
@@ -303,12 +328,14 @@ TEST_F(SetupWeightedGraph, test_primitive_djikstra) {
     expected_shortest_paths[7] = 8;
     expected_shortest_paths[8] = 14;
 
-    for (const auto &[key, value]: expected_shortest_paths) {
+    for (const auto& [key, value] : expected_shortest_paths)
+    {
         EXPECT_EQ(shortest_path[key], value);
     }
 }
 
-TEST_F(SetupWeightedGraph, test_primitive_djikstra2) {
+TEST_F(SetupWeightedGraph, test_primitive_djikstra2)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph2(start_node);
     auto shortest_path = graph.primitive_dijkstra(start_node);
@@ -316,14 +343,15 @@ TEST_F(SetupWeightedGraph, test_primitive_djikstra2) {
     expected_shortest_paths[2] = 5;
     expected_shortest_paths[3] = 6;
     expected_shortest_paths[4] = 7;
-    for (const auto &[key, value]: expected_shortest_paths) {
+    for (const auto& [key, value] : expected_shortest_paths)
+    {
         EXPECT_EQ(shortest_path[key], value);
     }
-
 }
 
 
-TEST_F(SetupWeightedGraph, test_real_djikstra) {
+TEST_F(SetupWeightedGraph, test_real_djikstra)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph(start_node);
     auto shortest_path = graph.real_dijkstra(start_node);
@@ -336,12 +364,14 @@ TEST_F(SetupWeightedGraph, test_real_djikstra) {
     expected_shortest_paths[7] = 8;
     expected_shortest_paths[8] = 14;
 
-    for (const auto &[key, value]: expected_shortest_paths) {
+    for (const auto& [key, value] : expected_shortest_paths)
+    {
         EXPECT_EQ(shortest_path[key], value);
     }
 }
 
-TEST_F(SetupWeightedGraph, test_real_djikstra2) {
+TEST_F(SetupWeightedGraph, test_real_djikstra2)
+{
     GraphNodePtr<int, int> start_node = nullptr;
     auto graph = get_graph2(start_node);
     auto shortest_path = graph.real_dijkstra(start_node);
@@ -349,11 +379,8 @@ TEST_F(SetupWeightedGraph, test_real_djikstra2) {
     expected_shortest_paths[2] = 5;
     expected_shortest_paths[3] = 6;
     expected_shortest_paths[4] = 7;
-    for (const auto &[key, value]: expected_shortest_paths) {
+    for (const auto& [key, value] : expected_shortest_paths)
+    {
         EXPECT_EQ(shortest_path[key], value);
     }
-
 }
-
-
-

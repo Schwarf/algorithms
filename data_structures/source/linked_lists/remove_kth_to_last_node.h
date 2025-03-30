@@ -10,18 +10,21 @@
 // We have a number where each digit [0-9] is provided by a node in a linked list. The least significant digit
 // is provided by head and the most significant digit is provided the last node. Given two numbers compute the
 // sum of those two numbers.
-template<typename T>
-Node<T> *remove_kth_to_last_node(Node<T> *head, int k) {
+template <typename T>
+Node<T>* remove_kth_to_last_node(Node<T>* head, int k)
+{
     auto fast = head;
     auto slow = head;
-    while (k--) {
+    while (k--)
+    {
         fast = fast->next;
     }
 
     if (!fast)
         return head->next;
 
-    while (fast->next) {
+    while (fast->next)
+    {
         fast = fast->next;
         slow = slow->next;
     }
@@ -31,4 +34,3 @@ Node<T> *remove_kth_to_last_node(Node<T> *head, int k) {
 }
 
 #endif //DATA_STRUCTURES_REMOVE_KTH_TO_LAST_NODE_H
-

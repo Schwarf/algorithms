@@ -12,55 +12,63 @@
 // to dst with at most k stops. If there is no such route, return -1.
 
 int find_cheapest_flights(int n,
-						  const std::vector<std::vector<int>> &flights,
-						  int source,
-						  int destination,
-						  int max_stops)
+                          const std::vector<std::vector<int>>& flights,
+                          int source,
+                          int destination,
+                          int max_stops)
 {
-	std::vector<std::vector<std::pair<int, int>>> graph(n);
-	for (const auto &flight: flights) {
-		graph[flight[0]].emplace_back(flight[1], flight[2]);
-	}
-	std::vector<int> distance(n, std::numeric_limits<int>::max());
-	std::queue<std::pair<int, int>> q;
-	q.emplace(source, 0);
-	int stops{};
-	while (!q.empty() && stops <= max_stops) {
-		int q_size = q.size();
-		while (q_size--) {
-			auto [current_node, current_distance] = q.front();
-			q.pop();
-			for (const auto &flight: graph[current_node]) {
-				if (flight.second + current_distance < distance[flight.first]) {
-					distance[flight.first] = flight.second + current_distance;
-					q.emplace(flight.first, current_distance + flight.second);
-				}
-			}
-		}
-		stops++;
-	}
-	return distance[destination] == std::numeric_limits<int>::max() ? -1 : distance[destination];
+    std::vector<std::vector<std::pair<int, int>>> graph(n);
+    for (const auto& flight : flights)
+    {
+        graph[flight[0]].emplace_back(flight[1], flight[2]);
+    }
+    std::vector<int> distance(n, std::numeric_limits<int>::max());
+    std::queue<std::pair<int, int>> q;
+    q.emplace(source, 0);
+    int stops{};
+    while (!q.empty() && stops <= max_stops)
+    {
+        int q_size = q.size();
+        while (q_size--)
+        {
+            auto [current_node, current_distance] = q.front();
+            q.pop();
+            for (const auto& flight : graph[current_node])
+            {
+                if (flight.second + current_distance < distance[flight.first])
+                {
+                    distance[flight.first] = flight.second + current_distance;
+                    q.emplace(flight.first, current_distance + flight.second);
+                }
+            }
+        }
+        stops++;
+    }
+    return distance[destination] == std::numeric_limits<int>::max() ? -1 : distance[destination];
 }
 
 int find_cheapest_flights_bellman_ford(int n,
-									   const std::vector<std::vector<int>> &flights,
-									   int source,
-									   int destination,
-									   int max_stops)
+                                       const std::vector<std::vector<int>>& flights,
+                                       int source,
+                                       int destination,
+                                       int max_stops)
 {
-	std::vector<int> dp(n, std::numeric_limits<int>::max());
-	dp[source] = 0;
-	for (int i = 0; i <= max_stops; ++i) {
-		std::vector<int> temp(dp);
-		for (auto &flight: flights) {
-			int u = flight[0], v = flight[1], w = flight[2];
-			if (dp[u] != std::numeric_limits<int>::max() && dp[u] + w < temp[v]) {
-				temp[v] = dp[u] + w;
-			}
-		}
-		dp = temp;
-	}
-	return dp[destination] == std::numeric_limits<int>::max() ? -1 : dp[destination];
+    std::vector<int> dp(n, std::numeric_limits<int>::max());
+    dp[source] = 0;
+    for (int i = 0; i <= max_stops; ++i)
+    {
+        std::vector<int> temp(dp);
+        for (auto& flight : flights)
+        {
+            int u = flight[0], v = flight[1], w = flight[2];
+            if (dp[u] != std::numeric_limits<int>::max() && dp[u] + w < temp[v])
+            {
+                temp[v] = dp[u] + w;
+            }
+        }
+        dp = temp;
+    }
+    return dp[destination] == std::numeric_limits<int>::max() ? -1 : dp[destination];
 }
 
 

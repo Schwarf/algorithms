@@ -20,31 +20,39 @@
 #include <algorithm>
 #include <queue>
 
-int most_booked_room(int n, std::vector<std::vector<int>> &meetings) {
+int most_booked_room(int n, std::vector<std::vector<int>>& meetings)
+{
     std::vector<int> meeting_counts(n);
     using room_number = int;
     using availability_time = long long;
-    std::priority_queue<std::pair<availability_time, room_number>, std::vector<std::pair<availability_time, room_number>>, std::greater<std::pair<availability_time, room_number>>> used_rooms;
+    std::priority_queue<std::pair<availability_time, room_number>, std::vector<std::pair<
+                            availability_time, room_number>>, std::greater<std::pair<availability_time, room_number>>>
+        used_rooms;
     std::priority_queue<room_number, std::vector<room_number>, std::greater<room_number>> unused_rooms;
     for (int i{}; i < n; ++i)
         unused_rooms.push(i);
     std::ranges::sort(meetings);
 
-    for (const auto &meeting: meetings) {
+    for (const auto& meeting : meetings)
+    {
         auto start = meeting.front();
         auto end = meeting.back();
         // Update used and unused rooms with current time, the start-time of the current room
-        while (!used_rooms.empty() && used_rooms.top().first <= start) {
+        while (!used_rooms.empty() && used_rooms.top().first <= start)
+        {
             int room_number = used_rooms.top().second;
             used_rooms.pop();
             unused_rooms.push(room_number);
         }
-        if (!unused_rooms.empty()) {
+        if (!unused_rooms.empty())
+        {
             int unused_room = unused_rooms.top();
             unused_rooms.pop();
             used_rooms.emplace(end, unused_room);
             meeting_counts[unused_room]++;
-        } else {
+        }
+        else
+        {
             auto [room_availability_time, room_number] = used_rooms.top();
             used_rooms.pop();
             // Update the availability-time of the room_number
@@ -54,8 +62,10 @@ int most_booked_room(int n, std::vector<std::vector<int>> &meetings) {
     }
     int max_meeting_count{};
     int max_meeting_room_number{};
-    for (int i{}; i < n; ++i) {
-        if (meeting_counts[i] > max_meeting_count) {
+    for (int i{}; i < n; ++i)
+    {
+        if (meeting_counts[i] > max_meeting_count)
+        {
             max_meeting_count = meeting_counts[i];
             max_meeting_room_number = i;
         }

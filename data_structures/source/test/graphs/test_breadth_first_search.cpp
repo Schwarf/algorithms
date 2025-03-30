@@ -5,7 +5,8 @@
 #include "graphs/graph.h"
 #include "graphs/breadth_first_search.h"
 
-class SetupBFSGraph : public testing::Test {
+class SetupBFSGraph : public testing::Test
+{
 public:
     SetupBFSGraph() = default;
 
@@ -18,7 +19,8 @@ protected:
     int id6 = 6, data6 = 6;
     int id7 = 7, data7 = 7;
 
-    Graph<int, int> get_graph(int start_vertex_id, GraphNodePtr<int, int> &start_vertex) const {
+    Graph<int, int> get_graph(int start_vertex_id, GraphNodePtr<int, int>& start_vertex) const
+    {
         const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
         const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
         const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
@@ -41,50 +43,59 @@ protected:
 };
 
 
-TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex1) {
+TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex1)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 1;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_bfs_tree{{2, 1},
-                                         {3, 1},
-                                         {4, 3},
-                                         {5, 3},
-                                         {6, 2},
-                                         {7, 5}};
+    std::map<int, int> expected_bfs_tree{
+        {2, 1},
+        {3, 1},
+        {4, 3},
+        {5, 3},
+        {6, 2},
+        {7, 5}
+    };
     auto bfs_tree = get_breadth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(bfs_tree.size(), expected_bfs_tree.size());
-    for (const auto &[child, parent]: expected_bfs_tree)
+    for (const auto& [child, parent] : expected_bfs_tree)
         EXPECT_EQ(parent, bfs_tree[child]);
 }
 
-TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex2) {
+TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex2)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 2;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_bfs_tree{{1, 2},
-                                         {3, 2},
-                                         {6, 2},
-                                         {4, 3},
-                                         {5, 3},
-                                         {7, 5}};
+    std::map<int, int> expected_bfs_tree{
+        {1, 2},
+        {3, 2},
+        {6, 2},
+        {4, 3},
+        {5, 3},
+        {7, 5}
+    };
     auto bfs_tree = get_breadth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(bfs_tree.size(), expected_bfs_tree.size());
-    for (const auto &[child, parent]: expected_bfs_tree)
+    for (const auto& [child, parent] : expected_bfs_tree)
         EXPECT_EQ(parent, bfs_tree[child]);
 }
 
-TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex7) {
+TEST_F(SetupBFSGraph, test_breadth_first_search_start_vertex7)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 7;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_bfs_tree{{5, 7},
-                                         {3, 5},
-                                         {6, 5},
-                                         {4, 3},
-                                         {2, 3},
-                                         {1, 3}};
+    std::map<int, int> expected_bfs_tree{
+        {5, 7},
+        {3, 5},
+        {6, 5},
+        {4, 3},
+        {2, 3},
+        {1, 3}
+    };
     auto bfs_tree = get_breadth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(bfs_tree.size(), expected_bfs_tree.size());
-    for (const auto &[child, parent]: expected_bfs_tree)
+    for (const auto& [child, parent] : expected_bfs_tree)
         EXPECT_EQ(parent, bfs_tree[child]);
 }

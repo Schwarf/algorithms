@@ -24,8 +24,9 @@
 #include <numeric>
 #include <algorithm>
 
-std::vector<int> survivedRobotsHealths(std::vector<int> &positions,
-                                       std::vector<int> &healths, std::string directions) {
+std::vector<int> survivedRobotsHealths(std::vector<int>& positions,
+                                       std::vector<int>& healths, std::string directions)
+{
     int n = positions.size();
     std::vector<int> indices(n);
     std::iota(indices.begin(), indices.end(), 0);
@@ -38,26 +39,36 @@ std::vector<int> survivedRobotsHealths(std::vector<int> &positions,
     std::sort(indices.begin(), indices.end(),
               [&](int lhs, int rhs) { return positions[lhs] < positions[rhs]; });
 
-    for (int currentIndex: indices) {
+    for (int currentIndex : indices)
+    {
         // Add right-moving robots to the stack
-        if (directions[currentIndex] == 'R') {
+        if (directions[currentIndex] == 'R')
+        {
             stack.push(currentIndex);
-        } else {
-            while (!stack.empty() && healths[currentIndex] > 0) {
+        }
+        else
+        {
+            while (!stack.empty() && healths[currentIndex] > 0)
+            {
                 // Pop the top robot from the stack for collision check
                 int topIndex = stack.top();
                 stack.pop();
 
                 // Top robot survives, current robot is destroyed
-                if (healths[topIndex] > healths[currentIndex]) {
+                if (healths[topIndex] > healths[currentIndex])
+                {
                     healths[topIndex] -= 1;
                     healths[currentIndex] = 0;
                     stack.push(topIndex);
-                } else if (healths[topIndex] < healths[currentIndex]) {
+                }
+                else if (healths[topIndex] < healths[currentIndex])
+                {
                     // Current robot survives, top robot is destroyed
                     healths[currentIndex] -= 1;
                     healths[topIndex] = 0;
-                } else {
+                }
+                else
+                {
                     // Both robots are destroyed
                     healths[currentIndex] = 0;
                     healths[topIndex] = 0;
@@ -67,8 +78,10 @@ std::vector<int> survivedRobotsHealths(std::vector<int> &positions,
     }
 
     // Collect surviving robots
-    for (int index = 0; index < n; ++index) {
-        if (healths[index] > 0) {
+    for (int index = 0; index < n; ++index)
+    {
+        if (healths[index] > 0)
+        {
             result.push_back(healths[index]);
         }
     }

@@ -13,15 +13,18 @@
 //You have a weapon that, once fully charged, can eliminate a single monster. However, the weapon takes one minute to charge. The weapon is fully charged at the very start.
 //You lose when any monster reaches your city. If a monster reaches the city at the exact moment the weapon is fully charged, it counts as a loss, and the game ends before you can use your weapon.
 //Return the maximum number of monsters that you can eliminate before you lose, or n if you can eliminate all the monsters before they reach the city.
-template<typename T>
-requires std::is_arithmetic_v<T>
-int eliminate_monsters(std::vector<T> &dist, std::vector<T> &speed) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+int eliminate_monsters(std::vector<T>& dist, std::vector<T>& speed)
+{
     std::priority_queue<double, std::vector<double>, std::greater<>> q;
-    for (int i{}; i < dist.size(); ++i) {
+    for (int i{}; i < dist.size(); ++i)
+    {
         q.push(static_cast<double>(dist[i]) / static_cast<double>(speed[i]));
     }
     int time{};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         if (q.top() <= time)
             return time;
         time++;
@@ -31,5 +34,3 @@ int eliminate_monsters(std::vector<T> &dist, std::vector<T> &speed) {
 }
 
 #endif //ELIMINATE_MONSTERS_H
-
-

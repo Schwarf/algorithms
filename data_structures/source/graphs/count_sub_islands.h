@@ -13,49 +13,58 @@
 #include <queue>
 #include <stack>
 
-bool bfs(std::vector<std::vector<int>> &grid1, std::vector<std::vector<int>> &grid2,
-         std::vector<std::vector<bool>> &visited, int row, int col) {
+bool bfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& grid2,
+         std::vector<std::vector<bool>>& visited, int row, int col)
+{
     int rows = grid1.size();
     int columns = grid1[0].size();
-    int directions[4][2] = {{0,  1},
-                            {1,  0},
-                            {0,  -1},
-                            {-1, 0}};
+    int directions[4][2] = {
+        {0, 1},
+        {1, 0},
+        {0, -1},
+        {-1, 0}
+    };
     visited[row][col] = true;
     std::queue<std::pair<int, int>> q;
     q.emplace(row, col);
     bool answer = true;
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto [c_row, c_col] = q.front();
         q.pop();
         if (!grid1[c_row][c_col])
             answer = false;
 
-        for (auto &direction: directions) {
+        for (auto& direction : directions)
+        {
             int x = c_row + direction[0];
             int y = c_col + direction[1];
             if (x > -1 && y > -1 && x < rows && y < columns &&
-                !visited[x][y] && grid2[x][y]) {
+                !visited[x][y] && grid2[x][y])
+            {
                 q.emplace(x, y);
                 visited[x][y] = true;
             }
         }
-
     }
     return answer;
 }
 
 
-int count_sub_islands_bfs(std::vector<std::vector<int>> &grid1, std::vector<std::vector<int>> &grid2) {
+int count_sub_islands_bfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& grid2)
+{
     int rows = grid1.size();
     int columns = grid1[0].size();
     int count{};
     std::vector<std::vector<bool>> visited(rows, std::vector<bool>(columns));
-    for (int row{}; row < rows; ++row) {
-        for (int col{}; col < columns; ++col) {
+    for (int row{}; row < rows; ++row)
+    {
+        for (int col{}; col < columns; ++col)
+        {
             if (visited[row][col])
                 continue;
-            if (grid2[row][col] && bfs(grid1, grid2, visited, row, col)) {
+            if (grid2[row][col] && bfs(grid1, grid2, visited, row, col))
+            {
                 count++;
             }
         }
@@ -64,49 +73,58 @@ int count_sub_islands_bfs(std::vector<std::vector<int>> &grid1, std::vector<std:
 }
 
 
-bool dfs(std::vector<std::vector<int>> &grid1, std::vector<std::vector<int>> &grid2,
-         std::vector<std::vector<bool>> &visited, int row, int col) {
+bool dfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& grid2,
+         std::vector<std::vector<bool>>& visited, int row, int col)
+{
     int rows = grid1.size();
     int columns = grid1[0].size();
-    int directions[4][2] = {{0,  1},
-                            {1,  0},
-                            {0,  -1},
-                            {-1, 0}};
+    int directions[4][2] = {
+        {0, 1},
+        {1, 0},
+        {0, -1},
+        {-1, 0}
+    };
     visited[row][col] = true;
     std::stack<std::pair<int, int>> q;
     q.emplace(row, col);
     bool answer = true;
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto [c_row, c_col] = q.top();
         q.pop();
         if (!grid1[c_row][c_col])
             answer = false;
 
-        for (auto &direction: directions) {
+        for (auto& direction : directions)
+        {
             int x = c_row + direction[0];
             int y = c_col + direction[1];
             if (x > -1 && y > -1 && x < rows && y < columns &&
-                !visited[x][y] && grid2[x][y]) {
+                !visited[x][y] && grid2[x][y])
+            {
                 q.emplace(x, y);
                 visited[x][y] = true;
             }
         }
-
     }
     return answer;
 }
 
 
-int count_sub_islands_dfs(std::vector<std::vector<int>> &grid1, std::vector<std::vector<int>> &grid2) {
+int count_sub_islands_dfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& grid2)
+{
     int rows = grid1.size();
     int columns = grid1[0].size();
     int count{};
     std::vector<std::vector<bool>> visited(rows, std::vector<bool>(columns));
-    for (int row{}; row < rows; ++row) {
-        for (int col{}; col < columns; ++col) {
+    for (int row{}; row < rows; ++row)
+    {
+        for (int col{}; col < columns; ++col)
+        {
             if (visited[row][col])
                 continue;
-            if (grid2[row][col] && dfs(grid1, grid2, visited, row, col)) {
+            if (grid2[row][col] && dfs(grid1, grid2, visited, row, col))
+            {
                 count++;
             }
         }

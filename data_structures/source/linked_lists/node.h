@@ -5,38 +5,45 @@
 #ifndef NODE_H
 #define NODE_H
 
-template<typename T>
-struct Node {
+template <typename T>
+struct Node
+{
     Node()
-            : value(0),
-              next(nullptr) {}
+        : value(0),
+          next(nullptr)
+    {
+    }
 
     explicit Node(T val)
-            :
-            value(val) {
+        :
+        value(val)
+    {
     }
 
     T value;
-    Node<T> *next{nullptr};
+    Node<T>* next{nullptr};
 };
 
 // Node with random pointer
-template<typename T>
-struct NodePlusRP {
+template <typename T>
+struct NodePlusRP
+{
     NodePlusRP()
-            : random(nullptr) {}
+        : random(nullptr)
+    {
+    }
 
     explicit NodePlusRP(T val)
-            :
-            value(val),
-            next(nullptr),
-            random(nullptr) {
+        :
+        value(val),
+        next(nullptr),
+        random(nullptr)
+    {
     }
 
     T value;
-    NodePlusRP<T> *next{nullptr};
-    NodePlusRP<T> *random;
-
+    NodePlusRP<T>* next{nullptr};
+    NodePlusRP<T>* random;
 };
 
 #endif //NODE_H

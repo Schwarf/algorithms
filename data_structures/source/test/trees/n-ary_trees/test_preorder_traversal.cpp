@@ -4,7 +4,8 @@
 #include "trees/n-ary_trees/preorder_traversal.h"
 #include "gtest/gtest.h"
 
-TEST(TestPreorderTraversalRecursive, simple1) {
+TEST(TestPreorderTraversalRecursive, simple1)
+{
     auto tree = new TreeNode<unsigned short>(1);
     tree->children.push_back(new TreeNode<unsigned short>(3));
     tree->children.push_back(new TreeNode<unsigned short>(2));
@@ -15,7 +16,8 @@ TEST(TestPreorderTraversalRecursive, simple1) {
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalRecursive, simple2) {
+TEST(TestPreOrderTraversalRecursive, simple2)
+{
     auto tree = new TreeNode<int>(1);
     tree->children.push_back(new TreeNode<int>(2));
     tree->children.push_back(new TreeNode<int>(3));
@@ -34,7 +36,8 @@ TEST(TestPreOrderTraversalRecursive, simple2) {
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalRecursive, simple3) {
+TEST(TestPreOrderTraversalRecursive, simple3)
+{
     auto tree = new TreeNode<int>(3);
     tree->children.push_back(new TreeNode<int>(5));
     tree->children.push_back(new TreeNode<int>(1));
@@ -42,7 +45,8 @@ TEST(TestPreOrderTraversalRecursive, simple3) {
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalRecursive, simple4) {
+TEST(TestPreOrderTraversalRecursive, simple4)
+{
     auto tree = new TreeNode<int>(3);
     tree->children.push_back(new TreeNode<int>(1));
     tree->children[0]->children.push_back(new TreeNode<int>(5));
@@ -50,8 +54,9 @@ TEST(TestPreOrderTraversalRecursive, simple4) {
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalRecursive, simple5) {
-    TreeNode<float> *tree = nullptr;
+TEST(TestPreOrderTraversalRecursive, simple5)
+{
+    TreeNode<float>* tree = nullptr;
     const std::vector<float> expected_output{};
     EXPECT_EQ(preorder_traversal_recursive(tree), expected_output);
 }
@@ -60,7 +65,8 @@ TEST(TestPreOrderTraversalRecursive, simple5) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(TestPreorderTraversalIterative, simple1) {
+TEST(TestPreorderTraversalIterative, simple1)
+{
     auto tree = new TreeNode<int>(1);
     tree->children.push_back(new TreeNode<int>(3));
     tree->children.push_back(new TreeNode<int>(2));
@@ -71,7 +77,8 @@ TEST(TestPreorderTraversalIterative, simple1) {
     EXPECT_EQ(preorder_traversal_iterative(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalIterative, simple2) {
+TEST(TestPreOrderTraversalIterative, simple2)
+{
     auto tree = new TreeNode<int>(1);
     tree->children.push_back(new TreeNode<int>(2));
     tree->children.push_back(new TreeNode<int>(3));
@@ -90,7 +97,8 @@ TEST(TestPreOrderTraversalIterative, simple2) {
     EXPECT_EQ(preorder_traversal_iterative(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalIterative, simple3) {
+TEST(TestPreOrderTraversalIterative, simple3)
+{
     auto tree = new TreeNode<int>(3);
     tree->children.push_back(new TreeNode<int>(5));
     tree->children.push_back(new TreeNode<int>(1));
@@ -98,7 +106,8 @@ TEST(TestPreOrderTraversalIterative, simple3) {
     EXPECT_EQ(preorder_traversal_iterative(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalIterative, simple4) {
+TEST(TestPreOrderTraversalIterative, simple4)
+{
     auto tree = new TreeNode<int>(3);
     tree->children.push_back(new TreeNode<int>(1));
     tree->children[0]->children.push_back(new TreeNode<int>(5));
@@ -106,8 +115,9 @@ TEST(TestPreOrderTraversalIterative, simple4) {
     EXPECT_EQ(preorder_traversal_iterative(tree), expected_output);
 }
 
-TEST(TestPreOrderTraversalIterative, simple5) {
-    TreeNode<float> *tree = nullptr;
+TEST(TestPreOrderTraversalIterative, simple5)
+{
+    TreeNode<float>* tree = nullptr;
     const std::vector<float> expected_output{};
     EXPECT_EQ(preorder_traversal_iterative(tree), expected_output);
 }

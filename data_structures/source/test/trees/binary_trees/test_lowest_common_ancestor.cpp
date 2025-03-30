@@ -6,8 +6,8 @@
 #include "trees/binary_trees/lowest_common_ancestor.h"
 
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor1) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor1)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{2};
     constexpr int value2{12};
@@ -15,8 +15,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor1) {
     EXPECT_EQ(expected_result, find_lowest_common_ancestor(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor2) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor2)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{8};
     constexpr int value2{12};
@@ -25,8 +25,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor2) {
     EXPECT_NE(tree, find_lowest_common_ancestor(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor3) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor3)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{21};
     constexpr int value2{22};
@@ -35,8 +35,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor3) {
     EXPECT_NE(tree, find_lowest_common_ancestor(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor4) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor4)
+{
     auto tree = infected_tree2();
     constexpr int value1{7};
     constexpr int value2{15};
@@ -46,8 +46,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor4) {
 }
 
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor5) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor5)
+{
     auto tree = infected_tree2();
     constexpr int value1{2};
     constexpr int value2{8};
@@ -56,8 +56,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor5) {
     EXPECT_NE(tree, find_lowest_common_ancestor(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor6_FoundOnlyOne) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor6_FoundOnlyOne)
+{
     auto tree = infected_tree2();
     constexpr int value1{2};
     constexpr int value2{1278};
@@ -66,8 +66,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor6_FoundOnlyOne) {
     EXPECT_NE(tree, find_lowest_common_ancestor(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestor7_FoundOnlyOne) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestor7_FoundOnlyOne)
+{
     auto tree = infected_tree2();
     constexpr int value1{131};
     constexpr int value2{11};
@@ -77,8 +77,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestor7_FoundOnlyOne) {
 }
 
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative1) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative1)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{2};
     constexpr int value2{12};
@@ -86,8 +86,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative1) {
     EXPECT_EQ(expected_result, find_lowest_common_ancestor_iterative(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative2) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative2)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{8};
     constexpr int value2{12};
@@ -96,8 +96,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative2) {
     EXPECT_NE(tree, find_lowest_common_ancestor_iterative(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative3) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative3)
+{
     auto tree = even_odd_tree1();
     constexpr int value1{21};
     constexpr int value2{22};
@@ -106,8 +106,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative3) {
     EXPECT_NE(tree, find_lowest_common_ancestor_iterative(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative4) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative4)
+{
     auto tree = infected_tree2();
     constexpr int value1{7};
     constexpr int value2{15};
@@ -117,8 +117,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative4) {
 }
 
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative5) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative5)
+{
     auto tree = infected_tree2();
     constexpr int value1{2};
     constexpr int value2{8};
@@ -127,8 +127,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative5) {
     EXPECT_NE(tree, find_lowest_common_ancestor_iterative(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative6_FoundOnlyOne) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative6_FoundOnlyOne)
+{
     auto tree = infected_tree2();
     constexpr int value1{2};
     constexpr int value2{1278};
@@ -137,8 +137,8 @@ TEST_F(SetupBinaryTree, LowestCommomAncestorIterative6_FoundOnlyOne) {
     EXPECT_NE(tree, find_lowest_common_ancestor_iterative(tree, value1, value2));
 }
 
-TEST_F(SetupBinaryTree, LowestCommomAncestorIterative7_FoundOnlyOne) {
-
+TEST_F(SetupBinaryTree, LowestCommomAncestorIterative7_FoundOnlyOne)
+{
     auto tree = infected_tree2();
     constexpr int value1{131};
     constexpr int value2{11};

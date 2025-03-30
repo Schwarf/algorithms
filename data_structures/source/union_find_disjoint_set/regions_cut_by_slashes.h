@@ -25,39 +25,48 @@
 // |/ 2\|/ 3\|              Connecting left-triangle 7  with right-triangle 1 and left-triangle 15 with right-triangle 9 yields the formula:
 // -----------              union_set(left-triangle-index (=grid_index + 3), right-triangle-index+1(=grid_index-3))
 
-class UnionFind {
-
+class UnionFind
+{
 public:
-    explicit UnionFind(int size) : parents(size), rank(size) {
+    explicit UnionFind(int size) : parents(size), rank(size)
+    {
         // each parent points to itself
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i)
+        {
             parents[i] = i;
         }
     }
 
-    int find_parent(int element) {
-        if (parents[element] != element) {
-            parents[element] = find_parent(parents[element]);  // Path compression
+    int find_parent(int element)
+    {
+        if (parents[element] != element)
+        {
+            parents[element] = find_parent(parents[element]); // Path compression
         }
         return parents[element];
     }
 
-    void union_set(int element1, int element2) {
+    void union_set(int element1, int element2)
+    {
         auto root_element1 = find_parent(element1);
         auto root_element2 = find_parent(element2);
-        if (root_element1 != root_element2) {
+        if (root_element1 != root_element2)
+        {
             // Union by rank
-            if (rank[root_element1] > rank[root_element2]) {
+            if (rank[root_element1] > rank[root_element2])
+            {
                 parents[root_element2] = root_element1;
-            } else if (rank[root_element1] < rank[root_element2]) {
+            }
+            else if (rank[root_element1] < rank[root_element2])
+            {
                 parents[root_element1] = root_element2;
-            } else {
+            }
+            else
+            {
                 parents[root_element2] = root_element1;
                 rank[root_element1] += 1;
             }
         }
-
-
     }
 
 private:
@@ -65,38 +74,48 @@ private:
     std::vector<int> rank;
 };
 
-int count_regions_by_slahes(std::vector<std::string> &grid) {
+int count_regions_by_slahes(std::vector<std::string>& grid)
+{
     int n = grid.size();
     int number_of_triangles = n * n * 4;
     UnionFind union_find(number_of_triangles);
 
-    for (int r = 0; r < n; ++r) {
-        for (int c = 0; c < n; ++c) {
+    for (int r = 0; r < n; ++r)
+    {
+        for (int c = 0; c < n; ++c)
+        {
             int grid_index = 4 * (r * n + c);
             char val = grid[r][c];
 
-            if (val == ' ') {
+            if (val == ' ')
+            {
                 // Connect all four triangles if it's a blank space
                 union_find.union_set(grid_index, grid_index + 1);
                 union_find.union_set(grid_index + 1, grid_index + 2);
                 union_find.union_set(grid_index + 2, grid_index + 3);
-            } else if (val == '/') {
+            }
+            else if (val == '/')
+            {
                 // Connect top left to bottom right
                 union_find.union_set(grid_index, grid_index + 3);
                 union_find.union_set(grid_index + 1, grid_index + 2);
-            } else if (val == '\\') {
+            }
+            else if (val == '\\')
+            {
                 // Connect top right to bottom left
                 union_find.union_set(grid_index, grid_index + 1);
                 union_find.union_set(grid_index + 2, grid_index + 3);
             }
 
             // Connect with the adjacent cells
-            if (r > 0) {
+            if (r > 0)
+            {
                 union_find.union_set(grid_index,
                                      grid_index - 4 * n +
                                      2); // Connect top triangle to the bottom triangle of above cell
             }
-            if (c > 0) {
+            if (c > 0)
+            {
                 union_find.union_set(grid_index + 3,
                                      grid_index - 3); // Connect left triangle to the right triangle of the left cell
             }
@@ -105,8 +124,10 @@ int count_regions_by_slahes(std::vector<std::string> &grid) {
 
     // Count unique parents
     int count{};
-    for (int i = 0; i < number_of_triangles; ++i) {
-        if (union_find.find_parent(i) == i) {
+    for (int i = 0; i < number_of_triangles; ++i)
+    {
+        if (union_find.find_parent(i) == i)
+        {
             count++;
         }
     }

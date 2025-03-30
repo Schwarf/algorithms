@@ -8,15 +8,18 @@
 #include "avl_node.h"
 #include <iostream>
 
-template<typename T>
-class AVLTree {
+template <typename T>
+class AVLTree
+{
 public:
-    void insert(const T &value) {
+    void insert(const T& value)
+    {
         root_ = insert_(root_, value);
         number_of_nodes_++;
     }
 
-    void delete_node_with_value(const T &value) {
+    void delete_node_with_value(const T& value)
+    {
         root_ = delete_(root_, value);
         if (root_)
             number_of_nodes_--;
@@ -24,40 +27,46 @@ public:
             number_of_nodes_ = 0;
     }
 
-    void print_inorder_traversal() const {
+    void print_inorder_traversal() const
+    {
         print_inorder_traversal_(root_);
     }
 
-    std::vector<T> get_vector_inorder() {
+    std::vector<T> get_vector_inorder()
+    {
         std::vector<T> result;
         write_to_vector_inorder_(root_, result);
         return result;
     }
 
-    int height() const {
+    int height() const
+    {
         return root_->height;
     }
 
-    int number_of_nodes() const {
+    int number_of_nodes() const
+    {
         return number_of_nodes_;
     }
 
-    bool is_value_in_tree(const T &value) const {
-
+    bool is_value_in_tree(const T& value) const
+    {
         return find_(value, root_);
     }
 
 private:
-    AVLNode<T> *root_ = nullptr;
+    AVLNode<T>* root_ = nullptr;
     size_t number_of_nodes_{};
 
-    int height_(AVLNode<T> *node) const {
+    int height_(AVLNode<T>* node) const
+    {
         if (node)
             return node->height;
         return 0;
     }
 
-    bool find_(const T &value, AVLNode<T> *node) const {
+    bool find_(const T& value, AVLNode<T>* node) const
+    {
         if (node == nullptr)
             return false;
         else if (node->value == value)
@@ -68,7 +77,8 @@ private:
             return find_(value, node->right);
     }
 
-    void write_to_vector_inorder_(AVLNode<T> *node, std::vector<T> &result) const {
+    void write_to_vector_inorder_(AVLNode<T>* node, std::vector<T>& result) const
+    {
         if (!node)
             return;
         write_to_vector_inorder_(node->left, result);
@@ -76,7 +86,8 @@ private:
         write_to_vector_inorder_(node->right, result);
     }
 
-    void print_inorder_traversal_(AVLNode<T> *node) const {
+    void print_inorder_traversal_(AVLNode<T>* node) const
+    {
         if (!node)
             return;
         print_inorder_traversal_(node->left);
@@ -84,14 +95,16 @@ private:
         print_inorder_traversal_(node->right);
     }
 
-    AVLNode<T> *minimal_value_in_subtree_(AVLNode<T> *node) const {
+    AVLNode<T>* minimal_value_in_subtree_(AVLNode<T>* node) const
+    {
         auto current = node;
         while (current->left != nullptr)
             current = current->left;
         return current;
     }
 
-    AVLNode<T> *balance_tree_(AVLNode<T> *node) {
+    AVLNode<T>* balance_tree_(AVLNode<T>* node)
+    {
         node->height = 1 + std::max(height_(node->left), height_(node->right));
         auto balance = compute_balance_(node);
         auto left_balance = compute_balance_(node->left);
@@ -115,7 +128,8 @@ private:
         // definition of balance value seems to be off by a minus sign
         // alternatively check that the balance of the child has the OPPOSITE sign than the node
         // if (balance > 1 && value > node->left->value) {
-        if (balance > 1 && left_balance < 0) {
+        if (balance > 1 && left_balance < 0)
+        {
             node->left = left_rotation(node->left);
             return right_rotation(node);
         }
@@ -137,38 +151,43 @@ private:
         // definition of balance value seems to be off by a minus sign
         // alternatively check that the balance of the child has the OPPOSITE sign than the node
         // if (balance < -1 && value < node->right->value) {
-        if (balance < -1 && right_balance > 0) {
+        if (balance < -1 && right_balance > 0)
+        {
             node->right = right_rotation(node->right);
             return left_rotation(node);
         }
         return nullptr;
-
     }
 
-    AVLNode<T> *delete_(AVLNode<T> *node, T value) {
+    AVLNode<T>* delete_(AVLNode<T>* node, T value)
+    {
         if (node == nullptr)
             return nullptr;
         if (value < node->value)
             node->left = delete_(node->left, value);
         else if (value > node->value)
             node->right = delete_(node->right, value);
-        else {
-            AVLNode<T> *temp = nullptr;
+        else
+        {
+            AVLNode<T>* temp = nullptr;
             // node with one or no child
-            if (node->left == nullptr || node->right == nullptr) {
+            if (node->left == nullptr || node->right == nullptr)
+            {
                 temp = node->left ? node->left : node->right;
                 // no child
-                if (temp == nullptr) {
+                if (temp == nullptr)
+                {
                     temp = node;
                     node = nullptr;
                 }
-                    // One child ... copy child content
+                // One child ... copy child content
                 else
                     *node = *temp;
                 delete (temp);
             }
-                // node with two children
-            else {
+            // node with two children
+            else
+            {
                 // the node successor is the minimum in the right subtree
                 temp = minimal_value_in_subtree_(node->right);
                 // replace value in current node with successor node
@@ -185,17 +204,18 @@ private:
         return balanced ? balanced : node;
     }
 
-/*
-                               RIGHT ROTATION
-              parent                                        p_l
-              /     \                                      /   \
-             /       \              ------->              /     \
-           p_l        p_r                            p_l_l       parent
-          /  \                                                   /    \
-         /    \                                                 /      \
-     p_l_l    p_l_r                                           p_l_r    p_r
-*/
-    AVLNode<T> *right_rotation(AVLNode<T> *parent) {
+    /*
+                                   RIGHT ROTATION
+                  parent                                        p_l
+                  /     \                                      /   \
+                 /       \              ------->              /     \
+               p_l        p_r                            p_l_l       parent
+              /  \                                                   /    \
+             /    \                                                 /      \
+         p_l_l    p_l_r                                           p_l_r    p_r
+    */
+    AVLNode<T>* right_rotation(AVLNode<T>* parent)
+    {
         auto p_l = parent->left;
         auto p_l_r = p_l->right;
         p_l->right = parent;
@@ -203,21 +223,21 @@ private:
         parent->height = 1 + std::max(height_(parent->left), height_(parent->right));
         p_l->height = 1 + std::max(height_(p_l->left), height_(p_l->right));
         return p_l;
-
     }
 
-/*
-                               LEFT ROTATION
-                p_r                                        parent
-              /     \                                      /    \
-             /       \              <-------              /      \
-           parent    p_r_r                              p_l       p_r
-          /  \                                                   /    \
-         /    \                                                 /      \
-       p_l    p_r_l                                           p_r_l    p_r_r
-*/
+    /*
+                                   LEFT ROTATION
+                    p_r                                        parent
+                  /     \                                      /    \
+                 /       \              <-------              /      \
+               parent    p_r_r                              p_l       p_r
+              /  \                                                   /    \
+             /    \                                                 /      \
+           p_l    p_r_l                                           p_r_l    p_r_r
+    */
 
-    AVLNode<T> *left_rotation(AVLNode<T> *parent) {
+    AVLNode<T>* left_rotation(AVLNode<T>* parent)
+    {
         auto p_r = parent->right;
         auto p_r_l = p_r->left;
         p_r->left = parent;
@@ -227,13 +247,15 @@ private:
         return p_r;
     }
 
-    int compute_balance_(AVLNode<T> *node) const {
+    int compute_balance_(AVLNode<T>* node) const
+    {
         if (node == nullptr)
             return 0;
         return height_(node->left) - height_(node->right);
     }
 
-    AVLNode<T> *insert_(AVLNode<T> *node, const T &value) {
+    AVLNode<T>* insert_(AVLNode<T>* node, const T& value)
+    {
         if (!node)
             return new AVLNode<T>(value);
 
@@ -246,9 +268,7 @@ private:
 
         auto balanced = balance_tree_(node);
         return balanced ? balanced : node;
-
     }
-
 };
 
 

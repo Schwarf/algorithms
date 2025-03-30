@@ -38,8 +38,9 @@ long long find_ksum_in_array(std::vector<int>& input, int k)
     //Initialize priority queue (minheap) to store current least value which needs to be
     //subtracted from maxsum and the index of nums we are currently at.
     using input_index = int;
-    std::priority_queue<std::pair<long long, input_index>, std::vector<std::pair<long long, input_index>>, std::greater<std::pair<
-                            long long, input_index>>> pq;
+    std::priority_queue<std::pair<long long, input_index>, std::vector<std::pair<long long, input_index>>, std::greater<
+                            std::pair<
+                                long long, input_index>>> pq;
     //start from index 0 with minimum value as nums[0]
     pq.push({input[0], 0});
     while (!pq.empty() && subtract.size() < k - 1)

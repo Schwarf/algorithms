@@ -8,12 +8,13 @@
 #include <optional>
 
 // Define a concept to check if a type is hashable.
-template<typename T>
-concept is_hashable = requires(T t) {
-	{ std::hash<T>{}(t) } -> std::convertible_to<size_t>;
+template <typename T>
+concept is_hashable = requires(T t)
+{
+    { std::hash<T>{}(t) } -> std::convertible_to<size_t>;
 };
 
-template<typename T>
+template <typename T>
 concept is_optional_type = std::same_as<T, std::optional<typename T::value_type>>;
 
 

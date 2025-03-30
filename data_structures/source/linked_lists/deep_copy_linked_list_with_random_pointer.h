@@ -22,26 +22,28 @@
 //	- random_index: the index of the node (range from 0 to n-1) that the random pointer points to,
 //    or null if it does not point to any node.
 
-template<typename T>
-NodePlusRP<T> *deep_copy_linked_list_with_random_pointer(NodePlusRP<T> *head)
+template <typename T>
+NodePlusRP<T>* deep_copy_linked_list_with_random_pointer(NodePlusRP<T>* head)
 {
-	if (!head)
-		return nullptr;
-	std::unordered_map<NodePlusRP<T> *, NodePlusRP<T> *> old_to_new;
-	auto current = head;
-	while (current) {
-		old_to_new[current] = new NodePlusRP<T>(current->value);
-		current = current->next;
-	}
-	current = head;
-	while (current) {
-		// Establish 'next' connection
-		old_to_new[current]->next = old_to_new[current->next];
-		// Establish 'random' connection
-		old_to_new[current]->random = old_to_new[current->random];
-		current = current->next;
-	}
-	return old_to_new[head];
+    if (!head)
+        return nullptr;
+    std::unordered_map<NodePlusRP<T>*, NodePlusRP<T>*> old_to_new;
+    auto current = head;
+    while (current)
+    {
+        old_to_new[current] = new NodePlusRP<T>(current->value);
+        current = current->next;
+    }
+    current = head;
+    while (current)
+    {
+        // Establish 'next' connection
+        old_to_new[current]->next = old_to_new[current->next];
+        // Establish 'random' connection
+        old_to_new[current]->random = old_to_new[current->random];
+        current = current->next;
+    }
+    return old_to_new[head];
 }
 
 #endif //DEEP_COPY_LINKED_LIST_WITH_RANDOM_POINTER_H

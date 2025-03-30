@@ -88,4 +88,3 @@ TEST(TestShortestPathINGridWithObstacles, simple6)
     constexpr int expected_result{20};
     EXPECT_EQ(expected_result, shortest_path_in_grid_with_obstacles(grid, source, target));
 }
-

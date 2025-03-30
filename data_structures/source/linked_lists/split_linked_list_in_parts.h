@@ -13,23 +13,27 @@
 // Distribute the nodes of L as evenly as possible among the kkk parts. Each part should have a length that
 // varies by at most one from the others.
 
-template<typename T>
-std::vector<Node<T> *> split_linked_list_in_parts(Node<T> *head, int k) {
-    std::vector<Node<T> *> result(k);
+template <typename T>
+std::vector<Node<T>*> split_linked_list_in_parts(Node<T>* head, int k)
+{
+    std::vector<Node<T>*> result(k);
 
     int size{};
     auto current = head;
-    while (current) {
+    while (current)
+    {
         size++;
         current = current->next;
     }
     int nodes_per_list = size / k;
     int additional_nodes = size % k;
     current = head;
-    Node<T> *previous = nullptr;
-    for (int i{}; i < k; ++i, --additional_nodes) {
+    Node<T>* previous = nullptr;
+    for (int i{}; i < k; ++i, --additional_nodes)
+    {
         result[i] = current;
-        for (int j{}; j < nodes_per_list + (additional_nodes > 0); ++j) {
+        for (int j{}; j < nodes_per_list + (additional_nodes > 0); ++j)
+        {
             previous = current;
             current = current->next;
         }

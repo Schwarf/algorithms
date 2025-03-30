@@ -10,18 +10,20 @@
 #include <vector>
 #include <stack>
 
-std::vector<int> daily_temperatures(const std::vector<int> &temperatures)
+std::vector<int> daily_temperatures(const std::vector<int>& temperatures)
 {
-	std::stack<int> help;
-	std::vector<int> result(temperatures.size(), 0);
-	for (int i{}; i < temperatures.size(); ++i) {
-		while (!help.empty() && temperatures[help.top()] < temperatures[i]) {
-			result[help.top()] = i - help.top();
-			help.pop();
-		}
-		help.push(i);
-	}
-	return result;
+    std::stack<int> help;
+    std::vector<int> result(temperatures.size(), 0);
+    for (int i{}; i < temperatures.size(); ++i)
+    {
+        while (!help.empty() && temperatures[help.top()] < temperatures[i])
+        {
+            result[help.top()] = i - help.top();
+            help.pop();
+        }
+        help.push(i);
+    }
+    return result;
 }
 
 

@@ -15,21 +15,23 @@
 int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, int k)
 {
     int rows = grid.size(), columns = grid[0].size();
-    if(rows == 0 || columns == 0)
+    if (rows == 0 || columns == 0)
         return -1;
     // If the grid is only one cell, it's already the destination.
-    if(rows == 1 && columns == 1)
+    if (rows == 1 && columns == 1)
         return 0;
 
     // 3D visited vector: visited[i][j][r] indicates whether cell (i, j) has been visited with r remaining eliminations
-    std::vector<std::vector<std::vector<bool>>> visited(rows, std::vector<std::vector<bool>>(columns, std::vector<bool>(k + 1, false)));
+    std::vector<std::vector<std::vector<bool>>> visited(
+        rows, std::vector<std::vector<bool>>(columns, std::vector<bool>(k + 1, false)));
     // Queue for BFS: each element is (i, j, remaining, steps)
     std::queue<std::tuple<int, int, int, int>> queue;
     queue.push({0, 0, k, 0});
     visited[0][0][k] = true;
     std::vector<std::pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-    while (!queue.empty()) {
+    while (!queue.empty())
+    {
         auto [row, column, obstacles, steps] = queue.front();
         queue.pop();
 
@@ -38,7 +40,8 @@ int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, 
             return steps;
 
         // Explore all 4 directions.
-        for (auto [x, y] : directions) {
+        for (auto [x, y] : directions)
+        {
             int new_row = row + x;
             int new_column = column + y;
 
@@ -48,7 +51,8 @@ int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, 
 
             int new_obstacles = obstacles;
             // If the cell is an obstacle:
-            if (grid[new_row][new_column] == 1) {
+            if (grid[new_row][new_column] == 1)
+            {
                 if (new_obstacles > 0)
                     new_obstacles--;
                 else
@@ -56,7 +60,8 @@ int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, 
             }
 
             // If this state hasn't been visited, add it to the queue.
-            if (!visited[new_row][new_column][new_obstacles]) {
+            if (!visited[new_row][new_column][new_obstacles])
+            {
                 visited[new_row][new_column][new_obstacles] = true;
                 queue.push({new_row, new_column, new_obstacles, steps + 1});
             }

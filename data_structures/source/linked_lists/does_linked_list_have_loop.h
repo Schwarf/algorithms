@@ -7,13 +7,15 @@
 
 #include "node.h"
 
-template<typename T>
-Node<T> *does_linked_list_have_loop(Node<T> *head) {
+template <typename T>
+Node<T>* does_linked_list_have_loop(Node<T>* head)
+{
     if (!head)
         return nullptr;
     auto fast = head;
     auto slow = head;
-    while (fast && fast->next) {
+    while (fast && fast->next)
+    {
         slow = slow->next;
         fast = fast->next->next;
         if (fast == slow)
@@ -22,7 +24,8 @@ Node<T> *does_linked_list_have_loop(Node<T> *head) {
     if (!fast || !fast->next)
         return nullptr;
     fast = head;
-    while (slow != fast) {
+    while (slow != fast)
+    {
         slow = slow->next;
         fast = fast->next;
     }
@@ -31,4 +34,3 @@ Node<T> *does_linked_list_have_loop(Node<T> *head) {
 }
 
 #endif //DOES_LINKED_LIST_HAVE_LOOP_H
-

@@ -6,7 +6,8 @@
 #include "graphs/depth_first_search.h"
 
 
-class SetupDFSGraph : public testing::Test {
+class SetupDFSGraph : public testing::Test
+{
 public:
     SetupDFSGraph() = default;
 
@@ -19,7 +20,8 @@ protected:
     int id6 = 6, data6 = 6;
     int id7 = 7, data7 = 7;
 
-    Graph<int, int> get_graph(int start_vertex_id, GraphNodePtr<int, int> &start_vertex) const {
+    Graph<int, int> get_graph(int start_vertex_id, GraphNodePtr<int, int>& start_vertex) const
+    {
         const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
         const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
         const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
@@ -40,7 +42,8 @@ protected:
         return graph;
     }
 
-    Graph<int, int> get_graph_without_cycle(int start_vertex_id, GraphNodePtr<int, int> &start_vertex) const {
+    Graph<int, int> get_graph_without_cycle(int start_vertex_id, GraphNodePtr<int, int>& start_vertex) const
+    {
         const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
         const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
         const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
@@ -58,65 +61,76 @@ protected:
         start_vertex = graph.get_vertex_by_id(start_vertex_id);
         return graph;
     }
-
 };
 
-TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex1) {
+TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex1)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 1;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{{2, 1},
-                                         {3, 1},
-                                         {4, 3},
-                                         {5, 3},
-                                         {6, 5},
-                                         {7, 5}};
+    std::map<int, int> expected_dfs_tree{
+        {2, 1},
+        {3, 1},
+        {4, 3},
+        {5, 3},
+        {6, 5},
+        {7, 5}
+    };
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
-    for (const auto &[child, parent]: expected_dfs_tree) {
+    for (const auto& [child, parent] : expected_dfs_tree)
+    {
         EXPECT_EQ(parent, dfs_tree.at(child));
     }
 }
 
 
-TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex4) {
+TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex4)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 4;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{{3, 4},
-                                         {1, 3},
-                                         {2, 3},
-                                         {5, 3},
-                                         {6, 5},
-                                         {7, 5}};
+    std::map<int, int> expected_dfs_tree{
+        {3, 4},
+        {1, 3},
+        {2, 3},
+        {5, 3},
+        {6, 5},
+        {7, 5}
+    };
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
-    for (const auto &[child, parent]: expected_dfs_tree) {
+    for (const auto& [child, parent] : expected_dfs_tree)
+    {
         EXPECT_EQ(parent, dfs_tree.at(child));
     }
-
 }
 
 
-TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex5) {
+TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex5)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 5;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{{3, 5},
-                                         {6, 5},
-                                         {7, 5},
-                                         {2, 6},
-                                         {1, 2},
-                                         {4, 3}};
+    std::map<int, int> expected_dfs_tree{
+        {3, 5},
+        {6, 5},
+        {7, 5},
+        {2, 6},
+        {1, 2},
+        {4, 3}
+    };
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
-    for (const auto &[child, parent]: expected_dfs_tree) {
+    for (const auto& [child, parent] : expected_dfs_tree)
+    {
         EXPECT_EQ(parent, dfs_tree.at(child));
     }
 }
 
 
-TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex1) {
+TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex1)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 1;
     auto graph = get_graph(start_vertex_id, start_vertex);
@@ -126,7 +140,8 @@ TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex1) {
 }
 
 
-TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex6) {
+TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex6)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 6;
     auto graph = get_graph(start_vertex_id, start_vertex);
@@ -135,7 +150,8 @@ TEST_F(SetupDFSGraph, test_depth_first_search_has_cycle_vertex6) {
     EXPECT_TRUE(graph.has_cycle());
 }
 
-TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex1) {
+TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex1)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 1;
     auto graph = get_graph_without_cycle(start_vertex_id, start_vertex);
@@ -145,7 +161,8 @@ TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex1) {
 }
 
 
-TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex4) {
+TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex4)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 4;
     auto graph = get_graph_without_cycle(start_vertex_id, start_vertex);
@@ -154,7 +171,8 @@ TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex4) {
     EXPECT_FALSE(graph.has_cycle());
 }
 
-TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex2) {
+TEST_F(SetupDFSGraph, test_depth_first_search_has_no_cycle_vertex2)
+{
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 2;
     auto graph = get_graph_without_cycle(start_vertex_id, start_vertex);

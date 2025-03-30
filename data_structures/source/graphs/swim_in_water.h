@@ -9,7 +9,9 @@
 // Return the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0).
 #include <vector>
 #include <queue>
-int swim_in_water(std::vector<std::vector<int>>& grid) {
+
+int swim_in_water(std::vector<std::vector<int>>& grid)
+{
     int n = grid.size();
     // 2D visited array to ensure we don't process a cell more than once.
     std::vector<std::vector<bool>> visited(n, std::vector<bool>(n, false));
@@ -25,7 +27,8 @@ int swim_in_water(std::vector<std::vector<int>>& grid) {
     // Directions: up, down, left, right.
     std::vector<std::pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-    while (!pq.empty()) {
+    while (!pq.empty())
+    {
         auto [cost, row, column] = pq.top();
         pq.pop();
 
@@ -34,11 +37,13 @@ int swim_in_water(std::vector<std::vector<int>>& grid) {
             return cost;
 
         // Check all 4-directional moves.
-        for (auto & [x, y] : directions) {
+        for (auto& [x, y] : directions)
+        {
             int new_row = row + x;
             int new_column = column + y;
             // Check boundaries.
-            if (new_row >= 0 && new_row < n && new_column >= 0 && new_column < n && !visited[new_row][new_column]) {
+            if (new_row >= 0 && new_row < n && new_column >= 0 && new_column < n && !visited[new_row][new_column])
+            {
                 visited[new_row][new_column] = true;
                 // The cost to move to neighbor is the maximum of the current path cost and neighbor's elevation.
                 int new_cost = std::max(cost, grid[new_row][new_column]);

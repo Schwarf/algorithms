@@ -6,7 +6,8 @@
 #include "trees/fenwick_tree/fenwick_tree.h"  // Include your Fenwick Tree implementation
 
 // Test Initialization with Data
-TEST(FenwickTreeTest, InitializesCorrectlyWithData) {
+TEST(FenwickTreeTest, InitializesCorrectlyWithData)
+{
     std::vector<int> data = {1, 2, 3, 4, 5};
     FenwickTree<int> fenwick_tree(data);
     constexpr int expected_result{15};
@@ -14,7 +15,8 @@ TEST(FenwickTreeTest, InitializesCorrectlyWithData) {
 }
 
 // Test Single Update
-TEST(FenwickTreeTest, HandlesSingleUpdate) {
+TEST(FenwickTreeTest, HandlesSingleUpdate)
+{
     std::vector<int> data = {1, 2, 3, 4, 5};
     FenwickTree<int> fenwick_tree(data);
     fenwick_tree.update(2, 5); // Update index 2 to add 5
@@ -23,7 +25,8 @@ TEST(FenwickTreeTest, HandlesSingleUpdate) {
 }
 
 // Test Range Query
-TEST(FenwickTreeTest, HandlesRangeQuery) {
+TEST(FenwickTreeTest, HandlesRangeQuery)
+{
     std::vector<int> data = {1, 2, 3, 4, 5};
     FenwickTree<int> fenwick_tree(data);
     constexpr int expected_result{9};
@@ -31,7 +34,8 @@ TEST(FenwickTreeTest, HandlesRangeQuery) {
 }
 
 // Test Updates at Boundaries
-TEST(FenwickTreeTest, UpdatesAtBoundaries) {
+TEST(FenwickTreeTest, UpdatesAtBoundaries)
+{
     std::vector<int> data = {1, 2, 3, 4, 5};
     FenwickTree<int> fenwick_tree(data);
     fenwick_tree.update(0, 1); // Update first element
@@ -43,14 +47,16 @@ TEST(FenwickTreeTest, UpdatesAtBoundaries) {
 }
 
 // Test Initialization with floating-point numbers
-TEST(FenwickTreeTest, InitializesCorrectlyWithFloats) {
+TEST(FenwickTreeTest, InitializesCorrectlyWithFloats)
+{
     std::vector<double> data = {0.1, 0.2, 0.3, 0.4, 0.5};
     FenwickTree<double> ft(data);
     EXPECT_NEAR(ft.get_sum(0, 4), 1.5, 1e-5);
 }
 
 // Test updates with max int
-TEST(FenwickTreeTest, HandleMaxIntUpdates) {
+TEST(FenwickTreeTest, HandleMaxIntUpdates)
+{
     std::vector<int> data = {0, 0, 0, 0, 0};
     FenwickTree<int> ft(data);
     ft.update(2, std::numeric_limits<int>::max());
@@ -58,7 +64,8 @@ TEST(FenwickTreeTest, HandleMaxIntUpdates) {
 }
 
 // Test update with negative values
-TEST(FenwickTreeTest, HandlesNegativeUpdates) {
+TEST(FenwickTreeTest, HandlesNegativeUpdates)
+{
     std::vector<int> data = {5, 5, 5, 5, 5};
     FenwickTree<int> ft(data);
     ft.update(2, -3);
@@ -66,7 +73,8 @@ TEST(FenwickTreeTest, HandlesNegativeUpdates) {
 }
 
 // Floating point precision test
-TEST(FenwickTreeTest, FloatingPointPrecision) {
+TEST(FenwickTreeTest, FloatingPointPrecision)
+{
     std::vector<float> data = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
     FenwickTree<float> ft(data);
     ft.update(0, 0.000001f);

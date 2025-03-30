@@ -5,7 +5,8 @@
 #include "trees/binary_trees/insert_row_into_tree.h"
 #include "trees/binary_trees/pre_order_traversal.h"
 
-TEST_F(SetupBinaryTree, TestInsertRowIntoTree1) {
+TEST_F(SetupBinaryTree, TestInsertRowIntoTree1)
+{
     constexpr int input_tree_index{};
     constexpr int output_tree_index{1};
     constexpr int value_index{2};
@@ -20,7 +21,8 @@ TEST_F(SetupBinaryTree, TestInsertRowIntoTree1) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, TestInsertRowIntoTree2) {
+TEST_F(SetupBinaryTree, TestInsertRowIntoTree2)
+{
     constexpr int input_tree_index{};
     constexpr int output_tree_index{1};
     constexpr int value_index{2};

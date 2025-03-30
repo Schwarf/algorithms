@@ -5,14 +5,15 @@
 #ifndef I_HEAP_H
 #define I_HEAP_H
 
-template<typename T>
-class IHeap {
+template <typename T>
+class IHeap
+{
 public:
     virtual T pop_maximum() = 0;
 
     virtual T get_maximum() const = 0;
 
-    virtual void insert(const T &value) = 0;
+    virtual void insert(const T& value) = 0;
 
     virtual size_t size() const = 0;
 

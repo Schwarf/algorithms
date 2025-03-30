@@ -100,4 +100,3 @@ TEST_F(SetupBinaryTree, TestCountGoodNodesbfsSimple4)
     constexpr int expected_result{6};
     EXPECT_EQ(expected_result, count_good_nodes_bfs(tree));
 }
-

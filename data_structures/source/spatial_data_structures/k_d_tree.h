@@ -11,11 +11,11 @@
 #include <ranges>
 
 template <typename T, size_t dimensions>
-requires std::is_floating_point_v<T>
+    requires std::is_floating_point_v<T>
 class KDTree
 {
 public:
-    explicit KDTree(std::vector<std::array<T, dimensions>> & points)
+    explicit KDTree(std::vector<std::array<T, dimensions>>& points)
     {
         root = build_tree(points, 0, 0, points.size());
     }
@@ -29,7 +29,8 @@ public:
     }
 
 private:
-    bool equal(const T x,  const T y, const double error = 1.e-12) const {
+    bool equal(const T x, const T y, const double error = 1.e-12) const
+    {
         return (x <= (y + error)) && (x >= (y - error));
     }
 
@@ -56,48 +57,48 @@ private:
         int axis = depth % dimensions;
         int mid = start + (end - start) / 2;
         std::nth_element(points.begin() + start, points.begin() + mid, points.begin() + end,
-            [axis](const std::array<T, dimensions>& p1, const std::array<T, dimensions>& p2)
-            {
-                return p1[axis] < p2[axis];
-            });
+                         [axis](const std::array<T, dimensions>& p1, const std::array<T, dimensions>& p2)
+                         {
+                             return p1[axis] < p2[axis];
+                         });
         std::unique_ptr<Node> node = std::make_unique<Node>(points[mid]);
         node->left = build_tree(points, depth + 1, start, mid);
-        node->right = build_tree(points, depth + 1, mid+1, mid);
+        node->right = build_tree(points, depth + 1, mid + 1, mid);
         return node;
     }
 
     T squared_euclidean_distance(const std::array<T, dimensions>& point1, const std::array<T, dimensions>& point2) const
     {
         T result{};
-        for(size_t i = 0; i < dimensions; i++)
+        for (size_t i = 0; i < dimensions; i++)
         {
             result += (point1[i] - point2[i]) * (point1[i] - point2[i]);
         }
         return result;
     }
 
-    void nearest_helper(Node* node, const std::array<T, dimensions>& target, int depth, std::array<T, dimensions>& nearest_point,
-        T& best_distance) const
+    void nearest_helper(Node* node, const std::array<T, dimensions>& target, int depth,
+                        std::array<T, dimensions>& nearest_point,
+                        T& best_distance) const
     {
         if (!node)
             return;
         int axis = depth % dimensions;
         auto squared_distance = squared_euclidean_distance(target, node->point);
 
-        if (squared_distance < best_distance || (equal(squared_distance,best_distance) && node->point < nearest_point))
+        if (squared_distance < best_distance || (equal(squared_distance, best_distance) && node->point < nearest_point))
         {
             best_distance = squared_distance;
             nearest_point = node->point;
         }
         auto difference = target[axis] - node->point[axis];
-        Node * nearest_child = (difference < 0) ? node->left.get() : node->right.get();
-        Node * farest_child = (difference < 0) ? node->right.get() : node->left.get();
+        Node* nearest_child = (difference < 0) ? node->left.get() : node->right.get();
+        Node* farest_child = (difference < 0) ? node->right.get() : node->left.get();
 
         nearest_helper(nearest_child, target, depth + 1, nearest_point, best_distance);
-        if (difference * difference <  best_distance)
+        if (difference * difference < best_distance)
             nearest_helper(farest_child, target, depth + 1, nearest_point, best_distance);
     }
-
 };
 
 #endif //K_D_TREE_H

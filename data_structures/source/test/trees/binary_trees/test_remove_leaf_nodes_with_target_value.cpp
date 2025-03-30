@@ -5,7 +5,8 @@
 #include "trees/binary_trees/pre_order_traversal.h"
 #include "trees/binary_trees/remove_leaf_nodes_with_target_value.h"
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesSimple1) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple1)
+{
     auto input = medium_tree_with_subtree_duplicates3();
     constexpr unsigned int target{2U};
     auto result_tree = remove_leaf_nodes(input, target);
@@ -20,7 +21,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple1) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesSimple2) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple2)
+{
     auto input = medium_tree_with_subtree_duplicates2();
     constexpr unsigned int target{3U};
     auto result_tree = remove_leaf_nodes(input, target);
@@ -32,7 +34,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple2) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesSimple3) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple3)
+{
     auto input = medium_tree_with_subtree_duplicates1();
     constexpr unsigned int target{4U};
     auto result_tree = remove_leaf_nodes(input, target);
@@ -45,7 +48,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple3) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesSimple4) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple4)
+{
     auto input = medium_tree_with_subtree_duplicates1();
     input->left->left = new TreeNode(4U);
     constexpr unsigned int target{4U};
@@ -60,7 +64,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple4) {
 }
 
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesSimple5) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesSimple5)
+{
     auto input = small_tree_with_subtree_duplicates();
     input->value = 2U;
     constexpr unsigned int target{2U};
@@ -68,7 +73,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesSimple5) {
     EXPECT_EQ(result_tree, nullptr);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple1) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple1)
+{
     auto input = medium_tree_with_subtree_duplicates3();
     constexpr unsigned int target{2U};
     auto result_tree = remove_leaf_nodes_iterative(input, target);
@@ -83,7 +89,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple1) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple2) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple2)
+{
     auto input = medium_tree_with_subtree_duplicates2();
     constexpr unsigned int target{3U};
     auto result_tree = remove_leaf_nodes_iterative(input, target);
@@ -95,7 +102,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple2) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple3) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple3)
+{
     auto input = medium_tree_with_subtree_duplicates1();
     constexpr unsigned int target{4U};
     auto result_tree = remove_leaf_nodes_iterative(input, target);
@@ -108,7 +116,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple3) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple4) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple4)
+{
     auto input = medium_tree_with_subtree_duplicates1();
     input->left->left = new TreeNode(4U);
     constexpr unsigned int target{4U};
@@ -123,7 +132,8 @@ TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple4) {
 }
 
 
-TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple5) {
+TEST_F(SetupBinaryTree, RemoveLeafNodesIterativeSimple5)
+{
     auto input = small_tree_with_subtree_duplicates();
     input->value = 2U;
     constexpr unsigned int target{2U};

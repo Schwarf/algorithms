@@ -4,7 +4,8 @@
 #include "gtest/gtest.h"
 #include "graphs/does_path_in_graph_exist.h"
 
-class SetupDoesPathExist : public testing::Test {
+class SetupDoesPathExist : public testing::Test
+{
 public:
     SetupDoesPathExist() = default;
 
@@ -16,7 +17,8 @@ protected:
     int id5 = 5, data5 = 5;
 };
 
-TEST_F(SetupDoesPathExist, test_simple_case) {
+TEST_F(SetupDoesPathExist, test_simple_case)
+{
     auto graph = Graph<int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -46,7 +48,8 @@ TEST_F(SetupDoesPathExist, test_simple_case) {
     EXPECT_FALSE(does_path_exist(graph, vertex4, vertex3));
 }
 
-TEST_F(SetupDoesPathExist, test_case_with_erase) {
+TEST_F(SetupDoesPathExist, test_case_with_erase)
+{
     auto graph = Graph<int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -84,5 +87,4 @@ TEST_F(SetupDoesPathExist, test_case_with_erase) {
     EXPECT_TRUE(does_path_exist(graph, vertex5, vertex4));
     EXPECT_TRUE(does_path_exist(graph, vertex1, vertex2));
     EXPECT_TRUE(does_path_exist(graph, vertex2, vertex1));
-
 }

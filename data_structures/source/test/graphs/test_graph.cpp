@@ -332,4 +332,3 @@ TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes_undirected)
     EXPECT_EQ(graph.get_neighbors(5), (std::vector<int>{3, 4}));
     EXPECT_EQ(graph.get_neighbors(6), (std::vector<int>{4}));
 }
-

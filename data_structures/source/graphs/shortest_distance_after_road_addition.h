@@ -22,54 +22,50 @@ int road_bfs(const int n, const std::vector<std::vector<int>>& graph)
     int distance{};
     std::vector<bool> visited(n);
 
-    while(!q.empty())
+    while (!q.empty())
     {
         auto size = q.size();
-        while(size)
+        while (size)
         {
             auto current = q.front();
             visited[current] = true;
             q.pop();
-            if(current == n-1)
+            if (current == n - 1)
                 return distance;
-            for(auto neighbor : graph[current] )
+            for (auto neighbor : graph[current])
             {
-                if(!visited[neighbor])
+                if (!visited[neighbor])
                     q.push(neighbor);
             }
             size--;
         }
         distance++;
-
     }
     return -1;
 }
 
 
-
 std::vector<int> shortest_distance_after_road_additions(int n, std::vector<std::vector<int>>& additional_roads)
 {
     std::vector<std::vector<int>> graph(n, std::vector<int>());
-    for(int i{}; i < n-1; ++i)
+    for (int i{}; i < n - 1; ++i)
     {
-        graph[i].push_back(i+1);
+        graph[i].push_back(i + 1);
     }
     std::vector<int> results(additional_roads.size(), 0);
-    for(int i{}; i < additional_roads.size(); ++i)
+    for (int i{}; i < additional_roads.size(); ++i)
     {
         graph[additional_roads[i][0]].push_back(additional_roads[i][1]);
         auto distance = road_bfs(n, graph);
-        if(distance == 1)
+        if (distance == 1)
         {
-            std::fill(results.begin()+i, results.end(), 1);
+            std::fill(results.begin() + i, results.end(), 1);
             break;
         }
         results[i] = distance;
     }
     return results;
-
 }
-
 
 
 #endif //SHORTEST_DISTANCE_AFTER_ROAD_ADDITION_H

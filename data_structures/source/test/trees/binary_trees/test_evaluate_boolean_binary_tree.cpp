@@ -5,7 +5,8 @@
 #include "gtest/gtest.h"
 
 
-TEST(TestEvaluateBinaryTree, simple1) {
+TEST(TestEvaluateBinaryTree, simple1)
+{
     auto root = new Node(2);
     root->left = new Node(1);
     root->right = new Node(3);
@@ -14,7 +15,8 @@ TEST(TestEvaluateBinaryTree, simple1) {
     EXPECT_TRUE(evaluate_binary_tree(root));
 }
 
-TEST(TestEvaluateBinaryTree, simple2) {
+TEST(TestEvaluateBinaryTree, simple2)
+{
     auto root = new Node(3);
     root->left = new Node(2);
     root->right = new Node(0);
@@ -23,18 +25,21 @@ TEST(TestEvaluateBinaryTree, simple2) {
     EXPECT_FALSE(evaluate_binary_tree(root));
 }
 
-TEST(TestEvaluateBinaryTree, simple3) {
+TEST(TestEvaluateBinaryTree, simple3)
+{
     auto root = new Node(0);
     EXPECT_FALSE(evaluate_binary_tree(root));
 }
 
-TEST(TestEvaluateBinaryTree, simple4) {
+TEST(TestEvaluateBinaryTree, simple4)
+{
     auto root = new Node(1);
     EXPECT_TRUE(evaluate_binary_tree(root));
 }
 
 
-TEST(TestEvaluateBinaryTreeIterative, simple1) {
+TEST(TestEvaluateBinaryTreeIterative, simple1)
+{
     auto root = new Node(2);
     root->left = new Node(1);
     root->right = new Node(3);
@@ -43,7 +48,8 @@ TEST(TestEvaluateBinaryTreeIterative, simple1) {
     EXPECT_TRUE(evaluate_binary_tree_iterative(root));
 }
 
-TEST(TestEvaluateBinaryTreeIterative, simple2) {
+TEST(TestEvaluateBinaryTreeIterative, simple2)
+{
     auto root = new Node(3);
     root->left = new Node(2);
     root->right = new Node(0);
@@ -52,12 +58,14 @@ TEST(TestEvaluateBinaryTreeIterative, simple2) {
     EXPECT_FALSE(evaluate_binary_tree_iterative(root));
 }
 
-TEST(TestEvaluateBinaryTreeIterative, simple3) {
+TEST(TestEvaluateBinaryTreeIterative, simple3)
+{
     auto root = new Node(0);
     EXPECT_FALSE(evaluate_binary_tree_iterative(root));
 }
 
-TEST(TestEvaluateBinaryTreeIterative, simple4) {
+TEST(TestEvaluateBinaryTreeIterative, simple4)
+{
     auto root = new Node(1);
     EXPECT_TRUE(evaluate_binary_tree_iterative(root));
 }

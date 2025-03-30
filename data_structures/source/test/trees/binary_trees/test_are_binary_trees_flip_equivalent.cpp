@@ -39,7 +39,7 @@ TEST_F(SetupBinaryTree, TestAreBinaryTreeFlipEquivalent3)
 TEST_F(SetupBinaryTree, TestAreBinaryTreeFlipEquivalent4)
 {
     TreeNode<unsigned int>* tree1 = nullptr;
-    auto tree2  = tree1;
+    auto tree2 = tree1;
 
     EXPECT_TRUE(are_flip_equivalent_recursive(tree1, tree2));
 }
@@ -66,6 +66,3 @@ TEST_F(SetupBinaryTree, TestAreBinaryTreeFlipEquivalent5)
 
     EXPECT_TRUE(are_flip_equivalent_recursive(tree1, tree2));
 }
-
-
-

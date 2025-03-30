@@ -12,18 +12,22 @@
 #include <vector>
 #include <queue>
 
-class SeatManager {
+class SeatManager
+{
 private:
     std::priority_queue<int, std::vector<int>, std::greater<>> seats_available;
     int min;
-public:
 
+public:
     SeatManager(int n)
-            : min(1) {
+        : min(1)
+    {
     }
 
-    int reserve() {
-        if (!seats_available.empty()) {
+    int reserve()
+    {
+        if (!seats_available.empty())
+        {
             int seatNumber = seats_available.top();
             seats_available.pop();
             return seatNumber;
@@ -33,10 +37,10 @@ public:
         return seatNumber;
     }
 
-    void unreserve(int seatNumber) {
+    void unreserve(int seatNumber)
+    {
         seats_available.push(seatNumber);
     }
 };
 
 #endif //SEAT_RESERVATION_MANAGER_H
-

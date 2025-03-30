@@ -9,13 +9,16 @@
 #include <vector>
 #include <stack>
 
-int largest_rectangle_area_in_histogram(const std::vector<int> &histogram) {
+int largest_rectangle_area_in_histogram(const std::vector<int>& histogram)
+{
     int result{};
     std::stack<int> s;
 
-    for (int i{}; i <= histogram.size(); ++i) {
+    for (int i{}; i <= histogram.size(); ++i)
+    {
         while (!s.empty() &&
-               (i == histogram.size() || histogram[s.top()] > histogram[i])) {
+            (i == histogram.size() || histogram[s.top()] > histogram[i]))
+        {
             const int height = histogram[s.top()];
             s.pop();
             const int width = s.empty() ? i : i - s.top() - 1;
@@ -27,16 +30,19 @@ int largest_rectangle_area_in_histogram(const std::vector<int> &histogram) {
     return result;
 }
 
-int find_maximal_rectangle(std::vector<std::vector<char>> &grid) {
+int find_maximal_rectangle(std::vector<std::vector<char>>& grid)
+{
     if (grid.empty())
         return 0;
 
     int result{};
     std::vector<int> current_histogram(grid[0].size());
 
-    for (const auto &row: grid) {
+    for (const auto& row : grid)
+    {
         // Computing current_histogram for each row
-        for (int i{}; i < row.size(); ++i) {
+        for (int i{}; i < row.size(); ++i)
+        {
             current_histogram[i] = row[i] == '0' ? 0 : current_histogram[i] + 1;
         }
         result = std::max(result, largest_rectangle_area_in_histogram(current_histogram));

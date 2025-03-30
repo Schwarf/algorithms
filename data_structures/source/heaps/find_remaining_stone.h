@@ -15,13 +15,15 @@
 // At the end of the game, there is at most one stone left.
 // Return the weight of the last remaining stone. If there are no stones left, return 0.
 
-template<typename T, size_t capacity>
-T find_remaining_stone(const std::vector<T> &stones) {
+template <typename T, size_t capacity>
+T find_remaining_stone(const std::vector<T>& stones)
+{
     auto heap = StackHeap<int, capacity>();
-    for (const auto &stone: stones)
+    for (const auto& stone : stones)
         heap.insert(stone);
     //binary_heap <int> p (stones.begin(), stones.end());
-    while (heap.size() > 1) {
+    while (heap.size() > 1)
+    {
         auto stone1 = heap.pop();
         auto stone2 = heap.pop();
         if (stone1 != stone2)

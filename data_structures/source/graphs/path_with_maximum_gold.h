@@ -14,9 +14,10 @@
 // You can start and stop collecting gold from any position in the grid that has some gold.
 #include <vector>
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-T dfs_backtrack(std::vector<std::vector<T>> &grid, int row, int col, int rows, int columns) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+T dfs_backtrack(std::vector<std::vector<T>>& grid, int row, int col, int rows, int columns)
+{
     const std::vector<int> directions{0, 1, 0, -1, 0};
     if (row < 0 || col < 0 || row > rows - 1 || col > columns - 1 || grid[row][col] == 0)
         return T{};
@@ -24,7 +25,8 @@ T dfs_backtrack(std::vector<std::vector<T>> &grid, int row, int col, int rows, i
     T gold{};
     auto original_value = grid[row][col];
     grid[row][col] = T{};
-    for (int direction{}; direction < 4; direction++) {
+    for (int direction{}; direction < 4; direction++)
+    {
         gold = std::max(gold, dfs_backtrack(grid, row + directions[direction], col + directions[direction + 1],
                                             rows, columns));
     }
@@ -34,14 +36,17 @@ T dfs_backtrack(std::vector<std::vector<T>> &grid, int row, int col, int rows, i
 }
 
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-T path_with_maximum_gold(std::vector<std::vector<T>> &grid) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+T path_with_maximum_gold(std::vector<std::vector<T>>& grid)
+{
     int rows = grid.size();
     int columns = grid[0].size();
     T max{};
-    for (int row{}; row < rows; ++row) {
-        for (int col{}; col < columns; ++col) {
+    for (int row{}; row < rows; ++row)
+    {
+        for (int col{}; col < columns; ++col)
+        {
             max = std::max(max, dfs_backtrack(grid, row, col, rows, columns));
         }
     }

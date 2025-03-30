@@ -5,7 +5,8 @@
 #include "gtest/gtest.h"
 #include "graphs/is_bipartition_possible.h"
 
-class SetupBiPartitionPossible : public testing::Test {
+class SetupBiPartitionPossible : public testing::Test
+{
 public:
     SetupBiPartitionPossible() = default;
 
@@ -18,7 +19,8 @@ protected:
 };
 
 
-TEST_F(SetupBiPartitionPossible, test_positive_case) {
+TEST_F(SetupBiPartitionPossible, test_positive_case)
+{
     auto graph = Graph<int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -32,7 +34,8 @@ TEST_F(SetupBiPartitionPossible, test_positive_case) {
 }
 
 
-TEST_F(SetupBiPartitionPossible, test_negative_case) {
+TEST_F(SetupBiPartitionPossible, test_negative_case)
+{
     auto graph = Graph<int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -46,7 +49,8 @@ TEST_F(SetupBiPartitionPossible, test_negative_case) {
     EXPECT_FALSE(is_bi_partition_possible(graph));
 }
 
-TEST_F(SetupBiPartitionPossible, test_negative_erase_positive) {
+TEST_F(SetupBiPartitionPossible, test_negative_erase_positive)
+{
     auto graph = Graph<int, int>();
     const std::shared_ptr<GraphNode<int, int>> vertex1(new GraphNode<int, int>(id1, data1));
     const std::shared_ptr<GraphNode<int, int>> vertex2(new GraphNode<int, int>(id2, data2));
@@ -65,18 +69,24 @@ TEST_F(SetupBiPartitionPossible, test_negative_erase_positive) {
 }
 
 
-TEST(BiPartitionPossibleVectorInput, test_simple_false) {
-    std::vector<std::vector<unsigned short>> input{{1, 2, 3},
-                                                   {0, 2},
-                                                   {0, 1, 3},
-                                                   {0, 2}};
+TEST(BiPartitionPossibleVectorInput, test_simple_false)
+{
+    std::vector<std::vector<unsigned short>> input{
+        {1, 2, 3},
+        {0, 2},
+        {0, 1, 3},
+        {0, 2}
+    };
     EXPECT_FALSE(is_bi_partition_possible(input));
 }
 
-TEST(BiPartitionPossibleVectorInput, test_simple_true) {
-    std::vector<std::vector<unsigned short>> input{{1, 3},
-                                                   {0, 2},
-                                                   {1, 3},
-                                                   {0, 2}};
+TEST(BiPartitionPossibleVectorInput, test_simple_true)
+{
+    std::vector<std::vector<unsigned short>> input{
+        {1, 3},
+        {0, 2},
+        {1, 3},
+        {0, 2}
+    };
     EXPECT_TRUE(is_bi_partition_possible(input));
 }

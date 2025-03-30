@@ -5,7 +5,8 @@
 #include "gtest/gtest.h"
 
 
-TEST(KDTreeTest, EmptyTree) {
+TEST(KDTreeTest, EmptyTree)
+{
     std::vector<std::array<double, 3>> emptyPoints;
     KDTree<double, 3> tree(emptyPoints);
     std::array<double, 3> target = {0.0, 0.0, 0.0};
@@ -14,15 +15,17 @@ TEST(KDTreeTest, EmptyTree) {
     EXPECT_EQ(result, (std::array<double, 3>{}));
 }
 
-TEST(KDTreeTest, SinglePoint) {
-    std::vector<std::array<double, 3>> points = { {1.0, 2.0, 3.0} };
+TEST(KDTreeTest, SinglePoint)
+{
+    std::vector<std::array<double, 3>> points = {{1.0, 2.0, 3.0}};
     KDTree<double, 3> tree(points);
     std::array<double, 3> target = {5.0, 5.0, 5.0};
     auto result = tree.nearest_neighbor(target);
     EXPECT_EQ(result, points[0]);
 }
 
-TEST(KDTreeTest, ExactMatch) {
+TEST(KDTreeTest, ExactMatch)
+{
     std::vector<std::array<double, 2>> points = {
         {1.0, 2.0},
         {3.0, 4.0},
@@ -34,7 +37,8 @@ TEST(KDTreeTest, ExactMatch) {
     EXPECT_EQ(result, target);
 }
 
-TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder) {
+TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder)
+{
     std::vector<std::array<double, 2>> points = {
         {1.0, 1.0},
         {2.0, 2.0},
@@ -52,7 +56,8 @@ TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder) {
     EXPECT_DOUBLE_EQ(result[1], 2.0);
 }
 
-TEST(KDTreeTest, NearestNeighbor3D) {
+TEST(KDTreeTest, NearestNeighbor3D)
+{
     std::vector<std::array<double, 3>> points = {
         {2.1, 3.2, 4.5},
         {5.4, 2.3, 3.1},
@@ -82,7 +87,8 @@ TEST(KDTreeTest, NearestNeighbor3D) {
 }
 
 // Test the 2-dimensional KDTree nearest neighbor functionality
-TEST(KDTreeTest, NearestNeighbor2D) {
+TEST(KDTreeTest, NearestNeighbor2D)
+{
     std::vector<std::array<double, 2>> points = {
         {1.0, 2.0},
         {3.0, 4.0},

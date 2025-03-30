@@ -19,22 +19,30 @@
 #include <vector>
 #include <queue>
 
-int furthest_building_to_reach(const std::vector<int> &heights, int bricks, int ladders) {
+int furthest_building_to_reach(const std::vector<int>& heights, int bricks, int ladders)
+{
     int n = heights.size();
     std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
-    for (int i = 0; i < n - 1; ++i) {
+    for (int i = 0; i < n - 1; ++i)
+    {
         int diff = heights[i + 1] - heights[i];
-        if (diff > 0) {
+        if (diff > 0)
+        {
             // By default, we use ladders as long as we have some
-            if (pq.size() < ladders) {
+            if (pq.size() < ladders)
+            {
                 pq.push(diff);
-            } else {
+            }
+            else
+            {
                 // Check if we are out of ladders, then use bricks or when the difference is smaller than the one on top
-                if (pq.empty() || pq.top() >= diff) {
+                if (pq.empty() || pq.top() >= diff)
+                {
                     bricks -= diff;
                 }
-                    // Get the smallest gap (covered) by a ladder and use bricks instead and put the current gap into the queue.
-                else {
+                // Get the smallest gap (covered) by a ladder and use bricks instead and put the current gap into the queue.
+                else
+                {
                     int poll = pq.top();
                     pq.pop();
                     pq.push(diff);

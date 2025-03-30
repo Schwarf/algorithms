@@ -9,12 +9,14 @@
 #include <vector>
 #include <queue>
 
-int how_many_meeting_rooms_required(std::vector<std::vector<int>> &meetings) {
+int how_many_meeting_rooms_required(std::vector<std::vector<int>>& meetings)
+{
     std::sort(meetings.begin(), meetings.end(),
-              [](const std::vector<int> &a, const std::vector<int> &b) { return a[0] < b[0]; });
+              [](const std::vector<int>& a, const std::vector<int>& b) { return a[0] < b[0]; });
     // Here we store the meeting end times of each room.
     std::priority_queue<int, std::vector<int>, std::greater<>> end_times;
-    for (const auto &meeting: meetings) {
+    for (const auto& meeting : meetings)
+    {
         // if current start-time is larger than the end-time at top we can pop
         if (!end_times.empty() && meeting[0] >= end_times.top())
             end_times.pop();

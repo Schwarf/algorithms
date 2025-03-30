@@ -10,23 +10,27 @@
 #include <numbers>
 #include <cmath>
 
-template<typename T>
-concept strong_ordered = requires(T a, T b) {
+template <typename T>
+concept strong_ordered = requires(T a, T b)
+{
     { a <=> b } -> std::same_as<std::strong_ordering>;
 };
 
-template<typename KeyType, typename ValueType> requires strong_ordered<KeyType>
-struct Node {
+template <typename KeyType, typename ValueType> requires strong_ordered<KeyType>
+struct Node
+{
     KeyType key;
     ValueType value;
-    Node *child{nullptr};
-    Node *parent{nullptr};
-    Node *prev{this};
-    Node *next{this};
+    Node* child{nullptr};
+    Node* parent{nullptr};
+    Node* prev{this};
+    Node* next{this};
     bool is_marked{};
     int number_of_children{};
 
-    Node(KeyType key, ValueType value) : key(key), value(value) {}
+    Node(KeyType key, ValueType value) : key(key), value(value)
+    {
+    }
 };
 
 
@@ -44,60 +48,71 @@ struct Node {
  *       a stable ordering.
  *
  */
-template<typename KeyType, typename ValueType> requires strong_ordered<KeyType>
-class FibonacciHeap {
-
+template <typename KeyType, typename ValueType> requires strong_ordered<KeyType>
+class FibonacciHeap
+{
 public:
-    Node<KeyType, ValueType> *insert(const KeyType key, const ValueType &value) {
+    Node<KeyType, ValueType>* insert(const KeyType key, const ValueType& value)
+    {
         auto node = new Node<KeyType, ValueType>(key, value);
         _insert(node);
         return node;
     }
 
-    [[nodiscard]] int size() const  {
+    [[nodiscard]] int size() const
+    {
         return _number_of_nodes;
     }
 
-    ~FibonacciHeap() {
+    ~FibonacciHeap()
+    {
         if (!is_empty())
             _delete_root_list(_minimum_node);
     }
 
 
-    ValueType pop_min() {
+    ValueType pop_min()
+    {
         auto min_node = _extract_min();
         auto value = min_node->value;
         delete min_node;
         return value;
     }
 
-    void decrease_key(Node<KeyType, ValueType> *node, KeyType new_key) {
+    void decrease_key(Node<KeyType, ValueType>* node, KeyType new_key)
+    {
         _decrease_key(node, new_key);
     }
 
 
-    [[nodiscard]] bool is_empty() const {
+    [[nodiscard]] bool is_empty() const
+    {
         return _minimum_node == nullptr;
     }
 
-    [[nodiscard]] bool check_heap_property() {
+    [[nodiscard]] bool check_heap_property()
+    {
         if (!_minimum_node)
             return true;
         auto current = _minimum_node;
-        do {
+        do
+        {
             if (!_check_node(_minimum_node, std::numeric_limits<KeyType>::min()))
                 return false;
-        } while (current != _minimum_node);
+        }
+        while (current != _minimum_node);
         return true;
     }
 
-    ValueType get_min() const {
+    ValueType get_min() const
+    {
         if (is_empty())
             throw std::underflow_error("Fibonacci Heap is empty. No min-element can be retrieved!");
         return _minimum_node->value;
     }
 
-    void merge(FibonacciHeap<KeyType, ValueType> &other) {
+    void merge(FibonacciHeap<KeyType, ValueType>& other)
+    {
         _minimum_node = _merge_into_list(_minimum_node, other._minimum_node);
         _number_of_nodes += other._number_of_nodes;
         other._minimum_node = nullptr;
@@ -105,26 +120,31 @@ public:
     }
 
 private:
-
-    bool _check_node(Node<KeyType, ValueType> *node, KeyType minimum_key) {
+    bool _check_node(Node<KeyType, ValueType>* node, KeyType minimum_key)
+    {
         if (!node)
             return true;
         if (node->key < minimum_key)
             return false;
         // Check the children
-        if (node->child) {
+        if (node->child)
+        {
             auto child = node->child;
-            do {
-                if (!_check_node(child, node->key)) {
+            do
+            {
+                if (!_check_node(child, node->key))
+                {
                     return false;
                 }
                 child = child->next;
-            } while (child != node->child);
+            }
+            while (child != node->child);
         }
         return true;
     }
 
-    Node<KeyType, ValueType> *_extract_min() {
+    Node<KeyType, ValueType>* _extract_min()
+    {
         if (!_minimum_node)
             return nullptr;
         auto return_node = _minimum_node;
@@ -141,37 +161,44 @@ private:
         return return_node;
     }
 
-    void _remove_parent_from_all_children(Node<KeyType, ValueType> *initial_child) {
+    void _remove_parent_from_all_children(Node<KeyType, ValueType>* initial_child)
+    {
         if (!initial_child)
             return;
         auto start = initial_child;
-        do {
+        do
+        {
             initial_child->parent = nullptr;
             initial_child = initial_child->next;
-        } while (initial_child != start);
+        }
+        while (initial_child != start);
     }
 
-    void _delete_root_list(Node<KeyType, ValueType> *node) {
+    void _delete_root_list(Node<KeyType, ValueType>* node)
+    {
         auto node_prev = node->prev;
-        do {
+        do
+        {
             auto current_node = node_prev;
             node_prev = node_prev->prev;
             if (current_node->child)
                 _delete_root_list(current_node->child);
             if (current_node != node)
                 delete current_node;
-
-        } while (node_prev != node);
+        }
+        while (node_prev != node);
         delete node;
     }
 
-    void _insert(Node<KeyType, ValueType> *node) {
+    void _insert(Node<KeyType, ValueType>* node)
+    {
         // Add node to the list of roots
         _minimum_node = _merge_into_list(_minimum_node, node);
         _number_of_nodes++;
     }
 
-    Node<KeyType, ValueType> *_merge_into_list(Node<KeyType, ValueType> *node1, Node<KeyType, ValueType> *node2) {
+    Node<KeyType, ValueType>* _merge_into_list(Node<KeyType, ValueType>* node1, Node<KeyType, ValueType>* node2)
+    {
         if (!node1)
             return node2;
         if (!node2)
@@ -192,7 +219,8 @@ private:
         return node1;
     }
 
-    void _remove_node_from_list(Node<KeyType, ValueType> *node) {
+    void _remove_node_from_list(Node<KeyType, ValueType>* node)
+    {
         // NOde is already removed from list;
         if (node->next == node)
             return;
@@ -209,7 +237,8 @@ private:
 
     // Remove child from child-list of parent, decrement parents number of children
     //
-    void _promote_child_to_root(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
+    void _promote_child_to_root(Node<KeyType, ValueType>* child, Node<KeyType, ValueType>* parent)
+    {
         parent->child = (child == child->next ? nullptr : child->next);
         _remove_node_from_list(child);
         --parent->number_of_children;
@@ -218,72 +247,86 @@ private:
         child->is_marked = false;
     }
 
-    void _add_child(Node<KeyType, ValueType> *child, Node<KeyType, ValueType> *parent) {
+    void _add_child(Node<KeyType, ValueType>* child, Node<KeyType, ValueType>* parent)
+    {
         child->parent = parent;
         parent->child = _merge_into_list(parent->child, child);
         ++parent->number_of_children;
         child->is_marked = false;
     }
 
-    void _restore_heap() {
+    void _restore_heap()
+    {
         int max_degree = static_cast<int>(log2(_number_of_nodes) / log2_of_golden_ratio);
-        std::vector<Node<KeyType, ValueType> *> track_nodes_by_degree(max_degree + 1, nullptr);
-        std::vector<Node<KeyType, ValueType> *> root_nodes{};
+        std::vector<Node<KeyType, ValueType>*> track_nodes_by_degree(max_degree + 1, nullptr);
+        std::vector<Node<KeyType, ValueType>*> root_nodes{};
         auto node = _minimum_node;
-        do {
+        do
+        {
             root_nodes.emplace_back(node);
             node = node->next;
-        } while (node != _minimum_node);
+        }
+        while (node != _minimum_node);
 
-        for (auto &root: root_nodes) {
+        for (auto& root : root_nodes)
+        {
             auto degree = root->number_of_children;
             _remove_node_from_list(root);
-            while (track_nodes_by_degree[degree]) {
+            while (track_nodes_by_degree[degree])
+            {
                 auto tmp = track_nodes_by_degree[degree];
                 if (root->key > tmp->key)
                     std::swap(root, tmp);
                 _add_child(tmp, root);
                 track_nodes_by_degree[degree] = nullptr;
                 ++degree;
-
             }
             track_nodes_by_degree[degree] = root;
         }
 
         _minimum_node = nullptr;
-        for (auto &other_node: track_nodes_by_degree) {
+        for (auto& other_node : track_nodes_by_degree)
+        {
             if (!other_node)
                 continue;
-            if (_minimum_node == nullptr) {
+            if (_minimum_node == nullptr)
+            {
                 _minimum_node = other_node;
                 other_node->prev = other_node->next = other_node; // Initialize the node's neighbors to itself
-            } else {
+            }
+            else
+            {
                 _merge_into_list(_minimum_node, other_node);
-                if (other_node->key < _minimum_node->key) {
+                if (other_node->key < _minimum_node->key)
+                {
                     _minimum_node = other_node;
                 }
             }
         }
     }
 
-    void _decrease_key(Node<KeyType, ValueType> *node, KeyType new_key) {
+    void _decrease_key(Node<KeyType, ValueType>* node, KeyType new_key)
+    {
         node->key = new_key;
         auto parent = node->parent;
-        if (parent != nullptr && node->key < parent->key) {
+        if (parent != nullptr && node->key < parent->key)
+        {
             _promote_child_to_root(node, parent);
             _propagate_promotion_to_root(parent);
-
         }
         if (node->key < _minimum_node->key)
             _minimum_node = node;
     }
 
-    void _propagate_promotion_to_root(Node<KeyType, ValueType> *node) {
+    void _propagate_promotion_to_root(Node<KeyType, ValueType>* node)
+    {
         auto parent = node->parent;
-        if (parent != nullptr) {
+        if (parent != nullptr)
+        {
             if (node->is_marked == false)
                 node->is_marked = true;
-            else {
+            else
+            {
                 _promote_child_to_root(node, parent);
                 _propagate_promotion_to_root(parent);
             }
@@ -292,8 +335,7 @@ private:
 
     int _number_of_nodes{};
     const double log2_of_golden_ratio = log2(std::numbers::phi_v<double>);
-    Node<KeyType, ValueType> *_minimum_node = nullptr; // Important note: _minimum_node is the most next node.
-
+    Node<KeyType, ValueType>* _minimum_node = nullptr; // Important note: _minimum_node is the most next node.
 };
 
 #endif //DATA_STRUCTURES_FIBONACCI_HEAP_H

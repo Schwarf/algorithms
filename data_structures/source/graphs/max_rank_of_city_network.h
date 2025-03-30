@@ -14,27 +14,30 @@
 // Given the integer n and the array roads, return the maximal network rank of the entire infrastructure.
 
 
-template<typename T>
-requires std::is_unsigned_v<T>
-int compute_network_rank(int number_of_cities, const std::vector<std::vector<T>> &roads)
+template <typename T>
+    requires std::is_unsigned_v<T>
+int compute_network_rank(int number_of_cities, const std::vector<std::vector<T>>& roads)
 {
-	std::vector<int> count(number_of_cities, 0);
-	std::vector<std::vector<bool>> directly_connected(number_of_cities, std::vector<bool>(number_of_cities, false));
-	for (const auto &road: roads) {
-		count[road[0]]++;
-		count[road[1]]++;
-		directly_connected[road[0]][road[1]] = true;
-		directly_connected[road[1]][road[0]] = true;
-	}
-	int max_rank{};
-	for (int i{}; i < number_of_cities; ++i) {
-		for (int j{i + 1}; j < number_of_cities; ++j) {
-			auto rank = count[i] + count[j];
-			if (directly_connected[i][j])
-				rank--;
-			max_rank = std::max(rank, max_rank);
-		}
-	}
-	return max_rank;
+    std::vector<int> count(number_of_cities, 0);
+    std::vector<std::vector<bool>> directly_connected(number_of_cities, std::vector<bool>(number_of_cities, false));
+    for (const auto& road : roads)
+    {
+        count[road[0]]++;
+        count[road[1]]++;
+        directly_connected[road[0]][road[1]] = true;
+        directly_connected[road[1]][road[0]] = true;
+    }
+    int max_rank{};
+    for (int i{}; i < number_of_cities; ++i)
+    {
+        for (int j{i + 1}; j < number_of_cities; ++j)
+        {
+            auto rank = count[i] + count[j];
+            if (directly_connected[i][j])
+                rank--;
+            max_rank = std::max(rank, max_rank);
+        }
+    }
+    return max_rank;
 }
 #endif //MAX_RANK_OF_CITY_NETWORK_H

@@ -13,33 +13,34 @@
 #include <vector>
 #include <queue>
 #include <concepts>
+
 template <typename T>
-requires std::is_unsigned_v<T>
-bool can_finish_course_schedule(const std::vector<std::vector<T>> & prerequisites, int number_of_courses)
+    requires std::is_unsigned_v<T>
+bool can_finish_course_schedule(const std::vector<std::vector<T>>& prerequisites, int number_of_courses)
 {
     std::vector<T> in_degree(number_of_courses);
     std::vector<std::vector<T>> graph(number_of_courses);
-    for(const auto & prerequisite: prerequisites )
+    for (const auto& prerequisite : prerequisites)
     {
         graph[prerequisite[1]].push_back(prerequisite[0]);
         in_degree[prerequisite[0]]++;
     }
     std::queue<T> q;
-    for(int i{}; i < number_of_courses; ++i)
+    for (int i{}; i < number_of_courses; ++i)
     {
-        if(in_degree[i] == 0)
+        if (in_degree[i] == 0)
             q.push(i);
     }
     int nodes_visited{};
-    while(!q.empty())
+    while (!q.empty())
     {
         auto node = q.front();
         q.pop();
         nodes_visited++;
-        for(const auto & neighbor: graph[node])
+        for (const auto& neighbor : graph[node])
         {
             in_degree[neighbor]--;
-            if(in_degree[neighbor] == 0)
+            if (in_degree[neighbor] == 0)
                 q.push(neighbor);
         }
     }

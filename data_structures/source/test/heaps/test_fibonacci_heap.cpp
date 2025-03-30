@@ -7,9 +7,11 @@
 #include <random>
 #include <unordered_map>
 
-class SetupFibonacciHeap : public testing::Test {
+class SetupFibonacciHeap : public testing::Test
+{
 public:
-    static inline std::vector<std::pair<int, double>> get_random_n_numbers(int n) {
+    static inline std::vector<std::pair<int, double>> get_random_n_numbers(int n)
+    {
         if (n < 1)
             return {};
         int lower_bound = -10 * n;
@@ -22,8 +24,8 @@ public:
         // Currently the "order" of elements with the same key is undetermined in the Fibonacci heap. Therefor each
         // key-element can only appear once.
         std::set<int> unique_keys;
-        for (int i{}; i < n; ++i) {
-
+        for (int i{}; i < n; ++i)
+        {
             auto key = int_distribution_(generator);
             if (unique_keys.contains(key))
                 continue;
@@ -34,24 +36,27 @@ public:
         return result;
     }
 
-    template<typename T>
-    std::string VectorToString(const std::vector<T> &vec) {
+    template <typename T>
+    std::string VectorToString(const std::vector<T>& vec)
+    {
         std::ostringstream oss;
         oss << "{";
-        for (size_t i = 0; i < vec.size(); ++i) {
+        for (size_t i = 0; i < vec.size(); ++i)
+        {
             oss << vec[i];
-            if (i < vec.size() - 1) {
+            if (i < vec.size() - 1)
+            {
                 oss << ", ";
             }
         }
         oss << "}";
         return oss.str();
     }
-
 };
 
 
-TEST(TestFibonacciHeap, insert) {
+TEST(TestFibonacciHeap, insert)
+{
     constexpr double value1{1.0};
     constexpr double value2{2.0};
     constexpr double value3{3.0};
@@ -69,7 +74,8 @@ TEST(TestFibonacciHeap, insert) {
 }
 
 
-TEST(TestFibonacciHeap, heap_property) {
+TEST(TestFibonacciHeap, heap_property)
+{
     constexpr double value1{10.0};
     constexpr double value2{20.0};
     constexpr double value3{30.0};
@@ -90,7 +96,8 @@ TEST(TestFibonacciHeap, heap_property) {
     EXPECT_EQ(value1, heap.get_min());
 }
 
-TEST(TestFibonacciHeap, merge) {
+TEST(TestFibonacciHeap, merge)
+{
     constexpr double value1{10.0};
     constexpr double value2{20.0};
     constexpr double value3{30.0};
@@ -118,7 +125,8 @@ TEST(TestFibonacciHeap, merge) {
 }
 
 
-TEST(TestFibonacciHeap, pop_min) {
+TEST(TestFibonacciHeap, pop_min)
+{
     constexpr double value1{10.0};
     constexpr double value2{20.0};
     constexpr double value3{30.0};
@@ -160,7 +168,8 @@ TEST(TestFibonacciHeap, pop_min) {
     EXPECT_TRUE(heap.check_heap_property()) << "Heap property should be intact.";
 }
 
-TEST(TestFibonacciHeap, decrease_key) {
+TEST(TestFibonacciHeap, decrease_key)
+{
     constexpr double value1{10.0};
     constexpr double value2{20.0};
     constexpr double value3{30.0};
@@ -187,7 +196,8 @@ TEST(TestFibonacciHeap, decrease_key) {
 }
 
 
-TEST(TestFibonacciHeap, decrease_key_mix) {
+TEST(TestFibonacciHeap, decrease_key_mix)
+{
     constexpr double value1{10.0};
     constexpr double value2{20.0};
     constexpr double value3{30.0};
@@ -225,29 +235,35 @@ TEST(TestFibonacciHeap, decrease_key_mix) {
     EXPECT_EQ(heap.size(), 5);
 }
 
-TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
-    struct Comparator {
-        bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2) {
+TEST_F(SetupFibonacciHeap, RandomSetupPopMin)
+{
+    struct Comparator
+    {
+        bool operator()(const std::pair<int, double> node1, const std::pair<int, double> node2)
+        {
             return node1.first > node2.first;
         }
     };
-    for (int runs{}; runs < 150; ++runs) {
+    for (int runs{}; runs < 150; ++runs)
+    {
         std::priority_queue<std::pair<int, double>, std::vector<std::pair<int, double>>, Comparator> q;
         constexpr int number_of_random_inputs{1000};
         auto input = get_random_n_numbers(number_of_random_inputs);
         auto heap = FibonacciHeap<int, double>();
-        for (const auto &element: input) {
+        for (const auto& element : input)
+        {
             q.emplace(element.first, element.second);
             heap.insert(element.first, element.second);
             EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
             EXPECT_EQ(q.size(), heap.size());
-            if (q.size() > 100) {
-                for (int i{}; i < 33; ++i) {
+            if (q.size() > 100)
+            {
+                for (int i{}; i < 33; ++i)
+                {
                     q.pop();
                     heap.pop_min();
                     EXPECT_EQ(q.size(), heap.size());
                     EXPECT_FLOAT_EQ(q.top().second, heap.get_min());
-
                 }
             }
         }
@@ -255,14 +271,17 @@ TEST_F(SetupFibonacciHeap, RandomSetupPopMin) {
 }
 
 
-TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
-    for (int runs{}; runs < 20; runs++) {
+TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey)
+{
+    for (int runs{}; runs < 20; runs++)
+    {
         constexpr int number_of_random_inputs{1000};
         auto input = get_random_n_numbers(number_of_random_inputs);
         auto heap = FibonacciHeap<int, double>();
-        std::vector<Node<int, double> *> nodes;
+        std::vector<Node<int, double>*> nodes;
         std::set<int> unique_keys;
-        for (const auto &element: input) {
+        for (const auto& element : input)
+        {
             auto node = heap.insert(element.first, element.second);
             unique_keys.insert(element.first);
             nodes.emplace_back(node);
@@ -270,7 +289,8 @@ TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
 
 
         constexpr int number_of_decreases{50};
-        for (int i{}; i < number_of_decreases; ++i) {
+        for (int i{}; i < number_of_decreases; ++i)
+        {
             auto node_index = rand() % nodes.size();
             auto node = nodes[node_index];
             int new_key = node->key - (rand() % 100);
@@ -283,16 +303,17 @@ TEST_F(SetupFibonacciHeap, RandomSetupDecreaseKey) {
             EXPECT_TRUE(heap.check_heap_property());
         }
         std::map<int, double> map;
-        for (const auto &node: nodes) {
+        for (const auto& node : nodes)
+        {
             map[node->key] = node->value;
         }
         EXPECT_EQ(map.size(), heap.size());
-        while (!heap.is_empty()) {
+        while (!heap.is_empty())
+        {
             EXPECT_EQ(map.size(), heap.size());
             EXPECT_EQ(heap.pop_min(), map.begin()->second);
             map.erase(map.begin());
             EXPECT_EQ(map.size(), heap.size());
-
         }
     }
 }

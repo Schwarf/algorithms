@@ -866,26 +866,25 @@ TEST_F(SetupLeftRightPlanarityTesting, generalizedPetersenGraph)
         0, 0
     };
     int result_index{};
-    for(int n = 3; n <= 50; ++n)
+    for (int n = 3; n <= 50; ++n)
     {
         for (int k = 1; k <= std::floor(n / 2); ++k)
         {
-            if (!( !(n & 1) && k == n / 2))
+            if (!(!(n & 1) && k == n / 2))
             {
                 auto graph = generateGeneralizedPetersenGraph(n, k);
                 PlanarityTest<int32_t> test(graph);
                 test.run();
-                EXPECT_EQ(test.is_graph_planar(),expected_results[result_index++]);
+                EXPECT_EQ(test.is_graph_planar(), expected_results[result_index++]);
                 int x{};
-                if(expected_results[result_index++] == 0)
+                if (expected_results[result_index++] == 0)
                     x = 1;
-                if(expected_results[result_index++] == 1)
+                if (expected_results[result_index++] == 1)
                     x = 1;
-                EXPECT_EQ(1,x);
+                EXPECT_EQ(1, x);
             }
         }
     }
-
 }
 
 
@@ -1102,4 +1101,3 @@ TEST_F(SetupLeftRightPlanarityTesting, ThreeGraphsTwoPlanarOneNonPlanarRecursive
     test.run_recursive();
     EXPECT_FALSE(test.is_graph_planar());
 }
-
