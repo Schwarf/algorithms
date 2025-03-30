@@ -14,7 +14,7 @@ template <typename T, size_t dimensions>
 class KDTree
 {
 public:
-    KDTree(std::vector<std::array<T, dimensions>> const& points)
+    explicit KDTree(std::vector<std::array<T, dimensions>> & points)
     {
         root = build_tree(points, 0, 0, points.size());
     }
@@ -41,7 +41,7 @@ private:
 
     std::unique_ptr<Node> root;
 
-    std::unique_ptr<Node> build_tree(const std::vector<std::array<T, dimensions>>& points, int depth, int start,
+    std::unique_ptr<Node> build_tree(std::vector<std::array<T, dimensions>>& points, int depth, int start,
                                      int end)
     {
         if (start >= end)
@@ -61,7 +61,7 @@ private:
         return node;
     }
 
-    T squared_euclidean_distance(const std::array<T, dimensions>& point1, const std::array<T, dimensions>& point2)
+    T squared_euclidean_distance(const std::array<T, dimensions>& point1, const std::array<T, dimensions>& point2) const
     {
         T result{};
         for(size_t i = 0; i < dimensions; i++)
@@ -72,7 +72,7 @@ private:
     }
 
     void nearest_helper(Node* node, const std::array<T, dimensions>& target, int depth, std::array<T, dimensions>& nearest_point,
-        T& best_distance)
+        T& best_distance) const
     {
         if (!node)
             return;
