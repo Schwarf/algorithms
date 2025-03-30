@@ -13,6 +13,21 @@
 template <typename T, size_t dimensions>
 class KDTree
 {
+public:
+    KDTree(std::vector<std::array<T, dimensions>> const& points)
+    {
+        root = build_tree(points, 0, 0, points.size());
+    }
+
+    std::array<T, dimensions> nearest_neighbor(const std::array<T, dimensions>& target) const
+    {
+        std::array<T, dimensions> nearest_point{};
+        auto best_distance = std::numeric_limits<T>::max();
+        nearest_helper(root.get(), target, 0, nearest_point, best_distance);
+        return nearest_point;
+    }
+
+private:
     struct Node
     {
         std::array<T, dimensions> point;
@@ -54,6 +69,27 @@ class KDTree
             result += (point1[i] - point2[i]) * (point1[i] - point2[i]);
         }
         return result;
+    }
+
+    void nearest_helper(Node* node, const std::array<T, dimensions>& target, int depth, std::array<T, dimensions>& nearest_point,
+        T& best_distance)
+    {
+        if (!node)
+            return;
+        int axis = depth % dimensions;
+        auto squared_distance = squared_euclidean_distance(target, node->point);
+        if (squared_distance < best_distance)
+        {
+            best_distance = squared_distance;
+            nearest_point = node->point;
+        }
+        auto difference = target[axis] - node->point[axis];
+        Node * nearest_child = (difference < 0) ? node->left.get() : node->right.get();
+        Node * farest_child = (difference < 0) ? node->right.get() : node->left.get();
+
+        nearest_helper(nearest_child, target, depth + 1, nearest_point, best_distance);
+        if (difference * difference <  best_distance)
+            nearest_helper(farest_child, target, depth + 1, nearest_point, best_distance);
     }
 
 };
