@@ -4,7 +4,54 @@
 #include "spatial_data_structures/k_d_tree.h"
 #include "gtest/gtest.h"
 
-// Test the 3-dimensional KDTree nearest neighbor functionality
+
+TEST(KDTreeTest, EmptyTree) {
+    std::vector<std::array<double, 3>> emptyPoints;
+    KDTree<double, 3> tree(emptyPoints);
+    std::array<double, 3> target = {0.0, 0.0, 0.0};
+    auto result = tree.nearest_neighbor(target);
+    // Assuming default-constructed array returns zeros:
+    EXPECT_EQ(result, (std::array<double, 3>{}));
+}
+
+TEST(KDTreeTest, SinglePoint) {
+    std::vector<std::array<double, 3>> points = { {1.0, 2.0, 3.0} };
+    KDTree<double, 3> tree(points);
+    std::array<double, 3> target = {5.0, 5.0, 5.0};
+    auto result = tree.nearest_neighbor(target);
+    EXPECT_EQ(result, points[0]);
+}
+
+TEST(KDTreeTest, ExactMatch) {
+    std::vector<std::array<double, 2>> points = {
+        {1.0, 2.0},
+        {3.0, 4.0},
+        {5.0, 6.0}
+    };
+    KDTree<double, 2> tree(points);
+    std::array<double, 2> target = {3.0, 4.0};
+    auto result = tree.nearest_neighbor(target);
+    EXPECT_EQ(result, target);
+}
+
+TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder) {
+    std::vector<std::array<double, 2>> points = {
+        {1.0, 1.0},
+        {2.0, 2.0},
+        {3.0, 3.0},
+        {4.0, 4.0}
+    };
+    KDTree<double, 2> tree(points);
+    // Target is exactly halfway between (2.0,2.0) and (3.0,3.0)
+    std::array<double, 2> target = {2.5, 2.5};
+    auto result = tree.nearest_neighbor(target);
+    // Both (2.0, 2.0) and (3.0, 3.0) are equally distant;
+    // Your implementation might consistently choose one based on traversal order.
+    // Test that the result is one of them.
+    EXPECT_DOUBLE_EQ(result[0], 2.0);
+    EXPECT_DOUBLE_EQ(result[1], 2.0);
+}
+
 TEST(KDTreeTest, NearestNeighbor3D) {
     std::vector<std::array<double, 3>> points = {
         {2.1, 3.2, 4.5},

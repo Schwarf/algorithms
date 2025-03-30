@@ -11,6 +11,7 @@
 #include <ranges>
 
 template <typename T, size_t dimensions>
+requires std::is_floating_point_v<T>
 class KDTree
 {
 public:
@@ -28,6 +29,10 @@ public:
     }
 
 private:
+    bool equal(const T x,  const T y, const double error = 1.e-12) const {
+        return (x <= (y + error)) && (x >= (y - error));
+    }
+
     struct Node
     {
         std::array<T, dimensions> point;
@@ -78,7 +83,8 @@ private:
             return;
         int axis = depth % dimensions;
         auto squared_distance = squared_euclidean_distance(target, node->point);
-        if (squared_distance < best_distance)
+
+        if (squared_distance < best_distance || (equal(squared_distance,best_distance) && node->point < nearest_point))
         {
             best_distance = squared_distance;
             nearest_point = node->point;
