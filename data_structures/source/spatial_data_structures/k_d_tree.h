@@ -9,6 +9,7 @@
 #include <array>
 #include <algorithm>
 #include <ranges>
+#include <stack>
 
 template <typename T, size_t dimensions>
     requires std::is_floating_point_v<T>
@@ -28,12 +29,13 @@ public:
         return nearest_point;
     }
 
-private:
-    bool equal(const T x, const T y, const double error = 1.e-12) const
+    int number_of_nodes() const
     {
-        return (x <= (y + error)) && (x >= (y - error));
+        return node_count;
     }
 
+private:
+    int node_count{};
     struct Node
     {
         std::array<T, dimensions> point;
@@ -44,8 +46,12 @@ private:
         {
         }
     };
-
     std::unique_ptr<Node> root;
+
+    bool equal(const T x, const T y, const double error = 1.e-12) const
+    {
+        return (x <= (y + error)) && (x >= (y - error));
+    }
 
     std::unique_ptr<Node> build_tree(std::vector<std::array<T, dimensions>>& points, int depth, int start,
                                      int end)
@@ -54,6 +60,7 @@ private:
         {
             return nullptr;
         }
+        node_count++;
         int axis = depth % dimensions;
         int mid = start + (end - start) / 2;
         std::nth_element(points.begin() + start, points.begin() + mid, points.begin() + end,
@@ -61,9 +68,10 @@ private:
                          {
                              return p1[axis] < p2[axis];
                          });
+
         std::unique_ptr<Node> node = std::make_unique<Node>(points[mid]);
         node->left = build_tree(points, depth + 1, start, mid);
-        node->right = build_tree(points, depth + 1, mid + 1, mid);
+        node->right = build_tree(points, depth + 1, mid + 1, end);
         return node;
     }
 

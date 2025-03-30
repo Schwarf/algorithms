@@ -9,6 +9,7 @@ TEST(KDTreeTest, EmptyTree)
 {
     std::vector<std::array<double, 3>> emptyPoints;
     KDTree<double, 3> tree(emptyPoints);
+    EXPECT_EQ(tree.number_of_nodes(), emptyPoints.size());
     std::array<double, 3> target = {0.0, 0.0, 0.0};
     auto result = tree.nearest_neighbor(target);
     // Assuming default-constructed array returns zeros:
@@ -19,6 +20,7 @@ TEST(KDTreeTest, SinglePoint)
 {
     std::vector<std::array<double, 3>> points = {{1.0, 2.0, 3.0}};
     KDTree<double, 3> tree(points);
+    EXPECT_EQ(tree.number_of_nodes(), points.size());
     std::array<double, 3> target = {5.0, 5.0, 5.0};
     auto result = tree.nearest_neighbor(target);
     EXPECT_EQ(result, points[0]);
@@ -32,6 +34,7 @@ TEST(KDTreeTest, ExactMatch)
         {5.0, 6.0}
     };
     KDTree<double, 2> tree(points);
+    EXPECT_EQ(tree.number_of_nodes(), points.size());
     std::array<double, 2> target = {3.0, 4.0};
     auto result = tree.nearest_neighbor(target);
     EXPECT_EQ(result, target);
@@ -46,6 +49,7 @@ TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder)
         {4.0, 4.0}
     };
     KDTree<double, 2> tree(points);
+    EXPECT_EQ(tree.number_of_nodes(), points.size());
     // Target is exactly halfway between (2.0,2.0) and (3.0,3.0)
     std::array<double, 2> target = {2.5, 2.5};
     auto result = tree.nearest_neighbor(target);
@@ -68,7 +72,7 @@ TEST(KDTreeTest, NearestNeighbor3D)
 
     // Build the tree from points
     KDTree<double, 3> tree(points);
-
+    EXPECT_EQ(tree.number_of_nodes(), points.size());
     // Define a target point
     std::array<double, 3> target = {5.0, 3.0, 4.0};
 
@@ -98,7 +102,9 @@ TEST(KDTreeTest, NearestNeighbor2D)
     };
 
     KDTree<double, 2> tree(points);
+    EXPECT_EQ(tree.number_of_nodes(), points.size());
     std::array<double, 2> target = {3.1, 3.9};
+
     auto nearest = tree.nearest_neighbor(target);
 
     // (1.0, 2.0): squared distance ≈ 8.02
