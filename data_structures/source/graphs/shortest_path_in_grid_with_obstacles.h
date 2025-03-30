@@ -19,7 +19,7 @@ int manhattan_distance(int x1, int y1, int x2, int y2)
 {
     return std::abs(x1 - x2) + abs(y1 - y2);
 }
-
+// AStar
 int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& grid, std::pair<int, int> source,
                                          std::pair<int, int> target)
 {
