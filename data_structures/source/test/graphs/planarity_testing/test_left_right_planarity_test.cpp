@@ -876,12 +876,6 @@ TEST_F(SetupLeftRightPlanarityTesting, generalizedPetersenGraph)
                 PlanarityTest<int32_t> test(graph);
                 test.run();
                 EXPECT_EQ(test.is_graph_planar(), expected_results[result_index++]);
-                int x{};
-                if (expected_results[result_index++] == 0)
-                    x = 1;
-                if (expected_results[result_index++] == 1)
-                    x = 1;
-                EXPECT_EQ(1, x);
             }
         }
     }
