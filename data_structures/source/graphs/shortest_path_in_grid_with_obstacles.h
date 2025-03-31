@@ -44,17 +44,13 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
     using State = std::tuple<int, int, int, int>;
     std::priority_queue<State, std::vector<State>, std::greater<>> pq;
     pq.emplace(manhattan_distance(source_row, source_column, target_row, target_column), 0, source_row, source_column);
-
+    visited[source_row][source_column] = true;
     std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
     while (!pq.empty())
     {
         auto [total_estimate, steps, row, column] = pq.top();
         pq.pop();
-
-        if (visited[row][column])
-            continue;
-        visited[row][column] = true;
 
         if (row == target_row && column == target_column)
             return steps;
@@ -69,7 +65,9 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
             {
                 int new_steps = steps + 1;
                 int heuristic = manhattan_distance(new_row, new_column, target_row, target_column);
+                visited[new_row][new_column] = true;
                 pq.emplace(new_steps + heuristic, new_steps, new_row, new_column);
+
             }
         }
     }
