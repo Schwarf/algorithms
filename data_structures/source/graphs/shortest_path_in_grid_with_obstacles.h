@@ -25,7 +25,13 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
                                          std::pair<int, int> target)
 {
     int rows = grid.size();
+    if (rows == 0)
+        return -1;
+
     int columns = grid[0].size();
+    if (columns == 0)
+        return -1;
+
     std::vector<std::vector<bool>> visited(rows, std::vector<bool>(columns, false));
 
     auto [source_row, source_column] = source;
@@ -69,6 +75,61 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
     }
 
     return -1;
+}
+
+// BFS
+int shortest_path_in_grid_with_obstacles_bfs(const std::vector<std::vector<int>>& grid,
+                                             const std::pair<int, int>& start,
+                                             const std::pair<int, int>& end)
+{
+    int rows = grid.size();
+    if (rows == 0)
+        return -1;
+
+    int columns = grid[0].size();
+    if (columns == 0)
+        return -1;
+
+    auto [start_row, start_col] = start;
+    auto [end_row, end_col] = end;
+
+    if (grid[start_row][start_col] != 0 || grid[end_row][end_col] != 0)
+        return -1;
+
+    std::queue<std::tuple<int, int, int>> q;
+    q.emplace(start_row, start_col, 0);
+
+    std::vector<std::vector<bool>> visited(rows, std::vector<bool>(columns, false));
+    visited[start_row][start_col] = true;
+
+    const std::vector<std::pair<int, int>> directions{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    while (!q.empty())
+    {
+        auto [row, column, steps] = q.front();
+        q.pop();
+
+        if (row == end_row && column == end_col)
+        {
+            return steps;
+        }
+
+        for (const auto& [x, y] : directions)
+        {
+            int new_row = row + x;
+            int new_column = column + y;
+            if (new_row >= 0 && new_row < rows &&
+                new_column >= 0 && new_column < columns &&
+                !visited[new_row][new_column] &&
+                grid[new_row][new_column] == 0)
+            {
+                visited[new_row][new_column] = true;
+                q.emplace(new_row, new_column, steps + 1);
+            }
+        }
+    }
+
+    return -1; // No path found
 }
 
 
