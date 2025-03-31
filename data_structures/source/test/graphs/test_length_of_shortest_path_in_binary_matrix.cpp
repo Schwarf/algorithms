@@ -2,7 +2,7 @@
 // Created by andreas on 03.08.24.
 //
 #include "gtest/gtest.h"
-#include "graphs/shortest_path_in_binary_matrix.h"
+#include "graphs/length_of_shortest_path_in_binary_matrix.h"
 
 
 TEST(ShortestPathBNinaryMatrixBFS, simple1)
@@ -12,7 +12,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple1)
         {1, 0}
     };
     constexpr int expected_result{2};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple2)
@@ -23,7 +23,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple2)
         {1, 1, 0}
     };
     constexpr int expected_result{4};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple3)
@@ -34,7 +34,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple3)
         {1, 1, 0}
     };
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple4)
@@ -45,7 +45,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple4)
         {0, 0, 0}
     };
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple5)
@@ -57,7 +57,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple5)
         {0, 0, 0, 0}
     };
     constexpr int expected_result{5};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 
@@ -72,7 +72,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple6)
         {1, 1, 1, 1, 1, 0}
     };
     constexpr int expected_result{14};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple7)
@@ -88,7 +88,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple7)
         {1, 1, 1, 1, 1, 1, 1, 0}
     };
     constexpr int expected_result{25};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 TEST(ShortestPathBNinaryMatrixBFS, simple8)
@@ -103,7 +103,7 @@ TEST(ShortestPathBNinaryMatrixBFS, simple8)
         {0, 0, 1, 0, 0, 0, 0}
     };
     constexpr int expected_result{10};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 
@@ -612,7 +612,7 @@ TEST(ShortestPathBNinaryMatrixBFS, complex1)
         }
     };
     constexpr int expected_result{146};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_bfs(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_bfs(input));
 }
 
 
@@ -623,7 +623,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple1)
         {1, 0}
     };
     constexpr int expected_result{2};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple2)
@@ -634,7 +634,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple2)
         {1, 1, 0}
     };
     constexpr int expected_result{4};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple3)
@@ -645,7 +645,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple3)
         {1, 1, 0}
     };
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple4)
@@ -656,7 +656,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple4)
         {0, 0, 0}
     };
     constexpr int expected_result{-1};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple5)
@@ -668,7 +668,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple5)
         {0, 0, 0, 0}
     };
     constexpr int expected_result{5};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple6)
@@ -682,7 +682,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple6)
         {1, 1, 1, 1, 1, 0}
     };
     constexpr int expected_result{14};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple7)
@@ -698,7 +698,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple7)
         {1, 1, 1, 1, 1, 1, 1, 0}
     };
     constexpr int expected_result{25};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 TEST(ShortestPathBNinaryMatrixAStar, simple8)
@@ -713,7 +713,7 @@ TEST(ShortestPathBNinaryMatrixAStar, simple8)
         {0, 0, 1, 0, 0, 0, 0}
     };
     constexpr int expected_result{10};
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }
 
 
@@ -1222,5 +1222,5 @@ TEST(ShortestPathBNinaryMatrixAStar, complex1)
             1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0
         }
     };
-    EXPECT_EQ(expected_result, shortest_path_binary_matrix_astar(input));
+    EXPECT_EQ(expected_result, length_of_shortest_path_binary_matrix_astar(input));
 }

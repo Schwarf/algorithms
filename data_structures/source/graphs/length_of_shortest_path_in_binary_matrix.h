@@ -7,6 +7,7 @@
 // Given an n x n binary matrix determine the shortest path from [0, 0] to [n-1, n-1]. All 8 directions from a cell are allowed.
 // A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell
 // (i.e., (n - 1, n - 1)) such that all the visited cells of the path are 0.
+// The length of a clear path is the number of visited cells of this path.
 
 #include <vector>
 #include <queue>
@@ -28,7 +29,7 @@ reconstruct_path(std::vector<std::vector<std::pair<int, int>>>& parent, int n)
     return path;
 }
 
-inline int shortest_path_binary_matrix_bfs(std::vector<std::vector<int>>& matrix)
+inline int length_of_shortest_path_binary_matrix_bfs(std::vector<std::vector<int>>& matrix)
 {
     int n = matrix.size();
     if (matrix[0][0] == 1 || matrix[n - 1][n - 1])
@@ -138,7 +139,7 @@ inline int astar_algorithm(std::vector<std::vector<int>>& matrix)
     return -1;
 }
 
-inline int shortest_path_binary_matrix_astar(std::vector<std::vector<int>>& matrix)
+inline int length_of_shortest_path_binary_matrix_astar(std::vector<std::vector<int>>& matrix)
 {
     int n = matrix.size();
     if (matrix[0][0] || matrix[n - 1][n - 1])
