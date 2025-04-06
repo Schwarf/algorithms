@@ -2,7 +2,7 @@
 // Created by andreas on 10.07.23.
 //
 #include "gtest/gtest.h"
-#include "./../minimize_number_of_coins.h"
+#include "./../coin_change.h"
 
 TEST(MinimizeClassic, simple1)
 {

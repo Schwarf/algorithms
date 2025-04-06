@@ -22,7 +22,7 @@ add_executable(test_dynamic_programming
         test_pascal_triangle.cpp
         test_maximum_subarray_kadane_algorithm.cpp
         test_longest_palindromic_substring.cpp
-        test_minimize_number_of_coins.cpp
+        test_coin_change.cpp
         test_minimal_jumps_to_last_index.cpp
         test_knapsack_problem.cpp
         test_predict_the_winner.cpp
