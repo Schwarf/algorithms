@@ -21,9 +21,16 @@ bool dfs(std::vector<std::vector<bool>> & ocean, int row, int col, std::vector<s
     return false;
   if(ocean[row][col])
     return true;
+  int current_height = heights[row][col]; 
   heights[row][col] = 100000;
-   
-
+  
+  bool found = (row > 0 && heights[row-1][col] <= current_height && dfs(ocean, row-1, col, heights)) ||
+               (col > 0 && heights[row][col-1] <= current_height && dfs(ocean, row, col-1, heights)) ||
+               (row < heights.size()-1 && heights[row+1][col] <= current_height && dfs(ocean, row+1, col, heights)) ||
+               (col < heights[0].size()-1 && heights[row][col+1] <= current_height && dfs(ocean, row, col+1, heights));
+  ocean[row][col] = found;
+  heights[row][col] = current_height;
+  return found;
 }
 
 
