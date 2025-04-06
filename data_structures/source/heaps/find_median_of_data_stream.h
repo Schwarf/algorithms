@@ -52,5 +52,5 @@ class MedianOfDataStream {
       }
       return static_cast<double>(min_heap.top());
     }
-}
+};
 #endif //FIND_MEDIAN_OF_DATA_STREAM_H
