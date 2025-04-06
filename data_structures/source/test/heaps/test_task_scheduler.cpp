@@ -2,7 +2,7 @@
 // Created by andreas on 19.03.24.
 //
 #include "gtest/gtest.h"
-#include "./../task_scheduler.h"
+#include "heaps/task_scheduler.h"
 
 
 TEST(TestTaskScheduler, simple1) {

@@ -24,7 +24,7 @@ add_executable(test_fun_with_algos
         test_greatest_common_divisor.cpp
         test_find_pivot_integer.cpp
         test_insert_interval.cpp
-        test_task_scheduler.cpp
+        ../../data_structures/source/test/heaps/test_task_scheduler.cpp
         test_find_duplicate_in_array.cpp
         test_find_all_duplicates_in_array.cpp
         test_find_first_missing_positive.cpp
