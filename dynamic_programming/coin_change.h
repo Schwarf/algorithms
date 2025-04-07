@@ -46,18 +46,18 @@ int minimize_number_of_coins_top_down(const std::vector<int> &coins, int amount)
 }
 
 // Bottom up or tabulation approach
-int minimize_number_of_coins_bottom_up(const std::vector<int> &coins, int amount) {
-    if (amount == 0)
+int minimize_number_of_coins_bottom_up(const std::vector<int> &coins, int total_amount) {
+    if (total_amount == 0)
         return 0;
-    std::vector<int> dp(amount + 1, amount + 1);
+    std::vector<int> dp(total_amount + 1, total_amount + 1);
     dp[0] = 0;
-    for (int i{1}; i <= amount; ++i) {
+    for (int amount{1}; amount <= total_amount; ++amount) {
         for (const auto &coin: coins) {
-            if (coin <= i)
-                dp[i] = std::min(dp[i], 1 + dp[i - coin]);
+            if (coin <= amount)
+                dp[amount] = std::min(dp[amount], 1 + dp[amount - coin]);
         }
     }
-    return dp[amount] == amount + 1 ? -1 : dp[amount];
+    return dp[total_amount] == total_amount + 1 ? -1 : dp[total_amount];
 }
 
 #endif //MINIMIZE_NUMBER_OF_COINS_H
