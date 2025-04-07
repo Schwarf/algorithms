@@ -4,6 +4,13 @@
 #include "gtest/gtest.h"
 #include "caches/lru_cache.h"
 
+void createCacheWithNegativeCapacity() {
+    LRUCache<std::string, int> cache(-1);
+}
+TEST(TestLRUCache, test_throws)
+{
+    EXPECT_THROW( createCacheWithNegativeCapacity() , std::invalid_argument);
+}
 
 TEST(TestLRUCache, test_eviction_policy1)
 {
