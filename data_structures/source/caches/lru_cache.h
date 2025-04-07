@@ -22,25 +22,26 @@ public:
     explicit LRUCache(int capacity)
         : capacity(capacity)
     {
+        if (capacity <= 0)
+            throw std::invalid_argument("Capacity must be positive");
     }
 
-    std::optional<ValueType> get(KeyType key)
+    std::optional<ValueType> get(const KeyType & key)
     {
-        const auto it = key_to_iterator.find(key);
-        if (it == key_to_iterator.cend())
-            return std::nullopt;
-
-        const auto& listIt = it->second;
-        // Move it to the front
-        cache.splice(cache.begin(), cache, listIt);
-        return listIt->value;
+        if (auto it = key_to_iterator.find(key) ; it != key_to_iterator.end())
+        {
+            const auto& listIt = it->second;
+            // Move it to the front
+            cache.splice(cache.begin(), cache, listIt);
+            return listIt->value;
+        }
+        return std::nullopt;
     }
 
-    void put(KeyType key, ValueType value)
+    void put(const KeyType & key, ValueType value)
     {
         // No capacity issue, just update the value
-        const auto it = key_to_iterator.find(key);
-        if (it != key_to_iterator.cend())
+        if (auto it = key_to_iterator.find(key); it != key_to_iterator.cend())
         {
             const auto& listIt = it->second;
             // Move it to the front
