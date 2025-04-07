@@ -12,32 +12,38 @@
 // or -1 if it is not in nums.
 // You must write an algorithm with O(log n) runtime complexity.
 #include <vector>
-int search(const std::vector<int>& input, int target) {
-  int size = input.size();
-  int left{};
-  int right{size - 1};
-  while (left <= right) {
-    int mid = left + (right - left) / 2;
-    // case1: target found
-    if(input[mid] == target) {
-      return mid;
-    }
-    // case2: subarray on mid's left is sorted
-    else if(input[mid] >= target) {
-        if(target >= input[left] && target < input[mid])
-          right = mid - 1;
-        else
-          left = mid + 1;
-    }
-    else
+
+int search(const std::vector<int>& input, int target)
+{
+    int size = input.size();
+    int left{};
+    int right{size - 1};
+    while (left <= right)
     {
-      // case3: subarray on mid's right is sorted
-      if(target <= input[right] && target > input[mid])
-        left = mid + 1;
-      else
-        right = mid -1;
+        int mid = left + (right - left) / 2;
+        // case1: target found
+        if (input[mid] == target)
+        {
+            return mid;
+        }
+        // case2: subarray on mid's left is sorted
+        else if (input[mid] >= target)
+        {
+            if (target >= input[left] && target < input[mid])
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        else
+        {
+            // case3: subarray on mid's right is sorted
+            if (target <= input[right] && target > input[mid])
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
     }
-  }
+    return -1;
 }
 
 #endif //SEARCH_IN_ROTATED_SORTED_ARRAY_H

@@ -18,7 +18,8 @@ add_executable(test_binary_search
         test_construct_bounded_array_with_max_at_index.cpp
         test_minimum_number_of_days.cpp
         test_find_kth_smallest_distance.cpp
-        test_range_sum_of_sorted_subarrays.cpp)
+        test_range_sum_of_sorted_subarrays.cpp
+        test_search_in_rotated_sorted_array.cpp)
 
 target_link_libraries(test_binary_search GTest::GTest GTest::Main pthread)
 add_test(NAME BinarySearchTests COMMAND test_binary_search)
