@@ -45,7 +45,8 @@ add_executable(test_dynamic_programming
         test_maximum_number_of_points_with_costs.cpp
         test_nth_ugly_number.cpp
         test_minimum_copy_paste_operations.cpp
-        test_maximize_index_value_pair.cpp)
+        test_maximize_index_value_pair.cpp
+        test_word_break.cpp)
 
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)
