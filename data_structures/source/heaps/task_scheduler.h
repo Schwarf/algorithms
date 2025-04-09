@@ -11,7 +11,7 @@
 #include <vector>
 #include <queue>
 
-int time_needed_for_scheduling_tasks(const std::vector<char> &tasks, int minimum_intervals_between_identical_tasks) {
+int time_needed_for_scheduling_tasks(const std::vector<char> &tasks, int minimum_interval_between_identical_tasks) {
     std::vector<int> frequencies(26, 0);
     for (const auto &c: tasks) {
         frequencies[c - 'A']++;
@@ -23,33 +23,37 @@ int time_needed_for_scheduling_tasks(const std::vector<char> &tasks, int minimum
     }
     int time{};
     while (!q.empty()) {
-        int cycle = minimum_intervals_between_identical_tasks + 1;
+        int cycle = minimum_interval_between_identical_tasks + 1;
         std::vector<int> store{};
         int task_count{};
+        // Go through all jobs and reduce their number by one (as long as the cycle-space is large enough)
         while (cycle-- && !q.empty()) {
             if (q.top() > 1)
                 store.push_back(q.top() - 1);
             q.pop();
             task_count++;
         }
+        // Re-enter the by-one-reduced jobs to the queue
         for (auto x: store)
             q.push(x);
-        time += (q.empty() ? task_count : minimum_intervals_between_identical_tasks + 1);
+        // if the queue is empty we add the task_count if not we just add the maximum
+        time += (q.empty() ? task_count : minimum_interval_between_identical_tasks + 1);
     }
     return time;
 }
 
 int time_needed_for_scheduling_tasks_via_sort(const std::vector<char> &tasks,
-                                              int minimum_intervals_between_identical_tasks) {
+                                              int minimum_interval_between_identical_tasks) {
     std::vector<int> frequencies(26);
     for (const auto &c: tasks) {
         frequencies[c - 'A']++;
     }
     std::sort(frequencies.begin(), frequencies.end());
-    auto max_frequency = frequencies.back() - 1; // minus one because the last one needs no cooling time
-    auto idle_slots = max_frequency * minimum_intervals_between_identical_tasks;
+    auto gaps_between_max_tasks = frequencies.back() - 1;
+    auto idle_slots = gaps_between_max_tasks * minimum_interval_between_identical_tasks;
+    // Fill gaps using tasks other than the most frequent one (at index 25)
     for (int i{24}; i >= 0 && frequencies[i] > 0; --i) {
-        idle_slots -= std::min(max_frequency, frequencies[i]);
+        idle_slots -= std::min(gaps_between_max_tasks, frequencies[i]);
     }
     return idle_slots > 0 ? idle_slots + tasks.size() : tasks.size();
 }
