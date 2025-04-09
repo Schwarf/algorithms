@@ -11,15 +11,14 @@
 // prices[i] obtain the maximum total price for the rod. Cutting is free.
 
 #include <vector>
-#include <utility>
 
-int cutting(std::vector<int> &prices, int length) {
-    if (length == 0)
+int cutting(std::vector<int> &prices, int current_length) {
+    if (current_length == 0)
         return 0;
     int value{};
-    for (int i{1}; i <= length; ++i) {
-        int price = (i < prices.size()) ? prices[i] : 0;
-        value = std::max(value, price + cutting(prices, length - i));
+    for (int cut_length{1}; cut_length <= current_length; ++cut_length) {
+        int price = (cut_length < prices.size()) ? prices[cut_length] : 0;
+        value = std::max(value, price + cutting(prices, current_length - cut_length));
     }
     return value;
 }
@@ -29,17 +28,17 @@ int rod_cutting(std::vector<int> &prices, int rod_length) {
 }
 
 
-int cutting_memo(std::vector<int> &prices, std::vector<int> &memo, int length) {
-    if (length == 0)
+int cutting_memo(std::vector<int> &prices, std::vector<int> &memo, int current_length) {
+    if (current_length == 0)
         return 0;
-    if (memo[length] != -1)
-        return memo[length];
+    if (memo[current_length] != -1)
+        return memo[current_length];
     int value{};
-    for (int i{1}; i <= length; ++i) {
-        int price = (i < prices.size()) ? prices[i] : 0;
-        value = std::max(value, price + cutting_memo(prices, memo, length - i));
+    for (int cut_length{1}; cut_length <= current_length; ++cut_length) {
+        int price = (cut_length < prices.size()) ? prices[cut_length] : 0;
+        value = std::max(value, price + cutting_memo(prices, memo, current_length - cut_length));
     }
-    memo[length] = value;
+    memo[current_length] = value;
     return value;
 }
 
@@ -51,10 +50,10 @@ int rod_cutting_memo(std::vector<int> &prices, int rod_length) {
 
 int rod_cutting_bottom_up(std::vector<int> &prices, int rod_length) {
     std::vector<int> dp(rod_length + 1, 0);
-    for (int i{}; i <= rod_length; ++i) {
-        for (int j{}; j <= i; ++j) {
-            int price = j < prices.size() ? prices[j] : 0;
-            dp[i] = std::max(dp[i], dp[i - j] + price);
+    for (int current_length{}; current_length <= rod_length; ++current_length) {
+        for (int cut_length{}; cut_length <= current_length; ++cut_length) {
+            int price = cut_length < prices.size() ? prices[cut_length] : 0;
+            dp[current_length] = std::max(dp[current_length], dp[current_length - cut_length] + price);
         }
     }
     return dp[rod_length];
