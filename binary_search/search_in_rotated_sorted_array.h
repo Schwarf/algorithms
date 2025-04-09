@@ -27,7 +27,7 @@ int search(const std::vector<int>& input, int target)
             return mid;
         }
         // case2: subarray on mid's left is sorted
-        else if (input[mid] >= target)
+        if (input[mid] >= target)
         {
             if (target >= input[left] && target < input[mid])
                 right = mid - 1;
