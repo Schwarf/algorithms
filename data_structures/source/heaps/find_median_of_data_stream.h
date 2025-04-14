@@ -18,7 +18,7 @@
 //    double find_median() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
 
 template <typename T>
-requires std::is_arithmetic<T>::value
+requires std::is_arithmetic_v<T>
 class MedianOfDataStream {
   std::priority_queue<T, std::vector<T>, std::less<T>> max_heap;
   std::priority_queue<T, std::vector<T>, std::greater<T>> min_heap;
