@@ -18,7 +18,7 @@ public:
                       std::vector<std::vector<unsigned int>>> case1()
     {
         std::vector<std::vector<float>> adjacency_matrix = {
-            {0.0, 2.5, 1.8, max_float, max_float},
+            {0.0, 2.5, 1.8, max_float, max_float}   ,
             {2.5, 0.0, 2.0, 3.1, max_float},
             {1.8, 2.0, 0.0, max_float, 1.6},
             {max_float, 3.1, max_float, 0.0, 2.3},
