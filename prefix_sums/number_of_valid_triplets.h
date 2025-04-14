@@ -78,6 +78,5 @@ long long number_of_valid_triplets_optimal(const std::string& s)
     return result;
 }
 
-};
 
 #endif //NUMBER_OF_VALID_TRIPLETS_H
