@@ -13,22 +13,22 @@
 // Return the number of valid ways to select 3 buildings.
 #include <vector>
 #include <string>
-long long numberOfWays(std::string s) {
-    int n = s.size();
+long long number_of_valid_triplets(const std::string & input) {
+    int n = input.size();
     std::vector<int> zero_prefix(n);
     std::vector<int> one_prefix(n);
 
-    zero_prefix[0] = (s[0] == '0');
-    one_prefix[0] = (s[0] == '1');
+    zero_prefix[0] = (input[0] == '0');
+    one_prefix[0] = (input[0] == '1');
     for(int i{1}; i< n; ++i)
     {
-        zero_prefix[i] = zero_prefix[i-1] + (s[i] == '0');
-        one_prefix[i] = one_prefix[i-1] + (s[i] == '1');
+        zero_prefix[i] = zero_prefix[i-1] + (input[i] == '0');
+        one_prefix[i] = one_prefix[i-1] + (input[i] == '1');
     }
     long long result{};
     for(int i{1}; i < n-1; ++i)
     {
-        if(s[i] == '0')
+        if(input[i] == '0')
         {
             int left_ones = one_prefix[i-1];
             int right_ones = one_prefix[n-1] - one_prefix[i];
@@ -43,5 +43,6 @@ long long numberOfWays(std::string s) {
     }
     return result;
 }
+
 
 #endif //NUMBER_OF_VALID_TRIPLETS_H
