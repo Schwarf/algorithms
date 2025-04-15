@@ -12,7 +12,8 @@ add_executable(test_prefix_sums
         test_product_of_array_but_current_index_value.cpp
         test_query_subarrays_with_different_parity_neighbors.cpp
         test_count_subarrays_with_odd_sum.cpp
-        test_number_of_valid_triplets.cpp)
+        test_number_of_valid_triplets.cpp
+        test_rob_banks.cpp)
 
 target_link_libraries(test_prefix_sums GTest::GTest GTest::Main pthread)
 add_test(NAME PrefixSumsTests COMMAND test_prefix_sums)
