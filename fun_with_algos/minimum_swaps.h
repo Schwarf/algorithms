@@ -2,6 +2,7 @@
 #define MINIMUM_SWAPS_H
 // Given an integer array we need to swap the largest number to the back and the smallest one to the front.
 // Return the minimum number of swaps.
+// LC 2340
 #include <vector>
 #include <limits>
 
@@ -13,12 +14,12 @@ int minimum_swaps(const std::vector<int>& input)
     int max = ::std::numeric_limits<int>::min();
     for (int i{}; i < input.size(); ++i)
     {
-        if (input[i] < min)
+        if (input[i] <= min)
         {
             min = input[i];
             min_index = i;
         }
-        if (input[i] > max)
+        if (input[i] >= max)
         {
             max = input[i];
             max_index = i;
@@ -32,4 +33,6 @@ int minimum_swaps(const std::vector<int>& input)
     }
     return swaps;
 }
+
+
 #endif //MINIMUM_SWAPS_H

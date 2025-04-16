@@ -24,3 +24,20 @@ TEST(minimum_swaps, simple3)
     constexpr int expected_result{3};
     EXPECT_EQ(minimum_swaps(input), expected_result);
 }
+
+TEST(minimum_swaps, simple4)
+{
+    std::vector<int> input = {3, 4, 5, 5, 3, 1};
+    constexpr int expected_result{6};
+    EXPECT_EQ(minimum_swaps(input), expected_result);
+}
+
+TEST(minimum_swaps, simple5)
+{
+    std::vector<int> input = {9};
+    constexpr int expected_result{0};
+    EXPECT_EQ(minimum_swaps(input), expected_result);
+}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
