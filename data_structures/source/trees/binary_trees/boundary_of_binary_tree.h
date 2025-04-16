@@ -38,6 +38,7 @@ void left_boundary(TreeNode<T>* root, std::vector<T> & left)
         return;
     }
 }
+
 template <typename T>
 void right_boundary(TreeNode<T>* root, std::vector<T> & right)
 {
@@ -52,6 +53,21 @@ void right_boundary(TreeNode<T>* root, std::vector<T> & right)
         right_boundary(root->left, right);
         return;
     }
+}
+
+template <typename T>
+void pre_order(TreeNode<T>* root, std::vector<T> & leaves)
+{
+    if(!root->left && !root->right)
+    {
+        leaves.push_back(root->val);
+        return;
+    }
+    if(root->left)
+        pre_order(root->left, leaves);
+    if(root->right)
+        pre_order(root->right, leaves);
+
 }
 
 
