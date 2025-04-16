@@ -1,3 +1,5 @@
 - Tests are missing for:
     - Daily temperatures
     - Polish notation
+- sum_of_subarray_ranges has a monotonic stack solution that is mot yet implemented.
+- 

@@ -8,6 +8,7 @@
 // between the largest and smallest element in the subarray.
 // Return the sum of all subarray ranges of nums.
 // A subarray is a contiguous non-empty sequence of elements within an array.
+// LC: 2104
 #include <vector>
 long long sum_of_subarray_ranges_brute_force(const std::vector<int> &input)
 {
