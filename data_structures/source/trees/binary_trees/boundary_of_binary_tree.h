@@ -24,15 +24,16 @@
 
 
 template <typename T>
-void left_boundary(TreeNode<T>* root, std::vector<T> & left)
+void left_boundary(TreeNode<T>* root, std::vector<T>& left)
 {
-    if(root->left)
+    if (root->left)
     {
         left.push_back(root->value);
         left_boundary(root->left, left);
         return;
     }
-    if(root->right){
+    if (root->right)
+    {
         left.push_back(root->value);
         left_boundary(root->right, left);
         return;
@@ -40,15 +41,16 @@ void left_boundary(TreeNode<T>* root, std::vector<T> & left)
 }
 
 template <typename T>
-void right_boundary(TreeNode<T>* root, std::vector<T> & right)
+void right_boundary(TreeNode<T>* root, std::vector<T>& right)
 {
-    if(root->right)
+    if (root->right)
     {
         right.push_back(root->value);
         right_boundary(root->right, right);
         return;
     }
-    if(root->left){
+    if (root->left)
+    {
         right.push_back(root->value);
         right_boundary(root->left, right);
         return;
@@ -56,38 +58,37 @@ void right_boundary(TreeNode<T>* root, std::vector<T> & right)
 }
 
 template <typename T>
-void pre_order(TreeNode<T>* root, std::vector<T> & leaves)
+void pre_order(TreeNode<T>* root, std::vector<T>& leaves)
 {
-    if(!root->left && !root->right)
+    if (!root->left && !root->right)
     {
         leaves.push_back(root->value);
         return;
     }
-    if(root->left)
+    if (root->left)
         pre_order(root->left, leaves);
-    if(root->right)
+    if (root->right)
         pre_order(root->right, leaves);
-
 }
 
 
 template <typename T>
-std::vector<T> boundary_of_binary_tree(TreeNode<T> * root)
+std::vector<T> boundary_of_binary_tree(TreeNode<T>* root)
 {
-    if(!root)
+    if (!root)
         return {};
     std::vector<T> left;
     std::vector<T> right;
     std::vector<T> leaves;
     left.push_back(root->value);
-    if(root->left)
+    if (root->left)
     {
         // compute boundary on left subtree
         left_boundary(root->left, left);
         // get the leaves of the left subtree
         pre_order(root->left, leaves);
     }
-    if(root->right)
+    if (root->right)
     {
         // compute boundary on right subtree
         right_boundary(root->right, right);
@@ -102,4 +103,37 @@ std::vector<T> boundary_of_binary_tree(TreeNode<T> * root)
     return left;
 }
 
+template <typename T>
+void get_boundaries(TreeNode<T>* node, std::vector<T>& result, bool left_boundary, bool right_boundary)
+{
+    if (!node)
+        return;
+    // Add node as left boundary on the way down
+    if (left_boundary)
+        result.push_back(node->value);
+    // Add if it is a leave
+    if (!left_boundary && !right_boundary && !node->left && !node->right)
+        result.push_back(node->value);
+    // Walk further down the tree
+    get_boundaries(node->left, result, left_boundary, right_boundary && !node->right); // ?? TODO: Document better
+    get_boundaries(node->right, result, left_boundary && !node->left, right_boundary);
+    // Add node as right boundary on the way up
+    if (right_boundary)
+        result.push_back(node->value);
+}
+
+template <typename T>
+std::vector<T> boundary_of_binary_tree_optimal(TreeNode<T>* root)
+{
+    if (!root)
+        return {};
+    std::vector<T> result;
+    result.push_back(root->value);
+    get_boundaries(root->left, result, true, false); // left child is a potential left boundary
+    get_boundaries(root->right, result, false, true); // right child is a potential right boundary
+    return result;
+}
+
+
 #endif //BOUNDARY_OF_BINARY_TREE_H
+
