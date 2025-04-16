@@ -20,14 +20,31 @@ public:
 protected:
     using Node = OrderStatisticNode<T>;
 
+    OrderStatisticNode<T>* insert_(OrderStatisticNode<T>* node, const T& value) override {
+        if (!node)
+          return new OrderStatisticNode<T>(value);
+
+        if (value < node->value)
+            node->left = insert_(node->left, value);
+        else if (value > node->value)
+            node->right = insert_(node->right, value);
+        else
+            return node;
+
+        node->height = 1 + std::max(this->height_(node->left), this->height_(node->right));
+        node->subtree_size = 1 + size_(node->left) + size_(node->right);
+
+        // balance as needed
+        auto balanced = balance_tree_(node);
+        return balanced ? balanced : node;
+    }
+
     int size_(Node* node) const {
         return node ? node->subtree_size : 0;
     }
 
     void update_(Node* node) {
         if (!node) return;
-        node->height = 1 + std::max(this->height_(node->left), this->height_(node->right));
-        node->subtree_size = 1 + size_(static_cast<Node*>(node->left)) + size_(static_cast<Node*>(node->right));
     }
 
     Node* get_ith_(Node* node, int i) const {

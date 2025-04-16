@@ -1,6 +1,9 @@
 //
 // Created by andreas on 22.01.22.
 //
+//
+// Created by andreas on 22.01.22.
+//
 
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
@@ -104,7 +107,6 @@ private:
 
     AVLNode<T>* balance_tree_(AVLNode<T>* node)
     {
-        node->height = 1 + std::max(height_(node->left), height_(node->right));
         auto balance = compute_balance_(node);
         auto left_balance = compute_balance_(node->left);
         auto right_balance = compute_balance_(node->right);
@@ -199,6 +201,7 @@ private:
         // tree has only one node
         if (node == nullptr)
             return node;
+        node->height = 1 + std::max(height_(node->left), height_(node->right));
         auto balanced = balance_tree_(node);
         return balanced ? balanced : node;
     }
@@ -265,6 +268,7 @@ private:
         else
             return node;
 
+        node->height = 1 + std::max(height_(node->left), height_(node->right));
         auto balanced = balance_tree_(node);
         return balanced ? balanced : node;
     }
