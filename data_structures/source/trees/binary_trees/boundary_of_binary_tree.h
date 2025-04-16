@@ -28,12 +28,12 @@ void left_boundary(TreeNode<T>* root, std::vector<T> & left)
 {
     if(root->left)
     {
-        left.push_back(root->val);
+        left.push_back(root->value);
         left_boundary(root->left, left);
         return;
     }
     if(root->right){
-        left.push_back(root->val);
+        left.push_back(root->value);
         left_boundary(root->right, left);
         return;
     }
@@ -44,12 +44,12 @@ void right_boundary(TreeNode<T>* root, std::vector<T> & right)
 {
     if(root->right)
     {
-        right.push_back(root->val);
+        right.push_back(root->value);
         right_boundary(root->right, right);
         return;
     }
     if(root->left){
-        right.push_back(root->val);
+        right.push_back(root->value);
         right_boundary(root->left, right);
         return;
     }
@@ -60,7 +60,7 @@ void pre_order(TreeNode<T>* root, std::vector<T> & leaves)
 {
     if(!root->left && !root->right)
     {
-        leaves.push_back(root->val);
+        leaves.push_back(root->value);
         return;
     }
     if(root->left)
@@ -79,7 +79,7 @@ std::vector<T> boundary_of_binary_tree(TreeNode<T> * root)
     std::vector<T> left;
     std::vector<T> right;
     std::vector<T> leaves;
-    left.push_back(root->val);
+    left.push_back(root->value);
     if(root->left)
     {
         // compute boundary on left subtree
