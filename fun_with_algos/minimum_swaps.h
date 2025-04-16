@@ -3,6 +3,7 @@
 // Given an integer array we need to swap the largest number to the back and the smallest one to the front.
 // Return the minimum number of swaps.
 // LC 2340
+#include <algorithm>
 #include <vector>
 #include <limits>
 
@@ -21,7 +22,7 @@ int minimum_swaps(const std::vector<int>& input)
             min_index = i;
         }
     }
-    for (int i{n-1}; i > -1; --i)
+    for (int i{n - 1}; i > -1; --i)
     {
         if (input[i] > max)
         {
@@ -38,5 +39,19 @@ int minimum_swaps(const std::vector<int>& input)
     return swaps;
 }
 
+int minimum_swaps_concise(std::vector<int>& nums)
+{
+    auto it_min = std::min_element(nums.begin(), nums.end());
+    auto it = std::find(nums.rbegin(), nums.rend(), *std::max_element(nums.begin(), nums.end()));
+    // Convert reverse iterator to normal iterator
+    auto it_max = std::prev(it.base());
+    auto result = static_cast<int>(std::distance(nums.begin(), it_min)) + static_cast<int>(std::distance(
+        it_max, nums.end())) - 1;
 
+    if (std::distance(nums.begin(), it_min) > std::distance(nums.begin(), it_max))
+    {
+        return result - 1;
+    }
+    return result;
+}
 #endif //MINIMUM_SWAPS_H
