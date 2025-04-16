@@ -1,2 +1,3 @@
 - Algo "minimal operations to get zero" is quite complex. Write a docu.
 - Write unit tests for other algos.
+- sum_longest_subarray_with_unique_elements can be simplified (set instead of map) and is a sliding window algo.
