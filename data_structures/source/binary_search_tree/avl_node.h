@@ -8,7 +8,6 @@
 template <typename T>
 struct AVLNode
 {
-public:
     explicit AVLNode(const T& val)
     {
         value = val;

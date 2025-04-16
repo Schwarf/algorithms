@@ -69,12 +69,11 @@ private:
     {
         if (node == nullptr)
             return false;
-        else if (node->value == value)
+        if (node->value == value)
             return true;
-        else if (value < node->value)
+        if (value < node->value)
             return find_(value, node->left);
-        else
-            return find_(value, node->right);
+        return find_(value, node->right);
     }
 
     void write_to_vector_inorder_(AVLNode<T>* node, std::vector<T>& result) const
