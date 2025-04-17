@@ -30,7 +30,7 @@ std::vector<int> maxSlidingWindow(std::vector<int>& input, int window_size) {
         {
             deque.pop_front();
         }
-        while(!dq.empty() && input[i] >= input[deque.back()]){
+        while(!deque.empty() && input[i] >= input[deque.back()]){
             deque.pop_back();
         }
         deque.push_back(i);
