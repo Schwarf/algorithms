@@ -128,6 +128,66 @@ TEST(TestCircularDeque, IsFull)
     EXPECT_FALSE(deque.is_full());
 }
 
+TEST(TestCircularDeque, MixedOperations)
+{
+    CircularDeque<int> deque(4);
+    EXPECT_TRUE(deque.is_empty());
+    EXPECT_FALSE(deque.is_full());
+
+    // Insert elements at front and back
+    EXPECT_TRUE(deque.insert_back(1));  // deque: [1]
+    EXPECT_TRUE(deque.insert_front(2)); // deque: [2, 1]
+    EXPECT_TRUE(deque.insert_back(3));  // deque: [2, 1, 3]
+    EXPECT_TRUE(deque.insert_front(4)); // deque: [4, 2, 1, 3]
+    EXPECT_FALSE(deque.insert_back(5)); // should fail, full
+
+    EXPECT_TRUE(deque.is_full());
+    EXPECT_FALSE(deque.is_empty());
+
+    // Check front and back
+    auto front = deque.get_front();
+    auto back = deque.get_back();
+    EXPECT_TRUE(front.has_value());
+    EXPECT_EQ(front.value(), 4);
+    EXPECT_TRUE(back.has_value());
+    EXPECT_EQ(back.value(), 3);
+
+    // Delete from both ends
+    EXPECT_TRUE(deque.delete_back());  // deque: [4, 2, 1]
+    EXPECT_TRUE(deque.delete_front()); // deque: [2, 1]
+    EXPECT_FALSE(deque.is_full());
+    EXPECT_FALSE(deque.is_empty());
+
+    // Check front and back again
+    front = deque.get_front();
+    back = deque.get_back();
+    EXPECT_TRUE(front.has_value());
+    EXPECT_EQ(front.value(), 2);
+    EXPECT_TRUE(back.has_value());
+    EXPECT_EQ(back.value(), 1);
+
+    // Insert again after deletions
+    EXPECT_TRUE(deque.insert_back(5));  // deque: [2, 1, 5]
+    EXPECT_TRUE(deque.insert_front(6)); // deque: [6, 2, 1, 5]
+    EXPECT_FALSE(deque.insert_back(7)); // full
+
+    // Final structure check
+    EXPECT_TRUE(deque.is_full());
+    EXPECT_EQ(deque.get_front().value(), 6);
+    EXPECT_EQ(deque.get_back().value(), 5);
+
+    // Clear all
+    EXPECT_TRUE(deque.delete_front()); // [2, 1, 5]
+    EXPECT_TRUE(deque.delete_front()); // [1, 5]
+    EXPECT_TRUE(deque.delete_back());  // [1]
+    EXPECT_TRUE(deque.delete_back());  // []
+    EXPECT_FALSE(deque.delete_back()); // nothing to delete
+
+    EXPECT_TRUE(deque.is_empty());
+    EXPECT_FALSE(deque.get_front().has_value());
+    EXPECT_FALSE(deque.get_back().has_value());
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
