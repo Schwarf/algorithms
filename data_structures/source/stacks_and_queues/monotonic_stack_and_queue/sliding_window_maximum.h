@@ -10,7 +10,7 @@
 // Return the max sliding window.
 #include <vector>
 #include <deque>
-std::vector<int> maxSlidingWindow(std::vector<int>& input, int window_size) {
+std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size) {
     int n = input.size();
     std::deque<int> deque;
     std::vector<int> result;
