@@ -18,42 +18,48 @@
 //Return an integer array answer where answer[i] is the answer to the ith query.
 #include <vector>
 #include <string>
-std::vector<int> plates_between_candles(std::string & input, std::vector<std::vector<int> > & queries)
+
+std::vector<int> plates_between_candles(std::string& input, std::vector<std::vector<int>>& queries)
 {
     int n = input.size();
     std::vector<int> prefix_plates(n, 0);
-    std::vector<int> nearest_left_candles(n ,-1);
+    std::vector<int> nearest_left_candles(n, -1);
     std::vector<int> nearest_right_candles(n, -1);
     std::vector<int> result;
     // Compute prefix-sum of plates and nearest-left candle
     int plate_count = 0;
     int last_candle = -1;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i)
+    {
         if (input[i] == '*')
             ++plate_count;
         if (input[i] == '|')
             last_candle = i;
-      prefix_plates[i] = plate_count;
-      nearest_left_candles[i] = last_candle;
+        prefix_plates[i] = plate_count;
+        nearest_left_candles[i] = last_candle;
     }
     last_candle = -1;
-    for (int i = n-1; i > -1; --i) {
+    for (int i = n - 1; i > -1; --i)
+    {
         if (input[i] == '|')
             last_candle = i;
         nearest_right_candles[i] = last_candle;
     }
 
-    for(const auto & query: queries) {
-    // the left candle is either on the query index or right of the query index
+    for (const auto& query : queries)
+    {
+        // the left candle is either on the query index or right of the query index
         auto left_candle = nearest_right_candles[query[0]];
-    // the right candle is either on the query index or left of the query index
+        // the right candle is either on the query index or left of the query index
         auto right_candle = nearest_left_candles[query[1]];
-        if (left_candle != -1 && right_candle != -1 && left_candle < right_candle) {
+        if (left_candle != -1 && right_candle != -1 && left_candle < right_candle)
+        {
             result.push_back(prefix_plates[right_candle] - prefix_plates[left_candle]);
-        } else {
+        }
+        else
+        {
             result.push_back(0);
         }
-
     }
 
     return result;
