@@ -288,8 +288,8 @@ private:
     int edge_count{}; // Counter for unique edges
 };
 
-template <typename NodeType>
-    requires std::is_signed_v<NodeType>
+template <typename NodeType, typename WeightType>
+    requires std::is_signed_v<NodeType> && std::is_floating_point_v<WeightType>
 class WeightedDirectedGraph : public DirectedGraph<NodeType>
 {
 public:
@@ -298,7 +298,7 @@ public:
     WeightedDirectedGraph() = default;
 
     WeightedDirectedGraph(const std::initializer_list<NodeType>& nodes,
-                          const std::initializer_list<std::tuple<NodeType, NodeType, int>>& weighted_edges)
+                          const std::initializer_list<std::tuple<NodeType, NodeType, WeightType>>& weighted_edges)
     {
         for (const auto& node : nodes)
             this->get_adjacency_list()[node];  // inherited method
@@ -308,7 +308,7 @@ public:
     }
 
     // Add weighted edge
-    void add_edge(NodeType source, NodeType dest, int weight)
+    void add_edge(NodeType source, NodeType dest, WeightType weight)
     {
         if (source != dest && !weights.contains({source, dest}))
         {
@@ -318,7 +318,7 @@ public:
     }
 
     // Access edge weight (throws if edge not present)
-    int get_weight(NodeType source, NodeType dest) const
+    WeightType get_weight(NodeType source, NodeType dest) const
     {
         return weights.at({source, dest});
     }
@@ -329,23 +329,17 @@ public:
         return weights.contains({source, dest});
     }
 
-    // Get full weight map
-    const std::unordered_map<EdgeType, int, EdgeHash>& get_weights() const
-    {
-        return weights;
-    }
-
     // Optional: get all weighted edges
-    std::vector<std::tuple<NodeType, NodeType, int>> get_all_weighted_edges() const
+    std::vector<std::tuple<NodeType, NodeType, WeightType>> get_all_weighted_edges() const
     {
-        std::vector<std::tuple<NodeType, NodeType, int>> result;
-        for (const auto& [edge, w] : weights)
-            result.emplace_back(edge.first, edge.second, w);
+        std::vector<std::tuple<NodeType, NodeType, WeightType>> result;
+        for (const auto& [edge, weight] : weights)
+            result.emplace_back(edge.first, edge.second, weight);
         return result;
     }
 
 private:
-    std::unordered_map<EdgeType, int, EdgeHash> weights;
+    std::unordered_map<EdgeType, WeightType, EdgeHash> weights;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
