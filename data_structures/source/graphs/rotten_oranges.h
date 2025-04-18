@@ -43,7 +43,7 @@ int rotten_oranges(std::vector<std::vector<int>>& grid) {
         {
             auto [row, col] = rotten.front();
             rotten.pop();
-            for(const auto [x, y]: directions)
+            for(const auto & [x, y]: directions)
             {
                 auto new_row = row+ x;
                 auto new_col = col+ y;
