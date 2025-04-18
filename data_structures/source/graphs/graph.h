@@ -288,6 +288,65 @@ private:
     int edge_count{}; // Counter for unique edges
 };
 
+template <typename NodeType>
+    requires std::is_signed_v<NodeType>
+class WeightedDirectedGraph : public DirectedGraph<NodeType>
+{
+public:
+    using EdgeType = std::pair<NodeType, NodeType>;
+
+    WeightedDirectedGraph() = default;
+
+    WeightedDirectedGraph(const std::initializer_list<NodeType>& nodes,
+                          const std::initializer_list<std::tuple<NodeType, NodeType, int>>& weighted_edges)
+    {
+        for (const auto& node : nodes)
+            this->get_adjacency_list()[node];  // inherited method
+
+        for (const auto& [src, dest, weight] : weighted_edges)
+            add_edge(src, dest, weight);
+    }
+
+    // Add weighted edge
+    void add_edge(NodeType source, NodeType dest, int weight)
+    {
+        if (source != dest && !weights.contains({source, dest}))
+        {
+            DirectedGraph<NodeType>::add_edge(source, dest);  // call base method
+            weights[{source, dest}] = weight;
+        }
+    }
+
+    // Access edge weight (throws if edge not present)
+    int get_weight(NodeType source, NodeType dest) const
+    {
+        return weights.at({source, dest});
+    }
+
+    // Check if an edge has a weight (i.e., exists)
+    bool has_edge(NodeType source, NodeType dest) const
+    {
+        return weights.contains({source, dest});
+    }
+
+    // Get full weight map
+    const std::unordered_map<EdgeType, int, EdgeHash>& get_weights() const
+    {
+        return weights;
+    }
+
+    // Optional: get all weighted edges
+    std::vector<std::tuple<NodeType, NodeType, int>> get_all_weighted_edges() const
+    {
+        std::vector<std::tuple<NodeType, NodeType, int>> result;
+        for (const auto& [edge, w] : weights)
+            result.emplace_back(edge.first, edge.second, w);
+        return result;
+    }
+
+private:
+    std::unordered_map<EdgeType, int, EdgeHash> weights;
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
