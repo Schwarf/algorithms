@@ -13,14 +13,14 @@
 #include <string>
 #include <algorithm>
 
-std::vector<std::vector<std::string>> suggestedProducts(std::vector<std::string>& products, std::string searchWord) {
+std::vector<std::vector<std::string>> suggested_products(std::vector<std::string>& products, const std::string & search_word) {
     std::sort(products.begin(), products.end());
     int n = products.size();
     std::vector<std::vector<std::string>> result;
     std::string prefix{};
     int start{};
     int binary_search_start{};
-    for(const auto c: searchWord)
+    for(const auto c: search_word)
     {
         prefix += c;
         start  = lower_bound(products.begin()+ binary_search_start, products.end(), prefix) - products.begin();
