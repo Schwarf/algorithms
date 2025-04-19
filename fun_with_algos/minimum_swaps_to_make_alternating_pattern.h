@@ -25,16 +25,16 @@ int minimum_swaps_to_make_alternate_pattern(std::string& input)
       }
     minimum_count = std::min(minimum_count, swap_count);
   }
-  else if(number_of_ones == n/2 && number_of_zeros == (n+1)/2)
+  swap_count =0;
+  if(number_of_ones == n/2 && number_of_zeros == (n+1)/2)
   {
     for (int i = 0; i < n; ++i) {
       if (i % 2 == 0 && input[i] != '0')
         swap_count++;
-
-      minimum_count = std::min(minimum_count, swap_count);
-
+    }
+    minimum_count = std::min(minimum_count, swap_count);
   }
-  return minimum_count;
+  return minimum_count == std::numeric_limits<int>::max() ? -1 : minimum_count;
 }
 
 #endif //MINIMUM_SWAPS_TO_MAKE_ALTERNATE_PATTERN_H

@@ -47,7 +47,8 @@ add_executable(test_fun_with_algos
         test_execute_processes.cpp
         test_minimal_data_costs.cpp
         test_dropped_requests.cpp
-        test_min_cost_to_add_roads.cpp)
+        test_min_cost_to_add_roads.cpp
+        test_minimum_swaps_to_make_alternating_pattern.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
