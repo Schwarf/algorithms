@@ -18,11 +18,12 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-std::vector<std::string> reorderLogFiles(std::vector<std::string>& logs) {
+
+std::vector<std::string> reorder_log_files(std::vector<std::string>& log_files) {
     std::vector<std::string> letter_logs;
     std::vector<std::string> digit_logs;
 
-    for (const auto& log : logs) {
+    for (const auto& log : log_files) {
         int pos = log.find(' ');
         if (isdigit(log[pos + 1])) {
             digit_logs.push_back(log);
