@@ -7,7 +7,7 @@
 #include "tries/trie.h"
 
 
-TEST(TrieInsertSearch, Test1)
+TEST(TestTrie, InsertSearch)
 {
     std::string insert1{"Hallo"};
     std::string insert2{"Hello"};
@@ -23,7 +23,7 @@ TEST(TrieInsertSearch, Test1)
     EXPECT_FALSE(trie.search(not_insert));
 }
 
-TEST(TrieInsertSearch, Test2)
+TEST(TestTrie, InsertSearch2)
 {
     std::string insert1{"Hallo"};
     std::string insert2{"Hallole"};
@@ -36,7 +36,7 @@ TEST(TrieInsertSearch, Test2)
 }
 
 
-TEST(TrieInsertDeleteSearch, Test1)
+TEST(TestTrie, InsertSearchDelete)
 {
     std::string insert1{"Hallo"};
     std::string insert2{"Haallo"};
