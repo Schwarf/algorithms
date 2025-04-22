@@ -112,7 +112,9 @@ private:
 
     TrieNode* root_;
 };
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class TrieMinimal {
     struct TrieNode {
@@ -125,6 +127,15 @@ class TrieMinimal {
 public:
     TrieMinimal() {
         root = new TrieNode();
+    }
+
+    bool starts_with(const std::string& prefix) {
+        TrieNode* node = root;
+        for (char c : prefix) {
+            if (!node->children.count(c)) return false;
+            node = node->children[c];
+        }
+        return true;
     }
 
     // Insert a word into the Trie
@@ -140,23 +151,49 @@ public:
 
     // Search for a full word in the Trie
     bool search(const std::string& word) const {
-        TrieNode* node = findNode(word);
+        TrieNode* node = find_node(word);
         return node != nullptr && node->is_end_of_word;
     }
 
-    // Check if any word starts with the given prefix
-    bool startsWith(const std::string& prefix) const {
-        return findNode(prefix) != nullptr;
+
+
+    void remove(const std::string& word) {
+        remove(root, word, 0);
     }
 
 private:
     // Helper to traverse to the node representing the end of a prefix/word
-    TrieNode* findNode(const std::string& s) const {
+    TrieNode* find_node(const std::string& s) const {
         TrieNode* node = root;
         for (char c : s) {
             if (!node->children.count(c))
                 return nullptr;
             node = node->children.at(c);
+        }
+        return node;
+    }
+
+    TrieNode* remove(TrieNode* node, const std::string& word, size_t depth) {
+        if (!node)
+            return nullptr;
+
+        if (depth == word.size()) {
+            if (node->is_end_of_word)
+                node->is_end_of_word = false;
+
+            if (node->children.empty()) {
+                delete node;
+                return nullptr;
+            }
+            return node;
+        }
+
+        char c = word[depth];
+        node->children[c] = remove(node->children[c], word, depth + 1);
+
+        if (node->children.empty() && !node->is_end_of_word) {
+            delete node;
+            return nullptr;
         }
         return node;
     }
