@@ -66,3 +66,56 @@ TEST(TestTrie, PrefixTest)
     EXPECT_FALSE(trie.prefix("applepie"));
 }
 
+TEST(TestTrie, CaseSensitivity)
+{
+    Trie<128> trie;
+    trie.insert("Hello");
+    EXPECT_TRUE(trie.search("Hello"));
+    EXPECT_FALSE(trie.search("hello"));  // Different character code
+}
+
+TEST(TestTrie, EmptyString)
+{
+    Trie<128> trie;
+    trie.insert("");
+    EXPECT_TRUE(trie.search(""));
+    EXPECT_TRUE(trie.prefix(""));  // Every string starts with ""
+    trie.remove("");
+    EXPECT_FALSE(trie.search(""));
+}
+
+TEST(TestTrie, SubSuperString)
+{
+    Trie<128> trie;
+    trie.insert("test");
+    trie.insert("testing");
+    trie.insert("tester");
+
+    EXPECT_TRUE(trie.search("test"));
+    EXPECT_TRUE(trie.search("testing"));
+    EXPECT_TRUE(trie.search("tester"));
+
+    trie.remove("test");
+    EXPECT_FALSE(trie.search("test"));
+    EXPECT_TRUE(trie.search("testing"));
+    EXPECT_TRUE(trie.search("tester"));
+}
+
+TEST(TestTrie, SpecialCharacters)
+{
+    Trie<128> trie;
+    trie.insert("a.b-c_d");
+    trie.insert("123_456");
+
+    EXPECT_TRUE(trie.search("a.b-c_d"));
+    EXPECT_TRUE(trie.search("123_456"));
+    EXPECT_FALSE(trie.search("a.b"));
+}
+
+TEST(TestTrie, RemoveNonExistent)
+{
+    Trie<128> trie;
+    trie.insert("apple");
+    trie.remove("banana");  // Should not crash
+    EXPECT_TRUE(trie.search("apple"));
+}
