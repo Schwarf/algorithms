@@ -9,17 +9,15 @@
 #include <string>
 // https://leetcode.com/problems/word-search-ii/
 
-
-template <size_t alphabet_size>
-struct TrieNode
-{
-    TrieNode* children[alphabet_size];
-    bool is_end_of_word{};
-};
-
 template <size_t alphabet_size>
 class Trie
 {
+    struct TrieNode
+    {
+        TrieNode* children[alphabet_size];
+        bool is_end_of_word{};
+    };
+
 public:
     Trie()
     {
@@ -71,7 +69,7 @@ public:
     }
 
 private:
-    bool has_node_children(TrieNode<alphabet_size>* node)
+    bool has_node_children(TrieNode* node)
     {
         for (int i{}; i < alphabet_size; i++)
             if (node->children[i])
@@ -79,7 +77,7 @@ private:
         return false;
     }
 
-    TrieNode<alphabet_size>* remove(TrieNode<alphabet_size>* node, const std::string& key, size_t depth)
+    TrieNode* remove(TrieNode* node, const std::string& key, size_t depth)
     {
         if (!node)
             return nullptr;
@@ -104,15 +102,19 @@ private:
         return node;
     }
 
-    TrieNode<alphabet_size>* get_new_node()
+    TrieNode* get_new_node()
     {
-        auto new_node = new TrieNode<alphabet_size>();
+        auto new_node = new TrieNode();
         for (size_t index = 0; index < alphabet_size; ++index)
             new_node->children[index] = nullptr;
         return new_node;
     }
 
-    TrieNode<alphabet_size>* root_;
+    TrieNode* root_;
+};
+
+struct TrieMinimal
+{
 };
 
 
