@@ -113,8 +113,53 @@ private:
     TrieNode* root_;
 };
 
-struct TrieMinimal
-{
+
+class TrieMinimal {
+    struct TrieNode {
+        std::unordered_map<char, TrieNode*> children;
+        bool is_end_of_word = false;
+    };
+
+    TrieNode* root;
+
+public:
+    TrieMinimal() {
+        root = new TrieNode();
+    }
+
+    // Insert a word into the Trie
+    void insert(const std::string& word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            if (!node->children[c])
+                node->children[c] = new TrieNode();
+            node = node->children[c];
+        }
+        node->is_end_of_word = true;
+    }
+
+    // Search for a full word in the Trie
+    bool search(const std::string& word) const {
+        TrieNode* node = findNode(word);
+        return node != nullptr && node->is_end_of_word;
+    }
+
+    // Check if any word starts with the given prefix
+    bool startsWith(const std::string& prefix) const {
+        return findNode(prefix) != nullptr;
+    }
+
+private:
+    // Helper to traverse to the node representing the end of a prefix/word
+    TrieNode* findNode(const std::string& s) const {
+        TrieNode* node = root;
+        for (char c : s) {
+            if (!node->children.count(c))
+                return nullptr;
+            node = node->children.at(c);
+        }
+        return node;
+    }
 };
 
 
