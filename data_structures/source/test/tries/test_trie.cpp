@@ -53,3 +53,16 @@ TEST(TestTrie, InsertSearchDelete)
     EXPECT_FALSE(trie.search(insert1));
     EXPECT_TRUE(trie.search(insert2));
 }
+
+TEST(TestTrie, PrefixTest)
+{
+    Trie<128> trie;
+    trie.insert("apple");
+    trie.insert("app");
+
+    EXPECT_TRUE(trie.prefix("app"));
+    EXPECT_TRUE(trie.prefix("ap"));
+    EXPECT_FALSE(trie.prefix("b"));
+    EXPECT_FALSE(trie.prefix("applepie"));
+}
+

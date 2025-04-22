@@ -60,7 +60,7 @@ public:
         auto node = root_;
         for (const auto& character : key)
         {
-            auto trie_index = character;
+            auto trie_index = static_cast<size_t>(character);
             if (!node->children[trie_index])
                 return false;
             node = node->children[trie_index];
