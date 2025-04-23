@@ -16,8 +16,10 @@
 
 
 // Custom hash for a pair of coordinates
-struct PairHash {
-    size_t operator()(const std::pair<int,int>& p) const noexcept {
+struct PairHash
+{
+    size_t operator()(const std::pair<int, int>& p) const noexcept
+    {
         // Combine the two 32-bit values into one 64-bit hash
         return (static_cast<size_t>(p.first) << 20) ^ p.second;
     }
@@ -25,35 +27,40 @@ struct PairHash {
 
 bool bfs(const std::vector<int>& start,
          const std::vector<int>& finish,
-         const std::unordered_set<std::pair<int,int>, PairHash>& blockedSet,
-         int maxSteps) {
-    const std::vector<std::pair<int, int>> directions {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+         const std::unordered_set<std::pair<int, int>, PairHash>& blockedSet,
+         int maxSteps)
+{
+    const std::vector<std::pair<int, int>> directions{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     constexpr int grid_size{1000000};
-    std::queue<std::pair<int,int>> queue;
-    std::unordered_set<std::pair<int,int>, PairHash> visited;
+    std::queue<std::pair<int, int>> queue;
+    std::unordered_set<std::pair<int, int>, PairHash> visited;
     queue.emplace(start[0], start[1]);
     visited.emplace(start[0], start[1]);
 
     int steps = 0;
-    while (!queue.empty() && steps <= maxSteps) {
+    while (!queue.empty() && steps <= maxSteps)
+    {
         auto [row, col] = queue.front();
         queue.pop();
 
-        if (row == finish[0] && col == finish[1]) {
+        if (row == finish[0] && col == finish[1])
+        {
             // We found the target
             return true;
         }
 
-        for (auto & [x, y] : directions) {
+        for (auto& [x, y] : directions)
+        {
             int new_row = row + x;
             int new_col = col + y;
             auto new_pair = std::make_pair(new_row, new_col);
             if (new_row >= 0 && new_row < grid_size && new_col >= 0 && new_col < grid_size
-                && !blockedSet.count(new_pair) && !visited.count(new_pair)) {
+                && !blockedSet.count(new_pair) && !visited.count(new_pair))
+            {
                 visited.insert(new_pair);
                 queue.push(new_pair);
                 ++steps;
-                }
+            }
         }
     }
     // If we've explored more than maxSteps without finding target, we're not enclosed
@@ -61,11 +68,13 @@ bool bfs(const std::vector<int>& start,
 }
 
 bool is_escape_possible(std::vector<std::vector<int>>& blocked,
-                      std::vector<int>& source,
-                      std::vector<int>& target) {
+                        std::vector<int>& source,
+                        std::vector<int>& target)
+{
     // Insert blocked cells into a hash set for O(1) lookup
-    std::unordered_set<std::pair<int,int>, PairHash> blockedSet;
-    for (auto& b : blocked) {
+    std::unordered_set<std::pair<int, int>, PairHash> blockedSet;
+    for (auto& b : blocked)
+    {
         blockedSet.emplace(b[0], b[1]);
     }
 
@@ -78,29 +87,33 @@ bool is_escape_possible(std::vector<std::vector<int>>& blocked,
 }
 
 
-
-
 // TODO
-bool escape_from_maze_custom_lambdas(const std::vector<std::vector<int>>& blocked, std::vector<int> & source, std::vector<int> & target)
+/*
+bool escape_from_maze_custom_lambdas(const std::vector<std::vector<int>>& blocked, std::vector<int>& source,
+                                     std::vector<int>& target)
 {
-  auto hash_function =[](const std::pair<int, int> & coordinates){
+    auto hash_function = [](const std::pair<int, int>& coordinates)
+    {
         // we shift 20 bits since our grid bounds are 10^6 ~= 2^20
-      return static_cast<size_t>((coordinates.first) << 20) ^ static_cast<int>(coordinates.second);
-  };
-  auto equal_function = [](const std::pair<int, int> & coordinates1, const std::pair<int, int> & coordinates2){
-    return coordinates1 == coordinates2;
-  };
+        return static_cast<size_t>((coordinates.first) << 20) ^ static_cast<int>(coordinates.second);
+    };
+    auto equal_function = [](const std::pair<int, int>& coordinates1, const std::pair<int, int>& coordinates2)
+    {
+        return coordinates1 == coordinates2;
+    };
 
-  std::unordered_set<std::pair<int, int>, decltype(hash_function), decltype(equal_function)> blocked_set(0, hash_function, equal_function);
-  for(const auto & block: blocked)
-  {
-      blocked_set.emplace(block[0], block[1]);
-  }
-  // Maximum number of steps to explore before deciding we're not enclosed
-  // This is based on the fact that we have (N-1)*N blocks to form a triangle closure
-  // Therefor we need to macke sure that neither sourde nor target are enclosed i such a triangle
-  int max_steps = blocked.size() *(blocked.size() - 1)/2 ;
+    std::unordered_set<std::pair<int, int>, decltype(hash_function), decltype(equal_function)> blocked_set(
+        0, hash_function, equal_function);
+    for (const auto& block : blocked)
+    {
+        blocked_set.emplace(block[0], block[1]);
+    }
+    // Maximum number of steps to explore before deciding we're not enclosed
+    // This is based on the fact that we have (N-1)*N blocks to form a triangle closure
+    // Therefor we need to macke sure that neither sourde nor target are enclosed i such a triangle
+    int max_steps = blocked.size() * (blocked.size() - 1) / 2;
 
-  return false;
+    return max_steps == blocked.size() * (blocked.size() - 1) / 2;
 }
+*/
 #endif //ESCAPE_FROM_MAZE_H
