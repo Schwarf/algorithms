@@ -21,11 +21,9 @@ T get_last_moment(T n, const std::vector<T> &left, const std::vector<T> &right) 
     for (auto num: left) {
         ans = std::max(ans, num);
     }
-
     for (auto num: right) {
         ans = std::max(ans, n - num);
     }
-
     return ans;
 }
 
