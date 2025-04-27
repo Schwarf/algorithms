@@ -60,6 +60,8 @@ public:
         }
     }
 
+
+
     void insert(const KeyType& key, const ValueType& value)
     {
         std::vector<Node*> update(MaxLevel + 1);
@@ -117,5 +119,44 @@ public:
             update[level]->forward[level] = new_node;
         }
     }
+
+    bool remove(const KeyType& key)
+    {
+        std::vector<Node*> update(MaxLevel + 1);
+        auto current_node = header;
+        for(int level = current_level; level > -1; --level)
+        {
+            while (current_node->forward[level] && current_node->forward[level]->key < key)
+            {
+                current_node = current_node->forward[level];
+            }
+            update[level] = current_node;
+        }
+        // After that loop, current_node->forward[0] is either
+        // - the node with our key (if it exists)  OR
+        // - the first node greater than the provided key. (**)
+        current_node = current_node->forward[0];
+
+        // key not found
+        if (!current_node || current_node->key != key)
+            return false;
+
+
+        for(int level = 0; level <= current_level; ++level)
+        {
+            // we stop as soon as we hit a level where current_node is not found
+            if(update[level]->forward[level] != current_node)
+                break;
+            update[level]->forward[level] = current_node->forward[level];
+        }
+        delete current_node;
+        // Adjust current_level
+        while(current_level > 0 && header->forward[current_level]->key == nullptr)
+        {
+            --current_level;
+        }
+        return true;
+    }
+
 };
 #endif //SKIP_LIST_H
