@@ -6,6 +6,7 @@
 #define SKIP_LIST_H
 #include <vector>
 #include <random>
+#include <optional>
 // https://en.wikipedia.org/wiki/Skip_list
 
 template <typename KeyType, typename ValueType, int MaxLevel>
@@ -158,5 +159,32 @@ public:
         return true;
     }
 
+    bool search(const KeyType& key, ValueType& value)
+    {
+        auto current_node = header;
+        for(int level = current_level; level > -1; --level)
+        {
+            while (current_node->forward[level] && current_node->forward[level]->key < key)
+            {
+                current_node = current_node->forward[level];
+            }
+        }
+        // After that loop, current_node->forward[0] is either
+        // - the node with our key (if it exists)  OR
+        // - the first node greater than the provided key. (**)
+        current_node = current_node->forward[0];
+        if (current_node && current_node->key == key)
+            value = current_node->value;
+        return false;
+    }
+
+    std::optional<ValueType> get(const KeyType& key)
+    {
+        ValueType value;
+        if (search(key, value)) {
+            return value;
+        }
+        return std::nullopt;
+    }
 };
 #endif //SKIP_LIST_H
