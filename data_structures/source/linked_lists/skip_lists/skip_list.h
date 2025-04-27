@@ -28,6 +28,7 @@ private:
     Node* header;
     float probability{};
     int current_level{};
+    size_t node_count{};
     std::mt19937 generator;
     std::bernoulli_distribution distribution;
 
@@ -119,6 +120,7 @@ public:
             new_node->forward[level] = update[level]->forward[level];
             update[level]->forward[level] = new_node;
         }
+        ++node_count;
     }
 
     bool remove(const KeyType& key)
@@ -151,6 +153,7 @@ public:
             update[level]->forward[level] = current_node->forward[level];
         }
         delete current_node;
+        --node_count;
         // Adjust current_level
         while(current_level > 0 && header->forward[current_level]->key == nullptr)
         {
@@ -188,6 +191,16 @@ public:
             return std::optional<ValueType>(value);
         }
         return std::nullopt;
+    }
+
+    // size(): current number of elements
+    size_t size() const noexcept {
+        return node_count;
+    }
+
+    // empty(): check if list has no elements
+    bool empty() const noexcept {
+        return node_count == 0;
     }
 };
 #endif //SKIP_LIST_H
