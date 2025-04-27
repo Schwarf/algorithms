@@ -1,19 +1,20 @@
 //
 // Created by andreas on 27.04.25.
 //
-#include <json.hpp>
-
 #include "linked_lists/skip_lists/skip_list.h"
 #include "gtest/gtest.h"
 
-TEST(SkipListTest, SearchEmpty) {
+
+TEST(TestSkipList, EmptySkipList) {
     SkipList<int, std::string, 32> skip_list;
     std::string value;
+    EXPECT_TRUE(skip_list.empty());
     EXPECT_FALSE(skip_list.search(10, value));
     EXPECT_EQ(skip_list.get(10), std::nullopt);
+    EXPECT_EQ(skip_list.size(), 0u);
 }
 
-TEST(SkipListTest, InsertAndSerach)
+TEST(TestSkipList, InsertAndSerach)
 {
     SkipList<int, uint32_t, 32> skip_list;
     for (int i = 0; i < 30; i+=2)
@@ -38,7 +39,7 @@ TEST(SkipListTest, InsertAndSerach)
     }
 }
 
-TEST(SkipListTest, UpdateExisting) {
+TEST(TestSkipList, UpdateExisting) {
     SkipList<int, std::string, 32> skip_list;
 
     skip_list.insert(2, "two");
@@ -56,3 +57,21 @@ TEST(SkipListTest, UpdateExisting) {
     }
 }
 
+// Test remove
+TEST(TestSkipList, RemoveExisting) {
+    SkipList<int, std::string, 5> skip_list;
+    skip_list.insert(10, "ten");
+    skip_list.insert(20, "twenty");
+    EXPECT_EQ(skip_list.size(), 2u);
+
+    std::string value;
+    EXPECT_TRUE(skip_list.search(10, value));
+    EXPECT_TRUE(skip_list.remove(10));
+    EXPECT_FALSE(skip_list.search(10, value));
+    EXPECT_EQ(skip_list.get(10), std::nullopt);
+    EXPECT_EQ(skip_list.size(), 1u);
+
+    // Removing non-existing key returns false and size unchanged
+    EXPECT_FALSE(skip_list.remove(15));
+    EXPECT_EQ(skip_list.size(), 1u);
+}
