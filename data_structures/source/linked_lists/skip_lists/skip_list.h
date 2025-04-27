@@ -27,7 +27,7 @@ private:
 
     Node* header;
     float probability{};
-    int current_level{};
+    int top_level{};
     size_t node_count{};
     std::mt19937 generator;
     std::bernoulli_distribution distribution;
@@ -71,7 +71,7 @@ public:
         // find insertion point by scanning from current top-level to 0.
         // At EACH level we walk forward along the forwrad pointers as long as the next(forward)-key is < key
         // When we can’t move forward without overshooting, we record update[i] = current_node.
-        for (int level = current_level; level > -1; level--)
+        for (int level = top_level; level > -1; level--)
         {
             while (current_node->forward[level] && current_node->forward[level]->key < key)
             {
@@ -94,14 +94,14 @@ public:
         // We decide which levels (all, some, 1) get the new key-value pair
         // for that we make coin-flip(s) and the level is defined by std::max(MaxLevel, consecutive-successful-coin-flips)
         int new_level = randomLevel();
-        if (new_level > current_level)
+        if (new_level > top_level)
         {
             // for all levels we have to set the header
-            for (int level = current_level + 1; level <= new_level; ++level)
+            for (int level = top_level + 1; level <= new_level; ++level)
             {
                 update[level] = header;
             }
-            current_level = new_level;
+            top_level = new_level;
         }
 
         auto new_node = new Node(new_level, key, value);
@@ -127,7 +127,7 @@ public:
     {
         std::vector<Node*> update(MaxLevel + 1);
         auto current_node = header;
-        for(int level = current_level; level > -1; --level)
+        for(int level = top_level; level > -1; --level)
         {
             while (current_node->forward[level] && current_node->forward[level]->key < key)
             {
@@ -145,7 +145,7 @@ public:
             return false;
 
 
-        for(int level = 0; level <= current_level; ++level)
+        for(int level = 0; level <= top_level; ++level)
         {
             // we stop as soon as we hit a level where current_node is not found
             if(update[level]->forward[level] != current_node)
@@ -155,9 +155,9 @@ public:
         delete current_node;
         --node_count;
         // Adjust current_level
-        while(current_level > 0 && header->forward[current_level]->key == nullptr)
+        while(top_level > 0 && header->forward[top_level] == nullptr)
         {
-            --current_level;
+            --top_level;
         }
         return true;
     }
@@ -165,7 +165,7 @@ public:
     bool search(const KeyType& key, ValueType& value) const
     {
         auto current_node = header;
-        for(int level = current_level; level > -1; --level)
+        for(int level = top_level; level > -1; --level)
         {
             while (current_node->forward[level] && current_node->forward[level]->key < key)
             {
