@@ -159,7 +159,7 @@ public:
         return true;
     }
 
-    bool search(const KeyType& key, ValueType& value)
+    bool search(const KeyType& key, ValueType& value) const
     {
         auto current_node = header;
         for(int level = current_level; level > -1; --level)
@@ -174,15 +174,18 @@ public:
         // - the first node greater than the provided key. (**)
         current_node = current_node->forward[0];
         if (current_node && current_node->key == key)
+        {
             value = current_node->value;
+            return true;
+        }
         return false;
     }
 
-    std::optional<ValueType> get(const KeyType& key)
+    std::optional<ValueType> get(const KeyType& key) const
     {
         ValueType value;
         if (search(key, value)) {
-            return value;
+            return std::optional<ValueType>(value);
         }
         return std::nullopt;
     }

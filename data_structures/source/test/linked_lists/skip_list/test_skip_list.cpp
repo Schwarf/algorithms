@@ -31,9 +31,27 @@ TEST(SkipListTest, InsertAndSerach)
         }
         else
         {
-            EXPECT_FALSE(skip_list.search(i, value));
+            EXPECT_TRUE(skip_list.search(i, value));
             EXPECT_EQ(value, i*10);
         }
 
+    }
+}
+
+TEST(SkipListTest, UpdateExisting) {
+    SkipList<int, std::string, 32> skip_list;
+
+    skip_list.insert(2, "two");
+    {
+        auto optional_value = skip_list.get(2);
+        EXPECT_TRUE(optional_value.has_value());
+        EXPECT_EQ(optional_value.value(), "two");
+    }
+
+    skip_list.insert(2, "deux");
+    {
+        auto optional_value = skip_list.get(2);
+        EXPECT_TRUE(optional_value.has_value());
+        EXPECT_EQ(optional_value.value(), "deux");
     }
 }
