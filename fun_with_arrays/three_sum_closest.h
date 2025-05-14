@@ -22,12 +22,10 @@ int three_sum_closest(std::vector<T> &input, int target_value)
 	std::sort(input.begin(), input.end());
 	auto n = input.size();
 	auto sum = input[0] + input[1] + input[n - 1];
-	size_t left;
-	size_t right;
 	int new_sum{-100000};
 	for (size_t index{}; index < n; ++index) {
-		left = index + 1;
-		right = n - 1;
+		size_t left = index + 1;
+		size_t right = n - 1;
 		while (left < right) {
 			new_sum = input[index] + input[left] + input[right];
 			if (new_sum == target_value)
