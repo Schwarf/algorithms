@@ -15,7 +15,8 @@ add_executable(test_sliding_windows
         test_shortest_subarray_with_sum.cpp
         test_max_sum_of_distinct_subarrays_with_given_length.cpp
         test_max_beauty_after_equalize_elements_in_array.cpp
-        test_score_after_marking_elements.cpp)
+        test_score_after_marking_elements.cpp
+        test_sum_longest_subarray_with_unique_elements.cpp)
 
 target_link_libraries(test_sliding_windows GTest::GTest GTest::Main pthread)
 add_test(NAME SlidingWindowsTests COMMAND test_sliding_windows)

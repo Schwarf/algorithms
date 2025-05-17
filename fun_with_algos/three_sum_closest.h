@@ -15,7 +15,7 @@
 // -1000 <= nums[i] <= 1000
 // -10^4 <= target <= 10^4
 
-
+// Two-pointer algo after sorting
 template<typename T>
 int three_sum_closest(std::vector<T> &input, int target_value)
 {

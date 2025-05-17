@@ -6,7 +6,6 @@
 #define USED_CONCEPTS_H
 
 #include <concepts>
-#include <bit>
 
 template<typename Container>
 concept IndexedContainer = requires(Container c)
