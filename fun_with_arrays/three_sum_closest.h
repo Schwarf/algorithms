@@ -31,9 +31,9 @@ int three_sum_closest(std::vector<T> &input, int target_value)
 			if (new_sum == target_value)
 				return new_sum;
 			if (new_sum < target_value)
-				left++;
+				++left;
 			else
-				right--;
+				--right;
 			if (std::abs(new_sum - target_value) < std::abs(sum - target_value))
 				sum = new_sum;
 		}
