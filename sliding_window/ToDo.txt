@@ -1,2 +1,4 @@
 - Study the sliding window approaches in more detail.
 - Work out differences and commonalities.
+- sum_longest_subarray_with_unique_elements can be simplified (set instead of map)
+- Algo "minimal operations to get zero" is quite complex. Write a docu.
