@@ -26,7 +26,7 @@ int find_longest_contiguous_subarray(std::vector<int>& nums) {
 		if(help.find(count) != help.end())
 			max = std::max(max, i - help[count]);
 		else
-			help[count] = i;
+			help[count] = i;x
 	}
 	return max;
 }
