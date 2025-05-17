@@ -20,7 +20,8 @@ add_executable(test_binary_search
         test_find_kth_smallest_distance.cpp
         test_range_sum_of_sorted_subarrays.cpp
         test_search_in_rotated_sorted_array.cpp
-        test_search_suggestion_system.cpp)
+        test_search_suggestion_system.cpp
+        test_count_words_that_are_subsequences_in_given_string.cpp)
 
 target_link_libraries(test_binary_search GTest::GTest GTest::Main pthread)
 add_test(NAME BinarySearchTests COMMAND test_binary_search)

@@ -9,8 +9,7 @@ add_executable(test_fun_with_arrays
         test_minimal_operations_to_get_zero.cpp
         test_three_sum_closest.cpp
         test_sum_longest_subarray_with_unique_elements.cpp
-        test_longest_common_substring.cpp
-        test_count_words_that_are_subsequences_in_given_string.cpp)
+        test_longest_common_substring.cpp)
 
 target_link_libraries(test_fun_with_arrays GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithArraysTests COMMAND test_fun_with_arrays)
