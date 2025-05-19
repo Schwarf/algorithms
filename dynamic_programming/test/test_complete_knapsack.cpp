@@ -49,7 +49,6 @@ protected:
 TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete1)
 {
     const auto result = complete_knapsack_problem_bottom_up(items1, knapsack1);
-    // Adjusted expected result for Complete Knapsack
     constexpr int expected_result{30};  // Update this based on the new problem type
     EXPECT_EQ(result, expected_result);
 }
@@ -57,7 +56,6 @@ TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete1)
 TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete2)
 {
     const auto result = complete_knapsack_problem_bottom_up(items2, knapsack2);
-    // Adjusted expected result for Complete Knapsack
     constexpr int expected_result{12};  // Update this based on the new problem type
     EXPECT_EQ(result, expected_result);
 }
@@ -65,7 +63,7 @@ TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete2)
 TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete3)
 {
     const auto result = complete_knapsack_problem_bottom_up(items3, knapsack3);
-    // Adjusted expected result for Complete Knapsack
-    constexpr int expected_result{118};  // Update this based on the new problem type
+    // Checked with computer algebra program
+    constexpr int expected_result{80};
     EXPECT_EQ(result, expected_result);
 }
