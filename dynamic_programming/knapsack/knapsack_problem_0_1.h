@@ -5,7 +5,6 @@
 #ifndef KNAPSACK_PROBLEM_H
 #define KNAPSACK_PROBLEM_H
 
-#include <concepts>
 #include <vector>
 #include <unordered_map>
 #include "./../data_structures/source/hash_functions/hash_function_for_pairs.h"
