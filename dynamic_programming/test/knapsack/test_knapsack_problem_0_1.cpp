@@ -2,7 +2,7 @@
 // Created by andreas on 14.07.23.
 //
 #include "gtest/gtest.h"
-#include "knapsack/knapsack_problem_0_1.h"
+#include "../../knapsack/knapsack_problem_0_1.h"
 
 class SetupKnapsackProblem : public testing::Test
 {

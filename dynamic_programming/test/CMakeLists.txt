@@ -24,7 +24,7 @@ add_executable(test_dynamic_programming
         test_longest_palindromic_substring.cpp
         test_coin_change.cpp
         test_minimal_jumps_to_last_index.cpp
-        test_knapsack_problem_0_1.cpp
+        knapsack/test_knapsack_problem_0_1.cpp
         test_predict_the_winner.cpp
         test_coin_combinations.cpp
         test_unique_paths.cpp test_unique_paths_with_obstacles.cpp
@@ -48,7 +48,7 @@ add_executable(test_dynamic_programming
         test_maximize_index_value_pair.cpp
         test_word_break.cpp
         test_longest_common_substring.cpp
-        test_complete_knapsack.cpp)
+        knapsack/test_complete_knapsack.cpp)
 
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)

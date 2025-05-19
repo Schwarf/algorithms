@@ -2,7 +2,7 @@
 // Created by andreas on 18.05.25.
 //
 #include "gtest/gtest.h"
-#include "../knapsack/complete_knapsack.h"
+#include "../../knapsack/complete_knapsack.h"
 
 
 class SetupCompleteKnapsackProblem : public testing::Test
