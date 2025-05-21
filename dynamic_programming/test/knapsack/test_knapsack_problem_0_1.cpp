@@ -67,6 +67,9 @@ TEST_F(SetupKnapsackProblem, knapsack_recursive3)
     constexpr int expected_result{76};
     EXPECT_EQ(result, expected_result);
 }
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 TEST_F(SetupKnapsackProblem, knapsack_top_down1)
 {
@@ -90,7 +93,9 @@ TEST_F(SetupKnapsackProblem, knapsack_top_down3)
     EXPECT_EQ(result, expected_result);
 }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 TEST_F(SetupKnapsackProblem, knapsack_bottom_up1)
 {
     const auto result = knapsack_problem_bottom_up(items1, knapsack1);
@@ -108,6 +113,31 @@ TEST_F(SetupKnapsackProblem, knapsack_bottom_up2)
 TEST_F(SetupKnapsackProblem, knapsack_bottom_up3)
 {
     const auto result = knapsack_problem_bottom_up(items3, knapsack3);
+    // Checked online: https://augustineaykara.github.io/Knapsack-Calculator/
+    constexpr int expected_result{76};
+    EXPECT_EQ(result, expected_result);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+TEST_F(SetupKnapsackProblem, optimized1)
+{
+    const auto result = knapsack_problem_bottom_up_optimized(items1, knapsack1);
+    constexpr int expected_result{22};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized2)
+{
+    const auto result = knapsack_problem_bottom_up_optimized(items2, knapsack2);
+    constexpr int expected_result{10};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized3)
+{
+    const auto result = knapsack_problem_bottom_up_optimized(items3, knapsack3);
     // Checked online: https://augustineaykara.github.io/Knapsack-Calculator/
     constexpr int expected_result{76};
     EXPECT_EQ(result, expected_result);
