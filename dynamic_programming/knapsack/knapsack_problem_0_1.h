@@ -104,5 +104,40 @@ ValueType knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightTyp
     return dp[number_of_items][knapsack_capacity];
 }
 
+// Memory optimized version
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+ValueType knapsack_problem_bottom_up_optimized(const std::vector<Item<ValueType, WeightType>>& items,
+                                     WeightType knapsack_capacity)
+{
+    const int number_of_items = items.size();
+    // Use two 1D arrays for the previous and current rows
+    std::vector<ValueType> dp_previous(knapsack_capacity + 1, 0);
+    std::vector<ValueType> dp_current(knapsack_capacity + 1, 0);
+
+    for (int i = 1; i <= number_of_items; ++i)
+    {
+        for (WeightType weight = 1; weight <= knapsack_capacity; ++weight)
+        {
+            // Option 1: Don't take the current item
+            dp_current[weight] = dp_previous[weight];
+
+            // Option 2: Take the current item (if it fits)
+            if (items[i - 1].weight <= weight)
+            {
+                dp_current[weight] = std::max(
+                    items[i - 1].value + dp_previous[weight - items[i - 1].weight],
+                    dp_previous[weight]
+                );
+            }
+        }
+
+        // After processing the current row, swap dp_prev and dp_curr
+        std::swap(dp_previous, dp_current);
+    }
+
+    return dp_previous[knapsack_capacity];  // Final answer is in dp_prev
+}
+
 
 #endif //KNAPSACK_PROBLEM_H
