@@ -14,6 +14,32 @@ ValueType complete_knapsack_problem_bottom_up(const std::vector<Item<ValueType, 
                                      WeightType knapsack_capacity)
 {
     int number_of_items = items.size();
+    std::vector<WeightType> dp_previous(knapsack_capacity + 1, {});
+    std::vector<WeightType> dp_current(knapsack_capacity + 1, {});
+
+    for (int i{1}; i <= number_of_items; ++i)
+    {
+        for (WeightType weight{1}; weight <= knapsack_capacity; ++weight)
+        {
+            dp_current[weight] = dp_previous[weight];
+
+            if (items[i - 1].weight <= weight)
+            {
+                dp_current[weight] =
+                    std::max(items[i - 1].value + dp_current[weight - items[i - 1].weight], dp_current[weight]);
+            }
+        }
+        std::swap(dp_previous, dp_current);
+    }
+    return dp_previous[knapsack_capacity];
+}
+
+template <typename ValueType, typename WeightType>
+    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+ValueType complete_knapsack_problem_bottom_up_optimized(const std::vector<Item<ValueType, WeightType>>& items,
+                                     WeightType knapsack_capacity)
+{
+    int number_of_items = items.size();
     std::vector<std::vector<ValueType>> dp(number_of_items + 1, std::vector<ValueType>(knapsack_capacity + 1, 0));
     for (int i{1}; i <= number_of_items; ++i)
     {

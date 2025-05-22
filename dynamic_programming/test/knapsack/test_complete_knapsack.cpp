@@ -67,3 +67,25 @@ TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete3)
     constexpr int expected_result{80};
     EXPECT_EQ(result, expected_result);
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete_optimized1)
+{
+    const auto result = complete_knapsack_problem_bottom_up_optimized(items1, knapsack1);
+    constexpr int expected_result{30};  // Update this based on the new problem type
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete_optimized2)
+{
+    const auto result = complete_knapsack_problem_bottom_up_optimized(items2, knapsack2);
+    constexpr int expected_result{12}; // Update this based on the new problem type
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupCompleteKnapsackProblem, knapsack_bottom_up_complete_optimized3)
+{
+    const auto result = complete_knapsack_problem_bottom_up_optimized(items3, knapsack3);
+    // Checked with computer algebra program
+    constexpr int expected_result{80};
+    EXPECT_EQ(result, expected_result);
+}
