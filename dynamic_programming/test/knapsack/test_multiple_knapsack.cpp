@@ -66,3 +66,46 @@ TEST_F(TestMultipleKnapsack, simple5)
     constexpr int expected_result = 6;
     EXPECT_EQ(result, expected_result);
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+TEST_F(TestMultipleKnapsack, simple_optimized1)
+{
+    const auto result = multiple_knapsack_bottom_up_optimized(items1, knapsack_capacity1);
+    constexpr int expected_result = 28;
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(TestMultipleKnapsack, simple_optimized2)
+{
+    const auto result = multiple_knapsack_bottom_up_optimized(items2, knapsack_capacity2);
+    constexpr int expected_result = 18;
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(TestMultipleKnapsack, simple_optimized3)
+{
+    const auto result = multiple_knapsack_bottom_up_optimized(items3, knapsack_capacity3);
+    constexpr int expected_result = 21;
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(TestMultipleKnapsack, simple_optimized4)
+{
+    // no items
+    std::vector<ItemCounted<int, int>> empty_items;
+    int knapsack_capacity = 5;
+    const auto result = multiple_knapsack_bottom_up_optimized(empty_items, knapsack_capacity);
+    constexpr int expected_result = 0;
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(TestMultipleKnapsack, simple_optimized5)
+{
+    // space for one item
+    const auto result = multiple_knapsack_bottom_up_optimized(items1, 1);
+    constexpr int expected_result = 6;
+    EXPECT_EQ(result, expected_result);
+}
