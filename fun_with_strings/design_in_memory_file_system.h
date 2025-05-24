@@ -29,6 +29,7 @@ class FileSystem
 private:
     using FileContent = std::string;
     using FileName = std::string;
+
     struct Directory
     {
         std::unordered_map<std::string, std::unique_ptr<Directory>> dirs;
@@ -110,9 +111,15 @@ public:
     {
         Directory* current_dir = root.get();
         std::vector<std::string> tokens = split(filePath);
-        const FileName & file_name = tokens.back();
+        const FileName& file_name = tokens.back();
         for (size_t i = 0; i < tokens.size() - 1; ++i)
+        {
+            if (!current_dir->dirs.contains(tokens[i]))
+            {
+                current_dir->dirs[tokens[i]] = std::make_unique<Directory>();
+            }
             current_dir = current_dir->dirs[tokens[i]].get();
+        }
         current_dir->files[file_name] += content;
     }
 
@@ -120,7 +127,7 @@ public:
     {
         Directory* current_dir = root.get();
         std::vector<std::string> tokens = split(filePath);
-        const FileName & file_name = tokens.back();
+        const FileName& file_name = tokens.back();
         for (size_t i = 0; i < tokens.size() - 1; ++i)
             current_dir = current_dir->dirs[tokens[i]].get();
         return current_dir->files[file_name];
