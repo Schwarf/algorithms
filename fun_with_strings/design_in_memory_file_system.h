@@ -123,7 +123,7 @@ public:
         current_dir->files[file_name] += content;
     }
 
-    std::string readContentFromFile(const std::string& filePath)
+    std::string readContentFromFile(const std::string& filePath) const
     {
         Directory* current_dir = root.get();
         std::vector<std::string> tokens = split(filePath);
