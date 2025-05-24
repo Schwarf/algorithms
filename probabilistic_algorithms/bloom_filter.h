@@ -22,7 +22,7 @@ private:
     {
         hash += 0x9e3779b97f4a7c15; // = 2^64/golden ratio
         hash = (hash ^ (hash >> 30)) * 0xbf58476d1ce4e5b9; // empirical value
-        hash = (hash ^ (hass >> 27)) * 0x94d049bb133111eb; // empirical value
+        hash = (hash ^ (hash >> 27)) * 0x94d049bb133111eb; // empirical value
         return hash ^ (hash >> 31);
     }
 
@@ -40,7 +40,7 @@ public:
 
     bool contains(const ValueType& value) const
     {
-        std::size_t hash_value1 = mix(value);
+        std::size_t hash_value1 = std::hash<ValueType>{}(value);
         std::size_t hash_value2 = mix(hash_value1);
         for (std::size_t i = 0; i < k; ++i)
         {
