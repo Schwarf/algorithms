@@ -50,5 +50,9 @@ public:
         }
         return true;
     }
+
+    void clear() {
+       bitset.reset();
+    }
 };
 #endif //BLOOM_FILTER_H

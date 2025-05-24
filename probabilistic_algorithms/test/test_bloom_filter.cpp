@@ -65,3 +65,12 @@ TEST(BloomFilterTest, FalsePositiveProbability) {
     EXPECT_GT(falsePositives, 10);  // <10% false positive rate
 }
 
+TEST(BloomFilterTest, ClearFunctionality) {
+    BloomFilter<1024, 100, std::string> filter;
+
+    filter.insert("reset_me");
+    EXPECT_TRUE(filter.contains("reset_me"));
+
+    filter.clear();
+    EXPECT_FALSE(filter.contains("reset_me"));
+}
