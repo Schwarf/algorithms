@@ -55,5 +55,13 @@ TEST(BloomFilterTest, FalsePositiveProbability) {
 
     // Expect some false positives but not too many
     EXPECT_LT(falsePositives, 10);  // <10% false positive rate
+
+    for (int i = 3000; i < 10000; ++i) {
+        if (filter.contains("word_" + std::to_string(i)))
+            ++falsePositives;
+    }
+
+    // Expect some false positives after adding almost 100 times more items
+    EXPECT_GT(falsePositives, 10);  // <10% false positive rate
 }
 
