@@ -55,4 +55,7 @@ public:
        bitset.reset();
     }
 };
+
+
+
 #endif //BLOOM_FILTER_H
