@@ -73,3 +73,23 @@ TEST(FileSystemLsTest, ListNestedFilePath) {
     ASSERT_EQ(result.size(), 1);
     EXPECT_EQ(result[0], "code.cpp");
 }
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+TEST(FileSystemAddContentTest, CreatesNewFileWithContent) {
+    FileSystem fs;
+    fs.addContentToFile("/newfile.txt", "Hello");
+    std::string content = fs.readContentFromFile("/newfile.txt");
+    EXPECT_EQ(content, "Hello");
+}
+
+TEST(FileSystemAddContentTest, AppendsToExistingFile) {
+    FileSystem fs;
+    fs.addContentToFile("/log.txt", "Line1\n");
+    fs.addContentToFile("/log.txt", "Line2\n");
+    std::string content = fs.readContentFromFile("/log.txt");
+    EXPECT_EQ(content, "Line1\nLine2\n");
+}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
