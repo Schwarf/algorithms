@@ -93,3 +93,25 @@ TEST(FileSystemAddContentTest, AppendsToExistingFile) {
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+TEST(FileSystemReadContentTest, ReadSingleWrite) {
+    FileSystem fs;
+    fs.addContentToFile("/docs/info.txt", "This is a test.");
+    std::string content = fs.readContentFromFile("/docs/info.txt");
+    EXPECT_EQ(content, "This is a test.");
+}
+
+TEST(FileSystemReadContentTest, ReadAfterMultipleAppends) {
+    FileSystem fs;
+    fs.addContentToFile("/logs/debug.log", "Start\n");
+    fs.addContentToFile("/logs/debug.log", "Init complete\n");
+    fs.addContentToFile("/logs/debug.log", "Running\n");
+    std::string content = fs.readContentFromFile("/logs/debug.log");
+    EXPECT_EQ(content, "Start\nInit complete\nRunning\n");
+}
+
+TEST(FileSystemReadContentTest, ReadEmptyFile) {
+    FileSystem fs;
+    fs.addContentToFile("/empty.txt", "");
+    std::string content = fs.readContentFromFile("/empty.txt");
+    EXPECT_EQ(content, "");
+}
