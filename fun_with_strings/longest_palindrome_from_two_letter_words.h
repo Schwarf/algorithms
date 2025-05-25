@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <algorithm>
 
-int longestPalindrome(std::vector<std::string>& words)
+int longest_palindromic_string(std::vector<std::string>& words)
 {
     std::unordered_map<std::string, int> map;
     int count{};
@@ -21,7 +21,6 @@ int longestPalindrome(std::vector<std::string>& words)
     {
         map[word]++;
     }
-    bool found{};
     for (const auto& [key, f] : map)
     {
         std::string rev{key[1], key[0]};
