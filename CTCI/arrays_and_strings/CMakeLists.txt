@@ -1,5 +1,3 @@
-add_executable(unique unique_characters_string_1_1.cpp)
-add_executable(permutation string_permutation_1_2.cpp)
 add_executable(urlify urlify_string_1_3.cpp)
 add_executable(palindrome palindrome_permutation_1_4.cpp)
 add_executable(one_away one_edit_away_1_5.cpp)
