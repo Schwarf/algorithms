@@ -32,7 +32,7 @@ int longestPalindrome(std::vector<std::string>& words)
             // non-palindromic pair
             if (rev_iterator != map.end())
             {
-                int pairs = std::min(key_iterator->second, rev_iterator->second);
+                const int pairs = std::min(key_iterator->second, rev_iterator->second);
                 count += pairs * 4;
                 key_iterator->second -= pairs;
                 rev_iterator->second -= pairs;
@@ -41,7 +41,7 @@ int longestPalindrome(std::vector<std::string>& words)
         else
         {
             // palindromic word “aa” case
-            int pairs = key_iterator->second / 2;
+            const int pairs = key_iterator->second / 2;
             count += pairs * 4;
             key_iterator->second -= pairs * 2;
             // leftover 1 can be center—handle after the loop
