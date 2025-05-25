@@ -22,7 +22,8 @@ add_executable(test_fun_with_strings
         test_design_in_memory_file_system.cpp
         test_has_only_unique_chars.cpp
         test_are_permutations.cpp
-        test_urlify_string.cpp)
+        test_urlify_string.cpp
+        test_is_palindrom_permutation.cpp)
 
 target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)

@@ -8,7 +8,7 @@
 
 #include <string>
 #include <unordered_map>
-bool is_palindrome_permutation(std::string &input)
+bool is_palindrome_permutation_case_sensitive(std::string &input)
 {
     std::unordered_map<char, int> frequency_map;
     for(const auto &c : input) {
