@@ -19,7 +19,8 @@ add_executable(test_fun_with_strings
         test_are_strings_equal_upto_rotation.cpp
         test_decode_string.cpp
         test_reorder_log_files.cpp
-        test_design_in_memory_file_system.cpp)
+        test_design_in_memory_file_system.cpp
+        test_has_only_unique_chars.cpp)
 
 target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)

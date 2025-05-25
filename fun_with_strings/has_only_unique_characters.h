@@ -22,12 +22,8 @@ bool has_unique_chars(const std::string & input)
   return true;
 }
 
-bool has_unique_chars_no_additional_memory(const std::string & input)
+bool has_unique_chars_no_additional_memory(std::string & input)
 {
-  for (auto & c : input)
-  {
-    c = std::tolower(c);
-  }
   std::sort(input.begin(), input.end());
   for(int i{1}; i < input.length(); ++i)
   {
