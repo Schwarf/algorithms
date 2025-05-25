@@ -7,17 +7,16 @@
 // Implement an algorithm to determineif a string has all but unique charactesrs. What if you cannot use additional data
 // structures?
 #include <string>
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_set>
 
 bool has_unique_chars(const std::string & input)
 {
-  std::unordered_map<char, int> frequence_counter;
+  std::unordered_set<char> seen;
   for (const auto & c : input)
   {
-    if(frequence_counter.contains(c))
-      return false;
-    ++frequence_counter[c];
+    if(!seen.insert(c).second)
+        return false;
   }
   return true;
 }
