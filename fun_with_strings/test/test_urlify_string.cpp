@@ -50,7 +50,7 @@ TEST(TestUrlifyString, EmptyInput) {
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
-/*
+
 TEST(TestUrlifyStringInPlace, NoSpaces) {
     std::string input = "HelloWorld      ";
     constexpr size_t true_size = 10;
@@ -98,4 +98,3 @@ TEST(TestUrlifyStringInPlace, EmptyInput) {
     urlify_string_in_place(input, true_size);
 EXPECT_EQ(input, expected_result);
 }
-*/

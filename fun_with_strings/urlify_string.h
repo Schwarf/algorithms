@@ -34,37 +34,33 @@ std::string urlify_string(const std::string& input, size_t true_size) {
     return result;
 }
 
-void urlify_string_in_place(std::string& input, size_t true_size)
-{
-    std::string result;
-    int space_count {};
-    const char space = ' ';
-    for (size_t i = 0; i < true_size; ++i)
-    {
-        if (input[i] == space)
-            ++space_count;
-    }
+void urlify_string_in_place(std::string& input, size_t true_size) {
+    // 1) Count spaces in the “real” part [0..true_size)
+    size_t space_count = std::count(
+        input.begin(),
+        input.begin() + std::min(true_size, input.size()),
+        ' '
+    );
 
-    // Compute the final length
+    // 2) Compute the final length after replacing each ' ' with "%20"
     size_t new_len = true_size + space_count * 2;
-    // (buffer must already be >= new_len)
+    input.resize(new_len);
 
-    // Traverse backward, writing into [0..new_len-1]
-    size_t back_index = new_len - 1;
-    for (size_t index{true_size}; index--;)
-    {
-        if (input[index] == space)
-        {
-            input[back_index--] = '0';
-            input[back_index--] = '2';
-            input[back_index--] = '%';
+    // 3) Walk backwards, writing into [0..new_len-1]
+    //    i points just past the last real character; j just past the final slot
+    size_t i = true_size;
+    size_t j = new_len;
+    while (i-- > 0) {
+        if (input[i] == ' ') {
+            input[--j] = '0';
+            input[--j] = '2';
+            input[--j] = '%';
+        } else {
+            input[--j] = input[i];
         }
-        else
-            input[back_index--] = input[index];
-        if (back_index == 0)
-            break;
     }
+
+    // 4) (Optional) shrink the string down if there’s extra padding
     input.resize(new_len);
 }
-
 #endif //URLIFY_STRING_H
