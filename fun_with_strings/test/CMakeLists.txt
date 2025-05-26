@@ -25,7 +25,8 @@ add_executable(test_fun_with_strings
         test_urlify_string.cpp
         test_is_palindrom_permutation.cpp
         test_longest_palindrome_from_two_letter_words.cpp
-        test_string_compression.cpp)
+        test_string_compression.cpp
+        test_are_two_strings_one_edit_away.cpp)
 
 target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)
