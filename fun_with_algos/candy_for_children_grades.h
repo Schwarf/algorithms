@@ -20,23 +20,23 @@ T total_candy(const std::vector<T> &grades) {
     int n = grades.size();
     // each child gets at least one candy
     int candy = n;
-    int i{1};
-    while (i < n) {
-        if (grades[i] == grades[i - 1]) {
-            i++;
+    int index{1};
+    while (index < n) {
+        if (grades[index] == grades[index - 1]) {
+            index++;
             continue;
         }
         int peak{};
-        while ((i < n) && grades[i] > grades[i - 1]) {
+        while ((index < n) && grades[index] > grades[index - 1]) {
             peak++;
             candy += peak;
-            i++;
+            index++;
         }
         int valley{};
-        while ((i < n) && grades[i] < grades[i - 1]) {
+        while ((index < n) && grades[index] < grades[index - 1]) {
             valley++;
             candy += valley;
-            i++;
+            index++;
         }
         candy -= std::min(peak, valley);
     }
