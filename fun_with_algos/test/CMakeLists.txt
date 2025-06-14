@@ -51,7 +51,8 @@ add_executable(test_fun_with_algos
         test_minimum_swaps_to_make_alternating_pattern.cpp
         test_three_sum_closest.cpp
         test_rotate_matrix.cpp
-        test_palindrome_number.cpp)
+        test_palindrome_number.cpp
+        test_zero_matrix.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
