@@ -14,7 +14,7 @@ bool isSubstring(const std::string& haystack, const std::string& needle)
   return haystack.find(needle) != std::string::npos;
 }
 
-bool is_string_rotated(const std::string& input, const std::string& rotated) {
+bool is_rotated_string(const std::string& input, const std::string& rotated) {
 
   if(input.size() != rotated.size() || input.empty()) {
     return false;
