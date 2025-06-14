@@ -8,17 +8,17 @@
 
 bool is_palindrome_number(int input)
 {
-  if(input < 0)
-    return false;
-  int reversed{};
-  int help = input;
-  while(true)
-  {
-    reversed = (input % 10) + reversed*10;
-    input /= 10;
-    if(!input)
-      break;
-  }
-  return reversed == help;
+    if (input < 0)
+        return false;
+    int reversed{};
+    int help = input;
+    while (true)
+    {
+        reversed = (input % 10) + reversed * 10;
+        input /= 10;
+        if (!input)
+            break;
+    }
+    return reversed == help;
 }
 #endif //PALINDROME_NUMBER_H

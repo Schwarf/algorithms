@@ -9,39 +9,48 @@
 #include <vector>
 #include <algorithm>
 
-void rotate_matrix_90(std::vector<std::vector<int>> &matrix){
+void rotate_matrix_90(std::vector<std::vector<int>>& matrix)
+{
     int n = matrix.size();
-	// 1) Transpose (swap only when j < i)
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < i; ++j) {
+    // 1) Transpose (swap only when j < i)
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < i; ++j)
+        {
             std::swap(matrix[i][j], matrix[j][i]);
         }
     }
     // 2) Horizontal flip
-    for(auto & row : matrix)
+    for (auto& row : matrix)
     {
         std::reverse(row.begin(), row.end());
     }
 }
 
-void rotate_matrix_180(std::vector<std::vector<int>> &matrix){
- 	// 1) horizontal flip
-  	for (auto & row : matrix) {
+void rotate_matrix_180(std::vector<std::vector<int>>& matrix)
+{
+    // 1) horizontal flip
+    for (auto& row : matrix)
+    {
         std::reverse(row.begin(), row.end());
     }
     // 2) vertical flip
     std::reverse(matrix.begin(), matrix.end());
 }
 
-void rotate_matrix_270(std::vector<std::vector<int>>& matrix) {
+void rotate_matrix_270(std::vector<std::vector<int>>& matrix)
+{
     int n = matrix.size();
     // 1) Horizontal flip
-    for (auto & row : matrix) {
+    for (auto& row : matrix)
+    {
         std::reverse(row.begin(), row.end());
     }
     // 2) Transpose (swap only when j < i)
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < i; ++j) {
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < i; ++j)
+        {
             std::swap(matrix[i][j], matrix[j][i]);
         }
     }
