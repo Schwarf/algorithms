@@ -1,1 +1,0 @@
-add_executable(string_rotation string_rotation_1_9.cpp)
