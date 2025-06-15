@@ -17,8 +17,9 @@
 int insert_bits(int target, int source,  int lower_bit, int higher_bit)
 {
      int all_ones = ~0;
-     int left = all_ones << (higher_bit + 1);
-     int right = (1 << lower_bit) - 1;
+     // we have to ensure that we do not shift more than 32 positions since this is undefined behavior
+     int left = (higher_bit >= 31) ? 0 : (all_ones << (higher_bit + 1));
+     int right = (lower_bit == 0) ? 0 : ((1 << lower_bit) - 1);
      int mask_for_source_in_target = left | right;
      int clear_in_target = target & mask_for_source_in_target;
      int shifted_source  = source << lower_bit;
