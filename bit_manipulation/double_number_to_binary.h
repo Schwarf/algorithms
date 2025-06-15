@@ -35,6 +35,7 @@ std::string double_number_to_binary(double number)
             number = scaled_value;
         }
     }
+    return result;
 }
 
 #endif //DOUBLE_NUMBER_TO_BINARY_H
