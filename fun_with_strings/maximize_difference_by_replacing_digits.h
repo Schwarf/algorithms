@@ -17,12 +17,16 @@
 // Note that neither a nor b may have any leading zeros, and must not be 0.
 #include <string>
 #include <algorithm>
-int max_difference_by_replacing_digits(int input){
+
+int max_difference_by_replacing_digits(int input)
+{
     std::string min_num = std::to_string(input);
     std::string max_num = std::to_string(input);
     // Find a high position and replace it with 9.
-    for (char digit : max_num) {
-        if (digit != '9') {
+    for (char digit : max_num)
+    {
+        if (digit != '9')
+        {
             std::replace(max_num.begin(), max_num.end(), digit, '9');
             break;
         }
@@ -31,15 +35,21 @@ int max_difference_by_replacing_digits(int input){
     // Replace the most significant digit with 1
     // Or find a high-order digit that is not equal to the highest digit and
     // replace it with 0.
-    for (int i = 0; i < min_num.size(); ++i) {
+    for (int i = 0; i < min_num.size(); ++i)
+    {
         char digit = min_num[i];
-        if (i == 0) {
-            if (digit != '1') {
+        if (i == 0)
+        {
+            if (digit != '1')
+            {
                 std::replace(min_num.begin(), min_num.end(), digit, '1');
                 break;
             }
-        } else {
-            if (digit != '0' && digit != min_num[0]) {
+        }
+        else
+        {
+            if (digit != '0' && digit != min_num[0])
+            {
                 std::replace(min_num.begin(), min_num.end(), digit, '0');
                 break;
             }
