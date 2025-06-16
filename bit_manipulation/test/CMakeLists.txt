@@ -22,7 +22,8 @@ add_executable(test_bit_manipulation
         test_can_array_be_sorted.cpp
         test_longest_combination_with_bitwise_and.cpp
         test_insert_bits.cpp
-        test_double_number_to_binary.cpp)
+        test_double_number_to_binary.cpp
+        test_longest_bit_sequence_with_flip.cpp)
 
 
 #target_link_libraries(test_bit_manipulation ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
