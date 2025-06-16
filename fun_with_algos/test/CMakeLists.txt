@@ -52,7 +52,8 @@ add_executable(test_fun_with_algos
         test_three_sum_closest.cpp
         test_rotate_matrix.cpp
         test_palindrome_number.cpp
-        test_zero_matrix.cpp)
+        test_zero_matrix.cpp
+        test_maximum_difference.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
