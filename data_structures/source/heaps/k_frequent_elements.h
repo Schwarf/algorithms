@@ -19,12 +19,11 @@ std::vector<int> k_frequent_elements(std::vector<int> input, int k) {
        return p1.second < p2.second;
      };
      std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(compare)> queue;
-     queue.push({input[0], counts[input[0]]});
      for(const auto & [element, count]: counts)
      {
-           queue.push({element, count});
+           queue.emplace(element, count);
      }
-     while(k--)
+     while(k-- && !queue.empty())
      {
        result.push_back(queue.top().first);
        queue.pop();
