@@ -19,4 +19,6 @@ int maximum_difference(std::vector<int>& input)
         else
             prefix_minimum = input[i];
     }
+    return result;
+}
 #endif //MAXIMUM_DIFFERENCE_H
