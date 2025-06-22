@@ -10,7 +10,7 @@
 // Return the max sliding window.
 #include <vector>
 #include <deque>
-#include <multiset>
+#include <set>
 
 std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size)
 {
@@ -44,7 +44,7 @@ std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size
     return result;
 }
 
-// slower but very simple
+// slower but very simple O(N*Log(N)) instead of O(N)
 std::vector<int> sliding_window_maximum_simpler(std::vector<int>& input, int window_size)
 {
     std::multiset<int, std::greater<>> set;
