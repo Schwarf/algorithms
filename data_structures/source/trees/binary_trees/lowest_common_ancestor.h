@@ -14,8 +14,30 @@
 #include <unordered_set>
 #include <stack>
 
+
 template<typename T>
-TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool &found1, bool &found2);
+TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool &found1, bool &found2) {
+    if (!root)
+        return nullptr;
+    if (root->value == value1) {
+        found1 = true;
+        return root;
+    }
+    if (root->value == value2) {
+        found2 = true;
+        return root;
+    }
+
+    auto left_lca = lowest_common_ancestor(root->left, value1, value2, found1, found2);
+    auto right_lca = lowest_common_ancestor(root->right, value1, value2, found1, found2);
+
+    if (!left_lca)
+        return right_lca;
+    if (!right_lca)
+        return left_lca;
+
+    return root;
+}
 
 template<typename T>
 TreeNode<T> *find_node(TreeNode<T> *root, T value) {
@@ -46,32 +68,6 @@ TreeNode<T> *find_lowest_common_ancestor(TreeNode<T> *root, T value1, T value2) 
         return node;
 
     return nullptr;
-}
-
-
-template<typename T>
-TreeNode<T> *lowest_common_ancestor(TreeNode<T> *root, T value1, T value2, bool &found1, bool &found2) {
-    if (!root)
-        return nullptr;
-    if (root->value == value1) {
-        found1 = true;
-        return root;
-    }
-    if (root->value == value2) {
-        found2 = true;
-        return root;
-    }
-
-
-    auto left_lca = lowest_common_ancestor(root->left, value1, value2, found1, found2);
-    auto right_lca = lowest_common_ancestor(root->right, value1, value2, found1, found2);
-
-    if (!left_lca)
-        return right_lca;
-    else if (!right_lca)
-        return left_lca;
-
-    return root;
 }
 
 template<typename T>
