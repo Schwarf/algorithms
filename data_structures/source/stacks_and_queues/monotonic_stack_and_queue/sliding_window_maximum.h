@@ -10,27 +10,32 @@
 // Return the max sliding window.
 #include <vector>
 #include <deque>
-std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size) {
+#include <multiset>
+
+std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size)
+{
     int n = input.size();
     std::deque<int> deque;
     std::vector<int> result;
-    // fille the deque with indices
-    for(int i{}; i < window_size; ++i)
+    // fills the deque with indices
+    for (int i{}; i < window_size; ++i)
     {
-        while(!deque.empty() && input[i]>= input[deque.back()]){
+        while (!deque.empty() && input[i] >= input[deque.back()])
+        {
             deque.pop_back();
         }
         deque.push_back(i);
     }
     // now index of maximum is at front of deque
     result.push_back(input[deque.front()]);
-    for(int i= window_size; i < n; ++i)
+    for (int i = window_size; i < n; ++i)
     {
-        if(deque.front() == i -window_size)
+        if (deque.front() == i - window_size)
         {
             deque.pop_front();
         }
-        while(!deque.empty() && input[i] >= input[deque.back()]){
+        while (!deque.empty() && input[i] >= input[deque.back()])
+        {
             deque.pop_back();
         }
         deque.push_back(i);
@@ -38,5 +43,21 @@ std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size
     }
     return result;
 }
+
+// slower but very simple
+std::vector<int> sliding_window_maximum_simpler(std::vector<int>& input, int window_size)
+{
+    std::multiset<int, std::greater<>> set;
+    set.insert(input.begin(), input.begin() + window_size);
+    std::vector<int> result{*set.begin()};
+    for (int i{window_size}; i< input.size(); ++i)
+    {
+        set.erase(set.find(input[i-window_size]));
+        set.insert(input[i]);
+        result.push_back(*set.begin());
+    }
+    return result;
+}
+
 
 #endif //SLIDING_WINDOW_MAXIMUM_H
