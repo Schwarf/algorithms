@@ -7,19 +7,6 @@
 #include "trees/binary_trees/post_order_traversal.h"
 #include "trees/binary_trees/in_order_traversal.h"
 
-template <typename T>
-static bool is_same_tree(TreeNode<T>* a, TreeNode<T>* b)
-{
-    if (!a && !b)
-        return true;
-    if (!a || !b)
-        return false;
-    if (a->value != b->value)
-        return false;
-    return is_same_tree(a->left, b->left) && is_same_tree(a->right, b->right);
-}
-
-
 TEST_F(SetupBinaryTree, Empty)
 {
     std::vector<int> preorder;

@@ -9,6 +9,18 @@
 #include <vector>
 #include "trees/binary_trees/tree_node.h"
 
+template <typename T>
+static bool is_same_tree(TreeNode<T>* a, TreeNode<T>* b)
+{
+    if (!a && !b)
+        return true;
+    if (!a || !b)
+        return false;
+    if (a->value != b->value)
+        return false;
+    return is_same_tree(a->left, b->left) && is_same_tree(a->right, b->right);
+}
+
 
 class SetupBinaryTree : virtual public testing::Test {
 public:
