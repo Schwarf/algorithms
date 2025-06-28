@@ -18,63 +18,66 @@
 
 int apply_opeartion(char operation, int x, int y)
 {
-    switch (operation) {
-    case '+': return  x;
+    switch (operation)
+    {
+    case '+': return x;
     case '-': return -x;
     case '*': return x * y;
-    case '/': return x / y;  // integer division truncates toward zero
+    case '/': return x / y; // integer division truncates toward zero
     }
-    return 0;  // should never hit
+    return 0; // should never hit
 }
 
-int compute(const std::string & input, int & index)
+int compute(const std::string& input, int& index)
 {
-  std::stack<int> stack;
-  int current_number = 0;
-  char last_operation = '+';
-  while(index < input.length())
-  {
-       char current_char = input[index];
-       if(current_char == '(' )
-       {
-           ++index;
-           current_number = compute(input, index);
-       }
-       else if(std::isdigit(current_char))
+    std::stack<int> stack;
+    int current_number = 0;
+    char last_operation = '+';
+    while (index < input.length())
+    {
+        char current_char = input[index];
+        if (current_char == '(')
         {
-         current_number = current_number * 10 + (current_char - '0');
+            ++index;
+            current_number = compute(input, index);
         }
-        else{
-          if(last_operation == '*' || last_operation == '/')
+        else if (std::isdigit(current_char))
+        {
+            current_number = current_number * 10 + (current_char - '0');
+        }
+        else if (current_char != ' ')
+        {
+            if (last_operation == '*' || last_operation == '/')
             {
                 int value = stack.top();
                 stack.pop();
                 stack.push(apply_opeartion(last_operation, value, current_number));
             }
             else
-              stack.push(apply_opeartion(last_operation, current_number, 0));
+                stack.push(apply_opeartion(last_operation, current_number, 0));
 
-        if(current_char == ')')
-          break;
-      }
-      index++;
-  }
+            if (current_char == ')')
+                break;
+            current_number = 0;
+            last_operation = current_char;
+        }
+        index++;
+    }
 
-  int sum{};
-  while(!stack.empty())
+    int sum{};
+    while (!stack.empty())
     {
-    sum += stack.top();
-    stack.pop();
+        sum += stack.top();
+        stack.pop();
     }
     return sum;
 }
 
-int calculated3(std::string  input)
+int calculated3(std::string input)
 {
-    input.push_back("@");
+    input.push_back('@');
     int index = 0;
     return compute(input, index);
-
 }
 
 #endif //BASIC_CALCULATOR3_H
