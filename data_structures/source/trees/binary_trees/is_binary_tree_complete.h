@@ -10,21 +10,25 @@
 #include <queue>
 
 // Use breadth firtst search
-template<typename T>
-bool is_tree_complete(TreeNode<T> *root) {
+template <typename T>
+bool is_tree_complete(TreeNode<T>* root)
+{
     if (!root)
         return true;
-    std::queue<TreeNode<T> *> q{{root}};
+    std::queue<TreeNode<T>*> q{{root}};
     bool is_nullptr_found{};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto node = q.front();
         q.pop();
         if (!node)
             is_nullptr_found = true;
-        else {
+        else
+        {
             if (is_nullptr_found)
                 return false;
-            else {
+            else
+            {
                 q.push(node->left);
                 q.push(node->right);
             }
