@@ -21,10 +21,11 @@
 #include <stack>
 #include <cwctype>
 
-int calculated(const std::string& input)
+int calculated2(const std::string& input)
 {
     int n = input.length();
-    if (len == 0) return 0;
+    if (n == 0)
+        return 0;
     std::stack<int> stack;
     int current_number = 0;
     char last_operator = '+';
@@ -33,7 +34,7 @@ int calculated(const std::string& input)
         char current_char = input[i];
         if (std::isdigit(current_char))
             current_number = current_number * 10 + (current_char - '0');
-        if (!std::isdigit(current_char) && current_char != ' ' || i == n - 1)
+        if ((!std::isdigit(current_char) && current_char != ' ') || i == n - 1)
         {
             if (last_operator == '-')
             {
