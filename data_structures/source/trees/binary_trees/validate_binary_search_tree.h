@@ -17,9 +17,9 @@ std::numeric_limits<long long>::max()) {
     if(!root)
         return true;
 
-    if(root->val <= min || root->val >= max)
+    if(root->value <= min || root->value >= max)
         return false;
 
-    return isValidBST(root->left, min, root->val) && isValidBST(root->right, root->val, max);
+    return is_valid_BST(root->left, min, root->value) && is_valid_BST(root->right, root->value, max);
 
 }
