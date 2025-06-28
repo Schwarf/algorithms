@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "graphs/can_finish_course_schedule.h"
+#include "graphs/topological_sort/can_finish_course_schedule.h"
 
 TEST(CanFinishCourseSchedule, simple1)
 {
