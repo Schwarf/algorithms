@@ -35,38 +35,41 @@ Algorithm
 - Simply call the recursion function with the entire range of inorder.
 */
 
-template<typename T>
-TreeNode<T> *_construct_tree(std::vector<T> &preorder,
-                             int left,
-                             int right,
-                             int &pre_order_index,
-                             std::unordered_map<T, int> &inorder_value_to_index) {
-    if (left > right)
+template <typename T>
+TreeNode<T>* construct_tree(std::vector<T>& preorder,
+                            int in_order_left_index,
+                            int in_order_right_index,
+                            int& pre_order_index,
+                            std::unordered_map<T, int>& inorder_value_to_index)
+{
+    if (in_order_left_index > in_order_right_index)
         return nullptr;
-    int root_value = preorder[pre_order_index++];
+    T root_value = preorder[pre_order_index++];
     auto root = new TreeNode<T>(root_value);
-    root->left = _construct_tree(preorder,
-                                 left,
-                                 inorder_value_to_index[root_value] - 1,
+    // split inorder array into left and right subtrees
+    int pivot = inorder_value_to_index[root_value];
+    root->left = construct_tree(preorder,
+                                in_order_left_index,
+                                pivot - 1,
+                                pre_order_index,
+                                inorder_value_to_index);
+    root->right = construct_tree(preorder,
+                                 pivot + 1,
+                                 in_order_right_index,
                                  pre_order_index,
                                  inorder_value_to_index);
-    root->right = _construct_tree(preorder,
-                                  inorder_value_to_index[root_value] + 1,
-                                  right,
-                                  pre_order_index,
-                                  inorder_value_to_index);
     return root;
 }
 
-template<typename T>
-TreeNode<T> *construct_from_preorder_and_inorder(std::vector<T> &pre_order, std::vector<T> &in_order) {
+template <typename T>
+TreeNode<T>* construct_from_preorder_and_inorder(std::vector<T>& pre_order, std::vector<T>& in_order)
+{
     std::unordered_map<T, int> inorder_value_to_index;
     int pre_order_index{};
     for (int i = 0; i < in_order.size(); ++i)
         inorder_value_to_index[in_order[i]] = i;
 
-    return _construct_tree(pre_order, 0, pre_order.size() - 1, pre_order_index, inorder_value_to_index);
-
+    return construct_tree(pre_order, 0, pre_order.size() - 1, pre_order_index, inorder_value_to_index);
 }
 
 #endif //CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
