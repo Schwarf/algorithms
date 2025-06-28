@@ -16,21 +16,21 @@
 //    Every number and running calculation will fit in a signed 32-bit integer.
 #include <string>
 #include <stack>
-int calculate(const std::string & s)
+int calculate(const std::string & input)
 {
   std::stack<int> stack;
   int result = 0;
   int sign = 1;
-  int n = s.size();
+  int n = input.size();
   for(int i{}; i < n; ++i)
   {
-    char c= s[i];
+    char c= input[i];
     if(std::isdigit(c))
     {
         long number = c - '0';
-        while( i + 1 < n && std::isdigit(s[i + 1])){
+        while( i + 1 < n && std::isdigit(input[i + 1])){
           i++;
-          number = number * 10 + (s[i] - '0');
+          number = number * 10 + (input[i] - '0');
         }
         result += sign *number;
     }
