@@ -40,3 +40,44 @@ TEST_F(SetupBinaryTree, is_binary_tree_complete_medium_tree_true)
     auto expected_result = true;
     EXPECT_TRUE(expected_result == is_tree_complete(tree));
 }
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+TEST_F(SetupBinaryTree, is_binary_tree_complete_small_tree_false2)
+{
+    auto tree = small_binary_tree_root();
+    auto expected_result = false;
+    EXPECT_TRUE(expected_result == is_tree_complete2(tree));
+}
+
+TEST_F(SetupBinaryTree, is_binary_tree_complete_small_tree_true2)
+{
+    auto tree = inverted_small_binary_tree_root();
+    auto expected_result = true;
+    EXPECT_TRUE(expected_result == is_tree_complete2(tree));
+}
+
+TEST_F(SetupBinaryTree, is_binary_tree_complete_nullptr2)
+{
+    TreeNode<double>* tree = nullptr;
+    auto expected_result = true;
+    EXPECT_TRUE(expected_result == is_tree_complete2(tree));
+}
+
+
+TEST_F(SetupBinaryTree, is_binary_tree_complete_medium_tree_false2)
+{
+    auto tree = medium_tree_with_subtree_duplicates1();
+    auto expected_result = false;
+    EXPECT_TRUE(expected_result == is_tree_complete2(tree));
+}
+
+TEST_F(SetupBinaryTree, is_binary_tree_complete_medium_tree_true2)
+{
+    auto tree = binary_tree_root();
+    auto expected_result = true;
+    EXPECT_TRUE(expected_result == is_tree_complete2(tree));
+}

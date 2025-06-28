@@ -10,6 +10,12 @@
 #include <queue>
 
 // Use breadth firtst search
+// Check if every level in a binary tree is filled except maybe the last one. A binary tree is called complete
+// if all levels are filled from left to right except maybe the last level. Check if a given binary tree is complete
+#include "tree_node.h"
+#include <queue>
+
+// Use breadth firtst search
 template <typename T>
 bool is_tree_complete(TreeNode<T>* root)
 {
@@ -27,12 +33,37 @@ bool is_tree_complete(TreeNode<T>* root)
         {
             if (is_nullptr_found)
                 return false;
-            else
-            {
-                q.push(node->left);
-                q.push(node->right);
-            }
+            q.push(node->left);
+            q.push(node->right);
         }
+    }
+    return true;
+}
+
+
+template <typename T>
+bool is_tree_complete2(TreeNode<T>* root)
+{
+    if (!root)
+        return true;
+    std::queue<TreeNode<T>*> queue{{root}};
+    while (!queue.empty())
+    {
+        auto node = queue.front();
+        queue.pop();
+        if (!node)
+        {
+            // Now every remaining item in q must be nullptr:
+            while (!queue.empty())
+            {
+                if (queue.front())
+                    return false;
+                queue.pop();
+            }
+            break;
+        }
+        queue.push(node->left);
+        queue.push(node->right);
     }
     return true;
 }
