@@ -71,6 +71,8 @@ int dp(int job_index, const std::vector<Job>& jobs, std::vector<int>& memo)
 int job_scheduling(std::vector<int>& start_time, std::vector<int>& end_time, std::vector<int>& profit)
 {
     int n = start_time.size();
+    if (n == 0)
+        return 0;
     std::vector<Job> jobs(n);
     for (int i = 0; i < n; i++)
     {
@@ -88,6 +90,8 @@ int job_scheduling(std::vector<int>& start_time, std::vector<int>& end_time, std
 int job_scheduling_bottom_up(std::vector<int>& start_time, std::vector<int>& end_time, std::vector<int>& profit)
 {
     int n = start_time.size();
+    if (n == 0)
+        return 0;
     std::vector<Job> jobs(n);
     for (int i = 0; i < n; i++)
     {
