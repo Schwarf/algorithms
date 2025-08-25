@@ -36,10 +36,12 @@ TreeNode<T>* construct_tree_post_in(std::vector<T>& postorder,
 }
 
 template <typename T>
-TreeNode<T>* construct_from_inorder_and_postorder(std::vector<T>& post_order, std::vector<T>& in_order)
+TreeNode<T>* construct_from_inorder_and_postorder(std::vector<T>& in_order, std::vector<T>& post_order)
 {
+    if (in_order.size() != post_order.size() || in_order.empty())
+        return nullptr;
     std::unordered_map<T, int> inorder_value_to_index;
-    int post_order_index = post_order.size() - 1;
+    int post_order_index = in_order.size() - 1;
     for (int i = 0; i < in_order.size(); ++i)
         inorder_value_to_index[in_order[i]] = i;
 

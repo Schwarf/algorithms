@@ -49,7 +49,7 @@ TEST_F(SetupBinaryTree, FullSevenNodeInorderPostorder) {
 }
 TEST_F(SetupBinaryTree, test_construct_binary_tree_from_inorder_and_postorder)
 {
-    auto constructed_root = construct_from_inorder_and_postorder(postorder, inorder);
+    auto constructed_root = construct_from_inorder_and_postorder( inorder, postorder);
     auto result_constructed = pre_order_traversal_recursive(constructed_root);
     for (size_t index = 0; index < preorder.size(); ++index)
     {
