@@ -1,0 +1,69 @@
+{
+  "version": 3  ,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "CMAKE_CXX_EXTENSIONS": "OFF",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "gcc-debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" },
+      "environment": { "CC": "gcc", "CXX": "g++" }
+    },
+    {
+      "name": "gcc-release",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
+      "environment": { "CC": "gcc", "CXX": "g++" }
+    },
+    {
+      "name": "clang-debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" },
+      "environment": { "CC": "clang-18", "CXX": "clang++-18" }
+    },
+    {
+      "name": "clang-release",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
+      "environment": { "CC": "clang-18", "CXX": "clang++-18" }
+    },
+    {
+      "name": "asan",
+      "inherits": "clang-debug",
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer"
+      }
+    },
+    {
+      "name": "werror",
+      "inherits": "gcc-debug",
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-Werror"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "gcc-debug", "configurePreset": "gcc-debug" },
+    { "name": "gcc-release", "configurePreset": "gcc-release" },
+    { "name": "clang-debug", "configurePreset": "clang-debug" },
+    { "name": "clang-release", "configurePreset": "clang-release" },
+    { "name": "asan", "configurePreset": "asan" },
+    { "name": "werror", "configurePreset": "werror" }
+  ],
+  "testPresets": [
+    { "name": "all-gcc-debug", "configurePreset": "gcc-debug" },
+    { "name": "all-clang-debug", "configurePreset": "clang-debug" },
+    { "name": "all-asan", "configurePreset": "asan" }
+  ]
+}
