@@ -49,6 +49,7 @@ public:
             return false;
         message_queue.emplace_back(timestamp, message);
         messages.insert(message);
+        return true;
     }
 
 private:

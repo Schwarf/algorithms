@@ -197,7 +197,9 @@ TEST_F(SetupMaxMinHeap, TestInsertPopMaxMinSmallSequence)
             7, 12, 19, 17, 30, 32, 14, 16, 33, 4, 9, 11, 51, -1, 0, 27, 27, 27, 28, 28, 28, 28,
             0, -1, 102, 102, 102
         };
-        std::random_shuffle(insertion.begin(), insertion.end());
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::shuffle(insertion.begin(), insertion.end(), gen);
         auto max_min_heap = MaxMinHeap<int>();
         constexpr int number_of_bi_insertions{10};
         for (const auto& element : input)
