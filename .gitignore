@@ -4,6 +4,8 @@ multi_threading/
 
 cmake-build-debug/
 cmake-build-release/
+build/
+Testing/
 .idea/
 
 # Prerequisites
