@@ -1,7 +1,7 @@
 {
   "name": "algorithms-dev",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y build-essential ninja-build cmake clang lld gdb valgrind && cmake --preset gcc-debug && cmake --build --preset gcc-debug && ctest --preset all-gcc-debug",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y build-essential ninja-build cmake clang lld gdb valgrind libgtest-dev && sudo cmake -S /usr/src/googletest -B /usr/src/googletest/build && sudo cmake --build /usr/src/googletest/build -j && sudo cp /usr/src/googletest/build/lib/*.a /usr/lib/ && cmake --preset gcc-debug && cmake --build --preset gcc-debug -j && ctest --preset all-gcc-debug --output-on-failure",
   "customizations": {
     "vscode": { "extensions": ["ms-vscode.cpptools","ms-vscode.cmake-tools"] }
   }
