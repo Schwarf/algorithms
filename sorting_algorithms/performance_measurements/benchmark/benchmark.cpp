@@ -62,15 +62,25 @@ template <typename T>
 requires std::is_arithmetic_v<T>
 void my_optimized_sort(std::vector<T>& v) { optimized_sort(v, std::less()); }
 
+// --------------------
+// Wrappers for int
+// --------------------
+static void BM_std_sort(benchmark::State& s)        { generic_sorting_benchmark<int>(s, std_sort<int>); }
+static void BM_std_stable_sort(benchmark::State& s) { generic_sorting_benchmark<int>(s, std_stable_sort<int>); }
+static void BM_heap_sort(benchmark::State& s)       { generic_sorting_benchmark<int>(s, my_heap_sort<int>); }
+// static void BM_insertion_sort(benchmark::State& s)  { generic_sorting_benchmark<int>(s, my_insertion_sort<int>); }
+// static void BM_merge_sort(benchmark::State& s)      { generic_sorting_benchmark<int>(s, my_merge_sort<int>); }
+static void BM_quick_sort(benchmark::State& s)      { generic_sorting_benchmark<int>(s, my_quick_sort<int>); }
+static void BM_optimized_sort(benchmark::State& s)  { generic_sorting_benchmark<int>(s, my_optimized_sort<int>); }
 
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_sort, std_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, std_stable_sort, std_stable_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_heap_sort, my_heap_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_insertion_sort, my_insertion_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-// BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_merge_sort, my_merge_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_quick_sort, my_quick_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-BENCHMARK_CAPTURE(generic_sorting_benchmark<int>, my_optimized_sort, my_optimized_sort<int>)->RangeMultiplier(10)->Range(5, 5000000);
-
+// Register benchmarks
+BENCHMARK(BM_std_sort)        ->RangeMultiplier(10)->Range(5, 5'000'000);
+BENCHMARK(BM_std_stable_sort) ->RangeMultiplier(10)->Range(5, 5'000'000);
+BENCHMARK(BM_heap_sort)       ->RangeMultiplier(10)->Range(5, 5'000'000);
+//BENCHMARK(BM_insertion_sort)  ->RangeMultiplier(10)->Range(5, 5'000'000);
+//BENCHMARK(BM_merge_sort)      ->RangeMultiplier(10)->Range(5, 5'000'000);
+BENCHMARK(BM_quick_sort)      ->RangeMultiplier(10)->Range(5, 5'000'000);
+BENCHMARK(BM_optimized_sort)  ->RangeMultiplier(10)->Range(5, 5'000'000);
 int main(int argc, char** argv) {
     // Compiler check
 #ifdef __clang__
