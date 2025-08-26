@@ -1,0 +1,8 @@
+{
+  "name": "algorithms-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y build-essential ninja-build cmake clang lld gdb valgrind && cmake --preset gcc-debug && cmake --build --preset gcc-debug && ctest --preset all-gcc-debug",
+  "customizations": {
+    "vscode": { "extensions": ["ms-vscode.cpptools","ms-vscode.cmake-tools"] }
+  }
+}
