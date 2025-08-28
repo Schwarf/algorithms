@@ -7,4 +7,4 @@ ToDo:
       "kind" can be scheduled. Get inspired from OS, database systems, networking, distributes systems, cloud systems.
 * Sort all algos (not only in this project) and separate them into categories e.g. greedy, etc.
 * Tests for logger rate are commented out because they fail
- 
+* Test for find review score a commented out 
