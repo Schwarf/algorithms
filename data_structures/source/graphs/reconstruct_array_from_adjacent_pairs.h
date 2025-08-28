@@ -17,7 +17,7 @@ std::vector<T> reconstruct_array_from_adjacent_pairs(std::vector<std::vector<T>>
         graph[pair[0]].push_back(pair[1]);
         graph[pair[1]].push_back(pair[0]);
     }
-    T start;
+    T start{};
     for (auto node : graph)
     {
         if (node.second.size() == 1)
