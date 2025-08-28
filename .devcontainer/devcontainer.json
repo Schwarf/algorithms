@@ -3,7 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "cmake --preset gcc-debug && cmake --build --preset gcc-debug -j && ctest --preset all-gcc-debug --output-on-failure",
+  "postCreateCommand": "cmake --preset gcc-debug",
   "customizations": {
     "vscode": {
       "extensions": [
