@@ -12,6 +12,7 @@ add_executable(test_backtracking
         test_find_all_summand_combinations_for_sum.cpp
         test_construct_lexicographically_largest_sequence.cpp
         test_search_word_in_character_grid.cpp
+        test_sudoku_solver.cpp
         )
 
 #target_link_libraries(test_backtracking ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
