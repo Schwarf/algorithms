@@ -1,0 +1,8 @@
+//
+// Created by andreas on 31.08.25.
+//
+
+#ifndef ALGORITHMS_SUDOKO_SOLVER_H
+#define ALGORITHMS_SUDOKO_SOLVER_H
+
+#endif //ALGORITHMS_SUDOKO_SOLVER_H
