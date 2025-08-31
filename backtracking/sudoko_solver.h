@@ -25,9 +25,9 @@ void solve_sudoku(std::vector<std::vector<char>>& board)
     constexpr int N = 9;
     constexpr int n = 3;
 
-    std::array<std::array<int, N + 1>, N> rows;
-    std::array<std::array<int, N + 1>, N> columns;
-    std::array<std::array<int, N + 1>, N> boxes;
+    std::array<std::array<int, N + 1>, N> rows{};
+    std::array<std::array<int, N + 1>, N> columns{};
+    std::array<std::array<int, N + 1>, N> boxes{};
     bool sudoku_solved = false;
     auto box_index = [&](int r, int c) { return (r / n) * n + c / n; };
 
@@ -37,6 +37,7 @@ void solve_sudoku(std::vector<std::vector<char>>& board)
         rows[row][digit] = 1;
         columns[col][digit] = 1;
         boxes[index][digit] = 1;
+        board[row][col] = (char)(digit + '0');
     };
 
     for (int i = 0; i < N; i++)
@@ -62,10 +63,11 @@ void solve_sudoku(std::vector<std::vector<char>>& board)
     auto place_next_number = [&](int row, int col)
     {
         if (row == N - 1 && col == N - 1) { sudoku_solved = true; return; }
+
+
         int next_row = (col == N - 1) ? row + 1 : row;
         int next_col = (col == N - 1) ? 0  : col + 1;
         backtrack(next_row, next_col);
-
     };
 
     auto remove_number = [&](int digit, int row, int col)
