@@ -53,7 +53,8 @@ add_executable(test_fun_with_algos
         test_rotate_matrix.cpp
         test_palindrome_number.cpp
         test_zero_matrix.cpp
-        test_maximum_difference.cpp)
+        test_maximum_difference.cpp
+        test_max_number_of_diff_elements.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)
