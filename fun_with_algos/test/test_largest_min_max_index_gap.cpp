@@ -161,7 +161,6 @@ TEST(TestLargestExtremum_MaxMin_GapTwoPointers, simple5) {
                            48, 83, 77, 4, 23, 85, 29, 41, 78, 4, 45, 42, 36, 77, 21, 21, 14, 95, 22, 67, 40, 64, 75, 84,
                            19, 93, 19, 99, 75};
     constexpr int expected_result{97};
-    std::cout <<"input size " << input.size() << std::endl;
     EXPECT_EQ(expected_result, largest_extremum_index_gap_two_pointers(input, std::greater<int>()));
 }
 
