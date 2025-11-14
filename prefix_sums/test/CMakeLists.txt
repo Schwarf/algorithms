@@ -16,7 +16,8 @@ add_executable(test_prefix_sums
         test_rob_banks.cpp
         test_plates_between_candles.cpp
         test_find_longest_contiguous_array.cpp
-        test_contineous_subarray_sum.cpp)
+        test_contineous_subarray_sum.cpp
+        test_increment_sub_matrices.cpp)
 
 target_link_libraries(test_prefix_sums GTest::GTest GTest::Main pthread)
 add_test(NAME PrefixSumsTests COMMAND test_prefix_sums)
