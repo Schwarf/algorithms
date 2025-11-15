@@ -85,3 +85,87 @@ TEST(JobSchedulingTestBottomUp, MixedJobs) {
     // Best: skip {1,3,50}, choose {2,100,200} = 200
     EXPECT_EQ(job_scheduling_bottom_up(start_times, end_times, profits), 200);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST(JobSchedulingTestCompactTopDown, ReturnsZeroForEmptyInput) {
+    std::vector<int> start_times;
+    std::vector<int> end_times;
+    std::vector<int> profits;
+    EXPECT_EQ(compact_top_down(start_times, end_times, profits), 0);
+}
+
+TEST(JobSchedulingTestCompactTopDown, SingleJob) {
+    std::vector<int> start_times = {1};
+    std::vector<int> end_times   = {3};
+    std::vector<int> profits     = {50};
+    EXPECT_EQ(compact_top_down(start_times, end_times, profits), 50);
+}
+
+TEST(JobSchedulingTestCompactTopDown, NonOverlappingJobs) {
+    std::vector<int> start_times = {1, 3, 6};
+    std::vector<int> end_times   = {3, 5, 19};
+    std::vector<int> profits     = {50, 20, 100};
+    // 50 + 20 + 100 = 170
+    EXPECT_EQ(compact_top_down(start_times, end_times, profits), 170);
+}
+
+TEST(JobSchedulingTestCompactTopDown, OverlappingJobs) {
+    std::vector<int> start_times = {1, 2, 4};
+    std::vector<int> end_times   = {3, 5, 6};
+    std::vector<int> profits     = {50, 20, 70};
+    // Optimal: job0 (50) + job2 (70) = 120
+    EXPECT_EQ(compact_top_down(start_times, end_times, profits), 120);
+}
+
+TEST(JobSchedulingTestCompactTopDown, MixedJobs) {
+    std::vector<int> start_times = {1, 2, 3, 6};
+    std::vector<int> end_times   = {3, 100, 5, 19};
+    std::vector<int> profits     = {50, 200, 20, 100};
+    // Best: skip {1,3,50}, choose {2,100,200} = 200
+    EXPECT_EQ(compact_top_down(start_times, end_times, profits), 200);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+TEST(JobSchedulingTestCompactBottomUp, ReturnsZeroForEmptyInput) {
+    std::vector<int> start_times;
+    std::vector<int> end_times;
+    std::vector<int> profits;
+    EXPECT_EQ(compact_bottom_up(start_times, end_times, profits), 0);
+}
+
+TEST(JobSchedulingTestCompactBottomUp, SingleJob) {
+    std::vector<int> start_times = {1};
+    std::vector<int> end_times   = {3};
+    std::vector<int> profits     = {50};
+    EXPECT_EQ(compact_bottom_up(start_times, end_times, profits), 50);
+}
+
+TEST(JobSchedulingTestCompactBottomUp, NonOverlappingJobs) {
+    std::vector<int> start_times = {1, 3, 6};
+    std::vector<int> end_times   = {3, 5, 19};
+    std::vector<int> profits     = {50, 20, 100};
+    // 50 + 20 + 100 = 170
+    EXPECT_EQ(compact_bottom_up(start_times, end_times, profits), 170);
+}
+
+TEST(JobSchedulingTestCompactBottomUp, OverlappingJobs) {
+    std::vector<int> start_times = {1, 2, 4};
+    std::vector<int> end_times   = {3, 5, 6};
+    std::vector<int> profits     = {50, 20, 70};
+    // Optimal: job0 (50) + job2 (70) = 120
+    EXPECT_EQ(compact_bottom_up(start_times, end_times, profits), 120);
+}
+
+TEST(JobSchedulingTestCompactBottomUp, MixedJobs) {
+    std::vector<int> start_times = {1, 2, 3, 6};
+    std::vector<int> end_times   = {3, 100, 5, 19};
+    std::vector<int> profits     = {50, 200, 20, 100};
+    // Best: skip {1,3,50}, choose {2,100,200} = 200
+    EXPECT_EQ(compact_bottom_up(start_times, end_times, profits), 200);
+}

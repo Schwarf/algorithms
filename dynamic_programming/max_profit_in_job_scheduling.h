@@ -183,7 +183,7 @@ int compact_bottom_up(const std::vector<int> & start, const std::vector<int> & e
         return int(std::upper_bound(sorted_ends.begin(), sorted_ends.end(), jobs[i].s) - sorted_ends.begin()) - 1;
     };
     std::vector<int> dp(n+1, 0);
-    for (int i{}; i <= n; ++i)
+    for (int i=1; i <= n; ++i)
     {
         int j =pred(i-1);
         int take = jobs[i-1].p + dp[j+1];
