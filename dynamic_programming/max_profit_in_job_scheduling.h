@@ -119,4 +119,77 @@ int job_scheduling_bottom_up(std::vector<int>& start_time, std::vector<int>& end
     return dp[n - 1];
 }
 
+
+int compact_top_down(const std::vector<int> & start, const std::vector<int> & end, std::vector<int> & profit)
+{
+    struct Job
+    {
+        int s;
+        int e;
+        int p;
+    };
+    int n = start.size();
+    std::vector<Job> jobs(n);
+    for (int i{}; i < n; ++i)
+    {
+        jobs[i] = {start[i], end[i], profit[i]};
+    }
+    std::sort(jobs.begin(), jobs.end(), [](const Job& j1, const Job& j2){ return j1.s < j2.s; });
+    std::vector<int> sorted_starts(n);
+    for (int i{}; i < n; ++i)
+    {
+        sorted_starts[i] = jobs[i].s;
+    }
+    std::vector<int> memo(n ,-1);
+
+    std::function<int(int)> dfs = [&](int i)-> int
+    {
+        if (i>n-1)
+            return 0;
+        if (memo[i] != -1)
+            return memo[i];
+        int best = dfs(i+1);
+        int j = int(std::lower_bound(sorted_starts.begin(), sorted_starts.end(), jobs[i].e) - sorted_starts.begin());
+        best = std::max(best, jobs[i].p + dfs(j));
+        return memo[i] = best;
+    };
+    return dfs(0);
+}
+
+
+int compact_bottom_up(const std::vector<int> & start, const std::vector<int> & end, std::vector<int> & profit)
+{
+    struct Job
+    {
+        int s;
+        int e;
+        int p;
+    };
+    int n = start.size();
+    std::vector<Job> jobs(n);
+    for (int i{}; i < n; ++i)
+    {
+        jobs[i] = {start[i], end[i], profit[i]};
+    }
+    std::sort(jobs.begin(), jobs.end(), [](const Job& j1, const Job& j2){ return j1.e < j2.e; });
+
+    std::vector<int> sorted_ends(n);
+    for (int i{}; i < n; ++i)
+    {
+        sorted_ends[i] = jobs[i].e;
+    }
+    auto pred = [&](int i)-> int
+    {
+        return int(std::upper_bound(sorted_ends.begin(), sorted_ends.end(), jobs[i].s) - sorted_ends.begin()) - 1;
+    };
+    std::vector<int> dp(n+1, 0);
+    for (int i{}; i <= n; ++i)
+    {
+        int j =pred(i-1);
+        int take = jobs[i-1].p + dp[j+1];
+        dp[i] = std::max(dp[i-1], take);
+    }
+    return dp[n];
+}
+
 #endif //MAX_PROFIT_IN_JOB_SCHEDULING_H
