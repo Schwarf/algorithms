@@ -7,16 +7,43 @@
 #include <concepts>
 
 template <typename T>
-requires std::totally_ordered<T>
+    requires std::totally_ordered<T>
 class BinarySearchTree
 {
     T value{};
-    BinarySearchTree<T> *left= nullptr;
-    BinarySearchTree<T> *right = nullptr;
-    public:
-    BinarySearchTree(T val) : value(val) {}
+    BinarySearchTree<T>* left = nullptr;
+    BinarySearchTree<T>* right = nullptr;
 
-    BinarySearchTree & insert(T val)
+    T getMibValue()
+    {
+        const BinarySearchTree<T>* current = this;
+        while (current->left)
+            current = current->left;
+        return current->value;
+    }
+
+    BinarySearchTree<T>* remove(T val, BinarySearchTree<T>* parent)
+    {
+        auto current = this;
+        while (current && current->value != val)
+        {
+            parent = current;
+            if (val < current->value)
+                current = current->left;
+            else
+                current = current->right;
+        }
+
+        if (!current)
+            return *this;
+    }
+
+public:
+    BinarySearchTree(T val) : value(val)
+    {
+    }
+
+    BinarySearchTree& insert(T val)
     {
         if (val < value)
         {
@@ -52,5 +79,9 @@ class BinarySearchTree
         return false;
     }
 
+    BinarySearchTree& remove(T val)
+    {
+        return remove(val, nullptr);
+    }
 };
 #endif //ALGORITHMS_BINARY_SEARCH_TREE_H
