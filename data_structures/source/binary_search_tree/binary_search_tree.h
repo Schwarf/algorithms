@@ -32,7 +32,9 @@ class BinarySearchTree
             else
                 right = new BinarySearchTree(val);
         }
+        return *this;
     }
+
     bool contains(T val)
     {
         if (val == value)
