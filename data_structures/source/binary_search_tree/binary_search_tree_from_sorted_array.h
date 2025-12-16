@@ -5,7 +5,7 @@
 #ifndef BINARY_SEARCH_TREE_FROM_SORTED_ARRAY_H
 #define BINARY_SEARCH_TREE_FROM_SORTED_ARRAY_H
 
-#include "tree_node.h"
+#include "../trees/binary_trees/tree_node.h"
 #include <vector>
 
 template<typename T>

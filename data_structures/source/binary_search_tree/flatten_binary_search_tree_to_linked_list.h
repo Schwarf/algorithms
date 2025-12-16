@@ -5,7 +5,7 @@
 #ifndef FLATTEN_BINARY_SEARCH_TREE_TO_LINKED_LIST_H
 #define FLATTEN_BINARY_SEARCH_TREE_TO_LINKED_LIST_H
 
-#include "tree_node.h"
+#include "../trees/binary_trees/tree_node.h"
 
 /*
      TreeNode * get_right_most(TreeNode* root)

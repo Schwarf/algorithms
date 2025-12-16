@@ -8,7 +8,7 @@
 //    The right subtree of a node contains only nodes with keys greater than the node's key.
 //    Both the left and right subtrees must also be binary search trees.
 
-#include "tree_node.h"
+#include "../trees/binary_trees/tree_node.h"
 #include <limits>
 
 template <typename T>

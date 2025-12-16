@@ -1,7 +1,7 @@
 //
 // Created by andreas on 28.06.25.
 //
-#include "trees/binary_trees/validate_binary_search_tree.h"
+#include "../../binary_search_tree/validate_binary_search_tree.h"
 
 #include "gtest/gtest.h"
 
