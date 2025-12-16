@@ -36,6 +36,37 @@ class BinarySearchTree
 
         if (!current)
             return *this;
+
+        if (current->left && current->right) // case with two children
+        {
+            current->value = current->right->getMibValue();
+            current->right->remove(val, current);
+        }
+        BinarySearchTree<T>* child = current->left? current->left : current->right;
+
+        if (!parent) // root node with only one child removal
+        {
+            if(child)
+            {
+                current->value = child->value;
+                current->right = child->right;
+                current->left = child->left;
+                child->left = nullptr;
+                child->right = nullptr;
+                delete child;
+            }
+        }
+        else
+        {
+            if (parent->left == current)
+                parent->left = child;
+            else
+                parent->right = child;
+            current->left = nullptr;
+            current->right = nullptr;
+            delete current;
+        }
+        return *this;
     }
 
 public:
