@@ -108,12 +108,12 @@ public:
         if (val < value)
         {
             if (left)
-                left->contains(val);
+                return left->contains(val);
         }
         else
         {
             if (right)
-                right->contains(val);
+                return right->contains(val);
         }
         return false;
     }
