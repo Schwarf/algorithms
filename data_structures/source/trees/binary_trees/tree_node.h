@@ -6,8 +6,6 @@
 #define TREE_NODE_H
 
 #include <unordered_set>
-#include <unordered_set>
-#include <iostream>
 
 class TestTracker {
 public:

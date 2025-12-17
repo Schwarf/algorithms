@@ -10,7 +10,6 @@
 
 #include "tree_node.h"
 #include <vector>
-#include <stack>
 #include <unordered_set>
 #include <queue>
 
