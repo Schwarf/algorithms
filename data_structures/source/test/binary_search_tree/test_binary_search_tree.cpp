@@ -4,6 +4,15 @@
 #include "./../../binary_search_tree/binary_search_tree.h"
 #include "gtest/gtest.h"
 
+// Test concept requirement
+struct NotOrdered { int x; };
+
+template <typename T>
+concept CanMakeBST = requires { BinarySearchTree<T>{T{}}; };
+
+static_assert(CanMakeBST<int>);
+static_assert(!CanMakeBST<NotOrdered>);
+
 template <typename T>
 BinarySearchTree<T> makeBST(const T& root, std::initializer_list<T> vals) {
     BinarySearchTree<T> bst(root);

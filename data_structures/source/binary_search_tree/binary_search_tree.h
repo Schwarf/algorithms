@@ -13,6 +13,7 @@ struct BinarySearchTree
     T value{};
     BinarySearchTree<T>* left = nullptr;
     BinarySearchTree<T>* right = nullptr;
+
 private:
     T getMinValue()
     {
@@ -44,11 +45,11 @@ private:
             return *this;
         }
 
-        BinarySearchTree<T>* child = current->left? current->left : current->right;
+        BinarySearchTree<T>* child = current->left ? current->left : current->right;
 
         if (!parent) // root node with only one child removal
         {
-            if(child)
+            if (child)
             {
                 current->value = child->value;
                 current->right = child->right;
@@ -76,7 +77,8 @@ public:
     {
     }
 
-    ~BinarySearchTree() {
+    ~BinarySearchTree()
+    {
         delete left;
         delete right;
         left = nullptr;
