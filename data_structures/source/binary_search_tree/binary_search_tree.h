@@ -22,7 +22,7 @@ class BinarySearchTree
         return current->value;
     }
 
-    BinarySearchTree<T>* remove(T val, BinarySearchTree<T>* parent)
+    BinarySearchTree<T>& remove(T val, BinarySearchTree<T>* parent)
     {
         auto current = this;
         while (current && current->value != val)
