@@ -25,6 +25,17 @@ void expectNotContains(BinarySearchTree<T>& bst, std::initializer_list<T> absent
     }
 }
 
+template <typename T>
+bool is_valid_binary_search_tree(BinarySearchTree<T>* root, long long min = std::numeric_limits<long long>::min(), long long max =
+std::numeric_limits<long long>::max()) {
+    if(!root)
+        return true;
+
+    if(root->value <= min || root->value >= max)
+        return false;
+
+    return is_valid_binary_search_tree(root->left, min, root->value) && is_valid_binary_search_tree(root->right, root->value, max);
+}
 
 TEST(BinarySearchTree, TestSingleNodeContainsRoot) {
     BinarySearchTree<int> bst(10);
@@ -38,6 +49,7 @@ TEST(BinarySearchTree, TestContainsRootAndInsertedValues) {
 
     expectContains(bst, {10, 5, 15, 2, 7, 12, 20});
     expectNotContains(bst, {-1, 0, 1, 3, 6, 8, 9, 11, 13, 14, 16, 999});
+
 }
 
 TEST(BinarySearchTree, TestInsertsGoLeftAndRight) {
@@ -46,6 +58,7 @@ TEST(BinarySearchTree, TestInsertsGoLeftAndRight) {
 
     expectContains(bst, {10, 5, 15, 2, 7, 12, 20});
     expectNotContains(bst, {0, 1, 3, 6, 8, 11, 13, 100});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemovingMissingValueDoesNothing) {
@@ -54,6 +67,7 @@ TEST(BinarySearchTree, TestRemovingMissingValueDoesNothing) {
 
     expectContains(bst, {10, 5, 15, 2, 7, 12, 20});
     EXPECT_FALSE(bst.contains(999));
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemoveLeaf) {
@@ -65,6 +79,7 @@ TEST(BinarySearchTree, TestRemoveLeaf) {
     EXPECT_FALSE(bst.contains(2));
 
     expectContains(bst, {10, 5, 15, 7});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemoveNodeWithOneChildLeft) {
@@ -81,6 +96,7 @@ TEST(BinarySearchTree, TestRemoveNodeWithOneChildLeft) {
     EXPECT_FALSE(bst.contains(5));
 
     expectContains(bst, {10, 2});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemoveNodeWithOneChildRight) {
@@ -97,6 +113,7 @@ TEST(BinarySearchTree, TestRemoveNodeWithOneChildRight) {
     EXPECT_FALSE(bst.contains(15));
 
     expectContains(bst, {10, 20});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemoveNodeWithTwoChildren) {
@@ -115,6 +132,7 @@ TEST(BinarySearchTree, TestRemoveNodeWithTwoChildren) {
     EXPECT_FALSE(bst.contains(15));
 
     expectContains(bst, {10, 5, 12, 20, 11});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }
 
 TEST(BinarySearchTree, TestRemoveRootTwoChildren)
@@ -123,4 +141,5 @@ TEST(BinarySearchTree, TestRemoveRootTwoChildren)
     bst.remove(10);
 
     expectContains(bst, {5, 15, 2, 7, 12, 20});
+    EXPECT_TRUE(is_valid_binary_search_tree(&bst));
 }

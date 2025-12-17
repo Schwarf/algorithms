@@ -8,12 +8,12 @@
 
 template <typename T>
     requires std::totally_ordered<T>
-class BinarySearchTree
+struct BinarySearchTree
 {
     T value{};
     BinarySearchTree<T>* left = nullptr;
     BinarySearchTree<T>* right = nullptr;
-
+private:
     T getMinValue()
     {
         const BinarySearchTree<T>* current = this;
