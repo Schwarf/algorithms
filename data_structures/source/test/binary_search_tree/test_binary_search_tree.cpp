@@ -55,3 +55,72 @@ TEST(BinarySearchTree, TestRemovingMissingValueDoesNothing) {
     expectContains(bst, {10, 5, 15, 2, 7, 12, 20});
     EXPECT_FALSE(bst.contains(999));
 }
+
+TEST(BinarySearchTree, TestRemoveLeaf) {
+    // leaf: 2
+    auto bst = makeBST<int>(10, {5, 15, 2, 7});
+
+    EXPECT_TRUE(bst.contains(2));
+    bst.remove(2);
+    EXPECT_FALSE(bst.contains(2));
+
+    expectContains(bst, {10, 5, 15, 7});
+}
+
+TEST(BinarySearchTree, TestRemoveNodeWithOneChildLeft) {
+    // Remove 5 which has only left child 2:
+    //     10
+    //    /
+    //   5
+    //  /
+    // 2
+    auto bst = makeBST<int>(10, {5, 2});
+
+    EXPECT_TRUE(bst.contains(5));
+    bst.remove(5);
+    EXPECT_FALSE(bst.contains(5));
+
+    expectContains(bst, {10, 2});
+}
+
+TEST(BinarySearchTree, TestRemoveNodeWithOneChildRight) {
+    // Remove 15 which has only right child 20:
+    // 10
+    //   \
+    //   15
+    //     \
+    //     20
+    auto bst = makeBST<int>(10, {15, 20});
+
+    EXPECT_TRUE(bst.contains(15));
+    bst.remove(15);
+    EXPECT_FALSE(bst.contains(15));
+
+    expectContains(bst, {10, 20});
+}
+
+TEST(BinarySearchTree, TestRemoveNodeWithTwoChildren) {
+    // Remove 15 (two children: 12 and 20; and 12 has left 11):
+    //          10
+    //        /    \
+    //       5      15
+    //            /   \
+    //           12    20
+    //          /
+    //         11
+    auto bst = makeBST<int>(10, {5, 15, 12, 20, 11});
+
+    EXPECT_TRUE(bst.contains(15));
+    bst.remove(15);
+    EXPECT_FALSE(bst.contains(15));
+
+    expectContains(bst, {10, 5, 12, 20, 11});
+}
+
+TEST(BinarySearchTree, TestRemoveRootTwoChildren)
+{
+    auto bst = makeBST<int>(10, {5, 15, 2, 7, 12, 20});
+    bst.remove(10);
+
+    expectContains(bst, {5, 15, 2, 7, 12, 20});
+}
