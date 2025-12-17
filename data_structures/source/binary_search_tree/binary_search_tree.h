@@ -14,7 +14,7 @@ class BinarySearchTree
     BinarySearchTree<T>* left = nullptr;
     BinarySearchTree<T>* right = nullptr;
 
-    T getMibValue()
+    T getMinValue()
     {
         const BinarySearchTree<T>* current = this;
         while (current->left)
@@ -39,9 +39,11 @@ class BinarySearchTree
 
         if (current->left && current->right) // case with two children
         {
-            current->value = current->right->getMibValue();
-            current->right->remove(val, current);
+            current->value = current->right->getMinValue();
+            current->right->remove(current->value, current);
+            return *this;
         }
+
         BinarySearchTree<T>* child = current->left? current->left : current->right;
 
         if (!parent) // root node with only one child removal
