@@ -74,6 +74,14 @@ public:
     {
     }
 
+    ~BinarySearchTree() {
+        delete left;
+        delete right;
+        left = nullptr;
+        right = nullptr;
+    }
+
+
     BinarySearchTree& insert(T val)
     {
         if (val < value)
