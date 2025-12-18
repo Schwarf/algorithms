@@ -35,7 +35,29 @@ int find_Kth_largest_value(TreeNode<T>* tree, int k)
     return values[values.size()-k];
 }
 
+template<typename T>
+void reverse_inorder(TreeNode<T>* node, int& k, T& answer) {
+    if (!node || k == 0)
+        return;
 
+    reverse_inorder(node->right, k, answer);
+    k--;
+    if (k == 0) {
+        answer = node->value;
+        return;
+    }
+
+    reverse_inorder(node->left, k, answer);
+}
+
+// optimized O(h+k) time and O(h) space
+template <typename T>
+int find_Kth_largest_value_optimized(TreeNode<T>* tree, int k)
+{
+    T answer{};
+    reverse_inorder(tree, k, answer);
+    return answer;
+}
 
 
 #endif //ALGORITHMS_KTH_LARGEST_ELEMENT_BST_H
