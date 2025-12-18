@@ -29,7 +29,8 @@ add_executable(test_fun_with_strings
         test_are_two_strings_one_edit_away.cpp
         test_is_rotated_string.cpp
         test_maximize_difference_by_replacing_digits.cpp
-        test_minimum_deletions_to_make_string_special.cpp)
+        test_minimum_deletions_to_make_string_special.cpp
+        test_scheduling_with_deadlines.cpp)
 
 target_link_libraries(test_fun_with_strings GTest::GTest GTest::Main pthread)
 add_test(NAME FunWithStringsTests COMMAND test_fun_with_strings)
