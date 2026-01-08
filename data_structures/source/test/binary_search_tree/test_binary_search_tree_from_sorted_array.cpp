@@ -3,16 +3,8 @@
 //
 #include "gtest/gtest.h"
 #include "../../binary_search_tree/binary_search_tree_from_sorted_array.h"
+#include "test_helper.h"
 
-template <typename T>
-bool is_valid_binary_search_tree(TreeNode<T>* root, TreeNode<T>* min = nullptr, TreeNode<T>* max = nullptr)
-{
-    if (!root)
-        return true;
-    if (min != nullptr && root->value <= min->value) return false;
-    if (max != nullptr && root->value >= max->value) return false;
-    return is_valid_binary_search_tree(root->left, min, root) && is_valid_binary_search_tree(root->right, root, max);
-}
 
 TEST(binary_search_tree_from_sorted_array, simple_array)
 {
