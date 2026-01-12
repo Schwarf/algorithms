@@ -60,7 +60,7 @@ int diameter(TreeNode<T> *node, int &result) {
     result = std::max(result, left + right);
 
     // Return the depth of the current node
-    return std::max(left, right) + T{1};
+    return std::max(left, right) + 1;
 }
 
 template<typename T>
