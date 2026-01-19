@@ -12,14 +12,14 @@
 #include "tree_node.h"
 
 template <typename T>
-int height(TreeNode<T>* node)
+int balanced_height(TreeNode<T>* node)
 {
     if(!node)
         return 0;
-    const int left_height = height(node->left);
+    const int left_height = balanced_height(node->left);
     if(left_height == -1)
         return -1;
-    const int right_height = height(node->right);
+    const int right_height = balanced_height(node->right);
 
     if (std::abs(left_height - right_height) > 1)
         return -1;
@@ -30,7 +30,7 @@ int height(TreeNode<T>* node)
 template <typename T>
 bool height_balanced_binary_tree(TreeNode<T>* root)
 {
-    return height(root) != -1;
+    return balanced_height(root) != -1;
 }
 
 #endif //ALGORITHMS_HEIGHT_BALANCED_BINARY_TREE_H
