@@ -17,10 +17,7 @@ int balanced_height(TreeNode<T>* node)
     if(!node)
         return 0;
     const int left_height = balanced_height(node->left);
-    if(left_height == -1)
-        return -1;
     const int right_height = balanced_height(node->right);
-
     if (std::abs(left_height - right_height) > 1)
         return -1;
     return 1 + std::max(left_height, right_height);

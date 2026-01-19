@@ -24,6 +24,11 @@ TEST_F(SetupBinaryTree, EvenOddTreeIsNotBalanced) {
     EXPECT_FALSE(height_balanced_binary_tree(root));
 }
 
+TEST_F(SetupBinaryTree, EvenOddTree2IsNotBalanced) {
+    auto root = even_odd_tree2();
+    EXPECT_FALSE(height_balanced_binary_tree(root));
+}
+
 TEST_F(SetupBinaryTree, TwoNodesIsBalanced) {
     auto root = new TreeNode<int>(1);
     root->right = new TreeNode<int>(2);
