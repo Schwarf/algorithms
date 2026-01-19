@@ -37,4 +37,5 @@ std::vector<std::vector<int>> four_sum(std::vector<int>& input, int target)
     }
     return result;
 }
+
 #endif //ALGORITHMS_FOUR_SUM_H
