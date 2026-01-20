@@ -10,7 +10,7 @@
 #include "tree_node.h"
 
 template<typename T>
-TreeNode<T>* merge_binary_tees(TreeNode<T>* root1, TreeNode<T>* root2) {
+TreeNode<T>* merge_binary_trees(TreeNode<T>* root1, TreeNode<T>* root2) {
     if (!root1 && !root2)
         return nullptr;
 
