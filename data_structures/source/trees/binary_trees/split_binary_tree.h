@@ -51,4 +51,30 @@ T split_binary_tree(TreeNode<T>* root)
 }
 
 
+template <typename T>
+T dfs(TreeNode<T>* node, T target, bool&found, bool is_root)
+{
+    if (!node)
+        return T{};
+    auto left_sum = dfs(node->left, target, found, false);
+    auto right_sum = dfs(node->right, target, found, false);
+    auto sum = node->value + left_sum + right_sum;
+
+    if (!is_root && sum == target)
+        found = true;
+    return sum;
+}
+
+template <typename T>
+requires std::is_integral_v<T>
+T split_binary_tree2(TreeNode<T>* root)
+{
+    T sum = get_tree_sum(root);
+    if (sum & 1)
+        return 0; // Odd number -> no split possible
+    T wanted = sum/2;
+    return try_subtree(root, wanted) ? wanted : 0;
+}
+
+
 #endif //ALGORITHMS_SPLIT_BINARY_TREE_H
