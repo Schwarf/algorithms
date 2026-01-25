@@ -10,6 +10,7 @@
 // left subtree and the height of its right subtree is at most 1.
 
 #include "tree_node.h"
+#include <algorithm>
 
 template <typename T>
 int balanced_height(TreeNode<T>* node)
