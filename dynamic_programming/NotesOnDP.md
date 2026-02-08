@@ -1,7 +1,7 @@
 ### Dynamic Programming
 
-Optimization problems belong to the most challenging algorithmic problems. Best example, travelling salesman
-problem (TSP). It is easy to "propose" algorithm that generate reasonable-looking solutions (for TSP) but do not
+Optimization problems belong to the most challenging algorithmic problems. Best example, traveling salesman
+problem (TSP). It is easy to "propose" an algorithm that generates reasonable-looking solutions (for TSP) but does not
 always produce the minimum cost tour.
 Algorithms for optimization problems require proof that they always return the best possible solution.
 
@@ -14,6 +14,6 @@ recomputing. By storing the consequences of all possible decisions and using thi
 the total amount of work is minimized.
 
 Dynamic programming is a technique for efficiently implementing a recursive algorithm by storing partial results.
-The trick is seeing whether the naive recursive algorithm computes the same sub-problems over and over again. If
-so storing the answer for each sub-problem in a table to look-up instead of recompute can lead to an efficient
+The trick is seeing whether the naive recursive algorithm computes the same subproblems over and over again. If
+so, storing the answer for each subproblem in a table to look-up instead of recompute can lead to an efficient
 algorithm.
