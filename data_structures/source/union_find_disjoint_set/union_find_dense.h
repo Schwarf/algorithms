@@ -6,10 +6,10 @@
 #define OPTIMIZED_DISJOINT_SET_H
 #include <vector>
 
-class OptimizedDisjointSet
+class UnionFindDense
 {
 public:
-    explicit OptimizedDisjointSet(size_t size)
+    explicit UnionFindDense(size_t size)
         :
         roots(size),
         ranks(size)
