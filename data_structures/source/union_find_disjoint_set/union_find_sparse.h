@@ -2,54 +2,72 @@
 // Created by andreas on 05.02.23.
 //
 
-#ifndef GENERIC_DISJOINT_SET_H
-#define GENERIC_DISJOINT_SET_H
+#ifndef UNION_FIND_SPARSE_H
+#define UNION_FIND_SPARSE
 #include <unordered_map>
+#include <optional>
 
-template <typename id_T>
-class DisjointSet
+template <typename IdType>
+class UnionFindSparse
 {
 public:
-    bool add_set(const id_T& element)
+    bool add_set(const IdType& element)
     {
-        if (parent_mapping_.find(element) != parent_mapping_.end())
+        if (parent_mapping.find(element) != parent_mapping.end())
             return false;
-        parent_mapping_[element] = element;
-        rank_[element] = 1;
+        parent_mapping[element] = element;
+        rank[element] = 1;
+        return true;
     }
 
-    id_T get_root(const id_T& element)
+    std::optional<IdType> get_root(const IdType& element)
     {
-        if (element == parent_mapping_[element])
+        auto it = parent_mapping.find(element);
+        if (it == parent_mapping.end())
+            return std::nullopt;
+        if (it->second == element)
             return element;
-        return parent_mapping_[element] = get_root(parent_mapping_[element]);
+        auto root = get_root(it->second);
+        if (!root)
+            return std::nullopt;
+        it->second = *root;
+        return it->second;
     }
 
-    void union_set(const id_T& element1, const id_T& element2)
+    void union_set(const IdType& element1, const IdType& element2)
     {
-        id_T root1 = get_root(element1);
-        id_T root2 = get_root(element2);
+        auto r1 = get_root(element1);
+        auto r2 = get_root(element2);
+        if (!r1 || !r2)
+            return;
+
+        auto root1 = *r1;
+        auto root2 = *r2;
         if (root1 == root2)
             return;
-        if (rank_[root1] > rank_[root2])
-            parent_mapping_[root2] = root1;
-        else if (rank_[root1] < rank_[root2])
-            parent_mapping_[root1] = root2;
+        if (rank[root1] > rank[root2])
+            parent_mapping[root2] = root1;
+        else if (rank[root1] < rank[root2])
+            parent_mapping[root1] = root2;
         else
         {
-            parent_mapping_[root2] = root1;
-            rank_[root1]++;
+            parent_mapping[root2] = root1;
+            rank[root1]++;
         }
     }
 
-    bool are_connected(const id_T& element1, const id_T& element2)
+    bool are_connected(const IdType& element1, const IdType& element2)
     {
-        return get_root(element1) == get_root(element2);
+        auto r1 = get_root(element1);
+        auto r2 = get_root(element2);
+        if (!r1 || !r2)
+            return false;
+        return *r1 == *r2;
     }
 
 private:
-    std::unordered_map<id_T, id_T> parent_mapping_;
-    std::unordered_map<id_T, size_t> rank_;
+    std::unordered_map<IdType, IdType> parent_mapping;
+    std::unordered_map<IdType, std::size_t> rank;
 };
 
-#endif //GENERIC_DISJOINT_SET_H
+#endif //UNION_FIND_SPARSE
