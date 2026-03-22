@@ -20,9 +20,9 @@ int levenshtein_distance(const std::string &word1, const std::string &word2)
 		return n1;
 
 	std::vector<std::vector<int>> dp(n1 + 1, std::vector<int>(n2 + 1, 0));
-	for (int i{}; i < n1; ++i)
+	for (int i{}; i <= n1; ++i)
 		dp[i][0] = i;
-	for (int i{}; i < n2; ++i)
+	for (int i{}; i <= n2; ++i)
 		dp[0][i] = i;
 
 	for (int i{1}; i <= n1; ++i) {
