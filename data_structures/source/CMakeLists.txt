@@ -21,6 +21,4 @@ foreach (SUBDIR ${SUBDIRS})
 endforeach ()
 
 # Add test subdirectory
-if(BUILD_TESTING)
-  add_subdirectory(test)
-endif()
+add_subdirectory(test)
