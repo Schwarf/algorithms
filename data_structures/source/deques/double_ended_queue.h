@@ -16,6 +16,7 @@
 //     int popleft() will remove and return the value at the beginning of the queue. If the queue is empty, return -1.
 //
 // Note: You should implement each operation in O(1)O(1) time complexity.
+
 class Deque {
   struct Node{
     Node(int val): value(val){}
