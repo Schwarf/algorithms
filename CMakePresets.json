@@ -30,13 +30,13 @@
       "name": "clang-debug",
       "inherits": "base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" },
-      "environment": { "CC": "clang-18", "CXX": "clang++-18" }
+      "environment": { "CC": "clang", "CXX": "clang++" }
     },
     {
       "name": "clang-release",
       "inherits": "base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
-      "environment": { "CC": "clang-18", "CXX": "clang++-18" }
+      "environment": { "CC": "clang", "CXX": "clang++" }
     },
     {
       "name": "asan",
