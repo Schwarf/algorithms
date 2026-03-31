@@ -39,7 +39,9 @@ public:
 
     void remove(const std::string& key)
     {
-        remove(root_, key, 0);
+        root_ = remove(root_, key, 0);
+        if (!root_)
+            root_ = get_new_node();
     }
 
     bool search(const std::string& key)
