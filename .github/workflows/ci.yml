@@ -20,22 +20,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Toolchain & deps
+      - name: Install toolchain and dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            ninja-build cmake ccache \
-            g++ clang \
-            libgtest-dev libbenchmark-dev
+            ninja-build \
+            cmake \
+            ccache \
+            gcc \
+            g++ \
+            clang \
+            libgtest-dev \
+            libbenchmark-dev
 
       - name: Select compiler
         run: |
           if [[ "${{ matrix.compiler }}" == "clang" ]]; then
-            echo "CC=clang"  >> $GITHUB_ENV
-            echo "CXX=clang++" >> $GITHUB_ENV
+            echo "CC=clang" >> "$GITHUB_ENV"
+            echo "CXX=clang++" >> "$GITHUB_ENV"
           else
-            echo "CC=gcc"    >> $GITHUB_ENV
-            echo "CXX=g++"   >> $GITHUB_ENV
+            echo "CC=gcc" >> "$GITHUB_ENV"
+            echo "CXX=g++" >> "$GITHUB_ENV"
           fi
 
       - name: Cache ccache
@@ -46,31 +51,23 @@ jobs:
           restore-keys: |
             ccache-${{ runner.os }}-${{ matrix.compiler }}-
 
-      # libgtest-dev ships sources; build the libs locally (no sudo install needed)
-      - name: Build GTest libs
-        run: |
-          cmake -S /usr/src/googletest -B /usr/src/googletest/build -G Ninja
-          cmake --build /usr/src/googletest/build -j
-          echo "GTEST_LIB_DIR=/usr/src/googletest/build/lib" >> $GITHUB_ENV
-
       - name: Print versions
         run: |
           cmake --version
-          $CC --version || true
-          $CXX --version || true
+          $CC --version
+          $CXX --version
           ccache --version || true
 
       - name: Configure
         run: |
           ccache --zero-stats || true
           cmake --preset ${{ matrix.compiler }}-debug \
-            -D CMAKE_C_COMPILER=$CC \
-            -D CMAKE_CXX_COMPILER=$CXX \
-            -D CMAKE_CXX_COMPILER_LAUNCHER=ccache \
-            -D GTest_ROOT=$GTEST_LIB_DIR
+            -D CMAKE_C_COMPILER="$CC" \
+            -D CMAKE_CXX_COMPILER="$CXX" \
+            -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
-        run: cmake --build --preset ${{ matrix.compiler }}-debug -j$(nproc)
+        run: cmake --build --preset ${{ matrix.compiler }}-debug -j"$(nproc)"
 
       - name: Test
         run: ctest --preset all-${{ matrix.compiler }}-debug --output-on-failure
