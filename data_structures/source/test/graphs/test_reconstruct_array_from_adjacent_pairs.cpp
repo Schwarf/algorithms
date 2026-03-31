@@ -2,6 +2,7 @@
 // Created by andreas on 10.11.23.
 //
 #include "gtest/gtest.h"
+#include <algorithm>
 #include "graphs/reconstruct_array_from_adjacent_pairs.h"
 
 TEST(ReconstructArrayFromAdjacentPairs, simple1)

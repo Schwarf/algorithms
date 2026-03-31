@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 #include "trapping_rain_water.h"
 
+#include <algorithm>
+
 class SetupTrappingRainwater : public testing::Test
 {
 protected:
