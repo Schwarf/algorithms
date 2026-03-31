@@ -25,7 +25,7 @@
 #include <concepts>
 
 template <typename T>
-requires std::is_default_constructible_v<T>;
+requires std::is_default_constructible_v<T>
 class DynamicArray {
   T *array;
   int size{};
