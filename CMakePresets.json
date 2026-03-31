@@ -39,6 +39,20 @@
       "environment": { "CC": "clang", "CXX": "clang++" }
     },
     {
+      "name": "msvc-debug",
+      "inherits": "base",
+      "generator": "Ninja",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" },
+      "environment": { "CC": "cl", "CXX": "cl" }
+    },
+    {
+      "name": "msvc-release",
+      "inherits": "base",
+      "generator": "Ninja",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
+      "environment": { "CC": "cl", "CXX": "cl" }
+    },
+    {
       "name": "asan",
       "inherits": "clang-debug",
       "cacheVariables": {
@@ -59,12 +73,16 @@
     { "name": "clang-debug", "configurePreset": "clang-debug" },
     { "name": "clang-release", "configurePreset": "clang-release" },
     { "name": "asan", "configurePreset": "asan" },
-    { "name": "werror", "configurePreset": "werror" }
+    { "name": "werror", "configurePreset": "werror" },
+    { "name": "msvc-debug", "configurePreset": "msvc-debug" },
+    { "name": "msvc-release", "configurePreset": "msvc-release" }
   ],
   "testPresets": [
     { "name": "all-gcc-debug", "configurePreset": "gcc-debug" },
     { "name": "all-gcc-release", "configurePreset": "gcc-release" },
     { "name": "all-clang-debug", "configurePreset": "clang-debug" },
-    { "name": "all-asan", "configurePreset": "asan" }
+    { "name": "all-asan", "configurePreset": "asan" },
+    { "name": "all-msvc-debug", "configurePreset": "msvc-debug" },
+    { "name": "all-msvc-release", "configurePreset": "msvc-release" }
   ]
 }
