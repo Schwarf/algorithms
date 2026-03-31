@@ -14,7 +14,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [gcc, clang]
+        include:
+          - compiler: gcc
+            preset: gcc-debug
+            test_preset: all-gcc-debug
+          - compiler: gcc
+            preset: gcc-release
+            test_preset: ""
+          - compiler: clang
+            preset: clang-debug
+            test_preset: all-clang-debug
 
     steps:
       - name: Checkout
@@ -47,9 +56,9 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.cache/ccache
-          key: ccache-${{ runner.os }}-${{ matrix.compiler }}-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake', 'CMakePresets.json') }}
+          key: ccache-${{ runner.os }}-${{ matrix.preset }}-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake', 'CMakePresets.json') }}
           restore-keys: |
-            ccache-${{ runner.os }}-${{ matrix.compiler }}-
+            ccache-${{ runner.os }}-${{ matrix.preset }}-
 
       - name: Print versions
         run: |
@@ -61,16 +70,17 @@ jobs:
       - name: Configure
         run: |
           ccache --zero-stats || true
-          cmake --preset ${{ matrix.compiler }}-debug \
+          cmake --preset ${{ matrix.preset }} \
             -D CMAKE_C_COMPILER="$CC" \
             -D CMAKE_CXX_COMPILER="$CXX" \
             -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
-        run: cmake --build --preset ${{ matrix.compiler }}-debug -j"$(nproc)"
+        run: cmake --build --preset ${{ matrix.preset }} -j"$(nproc)"
 
       - name: Test
-        run: ctest --preset all-${{ matrix.compiler }}-debug --output-on-failure
+        if: matrix.test_preset != ''
+        run: ctest --preset ${{ matrix.test_preset }} --output-on-failure
 
       - name: ccache stats
         if: always()
@@ -80,7 +90,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ctest-logs-${{ matrix.compiler }}-debug
+          name: ctest-logs-${{ matrix.preset }}
           path: |
             **/Testing/**/*.xml
             **/CTest*.txt
