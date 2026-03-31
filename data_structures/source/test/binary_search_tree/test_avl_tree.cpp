@@ -5,6 +5,7 @@
 #include "binary_search_tree/avl_tree.h"
 #include <vector>
 #include <random>
+#include <algorithm>
 
 class SetupAVLTree : public testing::Test
 {
