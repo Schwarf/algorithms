@@ -3,7 +3,7 @@
 //
 
 #ifndef UNION_FIND_SPARSE_H
-#define UNION_FIND_SPARSE
+#define UNION_FIND_SPARSE_H
 #include <unordered_map>
 #include <optional>
 

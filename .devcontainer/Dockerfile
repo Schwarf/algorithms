@@ -10,6 +10,15 @@ RUN apt-get update && apt-get install -y \
     clang \
     gdb \
     valgrind \
+    git \
+    curl \
+    unzip \
+    procps \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
+    libxi6 \
+    libfreetype6 \
     libgtest-dev \
     libbenchmark-dev \
  && rm -rf /var/lib/apt/lists/*
