@@ -8,6 +8,7 @@
 // number. Each element can only be used once.
 #include <vector>
 #include <set>
+#include <algorithm>
 
 template <typename T>
 requires std::is_integral_v<T>

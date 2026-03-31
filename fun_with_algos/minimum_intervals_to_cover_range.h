@@ -7,6 +7,7 @@
 
 #include <concepts>
 #include <vector>
+#include <algorithm>
 // There is a one-dimensional area A on the x-axis. The range starts at the point 0 and ends at the point n.
 // There are n + 1 points [0, 1, ..., n] in the area A.
 // Given an integer n and an integer array ranges of length n + 1 where ranges[i] (0-indexed)

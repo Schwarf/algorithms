@@ -6,6 +6,8 @@
 #define BINARY_SEARCH_FIND_KTH_SMALLEST_DISTANCE_H
 #include <vector>
 #include <map>
+#include <algorithm>
+
 int smallest_distance_pair_brute_force1(std::vector<int>& nums, int k) {
     std::sort(nums.begin(), nums.end());
     int n = nums.size();

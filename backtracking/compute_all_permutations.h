@@ -6,6 +6,7 @@
 #define COMPUTE_ALL_PERMUTATIONS_H
 
 #include <vector>
+#include <algorithm>
 
 template<typename T>
 void backtrack(std::vector<std::vector<T>> &result, std::vector<T> &current, const std::vector<T> &input) {
