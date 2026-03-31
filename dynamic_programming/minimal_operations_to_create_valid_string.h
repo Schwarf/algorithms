@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <algorithm>
 
 // O(N) time complexity, O(N) space complexity
 int operations_to_create_valid_string_dp(const std::string &input) {

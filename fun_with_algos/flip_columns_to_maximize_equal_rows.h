@@ -9,6 +9,7 @@
 // (i.e., Change the value of the cell from 0 to 1 or vice versa).
 // Return the maximum number of rows that have all values equal after some number of flips.
 #include <vector>
+#include <algorithm>
 int maximize_equal_rows(std::vector<std::vector<int>>& matrix)
 {
     int max_identical_rows{};

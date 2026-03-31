@@ -10,6 +10,7 @@
 
 #include "avl_node.h"
 #include <iostream>
+#include <algorithm>
 
 template <typename T>
 class AVLTree

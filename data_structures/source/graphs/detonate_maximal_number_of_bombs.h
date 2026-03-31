@@ -10,6 +10,7 @@
 #include <queue>
 #include <unordered_set>
 #include <stack>
+#include <algorithm>
 // You are given a list of bombs. The range of a bomb is defined as the area where its effect can be felt.
 // This area is in the shape of a circle with the center as the location of the bomb.
 // The bombs are represented by a 0-indexed 2D integer array bombs where bombs[i] = [xi, yi, ri]. xi and yi denote

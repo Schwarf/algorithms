@@ -8,6 +8,7 @@
 // Given an integer n, return the nth ugly number.
 #include <vector>
 #include <set>
+#include <algorithm>
 
 bool is_ugly(int num) {
     if (num == 1)

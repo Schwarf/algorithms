@@ -8,6 +8,7 @@
 #include <vector>
 #include <unordered_map>
 #include "./../data_structures/source/hash_functions/hash_function_for_pairs.h"
+#include <algorithm>
 
 template <typename ValueType, typename WeightType> requires std::is_arithmetic_v<ValueType> && std::is_integral_v<
     WeightType>

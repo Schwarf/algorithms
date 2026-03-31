@@ -3,6 +3,7 @@
 //
 
 #include "kth_element_of_two_sorted_arrays.h"
+#include <algorithm>
 
 int KthElementOfTwoSortedArrays::merging(const int *array1,
                                          const int *array2,

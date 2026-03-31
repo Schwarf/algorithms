@@ -2,6 +2,7 @@
 // Created by andreas on 04.10.22.
 //
 #include "basics.h"
+#include <algorithm>
 
 template <typename T>
 int depth_first_search_height(TreeNode<T>* node)

@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "simulated_annealing_full_templated.h"
 #include "traveling_salesman_functors.h"
+#include <algorithm>
 
 #define EPSILON 1.e-15
 

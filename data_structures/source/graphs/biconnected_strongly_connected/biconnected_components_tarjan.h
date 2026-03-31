@@ -9,6 +9,7 @@
 
 #include <stack>
 #include "graphs/graph.h"
+#include <algorithm>
 
 template <typename NodeType>
 requires std::is_signed_v<NodeType>

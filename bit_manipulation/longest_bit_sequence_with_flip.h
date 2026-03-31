@@ -5,6 +5,7 @@
 #ifndef LONGEST_BIT_SEQUENCE_WITH_FLIP_H
 #define LONGEST_BIT_SEQUENCE_WITH_FLIP_H
 #include <cmath>
+#include <algorithm>
 // You have an integer and you can flip exactly one bit from a 0 to a 1, Write code to
 // find the length of the longest sequence of Is you could create.
 int longest_bit_sequence_with_flip(int number)

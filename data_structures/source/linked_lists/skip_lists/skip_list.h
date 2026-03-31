@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include <optional>
+#include <algorithm>
 // https://en.wikipedia.org/wiki/Skip_list
 
 template <typename KeyType, typename ValueType, int MaxLevel>

@@ -8,6 +8,7 @@
 // only 1's and return its area.
 #include <vector>
 #include <stack>
+#include <algorithm>
 
 int largest_rectangle_area_in_histogram(const std::vector<int>& histogram)
 {

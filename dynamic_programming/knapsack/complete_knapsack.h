@@ -7,6 +7,7 @@
 // The complete knapsack model is similar to the 0-1 knapsack, the only difference from the 0-1 knapsack is that an
 // item can be selected an unlimited number of times instead of only once.
 #include "knapsack_problem_0_1.h"
+#include <algorithm>
 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>

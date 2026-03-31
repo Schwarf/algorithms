@@ -6,6 +6,7 @@
 #define CONTIGEOUS_ARRAY_H
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 // Given a binary array nums, return the maximum length of a contiguous subarray with an equal number of 0 and 1
 // aka 'true' and 'false'.

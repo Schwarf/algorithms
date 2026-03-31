@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 // Given an integer n, return the least number of perfect square numbers needed that sum to n.
 // perfect squares: 1, 4, 9, 16,
 // https://leetcode.com/problems/perfect-squares/discuss/2837605/Complete-Intuition-Explained-oror-Recursion-greaterMemo-greaterDP

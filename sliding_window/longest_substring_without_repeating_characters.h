@@ -7,6 +7,7 @@
 
 #include <string>
 #include <unordered_set>
+#include <algorithm>
 
 int longest_substring_without_repeating_character(const std::string &s) {
     if (s.empty())

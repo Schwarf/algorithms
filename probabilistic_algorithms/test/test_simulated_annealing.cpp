@@ -3,6 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "simulated_annealing.h"
+#include <algorithm>
 
 #define EPSILON 1.e-15
 

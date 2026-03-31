@@ -10,6 +10,7 @@
 // A subarray is a contiguous non-empty sequence of elements within an array.
 // LC: 2104
 #include <vector>
+#include <algorithm>
 long long sum_of_subarray_ranges_brute_force(const std::vector<int> &input)
 {
   int n = input.size();

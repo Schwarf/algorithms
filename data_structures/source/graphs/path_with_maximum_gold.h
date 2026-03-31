@@ -13,6 +13,7 @@
 // Never visit a cell with 0 gold.
 // You can start and stop collecting gold from any position in the grid that has some gold.
 #include <vector>
+#include <algorithm>
 
 template <typename T>
     requires std::is_arithmetic_v<T>

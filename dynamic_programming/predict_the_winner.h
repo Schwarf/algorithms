@@ -15,6 +15,7 @@
 // You may assume that both players are playing optimally.
 #include <vector>
 #include <concepts>
+#include <algorithm>
 
 
 template<typename T>

@@ -12,6 +12,7 @@
 #include <stack>
 #include <queue>
 #include "tree_node.h"
+#include <algorithm>
 
 template<typename T>
 requires std::is_arithmetic_v<T>

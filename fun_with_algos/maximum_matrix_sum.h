@@ -12,6 +12,7 @@
 #include <limits>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 long long maximum_matrix_sum(std::vector<std::vector<int>> &matrix)
 {

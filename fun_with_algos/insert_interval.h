@@ -12,6 +12,7 @@
 // Return intervals after the insertion.
 #include <vector>
 #include <concepts>
+#include <algorithm>
 
 template<typename T>
 requires std::three_way_comparable<T>

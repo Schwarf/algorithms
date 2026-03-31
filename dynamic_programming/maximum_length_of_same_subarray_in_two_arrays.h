@@ -6,6 +6,7 @@
 #define MAXIMUM_LENGTH_OF_SAME_SUBARRAY_IN_TWO_ARRAYS_H
 
 #include <vector>
+#include <algorithm>
 
 // Given two std::vectors we want to find out the maximum length of the subarrays that appear in both arrays
 template<typename T>

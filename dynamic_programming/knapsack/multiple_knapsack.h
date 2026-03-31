@@ -5,6 +5,7 @@
 #ifndef MULTIPLE_KNAPSACK_H
 #define MULTIPLE_KNAPSACK_H
 #include "knapsack_problem_0_1.h"
+#include <algorithm>
 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>

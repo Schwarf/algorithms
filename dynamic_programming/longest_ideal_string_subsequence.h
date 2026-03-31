@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // You are given a string s consisting of lowercase letters and an integer k.
 // We call a string t ideal if the following conditions are satisfied:

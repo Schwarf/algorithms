@@ -11,6 +11,7 @@
 // A subarray is a contiguous non-empty sequence of elements within an array.
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 int max_subarray_length(const std::vector<int> &input, int max_frequency) {
     int result{};

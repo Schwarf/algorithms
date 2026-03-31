@@ -8,6 +8,7 @@
 // That is, 'a', 'e', 'i', 'o', and 'u' must appear an even number of times.
 #include <vector>
 #include <string>
+#include <algorithm>
 int find_longest_valid_substring(std::string & s)
 {
     int prefix_XOR{};

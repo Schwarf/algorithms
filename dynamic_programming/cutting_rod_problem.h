@@ -11,6 +11,7 @@
 // prices[i] obtain the maximum total price for the rod. Cutting is free.
 
 #include <vector>
+#include <algorithm>
 
 int cutting(std::vector<int> &prices, int current_length) {
     if (current_length == 0)

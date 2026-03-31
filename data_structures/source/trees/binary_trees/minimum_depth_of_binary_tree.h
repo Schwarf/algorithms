@@ -7,6 +7,7 @@
 
 #include "tree_node.h"
 #include <queue>
+#include <algorithm>
 
 template<typename T>
 int minimum_depth_binary_tree_dfs(TreeNode<T> *root) {

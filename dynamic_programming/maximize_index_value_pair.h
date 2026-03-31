@@ -5,6 +5,7 @@
 #ifndef MAXIMIZE_INDEX_VALUE_PAIR_H
 #define MAXIMIZE_INDEX_VALUE_PAIR_H
 #include <vector>
+#include <algorithm>
 // You are given an integer array values inputs[i]. Return the maximum pair  inputs[i] + inputs[j] + i - j
 // with i < j.
 

@@ -6,6 +6,7 @@
 #define MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 // You are given an integer array nums and an integer x. In one operation, you can either remove the leftmost or the
 // rightmost element from the array nums and subtract its value from x. Note that

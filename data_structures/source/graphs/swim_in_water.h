@@ -9,6 +9,7 @@
 // Return the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0).
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 int swim_in_water(std::vector<std::vector<int>>& grid)
 {

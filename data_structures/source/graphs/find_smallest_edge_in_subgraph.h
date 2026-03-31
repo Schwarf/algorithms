@@ -10,6 +10,7 @@
 #include <queue>
 #include <stack>
 #include <stdexcept>
+#include <algorithm>
 // Given a disconnected graph and two vertices. Find the smallest edge in the sub-graph that contains the two vertices.
 // Each edge is given as std::vector of size 3 with [vertex_1, vertex_2, edge-length].
 // All vertices are listed between 1 and n where n is the size of the input-vector.

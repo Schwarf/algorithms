@@ -7,6 +7,7 @@
 
 #include <concepts>
 #include <vector>
+#include <algorithm>
 
 // You are given two integer arrays nums1 and nums2. We write the integers of input1 and input2
 // (in the order they are given) on two separate horizontal lines.

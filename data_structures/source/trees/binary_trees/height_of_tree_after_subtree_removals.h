@@ -26,6 +26,7 @@
 #include <vector>
 #include <unordered_map>
 #include "tree_node.h"
+#include <algorithm>
 
 // Global static variables
 int max_height_after_removal[100001];  // Array to store max height after removing each node

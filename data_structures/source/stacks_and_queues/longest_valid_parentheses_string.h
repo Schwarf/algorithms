@@ -7,6 +7,7 @@
 
 #include <string>
 #include <stack>
+#include <algorithm>
 // Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed)
 //	parentheses substring
 

@@ -6,6 +6,7 @@
 #define ORDER_STATISTIC_TREE_H
 #include "avl_tree.h"
 #include "order_statistic_node.h"
+#include <algorithm>
 
 template <typename T>
 class OrderStatisticTree : public AVLTree<T> {

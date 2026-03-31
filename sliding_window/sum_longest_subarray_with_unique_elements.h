@@ -6,6 +6,7 @@
 #define LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 // You are given an array of positive integers nums and want to erase a subarray containing unique elements.
 // The score you get by erasing the subarray is equal to the sum of its elements.

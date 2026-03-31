@@ -7,6 +7,7 @@
 #include <concepts>
 #include <vector>
 #include <limits>
+#include <algorithm>
 
 template<typename T>
 int find_median(const std::vector<T> &input1,

@@ -7,6 +7,7 @@
 
 #include <stack>
 #include "graphs/graph.h"
+#include <algorithm>
 
 
 template <typename NodeType>

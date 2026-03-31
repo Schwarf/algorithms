@@ -8,6 +8,7 @@
 #include <cmath>
 #include <limits>
 #include "used_concepts.h"
+#include <algorithm>
 
 template<typename CoordinatesType>
 requires RequireCoordinates<CoordinatesType>

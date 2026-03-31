@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 std::vector<int> parse_version(const std::string& version) {
     std::vector<int> revisions;

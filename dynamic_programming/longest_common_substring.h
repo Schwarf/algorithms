@@ -6,6 +6,7 @@
 #define LONGEST_COMMON_SUBSTRING_H
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // Given two strings text1 and text2, return the length of their longest common substring. If there is no common
 // substring, return 0.

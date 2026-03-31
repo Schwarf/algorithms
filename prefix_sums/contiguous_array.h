@@ -7,6 +7,7 @@
 // Given a binary array nums, return the maximum length of a contiguous subarray with an equal number of 0 and 1.
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 int find_max_contiguous_array(const std::vector<int> & input)
 {
 	std::unordered_map<int, int> help;

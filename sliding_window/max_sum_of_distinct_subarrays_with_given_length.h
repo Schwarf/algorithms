@@ -12,6 +12,7 @@
 // A subarray is a contiguous non-empty sequence of elements within an array.
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 long long max_subarray_sum(std::vector<int>& input, int subarray_length) {
     long long result{};
     long long current_sum{};

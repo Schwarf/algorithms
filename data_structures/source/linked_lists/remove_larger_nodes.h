@@ -10,6 +10,7 @@
 // Return the head of the modified linked list.
 #include <stack>
 #include "node.h"
+#include <algorithm>
 
 template <typename T>
     requires std::is_arithmetic_v<T>

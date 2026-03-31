@@ -6,6 +6,7 @@
 #define SLIDING_WINDOW_MINIMUM_SWAPS_TO_GROUP_ONES_H
 
 #include <vector>
+#include <algorithm>
 
 // Given a binary array. Find the minimum number of swaps to cluster all 1’s together.
 // The 1’s can be clustered across the array boundaries (like a circular array)

@@ -11,6 +11,7 @@
 // Return the minimum number of days you need to wait to be able to make m bouquets from the garden.
 // If it is impossible to make m bouquets return -1.
 #include <vector>
+#include <algorithm>
 
 int get_number_of_bouquets(std::vector<int> &bloom_days, int mid, int flowers_per_bouquet) {
     int number_of_bouquets{};

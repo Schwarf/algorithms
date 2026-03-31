@@ -13,6 +13,7 @@
 // #GREEDY
 #include <vector>
 #include <concepts>
+#include <algorithm>
 
 template <typename T>
     requires std::is_signed_v<T>

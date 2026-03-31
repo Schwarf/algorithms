@@ -11,6 +11,7 @@
 // Return the minimum number of characters you need to delete to make word k-special.
 #include <string>
 #include <unordered_map>
+#include <algorithm>
 int minimumDeletions(std::string word, int k) {
     std::unordered_map<char, int> frequencies;
     for(const auto c: word)

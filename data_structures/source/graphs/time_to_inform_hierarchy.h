@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 int time_to_inform_group(int n, int headID, const std::vector<int>& leaders, const std::vector<int>& times)
 {

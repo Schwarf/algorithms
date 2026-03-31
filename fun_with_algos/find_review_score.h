@@ -31,6 +31,7 @@
 // The longest substring is "dProductButScra", return its length, 15.
 #include <string>
 #include <vector>
+#include <algorithm>
 int find_review_score(const std::string & review, std::vector<std::string> prohibited_words) {
 
     int maxLength = 0;

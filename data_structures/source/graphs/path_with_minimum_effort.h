@@ -9,6 +9,7 @@
 #include <concepts>
 #include <stack>
 #include <limits>
+#include <algorithm>
 
 template <typename T>
     requires std::is_signed_v<T>

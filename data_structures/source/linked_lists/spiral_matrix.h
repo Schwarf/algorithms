@@ -11,6 +11,7 @@
 // Return the generated matrix.
 #include <vector>
 #include "node.h"
+#include <algorithm>
 
 template <typename T>
 std::vector<std::vector<T>> spiral_matrix(int rows, int columns, Node<T>* head)

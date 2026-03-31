@@ -9,6 +9,7 @@
 // Each shelf can be max shelf-width wide but does not to filled fully.
 // The height of one shelf is determined by the book with maximum height of the shelf.
 #include <vector>
+#include <algorithm>
 
 int
 dp_helper(std::vector<std::vector<int>> &books, int shelf_width, std::vector<std::vector<int>> &memo, int book_index,

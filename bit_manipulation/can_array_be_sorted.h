@@ -13,6 +13,7 @@
 // Return true if you can sort the array in ascending order, else return false.
 #include <limits>
 #include <vector>
+#include <algorithm>
 
 bool can_array_be_sorted_bubble_sort(std::vector<int> & input)
 {

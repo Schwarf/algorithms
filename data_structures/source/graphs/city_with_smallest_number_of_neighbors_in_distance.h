@@ -14,6 +14,7 @@
 #include <queue>
 #include <limits>
 #include <iostream>
+#include <algorithm>
 
 int
 helper_to_determine_resulting_city(std::vector<std::vector<int>>& distance_matrix, int n, int max_allowed_distance)
