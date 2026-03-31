@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 // You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival
 // airports of one flight. Reconstruct the itinerary in order and return it.
 // All the tickets belong to a man who departs from "JFK", thus, the itinerary must begin with "JFK".
@@ -41,7 +42,7 @@ std::vector<std::string> reconstruct_itinerary(const std::vector<std::vector<std
     // Sort the destinations in lexical order to satisfy the requirement
     for (auto& pair : graph)
     {
-        sort(pair.second.begin(), pair.second.end(), std::greater<std::string>());
+        std::sort(pair.second.begin(), pair.second.end(), std::greater<std::string>());
     }
 
     std::vector<std::string> result;

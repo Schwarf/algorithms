@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 #include "./../largest_divisible_subset.h"
 
+#include <algorithm>
+
 TEST(TestLargestDivisibleSubset, simple1)
 {
     std::vector<int> input{1, 2, 3, 4, 8, 16};
