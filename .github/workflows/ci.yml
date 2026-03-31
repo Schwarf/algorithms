@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install toolchain and dependencies
         run: |
@@ -44,7 +44,7 @@ jobs:
           fi
 
       - name: Cache ccache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ccache
           key: ccache-${{ runner.os }}-${{ matrix.compiler }}-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake', 'CMakePresets.json') }}
