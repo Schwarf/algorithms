@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 int optimal_freelancing(std::vector<std::unordered_map<std::string, int>> jobs)
 {

@@ -10,7 +10,7 @@
 
 template<typename Container>
 requires IndexedContainer<Container> && std::is_arithmetic_v<typename Container::value_type>
-Container::value_type maximum_subarray_kadane_algorithm(const Container &container) {
+typename Container::value_type maximum_subarray_kadane_algorithm(const Container &container) {
     if (container.size() < 0)
         return std::numeric_limits<typename Container::value_type>::min();
     typename Container::value_type maximum_so_far{std::numeric_limits<typename Container::value_type>::min()};
