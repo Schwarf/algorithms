@@ -171,9 +171,10 @@ private:
     {
         for (auto& [node, neighbors] : dfs_graph.get_adjacency_list())
         {
-            std::sort(neighbors.begin(), neighbors.end(), [&](NodeType a, NodeType b)
+            const auto current_node = node;
+            std::sort(neighbors.begin(), neighbors.end(), [&, current_node](NodeType a, NodeType b)
             {
-                return nesting_depth[make_edge(node, a)] < nesting_depth[make_edge(node, b)];
+                return nesting_depth[make_edge(current_node, a)] < nesting_depth[make_edge(current_node, b)];
             });
         }
     }
