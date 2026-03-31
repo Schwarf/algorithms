@@ -8,7 +8,10 @@
 #include <random>
 #include <array>
 #include <vector>
+#include <algorithm>
+
 #include "gtest/gtest.h"
+
 
 class SetupSortingTests : public testing::Test {
 public:

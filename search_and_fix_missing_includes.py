@@ -10,6 +10,8 @@ ALGORITHM_SYMBOLS = [
     "std::min_element",
     "std::max",
     "std::min",
+    "std::generate_n",
+    "std::generate",
 ]
 
 ALGORITHM_INCLUDE = "#include <algorithm>"
