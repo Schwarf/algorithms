@@ -10,6 +10,7 @@
 // The cost value is given as the absolute difference of column indices between the column in the current row and
 // the column chosen in the row before.
 #include <vector>
+#include <algorithm>
 
 // O(N^2 *M) N is number of columns, M number of rows, Space-complexity O(N*M)
 long long get_maximum_cost_dp_brute_force(std::vector<std::vector<int>> &matrix) {

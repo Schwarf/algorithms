@@ -20,7 +20,7 @@ def find_files_missing_algorithm_include(root: str = ".") -> list[str]:
         except Exception:
             continue
 
-        uses_sort_or_reverse = ("std::sort" in content) or ("std::reverse" in content) or ("std::max_element" in content)
+        uses_sort_or_reverse = ("std::sort" in content) or ("std::reverse" in content) or ("std::max_element" in content) or ("std::min_element" in content)
         has_algorithm_include = "#include <algorithm>" in content
 
         if uses_sort_or_reverse and not has_algorithm_include:

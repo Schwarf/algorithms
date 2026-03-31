@@ -9,6 +9,7 @@
 // at least k (required_frequency) times in that subarray.
 // A subarray is a contiguous sequence of elements within an array.
 #include <vector>
+#include <algorithm>
 
 template<typename T>
 long long count_subarrays_where_max_appears_k_times(const std::vector<T> &input, int required_frequency) {

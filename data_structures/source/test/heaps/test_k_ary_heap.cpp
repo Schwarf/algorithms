@@ -4,7 +4,9 @@
 
 #include "gtest/gtest.h"
 #include "heaps/k_ary_heap.h"
+
 #include <vector>
+#include <algorithm>
 
 class SetupK_aryHeap : public testing::Test
 {
