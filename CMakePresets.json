@@ -63,6 +63,7 @@
   ],
   "testPresets": [
     { "name": "all-gcc-debug", "configurePreset": "gcc-debug" },
+    { "name": "all-gcc-release", "configurePreset": "gcc-release" },
     { "name": "all-clang-debug", "configurePreset": "clang-debug" },
     { "name": "all-asan", "configurePreset": "asan" }
   ]
