@@ -1,6 +1,8 @@
 project(probabilistic_algorithms)
 
-add_subdirectory(test)
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif()
 
 add_executable(probabilistic_algorithms
                 main.cpp
