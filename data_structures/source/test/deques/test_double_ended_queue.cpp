@@ -6,14 +6,14 @@
 #include <gtest/gtest.h>
 
 TEST(DequeTest, EmptyDeque) {
-  Deque dq;
+  Deque<int> dq;
   EXPECT_TRUE(dq.isEmpty());
-  EXPECT_EQ(dq.pop(), -1);
-  EXPECT_EQ(dq.popleft(), -1);
+  EXPECT_EQ(dq.pop(), std::nullopt);
+  EXPECT_EQ(dq.popleft(), std::nullopt);
 }
 
 TEST(DequeTest, SingleElementAppendAndPop) {
-  Deque dq;
+  Deque<int> dq;
   dq.append(42);
 
   EXPECT_FALSE(dq.isEmpty());
@@ -22,7 +22,7 @@ TEST(DequeTest, SingleElementAppendAndPop) {
 }
 
 TEST(DequeTest, SingleElementAppendLeftAndPopLeft) {
-  Deque dq;
+  Deque<int> dq;
   dq.appendLeft(42);
 
   EXPECT_FALSE(dq.isEmpty());
@@ -31,7 +31,7 @@ TEST(DequeTest, SingleElementAppendLeftAndPopLeft) {
 }
 
 TEST(DequeTest, AppendThenPopLeftPreservesOrder) {
-  Deque dq;
+  Deque<short> dq;
   dq.append(1);
   dq.append(2);
   dq.append(3);
@@ -43,7 +43,7 @@ TEST(DequeTest, AppendThenPopLeftPreservesOrder) {
 }
 
 TEST(DequeTest, AppendThenPopPreservesReverseOrder) {
-  Deque dq;
+  Deque<int64_t> dq;
   dq.append(1);
   dq.append(2);
   dq.append(3);
@@ -55,19 +55,19 @@ TEST(DequeTest, AppendThenPopPreservesReverseOrder) {
 }
 
 TEST(DequeTest, AppendLeftChangesFrontOrder) {
-  Deque dq;
-  dq.appendLeft(1);
-  dq.appendLeft(2);
-  dq.appendLeft(3);
+  Deque<float> dq;
+  dq.appendLeft(1.F);
+  dq.appendLeft(2.F);
+  dq.appendLeft(3.F);
 
-  EXPECT_EQ(dq.popleft(), 3);
-  EXPECT_EQ(dq.popleft(), 2);
-  EXPECT_EQ(dq.popleft(), 1);
+  EXPECT_EQ(dq.popleft(), 3.F);
+  EXPECT_EQ(dq.popleft(), 2.F);
+  EXPECT_EQ(dq.popleft(), 1.F);
   EXPECT_TRUE(dq.isEmpty());
 }
 
 TEST(DequeTest, MixedOperationsWork) {
-  Deque dq;
+  Deque<int> dq;
   dq.append(2);     // [2]
   dq.appendLeft(1); // [1,2]
   dq.append(3);     // [1,2,3]
@@ -79,7 +79,7 @@ TEST(DequeTest, MixedOperationsWork) {
 }
 
 TEST(DequeTest, CanBeReusedAfterBecomingEmpty) {
-  Deque dq;
+  Deque<int> dq;
   dq.append(1);
   dq.append(2);
   EXPECT_EQ(dq.pop(), 2);

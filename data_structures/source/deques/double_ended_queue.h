@@ -16,11 +16,13 @@
 //     int popleft() will remove and return the value at the beginning of the queue. If the queue is empty, return -1.
 //
 // Note: You should implement each operation in O(1)O(1) time complexity.
+#include <optional>
 
+template <typename T>
 class Deque {
   struct Node{
-    Node(int val): value(val){}
-    int value;
+    Node(T val): value(val){}
+    T value;
     Node * next = nullptr;
     Node * prev = nullptr;
   };
@@ -30,12 +32,20 @@ public:
   Deque() {
 
   }
+  ~Deque() {
+    while (!isEmpty()) {
+      popleft();
+    }
+  }
+
+  Deque(const Deque&) = delete;
+  Deque& operator=(const Deque&) = delete;
 
   bool isEmpty() const {
     return head == nullptr;
   }
 
-  void append(int value) {
+  void append(T value) {
     if(!head)
     {
       head = new Node(value);
@@ -48,7 +58,7 @@ public:
     tail = node;
   }
 
-  void appendLeft(int value) {
+  void appendLeft(T value) {
     if(!head)
     {
       head = new Node(value);
@@ -61,10 +71,10 @@ public:
     head = node;
   }
 
-  int pop() {
+  std::optional<T> pop() {
     if(!head)
-      return -1;
-    int value = tail->value;
+      return std::nullopt;
+    T value = tail->value;
     if(head == tail)
     {
       delete tail;
@@ -79,10 +89,10 @@ public:
     return value;
   }
 
-  int popleft() {
+  std::optional<T> popleft() {
     if(!head)
-      return -1;
-    int value = head->value;
+      return std::nullopt;
+    T value = head->value;
     if(head == tail)
     {
       delete tail;
