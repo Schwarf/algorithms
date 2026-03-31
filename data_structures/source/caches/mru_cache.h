@@ -14,6 +14,7 @@ class MRUCache
 private:
     struct Node
     {
+        Node(const KeyType& key, const ValueType& value) : key(key), value(value) {}
         KeyType key;
         ValueType value;
     };
