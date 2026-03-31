@@ -15,7 +15,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include <concepts>
+#include <algorithm>
 
 template <typename T>
 requires std::is_unsigned_v<T>

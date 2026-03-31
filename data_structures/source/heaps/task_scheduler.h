@@ -10,6 +10,7 @@
 // Return the minimum number of intervals required to complete all tasks.
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 int time_needed_for_scheduling_tasks(const std::vector<char> &tasks, int minimum_interval_between_identical_tasks) {
     std::vector<int> frequencies(26, 0);

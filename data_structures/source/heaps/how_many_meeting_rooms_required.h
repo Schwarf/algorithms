@@ -8,6 +8,7 @@
 // find the minimum number of conference rooms required.
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 int how_many_meeting_rooms_required(std::vector<std::vector<int>>& meetings)
 {

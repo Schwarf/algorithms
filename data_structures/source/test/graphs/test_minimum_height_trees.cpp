@@ -4,6 +4,8 @@
 #include "graphs/minimum_height_trees.h"
 #include "gtest/gtest.h"
 
+#include <algorithm>
+
 TEST(TestMinimumHeightTrees, simple1)
 {
     std::vector<std::vector<unsigned int>> edges{

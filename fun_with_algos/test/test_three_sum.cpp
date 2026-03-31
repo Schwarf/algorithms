@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 #include "three_sum.h"
 
+#include <algorithm>
+
 TEST(TestThreeSum, simple1) {
     std::vector<int> input{-1, 0, 1, 2, -1, -4};
     const std::vector<std::vector<int>> expected_result{{-1, -1, 2},

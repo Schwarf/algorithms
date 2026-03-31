@@ -11,7 +11,7 @@
 #include <optional>
 #include <stack>
 #include <vector>
-#include <utility>
+#include <algorithm>
 #include "graphs/graph.h"
 #include "json.hpp"
 

@@ -9,6 +9,7 @@
 #include <queue>
 #include <limits>
 #include "union_find_disjoint_set/union_find_dense.h"
+#include <algorithm>
 
 // You are given an array points representing integer coordinates of some points on a 2D-plane,
 // where points[i] = [xi, yi].

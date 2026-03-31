@@ -8,7 +8,7 @@
 #include <string>
 #include <queue>
 #include <map>
-
+#include <algorithm>
 
 std::string sort_by_frequencies(std::string input) {
     std::map<char, int> map;

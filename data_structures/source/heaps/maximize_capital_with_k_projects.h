@@ -15,6 +15,7 @@
 // The answer is guaranteed to fit in a 32-bit signed integer.
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 int maximize_capital(int k, int start_capital, std::vector<int>& profits, std::vector<int>& capital)
 {

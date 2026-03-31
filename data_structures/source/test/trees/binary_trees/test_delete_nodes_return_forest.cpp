@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "trees/binary_trees/pre_order_traversal.h"
 
+#include <algorithm>
 // Helper function for checking if nodes are really deleted.
 void collect_node_addresses(TreeNode<int>* node, std::unordered_map<TreeNode<int>*, int>& addresses)
 {

@@ -6,6 +6,7 @@
 #define SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H
 #include <map>
 #include <vector>
+#include <algorithm>
 #include "used_concepts.h"
 // Given an array of integers nums, sort the array in increasing order based on the frequency of the values.
 // If multiple values have the same frequency, sort them in decreasing order.

@@ -9,7 +9,7 @@
 // Return the area of the largest sub-matrix within matrix where every element of the
 // sub-matrix is 1 after reordering the columns optimally.
 #include <vector>
-#include <concepts>
+#include <algorithm>
 #include <functional>
 
 template<typename T>

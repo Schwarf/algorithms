@@ -3,6 +3,7 @@
 //
 #include "test_setup.h"
 #include "counting_sort.h"
+#include <algorithm>
 
 TEST_F(SetupSortingTests, counting_sort_int_vector) {
     int min_value = -1000;

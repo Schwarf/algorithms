@@ -11,6 +11,7 @@
 // Return the minimum number of pushes needed to type word after remapping the keys.
 #include <vector>
 #include <string>
+#include <algorithm>
 
 int minimum_dial_pushes(std::string & word) {
     std::vector<int> letter_frequencies(26);
