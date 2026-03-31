@@ -12,7 +12,7 @@ TEST(TestMinimalDistanceToConnectAllPooints, five_points_version1)
     EXPECT_EQ(expected_result, result);
 }
 
-TEST(TestMinimalDistanceToConnectAllPooints, three_points_version1)
+TEST(TestMinimalDistanceToConnectAllPoints, three_points_version1)
 {
     std::vector<std::vector<int>> input{{3, 12}, {-2, 5}, {-4, 1}};
     constexpr int expected_result{18};

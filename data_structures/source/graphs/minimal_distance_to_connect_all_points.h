@@ -8,7 +8,8 @@
 #include <concepts>
 #include <queue>
 #include <limits>
-#include "./../union_find_disjoint_set/quick_union_with_union_by_rank.h"
+#include "union_find_disjoint_set/union_find_dense.h"
+
 // You are given an array points representing integer coordinates of some points on a 2D-plane,
 // where points[i] = [xi, yi].
 // The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them:
@@ -59,7 +60,7 @@ T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points)
         }
     }
     std::sort(edges.begin(), edges.end());
-    QuickUnionByRank union_find(n);
+    UnionFindDense<T> union_find(n);
     T min_cost{};
     int number_of_edges{};
     for (const auto& edge : edges)
