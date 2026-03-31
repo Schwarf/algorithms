@@ -95,3 +95,40 @@ jobs:
             **/Testing/**/*.xml
             **/CTest*.txt
             **/LastTest.log
+
+  msvc-debug:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up MSVC developer environment
+        uses: TheMrMilchmann/setup-msvc-dev@v4
+        with:
+          arch: x64
+
+      - name: Install Ninja
+        shell: pwsh
+        run: choco install ninja -y
+
+      - name: Print versions
+        shell: pwsh
+        run: |
+          cmake --version
+          cl
+
+      - name: Configure
+        shell: pwsh
+        run: |
+          cmake --preset msvc-debug
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build --preset msvc-debug
+
+      - name: Test
+        shell: pwsh
+        run: |
+          ctest --preset all-msvc-debug --output-on-failure
