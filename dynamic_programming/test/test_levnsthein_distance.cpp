@@ -2,7 +2,7 @@
 // Created by andreas on 13.01.24.
 //
 #include "gtest/gtest.h"
-#include "./../levenshtein_distance.h"
+#include "../levenshtein_distance.h"
 
 TEST(TestLevenshteinDistanceTest, simple1)
 {

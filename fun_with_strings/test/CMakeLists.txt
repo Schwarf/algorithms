@@ -8,7 +8,6 @@ add_executable(test_fun_with_strings
         test_count_beautiful_substrings.cpp
         test_create_ranges_from_sorted_array.cpp
         test_count_steps_to_make_strings_anagram.cpp
-        test_levnsthein_distance.cpp
         test_sort_string_by_character_frequency.cpp
         test_are_strings_close.cpp
         test_knuth_morris_pratt_algo.cpp

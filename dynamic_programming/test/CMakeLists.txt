@@ -50,7 +50,8 @@ add_executable(test_dynamic_programming
         test_longest_common_substring.cpp
         knapsack/test_complete_knapsack.cpp
         knapsack/test_multiple_knapsack.cpp
-        test_max_profit_in_job_scheduling.cpp)
+        test_max_profit_in_job_scheduling.cpp
+        test_levnsthein_distance.cpp)
 
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)
