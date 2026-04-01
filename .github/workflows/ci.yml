@@ -20,7 +20,7 @@ jobs:
             test_preset: all-gcc-debug
           - compiler: gcc
             preset: gcc-release
-            test_preset: ""
+            test_preset: all-gcc-release
           - compiler: clang
             preset: clang-debug
             test_preset: all-clang-debug
