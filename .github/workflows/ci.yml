@@ -24,6 +24,9 @@ jobs:
           - compiler: clang
             preset: clang-debug
             test_preset: all-clang-debug
+          - compiler: clang
+            preset: clang-release
+            test_preset: all-clang-release
 
     steps:
       - name: Checkout

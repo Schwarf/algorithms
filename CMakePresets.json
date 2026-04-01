@@ -81,6 +81,7 @@
     { "name": "all-gcc-debug", "configurePreset": "gcc-debug" },
     { "name": "all-gcc-release", "configurePreset": "gcc-release" },
     { "name": "all-clang-debug", "configurePreset": "clang-debug" },
+    { "name": "all-clang-release", "configurePreset": "clang-release" },
     { "name": "all-asan", "configurePreset": "asan" },
     { "name": "all-msvc-debug", "configurePreset": "msvc-debug" },
     { "name": "all-msvc-release", "configurePreset": "msvc-release" }
