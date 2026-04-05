@@ -4,93 +4,104 @@
 
 #include <iostream>
 #include <string>
-class Meal {
+#include <vector>
+
+class SqlQuery {
 private:
-    double cost;
-    bool takeOut;
-    std::string main;
-    std::string drink;
+    std::string selectClause;
+    std::string fromClause;
+    std::string whereClause;
+    std::string orderByClause;
 
 public:
-    double getCost() {
-        return cost;
+    std::string getSelectClause() const {
+        return selectClause;
     }
 
-    bool getTakeOut() {
-        return takeOut;
+    std::string getFromClause() const {
+        return fromClause;
     }
 
-    std::string getMain() {
-        return main;
+    std::string getWhereClause() const {
+        return whereClause;
     }
 
-    std::string getDrink() {
-        return drink;
+    std::string getOrderByClause() const {
+        return orderByClause;
     }
 
-    void setCost(double cost) {
-        this->cost = cost;
+    void setSelectClause(const std::string& select) {
+        selectClause = select;
     }
 
-    void setTakeOut(bool takeOut) {
-        this->takeOut = takeOut;
+    void setFromClause(const std::string& from) {
+        fromClause = from;
     }
 
-    void setMain(const std::string & main) {
-        this->main = main;
+    void setWhereClause(const std::string& where) {
+        whereClause = where;
     }
 
-    void setDrink(const std::string & drink) {
-        this->drink = drink;
+    void setOrderByClause(const std::string& orderBy) {
+        orderByClause = orderBy;
+    }
+
+    std::string toString() const {
+        std::string query = selectClause + " " + fromClause;
+
+        if (!whereClause.empty()) {
+            query += " " + whereClause;
+        }
+
+        if (!orderByClause.empty()) {
+            query += " " + orderByClause;
+        }
+
+        query += ";";
+        return query;
     }
 };
 
-class MealBuilder {
+class SqlQueryBuilder {
 private:
-    Meal meal;
+    SqlQuery query;
 
 public:
-    MealBuilder() {
-    }
-
-    MealBuilder& addCost(double cost) {
-        meal.setCost(cost);
+    SqlQueryBuilder& select(const std::string& columns) {
+        query.setSelectClause("SELECT " + columns);
         return *this;
     }
 
-    MealBuilder& addTakeOut(bool takeOut) {
-        meal.setTakeOut(takeOut);
+    SqlQueryBuilder& from(const std::string& table) {
+        query.setFromClause("FROM " + table);
         return *this;
     }
 
-    MealBuilder& addMainCourse(const std::string& main) {
-        meal.setMain(main);
+    SqlQueryBuilder& where(const std::string& condition) {
+        query.setWhereClause("WHERE " + condition);
         return *this;
     }
 
-    MealBuilder& addDrink(const std::string& drink) {
-        meal.setDrink(drink);
+    SqlQueryBuilder& orderBy(const std::string& column) {
+        query.setOrderByClause("ORDER BY " + column);
         return *this;
     }
 
-    Meal build() {
-        return meal;
+    SqlQuery build() {
+        return query;
     }
 };
 
 int main() {
-    Meal meal = MealBuilder()
-        .addMainCourse("Burger")
-        .addDrink("Cola")
-        .addTakeOut(true)
-        .addCost(12.5)
+    SqlQuery query = SqlQueryBuilder()
+        .select("name, age")
+        .from("users")
+        .where("age >= 18")
+        .orderBy("name")
         .build();
 
-    std::cout << "Meal details:\n";
-    std::cout << "Main course: " << meal.getMain() << '\n';
-    std::cout << "Drink: " << meal.getDrink() << '\n';
-    std::cout << "Take out: " << (meal.getTakeOut() ? "Yes" : "No") << '\n';
-    std::cout << "Cost: " << meal.getCost() << '\n';
+    std::cout << "Generated SQL query:\n";
+    std::cout << query.toString() << '\n';
 
     return 0;
 }
