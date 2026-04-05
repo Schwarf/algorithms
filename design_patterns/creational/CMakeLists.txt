@@ -9,3 +9,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(factory_method
         factory_method.cpp
 )
+add_executable(singleton singleton.cpp)
