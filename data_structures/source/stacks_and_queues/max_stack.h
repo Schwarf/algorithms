@@ -57,5 +57,14 @@ public:
         stack.erase({pair.second, pair.first});
         return pair.first;
     }
+
+    int size() const {
+        return stack.size();
+    }
+
+    bool empty() const {
+        return stack.empty();
+    }
+
 };
 #endif //ALGORITHMS_MAX_STACK_H
