@@ -4,11 +4,16 @@
 
 #ifndef ALGORITHMS_MAX_STACK_H
 #define ALGORITHMS_MAX_STACK_H
+#include <concepts>
 #include <set>
+#include <stdexcept>
+#include <utility>
 
+template <typename T>
+requires std::totally_ordered<T>
 class MaxStack {
-    std::set<std::pair<int, int>> stack;
-    std::set<std::pair<int, int>> ordered_values;
+    std::set<std::pair<int, T>> stack;
+    std::set<std::pair<T, int>> ordered_values;
     int count{};
 public:
     MaxStack() = default;
@@ -19,7 +24,7 @@ public:
         count++;
     }
 
-    int pop() {
+    T pop() {
         if (stack.empty()) {
             throw std::out_of_range("pop() on empty MaxStack");
         }
@@ -29,21 +34,21 @@ public:
         return pair.second;
     }
 
-    int top() {
+    T top() {
         if (stack.empty()) {
             throw std::out_of_range("top() on empty MaxStack");
         }
         return stack.rbegin()->second;
     }
 
-    int peekMax() {
+    T peekMax() {
         if (stack.empty()) {
             throw std::out_of_range("peekMax() on empty MaxStack");
         }
         return ordered_values.rbegin()->first;
     }
 
-    int popMax() {
+    T popMax() {
         if (stack.empty()) {
             throw std::out_of_range("popMax() on empty MaxStack");
         }
