@@ -10,9 +10,9 @@
 // Update the value of an element in nums.
 // Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
 //
-// Implement the NumArray class:
+// Implement the SegmentTree class:
 //
-//	NumArray(int[] nums) Initializes the object with the integer array nums.
+// SegmentTree(const std::vector<int> &nums) Initializes the object with the integer array nums.
 // void update(int index, int val) Updates the value of nums[index] to be val.
 // int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
 
@@ -25,7 +25,7 @@ template<typename T>
 class SegmentTree
 {
 public:
-	explicit SegmentTree(std::vector<T> &input)
+	explicit SegmentTree(const std::vector<T> &input)
 	{
 		if (input.empty())
 			return;
@@ -40,7 +40,7 @@ public:
 		// update leaf
 		tree_[index] = val;
 		// update parents
-		while (index > 0) {
+		while (index > 1) {
 			int left = index;
 			int right = index;
 
@@ -73,10 +73,11 @@ public:
 private:
 	void build_tree(const std::vector<T> &input)
 	{
-		// fill second half of tree with input
+		// fill second half of tree-array the leave-nodes with input values
 		for (int tree_index = tree_size_ / 2, input_index = 0; tree_index < tree_size_; tree_index++, input_index++) {
 			tree_[tree_index] = input[input_index];
 		}
+		// now fill the eest of the nodes
 		for (int index = tree_size_ / 2 - 1; index > 0; --index) {
 			tree_[index] = tree_[2 * index] + tree_[2 * index + 1];
 		}
