@@ -25,6 +25,13 @@ template<typename T>
 class SegmentTree
 {
 public:
+	// The segment tree stores the original array as the leaves of a binary tree in the second half
+	// of the internal array representation. Starting from these leaf nodes, the parent nodes are
+	// constructed bottom-up, where each parent stores the sum (or min, max, etc.) of its two children.
+	// The root node is stored at index 1, while index 0 is unused.
+	// For a node at index i, its left child is at 2*i and its right child is at 2*i + 1.
+	// Equivalently, from the parent's point of view, left children have even indices and right
+	// children have odd indices.
 	explicit SegmentTree(const std::vector<T> &input)
 	{
 		if (input.empty())
@@ -33,6 +40,7 @@ public:
 		tree_ = std::vector<T>(tree_size_);
 		build_tree(input);
 	}
+
 	void update(int index, T val)
 	{
 		// input is stored in second half of tree
@@ -77,7 +85,7 @@ private:
 		for (int tree_index = tree_size_ / 2, input_index = 0; tree_index < tree_size_; tree_index++, input_index++) {
 			tree_[tree_index] = input[input_index];
 		}
-		// now fill the eest of the nodes
+		// now fill the rest of the nodes
 		for (int index = tree_size_ / 2 - 1; index > 0; --index) {
 			tree_[index] = tree_[2 * index] + tree_[2 * index + 1];
 		}
