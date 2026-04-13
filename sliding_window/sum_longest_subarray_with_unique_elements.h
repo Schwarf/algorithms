@@ -4,7 +4,7 @@
 
 #ifndef LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
 #define LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
-#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <algorithm>
 
@@ -24,7 +24,7 @@ int sum_longest_subarray_with_unique_elements(std::vector<T> & input)
 {
 	if(input.empty())
 		return 0;
-	std::unordered_map<int, bool> help;
+	std::unordered_set<int> help;
 	int left{};
 	int right{};
 	T sum{};
@@ -33,19 +33,18 @@ int sum_longest_subarray_with_unique_elements(std::vector<T> & input)
 	{
 		// If the element has been seen already, we increase left and subtract the element form the sum
 		// e.g. 1(left),2,3,1(right)  the first one is removed and left advanced
-		while(help[input[right]])
+		while(help.find(input[right]) != help.end())
 		{
-			help[input[left]] = false;
+			help.erase(input[left]);
 			sum -= input[left];
 			left++;
 		}
 		// Each element is added and tracked.
 		sum += input[right];
-		help[input[right]] = true;
+		help.insert(input[right]);
 		right++;
 		max_sum = std::max(max_sum, sum);
 	}
-
 	return max_sum;
 }
 
