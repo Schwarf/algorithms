@@ -17,7 +17,7 @@
 
 class Logger {
 public:
-    explicit Logger() = default;
+    Logger() = default;
 
     bool shall_print_message(int timestamp, const std::string &message) {
         // if unordered_map is empty it returns default constructed int

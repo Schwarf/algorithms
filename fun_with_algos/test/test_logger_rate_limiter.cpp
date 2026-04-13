@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include "./../logger_rate_limiter.h"
 
-TEST(LoggerRateLimiter, simple1) {
+TEST(LoggerRateLimiter, blocks_repeated_message_within_ten_seconds) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(2, "bar"));
@@ -15,7 +15,7 @@ TEST(LoggerRateLimiter, simple1) {
 }
 
 
-TEST(LoggerRateLimiter, simple2) {
+TEST(LoggerRateLimiter, handles_multiple_messages_at_same_timestamp_independently) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(1, "bar"));
@@ -25,53 +25,17 @@ TEST(LoggerRateLimiter, simple2) {
     EXPECT_TRUE(logger.shall_print_message(21, "foo"));
 }
 
-TEST(LoggerRateLimiter, simple3) {
+TEST(LoggerRateLimiter, allows_same_message_again_after_ten_seconds) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo"));
     EXPECT_TRUE(logger.shall_print_message(11, "foo"));
     EXPECT_TRUE(logger.shall_print_message(22, "foo"));
 }
 
-TEST(LoggerRateLimiter, simple4) {
+TEST(LoggerRateLimiter, allows_different_messages_at_same_timestamp) {
     auto logger = Logger();
     EXPECT_TRUE(logger.shall_print_message(1, "foo1"));
     EXPECT_TRUE(logger.shall_print_message(1, "foo2"));
     EXPECT_TRUE(logger.shall_print_message(1, "foo3"));
     EXPECT_TRUE(logger.shall_print_message(1, "foo4"));
 }
-
-//TEST(LoggerRateLimiter10Seconds, simple1) {
-//    auto logger = LoggerOnly10Seconds();
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(2, "bar"));
-//    EXPECT_FALSE(logger.shall_print_message(3, "foo"));
-//    EXPECT_FALSE(logger.shall_print_message(8, "bar"));
-//    EXPECT_FALSE(logger.shall_print_message(10, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(11, "foo"));
-//}
-//
-//
-//TEST(LoggerRateLimiter10Seconds, simple2) {
-//    auto logger = LoggerOnly10Seconds();
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(1, "bar"));
-//    EXPECT_FALSE(logger.shall_print_message(1, "foo"));
-//    EXPECT_FALSE(logger.shall_print_message(1, "bar"));
-//    EXPECT_FALSE(logger.shall_print_message(2, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(21, "foo"));
-//}
-//
-//TEST(LoggerRateLimiter10Seconds, simple3) {
-//    auto logger = LoggerOnly10Seconds();
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(11, "foo"));
-//    EXPECT_TRUE(logger.shall_print_message(22, "foo"));
-//}
-//
-//TEST(LoggerRateLimiter10Seconds, simple4) {
-//    auto logger = LoggerOnly10Seconds();
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo1"));
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo2"));
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo3"));
-//    EXPECT_TRUE(logger.shall_print_message(1, "foo4"));
-//}
