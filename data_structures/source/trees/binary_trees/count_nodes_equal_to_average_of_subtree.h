@@ -12,16 +12,15 @@
 #include <utility>
 #include "tree_node.h"
 
-// Question: Is this postorder traversal?
 template<typename T>
-std::pair<int, T> dfs(TreeNode<T> root, int &count) {
+std::pair<T, int> dfs_average_of_subtree(TreeNode<T>* root, int& count) {
     if (!root)
         return {0, 0};
-    std::pair<T, int> left = dfs(root->left, count);
-    std::pair<T, int> right = dfs(root->right, count);
-    int sum = left.first + right.first + root->val;
+    auto left = dfs_average_of_subtree(root->left, count);
+    auto right = dfs_average_of_subtree(root->right, count);
+    T sum = left.first + right.first + root->value;
     int number = 1 + left.second + right.second;
-    if (root->val == sum / number)
+    if (root->value == sum / number)
         count++;
     return {sum, number};
 }
@@ -29,7 +28,7 @@ std::pair<int, T> dfs(TreeNode<T> root, int &count) {
 template<typename T>
 int averageOfSubtree(TreeNode<T> *root) {
     int count{};
-    dfs(root, count);
+    dfs_average_of_subtree(root, count);
     return count;
 }
 
