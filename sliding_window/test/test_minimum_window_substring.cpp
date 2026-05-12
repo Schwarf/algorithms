@@ -27,3 +27,27 @@ TEST(TestMinimumWindowSubstring, simple3)
   const std::string expected_result;
   EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
+
+TEST(TestMinimumWindowSubstring, s_empty)
+{
+  std::string s{""};
+  std::string t{"a"};
+  const std::string expected_result;
+  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+}
+
+TEST(TestMinimumWindowSubstring, t_empty)
+{
+  std::string s{"asada"};
+  std::string t{""};
+  const std::string expected_result;
+  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+}
+
+TEST(TestMinimumWindowSubstring, t_longer_than_s)
+{
+  std::string s{"aa"};
+  std::string t{"aaa"};
+  const std::string expected_result;
+  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+}
