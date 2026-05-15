@@ -22,7 +22,7 @@ TEST_F(SetupBinaryTree, TestAreBinaryTreeFlipEquivalent1)
 TEST_F(SetupBinaryTree, TestAreBinaryTreeFlipEquivalent2)
 {
     auto tree1 = small_binary_tree_root();
-    auto tree2 = tree1;
+    auto tree2 = small_binary_tree_root();
     std::swap(tree1->left, tree1->right);
 
     EXPECT_TRUE(are_flip_equivalent_recursive(tree1, tree2));
