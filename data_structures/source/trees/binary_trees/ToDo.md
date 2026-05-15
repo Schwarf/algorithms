@@ -6,7 +6,6 @@ ToDo:
 - Implement algo to check if tree is symmetric, a mirror of itself
 - Implement algo to compute sum of binary tree of the digits from root-to-each-leaf-node
 - Add more unit tests for insert_tow_into_tree
-- Add more unit tests to construct_binary_tree_from_preorder_and_inorder.h
 - Study Morris algorithm in more detail and implement it for inorder and pre-order traversal of binary trees.
 - The algo has are_binary_trees_flip_equivalent has another interesting solution where the tree is brought into a 
   canonical form. This corresponds to make a binary tree to binary search tree. (https://leetcode.com/problems/flip-equivalent-binary-trees/editorial/?envType=daily-question&envId=2024-10-24)

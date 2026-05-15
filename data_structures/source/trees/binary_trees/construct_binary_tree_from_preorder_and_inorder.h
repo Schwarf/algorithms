@@ -65,6 +65,9 @@ TreeNode<T>* construct_tree(std::vector<T>& preorder,
 template <typename T>
 TreeNode<T>* construct_from_preorder_and_inorder(std::vector<T>& pre_order, std::vector<T>& in_order)
 {
+    if (pre_order.size() != in_order.size() || pre_order.empty())
+        return nullptr;
+
     std::unordered_map<T, int> inorder_value_to_index;
     int pre_order_index{};
     for (int i = 0; i < in_order.size(); ++i)
