@@ -4,7 +4,11 @@
 
 #ifndef MAXIMUM_PRODUCT_OF_SPLITTED_TREE_H
 #define MAXIMUM_PRODUCT_OF_SPLITTED_TREE_H
-
+// Given the root of a binary tree, split the binary tree into two subtrees by
+// removing one edge such that the product of the sums of the subtrees is maximized.
+// Return the maximum product of the sums of the two subtrees. Since the answer may be too large,
+// return it modulo 109 + 7.
+// Note that you need to maximize the answer before taking the mod and not after taking it.
 #include "tree_node.h"
 #include <algorithm>
 
@@ -34,7 +38,8 @@ T get_maximum_product(TreeNode<T> *root) {
     T total_sum{};
     T result{};
     get_total_sum(root, total_sum);
-
+    compute_maximum_product(root, total_sum, result);
+    return result;
 }
 
 
