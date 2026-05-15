@@ -9,29 +9,29 @@
 TEST_F(SetupBinaryTree, CountNodesEqualToAverageOfSubtreeEmptyTree)
 {
     TreeNode<int>* root = nullptr;
-    EXPECT_EQ(averageOfSubtree(root), 0);
+    EXPECT_EQ(average_of_subtree(root), 0);
 }
 
 TEST_F(SetupBinaryTree, CountNodesEqualToAverageOfSubtreeSmallTree)
 {
     auto root = small_binary_tree_root();
-    EXPECT_EQ(averageOfSubtree(root), 3);
+    EXPECT_EQ(average_of_subtree(root), 3);
 }
 
 TEST_F(SetupBinaryTree, CountNodesEqualToAverageOfSubtreeFullTree)
 {
     auto root = binary_tree_root();
-    EXPECT_EQ(averageOfSubtree(root), 9);
+    EXPECT_EQ(average_of_subtree(root), 9);
 }
 
 TEST_F(SetupBinaryTree, CountNodesEqualToAverageOfSubtreeDuplicateSubtrees)
 {
     auto root = medium_tree_with_subtree_duplicates2();
-    EXPECT_EQ(averageOfSubtree(root), 4);
+    EXPECT_EQ(average_of_subtree(root), 4);
 }
 
 TEST_F(SetupBinaryTree, CountNodesEqualToAverageOfSubtreePalindromicTree)
 {
     auto root = palindromic_tree1();
-    EXPECT_EQ(averageOfSubtree(root), 4);
+    EXPECT_EQ(average_of_subtree(root), 4);
 }

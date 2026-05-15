@@ -26,7 +26,7 @@ std::pair<T, int> dfs_average_of_subtree(TreeNode<T>* root, int& count) {
 }
 
 template<typename T>
-int averageOfSubtree(TreeNode<T> *root) {
+int average_of_subtree(TreeNode<T> *root) {
     int count{};
     dfs_average_of_subtree(root, count);
     return count;
