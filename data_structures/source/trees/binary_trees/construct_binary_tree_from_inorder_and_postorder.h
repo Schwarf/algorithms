@@ -19,7 +19,7 @@ TreeNode<T>* construct_tree_post_in(std::vector<T>& postorder,
 {
     if (left_in_order_index > right_in_order_index)
         return nullptr;
-    int root_value = postorder[post_order_index--];
+    T root_value = postorder[post_order_index--];
     auto root = new TreeNode<T>(root_value);
     auto pivot = inorder_value_to_index[root_value];
     root->right = construct_tree_post_in(postorder,

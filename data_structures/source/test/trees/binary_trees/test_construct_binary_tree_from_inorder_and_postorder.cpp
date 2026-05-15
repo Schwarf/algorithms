@@ -12,6 +12,13 @@ TEST_F(SetupBinaryTree, EmptyInorderPostorder) {
     std::vector<int> postorder;
     EXPECT_EQ(construct_from_inorder_and_postorder(inorder, postorder), nullptr);
 }
+
+TEST_F(SetupBinaryTree, MismatchedTraversalSizesInorderPostorder) {
+    std::vector<int> inorder{1, 2};
+    std::vector<int> postorder{2};
+    EXPECT_EQ(construct_from_inorder_and_postorder(inorder, postorder), nullptr);
+}
+
 // Single-node tree
 TEST_F(SetupBinaryTree, SingleNodeInorderPostorder) {
     std::vector<int> inorder{42};
@@ -47,6 +54,40 @@ TEST_F(SetupBinaryTree, FullSevenNodeInorderPostorder) {
     );
     EXPECT_TRUE(is_same_tree(root, expected));
 }
+
+TEST_F(SetupBinaryTree, AsymmetricTreeInorderPostorder) {
+    std::vector<int> inorder{9, 3, 15, 20, 7};
+    std::vector<int> postorder{9, 15, 7, 20, 3};
+    TreeNode<int>* root = construct_from_inorder_and_postorder(inorder, postorder);
+    auto expected = new TreeNode<int>(3,
+        new TreeNode<int>(9),
+        new TreeNode<int>(20, new TreeNode<int>(15), new TreeNode<int>(7))
+    );
+    EXPECT_TRUE(is_same_tree(root, expected));
+}
+
+TEST_F(SetupBinaryTree, NegativeValuesInorderPostorder) {
+    std::vector<int> inorder{-4, -2, -5, -1, -3};
+    std::vector<int> postorder{-4, -5, -2, -3, -1};
+    TreeNode<int>* root = construct_from_inorder_and_postorder(inorder, postorder);
+    auto expected = new TreeNode<int>(-1,
+        new TreeNode<int>(-2, new TreeNode<int>(-4), new TreeNode<int>(-5)),
+        new TreeNode<int>(-3)
+    );
+    EXPECT_TRUE(is_same_tree(root, expected));
+}
+
+TEST_F(SetupBinaryTree, StringValuesInorderPostorder) {
+    std::vector<std::string> inorder{"left", "root", "right"};
+    std::vector<std::string> postorder{"left", "right", "root"};
+    TreeNode<std::string>* root = construct_from_inorder_and_postorder(inorder, postorder);
+    auto expected = new TreeNode<std::string>("root",
+        new TreeNode<std::string>("left"),
+        new TreeNode<std::string>("right")
+    );
+    EXPECT_TRUE(is_same_tree(root, expected));
+}
+
 TEST_F(SetupBinaryTree, test_construct_binary_tree_from_inorder_and_postorder)
 {
     auto constructed_root = construct_from_inorder_and_postorder( inorder, postorder);
