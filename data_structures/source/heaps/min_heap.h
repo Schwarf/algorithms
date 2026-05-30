@@ -6,6 +6,7 @@
 #define ALGORITHMS_BINARY_HEAP_H
 
 #include <vector>
+#include <stdexcept>
 #include <concepts>
 
 template <std::totally_ordered T>
