@@ -3,128 +3,156 @@
 //
 
 #include <gtest/gtest.h>
-#include <vector>
 #include "heaps/min_heap.h"
 
-TEST(MinHeapTest, PeekThrowsForEmptyHeap)
+template <typename T>
+class MinHeapTypedTest : public ::testing::Test
 {
-    MinHeap<int> heap({});
+};
+
+using NumericMinHeapTypes = ::testing::Types<int, long, double>;
+
+TYPED_TEST_SUITE(MinHeapTypedTest, NumericMinHeapTypes);
+
+TYPED_TEST(MinHeapTypedTest, PeekThrowsForEmptyHeap)
+{
+    using T = TypeParam;
+
+    MinHeap<T> heap(std::vector<T>{});
 
     EXPECT_THROW(heap.peek(), std::runtime_error);
 }
 
-TEST(MinHeapTest, RemoveThrowsForEmptyHeap)
+TYPED_TEST(MinHeapTypedTest, RemoveThrowsForEmptyHeap)
 {
-    MinHeap<int> heap({});
+    using T = TypeParam;
+
+    MinHeap<T> heap(std::vector<T>{});
 
     EXPECT_THROW(heap.remove(), std::runtime_error);
 }
 
-TEST(MinHeapTest, PeekReturnsSmallestElementAfterConstruction)
+TYPED_TEST(MinHeapTypedTest, PeekReturnsSmallestElementAfterConstruction)
 {
-    MinHeap<int> heap({48, 12, 24, 7, 18, 3, 31});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.peek(), 3);
+    MinHeap<T> heap({T{48}, T{12}, T{24}, T{7}, T{18}, T{3}, T{31}});
+
+    EXPECT_EQ(heap.peek(), T{3});
 }
 
-TEST(MinHeapTest, RemoveReturnsElementsInSortedOrder)
+TYPED_TEST(MinHeapTypedTest, RemoveReturnsElementsInSortedOrder)
 {
-    MinHeap<int> heap({48, 12, 24, 7, 18, 3, 31});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.remove(), 3);
-    EXPECT_EQ(heap.remove(), 7);
-    EXPECT_EQ(heap.remove(), 12);
-    EXPECT_EQ(heap.remove(), 18);
-    EXPECT_EQ(heap.remove(), 24);
-    EXPECT_EQ(heap.remove(), 31);
-    EXPECT_EQ(heap.remove(), 48);
+    MinHeap<T> heap({T{48}, T{12}, T{24}, T{7}, T{18}, T{3}, T{31}});
+
+    EXPECT_EQ(heap.remove(), T{3});
+    EXPECT_EQ(heap.remove(), T{7});
+    EXPECT_EQ(heap.remove(), T{12});
+    EXPECT_EQ(heap.remove(), T{18});
+    EXPECT_EQ(heap.remove(), T{24});
+    EXPECT_EQ(heap.remove(), T{31});
+    EXPECT_EQ(heap.remove(), T{48});
 }
 
-TEST(MinHeapTest, InsertMaintainsMinHeapProperty)
+TYPED_TEST(MinHeapTypedTest, InsertMaintainsMinHeapProperty)
 {
-    MinHeap<int> heap({10, 20, 30});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.peek(), 10);
+    MinHeap<T> heap({T{10}, T{20}, T{30}});
 
-    heap.insert(5);
-    EXPECT_EQ(heap.peek(), 5);
+    EXPECT_EQ(heap.peek(), T{10});
 
-    heap.insert(1);
-    EXPECT_EQ(heap.peek(), 1);
+    heap.insert(T{5});
+    EXPECT_EQ(heap.peek(), T{5});
 
-    EXPECT_EQ(heap.remove(), 1);
-    EXPECT_EQ(heap.remove(), 5);
-    EXPECT_EQ(heap.remove(), 10);
-    EXPECT_EQ(heap.remove(), 20);
-    EXPECT_EQ(heap.remove(), 30);
+    heap.insert(T{1});
+    EXPECT_EQ(heap.peek(), T{1});
+
+    EXPECT_EQ(heap.remove(), T{1});
+    EXPECT_EQ(heap.remove(), T{5});
+    EXPECT_EQ(heap.remove(), T{10});
+    EXPECT_EQ(heap.remove(), T{20});
+    EXPECT_EQ(heap.remove(), T{30});
 }
 
-TEST(MinHeapTest, WorksWithEmptyInitialVectorAndInsert)
+TYPED_TEST(MinHeapTypedTest, WorksWithEmptyInitialVectorAndInsert)
 {
-    MinHeap<int> heap({});
+    using T = TypeParam;
 
-    heap.insert(42);
-    EXPECT_EQ(heap.peek(), 42);
+    MinHeap<T> heap(std::vector<T>{});
 
-    heap.insert(7);
-    EXPECT_EQ(heap.peek(), 7);
+    heap.insert(T{42});
+    EXPECT_EQ(heap.peek(), T{42});
 
-    heap.insert(100);
-    EXPECT_EQ(heap.peek(), 7);
+    heap.insert(T{7});
+    EXPECT_EQ(heap.peek(), T{7});
 
-    EXPECT_EQ(heap.remove(), 7);
-    EXPECT_EQ(heap.remove(), 42);
-    EXPECT_EQ(heap.remove(), 100);
+    heap.insert(T{100});
+    EXPECT_EQ(heap.peek(), T{7});
+
+    EXPECT_EQ(heap.remove(), T{7});
+    EXPECT_EQ(heap.remove(), T{42});
+    EXPECT_EQ(heap.remove(), T{100});
 }
 
-TEST(MinHeapTest, WorksWithDuplicateValues)
+TYPED_TEST(MinHeapTypedTest, WorksWithDuplicateValues)
 {
-    MinHeap<int> heap({5, 1, 3, 1, 2, 5});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.remove(), 1);
-    EXPECT_EQ(heap.remove(), 1);
-    EXPECT_EQ(heap.remove(), 2);
-    EXPECT_EQ(heap.remove(), 3);
-    EXPECT_EQ(heap.remove(), 5);
-    EXPECT_EQ(heap.remove(), 5);
+    MinHeap<T> heap({T{5}, T{1}, T{3}, T{1}, T{2}, T{5}});
+
+    EXPECT_EQ(heap.remove(), T{1});
+    EXPECT_EQ(heap.remove(), T{1});
+    EXPECT_EQ(heap.remove(), T{2});
+    EXPECT_EQ(heap.remove(), T{3});
+    EXPECT_EQ(heap.remove(), T{5});
+    EXPECT_EQ(heap.remove(), T{5});
 }
 
-TEST(MinHeapTest, WorksWithNegativeValues)
+TYPED_TEST(MinHeapTypedTest, WorksWithNegativeValues)
 {
-    MinHeap<int> heap({0, -10, 5, -3, 2});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.peek(), -10);
+    MinHeap<T> heap({T{0}, T{-10}, T{5}, T{-3}, T{2}});
 
-    EXPECT_EQ(heap.remove(), -10);
-    EXPECT_EQ(heap.remove(), -3);
-    EXPECT_EQ(heap.remove(), 0);
-    EXPECT_EQ(heap.remove(), 2);
-    EXPECT_EQ(heap.remove(), 5);
+    EXPECT_EQ(heap.peek(), T{-10});
+
+    EXPECT_EQ(heap.remove(), T{-10});
+    EXPECT_EQ(heap.remove(), T{-3});
+    EXPECT_EQ(heap.remove(), T{0});
+    EXPECT_EQ(heap.remove(), T{2});
+    EXPECT_EQ(heap.remove(), T{5});
 }
 
-TEST(MinHeapTest, WorksWithSingleElement)
+TYPED_TEST(MinHeapTypedTest, WorksWithSingleElement)
 {
-    MinHeap<int> heap({42});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.peek(), 42);
-    EXPECT_EQ(heap.remove(), 42);
+    MinHeap<T> heap({T{42}});
+
+    EXPECT_EQ(heap.peek(), T{42});
+    EXPECT_EQ(heap.remove(), T{42});
 }
 
-TEST(MinHeapTest, InterleavedInsertAndRemoveWorksCorrectly)
+TYPED_TEST(MinHeapTypedTest, InterleavedInsertAndRemoveWorksCorrectly)
 {
-    MinHeap<int> heap({8, 12, 20});
+    using T = TypeParam;
 
-    EXPECT_EQ(heap.remove(), 8);
+    MinHeap<T> heap({T{8}, T{12}, T{20}});
 
-    heap.insert(5);
-    heap.insert(15);
+    EXPECT_EQ(heap.remove(), T{8});
 
-    EXPECT_EQ(heap.remove(), 5);
-    EXPECT_EQ(heap.remove(), 12);
+    heap.insert(T{5});
+    heap.insert(T{15});
 
-    heap.insert(1);
+    EXPECT_EQ(heap.remove(), T{5});
+    EXPECT_EQ(heap.remove(), T{12});
 
-    EXPECT_EQ(heap.remove(), 1);
-    EXPECT_EQ(heap.remove(), 15);
-    EXPECT_EQ(heap.remove(), 20);
+    heap.insert(T{1});
+
+    EXPECT_EQ(heap.remove(), T{1});
+    EXPECT_EQ(heap.remove(), T{15});
+    EXPECT_EQ(heap.remove(), T{20});
 }
