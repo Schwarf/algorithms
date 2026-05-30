@@ -5,10 +5,6 @@
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
 
-#include "i_heap.h"
-#include <iostream>
-
-
 template <typename T, size_t heap_capacity, class Comparator = std::less<T>>
 class StackHeap
 {
@@ -74,7 +70,7 @@ private:
         for (int child_index = heap_size_ - 1; child_index > 0;)
         {
             int parent_index = parent(child_index);
-            if (comparator_(elements_[child_index], elements_[parent_index]))
+            if (!comparator_(elements_[parent_index], elements_[child_index]))
                 return;
             std::swap(elements_[child_index], elements_[parent_index]);
             child_index = parent_index;
