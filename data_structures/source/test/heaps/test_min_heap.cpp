@@ -156,3 +156,41 @@ TYPED_TEST(MinHeapTypedTest, InterleavedInsertAndRemoveWorksCorrectly)
     EXPECT_EQ(heap.remove(), T{15});
     EXPECT_EQ(heap.remove(), T{20});
 }
+
+
+TEST(MinHeapTest, WorksWithStrings)
+{
+    MinHeap<std::string> heap({"banana", "apple", "cherry", "date"});
+
+    EXPECT_EQ(heap.peek(), "apple");
+
+    EXPECT_EQ(heap.remove(), "apple");
+    EXPECT_EQ(heap.remove(), "banana");
+    EXPECT_EQ(heap.remove(), "cherry");
+    EXPECT_EQ(heap.remove(), "date");
+}
+
+struct Job
+{
+    int priority;
+    int id;
+
+    bool operator==(const Job&) const = default;
+    // compares in declaration order
+    auto operator<=>(const Job&) const = default;
+};
+
+TEST(MinHeapTest, WorksWithCustomTotallyOrderedType)
+{
+    MinHeap<Job> heap({
+        Job{5, 100},
+        Job{1, 200},
+        Job{3, 300},
+        Job{3, 350}
+    });
+
+    EXPECT_EQ(heap.remove(), (Job{1, 200}));
+    EXPECT_EQ(heap.remove(), (Job{3, 300}));
+    EXPECT_EQ(heap.remove(), (Job{3, 350}));
+    EXPECT_EQ(heap.remove(), (Job{5, 100}));
+}
