@@ -189,3 +189,42 @@ TEST_F(SetupDoublyLinkedList, test_pop_at_back)
     index = 0;
     EXPECT_EQ(linked_list->pop_at(index), input[index]);
 }
+
+TEST_F(SetupDoublyLinkedList, test_pop_front_single_element_leaves_list_empty)
+{
+    linked_list->push_back(42);
+
+    EXPECT_EQ(linked_list->pop_front(), 42);
+
+    EXPECT_EQ(linked_list->size(), 0);
+    EXPECT_TRUE(linked_list->is_empty());
+}
+
+TEST_F(SetupDoublyLinkedList, test_pop_back_single_element_leaves_list_empty)
+{
+    linked_list->push_back(42);
+
+    EXPECT_EQ(linked_list->pop_back(), 42);
+
+    EXPECT_EQ(linked_list->size(), 0);
+    EXPECT_TRUE(linked_list->is_empty());
+}
+
+TEST_F(SetupDoublyLinkedList, test_push_at_before_current_last_element)
+{
+    for (const auto& element : input)
+    {
+        linked_list->push_back(element);
+    }
+
+    EXPECT_TRUE(linked_list->push_at(4, -1));
+
+    std::vector<int64_t> expected{1, 2, 3, 4, -1, 5};
+
+    EXPECT_EQ(linked_list->size(), expected.size());
+
+    for (size_t index = 0; index < expected.size(); ++index)
+    {
+        EXPECT_EQ(linked_list->get(index), expected[index]);
+    }
+}
