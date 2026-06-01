@@ -123,12 +123,15 @@ TEST_F(SetupDoublyLinkedList, test_push_at_back)
     {
         linked_list->push_back(element);
     }
-    input.insert(input.begin() + 5, -1);
-    EXPECT_TRUE(linked_list->push_at(4, -1));
+
+    input.push_back(-1);
+
+    EXPECT_TRUE(linked_list->push_at(input.size() - 1, -1));
     EXPECT_EQ(input.size(), linked_list->size());
-    for (size_t index = 0; index < input.size(); index++)
+
+    for (auto expected : input)
     {
-        EXPECT_EQ(linked_list->pop_front(), input[index]);
+        EXPECT_EQ(linked_list->pop_front(), expected);
     }
 }
 
@@ -227,4 +230,30 @@ TEST_F(SetupDoublyLinkedList, test_push_at_before_current_last_element)
     {
         EXPECT_EQ(linked_list->get(index), expected[index]);
     }
+}
+
+TEST_F(SetupDoublyLinkedList, test_pop_at_single_element_leaves_list_empty)
+{
+    linked_list->push_back(42);
+
+    EXPECT_EQ(linked_list->pop_at(0), 42);
+
+    EXPECT_EQ(linked_list->size(), 0);
+    EXPECT_TRUE(linked_list->is_empty());
+}
+
+TEST_F(SetupDoublyLinkedList, test_pop_at_front_until_empty_leaves_list_empty)
+{
+    for (const auto& element : input)
+    {
+        linked_list->push_back(element);
+    }
+
+    for (const auto& element : input)
+    {
+        EXPECT_EQ(linked_list->pop_at(0), element);
+    }
+
+    EXPECT_EQ(linked_list->size(), 0);
+    EXPECT_TRUE(linked_list->is_empty());
 }

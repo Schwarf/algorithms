@@ -33,7 +33,7 @@ class DoublyLinkedList : ILinkedList<T>
 
     bool is_index_valid_(size_t index) const
     {
-        return index < length_;
+        return index <= length_;
     }
 
 public:
@@ -78,7 +78,7 @@ public:
         }
         if (!is_index_valid_(index))
             return false;
-        if (index == length_ - 1)
+        if (index == length_)
         {
             push_back(value);
             return true;
