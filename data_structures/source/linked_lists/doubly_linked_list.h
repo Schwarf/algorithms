@@ -22,11 +22,11 @@ class DoublyLinkedList : ILinkedList<T>
         Node* next = nullptr;
         Node* previous = nullptr;
 
-        explicit Node(const T& val)
+        explicit Node(const T& val) : value(val)
         {
-            value = val;
         }
     };
+
     Node* head_;
     Node* tail_;
     size_t length_{};
@@ -48,13 +48,15 @@ public:
         std::cout << "Call to destructor doubly linked list " << std::endl;
         if (head_ == nullptr)
             return;
-        auto next = head_->next;
-        while (next != nullptr)
+        while (head_ != nullptr)
         {
+            Node* next = head_->next;
             delete head_;
             head_ = next;
-            next = next->next;
         }
+
+        tail_ = nullptr;
+        length_ = 0;
     }
 
     bool is_empty() const final
@@ -231,7 +233,6 @@ public:
         }
         return current->value;
     }
-
 };
 
 #endif //DOUBLE_LINKED_LIST_H
