@@ -7,9 +7,6 @@
 
 #include "node.h"
 
-// We have a number where each digit [0-9] is provided by a node in a linked list. The least significant digit
-// is provided by head and the most significant digit is provided the last node. Given two numbers compute the
-// sum of those two numbers.
 template <typename T>
 Node<T>* remove_kth_to_last_node(Node<T>* head, int k)
 {
