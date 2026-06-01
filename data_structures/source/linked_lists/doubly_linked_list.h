@@ -6,6 +6,13 @@
 #define DOUBLE_LINKED_LIST_H
 #include "i_linked_list.h"
 
+// Use cases
+// LRU cache
+// linked hash maps
+// deque-like structures
+// browser history
+// undo/redo lists
+// scheduler queues
 template <typename T>
 class DoublyLinkedList : ILinkedList<T>
 {
