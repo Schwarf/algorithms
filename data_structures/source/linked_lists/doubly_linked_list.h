@@ -31,7 +31,7 @@ class DoublyLinkedList : ILinkedList<T>
     Node* tail_;
     size_t length_{};
 
-    bool is_index_valid_(size_t index)
+    bool is_index_valid_(size_t index) const
     {
         return index < length_;
     }
