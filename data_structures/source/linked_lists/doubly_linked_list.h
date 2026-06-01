@@ -19,14 +19,17 @@ class DoublyLinkedList : ILinkedList<T>
     struct Node
     {
         T value;
-        Node* next;
-        Node* previous;
+        Node* next = nullptr;
+        Node* previous = nullptr;
 
         explicit Node(const T& val)
         {
             value = val;
         }
     };
+    Node* head_;
+    Node* tail_;
+    size_t length_{};
 
     bool is_index_valid_(size_t index)
     {
@@ -197,7 +200,7 @@ public:
         return value;
     }
 
-    T get(size_t index)
+    T get(size_t index) const
     {
         if (is_empty())
             throw std::out_of_range("Doubly linked list is empty (get).");
@@ -213,7 +216,7 @@ public:
         return current->value;
     }
 
-    T get_from_back(size_t index)
+    T get_from_back(size_t index) const
     {
         if (is_empty())
             throw std::out_of_range("Doubly linked list is empty (get).");
@@ -229,10 +232,6 @@ public:
         return current->value;
     }
 
-private:
-    Node* head_;
-    Node* tail_;
-    size_t length_{};
 };
 
 #endif //DOUBLE_LINKED_LIST_H
