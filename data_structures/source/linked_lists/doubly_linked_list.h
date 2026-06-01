@@ -162,17 +162,19 @@ public:
     {
         if (is_empty())
             throw std::out_of_range("Doubly linked list is empty (pop_front).");
-        auto value = head_->value;
-        auto help = head_->next;
+        auto old_head = head_;
+        T value = head_->value;
         if (tail_ == head_)
         {
-            delete head_;
-            length_--;
-            return value;
+            head_ = nullptr;
+            tail_ = nullptr;
         }
-        delete head_;
-        head_ = help;
-        head_->previous = nullptr;
+        else
+        {
+            head_ = head_->next;
+            head_->previous = nullptr;
+        }
+        delete old_head;
         length_--;
         return value;
     }
