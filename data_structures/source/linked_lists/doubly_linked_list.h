@@ -141,16 +141,19 @@ public:
     {
         if (is_empty())
             throw std::out_of_range("Doubly linked list is empty (pop_back).");
-        auto value = tail_->value;
-        auto help = tail_->previous;
+        auto old_tail = tail_;
+        T value = old_tail->value;
         if (tail_ == head_)
         {
-            delete tail_;
-            length_--;
-            return value;
+            head_ = nullptr;
+            tail_ = nullptr;
         }
-        tail_ = help;
-        tail_->next = nullptr;
+        else
+        {
+            tail_ = tail_->previous;
+            tail_->next = nullptr;
+        }
+        delete old_tail;
         length_--;
         return value;
     }
