@@ -9,12 +9,13 @@ template <typename T>
 class ILinkedList
 {
 public:
+    virtual ~ILinkedList() = default;
     virtual void push_front(const T& value) = 0;
     virtual void push_back(const T& value) = 0;
-    virtual bool push_at(size_t index, const T& value) = 0;
     virtual T pop_back() = 0;
     virtual T pop_front() = 0;
-    virtual T pop_at(size_t index) = 0;
+    virtual bool push_after(size_t index, const T& value) = 0;
+    virtual T pop_after(size_t index) = 0;
     virtual size_t size() const = 0;
     virtual bool is_empty() const = 0;
 };
