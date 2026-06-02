@@ -14,7 +14,7 @@
 // undo/redo lists
 // scheduler queues
 template <typename T>
-class DoublyLinkedList : ILinkedList<T>
+class DoublyLinkedList : public ILinkedList<T>
 {
     struct Node
     {
@@ -43,7 +43,7 @@ public:
         tail_ = nullptr;
     }
 
-    ~DoublyLinkedList()
+    ~DoublyLinkedList() override
     {
         std::cout << "Call to destructor doubly linked list " << std::endl;
         if (head_ == nullptr)
@@ -69,7 +69,7 @@ public:
         return length_;
     }
 
-    bool push_at(size_t index, const T& value) final
+    bool push_after(size_t index, const T& value) final
     {
         if (index == 0)
         {
@@ -179,7 +179,7 @@ public:
         return value;
     }
 
-    T pop_at(size_t index) final
+    T pop_after(size_t index) final
     {
         if (is_empty())
             throw std::out_of_range("Doubly linked list is empty (pop_at).");

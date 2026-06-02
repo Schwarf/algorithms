@@ -103,7 +103,7 @@ TEST_F(SetupDoublyLinkedList, test_push_at_front)
         linked_list->push_back(element);
     }
     input.insert(input.begin(), 0);
-    EXPECT_TRUE(linked_list->push_at(0, 0));
+    EXPECT_TRUE(linked_list->push_after(0, 0));
     for (size_t index = 0; index < input.size(); index++)
     {
         EXPECT_EQ(linked_list->pop_front(), input[index]);
@@ -113,7 +113,7 @@ TEST_F(SetupDoublyLinkedList, test_push_at_front)
 TEST_F(SetupDoublyLinkedList, test_push_at_front_empty)
 {
     auto linked_list_empty = new DoublyLinkedList<int64_t>();
-    EXPECT_TRUE(linked_list_empty->push_at(0, 0));
+    EXPECT_TRUE(linked_list_empty->push_after(0, 0));
 }
 
 
@@ -126,7 +126,7 @@ TEST_F(SetupDoublyLinkedList, test_push_at_back)
 
     input.push_back(-1);
 
-    EXPECT_TRUE(linked_list->push_at(input.size() - 1, -1));
+    EXPECT_TRUE(linked_list->push_after(input.size() - 1, -1));
     EXPECT_EQ(input.size(), linked_list->size());
 
     for (auto expected : input)
@@ -142,11 +142,11 @@ TEST_F(SetupDoublyLinkedList, test_push_at_somewhere)
         linked_list->push_back(element);
     }
     input.insert(input.begin() + 3, -1);
-    EXPECT_TRUE(linked_list->push_at(3, -1));
+    EXPECT_TRUE(linked_list->push_after(3, -1));
     input.insert(input.begin() + 3, -2);
-    EXPECT_TRUE(linked_list->push_at(3, -2));
+    EXPECT_TRUE(linked_list->push_after(3, -2));
     input.insert(input.begin() + 4, -2);
-    EXPECT_TRUE(linked_list->push_at(4, -2));
+    EXPECT_TRUE(linked_list->push_after(4, -2));
 
     for (size_t index = 0; index < input.size(); index++)
     {
@@ -156,41 +156,41 @@ TEST_F(SetupDoublyLinkedList, test_push_at_somewhere)
     }
 }
 
-TEST_F(SetupDoublyLinkedList, test_pop_at_front)
+TEST_F(SetupDoublyLinkedList, test_pop_after_front)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
     size_t index{};
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin());
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin());
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin());
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin());
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin());
 }
 
-TEST_F(SetupDoublyLinkedList, test_pop_at_back)
+TEST_F(SetupDoublyLinkedList, test_pop_after_back)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
     size_t index = 4;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     index = 3;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     index = 2;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     index = 1;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     index = 0;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
 }
 
 TEST_F(SetupDoublyLinkedList, test_pop_front_single_element_leaves_list_empty)
@@ -213,14 +213,14 @@ TEST_F(SetupDoublyLinkedList, test_pop_back_single_element_leaves_list_empty)
     EXPECT_TRUE(linked_list->is_empty());
 }
 
-TEST_F(SetupDoublyLinkedList, test_push_at_before_current_last_element)
+TEST_F(SetupDoublyLinkedList, test_push_after_before_current_last_element)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
 
-    EXPECT_TRUE(linked_list->push_at(4, -1));
+    EXPECT_TRUE(linked_list->push_after(4, -1));
 
     std::vector<int64_t> expected{1, 2, 3, 4, -1, 5};
 
@@ -232,17 +232,17 @@ TEST_F(SetupDoublyLinkedList, test_push_at_before_current_last_element)
     }
 }
 
-TEST_F(SetupDoublyLinkedList, test_pop_at_single_element_leaves_list_empty)
+TEST_F(SetupDoublyLinkedList, test_pop_after_single_element_leaves_list_empty)
 {
     linked_list->push_back(42);
 
-    EXPECT_EQ(linked_list->pop_at(0), 42);
+    EXPECT_EQ(linked_list->pop_after(0), 42);
 
     EXPECT_EQ(linked_list->size(), 0);
     EXPECT_TRUE(linked_list->is_empty());
 }
 
-TEST_F(SetupDoublyLinkedList, test_pop_at_front_until_empty_leaves_list_empty)
+TEST_F(SetupDoublyLinkedList, test_pop_after_front_until_empty_leaves_list_empty)
 {
     for (const auto& element : input)
     {
@@ -251,7 +251,7 @@ TEST_F(SetupDoublyLinkedList, test_pop_at_front_until_empty_leaves_list_empty)
 
     for (const auto& element : input)
     {
-        EXPECT_EQ(linked_list->pop_at(0), element);
+        EXPECT_EQ(linked_list->pop_after(0), element);
     }
 
     EXPECT_EQ(linked_list->size(), 0);

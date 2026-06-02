@@ -8,7 +8,7 @@
 #include "i_linked_list.h"
 
 template <typename T>
-class SinglyLinkedList : ILinkedList<T>
+class SinglyLinkedList : public ILinkedList<T>
 {
     struct Node
     {
@@ -16,9 +16,9 @@ class SinglyLinkedList : ILinkedList<T>
         Node* next;
     };
 
-    bool is_index_valid_(size_t index)
+    bool is_index_valid_(size_t index) const
     {
-        return index < length_;
+        return index <= length_;
     }
 
 public:
@@ -27,18 +27,20 @@ public:
         head_ = nullptr;
     }
 
-    ~SinglyLinkedList()
+    ~SinglyLinkedList() override
     {
         std::cout << "Call to destructor singly linked list " << std::endl;
         if (head_ == nullptr)
             return;
-        auto next = head_->next;
-        while (next != nullptr)
+        while (head_ != nullptr)
         {
+            auto next = head_->next;
             delete head_;
             head_ = next;
-            next = next->next;
         }
+
+        head_= nullptr;
+        length_ = 0;
     }
 
     size_t size() const final
@@ -86,7 +88,7 @@ public:
         return value;
     }
 
-    T pop_at(size_t index) final
+    T pop_after(size_t index) final
     {
         if (is_empty())
             throw std::out_of_range("Singly linked list is empty (pop_at).");
@@ -97,7 +99,7 @@ public:
         {
             return pop_front();
         }
-        if (index == length_ - 1)
+        if (index == length_)
         {
             return pop_back();
         }
@@ -172,18 +174,18 @@ public:
         return T{};
     }
 
-    bool push_at(size_t index, const T& value) final
+    bool push_after(size_t index, const T& value) final
     {
-        if (!is_index_valid_(index))
-            return false;
-        if (index == length_ - 1)
-        {
-            push_back(value);
-            return true;
-        }
         if (index == 0)
         {
             push_front(value);
+            return true;
+        }
+        if (!is_index_valid_(index))
+            return false;
+        if (index == length_)
+        {
+            push_back(value);
             return true;
         }
 

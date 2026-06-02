@@ -54,8 +54,8 @@ TEST_F(SetupSinlgyLinkedList, test_add_at_index_1_and_index_3)
     }
     input.insert(input.begin() + 1, 10);
     input.insert(input.begin() + 3, 20);
-    linked_list->push_at(1, 10);
-    linked_list->push_at(3, 20);
+    linked_list->push_after(1, 10);
+    linked_list->push_after(3, 20);
     EXPECT_EQ(7, input.size());
 
     for (size_t index = 0; index < input.size(); ++index)
@@ -163,16 +163,16 @@ TEST_F(SetupSinlgyLinkedList, test_is_empty)
     EXPECT_TRUE(linked_list->is_empty());
 }
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_index)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_index)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
     size_t index = 2;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin() + 2);
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     input.erase(input.begin() + 2);
     for (index = 2; index < input.size(); ++index)
     {
@@ -181,61 +181,80 @@ TEST_F(SetupSinlgyLinkedList, test_pop_at_index)
     }
 }
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_index_1st_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_index_1st_element)
 {
     linked_list->push_back(input[0]);
     size_t index = 0;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     EXPECT_TRUE(linked_list->is_empty());
     EXPECT_EQ(linked_list->size(), 0);
 }
 
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_index_2nd_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_index_2nd_element)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
     size_t index = 1;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     EXPECT_FALSE(linked_list->is_empty());
     EXPECT_EQ(linked_list->size(), 4);
 }
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_index_last_element)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_index_last_element)
 {
     for (const auto& element : input)
     {
         linked_list->push_back(element);
     }
     size_t index = 4;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     EXPECT_FALSE(linked_list->is_empty());
     EXPECT_EQ(linked_list->size(), 4);
 }
 
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_2nd_index_with_length_2)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_2nd_index_with_length_2)
 {
     linked_list->push_back(input[0]);
     linked_list->push_back(input[1]);
     size_t index = 1;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     EXPECT_FALSE(linked_list->is_empty());
     EXPECT_EQ(linked_list->size(), 1);
     EXPECT_EQ(linked_list->get(0), input[0]);
     EXPECT_EQ(linked_list->pop_back(), input[0]);
 }
 
-TEST_F(SetupSinlgyLinkedList, test_pop_at_1st_index_with_length_2)
+TEST_F(SetupSinlgyLinkedList, test_pop_after_1st_index_with_length_2)
 {
     linked_list->push_back(input[0]);
     linked_list->push_back(input[1]);
     size_t index = 0;
-    EXPECT_EQ(linked_list->pop_at(index), input[index]);
+    EXPECT_EQ(linked_list->pop_after(index), input[index]);
     EXPECT_FALSE(linked_list->is_empty());
     EXPECT_EQ(linked_list->size(), 1);
     EXPECT_EQ(linked_list->get(0), input[1]);
     EXPECT_EQ(linked_list->pop_front(), input[1]);
+}
+
+TEST_F(SetupSinlgyLinkedList, test_push_after_before_current_last_element)
+{
+    for (const auto& element : input)
+    {
+        linked_list->push_back(element);
+    }
+
+    EXPECT_TRUE(linked_list->push_after(4, -1));
+
+    std::vector<int64_t> expected{1, 2, 3, 4, -1, 5};
+
+    EXPECT_EQ(linked_list->size(), expected.size());
+
+    for (size_t index = 0; index < expected.size(); ++index)
+    {
+        EXPECT_EQ(linked_list->get(index), expected[index]);
+    }
 }
