@@ -1,0 +1,1 @@
+- The implementations of singly and doubly linked list are messy, not coherent and sometimes just wrong.
