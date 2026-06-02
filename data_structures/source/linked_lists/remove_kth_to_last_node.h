@@ -7,6 +7,9 @@
 
 #include "node.h"
 
+// Remove Kth Node From End
+// Write a function that removes the k-th node from the end of a singly linked list and returns the possibly updated head of the list.
+
 template <typename T>
 Node<T>* remove_kth_to_last_node(Node<T>* head, int k)
 {
