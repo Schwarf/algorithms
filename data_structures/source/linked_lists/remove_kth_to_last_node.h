@@ -21,15 +21,20 @@ Node<T>* remove_kth_to_last_node(int k, Node<T>* head)
     }
 
     if (!fast)
-        return head->next;
+    {
+        auto result = head->next;
+        delete head;
+        return result;
+    }
 
     while (fast->next)
     {
         fast = fast->next;
         slow = slow->next;
     }
-
+    auto node_to_remove = slow->next;
     slow->next = slow->next->next;
+    delete node_to_remove;
     return head;
 }
 
