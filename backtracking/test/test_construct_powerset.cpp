@@ -18,7 +18,7 @@ std::vector<std::vector<int>> canonicalize(std::vector<std::vector<int>> sets)
     return sets;
 }
 
-void expect_powerset_equal(
+void expect_powerset_no_backtrack_equal(
     const std::vector<int>& input,
     const std::vector<std::vector<int>>& expected)
 {
@@ -26,6 +26,16 @@ void expect_powerset_equal(
 
     EXPECT_EQ(canonicalize(result), canonicalize(expected));
 }
+
+void expect_powerset_backtrack_equal(
+    const std::vector<int>& input,
+    const std::vector<std::vector<int>>& expected)
+{
+    const auto result = powerset_backtrack(input);
+
+    EXPECT_EQ(canonicalize(result), canonicalize(expected));
+}
+
 
 void expect_no_duplicate_subsets(const std::vector<std::vector<int>>& result)
 {
@@ -45,7 +55,7 @@ TEST(PowersetIterative, EmptyInputReturnsOnlyEmptySubset)
         {}
     };
 
-    expect_powerset_equal(input, expected);
+    expect_powerset_no_backtrack_equal(input, expected);
 }
 
 TEST(PowersetIterative, SingleElementInputReturnsEmptyAndSingleElementSubset)
@@ -57,7 +67,7 @@ TEST(PowersetIterative, SingleElementInputReturnsEmptyAndSingleElementSubset)
         {1}
     };
 
-    expect_powerset_equal(input, expected);
+    expect_powerset_no_backtrack_equal(input, expected);
 }
 
 TEST(PowersetIterative, TwoElementInputReturnsAllSubsets)
@@ -71,7 +81,7 @@ TEST(PowersetIterative, TwoElementInputReturnsAllSubsets)
         {1, 2}
     };
 
-    expect_powerset_equal(input, expected);
+    expect_powerset_no_backtrack_equal(input, expected);
 }
 
 TEST(PowersetIterative, ThreeElementInputReturnsAllSubsets)
@@ -89,7 +99,7 @@ TEST(PowersetIterative, ThreeElementInputReturnsAllSubsets)
         {1, 2, 3}
     };
 
-    expect_powerset_equal(input, expected);
+    expect_powerset_no_backtrack_equal(input, expected);
 }
 
 TEST(PowersetIterative, HandlesZeroAndNegativeNumbers)
@@ -107,7 +117,7 @@ TEST(PowersetIterative, HandlesZeroAndNegativeNumbers)
         {-1, 0, 2}
     };
 
-    expect_powerset_equal(input, expected);
+    expect_powerset_no_backtrack_equal(input, expected);
 }
 
 TEST(PowersetIterative, ResultSizeIsTwoPowerN)
@@ -133,6 +143,113 @@ TEST(PowersetIterative, ContainsEmptySubsetAndFullSubset)
     const std::vector<int> input{1, 2, 3, 4};
 
     const auto result = canonicalize(powerset_no_backtrack(input));
+
+    const std::vector<int> empty_subset{};
+    const std::vector<int> full_subset{1, 2, 3, 4};
+
+    EXPECT_NE(std::find(result.begin(), result.end(), empty_subset), result.end());
+    EXPECT_NE(std::find(result.begin(), result.end(), full_subset), result.end());
+}
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+TEST(PowersetBacktrack, EmptyInputReturnsOnlyEmptySubset)
+{
+    const std::vector<int> input{};
+
+    const std::vector<std::vector<int>> expected{
+        {}
+    };
+
+    expect_powerset_backtrack_equal(input, expected);
+}
+
+TEST(PowersetBacktrack, SingleElementInputReturnsEmptyAndSingleElementSubset)
+{
+    const std::vector<int> input{1};
+
+    const std::vector<std::vector<int>> expected{
+        {},
+        {1}
+    };
+
+    expect_powerset_backtrack_equal(input, expected);
+}
+
+TEST(PowersetBacktrack, TwoElementInputReturnsAllSubsets)
+{
+    const std::vector<int> input{1, 2};
+
+    const std::vector<std::vector<int>> expected{
+        {},
+        {1},
+        {2},
+        {1, 2}
+    };
+
+    expect_powerset_backtrack_equal(input, expected);
+}
+
+TEST(PowersetBacktrack, ThreeElementInputReturnsAllSubsets)
+{
+    const std::vector<int> input{1, 2, 3};
+
+    const std::vector<std::vector<int>> expected{
+        {},
+        {1},
+        {2},
+        {3},
+        {1, 2},
+        {1, 3},
+        {2, 3},
+        {1, 2, 3}
+    };
+
+    expect_powerset_backtrack_equal(input, expected);
+}
+
+TEST(PowersetBacktrack, HandlesZeroAndNegativeNumbers)
+{
+    const std::vector<int> input{-1, 0, 2};
+
+    const std::vector<std::vector<int>> expected{
+        {},
+        {-1},
+        {0},
+        {2},
+        {-1, 0},
+        {-1, 2},
+        {0, 2},
+        {-1, 0, 2}
+    };
+
+    expect_powerset_backtrack_equal(input, expected);
+}
+
+TEST(PowersetBacktrack, ResultSizeIsTwoPowerN)
+{
+    const std::vector<int> input{1, 2, 3, 4};
+
+    const auto result = powerset_backtrack(input);
+
+    EXPECT_EQ(result.size(), 1ULL << input.size());
+}
+
+TEST(PowersetBacktrack, DoesNotGenerateDuplicateSubsets)
+{
+    const std::vector<int> input{1, 2, 3, 4};
+
+    const auto result = powerset_backtrack(input);
+
+    expect_no_duplicate_subsets(result);
+}
+
+TEST(PowersetBacktrack, ContainsEmptySubsetAndFullSubset)
+{
+    const std::vector<int> input{1, 2, 3, 4};
+
+    const auto result = canonicalize(powerset_backtrack(input));
 
     const std::vector<int> empty_subset{};
     const std::vector<int> full_subset{1, 2, 3, 4};
