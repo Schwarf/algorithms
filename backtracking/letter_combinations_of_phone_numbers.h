@@ -39,7 +39,6 @@ std::vector<std::string> letter_combinations_of_phone_numbers(const std::string 
     std::string str;
     dfs(digits, 0, str, result, map_digit_to_letters);
     return result;
-
 }
 
 #endif //LETTER_COMBINATIONS_OF_PHONE_NUMBERS_H

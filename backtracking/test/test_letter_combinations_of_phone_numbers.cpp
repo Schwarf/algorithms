@@ -17,6 +17,18 @@ TEST(TestLetterCombinations, simple2) {
 }
 
 TEST(TestLetterCombinations, simple3) {
+    const std::string input{"1"};
+    const std::vector<std::string> expected_output{};
+    EXPECT_EQ(letter_combinations_of_phone_numbers(input), expected_output);
+}
+
+TEST(TestLetterCombinations, simple4) {
+    const std::string input{"10"};
+    const std::vector<std::string> expected_output{};
+    EXPECT_EQ(letter_combinations_of_phone_numbers(input), expected_output);
+}
+
+TEST(TestLetterCombinations, simple5) {
     const std::string input{"2"};
     const std::vector<std::string> expected_output{"a", "b", "c"};
     EXPECT_EQ(letter_combinations_of_phone_numbers(input), expected_output);
