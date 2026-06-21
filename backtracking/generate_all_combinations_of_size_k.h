@@ -5,9 +5,8 @@
 #ifndef GENERATE_ALL_SUBSETS_OF_SIZE_K_H
 #define GENERATE_ALL_SUBSETS_OF_SIZE_K_H
 
+// Generate every subset of exactly k elements from the numbers 1 through n
 #include <vector>
-#include <concepts>
-
 template<typename T>
 requires std::is_unsigned_v<T>
 void dfs(T n, T k, int index, std::vector<T> &current_combination, std::vector<std::vector<T>> &result) {
@@ -25,10 +24,10 @@ void dfs(T n, T k, int index, std::vector<T> &current_combination, std::vector<s
 
 template<typename T>
 requires std::is_unsigned_v<T>
-std::vector<std::vector<T>> generate_all_subsets_of_size_k(T n, T k) {
+std::vector<std::vector<T>> generate_all_combinations_of_size_k(T n, T k) {
     std::vector<std::vector<T>> result;
-    std::vector<T> combined_result;
-    dfs(n, k, 1, combined_result, result);
+    std::vector<T> current;
+    dfs(n, k, 1, current, result);
     return result;
 }
 

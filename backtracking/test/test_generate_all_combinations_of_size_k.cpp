@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "generate_all_subsets_of_size_k.h"
+#include "generate_all_combinations_of_size_k.h"
 
 TEST(GenerateSubsetsOfSizeK, simple1) {
     constexpr unsigned short n{4};
@@ -14,14 +14,14 @@ TEST(GenerateSubsetsOfSizeK, simple1) {
                                                                    {2, 3},
                                                                    {2, 4},
                                                                    {3, 4}};
-    EXPECT_EQ(expected_result, generate_all_subsets_of_size_k(n, k));
+    EXPECT_EQ(expected_result, generate_all_combinations_of_size_k(n, k));
 }
 
 TEST(GenerateSubsetsOfSizeK, simple2) {
     constexpr unsigned int n{1};
     constexpr unsigned int k{1};
     const std::vector<std::vector<unsigned int>> expected_result{{1}};
-    EXPECT_EQ(expected_result, generate_all_subsets_of_size_k(n, k));
+    EXPECT_EQ(expected_result, generate_all_combinations_of_size_k(n, k));
 }
 
 TEST(GenerateSubsetsOfSizeK, simple3) {
@@ -37,14 +37,14 @@ TEST(GenerateSubsetsOfSizeK, simple3) {
                                                                  {2, 3, 5},
                                                                  {2, 4, 5},
                                                                  {3, 4, 5}};
-    EXPECT_EQ(expected_result, generate_all_subsets_of_size_k(n, k));
+    EXPECT_EQ(expected_result, generate_all_combinations_of_size_k(n, k));
 }
 
 TEST(GenerateSubsetsOfSizeK, simple4) {
     constexpr unsigned int n{4};
     constexpr unsigned int k{4};
     const std::vector<std::vector<unsigned int>> expected_result{{1, 2, 3, 4}};
-    EXPECT_EQ(expected_result, generate_all_subsets_of_size_k(n, k));
+    EXPECT_EQ(expected_result, generate_all_combinations_of_size_k(n, k));
 }
 
 
