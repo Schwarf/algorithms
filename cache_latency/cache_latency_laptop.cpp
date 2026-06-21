@@ -14,77 +14,66 @@
 #include <vector>
 
 namespace {
+    constexpr std::size_t KiB = 1024;
+    constexpr std::size_t MiB = 1024 * KiB;
 
-constexpr std::size_t KiB = 1024;
-constexpr std::size_t MiB = 1024 * KiB;
+    // Written after each measurement so the compiler cannot remove the load chain.
+    volatile std::uint32_t sink = 0;
 
-// Written after each measurement so the compiler cannot remove the load chain.
-volatile std::uint32_t sink = 0;
+    std::vector<std::uint32_t> create_random_cycle(const std::size_t bytes, std::mt19937 &randomGenerator) {
+        const std::size_t count = std::max<std::size_t>(2, bytes / sizeof(std::uint32_t));
 
-std::vector<std::uint32_t> makeRandomCycle(
-    const std::size_t bytes,
-    std::mt19937& randomGenerator)
-{
-    const std::size_t count =
-        std::max<std::size_t>(2, bytes / sizeof(std::uint32_t));
+        if (count > std::numeric_limits<std::uint32_t>::max())
+            throw std::runtime_error("Working set too large for 32-bit indices");
 
-    if (count > std::numeric_limits<std::uint32_t>::max())
-        throw std::runtime_error("Working set too large for 32-bit indices");
+        std::vector<std::uint32_t> ordered_sequence(count);
+        std::iota(ordered_sequence.begin(), ordered_sequence.end(), 0U);
+        std::ranges::shuffle(ordered_sequence, randomGenerator);
 
-    std::vector<std::uint32_t> order(count);
-    std::iota(order.begin(), order.end(), 0U);
-    std::shuffle(order.begin(), order.end(), randomGenerator);
+        std::vector<std::uint32_t> next(count);
 
-    std::vector<std::uint32_t> next(count);
+        // Construct one cycle containing every index:
+        //
+        // order[0] -> order[1] -> ... -> order[n - 1] -> order[0]
+        for (std::size_t i = 0; i < count; ++i)
+            next[ordered_sequence[i]] = ordered_sequence[(i + 1) % count];
 
-    // Construct one cycle containing every index:
-    //
-    // order[0] -> order[1] -> ... -> order[n - 1] -> order[0]
-    for (std::size_t i = 0; i < count; ++i)
-        next[order[i]] = order[(i + 1) % count];
+        return next;
+    }
 
-    return next;
-}
+    double measure_access_time(const std::vector<std::uint32_t> &next, const std::size_t number_of_accesses) {
+        std::uint32_t index = 0;
 
-double measureNanosecondsPerAccess(
-    const std::vector<std::uint32_t>& next,
-    const std::size_t numberOfAccesses)
-{
-    std::uint32_t index = 0;
+        // Touch every element once before timing.
+        for (std::size_t i = 0; i < next.size(); ++i)
+            index = next[index];
 
-    // Touch every element once before timing.
-    for (std::size_t i = 0; i < next.size(); ++i)
-        index = next[index];
+        const auto start = std::chrono::steady_clock::now();
 
-    const auto start = std::chrono::steady_clock::now();
+        for (std::size_t i = 0; i < number_of_accesses; ++i)
+            index = next[index];
 
-    for (std::size_t i = 0; i < numberOfAccesses; ++i)
-        index = next[index];
+        const auto end = std::chrono::steady_clock::now();
 
-    const auto end = std::chrono::steady_clock::now();
+        sink = index;
 
-    sink = index;
+        const double elapsed_nanoseconds =
+                std::chrono::duration<double, std::nano>(end - start).count();
 
-    const double elapsedNanoseconds =
-        std::chrono::duration<double, std::nano>(end - start).count();
+        return elapsed_nanoseconds /
+               static_cast<double>(number_of_accesses);
+    }
 
-    return elapsedNanoseconds /
-           static_cast<double>(numberOfAccesses);
-}
+    std::string format_byte_size(const std::size_t bytes) {
+        if (bytes >= MiB)
+            return std::to_string(bytes / MiB) + " MiB";
 
-std::string formatSize(const std::size_t bytes)
-{
-    if (bytes >= MiB)
-        return std::to_string(bytes / MiB) + " MiB";
-
-    return std::to_string(bytes / KiB) + " KiB";
-}
-
+        return std::to_string(bytes / KiB) + " KiB";
+    }
 } // namespace
 
-int main()
-{
-    const std::vector<std::size_t> workingSetSizes{
+int main() {
+    const std::vector<std::size_t> set_sizes{
         4 * KiB,
         8 * KiB,
         16 * KiB,
@@ -108,41 +97,41 @@ int main()
         64 * MiB
     };
 
-    constexpr std::size_t minimumAccesses = 5'000'000;
+    constexpr std::size_t minimum_accesses = 5'000'000;
     constexpr int repetitions = 3;
 
     // Fixed seed makes the benchmark reproducible.
-    std::mt19937 randomGenerator{123456789U};
+    std::mt19937 random_generator{123456789U};
 
     std::cout << std::left << std::setw(14) << "Working set"
-              << std::right << std::setw(14) << "ns/access"
-              << '\n';
+            << std::right << std::setw(14) << "ns/access"
+            << '\n';
 
     std::cout << std::string(28, '-') << '\n';
 
-    for (const std::size_t bytes : workingSetSizes) {
-        const auto next = makeRandomCycle(bytes, randomGenerator);
+    for (const std::size_t bytes: set_sizes) {
+        const auto next = create_random_cycle(bytes, random_generator);
 
         // Large working sets get at least one complete traversal.
         const std::size_t accesses =
-            std::max(minimumAccesses, next.size());
+                std::max(minimum_accesses, next.size());
 
         std::vector<double> measurements;
         measurements.reserve(repetitions);
 
         for (int repetition = 0; repetition < repetitions; ++repetition) {
             measurements.push_back(
-                measureNanosecondsPerAccess(next, accesses));
+                measure_access_time(next, accesses));
         }
 
         // Use the median result to reduce interference from interrupts.
         std::sort(measurements.begin(), measurements.end());
         const double median = measurements[measurements.size() / 2];
 
-        std::cout << std::left << std::setw(14) << formatSize(bytes)
-                  << std::right << std::setw(14)
-                  << std::fixed << std::setprecision(2)
-                  << median << '\n';
+        std::cout << std::left << std::setw(14) << format_byte_size(bytes)
+                << std::right << std::setw(14)
+                << std::fixed << std::setprecision(2)
+                << median << '\n';
     }
 
     // An observable use of sink.
