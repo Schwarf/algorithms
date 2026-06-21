@@ -6,7 +6,6 @@
 #define QUEENS_PROBLEM_H
 
 #include <vector>
-#include <string>
 
 void depth_first_search(std::vector<std::vector<std::vector<int>>> &solutions,
                         std::vector<int> &queens,

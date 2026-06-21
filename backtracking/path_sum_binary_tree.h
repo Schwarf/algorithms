@@ -19,7 +19,7 @@ void sum(TreeNode<T> *node, T target_path_sum, std::vector<T> &path, std::vector
     path.push_back(node->value);
     target_path_sum -= node->value;
     if (node->left == nullptr && node->right == nullptr && target_path_sum == 0) {
-        result.emplace_back(path.begin(), path.end());
+        result.emplace_back(path);
     } else {
         sum(node->left, target_path_sum, path, result);
         sum(node->right, target_path_sum, path, result);
