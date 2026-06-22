@@ -45,7 +45,7 @@ std::vector<std::vector<T>> find_all_combinations_brute_force(std::vector<T>& in
 
 
 template <typename T>
-void get_combinations(std::vector<std::vector<T>>& results, std::vector<T>& current_combination, std::vector<T>& input,
+void get_combinations(std::vector<std::vector<T>>& results, std::vector<T>& current_combination, const std::vector<T>& input,
                       T target, int index)
 {
     if (target == 0)
@@ -53,14 +53,20 @@ void get_combinations(std::vector<std::vector<T>>& results, std::vector<T>& curr
         results.push_back(current_combination);
         return;
     }
+
     for (int i = index; i < input.size() && target >= input[i]; ++i)
     {
-        if (i == index || input[i] != input[i - 1])
+        if (i > index && input[i] == input[i - 1])
         {
-            current_combination.push_back(input[i]);
-            get_combinations(results, current_combination, input, target - input[i], i + 1);
-            current_combination.pop_back();
+            continue;
         }
+        if (target == 0)
+        {
+            break;
+        }
+        current_combination.push_back(input[i]);
+        get_combinations(results, current_combination, input, target - input[i], i + 1);
+        current_combination.pop_back();
     }
 }
 
