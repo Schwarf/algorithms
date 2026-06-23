@@ -14,7 +14,8 @@ add_executable(test_backtracking
         test_search_word_in_character_grid.cpp
         test_construct_powerset.cpp
         test_find_sum_combinations.cpp
-        test_binary_tree_paths.cpp)
+        test_binary_tree_paths.cpp
+        test_target_sum_ways.cpp)
 
 
 target_link_libraries(test_backtracking GTest::GTest GTest::Main pthread)

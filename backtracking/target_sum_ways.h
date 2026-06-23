@@ -24,7 +24,7 @@ void backtrack(int index, int & count, int current, const std::vector<int> & inp
     backtrack(index+1, count, current2, input, target);
 }
 
-int target_sum_ways(vector<int>& nums, int target) {
+int target_sum_ways(std::vector<int>& nums, int target) {
     int count = 0;
     backtrack(0, count, 0, nums, target);
     return count;
