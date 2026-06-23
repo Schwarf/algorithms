@@ -1,6 +1,7 @@
-- add more replacement policies for caches
+- add more eviction policies for caches
 - add transform sorted linked list to BST
 - extend Trie implementations
     - Provide alphabet mapping function in Constructor to work e.g. only with english lower case letters
     - Provide wildcard character that matches any non-empty character see
 - Double-check the API of a segment tree: Is it possible to get min, max and sum in a given range? 
+- Add a bechmark suite that allows detailed performance studies of various alg and data structure implementations.
