@@ -10,16 +10,16 @@
 #include "./../data_structures/source/hash_functions/hash_function_for_pairs.h"
 #include <algorithm>
 
-template <typename ValueType, typename WeightType> requires std::is_arithmetic_v<ValueType> && std::is_integral_v<
-    WeightType>
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
 struct Item
 {
     ValueType value;
     WeightType weight;
 };
 
-template <typename ValueType, typename WeightType>
-    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
 ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightType>>& items,
                                      WeightType knapsack_capacity,
                                      int item_index = -1)
@@ -40,8 +40,8 @@ ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightTyp
     return std::max(include_item, exclude_item);
 }
 
-template <typename ValueType, typename WeightType>
-    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
 ValueType memoization(const std::vector<Item<ValueType, WeightType>>& items,
                       WeightType knapsack_capacity,
                       std::unordered_map<std::pair<int, WeightType>,
@@ -73,18 +73,17 @@ ValueType memoization(const std::vector<Item<ValueType, WeightType>>& items,
     return result;
 }
 
-template <typename ValueType, typename WeightType>
-    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
-ValueType
-knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>>& items, WeightType knapsack_capacity)
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
+ValueType knapsack_problem_top_down(const std::vector<Item<ValueType, WeightType>>& items, WeightType knapsack_capacity)
 {
     std::unordered_map<std::pair<int, WeightType>, ValueType, non_commutative_pair_hash<int, WeightType>>
         memo;
     return memoization(items, knapsack_capacity, memo);
 }
 
-template <typename ValueType, typename WeightType>
-    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
 ValueType knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightType>>& items,
                                      WeightType knapsack_capacity)
 {
@@ -106,8 +105,8 @@ ValueType knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightTyp
 }
 
 // Memory optimized version
-template <typename ValueType, typename WeightType>
-    requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
+template <typename ValueType, std::integral WeightType>
+requires std::is_arithmetic_v<ValueType>
 ValueType knapsack_problem_bottom_up_optimized(const std::vector<Item<ValueType, WeightType>>& items,
                                      WeightType knapsack_capacity)
 {
