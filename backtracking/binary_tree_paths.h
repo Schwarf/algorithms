@@ -36,6 +36,27 @@ void backtrack(std::vector<std::string> & result, std::string & current, TreeNod
     current.resize(old_size);
 }
 
+// Alternative version using copy by value for 'current' variable:
+// void backtrack(std::vector<std::string>& result, std::string path, TreeNode<int> * node)
+// {
+//     if (!path.empty())
+//         path += "->";
+//
+//     path += std::to_string(node->val);
+//
+//     if (!node->left && !node->right)
+//     {
+//         result.push_back(path);
+//         return;
+//     }
+//
+//     if (node->left)
+//         dfs(node->left, path, result);
+//
+//     if (node->right)
+//         dfs(node->right, path, result);
+// }
+
 std::vector<std::string> binary_tree_paths(TreeNode<int>* root)
 {
     std::vector<std::string> result;
