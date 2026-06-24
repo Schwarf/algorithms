@@ -10,6 +10,25 @@
 #include "./../data_structures/source/hash_functions/hash_function_for_pairs.h"
 #include <algorithm>
 
+// 0/1 Knapsack Problem
+//
+// Given a collection of items, where each item has a value and an integer weight,
+// and a knapsack with a fixed maximum capacity, determine the maximum total value
+// that can be obtained without exceeding the knapsack capacity.
+//
+// Each item can either be selected once or not selected at all. Items cannot be
+// split and cannot be selected multiple times.
+//
+// Formally, choose a subset of items such that:
+//   - the sum of their weights is at most knapsack_capacity, and
+//   - the sum of their values is maximized.
+//
+// This file provides several solutions to the problem:
+//   - a naive recursive implementation,
+//   - a top-down dynamic-programming implementation using memoization,
+//   - a bottom-up dynamic-programming implementation, and
+//   - a memory-optimized bottom-up dynamic-programming implementation.
+
 template <typename ValueType, std::integral WeightType>
 requires std::is_arithmetic_v<ValueType>
 struct Item
