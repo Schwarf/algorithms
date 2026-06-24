@@ -43,10 +43,14 @@ ValueType knapsack_problem_recursive(const std::vector<Item<ValueType, WeightTyp
                                      WeightType knapsack_capacity,
                                      int item_index = -1)
 {
+    // Default initialize to last item if no item index is provided
     if (item_index == -1)
         item_index = items.size();
-    if (knapsack_capacity == WeightType{} || item_index == 0)
+
+    constexpr WeightType Zero{};
+    if (knapsack_capacity == Zero || item_index == 0)
         return 0;
+
     // Exclude if item weight is larger than remaining knapsack capacity
     if (items[item_index - 1].weight > knapsack_capacity)
         return knapsack_problem_recursive(items, knapsack_capacity, item_index - 1);
@@ -68,10 +72,14 @@ ValueType memoization(const std::vector<Item<ValueType, WeightType>>& items,
                                          non_commutative_pair_hash<int, WeightType>>& memo,
                       int item_index = -1)
 {
+    // Default initialize to last item if no item index is provided
     if (item_index == -1)
         item_index = items.size();
-    if (knapsack_capacity == WeightType{} || item_index == 0)
+
+    constexpr WeightType Zero{};
+    if (knapsack_capacity == Zero || item_index == 0)
         return 0;
+
     // Check if this capacity with this number of items was computed before
     std::pair<int, WeightType> key = std::make_pair(item_index, knapsack_capacity);
     if (memo.find(key) != memo.end())
