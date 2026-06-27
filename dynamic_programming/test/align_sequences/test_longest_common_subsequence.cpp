@@ -2,7 +2,7 @@
 // Created by andreas on 28.09.23.
 //
 #include "gtest/gtest.h"
-#include "./../longest_common_subsequence.h"
+#include "../../align_subsequences/longest_common_subsequence.h"
 
 TEST(TestLongesCommonSqubSequence, simple1)
 {

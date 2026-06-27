@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "../number_of_string_decodings.h"
+#include "../../align_subsequences/number_of_string_decodings.h"
 
 TEST(TestNumberOfStringDecodings, simple1)
 {

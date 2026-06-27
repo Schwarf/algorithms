@@ -2,7 +2,7 @@
 // Created by andreas on 20.09.22.
 //
 #include "gtest/gtest.h"
-#include "maximum_length_of_same_subarray_in_two_arrays.h"
+#include "../../align_subsequences/maximum_length_of_same_subarray_in_two_arrays.h"
 
 class SetupMaximumLengthOfSameSubarrayInTwoArrays : public testing::Test
 {

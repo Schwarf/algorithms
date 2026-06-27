@@ -44,30 +44,37 @@ add_executable(test_DP_grid
 target_link_libraries(test_DP_grid GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingGridTests COMMAND test_DP_grid)
 
+add_executable(test_DP_align_sequences
+        align_sequences/test_maximum_length_of_same_subarray_in_two_arrays.cpp
+        align_sequences/test_length_of_longest_palindromic_subsequence.cpp
+        align_sequences/test_maximum_number_of_uncrossing_lines.cpp
+        align_sequences/test_longest_palindromic_substring.cpp
+        align_sequences/test_longest_common_subsequence.cpp
+        align_sequences/test_number_of_string_decodings.cpp
+        align_sequences/test_count_palindromic_substrings.cpp
+        align_sequences/test_longest_common_substring.cpp
+        align_sequences/test_levnsthein_distance.cpp
+)
+target_link_libraries(test_DP_align_sequences GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingAlignSequencesTests COMMAND test_DP_align_sequences)
+
 add_executable(test_dynamic_programming
         test_main.cpp
         test_can_reach_last_index.cpp
         test_longest_increasing_subsequence.cpp
-        test_maximum_length_of_same_subarray_in_two_arrays.cpp
         test_sum_subarray_minimums.cpp
-        test_length_of_longest_palindromic_subsequence.cpp
-        test_maximum_number_of_uncrossing_lines.cpp
         test_pascal_triangle.cpp
-        test_longest_palindromic_substring.cpp
         test_predict_the_winner.cpp
         test_longest_string_chain.cpp
-        test_longest_common_subsequence.cpp
-        test_number_of_string_decodings.cpp
         test_minimum_difficulty_job_schedule.cpp
         test_count_unique_binary_search_trees.cpp
-        test_largest_divisible_subset.cpp test_count_palindromic_substrings.cpp
+        test_largest_divisible_subset.cpp
         test_longest_ideal_string_subsequence.cpp
         test_matrix_chain_multiplication.cpp
         test_count_numbers_of_valid_triples.cpp
         test_minimal_height_book_shelves.cpp
         test_word_break.cpp
-        test_longest_common_substring.cpp
-        test_levnsthein_distance.cpp)
+)
 
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)

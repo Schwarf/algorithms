@@ -6,7 +6,7 @@
 #define TEST_MAXIMUM_NUMBER_OF_UNCROSSING_LINES_CPP
 
 #include "gtest/gtest.h"
-#include "maximum_number_of_uncrossing_lines.h"
+#include "../../align_subsequences/maximum_number_of_uncrossing_lines.h"
 
 TEST(MaximumNumberOfUncrossingLines, simple1)
 {

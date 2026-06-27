@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../longest_common_substring.h"
+#include "../../align_subsequences/longest_common_substring.h"
 
 TEST(LongestCommonSubstringTest, simple1) {
       std::string s1{"abcde"};

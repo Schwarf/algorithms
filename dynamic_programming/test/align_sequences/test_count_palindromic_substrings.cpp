@@ -2,7 +2,7 @@
 // Created by andreas on 10.02.24.
 //
 #include "gtest/gtest.h"
-#include "./../count_palindromic_substrings.h"
+#include "../../align_subsequences/count_palindromic_substrings.h"
 
 TEST(TestCountPalindromicSubstringsNoDP, simple1)
 {

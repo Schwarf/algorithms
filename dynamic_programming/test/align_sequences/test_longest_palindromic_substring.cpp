@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "longest_palindromic_substring.h"
+#include "../../align_subsequences/longest_palindromic_substring.h"
 
 TEST(LongestPalindromicSubstring, simple1_tabulation)
 {
