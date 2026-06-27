@@ -58,20 +58,26 @@ add_executable(test_DP_align_sequences
 target_link_libraries(test_DP_align_sequences GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingAlignSequencesTests COMMAND test_DP_align_sequences)
 
+add_executable(test_DP_sequence_chaining
+        sequence_chaining/test_longest_increasing_subsequence.cpp
+        sequence_chaining/test_longest_string_chain.cpp
+        sequence_chaining/test_largest_divisible_subset.cpp
+        sequence_chaining/test_longest_ideal_string_subsequence.cpp
+        sequence_chaining/test_count_numbers_of_valid_triples.cpp
+)
+target_link_libraries(test_DP_sequence_chaining GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingSequenceChainingTests COMMAND test_DP_sequence_chaining)
+
+
 add_executable(test_dynamic_programming
         test_main.cpp
         test_can_reach_last_index.cpp
-        test_longest_increasing_subsequence.cpp
         test_sum_subarray_minimums.cpp
         test_pascal_triangle.cpp
         test_predict_the_winner.cpp
-        test_longest_string_chain.cpp
         test_minimum_difficulty_job_schedule.cpp
         test_count_unique_binary_search_trees.cpp
-        test_largest_divisible_subset.cpp
-        test_longest_ideal_string_subsequence.cpp
         test_matrix_chain_multiplication.cpp
-        test_count_numbers_of_valid_triples.cpp
         test_minimal_height_book_shelves.cpp
         test_word_break.cpp
 )

@@ -2,7 +2,7 @@
 // Created by andreas on 23.09.23.
 //
 #include "gtest/gtest.h"
-#include "longest_string_chain.h"
+#include "../../sequence_chaining/longest_string_chain.h"
 
 TEST(TestLongestStringChain, simple1)
 {

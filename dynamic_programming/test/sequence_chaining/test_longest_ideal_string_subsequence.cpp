@@ -6,7 +6,7 @@
 #define DYNAMIC_PROGRAMMING_SAMPLES_TEST_LONGEST_IDEAL_STRING_SUBSEQUENCE_CPP
 
 #include "gtest/gtest.h"
-#include "./../longest_ideal_string_subsequence.h"
+#include "../../sequence_chaining/longest_ideal_string_subsequence.h"
 
 
 TEST(TestLongestIdealStringSubsequence, simple1_bottom_up)

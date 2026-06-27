@@ -3,7 +3,7 @@
 //
 #include <vector>
 #include "gtest/gtest.h"
-#include "longest_increasing_subsequence.h"
+#include "../../sequence_chaining/longest_increasing_subsequence.h"
 
 class SetupLongestIncreasingSubsequence : public testing::Test
 {

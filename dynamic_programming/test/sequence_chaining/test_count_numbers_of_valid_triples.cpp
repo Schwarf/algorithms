@@ -2,7 +2,7 @@
 // Created by andreas on 29.07.24.
 //
 
-#include "../count_number_of_valid_triples.h"
+#include "../../sequence_chaining/count_number_of_valid_triples.h"
 #include "gtest/gtest.h"
 
 TEST(CountNumberOfValidTriplesBruteForce, simple1)

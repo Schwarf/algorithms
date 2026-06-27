@@ -2,7 +2,7 @@
 // Created by andreas on 10.02.24.
 //
 #include "gtest/gtest.h"
-#include "./../largest_divisible_subset.h"
+#include "../../sequence_chaining/largest_divisible_subset.h"
 
 #include <algorithm>
 
