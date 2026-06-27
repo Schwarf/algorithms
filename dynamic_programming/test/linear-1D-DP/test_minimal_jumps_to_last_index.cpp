@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "minimal_jumps_to_last_index.h"
+#include "../../linear-1D-DP/minimal_jumps_to_last_index.h"
 
 TEST(MinimalJumpsToLastIndex, simple1_recursive)
 {

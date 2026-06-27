@@ -2,7 +2,7 @@
 // Created by andreas on 30.07.24.
 //
 #include "gtest/gtest.h"
-#include "./../minimal_operations_to_create_valid_string.h"
+#include "../../linear-1D-DP/minimal_operations_to_create_valid_string.h"
 
 TEST(TestMinimalOperationsValiStringDP, simple1)
 {

@@ -6,7 +6,7 @@
 #define MAXIMUM_SUBARRAY_KADANE_ALGORITHM_H
 
 #include <algorithm>
-#include "used_concepts.h"
+#include "../used_concepts.h"
 
 template<typename Container>
 requires IndexedContainer<Container> && std::is_arithmetic_v<typename Container::value_type>

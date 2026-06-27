@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "min_costs_to_reach_end.h"
+#include "../../linear-1D-DP/min_costs_to_reach_end.h"
 #include <vector>
 
 class SetupCostsPerStep : public testing::Test

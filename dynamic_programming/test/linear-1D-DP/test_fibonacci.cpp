@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../fibonacci_numbers.h"
+#include "../../linear-1D-DP/fibonacci_numbers.h"
 #include <vector>
 
 

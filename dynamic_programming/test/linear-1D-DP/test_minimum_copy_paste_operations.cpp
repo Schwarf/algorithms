@@ -2,7 +2,7 @@
 // Created by andreas on 19.08.24.
 //
 #include "gtest/gtest.h"
-#include "./../minimum_copy_paste_operations.h"
+#include "../../linear-1D-DP/minimum_copy_paste_operations.h"
 
 TEST(TestMinimumCopyPasteOperationsRecursive, simple1)
 {

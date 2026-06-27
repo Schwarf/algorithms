@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "maximum_points_solved_with_brain_power.h"
+#include "../../linear-1D-DP/maximum_points_solved_with_brain_power.h"
 
 TEST(MaximumPointsSolvedWithBrainPower, simple1)
 {

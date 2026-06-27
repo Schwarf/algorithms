@@ -2,7 +2,7 @@
 // Created by andreas on 18.08.24.
 //
 #include "gtest/gtest.h"
-#include "./../nth_ugly_number.h"
+#include "../../linear-1D-DP/nth_ugly_number.h"
 
 TEST(TestNthUglyNumberBruteForce, simple1)
 {

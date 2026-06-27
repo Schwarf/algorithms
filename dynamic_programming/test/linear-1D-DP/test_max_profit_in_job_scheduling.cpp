@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../max_profit_in_job_scheduling.h"
+#include "../../linear-1D-DP/max_profit_in_job_scheduling.h"
 
 TEST(JobSchedulingTest, ReturnsZeroForEmptyInput) {
     std::vector<int> start_times;

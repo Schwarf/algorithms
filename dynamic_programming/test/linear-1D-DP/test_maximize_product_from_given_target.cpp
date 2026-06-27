@@ -2,7 +2,7 @@
 // Created by andreas on 06.10.23.
 //
 #include "gtest/gtest.h"
-#include "maximize_product_from_given_target.h"
+#include "../../linear-1D-DP/maximize_product_from_given_target.h"
 
 TEST(TestMaximizeProductFromGivenTarget, top_down1)
 {

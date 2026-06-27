@@ -7,7 +7,7 @@
 
 #include <deque>
 #include "gtest/gtest.h"
-#include "../../dynamic_programming/maximum_subarray_kadane_algorithm.h"
+#include "../../linear-1D-DP/maximum_subarray_kadane_algorithm.h"
 
 TEST(KadaneAlgorithm, simple1)
 {
