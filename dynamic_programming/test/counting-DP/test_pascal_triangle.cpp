@@ -2,7 +2,7 @@
 // Created by andreas on 08.07.23.
 //
 #include "gtest/gtest.h"
-#include "./../pascal_triangle.h"
+#include "../../counting-DP/pascal_triangle.h"
 
 constexpr std::array<std::tuple<int, int, long long>, 12> pascal_triangle{
     std::make_tuple(0, 0, 1),

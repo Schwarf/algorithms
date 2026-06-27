@@ -90,11 +90,9 @@ add_executable(test_DP_gaming
 target_link_libraries(test_DP_gaming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingGamingTests COMMAND test_DP_gaming)
 
-
-add_executable(test_dynamic_programming
-        test_pascal_triangle.cpp
+add_executable(test_DP_counting
+        counting-DP/test_pascal_triangle.cpp
 )
-target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
-add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)
-
+target_link_libraries(test_DP_counting GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingCountingTests COMMAND test_DP_counting)
 #target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
