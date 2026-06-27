@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 
-#include "predict_the_winner.h"
+#include "../../gaming-DP/predict_the_winner.h"
 
 TEST(PredictTheWinner, simple1)
 {

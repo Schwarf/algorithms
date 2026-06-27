@@ -84,13 +84,16 @@ add_executable(test_DP_partition
 target_link_libraries(test_DP_partition GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingPartitionTests COMMAND test_DP_partition)
 
+add_executable(test_DP_gaming
+        gaming-DP/test_predict_the_winner.cpp
+)
+target_link_libraries(test_DP_gaming GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingGamingTests COMMAND test_DP_gaming)
+
 
 add_executable(test_dynamic_programming
-        test_main.cpp
         test_pascal_triangle.cpp
-        test_predict_the_winner.cpp
 )
-
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingTests COMMAND test_dynamic_programming)
 
