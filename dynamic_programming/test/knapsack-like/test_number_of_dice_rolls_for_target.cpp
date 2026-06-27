@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "number_of_dice_rolls_for_target.h"
+#include "../../knapsack-like/number_of_dice_rolls_for_target.h"
 
 TEST(TestNumberOfDiceRollsForTarget, simple1_bottom_up)
 {

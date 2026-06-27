@@ -2,7 +2,7 @@
 // Created by andreas on 19.05.25.
 //
 #include "gtest/gtest.h"
-#include "./../../knapsack/multiple_knapsack.h"
+#include "./../../knapsack-like/multiple_knapsack.h"
 class TestMultipleKnapsack : public ::testing::Test
 {
 protected:

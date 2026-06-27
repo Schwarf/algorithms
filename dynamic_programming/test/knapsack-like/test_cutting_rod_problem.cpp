@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../cutting_rod_problem.h"
+#include "../../knapsack-like/cutting_rod_problem.h"
 
 TEST(TestCuttingRodProblem, simple1)
 {

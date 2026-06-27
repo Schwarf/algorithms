@@ -4,7 +4,7 @@
 
 //
 #include "gtest/gtest.h"
-#include "./../coin_combinations.h"
+#include "../../knapsack-like/coin_combinations.h"
 
 TEST(CoinCombinationsRecursive, simple1)
 {
