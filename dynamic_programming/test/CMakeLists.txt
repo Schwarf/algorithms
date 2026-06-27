@@ -69,17 +69,28 @@ target_link_libraries(test_DP_sequence_chaining GTest::GTest GTest::Main pthread
 add_test(NAME DynamicProgrammingSequenceChainingTests COMMAND test_DP_sequence_chaining)
 
 
+add_executable(test_DP_interval
+        interval-DP/test_count_unique_binary_search_trees.cpp
+        interval-DP/test_matrix_chain_multiplication.cpp
+)
+target_link_libraries(test_DP_interval GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingIntervalTests COMMAND test_DP_interval)
+
+add_executable(test_DP_partition
+        partition-DP/test_minimum_difficulty_job_schedule.cpp
+        partition-DP/test_minimal_height_book_shelves.cpp
+        partition-DP/test_word_break.cpp
+)
+target_link_libraries(test_DP_partition GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingPartitionTests COMMAND test_DP_partition)
+
+
 add_executable(test_dynamic_programming
         test_main.cpp
         test_can_reach_last_index.cpp
         test_sum_subarray_minimums.cpp
         test_pascal_triangle.cpp
         test_predict_the_winner.cpp
-        test_minimum_difficulty_job_schedule.cpp
-        test_count_unique_binary_search_trees.cpp
-        test_matrix_chain_multiplication.cpp
-        test_minimal_height_book_shelves.cpp
-        test_word_break.cpp
 )
 
 target_link_libraries(test_dynamic_programming GTest::GTest GTest::Main pthread)

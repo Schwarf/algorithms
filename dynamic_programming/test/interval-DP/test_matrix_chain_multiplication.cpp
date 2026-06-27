@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../matrix_chain_multiplication.h"
+#include "../../interval-DP/matrix_chain_multiplication.h"
 
 TEST(TestMatrixChainMultiplication, simple1)
 {

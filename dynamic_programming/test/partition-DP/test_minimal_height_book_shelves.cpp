@@ -1,7 +1,7 @@
 //
 // Created by andreas on 31.07.24.
 //
-#include "./../minimal_height_book_shelves.h"
+#include "../../partition-DP/minimal_height_book_shelves.h"
 #include "gtest/gtest.h"
 
 TEST(MinimalHeightBookShelvesTopDownDP, simple1)

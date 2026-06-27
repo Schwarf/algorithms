@@ -1,7 +1,7 @@
 //
 // Created by andreas on 07.04.25.
 //
-#include "./../word_break.h"
+#include "../../partition-DP/word_break.h"
 #include "gtest/gtest.h"
 
 TEST(TestWordBreak, simple1)
