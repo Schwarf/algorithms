@@ -56,7 +56,8 @@ add_executable(test_fun_with_algos
         test_maximum_difference.cpp
         test_max_number_of_diff_elements.cpp
         test_scheduling_with_deadlines.cpp
-        test_four_sum.cpp)
+        test_four_sum.cpp
+        test_can_reach_last_index.cpp)
 
 
 target_link_libraries(test_fun_with_algos GTest::GTest GTest::Main pthread)

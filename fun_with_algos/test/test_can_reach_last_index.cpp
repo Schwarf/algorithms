@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "can_reach_last_index.h"
+#include "../can_reach_last_index.h"
 #include <vector>
 
 TEST(CanReachLastIndex, test_scenario1)

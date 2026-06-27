@@ -87,7 +87,6 @@ add_test(NAME DynamicProgrammingPartitionTests COMMAND test_DP_partition)
 
 add_executable(test_dynamic_programming
         test_main.cpp
-        test_can_reach_last_index.cpp
         test_pascal_triangle.cpp
         test_predict_the_winner.cpp
 )
