@@ -2,7 +2,7 @@
 // Created by andreas on 17.08.24.
 //
 #include "gtest/gtest.h"
-#include "./../maximum_number_of_points_with_costs.h"
+#include "../../grid-DP/maximum_number_of_points_with_costs.h"
 
 TEST(TestMaximumNumberWithCostsBruteForce, simple1)
 {

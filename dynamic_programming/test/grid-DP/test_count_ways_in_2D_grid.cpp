@@ -2,7 +2,7 @@
 // Created by andreas on 18.07.22.
 //
 #include "gtest/gtest.h"
-#include "count_ways_2D_grid.h"
+#include "../../grid-DP/count_ways_2D_grid.h"
 
 class SetupCountWaysIn2DGrid : public testing::Test
 {

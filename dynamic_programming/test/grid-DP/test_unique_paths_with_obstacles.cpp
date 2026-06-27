@@ -1,7 +1,7 @@
 // Created by andreas on 13.08.23.
 //
 #include "gtest/gtest.h"
-#include "unique_paths_with_obstacles.h"
+#include "../../grid-DP/unique_paths_with_obstacles.h"
 
 TEST(UniquePathsWithObstaclesRecursive, simple1)
 {

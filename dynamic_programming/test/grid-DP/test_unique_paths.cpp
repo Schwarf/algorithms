@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "./../unique_paths.h"
+#include "../../grid-DP/unique_paths.h"
 
 TEST(UniquePathsRecursive, simple1)
 {
