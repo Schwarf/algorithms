@@ -2,7 +2,7 @@
 // Created by andreas on 15.03.25.
 //
 #include <gtest/gtest.h>
-#include "./../min_cost_to_add_roads.h"
+#include "../../graphs/min_cost_to_add_roads.h"
 
 TEST(TestMinCostToAddRoads, simple1)
 {

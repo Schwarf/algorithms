@@ -22,7 +22,7 @@ int pivot_integer_linear(int n) {
     return max;
 }
 
-// O(lob N) runtime complexity
+// O(log N) runtime complexity
 int pivot_integer_logarithmic(int n) {
     int left{1};
     int right{n};
