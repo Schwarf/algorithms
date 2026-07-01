@@ -30,13 +30,13 @@
       "name": "clang-debug",
       "inherits": "base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" },
-      "environment": { "CC": "clang", "CXX": "clang++" }
+      "environment": { "CC": "clang-21", "CXX": "clang++-21" }
     },
     {
       "name": "clang-release",
       "inherits": "base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
-      "environment": { "CC": "clang", "CXX": "clang++" }
+      "environment": { "CC": "clang-21", "CXX": "clang++-21" }
     },
     {
       "name": "msvc-debug",

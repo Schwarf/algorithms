@@ -6,7 +6,7 @@
 #define MAXIMIZE_INDEX_VALUE_PAIR_H
 #include <vector>
 #include <algorithm>
-// You are given an integer array values inputs[i]. Return the maximum pair  inputs[i] + inputs[j] + i - j
+// You are given an integer array values inputs[i]. Return the maximum pair inputs[i] + inputs[j] + i - j
 // with i < j.
 
 int max_index_value_pair(std::vector<int>& inputs) {

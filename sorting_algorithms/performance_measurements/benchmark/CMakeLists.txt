@@ -1,6 +1,8 @@
-project(benchmark_sorting_algos)
-
 CMAKE_MINIMUM_REQUIRED(VERSION 3.22)
+project(benchmark_sorting_algos)
+project(benchmark_sorting_algos LANGUAGES CXX)
+
+
 
 
 # Default to Release build type if none is specified

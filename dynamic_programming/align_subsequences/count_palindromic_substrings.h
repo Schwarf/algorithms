@@ -41,7 +41,7 @@ int count_palindromes_around_center(const std::string &s, int left, int right) {
     return count;
 }
 
-int count_palindromic_substrings_with_dp(const std::string &s) {
+int count_palindromic_substrings(const std::string &s) {
     int count{};
     for (int i{}; i < s.length(); ++i) {
         // Count odd-length palindromes with center at i

@@ -106,7 +106,7 @@ int job_scheduling_bottom_up(std::vector<int> &start_time,
   return dp[n - 1];
 }
 
-int compact_top_down(const std::vector<int> &start, const std::vector<int> &end,
+int job_scheduling_top_down(const std::vector<int> &start, const std::vector<int> &end,
                      std::vector<int> &profit) {
   struct Job {
     int start;
@@ -144,7 +144,7 @@ int compact_top_down(const std::vector<int> &start, const std::vector<int> &end,
   return dfs(0);
 }
 
-int compact_bottom_up(const std::vector<int> &start,
+int job_scheduling_compact_bottom_up(const std::vector<int> &start,
                       const std::vector<int> &end, std::vector<int> &profit) {
   struct Job {
     int start;

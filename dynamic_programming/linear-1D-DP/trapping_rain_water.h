@@ -80,10 +80,24 @@ int rainwater_two_pointer(const std::vector<int> &landscape) {
     int right_max{};
     while (left < right) {
         if (landscape[left] < landscape[right]) {
-            landscape[left] >= left_max ? (left_max = landscape[left]) : result += (left_max - landscape[left]);
+            if(landscape[left] >= left_max)
+            {
+                left_max = landscape[left];
+            }
+            else
+            {
+                result += (left_max - landscape[left]);
+            }
             ++left;
         } else {
-            landscape[right] >= right_max ? (right_max = landscape[right]) : result += (right_max - landscape[right]);
+            if (landscape[right] >= right_max)
+            {
+                right_max = landscape[right];
+            }
+            else
+            {
+                result += (right_max - landscape[right]);
+            }
             --right;
         }
     }

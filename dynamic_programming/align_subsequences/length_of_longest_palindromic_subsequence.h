@@ -38,13 +38,13 @@ int length_of_longest_palindromic_subsequence(const std::string &input) {
 // Classic dynamic programming with iterative bottom-up approach using memoization.
 int length_of_longest_palindromic_subsequence_bottom_up(const std::string &input) {
     int size = input.size();
-    std::vector<std::vector<int>> memo(size, std::vector<int>(size));
+    std::vector<std::vector<int>> dp(size, std::vector<int>(size));
     for (int i{size - 1}; i > -1; --i) {
-        memo[i][i] = 1;
+        dp[i][i] = 1;
         for (int j = i + 1; j < size; ++j)
-            memo[i][j] = input[i] == input[j] ? memo[i + 1][j - 1] + 2 : std::max(memo[i + 1][j], memo[i][j - 1]);
+            dp[i][j] = input[i] == input[j] ? dp[i + 1][j - 1] + 2 : std::max(dp[i + 1][j], dp[i][j - 1]);
     }
-    return memo[0][size - 1];
+    return dp[0][size - 1];
 }
 
 // Classic dynamic programming with iterative bottom-up approach using memoization.
