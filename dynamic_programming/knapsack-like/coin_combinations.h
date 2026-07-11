@@ -10,6 +10,8 @@
 // combination of the coins, return 0.
 // You may assume that you have an infinite number of each kind of coin.
 // The answer is guaranteed to fit into a signed 32-bit integer.
+
+// NOTE for the bottom-up solution see the difference between permutations and combinations (see coin_permutations.h)
 #include <vector>
 #include <limits>
 

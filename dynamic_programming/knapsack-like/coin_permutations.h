@@ -9,6 +9,8 @@
 // return the number of ordered sequences of coin values whose sum equals `target`.
 // Each coin may be used any number of times.
 // Different orders count as different sequences.
+
+// NOTE for the bottom-up solution see the difference between permutations and combinations (see coin_combinations.h)
 #include <vector>
 
 int coin_permutations(const std::vector<int>& coins, int amount) {
