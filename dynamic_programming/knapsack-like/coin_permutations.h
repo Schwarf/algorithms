@@ -11,9 +11,8 @@
 // Different orders count as different sequences.
 #include <vector>
 
-int coin_permutations(vector<int>& coins, int amount) {
+int coin_permutations(const std::vector<int>& coins, int amount) {
     std::vector<long> dp(amount+1);
-    std::sort(coins.begin(), coins.end());
     dp[0] =1;
     for(int t{1}; t <= amount; ++t)
     {

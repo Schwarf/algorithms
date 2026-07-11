@@ -10,6 +10,7 @@ add_executable(test_DP_knapsack_like
         knapsack-like/test_perfect_squares.cpp
         knapsack-like/test_coin_change.cpp
         knapsack-like/test_coin_combinations.cpp
+        knapsack-like/test_coin_permutations.cpp
         knapsack-like/test_number_of_dice_rolls_for_target.cpp
         knapsack-like/test_cutting_rod_problem.cpp
 )
