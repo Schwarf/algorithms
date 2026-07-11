@@ -74,28 +74,28 @@ int size_of_longest_increasing_subsequence_bottom_up(const std::vector<T> &seque
 
 // Optimized version of dynamic programming approach working in O(N*logN)
 // Start iterating from the left.
-// For each element in the sequence, find the first element in the tail_array that is greater than or equal to it
+// For each element in the sequence, find the first element in tails that is greater than or equal to it
 // using binary search. Replace that element with the current one.
 // This replacement doesn't change the length of the longest increasing subsequence but ensures the potential
 // for future elements to extend the subsequence. If no such element exists, then the current element can
 // extend the existing longest increasing subsequence, so append it to the tail_array.
 int size_of_longest_increasing_subsequence_tail_list(const std::vector<int> &sequence) {
-    std::vector<int> tail_array;
+    std::vector<int> tails;
     const int n = sequence.size();
     for (int i = 0; i < n; i++) {
         // We search for the FIRST element in the sorted tail_array that is greater equal the element sequence[i]
         // If we find one (the FIRST one) that is greater we replace it with the current sequence element sequence[i].
-        // If not we append the sequence[i] element to the array. In that way the 'last' element of tail array
+        // If not we append the sequence[i] element to the array. In that way the 'last' element of tails
         // is always the smallest possible optimizing for length.
-        auto it = lower_bound(tail_array.begin(), tail_array.end(), sequence[i]);
-        if (it != tail_array.end()) {
+        auto it = lower_bound(tails.begin(), tails.end(), sequence[i]);
+        if (it != tails.end()) {
             *it = sequence[i];
         } else {
-            tail_array.push_back(sequence[i]);
+            tails.push_back(sequence[i]);
         }
 
     }
-    return tail_array.size();
+    return tails.size();
 }
 
 
