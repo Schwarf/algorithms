@@ -53,6 +53,7 @@ add_executable(test_DP_align_sequences
         align_sequences/test_longest_common_subsequence.cpp
         align_sequences/test_number_of_string_decodings.cpp
         align_sequences/test_count_palindromic_substrings.cpp
+        align_sequences/test_count_distinct_subsequences.cpp
         align_sequences/test_longest_common_substring.cpp
         align_sequences/test_levnsthein_distance.cpp
 )
