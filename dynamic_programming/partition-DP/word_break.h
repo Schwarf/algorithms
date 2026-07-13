@@ -18,15 +18,13 @@ bool word_break(const std::string & input, const std::vector<std::string> & word
   std::vector<bool> dp(size+1, false);
   dp[0] = true;
   // Check for each index if substring input[0:i] can be segmented
-  for(int i{}; i < size; ++i)
+  for(int i{1}; i <= size; ++i)
   {
-      if(!dp[i])  // skip if s[0:i] is not segmentable
-        continue;
       // Try every possible end index j for the word starting at i
-      for(int j{i+1}; j <= size; ++j)
+      for(int j{}; j < i ; ++j)
       {
-          if (dictionary.find(input.substr(i, j - i)) != dictionary.end()) {
-              dp[j] = true;
+          if (dp[j] && dictionary.contains(input.substr(j, i - j))) {
+              dp[i] = true;
           }
       }
   }
