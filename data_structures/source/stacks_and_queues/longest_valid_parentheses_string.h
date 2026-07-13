@@ -5,9 +5,9 @@
 #ifndef LONGEST_VALID_PARENTHESES_STRING_H
 #define LONGEST_VALID_PARENTHESES_STRING_H
 
-#include <string>
-#include <stack>
 #include <algorithm>
+#include <stack>
+#include <string>
 // Given a string containing just the characters '(' and ')', return the length of the longest valid (well-formed)
 //	parentheses substring
 
@@ -59,4 +59,4 @@ int longest_valid_parentheses_string_optimized(const std::string& input)
 }
 
 
-#endif //LONGEST_VALID_PARENTHESES_STRING_H
+#endif // LONGEST_VALID_PARENTHESES_STRING_H

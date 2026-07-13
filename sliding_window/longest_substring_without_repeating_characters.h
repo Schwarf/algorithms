@@ -5,11 +5,12 @@
 #ifndef LONGEST_SUBSTRING_WITHOUT_REPEATING_CHARACTERS_H
 #define LONGEST_SUBSTRING_WITHOUT_REPEATING_CHARACTERS_H
 
+#include <algorithm>
 #include <string>
 #include <unordered_set>
-#include <algorithm>
 
-int longest_substring_without_repeating_character(const std::string &s) {
+int longest_substring_without_repeating_character(const std::string& s)
+{
     if (s.empty())
         return 0;
 
@@ -17,9 +18,11 @@ int longest_substring_without_repeating_character(const std::string &s) {
     int left = 0;
     int max_length = 0;
 
-    for (int right = 0; right < s.size(); ++right) {
+    for (int right = 0; right < s.size(); ++right)
+    {
         // If s[right] is in the set, remove characters from the set until it's removed
-        while (help.find(s[right]) != help.end()) {
+        while (help.find(s[right]) != help.end())
+        {
             help.erase(s[left]);
             left++;
         }
@@ -31,7 +34,6 @@ int longest_substring_without_repeating_character(const std::string &s) {
     }
 
     return max_length;
-
 }
 
-#endif //LONGEST_SUBSTRING_WITHOUT_REPEATING_CHARACTERS_H
+#endif // LONGEST_SUBSTRING_WITHOUT_REPEATING_CHARACTERS_H

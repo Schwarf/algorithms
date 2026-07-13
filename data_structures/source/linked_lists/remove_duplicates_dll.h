@@ -4,8 +4,8 @@
 
 #ifndef REMOVE_DUPLICATES_DLL_H
 #define REMOVE_DUPLICATES_DLL_H
-#include "node_dll.h"
 #include <unordered_set>
+#include "node_dll.h"
 
 // Remove all duplicates from a doubly linked list using additional space, starting from head
 // Runtime complexity: O(N)
@@ -139,4 +139,4 @@ NodeDLL<T>* remove_duplicates_no_extra_space_from_tail(NodeDLL<T>* tail)
     return tail;
 }
 
-#endif //REMOVE_DUPLICATES_DLL_H
+#endif // REMOVE_DUPLICATES_DLL_H

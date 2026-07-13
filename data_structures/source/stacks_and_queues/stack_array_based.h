@@ -33,10 +33,7 @@ public:
         elements_[head_] = value;
     }
 
-    bool is_empty() const final
-    {
-        return head_ == 0;
-    }
+    bool is_empty() const final { return head_ == 0; }
 
     T pop() final
     {
@@ -58,10 +55,7 @@ public:
         return elements_[head_];
     }
 
-    size_t size() const final
-    {
-        return head_;
-    }
+    size_t size() const final { return head_; }
 };
 
-#endif //STACK_ARRAY_BASED_H
+#endif // STACK_ARRAY_BASED_H

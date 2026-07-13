@@ -5,8 +5,8 @@
 #ifndef SERIALIZE_DESERIALIZE_BINARY_TREE_H
 #define SERIALIZE_DESERIALIZE_BINARY_TREE_H
 
-#include <string>
 #include <sstream>
+#include <string>
 #include "tree_node.h"
 
 template <typename T>
@@ -32,7 +32,7 @@ std::string serialize_tree(TreeNode<T>* root)
 }
 
 template <typename T>
-TreeNode<T>* deserialize(std::string& input, int &pos)
+TreeNode<T>* deserialize(std::string& input, int& pos)
 {
     int next_comma = input.find(',', pos);
     std::string token = input.substr(pos, next_comma - pos);
@@ -56,4 +56,4 @@ TreeNode<T>* deserialize_tree(std::string& data)
     int pos = 0;
     return deserialize<T>(data, pos);
 }
-#endif //SERIALIZE_DESERIALIZE_BINARY_TREE_H
+#endif // SERIALIZE_DESERIALIZE_BINARY_TREE_H

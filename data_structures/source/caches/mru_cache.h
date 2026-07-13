@@ -5,8 +5,8 @@
 #ifndef MFU_CACHE_H
 #define MFU_CACHE_H
 #include <list>
-#include <unordered_map>
 #include <optional>
+#include <unordered_map>
 
 template <typename KeyType, typename ValueType>
 class MRUCache
@@ -20,10 +20,7 @@ private:
     };
 
 public:
-    explicit MRUCache(int capacity)
-        : capacity(capacity)
-    {
-    }
+    explicit MRUCache(int capacity) : capacity(capacity) {}
 
     std::optional<ValueType> get(KeyType key)
     {
@@ -63,10 +60,7 @@ public:
         key_to_iterator[key] = cache.begin();
     }
 
-    [[nodiscard]] size_t size() const
-    {
-        return cache.size();
-    }
+    [[nodiscard]] size_t size() const { return cache.size(); }
 
 private:
     const int capacity;
@@ -74,4 +68,4 @@ private:
     std::unordered_map<KeyType, typename std::list<Node>::iterator> key_to_iterator;
 };
 
-#endif //MFU_CACHE_H
+#endif // MFU_CACHE_H

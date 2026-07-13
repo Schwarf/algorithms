@@ -9,25 +9,26 @@
 // Here, freq(x) denotes the
 // of the character x in word, and |y| denotes the absolute value of y.
 // Return the minimum number of characters you need to delete to make word k-special.
+#include <algorithm>
 #include <string>
 #include <unordered_map>
-#include <algorithm>
-int minimumDeletions(std::string word, int k) {
+int minimumDeletions(std::string word, int k)
+{
     std::unordered_map<char, int> frequencies;
-    for(const auto c: word)
+    for (const auto c : word)
     {
         frequencies[c]++;
     }
     int result = word.size();
-    for(auto &[_, count]: frequencies)
+    for (auto& [_, count] : frequencies)
     {
         int deleted = 0;
-        for(auto & [_, count2]: frequencies)
+        for (auto& [_, count2] : frequencies)
         {
-            if(count > count2)
+            if (count > count2)
                 deleted += count2;
-            else if(count2 > count+k)
-                deleted += count2 - (count+k);
+            else if (count2 > count + k)
+                deleted += count2 - (count + k);
         }
         result = std::min(result, deleted);
     }
@@ -35,4 +36,4 @@ int minimumDeletions(std::string word, int k) {
 }
 
 
-#endif //MINIMUM_DELETION_TO_MAKE_STRING_SPECIAL_H
+#endif // MINIMUM_DELETION_TO_MAKE_STRING_SPECIAL_H

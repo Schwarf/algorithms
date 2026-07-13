@@ -8,61 +8,69 @@
 // Each element in the array represents your maximum jump length at that position.
 // Your goal is to reach the last index in the minimum number of jumps.
 // You can assume that you can always reach the last index.
-#include <concepts>
-#include <vector>
-#include <iostream>
 #include <algorithm>
+#include <concepts>
+#include <iostream>
+#include <vector>
 
-template<typename T>
-requires std::is_unsigned_v<T>
-T minimal_jumps_to_last_index_recursive(std::vector<T> &distances, T start = 0) {
+template <typename T>
+    requires std::is_unsigned_v<T>
+T minimal_jumps_to_last_index_recursive(std::vector<T>& distances, T start = 0)
+{
     if (start == distances.size() - 1)
         return 0;
     T min{1000000000};
-    for (int i{1}; i <= distances[start]; ++i) {
-        if (start + i <= (distances.size() - 1)) {
+    for (int i{1}; i <= distances[start]; ++i)
+    {
+        if (start + i <= (distances.size() - 1))
+        {
             min = std::min(min, 1 + minimal_jumps_to_last_index_recursive(distances, start + i));
         }
     }
     return min;
 }
 
-template<typename T>
-requires std::is_unsigned_v<T>
-int memoization(std::vector<T> &distances, T start, std::vector<int> &memo) {
+template <typename T>
+    requires std::is_unsigned_v<T>
+int memoization(std::vector<T>& distances, T start, std::vector<int>& memo)
+{
     if (start == distances.size() - 1)
         return 0;
     if (memo[start] != -1)
         return memo[start];
     int min{1000000000};
-    for (int i{1}; i <= distances[start]; ++i) {
-        if (start + i <= distances.size() - 1) {
+    for (int i{1}; i <= distances[start]; ++i)
+    {
+        if (start + i <= distances.size() - 1)
+        {
             min = std::min(min, 1 + memoization(distances, start + i, memo));
         }
     }
     memo[start] = min;
     return min;
-
 }
 
-template<typename T>
-requires std::is_unsigned_v<T>
-int minimal_jumps_to_last_index_top_down(std::vector<T> &distances) {
+template <typename T>
+    requires std::is_unsigned_v<T>
+int minimal_jumps_to_last_index_top_down(std::vector<T>& distances)
+{
     std::vector<int> memo(distances.size(), -1);
     return memoization(distances, T{}, memo);
 }
 
-template<typename T>
-requires std::is_unsigned_v<T>
-int minimal_jumps_to_last_index_bottom_up(std::vector<T> &distances) {
+template <typename T>
+    requires std::is_unsigned_v<T>
+int minimal_jumps_to_last_index_bottom_up(std::vector<T>& distances)
+{
     const int n = distances.size();
     std::vector<T> dp(n, 1000000000);
     dp[n - 1] = 0;
-    for (int i{n - 2}; i > -1; --i) {
+    for (int i{n - 2}; i > -1; --i)
+    {
         for (int j{1}; j <= distances[i] && i + j < n; ++j)
             dp[i] = std::min(dp[i], 1 + dp[i + j]);
     }
     return dp[0];
 }
 
-#endif //DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_JUMPS_TO_LAST_INDEX_H
+#endif // DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_JUMPS_TO_LAST_INDEX_H

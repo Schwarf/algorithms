@@ -5,12 +5,12 @@
 #ifndef FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
 #define FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
 
-#include "used_concepts.h"
-#include <vector>
+#include <algorithm>
 #include <queue>
 #include <stack>
 #include <stdexcept>
-#include <algorithm>
+#include <vector>
+#include "used_concepts.h"
 // Given a disconnected graph and two vertices. Find the smallest edge in the sub-graph that contains the two vertices.
 // Each edge is given as std::vector of size 3 with [vertex_1, vertex_2, edge-length].
 // All vertices are listed between 1 and n where n is the size of the input-vector.
@@ -20,10 +20,8 @@
 template <typename VertexType>
     requires VertexRequirement<VertexType>
 VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<VertexType>>& vertices,
-                                               const VertexType& start_vertex,
-                                               const VertexType& end_vertex,
-                                               const VertexType& max_edge_value,
-                                               const VertexType& not_connected_value)
+                                               const VertexType& start_vertex, const VertexType& end_vertex,
+                                               const VertexType& max_edge_value, const VertexType& not_connected_value)
 {
     if (vertices.empty())
         throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
@@ -63,10 +61,8 @@ VertexType find_smallest_edge_in_sub_graph_bfs(const std::vector<std::vector<Ver
 template <typename VertexType>
     requires VertexRequirement<VertexType>
 VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<VertexType>>& vertices,
-                                               const VertexType& start_vertex,
-                                               const VertexType& end_vertex,
-                                               const VertexType& max_edge_value,
-                                               const VertexType& not_connected_value)
+                                               const VertexType& start_vertex, const VertexType& end_vertex,
+                                               const VertexType& max_edge_value, const VertexType& not_connected_value)
 {
     if (vertices.empty())
         throw std::invalid_argument("Empty vector in find_smallest_edge_in_sub_graph_bfs!");
@@ -106,8 +102,7 @@ VertexType find_smallest_edge_in_sub_graph_dfs(const std::vector<std::vector<Ver
 template <typename VertexType>
     requires VertexRequirement<VertexType>
 void dfs(VertexType node, VertexType end_vertex,
-         const std::vector<std::vector<std::pair<VertexType, VertexType>>>& graph,
-         std::vector<bool>& visited,
+         const std::vector<std::vector<std::pair<VertexType, VertexType>>>& graph, std::vector<bool>& visited,
          VertexType& answer, bool& end_vertex_found)
 {
     visited[node] = true;
@@ -124,8 +119,7 @@ void dfs(VertexType node, VertexType end_vertex,
 template <typename VertexType>
     requires VertexRequirement<VertexType>
 VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::vector<VertexType>>& vertices,
-                                                         const VertexType& start_vertex,
-                                                         const VertexType& end_vertex,
+                                                         const VertexType& start_vertex, const VertexType& end_vertex,
                                                          const VertexType& max_edge_value,
                                                          const VertexType& not_connected_value)
 {
@@ -151,4 +145,4 @@ VertexType find_smallest_edge_in_sub_graph_dfs_recursive(const std::vector<std::
     return end_vertex_found ? minimum : not_connected_value;
 }
 
-#endif //FIND_SMALLEST_EDGE_IN_SUBGRAPH_H
+#endif // FIND_SMALLEST_EDGE_IN_SUBGRAPH_H

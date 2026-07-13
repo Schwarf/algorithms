@@ -8,21 +8,27 @@
 // A subarray is a contiguous part of the array.
 #include <vector>
 
-int count_subarrays_with_target(const std::vector<int> &input, int target) {
+int count_subarrays_with_target(const std::vector<int>& input, int target)
+{
     int left{};
     int prefix_zeros{};
     int current_sum{};
     int count{};
     // Use two pointer
-    for (int right = 0; right < input.size(); ++right) {
+    for (int right = 0; right < input.size(); ++right)
+    {
         current_sum += input[right];
 
         // Sliding window
-        while (left < right && (input[left] == 0 || current_sum > target)) {
+        while (left < right && (input[left] == 0 || current_sum > target))
+        {
             // Count prefix zeros
-            if (input[left] == 1) {
+            if (input[left] == 1)
+            {
                 prefix_zeros = 0;
-            } else {
+            }
+            else
+            {
                 prefix_zeros += 1;
             }
 
@@ -31,11 +37,12 @@ int count_subarrays_with_target(const std::vector<int> &input, int target) {
         }
 
         // Count subarrays when window sum matches the goal and add number of prefix_zeros
-        if (current_sum == target) {
+        if (current_sum == target)
+        {
             count += 1 + prefix_zeros;
         }
     }
     return count;
 }
 
-#endif //COUNT_SUBARRAYS_WITH_TARGET_H
+#endif // COUNT_SUBARRAYS_WITH_TARGET_H

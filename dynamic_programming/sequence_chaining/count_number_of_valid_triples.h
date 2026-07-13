@@ -12,13 +12,17 @@
 #include <vector>
 
 // Brute force O(N^3)
-int valid_triple(std::vector<int> &input) {
+int valid_triple(std::vector<int>& input)
+{
     int n = input.size();
     int count_valid_triples{};
-    for (int i{}; i < n - 2; ++i) {
-        for (int j{i + 1}; j < n - 1; ++j) {
+    for (int i{}; i < n - 2; ++i)
+    {
+        for (int j{i + 1}; j < n - 1; ++j)
+        {
             bool is_greater = input[i] > input[j];
-            for (int k{j + 1}; k < n; ++k) {
+            for (int k{j + 1}; k < n; ++k)
+            {
                 if ((is_greater && input[j] > input[k]) || (!is_greater && input[j] < input[k]))
                     count_valid_triples++;
             }
@@ -29,10 +33,12 @@ int valid_triple(std::vector<int> &input) {
 
 
 // O(N^2)
-int valid_triple_dp(std::vector<int> &input) {
+int valid_triple_dp(std::vector<int>& input)
+{
     int n = input.size();
     int count_valid_triples{};
-    for (int middle{}; middle < n; ++middle) {
+    for (int middle{}; middle < n; ++middle)
+    {
 
         int leftSmaller{};
         int rightLarger{};
@@ -51,4 +57,4 @@ int valid_triple_dp(std::vector<int> &input) {
 }
 
 
-#endif //DYNAMIC_PROGRAMMING_SAMPLES_COUNT_NUMBER_OF_VALID_TRIPLES_H
+#endif // DYNAMIC_PROGRAMMING_SAMPLES_COUNT_NUMBER_OF_VALID_TRIPLES_H

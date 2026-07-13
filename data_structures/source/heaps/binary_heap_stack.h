@@ -30,40 +30,22 @@ public:
         return value;
     }
 
-    T top() const
-    {
-        return elements_[index_for_extremum];
-    }
+    T top() const { return elements_[index_for_extremum]; }
 
-    bool is_empty() const
-    {
-        return heap_size_ == 0;
-    }
+    bool is_empty() const { return heap_size_ == 0; }
 
-    size_t size() const
-    {
-        return heap_size_;
-    }
+    size_t size() const { return heap_size_; }
 
 private:
     std::array<T, heap_capacity> elements_;
     size_t heap_size_{};
     Comparator comparator_;
 
-    int parent(int index) const
-    {
-        return (index - 1) >> 1;
-    }
+    int parent(int index) const { return (index - 1) >> 1; }
 
-    int left_child(int index) const
-    {
-        return (index << 1) + 1;
-    }
+    int left_child(int index) const { return (index << 1) + 1; }
 
-    int right_child(int index) const
-    {
-        return (index << 1) + 2;
-    }
+    int right_child(int index) const { return (index << 1) + 2; }
 
     void promote_()
     {
@@ -84,7 +66,8 @@ private:
         while (true)
         {
             auto left = left_child(index);
-            auto right = right_child(index);;
+            auto right = right_child(index);
+            ;
             auto childIndexToCompare = index;
             // Check if value at childIndexToCompare is less/greater (max/min case) than value at left
             if (left < heap_size_ && comparator_(elements_[childIndexToCompare], elements_[left]))
@@ -113,4 +96,4 @@ private:
 };
 
 
-#endif //BINARY_HEAP_H
+#endif // BINARY_HEAP_H

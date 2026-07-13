@@ -8,9 +8,9 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
 
-#include "avl_node.h"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
+#include "avl_node.h"
 
 template <typename T>
 class AVLTree
@@ -31,10 +31,7 @@ public:
             number_of_nodes_ = 0;
     }
 
-    void print_inorder_traversal() const
-    {
-        print_inorder_traversal_(root_);
-    }
+    void print_inorder_traversal() const { print_inorder_traversal_(root_); }
 
     std::vector<T> get_vector_inorder()
     {
@@ -43,20 +40,11 @@ public:
         return result;
     }
 
-    int height() const
-    {
-        return root_->height;
-    }
+    int height() const { return root_->height; }
 
-    int number_of_nodes() const
-    {
-        return number_of_nodes_;
-    }
+    int number_of_nodes() const { return number_of_nodes_; }
 
-    bool is_value_in_tree(const T& value) const
-    {
-        return find_(value, root_);
-    }
+    bool is_value_in_tree(const T& value) const { return find_(value, root_); }
 
 private:
     AVLNode<T>* root_ = nullptr;
@@ -276,4 +264,4 @@ private:
 };
 
 
-#endif //AVL_TREE_H
+#endif // AVL_TREE_H

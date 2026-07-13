@@ -22,19 +22,14 @@ class DoublyLinkedList : public ILinkedList<T>
         Node* next = nullptr;
         Node* previous = nullptr;
 
-        explicit Node(const T& val) : value(val)
-        {
-        }
+        explicit Node(const T& val) : value(val) {}
     };
 
     Node* head_;
     Node* tail_;
     size_t length_{};
 
-    bool is_index_valid_(size_t index) const
-    {
-        return index <= length_;
-    }
+    bool is_index_valid_(size_t index) const { return index <= length_; }
 
 public:
     DoublyLinkedList()
@@ -59,15 +54,9 @@ public:
         length_ = 0;
     }
 
-    bool is_empty() const final
-    {
-        return head_ == nullptr;
-    }
+    bool is_empty() const final { return head_ == nullptr; }
 
-    size_t size() const final
-    {
-        return length_;
-    }
+    size_t size() const final { return length_; }
 
     bool push_after(size_t index, const T& value) final
     {
@@ -240,4 +229,4 @@ public:
     }
 };
 
-#endif //DOUBLE_LINKED_LIST_H
+#endif // DOUBLE_LINKED_LIST_H

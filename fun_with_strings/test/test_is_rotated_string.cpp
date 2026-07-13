@@ -26,7 +26,4 @@ TEST(TestIsRotatedString, simpl3)
     EXPECT_FALSE(is_rotated_string("a", ""));
 }
 
-TEST(TestIsRotatedString, simpl4)
-{
-    EXPECT_FALSE(is_rotated_string("", ""));
-}
+TEST(TestIsRotatedString, simpl4) { EXPECT_FALSE(is_rotated_string("", "")); }

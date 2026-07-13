@@ -62,4 +62,4 @@ TreeNode<T>* construct_binary_tree_from_preorder(std::string preorder_traversal)
     return node_stack.top();
 }
 
-#endif //CONSTRUCT_BINARY_TREE_FROM_PREORDER_TRAVERSAL_H
+#endif // CONSTRUCT_BINARY_TREE_FROM_PREORDER_TRAVERSAL_H

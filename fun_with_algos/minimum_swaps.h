@@ -4,8 +4,8 @@
 // Return the minimum number of swaps.
 // LC 2340
 #include <algorithm>
-#include <vector>
 #include <limits>
+#include <vector>
 
 int minimum_swaps(const std::vector<int>& input)
 {
@@ -45,8 +45,8 @@ int minimum_swaps_concise(std::vector<int>& nums)
     auto it = std::find(nums.rbegin(), nums.rend(), *std::max_element(nums.begin(), nums.end()));
     // Convert reverse iterator to normal iterator
     auto it_max = std::prev(it.base());
-    auto result = static_cast<int>(std::distance(nums.begin(), it_min)) + static_cast<int>(std::distance(
-        it_max, nums.end())) - 1;
+    auto result =
+        static_cast<int>(std::distance(nums.begin(), it_min)) + static_cast<int>(std::distance(it_max, nums.end())) - 1;
 
     if (std::distance(nums.begin(), it_min) > std::distance(nums.begin(), it_max))
     {
@@ -54,4 +54,4 @@ int minimum_swaps_concise(std::vector<int>& nums)
     }
     return result;
 }
-#endif //MINIMUM_SWAPS_H
+#endif // MINIMUM_SWAPS_H

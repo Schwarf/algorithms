@@ -33,7 +33,7 @@ TEST(TestCanArrayBeSortedBubbleSort, simple4)
 
 TEST(TestCanArrayBeSortedBubbleSort, simple5)
 {
-    std::vector<int> input{220,200,198,196,189,186,177,157,152,118,112,108,65,27,11};
+    std::vector<int> input{220, 200, 198, 196, 189, 186, 177, 157, 152, 118, 112, 108, 65, 27, 11};
     EXPECT_FALSE(can_array_be_sorted_bubble_sort(input));
 }
 
@@ -69,6 +69,6 @@ TEST(TestCanArrayBeSorted, simple4)
 
 TEST(TestCanArrayBeSorted, simple5)
 {
-    std::vector<int> input{220,200,198,196,189,186,177,157,152,118,112,108,65,27,11};
+    std::vector<int> input{220, 200, 198, 196, 189, 186, 177, 157, 152, 118, 112, 108, 65, 27, 11};
     EXPECT_FALSE(can_array_be_sorted(input));
 }

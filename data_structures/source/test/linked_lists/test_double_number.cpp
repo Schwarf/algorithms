@@ -45,12 +45,10 @@ TEST_F(SetupSinglyLinkedLists, DoubleNumberWithStackSimple3)
 
 TEST_F(SetupSinglyLinkedLists, DoubleNumberWithStackSimple4)
 {
-    auto input = get_single_list_from_vector(std::vector<int>{
-        9, 1, 9, 5, 0, 5, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
-    });
-    auto expected_output = get_single_list_from_vector(std::vector<int>{
-        1, 8, 3, 9, 0, 1, 0, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8
-    });
+    auto input = get_single_list_from_vector(
+        std::vector<int>{9, 1, 9, 5, 0, 5, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9});
+    auto expected_output = get_single_list_from_vector(
+        std::vector<int>{1, 8, 3, 9, 0, 1, 0, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8});
     auto result = double_number_stack(input);
     while (expected_output)
     {
@@ -101,12 +99,10 @@ TEST_F(SetupSinglyLinkedLists, DoubleNumberSimple3)
 
 TEST_F(SetupSinglyLinkedLists, DoubleNumberSimple4)
 {
-    auto input = get_single_list_from_vector(std::vector<int>{
-        9, 1, 9, 5, 0, 5, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
-    });
-    auto expected_output = get_single_list_from_vector(std::vector<int>{
-        1, 8, 3, 9, 0, 1, 0, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8
-    });
+    auto input = get_single_list_from_vector(
+        std::vector<int>{9, 1, 9, 5, 0, 5, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9});
+    auto expected_output = get_single_list_from_vector(
+        std::vector<int>{1, 8, 3, 9, 0, 1, 0, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8});
     auto result = double_number(input);
     while (expected_output)
     {

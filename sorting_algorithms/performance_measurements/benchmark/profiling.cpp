@@ -3,13 +3,14 @@
 //
 
 #include <algorithm>
-#include <vector>
-#include <random>
 #include <chrono>
 #include <iostream>
+#include <random>
+#include <vector>
 #include "./../../optimized_sort.h"
 
-int main() {
+int main()
+{
     const size_t size = 1000000;
     std::vector<int> data(size);
     std::iota(data.begin(), data.end(), 0);

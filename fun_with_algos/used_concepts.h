@@ -7,11 +7,10 @@
 
 #include <concepts>
 
-template<typename Container>
-concept IndexedContainer = requires(Container c)
-{
-    { c[0] } -> std::same_as<typename Container::value_type &>;
+template <typename Container>
+concept IndexedContainer = requires(Container c) {
+    { c[0] } -> std::same_as<typename Container::value_type&>;
     { c.size() } -> std::integral;
 };
 
-#endif //USED_CONCEPTS_H
+#endif // USED_CONCEPTS_H

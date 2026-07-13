@@ -21,7 +21,7 @@ T find_remaining_stone(const std::vector<T>& stones)
     auto heap = StackHeap<int, capacity>();
     for (const auto& stone : stones)
         heap.insert(stone);
-    //binary_heap <int> p (stones.begin(), stones.end());
+    // binary_heap <int> p (stones.begin(), stones.end());
     while (heap.size() > 1)
     {
         auto stone1 = heap.pop();
@@ -32,4 +32,4 @@ T find_remaining_stone(const std::vector<T>& stones)
     return heap.is_empty() ? 0 : heap.pop();
 }
 
-#endif //FIND_REMAINING_STONE_H
+#endif // FIND_REMAINING_STONE_H

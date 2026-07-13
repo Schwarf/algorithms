@@ -2,8 +2,8 @@
 // Created by andreas on 24.11.24.
 //
 
-#include "maximum_matrix_sum.h"
 #include "gtest/gtest.h"
+#include "maximum_matrix_sum.h"
 
 TEST(TestMaximumMatrixSum, simple1)
 {
@@ -37,8 +37,7 @@ TEST(TestMaximumMatrixSum, complex1)
         {-858, 637, 612, 93, -603, 523, 552, -681, -508, -411, 861, -709, -466, -174, -422},
         {-396, -538, -464, -48, -900, 111, -463, -606, 132, 122, 960, -944, 697, 513, 938},
         {-180, 80, -403, 314, 469, -818, -725, 10, -260, 109, -685, 360, -226, -178, -26},
-        {-151, 438, 686, 95, 345, -995, -840, -665, -477, 51, -879, -921, -487, -248, -67}
-    };
+        {-151, 438, 686, 95, 345, -995, -840, -665, -477, 51, -879, -921, -487, -248, -67}};
     constexpr long long expected_result{111728};
     EXPECT_EQ(maximum_matrix_sum(matrix), expected_result);
 }

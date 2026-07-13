@@ -3,9 +3,9 @@
 //
 
 
+#include <queue>
 #include "setup_binary_tree.h"
 #include "trees/binary_trees/right_side_view.h"
-#include <queue>
 
 // ITERATIVE IMPLEMENTATION OF RIGHT-SIDE-VIEW
 template <typename T>

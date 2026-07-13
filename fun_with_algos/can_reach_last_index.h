@@ -4,7 +4,8 @@
 #include <iostream>
 #include <vector>
 
-bool can_reach_last_index(const std::vector<int> &jump_distances) {
+bool can_reach_last_index(const std::vector<int>& jump_distances)
+{
     int last_index = jump_distances.size() - 1;
     if (last_index == 0)
         return true;
@@ -13,11 +14,10 @@ bool can_reach_last_index(const std::vector<int> &jump_distances) {
     if (jump_distances[0] == 0)
         return false;
     int current_position = last_index;
-    for (int i{current_position - 1}; i > -1; --i) {
+    for (int i{current_position - 1}; i > -1; --i)
+    {
         if (i + jump_distances[i] >= current_position)
             current_position = i;
     }
     return current_position == 0;
 }
-
-

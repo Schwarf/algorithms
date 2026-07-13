@@ -6,9 +6,9 @@
 #define FUN_WITH_ALGOS_HOW_MANY_MEETING_ROOMS_REQUIRED_H
 // Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
 // find the minimum number of conference rooms required.
-#include <vector>
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include <vector>
 
 int how_many_meeting_rooms_required(std::vector<std::vector<int>>& meetings)
 {
@@ -26,4 +26,4 @@ int how_many_meeting_rooms_required(std::vector<std::vector<int>>& meetings)
     return static_cast<int>(end_times.size());
 }
 
-#endif //FUN_WITH_ALGOS_HOW_MANY_MEETING_ROOMS_REQUIRED_H
+#endif // FUN_WITH_ALGOS_HOW_MANY_MEETING_ROOMS_REQUIRED_H

@@ -1,34 +1,19 @@
 //
 // Created by andreas on 13.12.22.
 //
-#include "gtest/gtest.h"
 #include <vector>
 #include "../../grid-DP/minimum_path_through_matrix.h"
+#include "gtest/gtest.h"
 
 class SetupMinimumPathThroughMatrix : public testing::Test
 {
 protected:
-    std::vector<std::vector<int>> input1{
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
+    std::vector<std::vector<int>> input1{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     int result1{12};
-    std::vector<std::vector<int>> input2{
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12}
-    };
+    std::vector<std::vector<int>> input2{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
     int result2{15};
-    std::vector<std::vector<int>> input3
-    {
-        {0, 1, 0, 1, 0, 1},
-        {0, 1, 1, 1, 1, 1},
-        {-1, 0, 1, 1, 0, 1},
-        {-1, 2, 1, 1, 3, -4},
-        {0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 1}
-    };
+    std::vector<std::vector<int>> input3{{0, 1, 0, 1, 0, 1},   {0, 1, 1, 1, 1, 1}, {-1, 0, 1, 1, 0, 1},
+                                         {-1, 2, 1, 1, 3, -4}, {0, 0, 1, 1, 0, 1}, {1, 0, 1, 1, 0, 1}};
     int result3{-3};
 };
 

@@ -4,8 +4,8 @@
 
 #ifndef HASH_FUNCTION_FOR_PAIRS_H
 #define HASH_FUNCTION_FOR_PAIRS_H
-#include <utility>
 #include <functional>
+#include <utility>
 
 // Weak pair hash that has is commutative
 template <class T1, class T2>
@@ -51,4 +51,4 @@ struct non_commutative_pair_hash
     }
 };
 
-#endif //HASH_FUNCTION_FOR_PAIRS_H
+#endif // HASH_FUNCTION_FOR_PAIRS_H

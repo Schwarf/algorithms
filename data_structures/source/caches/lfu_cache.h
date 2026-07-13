@@ -5,9 +5,9 @@
 #ifndef LFU_CACHE_H
 #define LFU_CACHE_H
 // least frequently used cache
-#include <unordered_map>
 #include <list>
 #include <optional>
+#include <unordered_map>
 
 template <typename KeyType, typename ValueType>
 class LFUCache
@@ -26,10 +26,7 @@ private:
     std::unordered_map<int, std::list<Node>> frequency_lists;
 
 public:
-    explicit LFUCache(int capacity)
-        : capacity(capacity), minimal_frequency{}
-    {
-    }
+    explicit LFUCache(int capacity) : capacity(capacity), minimal_frequency{} {}
 
     std::optional<ValueType> get(KeyType key)
     {
@@ -83,4 +80,4 @@ public:
     }
 };
 
-#endif //LFU_CACHE_H
+#endif // LFU_CACHE_H

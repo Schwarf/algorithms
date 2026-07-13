@@ -12,30 +12,31 @@
 // The order of values within a combination does not matter, so {2, 2, 3} and {2, 3, 2} represent the same
 // combination and must appear only once.
 // Return the combinations in any order.
-void backtrack(int index, int target, std::vector<int> & current, std::vector<std::vector<int>> & result, const std::vector<int> & input)
+void backtrack(int index, int target, std::vector<int>& current, std::vector<std::vector<int>>& result,
+               const std::vector<int>& input)
 {
-    if(target < 0)
+    if (target < 0)
         return;
-    if(target == 0)
+    if (target == 0)
     {
         result.push_back(current);
         return;
     }
 
-    for(int i{index}; i < input.size(); ++i)
+    for (int i{index}; i < input.size(); ++i)
     {
         current.push_back(input[i]);
-        backtrack(i, target-input[i], current, result, input);
+        backtrack(i, target - input[i], current, result, input);
         current.pop_back();
     }
-
 }
 
 
-std::vector<std::vector<int>> find_sum_combinations(std::vector<int>& candidates, int target) {
+std::vector<std::vector<int>> find_sum_combinations(std::vector<int>& candidates, int target)
+{
     std::vector<int> current;
     std::vector<std::vector<int>> result;
     backtrack(0, target, current, result, candidates);
     return result;
 }
-#endif //ALGORITHMS_FIND_ALL_COMBINATIONS_H
+#endif // ALGORITHMS_FIND_ALL_COMBINATIONS_H

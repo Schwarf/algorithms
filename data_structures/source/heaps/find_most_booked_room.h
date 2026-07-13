@@ -16,17 +16,18 @@
 // Return the number of the room that held the most meetings. If there are multiple rooms,
 // return the room with the lowest number.
 // A half-closed interval [a, b) is the interval between a and b including a and not including b.
-#include <vector>
 #include <algorithm>
 #include <queue>
+#include <vector>
 
 int most_booked_room(int n, std::vector<std::vector<int>>& meetings)
 {
     std::vector<int> meeting_counts(n);
     using room_number = int;
     using availability_time = long long;
-    std::priority_queue<std::pair<availability_time, room_number>, std::vector<std::pair<
-                            availability_time, room_number>>, std::greater<std::pair<availability_time, room_number>>>
+    std::priority_queue<std::pair<availability_time, room_number>,
+                        std::vector<std::pair<availability_time, room_number>>,
+                        std::greater<std::pair<availability_time, room_number>>>
         used_rooms;
     std::priority_queue<room_number, std::vector<room_number>, std::greater<room_number>> unused_rooms;
     for (int i{}; i < n; ++i)
@@ -73,4 +74,4 @@ int most_booked_room(int n, std::vector<std::vector<int>>& meetings)
     return max_meeting_room_number;
 }
 
-#endif //DATA_STRUCTURES_FIND_MOST_BOOKED_ROOM_H
+#endif // DATA_STRUCTURES_FIND_MOST_BOOKED_ROOM_H

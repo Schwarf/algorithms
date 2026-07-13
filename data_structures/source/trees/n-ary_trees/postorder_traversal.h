@@ -5,24 +5,28 @@
 #ifndef DATA_STRUCTURES_POSTORDER_TRAVERSAL_H
 #define DATA_STRUCTURES_POSTORDER_TRAVERSAL_H
 
-#include "tree_node.h"
-#include <stack>
 #include <algorithm>
+#include <stack>
+#include "tree_node.h"
 
-template<typename T>
-void postorder_traversal(TreeNode<T> *node, std::vector<T> &result) {
+template <typename T>
+void postorder_traversal(TreeNode<T>* node, std::vector<T>& result)
+{
     if (!node)
         return;
-    for (const auto &child: node->children) {
+    for (const auto& child : node->children)
+    {
         postorder_traversal(child, result);
     }
     result.push_back(node->value);
 }
 
 
-template<typename T>
-std::vector<T> postorder_traversal_recursive(TreeNode<T> *root) {
-    if (!root) {
+template <typename T>
+std::vector<T> postorder_traversal_recursive(TreeNode<T>* root)
+{
+    if (!root)
+    {
         return {};
     }
     std::vector<T> result;
@@ -30,18 +34,21 @@ std::vector<T> postorder_traversal_recursive(TreeNode<T> *root) {
     return result;
 }
 
-template<typename T>
-std::vector<T> postorder_traversal_iterative(TreeNode<T> *root) {
+template <typename T>
+std::vector<T> postorder_traversal_iterative(TreeNode<T>* root)
+{
     if (!root)
         return {};
-    std::stack<TreeNode<T> *> stack;
+    std::stack<TreeNode<T>*> stack;
     std::vector<T> result;
     stack.push(root);
-    while (!stack.empty()) {
+    while (!stack.empty())
+    {
         auto node = stack.top();
         stack.pop();
         result.push_back(node->value);
-        for (const auto &child: node->children) {
+        for (const auto& child : node->children)
+        {
             stack.push(child);
         }
     }
@@ -50,4 +57,4 @@ std::vector<T> postorder_traversal_iterative(TreeNode<T> *root) {
 }
 
 
-#endif //DATA_STRUCTURES_POSTORDER_TRAVERSAL_H
+#endif // DATA_STRUCTURES_POSTORDER_TRAVERSAL_H

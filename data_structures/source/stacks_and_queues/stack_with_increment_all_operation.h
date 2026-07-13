@@ -5,8 +5,8 @@
 #ifndef DATA_STRUCTURES_STACK_WITH_INCREMENT_ALL_OPERATION_H
 #define DATA_STRUCTURES_STACK_WITH_INCREMENT_ALL_OPERATION_H
 
-#include <vector>
 #include <optional>
+#include <vector>
 // Design a stack that supports increment operations on its elements.
 //
 // Implement the IncrementStack class:
@@ -14,7 +14,8 @@
 // IncrementStack(int maxSize) Initializes the object with maxSize which is the maximum number of elements in the stack.
 // void push(int x) Adds x to the top of the stack if the stack has not reached the maxSize.
 // std::optional<T> pop() Pops and returns the top of the stack.
-// void increment(int k, int val) Increments the bottom k elements of the stack by val. If there are less than k elements in the stack, increment all the elements in the stack.
+// void increment(int k, int val) Increments the bottom k elements of the stack by val. If there are less than k
+// elements in the stack, increment all the elements in the stack.
 
 template <typename T>
 class IncrementStack
@@ -26,10 +27,7 @@ private:
     int stack_index{};
 
 public:
-    explicit IncrementStack(int max_size) : capacity(max_size)
-    {
-        stack = std::vector<T>(capacity);
-    }
+    explicit IncrementStack(int max_size) : capacity(max_size) { stack = std::vector<T>(capacity); }
 
     void push(T value)
     {
@@ -66,4 +64,4 @@ public:
 };
 
 
-#endif //DATA_STRUCTURES_STACK_WITH_INCREMENT_ALL_OPERATION_H
+#endif // DATA_STRUCTURES_STACK_WITH_INCREMENT_ALL_OPERATION_H

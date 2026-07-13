@@ -5,8 +5,8 @@
 #include "gtest/gtest.h"
 #include "heaps/k_ary_heap.h"
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 class SetupK_aryHeap : public testing::Test
 {
@@ -45,10 +45,8 @@ public:
         if (i >= (n - 2) / 2)
             return true;
 
-        if (arr[i] >= arr[2 * i + 1] &&
-            arr[i] >= arr[2 * i + 2]
-            && is_heap_GfG(arr, 2 * i + 1, n)
-            && is_heap_GfG(arr, 2 * i + 2, n))
+        if (arr[i] >= arr[2 * i + 1] && arr[i] >= arr[2 * i + 2] && is_heap_GfG(arr, 2 * i + 1, n) &&
+            is_heap_GfG(arr, 2 * i + 2, n))
             return true;
 
         return false;

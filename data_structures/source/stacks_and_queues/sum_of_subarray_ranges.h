@@ -9,23 +9,23 @@
 // Return the sum of all subarray ranges of nums.
 // A subarray is a contiguous non-empty sequence of elements within an array.
 // LC: 2104
-#include <vector>
 #include <algorithm>
-long long sum_of_subarray_ranges_brute_force(const std::vector<int> &input)
+#include <vector>
+long long sum_of_subarray_ranges_brute_force(const std::vector<int>& input)
 {
-  int n = input.size();
-  long long result{};
-  for(int left{}; left < n-1; ++left)
-  {
-    int min = input[left];
-    int max = input[left];
-    for(int right{left+1}; right < n; ++right)
+    int n = input.size();
+    long long result{};
+    for (int left{}; left < n - 1; ++left)
     {
-      max = std::max(max, input[right]);
-      min = std::min(min, input[right]);
-      result += max - min;
+        int min = input[left];
+        int max = input[left];
+        for (int right{left + 1}; right < n; ++right)
+        {
+            max = std::max(max, input[right]);
+            min = std::min(min, input[right]);
+            result += max - min;
+        }
     }
-  }
-  return result;
+    return result;
 }
-#endif //SUM_OF_SUBARRAY_RANGES_H
+#endif // SUM_OF_SUBARRAY_RANGES_H

@@ -8,17 +8,9 @@
 template <typename T>
 struct Node
 {
-    Node()
-        : value(0),
-          next(nullptr)
-    {
-    }
+    Node() : value(0), next(nullptr) {}
 
-    explicit Node(T val)
-        :
-        value(val)
-    {
-    }
+    explicit Node(T val) : value(val) {}
 
     T value;
     Node<T>* next{nullptr};
@@ -28,22 +20,13 @@ struct Node
 template <typename T>
 struct NodePlusRP
 {
-    NodePlusRP()
-        : random(nullptr)
-    {
-    }
+    NodePlusRP() : random(nullptr) {}
 
-    explicit NodePlusRP(T val)
-        :
-        value(val),
-        next(nullptr),
-        random(nullptr)
-    {
-    }
+    explicit NodePlusRP(T val) : value(val), next(nullptr), random(nullptr) {}
 
     T value;
     NodePlusRP<T>* next{nullptr};
     NodePlusRP<T>* random;
 };
 
-#endif //NODE_H
+#endif // NODE_H

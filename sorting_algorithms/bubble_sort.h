@@ -8,24 +8,28 @@
 #include <cstddef>
 #include "used_concepts.h"
 
-template<typename Container>
-requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
-void bubble_sort(Container &container) {
+template <typename Container>
+    requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type>
+void bubble_sort(Container& container)
+{
     if (!container.size())
         return;
     size_t size = container.size() - 1;
     bool have_elements_been_swapped{};
-    do {
+    do
+    {
         have_elements_been_swapped = false;
-        for (size_t index{}; index < size; ++index) {
-            if (container[index + 1] < container[index]) {
+        for (size_t index{}; index < size; ++index)
+        {
+            if (container[index + 1] < container[index])
+            {
                 std::swap(container[index + 1], container[index]);
                 have_elements_been_swapped = true;
             }
         }
-    } while (have_elements_been_swapped);
-
+    }
+    while (have_elements_been_swapped);
 }
 
 
-#endif //BUBBLE_SORT_H
+#endif // BUBBLE_SORT_H

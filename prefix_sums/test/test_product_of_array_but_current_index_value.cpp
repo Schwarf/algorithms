@@ -1,8 +1,8 @@
 //
 // Created by andreas on 15.03.24.
 //
-#include "gtest/gtest.h"
 #include "./../product_of_array_but_current_index_value.h"
+#include "gtest/gtest.h"
 
 TEST(TestProductOfArrayButCurrentIndexValue, simple1)
 {
@@ -20,13 +20,11 @@ TEST(TestProductOfArrayButCurrentIndexValue, simple2)
 
 TEST(TestProductOfArrayButCurrentIndexValue, simple3)
 {
-    const std::vector<int>
-        input{2, 4, -2, 1, 2, -1, 4, 1, 3, -3, -1, 2, 1, 2, 1, -3, 1, -1, 1, 3, 3, -2, -2, 3, -3, -1, 1, -2, -4, -2};
-    const std::vector<int> expected_result
-    {
-        -35831808, -17915904, 35831808, -71663616, -35831808, 71663616, -17915904, -71663616, -23887872, 23887872,
-        71663616, -35831808, -71663616, -35831808, -71663616, 23887872, -71663616, 71663616, -71663616, -23887872,
-        -23887872, 35831808, 35831808, -23887872, 23887872, 71663616, -71663616, 35831808, 17915904, 35831808
-    };
+    const std::vector<int> input{2,  4, -2, 1, 2, -1, 4,  1,  3, -3, -1, 2, 1,  2,  1,
+                                 -3, 1, -1, 1, 3, 3,  -2, -2, 3, -3, -1, 1, -2, -4, -2};
+    const std::vector<int> expected_result{
+        -35831808, -17915904, 35831808,  -71663616, -35831808, 71663616, -17915904, -71663616, -23887872, 23887872,
+        71663616,  -35831808, -71663616, -35831808, -71663616, 23887872, -71663616, 71663616,  -71663616, -23887872,
+        -23887872, 35831808,  35831808,  -23887872, 23887872,  71663616, -71663616, 35831808,  17915904,  35831808};
     EXPECT_EQ(expected_result, product_of_array_but_current_index_value(input));
 }

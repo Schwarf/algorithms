@@ -13,7 +13,7 @@ TEST_F(SetupBinaryTree, split_binary_tree_null_root)
     //
     // Total = 6, target = 3
     // Cut edge (1 -> 3) => sums 3 and 3 => should return 3.
-    TreeNode<int> * root = nullptr;
+    TreeNode<int>* root = nullptr;
 
     EXPECT_EQ(split_binary_tree(root), 0);
 }
@@ -75,7 +75,8 @@ TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_GrandchildCut)
     EXPECT_EQ(split_binary_tree(root), 2);
 }
 
-TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_LargerTree_SubtreeHalf) {
+TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_LargerTree_SubtreeHalf)
+{
     //                 0
     //              /     \
     //             7       7
@@ -121,7 +122,7 @@ TEST_F(SetupBinaryTree, split_binary_tree_null_root2)
     //
     // Total = 6, target = 3
     // Cut edge (1 -> 3) => sums 3 and 3 => should return 3.
-    TreeNode<int> * root = nullptr;
+    TreeNode<int>* root = nullptr;
 
     EXPECT_EQ(split_binary_tree2(root), 0);
 }
@@ -183,7 +184,8 @@ TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_GrandchildCut2)
     EXPECT_EQ(split_binary_tree2(root), 2);
 }
 
-TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_LargerTree_SubtreeHalf2) {
+TEST_F(SetupBinaryTree, SplitBinaryTree_Positive_LargerTree_SubtreeHalf2)
+{
     //                 0
     //              /     \
     //             7       7

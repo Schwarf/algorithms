@@ -8,16 +8,17 @@
 // After deleting all nodes with a value in to_delete, we are left with a forest (a disjoint union of trees).
 // Return the roots of the trees in the remaining forest.  You may return the result in any order.
 
-#include "tree_node.h"
-#include <vector>
-#include <unordered_set>
 #include <queue>
+#include <unordered_set>
+#include <vector>
+#include "tree_node.h"
 
-template<typename T>
-TreeNode<T> *
-dfs(TreeNode<T> *&node, const std::unordered_set<T> &&to_delete_values, bool is_root_node,
-    std::vector<TreeNode<T> *> &result) {
-    if (!node) {
+template <typename T>
+TreeNode<T>* dfs(TreeNode<T>*& node, const std::unordered_set<T>&& to_delete_values, bool is_root_node,
+                 std::vector<TreeNode<T>*>& result)
+{
+    if (!node)
+    {
         return node;
     }
 
@@ -31,50 +32,57 @@ dfs(TreeNode<T> *&node, const std::unordered_set<T> &&to_delete_values, bool is_
     node->right = dfs(node->right, std::move(to_delete_values), will_node_be_deleted, result);
 
     // Delete the current node
-    if (will_node_be_deleted) {
+    if (will_node_be_deleted)
+    {
         delete node;
         return nullptr;
     }
     return node;
 }
 
-template<typename T>
-std::vector<TreeNode<T> *> delete_nodes_return_forest(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
-    std::vector<TreeNode<T> *> result;
+template <typename T>
+std::vector<TreeNode<T>*> delete_nodes_return_forest(TreeNode<T>* root, const std::vector<T>& values_to_delete)
+{
+    std::vector<TreeNode<T>*> result;
     dfs(root, {values_to_delete.begin(), values_to_delete.end()}, true, result);
     return result;
 }
 
 
-template<typename T>
-std::vector<TreeNode<T> *>
-delete_nodes_return_forest_bfs(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
-    if (!root) return {};
+template <typename T>
+std::vector<TreeNode<T>*> delete_nodes_return_forest_bfs(TreeNode<T>* root, const std::vector<T>& values_to_delete)
+{
+    if (!root)
+        return {};
 
     std::unordered_set<T> to_delete(values_to_delete.begin(), values_to_delete.end());
-    std::queue<TreeNode<T> *> q;
-    std::vector<TreeNode<T> *> roots;
+    std::queue<TreeNode<T>*> q;
+    std::vector<TreeNode<T>*> roots;
 
     // Push the root node with a pointer to a nullptr parent
     q.push(root);
 
     // Handle the root node separately to correctly add it to root_nodes if it should not be deleted
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto current = q.front();
         q.pop();
 
-        if (current->left) {
+        if (current->left)
+        {
             q.push(current->left);
             if (to_delete.find(current->left->value) != to_delete.end())
                 current->left = nullptr;
         }
-        if (current->right) {
+        if (current->right)
+        {
             q.push(current->right);
             if (to_delete.find(current->right->value) != to_delete.end())
                 current->right = nullptr;
         }
 
-        if (to_delete.find(current->value) != to_delete.end()) {
+        if (to_delete.find(current->value) != to_delete.end())
+        {
             if (current->left)
                 roots.push_back(current->left);
             if (current->right)
@@ -86,28 +94,37 @@ delete_nodes_return_forest_bfs(TreeNode<T> *root, const std::vector<T> &values_t
     return roots;
 }
 
-template<typename T>
-std::vector<TreeNode<T> *>
-delete_nodes_return_forest_bfs_with_correct_deletion(TreeNode<T> *root, const std::vector<T> &values_to_delete) {
-    if (!root) return {};
+template <typename T>
+std::vector<TreeNode<T>*> delete_nodes_return_forest_bfs_with_correct_deletion(TreeNode<T>* root,
+                                                                               const std::vector<T>& values_to_delete)
+{
+    if (!root)
+        return {};
 
     std::unordered_set<T> to_delete(values_to_delete.begin(), values_to_delete.end());
-    std::queue<TreeNode<T> *> q;
-    std::vector<TreeNode<T> *> roots;
+    std::queue<TreeNode<T>*> q;
+    std::vector<TreeNode<T>*> roots;
 
-    if (to_delete.find(root->value) == to_delete.end()) {
+    if (to_delete.find(root->value) == to_delete.end())
+    {
         roots.push_back(root);
         q.push(root);
-    } else {
+    }
+    else
+    {
         // If root is to be deleted, handle its children first
-        if (root->left) {
-            if (to_delete.find(root->left->value) == to_delete.end()) {
+        if (root->left)
+        {
+            if (to_delete.find(root->left->value) == to_delete.end())
+            {
                 roots.push_back(root->left);
             }
             q.push(root->left);
         }
-        if (root->right) {
-            if (to_delete.find(root->right->value) == to_delete.end()) {
+        if (root->right)
+        {
+            if (to_delete.find(root->right->value) == to_delete.end())
+            {
                 roots.push_back(root->right);
             }
             q.push(root->right);
@@ -117,64 +134,84 @@ delete_nodes_return_forest_bfs_with_correct_deletion(TreeNode<T> *root, const st
         root = nullptr;
     }
 
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto current = q.front();
         q.pop();
 
         // Process the left child
-        if (current->left) {
-            if (to_delete.find(current->left->value) != to_delete.end()) {
+        if (current->left)
+        {
+            if (to_delete.find(current->left->value) != to_delete.end())
+            {
                 // If left child is to be deleted
-                if (current->left->left) {
+                if (current->left->left)
+                {
                     q.push(current->left->left);
-                    if (to_delete.find(current->left->left->value) == to_delete.end()) {
+                    if (to_delete.find(current->left->left->value) == to_delete.end())
+                    {
                         roots.push_back(current->left->left); // Add as new root if not marked for deletion
                     }
                 }
-                if (current->left->right) {
+                if (current->left->right)
+                {
                     q.push(current->left->right);
-                    if (to_delete.find(current->left->right->value) == to_delete.end()) {
+                    if (to_delete.find(current->left->right->value) == to_delete.end())
+                    {
                         roots.push_back(current->left->right); // Add as new root if not marked for deletion
                     }
                 }
                 delete current->left; // Delete the node
                 current->left = nullptr;
-            } else {
+            }
+            else
+            {
                 q.push(current->left);
-                if (to_delete.find(current->value) != to_delete.end()) {
+                if (to_delete.find(current->value) != to_delete.end())
+                {
                     roots.push_back(current->left); // Current is deleted, so child becomes a new root
                 }
             }
         }
 
         // Process the right child
-        if (current->right) {
-            if (to_delete.find(current->right->value) != to_delete.end()) {
+        if (current->right)
+        {
+            if (to_delete.find(current->right->value) != to_delete.end())
+            {
                 // If right child is to be deleted
-                if (current->right->left) {
+                if (current->right->left)
+                {
                     q.push(current->right->left);
-                    if (to_delete.find(current->right->left->value) == to_delete.end()) {
+                    if (to_delete.find(current->right->left->value) == to_delete.end())
+                    {
                         roots.push_back(current->right->left); // Add as new root if not marked for deletion
                     }
                 }
-                if (current->right->right) {
+                if (current->right->right)
+                {
                     q.push(current->right->right);
-                    if (to_delete.find(current->right->right->value) == to_delete.end()) {
+                    if (to_delete.find(current->right->right->value) == to_delete.end())
+                    {
                         roots.push_back(current->right->right); // Add as new root if not marked for deletion
                     }
                 }
                 delete current->right; // Delete the node
                 current->right = nullptr;
-            } else {
+            }
+            else
+            {
                 q.push(current->right);
-                if (to_delete.find(current->value) != to_delete.end()) {
+                if (to_delete.find(current->value) != to_delete.end())
+                {
                     roots.push_back(current->right); // Current is deleted, so child becomes a new root
                 }
             }
         }
 
         // Check and delete the current node if necessary (except root which is handled initially)
-        if (to_delete.find(current->value) != to_delete.end() && current != root) {
+        if (to_delete.find(current->value) != to_delete.end() && current != root)
+        {
             delete current;
         }
     }
@@ -182,4 +219,4 @@ delete_nodes_return_forest_bfs_with_correct_deletion(TreeNode<T> *root, const st
 }
 
 
-#endif //DATA_STRUCTURES_DELETE_NODES_RETURN_FOREST_H
+#endif // DATA_STRUCTURES_DELETE_NODES_RETURN_FOREST_H

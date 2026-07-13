@@ -2,8 +2,8 @@
 // Created by andreas on 27.12.23.
 //
 
-#include "gtest/gtest.h"
 #include "../../knapsack-like/number_of_dice_rolls_for_target.h"
+#include "gtest/gtest.h"
 
 TEST(TestNumberOfDiceRollsForTarget, simple1_bottom_up)
 {

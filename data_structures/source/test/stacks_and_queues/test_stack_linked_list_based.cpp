@@ -2,8 +2,8 @@
 // Created by andreas on 05.02.22.
 //
 
-#include "stacks_and_queues/stack_linked_list_based.h"
 #include "setup_stack.h"
+#include "stacks_and_queues/stack_linked_list_based.h"
 
 TEST_F(SetupStack, test_push_stack)
 {

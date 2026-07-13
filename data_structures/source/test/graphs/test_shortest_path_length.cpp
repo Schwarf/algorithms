@@ -1,8 +1,8 @@
 //
 // Created by andreas on 19.09.23.
 //
-#include "gtest/gtest.h"
 #include "graphs/shortest_path_length.h"
+#include "gtest/gtest.h"
 
 TEST(TestShortestPathLength, simple1)
 {

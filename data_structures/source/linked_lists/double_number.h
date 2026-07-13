@@ -4,9 +4,9 @@
 
 #ifndef SOURCE_ADD_TWO_NUMBERS_NORMAL_FROM_H
 #define SOURCE_ADD_TWO_NUMBERS_NORMAL_FROM_H
-#include "node.h"
 #include <concepts>
 #include <stack>
+#include "node.h"
 
 template <typename T>
     requires std::is_signed_v<T>
@@ -60,4 +60,4 @@ Node<T>* double_number(Node<T>* head)
     return head;
 }
 
-#endif //SOURCE_ADD_TWO_NUMBERS_NORMAL_FROM_H
+#endif // SOURCE_ADD_TWO_NUMBERS_NORMAL_FROM_H

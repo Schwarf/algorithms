@@ -9,15 +9,16 @@
 // need to pass through the root.
 // The path sum of a path is the sum of the node's values in the path.
 // Given the root of a binary tree, return the maximum path sum of any non-empty path.
-#include "tree_node.h"
-#include <climits>
 #include <algorithm>
+#include <climits>
+#include "tree_node.h"
 
-template<typename T>
-int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum);
+template <typename T>
+int sum_of_path_in_subtree(TreeNode<T>* node, int& max_sum);
 
-template<typename T>
-int max_path_sum(TreeNode<T> *root) {
+template <typename T>
+int max_path_sum(TreeNode<T>* root)
+{
     if (!root)
         return T{};
     int max_sum{INT_MIN};
@@ -25,8 +26,9 @@ int max_path_sum(TreeNode<T> *root) {
     return max_sum;
 }
 
-template<typename T>
-int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum) {
+template <typename T>
+int sum_of_path_in_subtree(TreeNode<T>* node, int& max_sum)
+{
     if (!node)
         return {};
     int path_sum_left = std::max(sum_of_path_in_subtree(node->left, max_sum), 0);
@@ -35,4 +37,4 @@ int sum_of_path_in_subtree(TreeNode<T> *node, int &max_sum) {
     return std::max(path_sum_left + node->value, path_sum_right + node->value);
 }
 
-#endif //MAXIMUM_PATH_SUM_H
+#endif // MAXIMUM_PATH_SUM_H

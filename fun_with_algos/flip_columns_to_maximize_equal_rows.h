@@ -8,22 +8,22 @@
 // You can choose any number of columns in the matrix and flip every cell in that column
 // (i.e., Change the value of the cell from 0 to 1 or vice versa).
 // Return the maximum number of rows that have all values equal after some number of flips.
-#include <vector>
 #include <algorithm>
+#include <vector>
 int maximize_equal_rows(std::vector<std::vector<int>>& matrix)
 {
     int max_identical_rows{};
-    for(auto & row : matrix)
+    for (auto& row : matrix)
     {
         auto flipped_row = row;
-        for(auto & column : flipped_row)
+        for (auto& column : flipped_row)
         {
             column = 1 - column;
         }
         int identical_rows{};
-        for(auto & other_row: matrix)
+        for (auto& other_row : matrix)
         {
-            if(flipped_row == other_row || row==other_row)
+            if (flipped_row == other_row || row == other_row)
                 identical_rows++;
         }
         max_identical_rows = std::max(max_identical_rows, identical_rows);
@@ -32,4 +32,4 @@ int maximize_equal_rows(std::vector<std::vector<int>>& matrix)
 }
 
 
-#endif //FLIP_COLUMNS_TO_MAXIMIZE_EQUAL_ROWS_H
+#endif // FLIP_COLUMNS_TO_MAXIMIZE_EQUAL_ROWS_H

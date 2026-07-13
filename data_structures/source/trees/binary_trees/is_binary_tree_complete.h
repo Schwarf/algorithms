@@ -6,14 +6,14 @@
 #define IS_BINARY_TREE_COMPLETE_H
 // Check if every level in a binary tree is filled except maybe the last one. A binary tree is called complete
 // if all levels are filled from left to right except maybe the last level. Check if a given binary tree is complete
-#include "tree_node.h"
 #include <queue>
+#include "tree_node.h"
 
 // Use breadth firtst search
 // Check if every level in a binary tree is filled except maybe the last one. A binary tree is called complete
 // if all levels are filled from left to right except maybe the last level. Check if a given binary tree is complete
-#include "tree_node.h"
 #include <queue>
+#include "tree_node.h"
 
 // Use breadth firtst search
 template <typename T>
@@ -69,4 +69,4 @@ bool is_tree_complete2(TreeNode<T>* root)
 }
 
 
-#endif //IS_BINARY_TREE_COMPLETE_H
+#endif // IS_BINARY_TREE_COMPLETE_H

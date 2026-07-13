@@ -4,12 +4,12 @@
 
 #ifndef DIVISION_METHOD_H
 #define DIVISION_METHOD_H
-#include "good_primes.h"
-#include "i_hash_function_for_strings.h"
 #include <fstream>
 #include <sstream>
-#include <vector>
 #include <string>
+#include <vector>
+#include "good_primes.h"
+#include "i_hash_function_for_strings.h"
 
 template <size_t expected_number_of_entries, size_t base_number>
 class DivisionHashing : public IHashFunction
@@ -60,10 +60,7 @@ public:
         return convert_string_to_hashable_value_(string) % modulo_prime_;
     }
 
-    size_t prime_number() const final
-    {
-        return modulo_prime_;
-    }
+    size_t prime_number() const final { return modulo_prime_; }
 
 private:
     size_t modulo_prime_{};
@@ -71,4 +68,4 @@ private:
 };
 
 
-#endif //DIVISION_METHOD_H
+#endif // DIVISION_METHOD_H

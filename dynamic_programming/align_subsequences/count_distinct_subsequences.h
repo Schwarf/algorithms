@@ -36,7 +36,6 @@ int count_distinct_subsequences(const std::string& source, const std::string& ta
         }
     }
     return dp[n_t][n_s];
-
 }
 
-#endif //ALGORITHMS_COUNT_DISTINCT_SUBSEQUENCES_H
+#endif // ALGORITHMS_COUNT_DISTINCT_SUBSEQUENCES_H

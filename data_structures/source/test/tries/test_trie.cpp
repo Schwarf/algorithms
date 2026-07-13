@@ -71,7 +71,7 @@ TEST(TestTrie, CaseSensitivity)
     Trie<128> trie;
     trie.insert("Hello");
     EXPECT_TRUE(trie.search("Hello"));
-    EXPECT_FALSE(trie.search("hello"));  // Different character code
+    EXPECT_FALSE(trie.search("hello")); // Different character code
 }
 
 TEST(TestTrie, EmptyString)
@@ -79,7 +79,7 @@ TEST(TestTrie, EmptyString)
     Trie<128> trie;
     trie.insert("");
     EXPECT_TRUE(trie.search(""));
-    EXPECT_TRUE(trie.prefix(""));  // Every string starts with ""
+    EXPECT_TRUE(trie.prefix("")); // Every string starts with ""
     trie.remove("");
     EXPECT_FALSE(trie.search(""));
 }
@@ -116,7 +116,7 @@ TEST(TestTrie, RemoveNonExistent)
 {
     Trie<128> trie;
     trie.insert("apple");
-    trie.remove("banana");  // Should not crash
+    trie.remove("banana"); // Should not crash
     EXPECT_TRUE(trie.search("apple"));
 }
 
@@ -188,7 +188,7 @@ TEST(TestTrieMinimal, CaseSensitivity)
     TrieMinimal trie;
     trie.insert("Hello");
     EXPECT_TRUE(trie.search("Hello"));
-    EXPECT_FALSE(trie.search("hello"));  // Different character code
+    EXPECT_FALSE(trie.search("hello")); // Different character code
 }
 
 TEST(TestTrieMinimal, EmptyString)
@@ -196,7 +196,7 @@ TEST(TestTrieMinimal, EmptyString)
     TrieMinimal trie;
     trie.insert("");
     EXPECT_TRUE(trie.search(""));
-    EXPECT_TRUE(trie.starts_with(""));  // Every string starts with ""
+    EXPECT_TRUE(trie.starts_with("")); // Every string starts with ""
     trie.remove("");
     EXPECT_FALSE(trie.search(""));
 }
@@ -233,6 +233,6 @@ TEST(TestTrieMinimal, RemoveNonExistent)
 {
     TrieMinimal trie;
     trie.insert("apple");
-    trie.remove("banana");  // Should not crash
+    trie.remove("banana"); // Should not crash
     EXPECT_TRUE(trie.search("apple"));
 }

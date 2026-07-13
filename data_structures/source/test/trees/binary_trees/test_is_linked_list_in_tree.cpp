@@ -2,9 +2,9 @@
 // Created by andreas on 07.09.24.
 //
 
-#include "trees/binary_trees/is_linked_list_in_tree.h"
-#include "setup_binary_tree.h"
 #include "./../../linked_lists/setup_singly_linked_lists.h"
+#include "setup_binary_tree.h"
+#include "trees/binary_trees/is_linked_list_in_tree.h"
 
 class SetupBinaryTreesAndLinkedLists : public SetupSinglyLinkedLists, public SetupBinaryTree
 {
@@ -54,7 +54,8 @@ TEST_F(SetupBinaryTreesAndLinkedLists, TestIsLinkedListInTreeSimple4)
 
 TEST_F(SetupBinaryTreesAndLinkedLists, TestIsLinkedListInTreeSimple5)
 {
-    auto list_head = get_single_list_from_vector(std::vector<int>{1, 2, 5, 10});;
+    auto list_head = get_single_list_from_vector(std::vector<int>{1, 2, 5, 10});
+    ;
     TreeNode<int>* tree = nullptr;
     EXPECT_FALSE(is_linked_list_in_tree(list_head, tree));
 }

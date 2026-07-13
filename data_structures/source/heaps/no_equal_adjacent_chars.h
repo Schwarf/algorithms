@@ -6,9 +6,9 @@
 #define NO_SAME_ADJACENT_CHARS_H
 // Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.
 // Return any possible rearrangement of s or return "" if not possible.
+#include <queue>
 #include <string>
 #include <vector>
-#include <queue>
 
 std::string no_equal_adjacent_chars(const std::string& s)
 {
@@ -53,4 +53,4 @@ std::string no_equal_adjacent_chars(const std::string& s)
     return result;
 }
 
-#endif //NO_SAME_ADJACENT_CHARS_H
+#endif // NO_SAME_ADJACENT_CHARS_H

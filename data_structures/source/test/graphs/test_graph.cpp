@@ -1,8 +1,8 @@
 //
 // Created by andreas on 30.12.22.
 //
-#include "gtest/gtest.h"
 #include "graphs/graph.h"
+#include "gtest/gtest.h"
 
 class SetupGraph : public testing::Test
 {
@@ -247,8 +247,7 @@ TEST_F(SetupGraph, constructor)
     constexpr int expected_number_of_nodes{8};
     DirectedGraph<int> digraph{
         {1, 2, 3, 4, 5, 6, 7, 8},
-        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}
-    };
+        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}};
     EXPECT_EQ(digraph.get_edge_count(), expected_number_of_edges);
     EXPECT_EQ(digraph.get_node_count(), expected_number_of_nodes);
     EXPECT_EQ(digraph.get_neighbors(1).size(), 1);
@@ -276,9 +275,7 @@ TEST_F(SetupGraph, get_neighbors_max_one_edge_between_nodes)
 
 TEST_F(SetupGraph, get_neighbors_up_to_two_edges)
 {
-    DirectedGraph<int> digraph{
-        {1, 2, 3, 4, 5, 6}, {{2, 1}, {2, 4}, {3, 1}, {3, 4}, {3, 6}, {4, 1}, {4, 2}}
-    };
+    DirectedGraph<int> digraph{{1, 2, 3, 4, 5, 6}, {{2, 1}, {2, 4}, {3, 1}, {3, 4}, {3, 6}, {4, 1}, {4, 2}}};
     EXPECT_EQ(digraph.get_neighbors(1).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(2).size(), 2);
     EXPECT_EQ(digraph.get_neighbors(3).size(), 3);
@@ -287,7 +284,7 @@ TEST_F(SetupGraph, get_neighbors_up_to_two_edges)
     EXPECT_EQ(digraph.get_neighbors(6).size(), 0);
     EXPECT_EQ(digraph.get_neighbors(2), (std::vector<int>{1, 4}));
     EXPECT_EQ(digraph.get_neighbors(3), (std::vector<int>{1, 4, 6}));
-    EXPECT_EQ(digraph.get_neighbors(4), (std::vector<int>{1,2}));
+    EXPECT_EQ(digraph.get_neighbors(4), (std::vector<int>{1, 2}));
 }
 
 
@@ -302,8 +299,7 @@ TEST_F(SetupGraph, constructor_undirected)
     constexpr int expected_number_of_nodes{8};
     UndirectedGraph<int> graph{
         {1, 2, 3, 4, 5, 6, 7, 8},
-        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}
-    };
+        {{1, 2}, {2, 3}, {2, 8}, {3, 4}, {3, 7}, {4, 5}, {5, 3}, {5, 6}, {7, 4}, {7, 6}, {8, 1}, {8, 7}}};
     EXPECT_EQ(graph.get_edge_count(), expected_number_of_edges);
     EXPECT_EQ(graph.get_node_count(), expected_number_of_nodes);
     EXPECT_EQ(graph.get_neighbors(1).size(), 2);

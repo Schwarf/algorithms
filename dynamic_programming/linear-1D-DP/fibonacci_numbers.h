@@ -5,11 +5,12 @@
 #ifndef FIBONACCI_NUMBERS_H
 #define FIBONACCI_NUMBERS_H
 
-#include <stdexcept>
 #include <array>
+#include <stdexcept>
 
 // Compute the nth fibonacci number at runtime
-unsigned long long n_th_fibonacci_number(int n) {
+unsigned long long n_th_fibonacci_number(int n)
+{
     if (n > 50)
         throw std::out_of_range("We only compute fibonacci numbers up to 50");
 
@@ -22,7 +23,8 @@ unsigned long long n_th_fibonacci_number(int n) {
 }
 
 // Compute fibonacci numbers at compile time.
-constexpr std::array<unsigned long long, 51> first_50_fibonacci_numbers() {
+constexpr std::array<unsigned long long, 51> first_50_fibonacci_numbers()
+{
     constexpr int N{51};
     std::array<unsigned long long, N> result{};
     result[0] = 0;
@@ -32,4 +34,4 @@ constexpr std::array<unsigned long long, 51> first_50_fibonacci_numbers() {
     return result;
 }
 
-#endif //FIBONACCI_NUMBERS_H
+#endif // FIBONACCI_NUMBERS_H

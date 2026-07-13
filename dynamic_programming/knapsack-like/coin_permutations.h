@@ -13,19 +13,20 @@
 // NOTE for the bottom-up solution see the difference between permutations and combinations (see coin_combinations.h)
 #include <vector>
 
-int coin_permutations(const std::vector<int>& coins, int amount) {
-    std::vector<long> dp(amount+1);
-    dp[0] =1;
-    for(int t{1}; t <= amount; ++t)
+int coin_permutations(const std::vector<int>& coins, int amount)
+{
+    std::vector<long> dp(amount + 1);
+    dp[0] = 1;
+    for (int t{1}; t <= amount; ++t)
     {
-        for(const auto n: coins)
+        for (const auto n : coins)
         {
-            if(n <= t)
-                dp[t] += dp[t-n];
+            if (n <= t)
+                dp[t] += dp[t - n];
         }
     }
     return dp[amount];
 }
 
 
-#endif //ALGORITHMS_COIN_PERMUTATIONS_H
+#endif // ALGORITHMS_COIN_PERMUTATIONS_H

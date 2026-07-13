@@ -9,16 +9,13 @@
 // I also provide the coordinates of a source and a target tile.
 // Now I want to check if I can reach the target tile and if so in how many steps given that
 // I can move up,down,left and right. If it is not possible return -1.
-#include <vector>
+#include <cmath>
 #include <queue>
 #include <tuple>
-#include <cmath>
+#include <vector>
 
 
-int manhattan_distance(int x1, int y1, int x2, int y2)
-{
-    return std::abs(x1 - x2) + abs(y1 - y2);
-}
+int manhattan_distance(int x1, int y1, int x2, int y2) { return std::abs(x1 - x2) + abs(y1 - y2); }
 
 // AStar
 int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& grid, std::pair<int, int> source,
@@ -67,7 +64,6 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
                 int heuristic = manhattan_distance(new_row, new_column, target_row, target_column);
                 visited[new_row][new_column] = true;
                 pq.emplace(new_steps + heuristic, new_steps, new_row, new_column);
-
             }
         }
     }
@@ -77,8 +73,7 @@ int shortest_path_in_grid_with_obstacles(const std::vector<std::vector<int>>& gr
 
 // BFS
 int shortest_path_in_grid_with_obstacles_bfs(const std::vector<std::vector<int>>& grid,
-                                             const std::pair<int, int>& start,
-                                             const std::pair<int, int>& end)
+                                             const std::pair<int, int>& start, const std::pair<int, int>& end)
 {
     int rows = grid.size();
     if (rows == 0)
@@ -116,10 +111,8 @@ int shortest_path_in_grid_with_obstacles_bfs(const std::vector<std::vector<int>>
         {
             int new_row = row + x;
             int new_column = column + y;
-            if (new_row >= 0 && new_row < rows &&
-                new_column >= 0 && new_column < columns &&
-                !visited[new_row][new_column] &&
-                grid[new_row][new_column] == 0)
+            if (new_row >= 0 && new_row < rows && new_column >= 0 && new_column < columns &&
+                !visited[new_row][new_column] && grid[new_row][new_column] == 0)
             {
                 visited[new_row][new_column] = true;
                 q.emplace(new_row, new_column, steps + 1);
@@ -131,4 +124,4 @@ int shortest_path_in_grid_with_obstacles_bfs(const std::vector<std::vector<int>>
 }
 
 
-#endif //SHORTEST_PATH_IN_GRID_WITH_OBSTACLES_H
+#endif // SHORTEST_PATH_IN_GRID_WITH_OBSTACLES_H

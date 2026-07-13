@@ -19,10 +19,7 @@ class Trie
     };
 
 public:
-    Trie()
-    {
-        root_ = get_new_node();
-    }
+    Trie() { root_ = get_new_node(); }
 
     void insert(const std::string& key)
     {
@@ -118,8 +115,10 @@ private:
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class TrieMinimal {
-    struct TrieNode {
+class TrieMinimal
+{
+    struct TrieNode
+    {
         std::unordered_map<char, TrieNode*> children;
         bool is_end_of_word = false;
     };
@@ -127,23 +126,26 @@ class TrieMinimal {
     TrieNode* root;
 
 public:
-    TrieMinimal() {
-        root = new TrieNode();
-    }
+    TrieMinimal() { root = new TrieNode(); }
 
-    bool starts_with(const std::string& prefix) {
+    bool starts_with(const std::string& prefix)
+    {
         TrieNode* node = root;
-        for (char c : prefix) {
-            if (!node->children.count(c)) return false;
+        for (char c : prefix)
+        {
+            if (!node->children.count(c))
+                return false;
             node = node->children[c];
         }
         return true;
     }
 
     // Insert a word into the Trie
-    void insert(const std::string& word) {
+    void insert(const std::string& word)
+    {
         TrieNode* node = root;
-        for (char c : word) {
+        for (char c : word)
+        {
             if (!node->children[c])
                 node->children[c] = new TrieNode();
             node = node->children[c];
@@ -152,22 +154,22 @@ public:
     }
 
     // Search for a full word in the Trie
-    bool search(const std::string& word) const {
+    bool search(const std::string& word) const
+    {
         TrieNode* node = find_node(word);
         return node != nullptr && node->is_end_of_word;
     }
 
 
-
-    void remove(const std::string& word) {
-        remove(root, word, 0);
-    }
+    void remove(const std::string& word) { remove(root, word, 0); }
 
 private:
     // Helper to traverse to the node representing the end of a prefix/word
-    TrieNode* find_node(const std::string& s) const {
+    TrieNode* find_node(const std::string& s) const
+    {
         TrieNode* node = root;
-        for (char c : s) {
+        for (char c : s)
+        {
             if (!node->children.count(c))
                 return nullptr;
             node = node->children.at(c);
@@ -175,15 +177,18 @@ private:
         return node;
     }
 
-    TrieNode* remove(TrieNode* node, const std::string& word, size_t depth) {
+    TrieNode* remove(TrieNode* node, const std::string& word, size_t depth)
+    {
         if (!node)
             return nullptr;
 
-        if (depth == word.size()) {
+        if (depth == word.size())
+        {
             if (node->is_end_of_word)
                 node->is_end_of_word = false;
 
-            if (node->children.empty()) {
+            if (node->children.empty())
+            {
                 delete node;
                 return nullptr;
             }
@@ -193,7 +198,8 @@ private:
         char c = word[depth];
         node->children[c] = remove(node->children[c], word, depth + 1);
 
-        if (node->children.empty() && !node->is_end_of_word) {
+        if (node->children.empty() && !node->is_end_of_word)
+        {
             delete node;
             return nullptr;
         }
@@ -202,4 +208,4 @@ private:
 };
 
 
-#endif //TRIE_H
+#endif // TRIE_H

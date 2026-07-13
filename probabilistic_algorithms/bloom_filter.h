@@ -12,8 +12,8 @@ template <std::size_t NumberOfBits, std::size_t ExpectedInsertions, typename Val
 class BloomFilter
 {
 private:
-    static constexpr std::size_t k = static_cast<std::size_t>((NumberOfBits / static_cast<double>(ExpectedInsertions)) *
-        std::numbers::ln2);
+    static constexpr std::size_t k =
+        static_cast<std::size_t>((NumberOfBits / static_cast<double>(ExpectedInsertions)) * std::numbers::ln2);
     std::bitset<NumberOfBits> bitset;
 
     // SplitMix64: https://en.wikipedia.org/wiki/Linear_congruential_generator
@@ -51,11 +51,8 @@ public:
         return true;
     }
 
-    void clear() {
-       bitset.reset();
-    }
+    void clear() { bitset.reset(); }
 };
 
 
-
-#endif //BLOOM_FILTER_H
+#endif // BLOOM_FILTER_H

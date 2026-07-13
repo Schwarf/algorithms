@@ -11,14 +11,14 @@ int count_odd_subarray_sums_brute_force(const std::vector<int>& input)
 {
     constexpr int mod{1000000007};
     int count{};
-    for(int i{}; i < input.size(); i++)
+    for (int i{}; i < input.size(); i++)
     {
         int sum{};
-        for(int j{i}; j < input.size(); j++)
+        for (int j{i}; j < input.size(); j++)
         {
-          sum += input[j];
-          if(sum & 1)
-            count++;
+            sum += input[j];
+            if (sum & 1)
+                count++;
         }
         count %= mod;
     }
@@ -26,23 +26,27 @@ int count_odd_subarray_sums_brute_force(const std::vector<int>& input)
 }
 
 
-
-int count_odd_subarray_sums(std::vector<int>& input) {
+int count_odd_subarray_sums(std::vector<int>& input)
+{
     constexpr int mod = 1e9 + 7;
     int count{};
     int prefix_sum{};
     int oddCount{};
     int evenCount{1};
 
-    for (const auto value : input) {
+    for (const auto value : input)
+    {
         prefix_sum += value;
         // If current prefix sum is odd, add the number of even
         // subarrays
-        if ( prefix_sum & 1) {
+        if (prefix_sum & 1)
+        {
             count += evenCount;
             oddCount++;
-        } else {
-        // If current prefix sum is even, add the number of odd subarrays
+        }
+        else
+        {
+            // If current prefix sum is even, add the number of odd subarrays
             count += oddCount;
             evenCount++;
         }
@@ -52,4 +56,4 @@ int count_odd_subarray_sums(std::vector<int>& input) {
 
     return count;
 }
-#endif //COUNT_SUBARRAYS_WITH_ODD_SUM_H
+#endif // COUNT_SUBARRAYS_WITH_ODD_SUM_H

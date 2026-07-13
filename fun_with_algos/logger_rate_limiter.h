@@ -10,16 +10,18 @@
 // Given a message and a timestamp (in seconds granularity), return true if the
 // message should be printed in the given timestamp, otherwise returns false.
 // It is possible that several messages arrive roughly at the same time.
-#include <unordered_map>
-#include <string>
 #include <deque>
+#include <string>
+#include <unordered_map>
 #include <unordered_set>
 
-class Logger {
+class Logger
+{
 public:
     Logger() = default;
 
-    bool shall_print_message(int timestamp, const std::string &message) {
+    bool shall_print_message(int timestamp, const std::string& message)
+    {
         // if unordered_map is empty it returns default constructed int
         if (timestamp < last_messages[message])
             return false;
@@ -29,16 +31,18 @@ public:
 
 private:
     std::unordered_map<std::string, int> last_messages;
-
 };
 
-class LoggerOnly10Seconds {
+class LoggerOnly10Seconds
+{
 public:
     explicit LoggerOnly10Seconds() = default;
 
-    bool shall_print_message(int timestamp, const std::string &message) {
+    bool shall_print_message(int timestamp, const std::string& message)
+    {
         // Remove messages older than 10 seconds
-        while (!message_queue.empty()) {
+        while (!message_queue.empty())
+        {
             const auto [old_timestamp, old_message] = message_queue.front();
             if (timestamp < old_timestamp + 10)
                 break;
@@ -55,8 +59,7 @@ public:
 private:
     std::deque<std::pair<int, std::string>> message_queue;
     std::unordered_set<std::string> messages;
-
 };
 
 
-#endif //FUN_WITH_ALGOS_LOGGER_RATE_LIMITER_H
+#endif // FUN_WITH_ALGOS_LOGGER_RATE_LIMITER_H

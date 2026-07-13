@@ -1,8 +1,8 @@
 //
 // Created by andreas on 21.06.25.
 //
-#include "heaps/k_frequent_elements.h"
 #include "gtest/gtest.h"
+#include "heaps/k_frequent_elements.h"
 
 TEST(TestKFrequentElements, simple1)
 {

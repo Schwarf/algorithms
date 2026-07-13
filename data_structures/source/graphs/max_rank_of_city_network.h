@@ -4,9 +4,9 @@
 
 #ifndef MAX_RANK_OF_CITY_NETWORK_H
 #define MAX_RANK_OF_CITY_NETWORK_H
+#include <algorithm>
 #include <concepts>
 #include <vector>
-#include <algorithm>
 // There is an infrastructure of n cities with some number of roads connecting these cities.
 // Each roads[i] = [ai, bi] indicates that there is a bidirectional road between cities ai and bi.
 // The network rank of two different cities is defined as the total number of directly connected roads to either city.
@@ -41,4 +41,4 @@ int compute_network_rank(int number_of_cities, const std::vector<std::vector<T>>
     }
     return max_rank;
 }
-#endif //MAX_RANK_OF_CITY_NETWORK_H
+#endif // MAX_RANK_OF_CITY_NETWORK_H

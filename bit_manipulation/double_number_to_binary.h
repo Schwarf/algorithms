@@ -38,4 +38,4 @@ std::string double_number_to_binary(double number)
     return result;
 }
 
-#endif //DOUBLE_NUMBER_TO_BINARY_H
+#endif // DOUBLE_NUMBER_TO_BINARY_H

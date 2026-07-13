@@ -4,9 +4,9 @@
 
 #ifndef LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
 #define LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
+#include <algorithm>
 #include <unordered_set>
 #include <vector>
-#include <algorithm>
 
 // You are given an array of positive integers nums and want to erase a subarray containing unique elements.
 // The score you get by erasing the subarray is equal to the sum of its elements.
@@ -20,32 +20,32 @@
 // 1 <= nums[i] <= 10^4
 
 template <typename T>
-int sum_longest_subarray_with_unique_elements(std::vector<T> & input)
+int sum_longest_subarray_with_unique_elements(std::vector<T>& input)
 {
-	if(input.empty())
-		return 0;
-	std::unordered_set<int> help;
-	int left{};
-	int right{};
-	T sum{};
-	T max_sum{};
-	while(right < input.size())
-	{
-		// If the element has been seen already, we increase left and subtract the element form the sum
-		// e.g. 1(left),2,3,1(right)  the first one is removed and left advanced
-		while(help.find(input[right]) != help.end())
-		{
-			help.erase(input[left]);
-			sum -= input[left];
-			left++;
-		}
-		// Each element is added and tracked.
-		sum += input[right];
-		help.insert(input[right]);
-		right++;
-		max_sum = std::max(max_sum, sum);
-	}
-	return max_sum;
+    if (input.empty())
+        return 0;
+    std::unordered_set<int> help;
+    int left{};
+    int right{};
+    T sum{};
+    T max_sum{};
+    while (right < input.size())
+    {
+        // If the element has been seen already, we increase left and subtract the element form the sum
+        // e.g. 1(left),2,3,1(right)  the first one is removed and left advanced
+        while (help.find(input[right]) != help.end())
+        {
+            help.erase(input[left]);
+            sum -= input[left];
+            left++;
+        }
+        // Each element is added and tracked.
+        sum += input[right];
+        help.insert(input[right]);
+        right++;
+        max_sum = std::max(max_sum, sum);
+    }
+    return max_sum;
 }
 
-#endif //LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H
+#endif // LONGEST_SUBARRAY_WITH_UNIQUE_ELEMENTS_H

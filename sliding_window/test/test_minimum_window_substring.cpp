@@ -6,48 +6,48 @@
 
 TEST(TestMinimumWindowSubstring, simple1)
 {
-  std::string s{"ADOBECODEBANC"};
-  std::string t{"ABC"};
-  const std::string expected_result{"BANC"};
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{"ADOBECODEBANC"};
+    std::string t{"ABC"};
+    const std::string expected_result{"BANC"};
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
 
 TEST(TestMinimumWindowSubstring, simple2)
 {
-  std::string s{"a"};
-  std::string t{"a"};
-  const std::string expected_result{"a"};
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{"a"};
+    std::string t{"a"};
+    const std::string expected_result{"a"};
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
 
 TEST(TestMinimumWindowSubstring, simple3)
 {
-  std::string s{"bb"};
-  std::string t{"a"};
-  const std::string expected_result;
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{"bb"};
+    std::string t{"a"};
+    const std::string expected_result;
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
 
 TEST(TestMinimumWindowSubstring, s_empty)
 {
-  std::string s{""};
-  std::string t{"a"};
-  const std::string expected_result;
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{""};
+    std::string t{"a"};
+    const std::string expected_result;
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
 
 TEST(TestMinimumWindowSubstring, t_empty)
 {
-  std::string s{"asada"};
-  std::string t{""};
-  const std::string expected_result;
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{"asada"};
+    std::string t{""};
+    const std::string expected_result;
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }
 
 TEST(TestMinimumWindowSubstring, t_longer_than_s)
 {
-  std::string s{"aa"};
-  std::string t{"aaa"};
-  const std::string expected_result;
-  EXPECT_EQ(minimum_window_substring(s, t), expected_result);
+    std::string s{"aa"};
+    std::string t{"aaa"};
+    const std::string expected_result;
+    EXPECT_EQ(minimum_window_substring(s, t), expected_result);
 }

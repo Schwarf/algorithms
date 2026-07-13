@@ -14,23 +14,24 @@
 // Note that you can apply the operation to each index only once.
 // A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none)
 // without changing the order of the remaining elements.
-#include <vector>
 #include <algorithm>
+#include <vector>
 
-int max_beauty(std::vector<int>& input, int k) {
+int max_beauty(std::vector<int>& input, int k)
+{
     std::sort(input.begin(), input.end());
     int max_size{};
     int n = input.size();
     int right{};
-    for(int left{}; left < n; ++left)
+    for (int left{}; left < n; ++left)
     {
-        while(right < n && input[right]-input[left] <= 2*k)
+        while (right < n && input[right] - input[left] <= 2 * k)
         {
             right++;
         }
-        max_size =std::max(max_size, right-left);
+        max_size = std::max(max_size, right - left);
     }
     return max_size;
 }
 
-#endif //EQUALIZE_ELEMENTS_IN_ARRAY_H
+#endif // EQUALIZE_ELEMENTS_IN_ARRAY_H

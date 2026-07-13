@@ -2,8 +2,8 @@
 // Created by andreas on 30.12.22.
 //
 
-#include "gtest/gtest.h"
 #include "graphs/is_bipartition_possible.h"
+#include "gtest/gtest.h"
 
 class SetupBiPartitionPossible : public testing::Test
 {
@@ -71,22 +71,12 @@ TEST_F(SetupBiPartitionPossible, test_negative_erase_positive)
 
 TEST(BiPartitionPossibleVectorInput, test_simple_false)
 {
-    std::vector<std::vector<unsigned short>> input{
-        {1, 2, 3},
-        {0, 2},
-        {0, 1, 3},
-        {0, 2}
-    };
+    std::vector<std::vector<unsigned short>> input{{1, 2, 3}, {0, 2}, {0, 1, 3}, {0, 2}};
     EXPECT_FALSE(is_bi_partition_possible(input));
 }
 
 TEST(BiPartitionPossibleVectorInput, test_simple_true)
 {
-    std::vector<std::vector<unsigned short>> input{
-        {1, 3},
-        {0, 2},
-        {1, 3},
-        {0, 2}
-    };
+    std::vector<std::vector<unsigned short>> input{{1, 3}, {0, 2}, {1, 3}, {0, 2}};
     EXPECT_TRUE(is_bi_partition_possible(input));
 }

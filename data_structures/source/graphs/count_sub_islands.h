@@ -9,21 +9,16 @@
 // Any cells outside of the grid are considered water cells.
 // An island in grid2 is considered a sub-island if there is an island in grid1 that contains all
 // the cells that make up this island in grid2.  Return the number of islands in grid2 that are considered sub-islands.
-#include <vector>
 #include <queue>
 #include <stack>
+#include <vector>
 
 bool bfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& grid2,
          std::vector<std::vector<bool>>& visited, int row, int col)
 {
     int rows = grid1.size();
     int columns = grid1[0].size();
-    int directions[4][2] = {
-        {0, 1},
-        {1, 0},
-        {0, -1},
-        {-1, 0}
-    };
+    int directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     visited[row][col] = true;
     std::queue<std::pair<int, int>> q;
     q.emplace(row, col);
@@ -39,8 +34,7 @@ bool bfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& gr
         {
             int x = c_row + direction[0];
             int y = c_col + direction[1];
-            if (x > -1 && y > -1 && x < rows && y < columns &&
-                !visited[x][y] && grid2[x][y])
+            if (x > -1 && y > -1 && x < rows && y < columns && !visited[x][y] && grid2[x][y])
             {
                 q.emplace(x, y);
                 visited[x][y] = true;
@@ -78,12 +72,7 @@ bool dfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& gr
 {
     int rows = grid1.size();
     int columns = grid1[0].size();
-    int directions[4][2] = {
-        {0, 1},
-        {1, 0},
-        {0, -1},
-        {-1, 0}
-    };
+    int directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     visited[row][col] = true;
     std::stack<std::pair<int, int>> q;
     q.emplace(row, col);
@@ -99,8 +88,7 @@ bool dfs(std::vector<std::vector<int>>& grid1, std::vector<std::vector<int>>& gr
         {
             int x = c_row + direction[0];
             int y = c_col + direction[1];
-            if (x > -1 && y > -1 && x < rows && y < columns &&
-                !visited[x][y] && grid2[x][y])
+            if (x > -1 && y > -1 && x < rows && y < columns && !visited[x][y] && grid2[x][y])
             {
                 q.emplace(x, y);
                 visited[x][y] = true;
@@ -132,4 +120,4 @@ int count_sub_islands_dfs(std::vector<std::vector<int>>& grid1, std::vector<std:
     return count;
 }
 
-#endif //DATA_STRUCTURES_COUNT_SUB_ISLANDS_H
+#endif // DATA_STRUCTURES_COUNT_SUB_ISLANDS_H

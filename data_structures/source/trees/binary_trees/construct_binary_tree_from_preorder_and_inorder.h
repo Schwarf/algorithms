@@ -5,9 +5,9 @@
 #ifndef CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
 #define CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
 
+#include <unordered_map>
 #include <vector>
 #include "tree_node.h"
-#include <unordered_map>
 
 /*
 
@@ -26,21 +26,19 @@ subtrees.
 
 Algorithm
 
-- Build a hashmap to record the relation of value -> index for inorder, so that we can find the position of root in constant time.
+- Build a hashmap to record the relation of value -> index for inorder, so that we can find the position of root in
+constant time.
 - Initialize an integer variable preorderIndex to keep track of the element that will be used to construct the root.
 - Implement the recursion function constructTree which takes a range of inorder and returns the constructed binary tree:
-	- if the range is empty, return null;
-	- initialize the root with preorder[preorderIndex] and then increment preorderIndex;
-	- recursively use the left and right portions of inorder to construct the left and right subtrees.
+    - if the range is empty, return null;
+    - initialize the root with preorder[preorderIndex] and then increment preorderIndex;
+    - recursively use the left and right portions of inorder to construct the left and right subtrees.
 - Simply call the recursion function with the entire range of inorder.
 */
 
 template <typename T>
-TreeNode<T>* construct_tree(std::vector<T>& preorder,
-                            int left_in_order_index,
-                            int right_in_order_index,
-                            int& pre_order_index,
-                            std::unordered_map<T, int>& inorder_value_to_index)
+TreeNode<T>* construct_tree(std::vector<T>& preorder, int left_in_order_index, int right_in_order_index,
+                            int& pre_order_index, std::unordered_map<T, int>& inorder_value_to_index)
 {
     if (left_in_order_index > right_in_order_index)
         return nullptr;
@@ -48,15 +46,9 @@ TreeNode<T>* construct_tree(std::vector<T>& preorder,
     auto root = new TreeNode<T>(root_value);
     // split inorder array into left and right subtrees
     const int current_root_in_order_index = inorder_value_to_index[root_value];
-    root->left = construct_tree(preorder,
-                                left_in_order_index,
-                                current_root_in_order_index - 1,
-                                pre_order_index,
+    root->left = construct_tree(preorder, left_in_order_index, current_root_in_order_index - 1, pre_order_index,
                                 inorder_value_to_index);
-    root->right = construct_tree(preorder,
-                                 current_root_in_order_index + 1,
-                                 right_in_order_index,
-                                 pre_order_index,
+    root->right = construct_tree(preorder, current_root_in_order_index + 1, right_in_order_index, pre_order_index,
                                  inorder_value_to_index);
     return root;
 }
@@ -76,4 +68,4 @@ TreeNode<T>* construct_from_preorder_and_inorder(std::vector<T>& pre_order, std:
     return construct_tree(pre_order, 0, pre_order.size() - 1, pre_order_index, inorder_value_to_index);
 }
 
-#endif //CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H
+#endif // CONSTRUCT_BINARY_TREE_FROM_PREORDER_AND_INORDER_H

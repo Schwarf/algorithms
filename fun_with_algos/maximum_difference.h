@@ -4,10 +4,10 @@
 
 #ifndef MAXIMUM_DIFFERENCE_H
 #define MAXIMUM_DIFFERENCE_H
-// Given a 0-indexed integer array nums of size n, find the maximum difference between nums[i] and nums[j] (i.e., nums[j] - nums[i]),
-// such that 0 <= i < j < n and nums[i] < nums[j].
-#include <vector>
+// Given a 0-indexed integer array nums of size n, find the maximum difference between nums[i] and nums[j] (i.e.,
+// nums[j] - nums[i]), such that 0 <= i < j < n and nums[i] < nums[j].
 #include <algorithm>
+#include <vector>
 
 int maximum_difference(std::vector<int>& input)
 {
@@ -22,4 +22,4 @@ int maximum_difference(std::vector<int>& input)
     }
     return result;
 }
-#endif //MAXIMUM_DIFFERENCE_H
+#endif // MAXIMUM_DIFFERENCE_H

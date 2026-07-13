@@ -11,18 +11,22 @@
 // Only lowercase english characters are in the string.
 // #GREEDY
 #include <string>
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
-int minimum_deletions(const std::string &input) {
+int minimum_deletions(const std::string& input)
+{
     std::vector<int> frequencies(26, 0);
-    for (const auto &c: input)
+    for (const auto& c : input)
         frequencies[c - 'a']++;
     std::unordered_set<int> frequency_count;
     int deletions{};
-    for (auto &frequency: frequencies) {
-        if (frequency > 0) {
-            while (frequency > 0 && frequency_count.find(frequency) != frequency_count.end()) {
+    for (auto& frequency : frequencies)
+    {
+        if (frequency > 0)
+        {
+            while (frequency > 0 && frequency_count.find(frequency) != frequency_count.end())
+            {
                 deletions++;
                 frequency--;
             }
@@ -33,4 +37,4 @@ int minimum_deletions(const std::string &input) {
     return deletions;
 }
 
-#endif //MINIMUM_DELETIONS_FOR_UNIQUE_CHARACTER_FREQUENCIES_H
+#endif // MINIMUM_DELETIONS_FOR_UNIQUE_CHARACTER_FREQUENCIES_H

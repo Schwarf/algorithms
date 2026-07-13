@@ -21,75 +21,84 @@
 //
 // If we call void pushback(int n) but the array is full, we should resize the
 // array first.
-#include <stdexcept>
 #include <concepts>
+#include <stdexcept>
 
 template <typename T>
-requires std::is_default_constructible_v<T>
-class DynamicArray {
-  T *array;
-  int size{};
-  int capacity{};
+    requires std::is_default_constructible_v<T>
+class DynamicArray
+{
+    T* array;
+    int size{};
+    int capacity{};
 
 public:
-  explicit DynamicArray(int capa) : size(), capacity(capa) {
-    if (capa <= 0)
-      throw std::invalid_argument("capacity must be > 0");
-    array = new T[capacity];
-  }
-
-  DynamicArray(const DynamicArray &other) = delete;
-  DynamicArray &operator=(const DynamicArray &other) = delete;
-  ~DynamicArray() { delete[] array; }
-
-  T &get(int i) {
-    if (i < 0 || i >= size)
-      throw std::out_of_range("index out of range");
-    return array[i];
-  }
-
-  const T &get(int i) const {
-    if (i < 0 || i >= size)
-      throw std::out_of_range("index out of range");
-    return array[i];
-  }
-
-  void set(int i, const T &value) {
-    if (i < 0 || i >= size)
-      throw std::out_of_range("index out of range");
-    array[i] = value;
-  }
-
-  void pushBack(const T &value) {
-    if (size == capacity)
-      resize();
-    array[size] = value;
-
-    size++;
-  }
-
-  T popBack() {
-    if (size == 0)
-      throw std::out_of_range("popBack on empty DynamicArray");
-    T val = array[size - 1];
-    --size;
-    return val;
-  }
-
-  void resize() {
-    capacity *= 2;
-    T *new_array = new T[capacity];
-
-    for (int i{}; i < size; ++i) {
-      new_array[i] = array[i];
+    explicit DynamicArray(int capa) : size(), capacity(capa)
+    {
+        if (capa <= 0)
+            throw std::invalid_argument("capacity must be > 0");
+        array = new T[capacity];
     }
-    delete[] array;
-    array = new_array;
-  }
 
-  int getSize() const { return size; }
+    DynamicArray(const DynamicArray& other) = delete;
+    DynamicArray& operator=(const DynamicArray& other) = delete;
+    ~DynamicArray() { delete[] array; }
 
-  int getCapacity() const { return capacity; }
+    T& get(int i)
+    {
+        if (i < 0 || i >= size)
+            throw std::out_of_range("index out of range");
+        return array[i];
+    }
+
+    const T& get(int i) const
+    {
+        if (i < 0 || i >= size)
+            throw std::out_of_range("index out of range");
+        return array[i];
+    }
+
+    void set(int i, const T& value)
+    {
+        if (i < 0 || i >= size)
+            throw std::out_of_range("index out of range");
+        array[i] = value;
+    }
+
+    void pushBack(const T& value)
+    {
+        if (size == capacity)
+            resize();
+        array[size] = value;
+
+        size++;
+    }
+
+    T popBack()
+    {
+        if (size == 0)
+            throw std::out_of_range("popBack on empty DynamicArray");
+        T val = array[size - 1];
+        --size;
+        return val;
+    }
+
+    void resize()
+    {
+        capacity *= 2;
+        T* new_array = new T[capacity];
+
+        for (int i{}; i < size; ++i)
+        {
+            new_array[i] = array[i];
+        }
+        delete[] array;
+        array = new_array;
+    }
+
+    int getSize() const { return size; }
+
+    int getCapacity() const { return capacity; }
 };
 
 #endif // ALGORITHMS_DYNAMIC_ARRAY_H

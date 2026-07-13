@@ -7,14 +7,14 @@
 
 #include <limits>
 
-#include "../trees/binary_trees/tree_node.h"
 #include <vector>
+#include "../trees/binary_trees/tree_node.h"
 
 
 template <typename T>
-TreeNode<T> * helper(const std::vector<T> &pre_order, int & index, T lower, T upper)
+TreeNode<T>* helper(const std::vector<T>& pre_order, int& index, T lower, T upper)
 {
-    if(index >= pre_order.size() || pre_order[index] < lower || pre_order[index] >= upper)
+    if (index >= pre_order.size() || pre_order[index] < lower || pre_order[index] >= upper)
         return nullptr;
 
     auto node = new TreeNode<T>(pre_order[index++]);
@@ -24,8 +24,8 @@ TreeNode<T> * helper(const std::vector<T> &pre_order, int & index, T lower, T up
 }
 
 template <typename T>
-requires std::is_arithmetic_v<T>
-TreeNode<T>* construct_from_pre_order(const std::vector<T> &pre_order)
+    requires std::is_arithmetic_v<T>
+TreeNode<T>* construct_from_pre_order(const std::vector<T>& pre_order)
 {
     T upper = std::numeric_limits<T>::max();
     T lower = std::numeric_limits<T>::min();
@@ -35,4 +35,4 @@ TreeNode<T>* construct_from_pre_order(const std::vector<T> &pre_order)
 }
 
 
-#endif //ALGORITHMS_CONSTRUCT_BINARY_SEARCH_TREE_FROM_PRE_ORDER_H
+#endif // ALGORITHMS_CONSTRUCT_BINARY_SEARCH_TREE_FROM_PRE_ORDER_H

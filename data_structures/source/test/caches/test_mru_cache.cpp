@@ -1,8 +1,8 @@
 //
 // Created by andreas on 23.02.24.
 //
-#include "gtest/gtest.h"
 #include "caches/mru_cache.h"
+#include "gtest/gtest.h"
 
 TEST(TestMRUCache, test_eviction_policy1)
 {

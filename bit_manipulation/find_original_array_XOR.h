@@ -16,16 +16,16 @@
 // apply ^perf[i-1] on both sides:
 // perf[i] ^ perf[i-1] = arr[i]
 template <typename T>
-requires std::is_integral_v<T>
-std::vector<T> find_original_array(const std::vector<T> & perf)
+    requires std::is_integral_v<T>
+std::vector<T> find_original_array(const std::vector<T>& perf)
 {
-	int n = perf.size();
-	std::vector<T> arr(n);
-	arr[0] = perf[0];
-	for(int i{1}; i < n; ++i)
-	{
-		arr[i] = perf[i] ^ perf[i-1];
-	}
-	return arr;
+    int n = perf.size();
+    std::vector<T> arr(n);
+    arr[0] = perf[0];
+    for (int i{1}; i < n; ++i)
+    {
+        arr[i] = perf[i] ^ perf[i - 1];
+    }
+    return arr;
 }
-#endif //FIND_ORIGINAL_ARRAY_XOR_H
+#endif // FIND_ORIGINAL_ARRAY_XOR_H

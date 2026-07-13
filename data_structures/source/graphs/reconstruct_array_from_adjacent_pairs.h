@@ -4,9 +4,9 @@
 
 #ifndef RECONSTRUCT_ARRAY_FROM_ADJACENT_PAIRS_H
 #define RECONSTRUCT_ARRAY_FROM_ADJACENT_PAIRS_H
-#include <vector>
-#include <unordered_map>
 #include <stack>
+#include <unordered_map>
+#include <vector>
 
 template <typename T>
 std::vector<T> reconstruct_array_from_adjacent_pairs(std::vector<std::vector<T>>& pairs)
@@ -47,4 +47,4 @@ std::vector<T> reconstruct_array_from_adjacent_pairs(std::vector<std::vector<T>>
     return result;
 }
 
-#endif //RECONSTRUCT_ARRAY_FROM_ADJACENT_PAIRS_H
+#endif // RECONSTRUCT_ARRAY_FROM_ADJACENT_PAIRS_H

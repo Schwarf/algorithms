@@ -4,8 +4,8 @@
 
 #ifndef MULTIPLE_KNAPSACK_H
 #define MULTIPLE_KNAPSACK_H
-#include "knapsack_problem_0_1.h"
 #include <algorithm>
+#include "knapsack_problem_0_1.h"
 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
@@ -13,14 +13,16 @@ struct ItemCounted : public Item<ValueType, WeightType>
 {
     int count;
     // Constructor for ItemCounted
-    ItemCounted(ValueType value, WeightType weight, int count)
-        : Item<ValueType, WeightType>{value, weight}, count(count) {}
+    ItemCounted(ValueType value, WeightType weight, int count) :
+        Item<ValueType, WeightType>{value, weight}, count(count)
+    {
+    }
 };
 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
 ValueType multiple_knapsack_bottom_up(const std::vector<ItemCounted<ValueType, WeightType>>& items,
-                                              WeightType knapsack_capacity)
+                                      WeightType knapsack_capacity)
 {
     int number_of_items = items.size();
     std::vector<std::vector<ValueType>> dp(number_of_items + 1, std::vector<ValueType>(knapsack_capacity + 1, 0));
@@ -36,12 +38,12 @@ ValueType multiple_knapsack_bottom_up(const std::vector<ItemCounted<ValueType, W
             {
                 if (items[i - 1].weight * copies <= weight)
                 {
-                    dp[i][weight] = std::max(dp[i][weight],
-                                             items[i - 1].value * copies + dp[i - 1][weight - items[i - 1].weight * copies]);
+                    dp[i][weight] = std::max(
+                        dp[i][weight], items[i - 1].value * copies + dp[i - 1][weight - items[i - 1].weight * copies]);
                 }
                 else
                 {
-                    break;  // No need to continue checking if item weight exceeds current weight
+                    break; // No need to continue checking if item weight exceeds current weight
                 }
             }
         }
@@ -53,7 +55,7 @@ ValueType multiple_knapsack_bottom_up(const std::vector<ItemCounted<ValueType, W
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
 ValueType multiple_knapsack_bottom_up_optimized(const std::vector<ItemCounted<ValueType, WeightType>>& items,
-                                              WeightType knapsack_capacity)
+                                                WeightType knapsack_capacity)
 {
     int number_of_items = items.size();
     std::vector<ValueType> dp_current(knapsack_capacity + 1, {});
@@ -70,12 +72,13 @@ ValueType multiple_knapsack_bottom_up_optimized(const std::vector<ItemCounted<Va
             {
                 if (items[i - 1].weight * copies <= weight)
                 {
-                    dp_current[weight] = std::max(dp_current[weight],
-                                             items[i - 1].value * copies + dp_previous[weight - items[i - 1].weight * copies]);
+                    dp_current[weight] =
+                        std::max(dp_current[weight],
+                                 items[i - 1].value * copies + dp_previous[weight - items[i - 1].weight * copies]);
                 }
                 else
                 {
-                    break;  // No need to continue checking if item weight exceeds current weight
+                    break; // No need to continue checking if item weight exceeds current weight
                 }
             }
         }
@@ -85,4 +88,4 @@ ValueType multiple_knapsack_bottom_up_optimized(const std::vector<ItemCounted<Va
     return dp_previous[knapsack_capacity];
 }
 
-#endif //MULTIPLE_KNAPSACK_H
+#endif // MULTIPLE_KNAPSACK_H

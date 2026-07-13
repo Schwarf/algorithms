@@ -6,10 +6,10 @@
 #define ORDER_STATISTIC_NODE_H
 #include "avl_node.h"
 template <typename T>
-struct OrderStatisticNode: public AVLNode<T> {
-    explicit OrderStatisticNode(const T& val)
-            : AVLNode<T>(val), subtree_size(1) {}
+struct OrderStatisticNode : public AVLNode<T>
+{
+    explicit OrderStatisticNode(const T& val) : AVLNode<T>(val), subtree_size(1) {}
     int subtree_size{};
 };
 
-#endif //ORDER_STATISTIC_NODE_H
+#endif // ORDER_STATISTIC_NODE_H

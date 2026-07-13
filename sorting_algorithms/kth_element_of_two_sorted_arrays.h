@@ -5,23 +5,18 @@
 #ifndef KTH_ELEMENT_OF_TWO_SORTED_ARRAYS_H
 #define KTH_ELEMENT_OF_TWO_SORTED_ARRAYS_H
 
-#include <cstddef>
 #include <algorithm>
+#include <cstddef>
 
-class KthElementOfTwoSortedArrays {
+class KthElementOfTwoSortedArrays
+{
 public:
-    int merging(const int *array1,
-                const int *array2,
-                size_t size1,
-                size_t size2,
+    int merging(const int* array1, const int* array2, size_t size1, size_t size2,
                 size_t k); // O(m+n) time complexity, O(m+n) space complexity
-    int merging_with_no_extra_space(const int *array1,
-                                    const int *array2,
-                                    size_t size1,
-                                    size_t size2,
+    int merging_with_no_extra_space(const int* array1, const int* array2, size_t size1, size_t size2,
                                     size_t k); // O(m+n) time complexity
-    int divide_and_conquer(const int *array1, const int *array2, size_t size1, size_t size2, size_t k);
+    int divide_and_conquer(const int* array1, const int* array2, size_t size1, size_t size2, size_t k);
 };
 
 
-#endif //KTH_ELEMENT_OF_TWO_SORTED_ARRAYS_H
+#endif // KTH_ELEMENT_OF_TWO_SORTED_ARRAYS_H

@@ -1,8 +1,8 @@
 //
 // Created by andreas on 03.08.22.
 //
-#include "gtest/gtest.h"
 #include "../../binary_search_tree/binary_search_tree_from_sorted_array.h"
+#include "gtest/gtest.h"
 #include "test_helper.h"
 
 

@@ -1,8 +1,8 @@
 //
 // Created by andreas on 29.12.23.
 //
-#include "gtest/gtest.h"
 #include "../../partition-DP/minimum_difficulty_job_schedule.h"
+#include "gtest/gtest.h"
 
 TEST(TestMinimumSchedule, simple1)
 {

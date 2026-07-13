@@ -46,4 +46,4 @@ int search(const std::vector<int>& input, int target)
     return -1;
 }
 
-#endif //SEARCH_IN_ROTATED_SORTED_ARRAY_H
+#endif // SEARCH_IN_ROTATED_SORTED_ARRAY_H

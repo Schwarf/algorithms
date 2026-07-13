@@ -4,8 +4,8 @@
 
 #ifndef REMOVE_DUPLICATES_H
 #define REMOVE_DUPLICATES_H
-#include "node.h"
 #include <unordered_set>
+#include "node.h"
 
 
 // Remove all duplicates from a single linked list using additional space
@@ -70,4 +70,4 @@ Node<T>* remove_duplicates_no_extra_space(Node<T>* head)
 }
 
 
-#endif //REMOVE_DUPLICATES_H
+#endif // REMOVE_DUPLICATES_H

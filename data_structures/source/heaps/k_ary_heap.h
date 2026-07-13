@@ -11,43 +11,24 @@ template <typename T, size_t number_of_nodes, size_t heap_capacity>
 class K_aryHeap : IHeap<T>
 {
 public:
-    K_aryHeap()
-    {
-        elements_ = new T[heap_capacity];
-    };
+    K_aryHeap() { elements_ = new T[heap_capacity]; };
 
-    ~K_aryHeap()
-    {
-        delete[] elements_;
-    }
+    ~K_aryHeap() { delete[] elements_; }
 
-    T* get_array()
-    {
-        return elements_;
-    }
+    T* get_array() { return elements_; }
 
-    size_t size() const final
-    {
-        return heap_size_;
-    }
+    size_t size() const final { return heap_size_; }
 
-    bool is_empty() const final
-    {
-        return heap_size_ == 0;
-    }
+    bool is_empty() const final { return heap_size_ == 0; }
 
-    T get_maximum() const final
-    {
-        return elements_[0];
-    }
+    T get_maximum() const final { return elements_[0]; }
 
     T get_element(size_t index) const final
     {
         if (index > heap_size_)
-            std::out_of_range(
-                "Index " + std::to_string(index) + " in k-ary heap (k=" + std::to_string(number_of_nodes)
-                + "), is greater than heap size " + std::to_string(heap_size_)
-                + "!");
+            std::out_of_range("Index " + std::to_string(index) +
+                              " in k-ary heap (k=" + std::to_string(number_of_nodes) + "), is greater than heap size " +
+                              std::to_string(heap_size_) + "!");
 
         return elements_[index];
     }
@@ -77,14 +58,11 @@ public:
     }
 
 private:
-    //T elements_[heap_capacity];
+    // T elements_[heap_capacity];
     T* elements_;
     size_t heap_size_{};
 
-    size_t parent_index_(size_t element_index)
-    {
-        return (element_index - 1) / number_of_nodes;
-    }
+    size_t parent_index_(size_t element_index) { return (element_index - 1) / number_of_nodes; }
 
     void swap_(size_t index1, size_t index2)
     {
@@ -147,4 +125,4 @@ private:
     }
 };
 
-#endif //K_ARY_HEAP_H
+#endif // K_ARY_HEAP_H

@@ -9,16 +9,17 @@
 
 #include "tree_node.h"
 
-template<typename T>
-TreeNode<T>* merge_binary_trees(TreeNode<T>* root1, TreeNode<T>* root2) {
+template <typename T>
+TreeNode<T>* merge_binary_trees(TreeNode<T>* root1, TreeNode<T>* root2)
+{
     if (!root1 && !root2)
         return nullptr;
 
     int value = (root1 ? root1->value : 0) + (root2 ? root2->value : 0);
     auto* result = new TreeNode<T>(value);
 
-    result->left  = merge_binary_trees(root1 ? root1->left  : nullptr, root2 ? root2->left  : nullptr);
+    result->left = merge_binary_trees(root1 ? root1->left : nullptr, root2 ? root2->left : nullptr);
     result->right = merge_binary_trees(root1 ? root1->right : nullptr, root2 ? root2->right : nullptr);
     return result;
 }
-#endif //ALGORITHMS_MERGE_BINARY_TREES_H
+#endif // ALGORITHMS_MERGE_BINARY_TREES_H

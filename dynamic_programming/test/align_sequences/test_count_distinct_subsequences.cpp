@@ -2,8 +2,8 @@
 // Created by andreas on 12.07.26.
 //
 
-#include "gtest/gtest.h"
 #include "../../align_subsequences/count_distinct_subsequences.h"
+#include "gtest/gtest.h"
 
 TEST(TestCountDistinctSubsequences, canonicalExamples)
 {
@@ -39,10 +39,7 @@ TEST(TestCountDistinctSubsequences, repeatedCharactersCountCombinations)
     EXPECT_EQ(6, count_distinct_subsequences("aaaa", "aa"));
 }
 
-TEST(TestCountDistinctSubsequences, exactMatch)
-{
-    EXPECT_EQ(1, count_distinct_subsequences("algorithm", "algorithm"));
-}
+TEST(TestCountDistinctSubsequences, exactMatch) { EXPECT_EQ(1, count_distinct_subsequences("algorithm", "algorithm")); }
 
 TEST(TestCountDistinctSubsequences, caseSensitiveMatching)
 {

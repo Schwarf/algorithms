@@ -2,8 +2,8 @@
 // Created by andreas on 03.06.22.
 //
 
-#include "setup_for_segment_tree_testing.h"
 #include "./../../../trees/segment_trees/segment_tree.h"
+#include "setup_for_segment_tree_testing.h"
 
 
 TEST_F(SetupSegmentTree, test_segment_tree)
@@ -26,7 +26,8 @@ TEST_F(SetupSegmentTree, test_segment_tree_single_element_ranges)
 {
     SegmentTree<int> tree(input);
 
-    for (int i = 0; i < input.size(); ++i) {
+    for (int i = 0; i < input.size(); ++i)
+    {
         EXPECT_EQ(tree.sum_range(i, i), input[i]);
     }
 }
@@ -35,11 +36,12 @@ TEST_F(SetupSegmentTree, test_segment_tree_several_ranges)
 {
     SegmentTree<int> tree(input);
 
-    for (int left = 0; left < input.size(); ++left) {
-        for (int right = left; right < input.size(); ++right) {
+    for (int left = 0; left < input.size(); ++left)
+    {
+        for (int right = left; right < input.size(); ++right)
+        {
             int expected = prefix_sum[right + 1] - prefix_sum[left];
-            EXPECT_EQ(tree.sum_range(left, right), expected)
-                << "left=" << left << ", right=" << right;
+            EXPECT_EQ(tree.sum_range(left, right), expected) << "left=" << left << ", right=" << right;
         }
     }
 }
@@ -54,14 +56,15 @@ TEST_F(SetupSegmentTree, test_update_changes_single_position)
     input[index] = new_value;
     tree.update(index, new_value);
 
-    for (int left = 0; left < input.size(); ++left) {
-        for (int right = left; right < input.size(); ++right) {
+    for (int left = 0; left < input.size(); ++left)
+    {
+        for (int right = left; right < input.size(); ++right)
+        {
             int expected = 0;
             for (int i = left; i <= right; ++i)
                 expected += input[i];
 
-            EXPECT_EQ(tree.sum_range(left, right), expected)
-                << "left=" << left << ", right=" << right;
+            EXPECT_EQ(tree.sum_range(left, right), expected) << "left=" << left << ", right=" << right;
         }
     }
 }
@@ -79,14 +82,15 @@ TEST_F(SetupSegmentTree, test_multiple_updates)
     tree.update(14, 222);
     input[14] = 222;
 
-    for (int left = 0; left < input.size(); ++left) {
-        for (int right = left; right < input.size(); ++right) {
+    for (int left = 0; left < input.size(); ++left)
+    {
+        for (int right = left; right < input.size(); ++right)
+        {
             int expected = 0;
             for (int i = left; i <= right; ++i)
                 expected += input[i];
 
-            EXPECT_EQ(tree.sum_range(left, right), expected)
-                << "left=" << left << ", right=" << right;
+            EXPECT_EQ(tree.sum_range(left, right), expected) << "left=" << left << ", right=" << right;
         }
     }
 }

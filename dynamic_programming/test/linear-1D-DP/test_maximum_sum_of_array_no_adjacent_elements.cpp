@@ -1,9 +1,9 @@
 //
 // Created by andreas on 14.12.22.
 //
-#include "gtest/gtest.h"
-#include "../../linear-1D-DP/maximum_sum_of_array_no_adjacent_elements.h"
 #include <vector>
+#include "../../linear-1D-DP/maximum_sum_of_array_no_adjacent_elements.h"
+#include "gtest/gtest.h"
 
 TEST(test_maximum_sum_of_array_no_neighbors, scenario1)
 {

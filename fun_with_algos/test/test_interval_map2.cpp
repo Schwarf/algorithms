@@ -5,10 +5,11 @@
 // Created by andreas on 30.01.24.
 //
 #include <random>
-#include "gtest/gtest.h"
 #include "./../interval_map2.h"
+#include "gtest/gtest.h"
 
-TEST(Testinterval_map, simple1) {
+TEST(Testinterval_map, simple1)
+{
     constexpr int start{1};
     constexpr int end{4};
     constexpr float value{1.f};
@@ -21,7 +22,8 @@ TEST(Testinterval_map, simple1) {
 }
 
 
-TEST(Testinterval_map, simple2) {
+TEST(Testinterval_map, simple2)
+{
     const std::vector<int> start{1, 3, 6, 9, 18};
     const std::vector<int> end{2, 4, 7, 15, 21};
     const std::vector<double> value{1., 2., 3., 4., 5.};
@@ -35,7 +37,8 @@ TEST(Testinterval_map, simple2) {
 }
 
 
-TEST(Testinterval_map, internalOverlap1) {
+TEST(Testinterval_map, internalOverlap1)
+{
     const std::vector<int> starts{1, 6, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -60,7 +63,8 @@ TEST(Testinterval_map, internalOverlap1) {
     EXPECT_EQ(map[6], values[1]);
 }
 
-TEST(Testinterval_map, internalOverlap2) {
+TEST(Testinterval_map, internalOverlap2)
+{
     const std::vector<int> starts{1};
     const std::vector<int> ends{5};
     const std::vector<char> values{'a'};
@@ -73,11 +77,11 @@ TEST(Testinterval_map, internalOverlap2) {
     EXPECT_EQ(map[3], values[0]);
     EXPECT_EQ(map[4], values[0]);
     EXPECT_EQ(map[5], val_begin);
-
 }
 
 
-TEST(Testinterval_map, internalOverlapEndEqual) {
+TEST(Testinterval_map, internalOverlapEndEqual)
+{
     const std::vector<int> starts{1, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -96,7 +100,8 @@ TEST(Testinterval_map, internalOverlapEndEqual) {
 }
 
 
-TEST(Testinterval_map, nooverlap) {
+TEST(Testinterval_map, nooverlap)
+{
     const std::vector<int> starts{1, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -115,7 +120,8 @@ TEST(Testinterval_map, nooverlap) {
 }
 
 
-TEST(Testinterval_map, overlap1) {
+TEST(Testinterval_map, overlap1)
+{
     const std::vector<int> start{1, 3, 9};
     const std::vector<int> end{10, 7, 12};
     const std::vector<double> value{1., 2., 3.};
@@ -131,7 +137,8 @@ TEST(Testinterval_map, overlap1) {
 }
 
 
-TEST(Testinterval_map, overlap2) {
+TEST(Testinterval_map, overlap2)
+{
     const std::vector<int> start{1, 3, 5, 7, 3};
     const std::vector<int> end{3, 5, 7, 10, 8};
     const std::vector<double> value{1., 2., 3., 4., 10.};
@@ -145,7 +152,8 @@ TEST(Testinterval_map, overlap2) {
     EXPECT_EQ(map[9], value[3]);
 }
 
-TEST(Testinterval_map, overwriteExistingIntervals1) {
+TEST(Testinterval_map, overwriteExistingIntervals1)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -166,10 +174,10 @@ TEST(Testinterval_map, overwriteExistingIntervals1) {
     EXPECT_EQ(map[7], values[1]);
     EXPECT_EQ(map[11], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
-TEST(Testinterval_map, overwriteExistingIntervals2) {
+TEST(Testinterval_map, overwriteExistingIntervals2)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -190,10 +198,10 @@ TEST(Testinterval_map, overwriteExistingIntervals2) {
     EXPECT_EQ(map[7], value);
     EXPECT_EQ(map[11], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
-TEST(Testinterval_map, overwriteExistingIntervals3) {
+TEST(Testinterval_map, overwriteExistingIntervals3)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -214,10 +222,10 @@ TEST(Testinterval_map, overwriteExistingIntervals3) {
     EXPECT_EQ(map[7], value);
     EXPECT_EQ(map[11], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
-TEST(Testinterval_map, overwriteExistingIntervals4) {
+TEST(Testinterval_map, overwriteExistingIntervals4)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -238,10 +246,10 @@ TEST(Testinterval_map, overwriteExistingIntervals4) {
     EXPECT_EQ(map[7], value);
     EXPECT_EQ(map[11], value);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
-TEST(Testinterval_map, overwriteExistingIntervals5) {
+TEST(Testinterval_map, overwriteExistingIntervals5)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -262,11 +270,11 @@ TEST(Testinterval_map, overwriteExistingIntervals5) {
     EXPECT_EQ(map[7], value);
     EXPECT_EQ(map[11], value);
     EXPECT_EQ(map[20], value);
-
 }
 
 
-TEST(Testinterval_map, beginIsIn1) {
+TEST(Testinterval_map, beginIsIn1)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -290,11 +298,11 @@ TEST(Testinterval_map, beginIsIn1) {
     EXPECT_EQ(map[9], values[1]);
     EXPECT_EQ(map[11], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
 
-TEST(Testinterval_map, beginIsIn2) {
+TEST(Testinterval_map, beginIsIn2)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -319,10 +327,10 @@ TEST(Testinterval_map, beginIsIn2) {
     EXPECT_EQ(map[11], value);
     EXPECT_EQ(map[12], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
-TEST(Testinterval_map, beginIsIn3) {
+TEST(Testinterval_map, beginIsIn3)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -348,11 +356,11 @@ TEST(Testinterval_map, beginIsIn3) {
     EXPECT_EQ(map[11], value);
     EXPECT_EQ(map[12], value);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
 
-TEST(Testinterval_map, endIsIn1) {
+TEST(Testinterval_map, endIsIn1)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -378,11 +386,11 @@ TEST(Testinterval_map, endIsIn1) {
     EXPECT_EQ(map[11], values[2]);
     EXPECT_EQ(map[12], values[2]);
     EXPECT_EQ(map[20], values[3]);
-
 }
 
 
-TEST(Testinterval_map, endIsIn2) {
+TEST(Testinterval_map, endIsIn2)
+{
     const std::vector<int> starts{0, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -411,7 +419,8 @@ TEST(Testinterval_map, endIsIn2) {
 }
 
 
-TEST(Testinterval_map, fallback) {
+TEST(Testinterval_map, fallback)
+{
     const std::vector<int> starts{0, 7};
     const std::vector<int> ends{5, 10};
     const std::vector<char> values{'a', 'b'};
@@ -426,7 +435,8 @@ TEST(Testinterval_map, fallback) {
 }
 
 
-TEST(Testinterval_map, merging1) {
+TEST(Testinterval_map, merging1)
+{
     const std::vector<int> starts{0, 7, 11};
     const std::vector<int> ends{5, 10, 13};
     const std::vector<char> values{'a', 'b', 'c'};
@@ -445,7 +455,8 @@ TEST(Testinterval_map, merging1) {
     EXPECT_EQ(map[12], values[1]);
 }
 
-TEST(Testinterval_map, floatsimple1) {
+TEST(Testinterval_map, floatsimple1)
+{
     constexpr float start{1.f};
     constexpr float end{4.f};
     constexpr float value{1.f};
@@ -458,7 +469,8 @@ TEST(Testinterval_map, floatsimple1) {
 }
 
 
-TEST(Testinterval_map, floatNooverlap) {
+TEST(Testinterval_map, floatNooverlap)
+{
     const std::vector<double> starts{1.0, 5.0000000000000002, 10, 15};
     const std::vector<double> ends{5.0, 10., 15, 1000};
     const std::vector<char> values{'a', 'b', 'c', 'd'};
@@ -477,7 +489,8 @@ TEST(Testinterval_map, floatNooverlap) {
 }
 
 
-TEST(Testinterval_map, mergingValues) {
+TEST(Testinterval_map, mergingValues)
+{
     const std::vector<int> starts{1, 5, 10, 15};
     const std::vector<int> ends{5, 10, 15, 1000};
     const std::vector<char> values{'a', 'b', 'a', 'd'};
@@ -498,17 +511,18 @@ TEST(Testinterval_map, mergingValues) {
     EXPECT_EQ(map[5], values[0]);
     EXPECT_EQ(map[10], values[0]);
     EXPECT_EQ(map[11], values[0]);
-
 }
 
 
-int randomInt(int min, int max) {
+int randomInt(int min, int max)
+{
     static std::mt19937 generator(std::random_device{}());
     std::uniform_int_distribution<int> distribution(min, max);
     return distribution(generator);
 }
 
-struct KeyTypeStruct {
+struct KeyTypeStruct
+{
     int key;
 
     // Constructor for ease of use
@@ -519,13 +533,12 @@ struct KeyTypeStruct {
     // Copy constructor and assignment operator are implicitly defined
 
     // Less-than comparison operator
-    bool operator<(const KeyTypeStruct &other) const {
-        return key < other.key;
-    }
+    bool operator<(const KeyTypeStruct& other) const { return key < other.key; }
 };
 
 
-struct ValueTypeStruct {
+struct ValueTypeStruct
+{
     char value;
 
     // Constructor for ease of use
@@ -536,15 +549,15 @@ struct ValueTypeStruct {
     // Copy constructor and assignment operator are implicitly defined
 
     // Less-than comparison operator
-    bool operator==(const ValueTypeStruct &other) const {
-        return value == other.value;
-    }
+    bool operator==(const ValueTypeStruct& other) const { return value == other.value; }
 };
 
 
-TEST(Testinterval_map, randomTest1_check_adjacent_values) {
+TEST(Testinterval_map, randomTest1_check_adjacent_values)
+{
     interval_map<int, char> intervalMap(-128); // Assuming 'A' is the default value
-    for (int i = 0; i < 250; ++i) { // Number of insertions
+    for (int i = 0; i < 250; ++i)
+    { // Number of insertions
         int start = randomInt(1, 1000);
         int end = randomInt(start, 1000); // Ensure end is >= start
         char value = -128 + randomInt(0, 250); // Random char from 'A' to 'Z'
@@ -555,8 +568,10 @@ TEST(Testinterval_map, randomTest1_check_adjacent_values) {
     int previousKey{};
     char previousValue{};
     std::cout << intervalMap.m_map.size() << std::endl;
-    for (const auto &[key, value]: intervalMap.m_map) {
-        if (previousKey == 0) {
+    for (const auto& [key, value] : intervalMap.m_map)
+    {
+        if (previousKey == 0)
+        {
             previousKey = key;
             previousValue = value;
             continue;
@@ -569,9 +584,11 @@ TEST(Testinterval_map, randomTest1_check_adjacent_values) {
 }
 
 
-TEST(Testinterval_map, randomTest1_check_adjacent_values_struct) {
+TEST(Testinterval_map, randomTest1_check_adjacent_values_struct)
+{
     interval_map<KeyTypeStruct, ValueTypeStruct> intervalMap(ValueTypeStruct{'A'}); // Assuming 'A' is the default value
-    for (int i = 0; i < 250; ++i) { // Number of insertions
+    for (int i = 0; i < 250; ++i)
+    { // Number of insertions
         const auto start = KeyTypeStruct(randomInt(1, 1000));
         const auto end = KeyTypeStruct(randomInt(start.key, 1000)); // Ensure end is >= start
         const auto value = ValueTypeStruct(static_cast<char>(randomInt(-100, 100))); // Random char from 'A' to 'Z'
@@ -582,8 +599,10 @@ TEST(Testinterval_map, randomTest1_check_adjacent_values_struct) {
     int previousKey{};
     char previousValue{};
     std::cout << intervalMap.m_map.size() << std::endl;
-    for (const auto &[key, value]: intervalMap.m_map) {
-        if (previousKey == 0) {
+    for (const auto& [key, value] : intervalMap.m_map)
+    {
+        if (previousKey == 0)
+        {
             previousKey = key.key;
             previousValue = value.value;
             continue;

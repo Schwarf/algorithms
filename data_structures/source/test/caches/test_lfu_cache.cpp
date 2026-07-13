@@ -1,8 +1,8 @@
 //
 // Created by andreas on 02.01.24.
 //
-#include "gtest/gtest.h"
 #include "caches/lfu_cache.h"
+#include "gtest/gtest.h"
 
 
 TEST(TestLFUCache, test_constructor_capacity)

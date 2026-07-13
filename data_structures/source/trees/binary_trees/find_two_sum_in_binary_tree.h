@@ -5,14 +5,15 @@
 #ifndef FIND_TWO_SUM_IN_BINARY_TREE_H
 #define FIND_TWO_SUM_IN_BINARY_TREE_H
 
-#include "tree_node.h"
 #include <unordered_set>
+#include "tree_node.h"
 
-template<typename T>
+template <typename T>
 std::unordered_set<T> help_find_target_two_sum;
 
-template<typename T>
-bool find_target_two_sum(TreeNode<T> *root, int target) {
+template <typename T>
+bool find_target_two_sum(TreeNode<T>* root, int target)
+{
     if (!root)
         return false;
     if (help_find_target_two_sum<T>.find(target - root->value) != help_find_target_two_sum<T>.end())
@@ -22,4 +23,4 @@ bool find_target_two_sum(TreeNode<T> *root, int target) {
 }
 
 
-#endif //FIND_TWO_SUM_IN_BINARY_TREE_H
+#endif // FIND_TWO_SUM_IN_BINARY_TREE_H

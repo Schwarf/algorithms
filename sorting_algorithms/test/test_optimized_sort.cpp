@@ -2,9 +2,9 @@
 // Created by andreas on 29.11.24.
 //
 
-#include "test_setup.h"
-#include "optimized_sort.h"
 #include <algorithm>
+#include "optimized_sort.h"
+#include "test_setup.h"
 
 TEST_F(SetupSortingTests, optimized_sort_int_vector)
 {

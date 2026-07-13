@@ -4,95 +4,97 @@
 
 #ifndef BASIC_BIT_OPERATIONS_H
 #define BASIC_BIT_OPERATIONS_H
+#include <bit>
 #include <concepts>
 #include <cstddef>
-#include <bit>
 
 
-template<typename T>
-requires std::integral<T>
+template <typename T>
+    requires std::integral<T>
 void is_valid_bit_position(const int bit_position)
 {
-	constexpr int maximum_bit_position{63};
-	if (bit_position > maximum_bit_position || bit_position < 0)
-		throw std::out_of_range(
-			"Bit position must be greater than 0 and smaller than " + std::to_string(maximum_bit_position) + "!");
-	uint64_t bit{1};
-	bit <<= bit_position;
-	if (bit >= static_cast<uint64_t>(std::numeric_limits<T>::max()))
-		throw std::out_of_range(
-			"Provided bit position " + std::to_string(bit_position) + " overflows in provided type !");
+    constexpr int maximum_bit_position{63};
+    if (bit_position > maximum_bit_position || bit_position < 0)
+        throw std::out_of_range("Bit position must be greater than 0 and smaller than " +
+                                std::to_string(maximum_bit_position) + "!");
+    uint64_t bit{1};
+    bit <<= bit_position;
+    if (bit >= static_cast<uint64_t>(std::numeric_limits<T>::max()))
+        throw std::out_of_range("Provided bit position " + std::to_string(bit_position) +
+                                " overflows in provided type !");
 }
 
-template<typename T>
-requires std::integral<T>
+template <typename T>
+    requires std::integral<T>
 bool has_bit(const T number, const int bit_position)
 {
-	is_valid_bit_position<T>(bit_position);
-	return (number & (1 << bit_position)) != 0;
+    is_valid_bit_position<T>(bit_position);
+    return (number & (1 << bit_position)) != 0;
 }
 
-template<typename T>
-requires std::integral<T>
-void set_bit(T &number, const int bit_position)
+template <typename T>
+    requires std::integral<T>
+void set_bit(T& number, const int bit_position)
 {
-	is_valid_bit_position<T>(bit_position);
-	number |= (1 << bit_position);
+    is_valid_bit_position<T>(bit_position);
+    number |= (1 << bit_position);
 }
 
 
-template<typename T>
-requires std::integral<T>
-void clear_bit(T &number, const int bit_position)
+template <typename T>
+    requires std::integral<T>
+void clear_bit(T& number, const int bit_position)
 {
-	is_valid_bit_position<T>(bit_position);
-	T mask = ~(1 << bit_position);
-	number &= mask;
+    is_valid_bit_position<T>(bit_position);
+    T mask = ~(1 << bit_position);
+    number &= mask;
 }
 
-template<typename T>
-requires std::integral<T>
-void clear_most_significant_bits_until_position(T &number, const int bit_position)
+template <typename T>
+    requires std::integral<T>
+void clear_most_significant_bits_until_position(T& number, const int bit_position)
 {
-	is_valid_bit_position<T>(bit_position);
-	T mask = (1 << bit_position) - 1;
-	number &= mask;
+    is_valid_bit_position<T>(bit_position);
+    T mask = (1 << bit_position) - 1;
+    number &= mask;
 }
 
-template<typename T>
-requires std::integral<T>
-void clear_bits_until_position(T &number, const int bit_position)
+template <typename T>
+    requires std::integral<T>
+void clear_bits_until_position(T& number, const int bit_position)
 {
-	is_valid_bit_position<T>(bit_position);
-	T mask = (-1 << (bit_position + 1));
-	number &= mask;
+    is_valid_bit_position<T>(bit_position);
+    T mask = (-1 << (bit_position + 1));
+    number &= mask;
 }
 
-template<typename T>
-requires std::is_integral_v<T>
+template <typename T>
+    requires std::is_integral_v<T>
 int get_hamming_weight_inefficient(T number)
 {
-	int mask = 1;
-	int weight = 0;
+    int mask = 1;
+    int weight = 0;
 
-	while (number > 0) {
-		if ((number & mask) > 0) {
-			weight++;
-			number ^= mask; // XOR with mask to set bit in number to zero (see while condition)
-		}
+    while (number > 0)
+    {
+        if ((number & mask) > 0)
+        {
+            weight++;
+            number ^= mask; // XOR with mask to set bit in number to zero (see while condition)
+        }
 
-		mask <<= 1;
-	}
+        mask <<= 1;
+    }
 
-	return weight;
+    return weight;
 }
 
 
-template<typename T>
-requires std::is_integral_v<T>
-int get_hamming_weight(T & number)
+template <typename T>
+    requires std::is_integral_v<T>
+int get_hamming_weight(T& number)
 {
-	return __builtin_popcount(number);
+    return __builtin_popcount(number);
 }
 
-#endif //BASIC_BIT_OPERATIONS_H
+#endif // BASIC_BIT_OPERATIONS_H

@@ -12,8 +12,9 @@
 #include <utility>
 #include "tree_node.h"
 
-template<typename T>
-std::pair<T, int> dfs_average_of_subtree(TreeNode<T>* root, int& count) {
+template <typename T>
+std::pair<T, int> dfs_average_of_subtree(TreeNode<T>* root, int& count)
+{
     if (!root)
         return {0, 0};
     auto left = dfs_average_of_subtree(root->left, count);
@@ -25,11 +26,12 @@ std::pair<T, int> dfs_average_of_subtree(TreeNode<T>* root, int& count) {
     return {sum, number};
 }
 
-template<typename T>
-int average_of_subtree(TreeNode<T> *root) {
+template <typename T>
+int average_of_subtree(TreeNode<T>* root)
+{
     int count{};
     dfs_average_of_subtree(root, count);
     return count;
 }
 
-#endif //COUNT_NODES_EQUAL_TO_AVERAGE_OF_SUBTREE_H
+#endif // COUNT_NODES_EQUAL_TO_AVERAGE_OF_SUBTREE_H

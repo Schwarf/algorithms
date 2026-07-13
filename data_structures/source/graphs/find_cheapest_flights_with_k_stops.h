@@ -4,17 +4,14 @@
 
 #ifndef FIND_CHEAPEST_FLIGHTS_WITH_K_STOPS_H
 #define FIND_CHEAPEST_FLIGHTS_WITH_K_STOPS_H
-#include <vector>
 #include <queue>
+#include <vector>
 // There are n cities connected by some number of flights. You are given an array flights where
 // flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
 // You are also given three integers src, dst, and k, return the cheapest price from src
 // to dst with at most k stops. If there is no such route, return -1.
 
-int find_cheapest_flights(int n,
-                          const std::vector<std::vector<int>>& flights,
-                          int source,
-                          int destination,
+int find_cheapest_flights(int n, const std::vector<std::vector<int>>& flights, int source, int destination,
                           int max_stops)
 {
     std::vector<std::vector<std::pair<int, int>>> graph(n);
@@ -47,10 +44,7 @@ int find_cheapest_flights(int n,
     return distance[destination] == std::numeric_limits<int>::max() ? -1 : distance[destination];
 }
 
-int find_cheapest_flights_bellman_ford(int n,
-                                       const std::vector<std::vector<int>>& flights,
-                                       int source,
-                                       int destination,
+int find_cheapest_flights_bellman_ford(int n, const std::vector<std::vector<int>>& flights, int source, int destination,
                                        int max_stops)
 {
     std::vector<int> dp(n, std::numeric_limits<int>::max());
@@ -72,4 +66,4 @@ int find_cheapest_flights_bellman_ford(int n,
 }
 
 
-#endif //FIND_CHEAPEST_FLIGHTS_WITH_K_STOPS_H
+#endif // FIND_CHEAPEST_FLIGHTS_WITH_K_STOPS_H

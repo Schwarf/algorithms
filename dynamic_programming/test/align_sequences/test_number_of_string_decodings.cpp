@@ -2,8 +2,8 @@
 // Created by andreas on 28.12.23.
 //
 
-#include "gtest/gtest.h"
 #include "../../align_subsequences/number_of_string_decodings.h"
+#include "gtest/gtest.h"
 
 TEST(TestNumberOfStringDecodings, simple1)
 {

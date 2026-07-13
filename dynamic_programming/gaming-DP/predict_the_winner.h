@@ -13,14 +13,15 @@
 // Return true if Player 1 can win the game. If the scores of both players are equal,
 // then player 1 is still the winner, and you should also return true.
 // You may assume that both players are playing optimally.
-#include <vector>
-#include <concepts>
 #include <algorithm>
+#include <concepts>
+#include <vector>
 
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-T max_difference(const std::vector<T> &array, int left, int right) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+T max_difference(const std::vector<T>& array, int left, int right)
+{
     if (left == right)
         return array[left];
 
@@ -29,16 +30,18 @@ T max_difference(const std::vector<T> &array, int left, int right) {
     return std::max(score_right, score_left);
 }
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-bool predict_the_winner_recursion(const std::vector<T> &array) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+bool predict_the_winner_recursion(const std::vector<T>& array)
+{
     int n = array.size();
     return max_difference(array, 0, n - 1) >= 0;
 }
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-T max_difference_top_down(const std::vector<T> &array, int left, int right, std::vector<std::vector<T>> &memo) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+T max_difference_top_down(const std::vector<T>& array, int left, int right, std::vector<std::vector<T>>& memo)
+{
     if (memo[left][right] != T{-1})
         return memo[left][right];
     if (left == right)
@@ -50,23 +53,27 @@ T max_difference_top_down(const std::vector<T> &array, int left, int right, std:
     return memo[left][right];
 }
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-bool predict_the_winner_top_down(const std::vector<T> &array) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+bool predict_the_winner_top_down(const std::vector<T>& array)
+{
     int n = array.size();
     std::vector<std::vector<T>> memo(n, std::vector<T>(n, T{-1}));
     return max_difference_top_down(array, 0, n - 1, memo) >= 0;
 }
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-bool predict_the_winner_bottom_up(const std::vector<T> &array) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+bool predict_the_winner_bottom_up(const std::vector<T>& array)
+{
     int n = array.size();
     std::vector<std::vector<T>> dp(n, std::vector<T>(n));
     for (int i{}; i < n; ++i)
         dp[i][i] = array[i];
-    for (int index_diff = 1; index_diff < n; ++index_diff) {
-        for (int left{}; left < n - index_diff; ++left) {
+    for (int index_diff = 1; index_diff < n; ++index_diff)
+    {
+        for (int left{}; left < n - index_diff; ++left)
+        {
             int right = left + index_diff;
             dp[left][right] = std::max(array[left] - dp[left + 1][right], array[right] - dp[left][right - 1]);
         }
@@ -74,13 +81,16 @@ bool predict_the_winner_bottom_up(const std::vector<T> &array) {
     return dp[0][n - 1] >= 0;
 }
 
-template<typename T>
-requires std::is_arithmetic_v<T>
-bool predict_the_winner_optimized(const std::vector<T> &array) {
+template <typename T>
+    requires std::is_arithmetic_v<T>
+bool predict_the_winner_optimized(const std::vector<T>& array)
+{
     int n = array.size();
     std::vector<T> dp(array);
-    for (int index_diff = 1; index_diff < n; ++index_diff) {
-        for (int left{}; left < n - index_diff; ++left) {
+    for (int index_diff = 1; index_diff < n; ++index_diff)
+    {
+        for (int left{}; left < n - index_diff; ++left)
+        {
             int right = left + index_diff;
             dp[left] = std::max(array[left] - dp[left + 1], array[right] - dp[left]);
         }
@@ -89,4 +99,4 @@ bool predict_the_winner_optimized(const std::vector<T> &array) {
 }
 
 
-#endif //PREDICT_THE_WINNER_H
+#endif // PREDICT_THE_WINNER_H

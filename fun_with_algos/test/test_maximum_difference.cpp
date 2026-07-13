@@ -1,8 +1,8 @@
 //
 // Created by andreas on 16.06.25.
 //
-#include "gtest/gtest.h"
 #include "./../maximum_difference.h"
+#include "gtest/gtest.h"
 
 TEST(TestMaximumDifference, simple1)
 {

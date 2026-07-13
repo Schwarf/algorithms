@@ -1,8 +1,8 @@
 //
 // Created by andreas on 06.04.25.
 //
-#include "heaps/find_median_of_data_stream.h"
 #include "gtest/gtest.h"
+#include "heaps/find_median_of_data_stream.h"
 
 TEST(TestFindMediaOfDataStream, simple1)
 {
@@ -15,5 +15,3 @@ TEST(TestFindMediaOfDataStream, simple1)
         EXPECT_EQ(median_finder.find_median(), expected_results[i]);
     }
 }
-
-

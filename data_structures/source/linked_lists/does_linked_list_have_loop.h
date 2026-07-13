@@ -33,4 +33,4 @@ Node<T>* does_linked_list_have_loop(Node<T>* head)
     return node;
 }
 
-#endif //DOES_LINKED_LIST_HAVE_LOOP_H
+#endif // DOES_LINKED_LIST_HAVE_LOOP_H

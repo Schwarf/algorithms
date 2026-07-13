@@ -6,8 +6,8 @@
 #define ROTATE_MATRIX_H
 // Given an image represented by an NxN matrix, where each pixel in the image is 4
 // bytes, write a method to rotate the image by 90/180/270 degrees. Can you do this in place?
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 void rotate_matrix_90(std::vector<std::vector<int>>& matrix)
 {
@@ -55,4 +55,4 @@ void rotate_matrix_270(std::vector<std::vector<int>>& matrix)
         }
     }
 }
-#endif //ROTATE_MATRIX_H
+#endif // ROTATE_MATRIX_H

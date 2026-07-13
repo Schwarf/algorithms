@@ -1,8 +1,8 @@
 //
 // Created by andreas on 07.05.24.
 //
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/remove_larger_nodes.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, RemoveLargerNodesSimple1)
 {

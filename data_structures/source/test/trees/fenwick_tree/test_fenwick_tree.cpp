@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "trees/fenwick_tree/fenwick_tree.h"  // Include your Fenwick Tree implementation
+#include "trees/fenwick_tree/fenwick_tree.h" // Include your Fenwick Tree implementation
 
 // Test Initialization with Data
 TEST(FenwickTreeTest, InitializesCorrectlyWithData)

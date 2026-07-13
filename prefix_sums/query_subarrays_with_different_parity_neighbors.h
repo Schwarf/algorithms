@@ -10,16 +10,17 @@
 // Return an array of booleans answer such that answer[i] is true if input[fromi..toi] is special.
 #include <vector>
 
-std::vector<bool> get_query_results(std::vector<int>& input, std::vector<std::vector<int>>& queries) {
+std::vector<bool> get_query_results(std::vector<int>& input, std::vector<std::vector<int>>& queries)
+{
     int n = input.size();
     std::vector<int> arrays(n);
     int index{1};
-    if(n==1)
+    if (n == 1)
         return std::vector<bool>(queries.size(), true);
     arrays[0] = index;
-    for(int i{1}; i < n; ++i)
+    for (int i{1}; i < n; ++i)
     {
-        if(((input[i] + input[i-1]) & 1))
+        if (((input[i] + input[i - 1]) & 1))
         {
             arrays[i] = index;
         }
@@ -30,14 +31,13 @@ std::vector<bool> get_query_results(std::vector<int>& input, std::vector<std::ve
         }
     }
     std::vector<bool> result;
-    for(const auto & query : queries)
+    for (const auto& query : queries)
     {
-        if(arrays[query[0]] == arrays[query[1]])
+        if (arrays[query[0]] == arrays[query[1]])
             result.push_back(true);
         else
             result.push_back(false);
     }
     return result;
-
 }
-#endif //QUERY_SUBARRAYS_WITH_DIFFERENT_PARITY_NEIGHBORS_H
+#endif // QUERY_SUBARRAYS_WITH_DIFFERENT_PARITY_NEIGHBORS_H

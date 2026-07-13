@@ -60,4 +60,4 @@ bool are_linked_lists_intersecting(Node<T>* head1, Node<T>* head2, Node<T>*& nod
 }
 
 
-#endif //ARE_LINKED_LISTS_INTERSECTING_H
+#endif // ARE_LINKED_LISTS_INTERSECTING_H

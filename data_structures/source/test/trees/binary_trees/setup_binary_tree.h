@@ -5,8 +5,8 @@
 #ifndef SETUP_BINARY_TREE_H
 #define SETUP_BINARY_TREE_H
 
-#include "gtest/gtest.h"
 #include <vector>
+#include "gtest/gtest.h"
 #include "trees/binary_trees/tree_node.h"
 
 template <typename T>
@@ -22,7 +22,8 @@ static bool is_same_tree(TreeNode<T>* a, TreeNode<T>* b)
 }
 
 
-class SetupBinaryTree : virtual public testing::Test {
+class SetupBinaryTree : virtual public testing::Test
+{
 public:
     SetupBinaryTree() = default;
 
@@ -31,22 +32,15 @@ protected:
     std::vector<unsigned int> inorder{4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90};
     std::vector<unsigned int> preorder{25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90};
     std::vector<unsigned int> postorder{4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25};
-    std::vector<std::vector<unsigned int>>
-            level_order{{25},
-                        {15, 50},
-                        {10, 22, 35, 70},
-                        {4,  12, 18, 24, 31, 44, 66, 90}};
-    std::vector<std::vector<unsigned int>>
-            level_order_inverted_tree{{25},
-                                      {50, 15},
-                                      {70, 35, 22, 10},
-                                      {90, 66, 44, 31, 24, 18, 12, 4}};
-    std::vector<std::vector<unsigned int>> level_order_small_tree{{3},
-                                                                  {9,  20},
-                                                                  {15, 7}};
+    std::vector<std::vector<unsigned int>> level_order{
+        {25}, {15, 50}, {10, 22, 35, 70}, {4, 12, 18, 24, 31, 44, 66, 90}};
+    std::vector<std::vector<unsigned int>> level_order_inverted_tree{
+        {25}, {50, 15}, {70, 35, 22, 10}, {90, 66, 44, 31, 24, 18, 12, 4}};
+    std::vector<std::vector<unsigned int>> level_order_small_tree{{3}, {9, 20}, {15, 7}};
     int depth{4};
 
-    static TreeNode<unsigned int> *inverted_tree() {
+    static TreeNode<unsigned int>* inverted_tree()
+    {
         auto root = new TreeNode<unsigned int>(25);
         root->left = new TreeNode<unsigned int>(50);
         root->right = new TreeNode<unsigned int>(15);
@@ -72,7 +66,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *binary_tree_root() {
+    static TreeNode<unsigned int>* binary_tree_root()
+    {
         auto root = new TreeNode<unsigned int>(25);
         root->left = new TreeNode<unsigned int>(15);
         root->right = new TreeNode<unsigned int>(50);
@@ -98,7 +93,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *small_binary_tree_root() {
+    static TreeNode<unsigned int>* small_binary_tree_root()
+    {
         auto root = new TreeNode<unsigned int>(3);
         root->left = new TreeNode<unsigned int>(9);
         root->right = new TreeNode<unsigned int>(20);
@@ -107,7 +103,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *inverted_small_binary_tree_root() {
+    static TreeNode<unsigned int>* inverted_small_binary_tree_root()
+    {
         auto root = new TreeNode<unsigned int>(3);
         root->left = new TreeNode<unsigned int>(20);
         root->right = new TreeNode<unsigned int>(9);
@@ -116,14 +113,16 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *small_tree_with_subtree_duplicates() {
+    static TreeNode<unsigned int>* small_tree_with_subtree_duplicates()
+    {
         auto root = new TreeNode<unsigned int>(1);
         root->left = new TreeNode<unsigned int>(2);
         root->right = new TreeNode<unsigned int>(2);
         return root;
     }
 
-    static TreeNode<unsigned int> *medium_tree_with_subtree_duplicates1() {
+    static TreeNode<unsigned int>* medium_tree_with_subtree_duplicates1()
+    {
         auto root = new TreeNode<unsigned int>(1);
         root->left = new TreeNode<unsigned int>(2);
         root->right = new TreeNode<unsigned int>(3);
@@ -134,7 +133,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *medium_tree_with_subtree_duplicates2() {
+    static TreeNode<unsigned int>* medium_tree_with_subtree_duplicates2()
+    {
         auto root = new TreeNode<unsigned int>(1);
         root->left = new TreeNode<unsigned int>(2);
         root->right = new TreeNode<unsigned int>(2);
@@ -143,7 +143,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *medium_tree_with_subtree_duplicates3() {
+    static TreeNode<unsigned int>* medium_tree_with_subtree_duplicates3()
+    {
         auto root = new TreeNode<unsigned int>(2);
         root->left = new TreeNode<unsigned int>(1);
         root->right = new TreeNode<unsigned int>(1);
@@ -154,7 +155,8 @@ protected:
         return root;
     }
 
-    static TreeNode<unsigned int> *imbalanced_right_tree() {
+    static TreeNode<unsigned int>* imbalanced_right_tree()
+    {
         auto root = new TreeNode<unsigned int>(2);
         root->right = new TreeNode<unsigned int>(1);
         root->right->left = new TreeNode<unsigned int>(4);
@@ -163,7 +165,8 @@ protected:
         return root;
     }
 
-    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree() {
+    static std::pair<TreeNode<unsigned int>*, TreeNode<unsigned int>*> k_distance_tree()
+    {
         auto root = new TreeNode<unsigned int>(3);
         root->left = new TreeNode<unsigned int>(5);
         root->right = new TreeNode<unsigned int>(1);
@@ -176,7 +179,8 @@ protected:
         return std::make_pair(root, root->left);
     }
 
-    static std::pair<TreeNode<unsigned int> *, TreeNode<unsigned int> *> k_distance_tree2() {
+    static std::pair<TreeNode<unsigned int>*, TreeNode<unsigned int>*> k_distance_tree2()
+    {
         auto root = new TreeNode<unsigned int>(3);
         root->left = new TreeNode<unsigned int>(5);
         root->right = new TreeNode<unsigned int>(1);
@@ -189,8 +193,9 @@ protected:
         return std::make_pair(root, root->left->right->left);
     }
 
-    static std::vector<std::pair<TreeNode<int> *, int>> trees_maximum_path_sum() {
-        std::vector<std::pair<TreeNode<int> *, int >> results;
+    static std::vector<std::pair<TreeNode<int>*, int>> trees_maximum_path_sum()
+    {
+        std::vector<std::pair<TreeNode<int>*, int>> results;
         auto root1 = new TreeNode<int>(1);
         root1->left = new TreeNode<int>(2);
         root1->right = new TreeNode<int>(3);
@@ -220,7 +225,8 @@ protected:
         return results;
     }
 
-    static TreeNode<int> *infected_tree1() {
+    static TreeNode<int>* infected_tree1()
+    {
         auto root = new TreeNode<int>(1);
         root->right = new TreeNode<int>(3);
         root->right->left = new TreeNode<int>(10);
@@ -233,7 +239,8 @@ protected:
         return root;
     }
 
-    static TreeNode<int> *infected_tree2() {
+    static TreeNode<int>* infected_tree2()
+    {
         auto root = new TreeNode<int>(1);
         root->left = new TreeNode<int>(2);
         root->right = new TreeNode<int>(3);
@@ -259,7 +266,8 @@ protected:
         return root;
     }
 
-    static TreeNode<int> *palindromic_tree1() {
+    static TreeNode<int>* palindromic_tree1()
+    {
         auto root = new TreeNode<int>(2);
         root->left = new TreeNode<int>(3);
         root->left->right = new TreeNode<int>(1);
@@ -270,7 +278,8 @@ protected:
         return root;
     }
 
-    static TreeNode<int> *palindromic_tree2() {
+    static TreeNode<int>* palindromic_tree2()
+    {
         auto root = new TreeNode<int>(2);
         root->left = new TreeNode<int>(1);
         root->left->right = new TreeNode<int>(3);
@@ -281,7 +290,8 @@ protected:
         return root;
     }
 
-    static TreeNode<int> *even_odd_tree1() {
+    static TreeNode<int>* even_odd_tree1()
+    {
         auto root = new TreeNode<int>(1);
         root->left = new TreeNode<int>(10);
         root->right = new TreeNode<int>(4);
@@ -297,7 +307,8 @@ protected:
         return root;
     }
 
-    static TreeNode<int> *even_odd_tree2() {
+    static TreeNode<int>* even_odd_tree2()
+    {
         auto root = new TreeNode<int>(1);
         root->right = new TreeNode<int>(4);
         root->right->left = new TreeNode<int>(7);
@@ -307,8 +318,9 @@ protected:
         return root;
     }
 
-    template<typename T>
-    static std::tuple<TreeNode<T> *, TreeNode<T> *, T, int> tree_and_inserted_row_tree() {
+    template <typename T>
+    static std::tuple<TreeNode<T>*, TreeNode<T>*, T, int> tree_and_inserted_row_tree()
+    {
         constexpr int depth{2};
         constexpr T value{-1.f};
         auto root = new TreeNode<T>(1.f);
@@ -329,11 +341,11 @@ protected:
 
 
         return std::make_tuple(root, root2, value, depth);
-
     }
 
-    template<typename T>
-    static std::tuple<TreeNode<T> *, TreeNode<T> *, T, int> tree_and_inserted_row_tree2() {
+    template <typename T>
+    static std::tuple<TreeNode<T>*, TreeNode<T>*, T, int> tree_and_inserted_row_tree2()
+    {
         constexpr int depth{1};
         constexpr T value{-1.f};
         auto root = new TreeNode<T>(1.f);
@@ -353,11 +365,11 @@ protected:
 
 
         return std::make_tuple(root, root2, value, depth);
-
     }
 
 
-    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions1() {
+    static std::tuple<TreeNode<int>*, int, int, std::string> node_to_node_directions1()
+    {
         auto root = new TreeNode<int>(5);
         root->left = new TreeNode<int>(1);
         root->right = new TreeNode<int>(2);
@@ -370,7 +382,8 @@ protected:
         return std::make_tuple(root, start_value, end_value, result);
     }
 
-    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions2() {
+    static std::tuple<TreeNode<int>*, int, int, std::string> node_to_node_directions2()
+    {
         auto root = new TreeNode<int>(13);
         root->left = new TreeNode<int>(5);
         root->left->left = new TreeNode<int>(7);
@@ -393,7 +406,8 @@ protected:
     }
 
 
-    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions3() {
+    static std::tuple<TreeNode<int>*, int, int, std::string> node_to_node_directions3()
+    {
         auto root = new TreeNode<int>(13);
         root->left = new TreeNode<int>(5);
         root->left->left = new TreeNode<int>(7);
@@ -415,7 +429,8 @@ protected:
         return std::make_tuple(root, start_value, end_value, result);
     }
 
-    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions4() {
+    static std::tuple<TreeNode<int>*, int, int, std::string> node_to_node_directions4()
+    {
         auto root = new TreeNode<int>(2);
         root->left = new TreeNode<int>(1);
         constexpr int start_value{2};
@@ -424,7 +439,8 @@ protected:
         return std::make_tuple(root, start_value, end_value, result);
     }
 
-    static std::tuple<TreeNode<int> *, int, int, std::string> node_to_node_directions5() {
+    static std::tuple<TreeNode<int>*, int, int, std::string> node_to_node_directions5()
+    {
         auto root = new TreeNode<int>(2);
         root->left = new TreeNode<int>(1);
         constexpr int start_value{1};
@@ -433,8 +449,9 @@ protected:
         return std::make_tuple(root, start_value, end_value, result);
     }
 
-    static std::tuple<TreeNode<unsigned int> *, std::vector<unsigned int>, std::vector<int>>
-    trees_and_heights_after_removing_subtrees1() {
+    static std::tuple<TreeNode<unsigned int>*, std::vector<unsigned int>, std::vector<int>>
+    trees_and_heights_after_removing_subtrees1()
+    {
 
         auto root = new TreeNode<unsigned int>(1);
         root->left = new TreeNode<unsigned int>(3);
@@ -448,8 +465,9 @@ protected:
         return std::make_tuple(root, subtree_nodes, heights);
     }
 
-    static std::tuple<TreeNode<unsigned short> *, std::vector<unsigned short>, std::vector<int>>
-    trees_and_heights_after_removing_subtrees2() {
+    static std::tuple<TreeNode<unsigned short>*, std::vector<unsigned short>, std::vector<int>>
+    trees_and_heights_after_removing_subtrees2()
+    {
 
         auto root = new TreeNode<unsigned short>(5);
         root->left = new TreeNode<unsigned short>(8);
@@ -464,10 +482,6 @@ protected:
         std::vector<int> heights{3, 2, 3, 2};
         return std::make_tuple(root, subtree_nodes, heights);
     }
-
 };
 
-#endif //SETUP_BINARY_TREE_H
-
-
-
+#endif // SETUP_BINARY_TREE_H

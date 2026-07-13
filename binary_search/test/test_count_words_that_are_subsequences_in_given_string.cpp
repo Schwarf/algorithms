@@ -21,7 +21,8 @@ TEST(TestCountWordsThatAreSubsequencesInGivenString, simple2)
     EXPECT_EQ(count_words_that_are_subsequences_in_given_string(s, words), expected_result);
 }
 
-TEST(CountSubsequencesTest, simple3) {
+TEST(CountSubsequencesTest, simple3)
+{
     // Note subsequences count too
     std::vector<std::string> words = {"ace", "aec", "bd", "ad", "aeb"};
     std::string s{"abcde"};
@@ -29,7 +30,8 @@ TEST(CountSubsequencesTest, simple3) {
     EXPECT_EQ(count_words_that_are_subsequences_in_given_string(s, words), expected_result);
 }
 
-TEST(CountSubsequencesTest, simple4) {
+TEST(CountSubsequencesTest, simple4)
+{
     // Note subsequences count too
     std::vector<std::string> words = {"", "", "a"};
     std::string s{"a"};
@@ -37,7 +39,8 @@ TEST(CountSubsequencesTest, simple4) {
     EXPECT_EQ(count_words_that_are_subsequences_in_given_string(s, words), expected_result);
 }
 
-TEST(CountSubsequencesTest, simple5) {
+TEST(CountSubsequencesTest, simple5)
+{
     // Note subsequences count too
     std::vector<std::string> words = {"a", "bc", "edf"};
     std::string s{"xyz"};

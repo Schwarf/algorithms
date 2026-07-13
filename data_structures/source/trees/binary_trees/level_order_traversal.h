@@ -5,24 +5,28 @@
 #ifndef LEVEL_ORDER_TRAVERSAL_H
 #define LEVEL_ORDER_TRAVERSAL_H
 
-#include <vector>
 #include <queue>
+#include <vector>
 #include "tree_node.h"
 
 
-template<typename T>
-std::vector<std::vector<T>> level_order_traversal(TreeNode<T> *root) {
+template <typename T>
+std::vector<std::vector<T>> level_order_traversal(TreeNode<T>* root)
+{
     if (!root)
         return {};
     auto result = std::vector<std::vector<T>>();
-    std::queue<TreeNode<T> *> help;
+    std::queue<TreeNode<T>*> help;
     help.push(root);
     help.push(nullptr);
     auto node = root;
-    while (!help.empty()) {
+    while (!help.empty())
+    {
         auto insert = std::vector<T>();
-        if (help.front() != nullptr) {
-            while (help.front() != nullptr) {
+        if (help.front() != nullptr)
+        {
+            while (help.front() != nullptr)
+            {
                 node = help.front();
                 insert.push_back(node->value);
                 help.pop();
@@ -33,22 +37,26 @@ std::vector<std::vector<T>> level_order_traversal(TreeNode<T> *root) {
             }
             result.push_back(insert);
             help.push(nullptr);
-        } else
+        }
+        else
             help.pop();
     }
     return result;
 }
 
-template<typename T>
-std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root) {
+template <typename T>
+std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T>* root)
+{
     if (!root)
         return {};
-    std::queue<TreeNode<T> *> q{{root}};
+    std::queue<TreeNode<T>*> q{{root}};
     std::vector<std::vector<T>> result;
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         int size = q.size();
         std::vector<T> level(size);
-        for (int i{}; i < size; ++i) {
+        for (int i{}; i < size; ++i)
+        {
             auto node = q.front();
             q.pop();
             level[i] = node->value;
@@ -63,17 +71,20 @@ std::vector<std::vector<T>> concise_level_order_traversal(TreeNode<T> *root) {
     return result;
 }
 
-template<typename T>
-std::vector<std::vector<T>> zigzag_level_order_traversal(TreeNode<T> *root) {
+template <typename T>
+std::vector<std::vector<T>> zigzag_level_order_traversal(TreeNode<T>* root)
+{
     if (!root)
         return {};
-    std::queue<TreeNode<T> *> q{{root}};
+    std::queue<TreeNode<T>*> q{{root}};
     std::vector<std::vector<T>> result;
     bool from_left_to_right{true};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         int size = q.size();
         std::vector<T> level(size);
-        for (int i{}; i < size; ++i) {
+        for (int i{}; i < size; ++i)
+        {
             auto node = q.front();
             q.pop();
             const int index = from_left_to_right ? i : size - 1 - i;
@@ -90,4 +101,4 @@ std::vector<std::vector<T>> zigzag_level_order_traversal(TreeNode<T> *root) {
     return result;
 }
 
-#endif //LEVEL_ORDER_TRAVERSAL_H
+#endif // LEVEL_ORDER_TRAVERSAL_H

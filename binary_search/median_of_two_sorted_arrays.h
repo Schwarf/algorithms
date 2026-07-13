@@ -4,19 +4,15 @@
 
 #ifndef MEDIAN_OF_TWO_SORTED_ARRAYS_H
 #define MEDIAN_OF_TWO_SORTED_ARRAYS_H
-#include <concepts>
-#include <vector>
-#include <limits>
 #include <algorithm>
+#include <concepts>
+#include <limits>
+#include <vector>
 
-template<typename T>
-int find_median(const std::vector<T> &input1,
-                const std::vector<T> &input2,
-                int median_index,
-                int left1,
-                int right1,
-                int left2,
-                int right2) {
+template <typename T>
+int find_median(const std::vector<T>& input1, const std::vector<T>& input2, int median_index, int left1, int right1,
+                int left2, int right2)
+{
     // If the segment of on array is empty, it means we have passed all
     // its element, just return the corresponding element in the other array.
     if (right1 < left1)
@@ -27,7 +23,8 @@ int find_median(const std::vector<T> &input1,
     int mid1 = (left1 + right1) / 2;
     int mid2 = (left2 + right2) / 2;
     // If median_index is in the right half of input1 + input2, remove the smaller left half.
-    if (mid1 + mid2 < median_index) {
+    if (mid1 + mid2 < median_index)
+    {
         // if true input2[left2:mid2] is the smaller half
         if (input1[mid1] > input2[mid2])
             return find_median(input1, input2, median_index, left1, right1, mid2 + 1, right2);
@@ -40,9 +37,10 @@ int find_median(const std::vector<T> &input1,
     return find_median(input1, input2, median_index, left1, right1, left2, mid2 - 1);
 }
 
-template<typename T>
+template <typename T>
     requires std::is_arithmetic_v<T>
-double median_of_sorted_arrays(const std::vector<T> &input1, const std::vector<T> &input2) {
+double median_of_sorted_arrays(const std::vector<T>& input1, const std::vector<T>& input2)
+{
     int size1 = input1.size() - 1;
     int size2 = input2.size() - 1;
 
@@ -52,14 +50,17 @@ double median_of_sorted_arrays(const std::vector<T> &input1, const std::vector<T
     if (size & 1)
         return find_median(input1, input2, size / 2, 0, size1, 0, size2);
 
-    return (find_median(input1, input2, size / 2 - 1, 0, size1, 0, size2)
-            + find_median(input1, input2, size / 2, 0, size1, 0, size2)) / 2.0;
+    return (find_median(input1, input2, size / 2 - 1, 0, size1, 0, size2) +
+            find_median(input1, input2, size / 2, 0, size1, 0, size2)) /
+        2.0;
 }
 
-template<typename T>
+template <typename T>
     requires std::is_arithmetic_v<T>
-double median_of_sorted_arrays2(const std::vector<T> &input1, const std::vector<T> &input2) {
-    if (input1.size() > input2.size()) {
+double median_of_sorted_arrays2(const std::vector<T>& input1, const std::vector<T>& input2)
+{
+    if (input1.size() > input2.size())
+    {
         return median_of_sorted_arrays2(input2, input1);
     }
 
@@ -69,7 +70,8 @@ double median_of_sorted_arrays2(const std::vector<T> &input1, const std::vector<
         return -1.0;
     int left = 0, right = m;
 
-    while (left <= right) {
+    while (left <= right)
+    {
         int partitionA = (left + right) / 2;
         int partitionB = (m + n + 1) / 2 - partitionA;
 
@@ -78,16 +80,21 @@ double median_of_sorted_arrays2(const std::vector<T> &input1, const std::vector<
         T maxLeftB = (partitionB == 0) ? std::numeric_limits<T>::min() : input2[partitionB - 1];
         T minRightB = (partitionB == n) ? std::numeric_limits<T>::max() : input2[partitionB];
 
-        if (maxLeftA <= minRightB && maxLeftB <= minRightA) {
-            if ((m + n) % 2 == 0) {
+        if (maxLeftA <= minRightB && maxLeftB <= minRightA)
+        {
+            if ((m + n) % 2 == 0)
+            {
                 return (std::max(maxLeftA, maxLeftB) + std::min(minRightA, minRightB)) / 2.0;
             }
 
             return std::max(maxLeftA, maxLeftB);
         }
-        if (maxLeftA > minRightB) {
+        if (maxLeftA > minRightB)
+        {
             right = partitionA - 1;
-        } else {
+        }
+        else
+        {
             left = partitionA + 1;
         }
     }
@@ -96,4 +103,4 @@ double median_of_sorted_arrays2(const std::vector<T> &input1, const std::vector<
 }
 
 
-#endif //MEDIAN_OF_TWO_SORTED_ARRAYS_H
+#endif // MEDIAN_OF_TWO_SORTED_ARRAYS_H

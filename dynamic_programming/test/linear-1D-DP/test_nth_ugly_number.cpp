@@ -1,8 +1,8 @@
 //
 // Created by andreas on 18.08.24.
 //
-#include "gtest/gtest.h"
 #include "../../linear-1D-DP/nth_ugly_number.h"
+#include "gtest/gtest.h"
 
 TEST(TestNthUglyNumberBruteForce, simple1)
 {

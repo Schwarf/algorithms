@@ -2,9 +2,9 @@
 // Created by andreas on 18.07.22.
 //
 
-#include "gtest/gtest.h"
-#include "../can_reach_last_index.h"
 #include <vector>
+#include "../can_reach_last_index.h"
+#include "gtest/gtest.h"
 
 TEST(CanReachLastIndex, test_scenario1)
 {

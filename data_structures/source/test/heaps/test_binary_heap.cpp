@@ -2,11 +2,11 @@
 // Created by andreas on 12.02.22.
 //
 
+#include <queue>
+#include <random>
+#include <vector>
 #include "gtest/gtest.h"
 #include "heaps/binary_heap_stack.h"
-#include <vector>
-#include <random>
-#include <queue>
 
 class SetupBinaryHeap : public testing::Test
 {

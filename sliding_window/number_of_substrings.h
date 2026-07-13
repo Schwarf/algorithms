@@ -9,24 +9,26 @@
 #include <string>
 #include <unordered_map>
 
-int number_of_substrings(const std::string &s) {
+int number_of_substrings(const std::string& s)
+{
     int n = s.size();
     std::unordered_map<char, int> frequency;
     int counter{};
     int left{};
     int right{};
 
-    while (right < n) {
+    while (right < n)
+    {
         frequency[s[right]]++;
-        while (frequency['a'] > 0 && frequency['b'] > 0 && frequency['c'] > 0) {
+        while (frequency['a'] > 0 && frequency['b'] > 0 && frequency['c'] > 0)
+        {
             counter += (n - right);
             frequency[s[left]]--;
             left++;
-
         }
         right++;
     }
     return counter;
 }
 
-#endif //NUMBER_OF_SUBSTRINGS_H
+#endif // NUMBER_OF_SUBSTRINGS_H

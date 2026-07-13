@@ -8,10 +8,7 @@
 template <typename T>
 struct AVLNode
 {
-    explicit AVLNode(const T& val)
-    {
-        value = val;
-    }
+    explicit AVLNode(const T& val) { value = val; }
 
     AVLNode* left = nullptr;
     AVLNode* right = nullptr;
@@ -19,4 +16,4 @@ struct AVLNode
     T value{};
 };
 
-#endif //AVL_NODE_H
+#endif // AVL_NODE_H

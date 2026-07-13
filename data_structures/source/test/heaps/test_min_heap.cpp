@@ -182,12 +182,7 @@ struct Job
 
 TEST(MinHeapTest, WorksWithCustomTotallyOrderedType)
 {
-    MinHeap<Job> heap({
-        Job{5, 100},
-        Job{1, 200},
-        Job{3, 300},
-        Job{3, 350}
-    });
+    MinHeap<Job> heap({Job{5, 100}, Job{1, 200}, Job{3, 300}, Job{3, 350}});
 
     EXPECT_EQ(heap.remove(), (Job{1, 200}));
     EXPECT_EQ(heap.remove(), (Job{3, 300}));

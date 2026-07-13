@@ -42,20 +42,11 @@ class Vertex
         edges_.insert(new UndirectedEdge<data_T>(this, vertex, weight));
     }
 
-    std::list<UndirectedEdge<data_T>> edges()
-    {
-        return edges_;
-    }
+    std::list<UndirectedEdge<data_T>> edges() { return edges_; }
 
-    size_t id()
-    {
-        return vertex_id_;
-    }
+    size_t id() { return vertex_id_; }
 
-    data_T value()
-    {
-        return value_;
-    }
+    data_T value() { return value_; }
 
     ~Vertex()
     {
@@ -76,4 +67,4 @@ template <typename data_T>
 size_t Vertex<data_T>::vertex_count_ = 0;
 
 
-#endif //VERTEX_OLD_DEFINITION_H
+#endif // VERTEX_OLD_DEFINITION_H

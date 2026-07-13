@@ -2,8 +2,8 @@
 // Created by andreas on 13.08.23.
 //
 
-#include "gtest/gtest.h"
 #include "../../grid-DP/unique_paths.h"
+#include "gtest/gtest.h"
 
 TEST(UniquePathsRecursive, simple1)
 {

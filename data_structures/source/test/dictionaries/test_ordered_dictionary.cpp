@@ -1,24 +1,17 @@
 //
 // Created by andreas on 23.06.23.
 //
-#include "gtest/gtest.h"
 #include "dictionaries/ordered_dictionary.h"
+#include "gtest/gtest.h"
 
 struct MoveOnlyType
 {
-    MoveOnlyType(int val)
-        : value(val)
-    {
-    }
+    MoveOnlyType(int val) : value(val) {}
 
     MoveOnlyType(const MoveOnlyType& rhs) = delete;
     MoveOnlyType& operator=(const MoveOnlyType& rhs) = delete;
 
-    MoveOnlyType(MoveOnlyType&& rhs)
-        : value(rhs.value)
-    {
-        rhs.value = 0;
-    }
+    MoveOnlyType(MoveOnlyType&& rhs) : value(rhs.value) { rhs.value = 0; }
 
     MoveOnlyType& operator=(MoveOnlyType&& rhs)
     {

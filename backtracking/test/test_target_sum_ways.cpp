@@ -21,14 +21,14 @@ TEST(TargetSumWaysTest, HandlesSinglePositiveValue)
 {
     std::vector<int> nums{5};
 
-    EXPECT_EQ(target_sum_ways(nums, 5), 1);   // +5
+    EXPECT_EQ(target_sum_ways(nums, 5), 1); // +5
 }
 
 TEST(TargetSumWaysTest, HandlesSingleNegativeTarget)
 {
     std::vector<int> nums{5};
 
-    EXPECT_EQ(target_sum_ways(nums, -5), 1);  // -5
+    EXPECT_EQ(target_sum_ways(nums, -5), 1); // -5
 }
 
 TEST(TargetSumWaysTest, ReturnsZeroWhenTargetCannotBeReached)

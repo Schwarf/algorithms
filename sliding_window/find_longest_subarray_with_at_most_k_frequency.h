@@ -9,24 +9,26 @@
 // An array is called good if the frequency of each element in this array is less than or equal to k.
 // Return the length of the longest good subarray of nums.
 // A subarray is a contiguous non-empty sequence of elements within an array.
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_map>
+#include <vector>
 
-int max_subarray_length(const std::vector<int> &input, int max_frequency) {
+int max_subarray_length(const std::vector<int>& input, int max_frequency)
+{
     int result{};
     int left{-1};
     std::unordered_map<int, int> frequency;
-    for (int right{}; right < input.size(); right++) {
+    for (int right{}; right < input.size(); right++)
+    {
         frequency[input[right]]++;
-        while (frequency[input[right]] > max_frequency) {
+        while (frequency[input[right]] > max_frequency)
+        {
             left++;
             frequency[input[left]]--;
         }
         result = std::max(result, right - left);
     }
     return result;
-
 }
 
-#endif //FIND_LONGEST_SUBARRAY_WITH_AT_MOST_K_FREQUENCY_H
+#endif // FIND_LONGEST_SUBARRAY_WITH_AT_MOST_K_FREQUENCY_H

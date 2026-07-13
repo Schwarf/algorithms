@@ -4,14 +4,14 @@
 
 #ifndef MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
 #define MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
-#include <vector>
-#include <numeric>
 #include <algorithm>
+#include <numeric>
+#include <vector>
 
-// You are given an integer array nums and an integer target. In one operation, you can either remove the leftmost or the
-// rightmost element from the array nums and subtract its value from target. Note that
-// this modifies the array for future operations.
-// Return the minimum number of operations to reduce target to exactly 0 if it is possible, otherwise, return -1.
+// You are given an integer array nums and an integer target. In one operation, you can either remove the leftmost or
+// the rightmost element from the array nums and subtract its value from target. Note that this modifies the array for
+// future operations. Return the minimum number of operations to reduce target to exactly 0 if it is possible,
+// otherwise, return -1.
 
 // Constraints:
 // 1 <= nums.length <= 10^5
@@ -23,34 +23,35 @@
 // ask which contiguous middle subarray to keep.
 // If removed_sum = target, then kept_sum = total_sum - target.
 // So we look for the longest subarray with sum (total_sum - target).
-template<typename T>
-requires std::is_signed_v<T>
-int minimal_operations_to_get_zero(std::vector<T> &input, T target)
+template <typename T>
+    requires std::is_signed_v<T>
+int minimal_operations_to_get_zero(std::vector<T>& input, T target)
 {
-	auto sum = std::accumulate(input.begin(), input.end(), T{});
-	if (sum == target)
-		return input.size();
-	if (sum < target)
-		return -1;
+    auto sum = std::accumulate(input.begin(), input.end(), T{});
+    if (sum == target)
+        return input.size();
+    if (sum < target)
+        return -1;
 
-	// Sum of the middle subarray we want to keep.
-	auto keep = sum - target;
-	T current_sum{};
-	int start_index{};
-	int count_operations{};
-	for (int i = 0; i < input.size(); ++i) {
-		// Extend the sliding window to the right.
-		current_sum += input[i];
-		// Shrink from the left while the window sum is too large.
-		while (current_sum > keep)
-			current_sum -= input[start_index++];
-		// If this window has the desired kept sum,
-		// remember the maximum window length.
-		if (current_sum == keep)
-			count_operations = std::max(count_operations, i - start_index + 1);
-	}
-	return count_operations == 0 ? -1 : input.size() - count_operations;
+    // Sum of the middle subarray we want to keep.
+    auto keep = sum - target;
+    T current_sum{};
+    int start_index{};
+    int count_operations{};
+    for (int i = 0; i < input.size(); ++i)
+    {
+        // Extend the sliding window to the right.
+        current_sum += input[i];
+        // Shrink from the left while the window sum is too large.
+        while (current_sum > keep)
+            current_sum -= input[start_index++];
+        // If this window has the desired kept sum,
+        // remember the maximum window length.
+        if (current_sum == keep)
+            count_operations = std::max(count_operations, i - start_index + 1);
+    }
+    return count_operations == 0 ? -1 : input.size() - count_operations;
 }
 
 
-#endif //MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H
+#endif // MINIMAL_OPERATIONS_ARRAY_ELEMENTS_TO_GET_ZERO_TARGET_H

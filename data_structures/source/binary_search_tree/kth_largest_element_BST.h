@@ -16,14 +16,13 @@
 #include "../trees/binary_trees/tree_node.h"
 
 template <typename T>
-void inorder(TreeNode<T>* node, std::vector<T> & values)
+void inorder(TreeNode<T>* node, std::vector<T>& values)
 {
-    if(!node)
+    if (!node)
         return;
     inorder(node->left, values);
     values.push_back(node->value);
     inorder(node->right, values);
-
 }
 
 // Straightforward inorder traversal. O(n) time and O(n) space
@@ -32,17 +31,19 @@ int find_Kth_largest_value(TreeNode<T>* tree, int k)
 {
     std::vector<T> values;
     inorder(tree, values);
-    return values[values.size()-k];
+    return values[values.size() - k];
 }
 
-template<typename T>
-void reverse_inorder(TreeNode<T>* node, int& k, T& answer) {
+template <typename T>
+void reverse_inorder(TreeNode<T>* node, int& k, T& answer)
+{
     if (!node || k == 0)
         return;
 
     reverse_inorder(node->right, k, answer);
     k--;
-    if (k == 0) {
+    if (k == 0)
+    {
         answer = node->value;
         return;
     }
@@ -60,4 +61,4 @@ int find_Kth_largest_value_optimized(TreeNode<T>* tree, int k)
 }
 
 
-#endif //ALGORITHMS_KTH_LARGEST_ELEMENT_BST_H
+#endif // ALGORITHMS_KTH_LARGEST_ELEMENT_BST_H

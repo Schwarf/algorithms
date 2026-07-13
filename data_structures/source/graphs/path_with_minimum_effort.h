@@ -4,12 +4,12 @@
 
 #ifndef PATH_WITH_MINIMUM_EFFORT_H
 #define PATH_WITH_MINIMUM_EFFORT_H
-#include <vector>
-#include <queue>
-#include <concepts>
-#include <stack>
-#include <limits>
 #include <algorithm>
+#include <concepts>
+#include <limits>
+#include <queue>
+#include <stack>
+#include <vector>
 
 template <typename T>
     requires std::is_signed_v<T>
@@ -127,9 +127,9 @@ T path_with_minimum_effort2(std::vector<std::vector<T>>& heights)
     std::vector<std::vector<T>> minimum_effort(rows, std::vector<T>(columns, std::numeric_limits<T>::max()));
 
     // Priority queue for Dijkstra's algorithm
-    std::priority_queue<std::tuple<T, int, int>,
-                        std::vector<std::tuple<T, int, int>>,
-                        std::greater<std::tuple<T, int, int>>> pq;
+    std::priority_queue<std::tuple<T, int, int>, std::vector<std::tuple<T, int, int>>,
+                        std::greater<std::tuple<T, int, int>>>
+        pq;
 
     // Start from the top-left cell
     pq.push(std::make_tuple(0, 0, 0));
@@ -176,4 +176,4 @@ T path_with_minimum_effort2(std::vector<std::vector<T>>& heights)
 }
 
 
-#endif //PATH_WITH_MINIMUM_EFFORT_H
+#endif // PATH_WITH_MINIMUM_EFFORT_H

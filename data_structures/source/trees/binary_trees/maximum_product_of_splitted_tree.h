@@ -9,11 +9,12 @@
 // Return the maximum product of the sums of the two subtrees. Since the answer may be too large,
 // return it modulo 109 + 7.
 // Note that you need to maximize the answer before taking the mod and not after taking it.
-#include "tree_node.h"
 #include <algorithm>
+#include "tree_node.h"
 
-template<typename T>
-void get_total_sum(TreeNode<T> *node, T &total_sum) {
+template <typename T>
+void get_total_sum(TreeNode<T>* node, T& total_sum)
+{
     if (!node)
         return;
     total_sum += node->value;
@@ -21,8 +22,9 @@ void get_total_sum(TreeNode<T> *node, T &total_sum) {
     get_total_sum(node->right, total_sum);
 }
 
-template<typename T>
-T compute_maximum_product(TreeNode<T> *node, const T &total_sum, T &maximum_product) {
+template <typename T>
+T compute_maximum_product(TreeNode<T>* node, const T& total_sum, T& maximum_product)
+{
     if (!node)
         return 0;
     T sub_sum_left = compute_maximum_product(node->left, total_sum, maximum_product);
@@ -33,8 +35,9 @@ T compute_maximum_product(TreeNode<T> *node, const T &total_sum, T &maximum_prod
     return sub_sum_left + sub_sum_right + node->value;
 }
 
-template<typename T>
-T get_maximum_product(TreeNode<T> *root) {
+template <typename T>
+T get_maximum_product(TreeNode<T>* root)
+{
     T total_sum{};
     T result{};
     get_total_sum(root, total_sum);
@@ -43,4 +46,4 @@ T get_maximum_product(TreeNode<T> *root) {
 }
 
 
-#endif //MAXIMUM_PRODUCT_OF_SPLITTED_TREE_H
+#endif // MAXIMUM_PRODUCT_OF_SPLITTED_TREE_H

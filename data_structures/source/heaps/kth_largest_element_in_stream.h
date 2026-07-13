@@ -5,16 +5,15 @@
 #ifndef KTH_LARGEST_ELEMENT_IN_STREAM_H
 #define KTH_LARGEST_ELEMENT_IN_STREAM_H
 
-#include <vector>
 #include <functional>
 #include <queue>
+#include <vector>
 
 template <typename T>
 class KthLargestElementInStream
 {
 public:
-    KthLargestElementInStream(int k, const std::vector<T>& initial_input)
-        : k_(k)
+    KthLargestElementInStream(int k, const std::vector<T>& initial_input) : k_(k)
     {
         for (const auto& element : initial_input)
             queue_.push(element);
@@ -35,4 +34,4 @@ private:
     size_t k_;
 };
 
-#endif //KTH_LARGEST_ELEMENT_IN_STREAM_H
+#endif // KTH_LARGEST_ELEMENT_IN_STREAM_H

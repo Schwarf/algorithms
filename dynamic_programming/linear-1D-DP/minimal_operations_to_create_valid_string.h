@@ -9,13 +9,14 @@
 // Valid string: aaabb.
 // Invalid string: abab.
 // String size up to 10^5 characters.
+#include <algorithm>
+#include <stack>
 #include <string>
 #include <vector>
-#include <stack>
-#include <algorithm>
 
 // O(N) time complexity, O(N) space complexity
-int operations_to_create_valid_string_dp(const std::string &input) {
+int operations_to_create_valid_string_dp(const std::string& input)
+{
     int n = input.size();
     std::vector<int> leftB(n);
     std::vector<int> rightA(n);
@@ -27,32 +28,39 @@ int operations_to_create_valid_string_dp(const std::string &input) {
         rightA[i] = rightA[i + 1] + (input[i] == 'a');
 
     int min{1000000};
-    for (int i{}; i < n; ++i) {
+    for (int i{}; i < n; ++i)
+    {
         min = std::min(min, leftB[i] + rightA[i] - 1);
     }
     return min;
 }
 
 // O(N) time complexity, O(N) space complexity
-int operations_to_create_valid_string_stack(const std::string &input) {
+int operations_to_create_valid_string_stack(const std::string& input)
+{
     std::stack<char> s;
     int delete_count{};
-    for (const auto &c: input) {
+    for (const auto& c : input)
+    {
         // whenever we have a 'b' on top of the stack and an 'a' we have to delete one of them
-        if (!s.empty() && s.top() == 'b' && c == 'a') {
+        if (!s.empty() && s.top() == 'b' && c == 'a')
+        {
             delete_count++;
             s.pop();
-        } else
+        }
+        else
             s.push(c);
     }
     return delete_count;
 }
 
 // O(N) time complexity, O(1) space complexity
-int operations_to_create_valid_string_optimized_dp(const std::string &input) {
+int operations_to_create_valid_string_optimized_dp(const std::string& input)
+{
     int count_b{};
     int delete_count{};
-    for (const auto &c: input) {
+    for (const auto& c : input)
+    {
         if (c == 'b')
             count_b++;
         else
@@ -61,4 +69,4 @@ int operations_to_create_valid_string_optimized_dp(const std::string &input) {
     return delete_count;
 }
 
-#endif //DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_OPERATIONS_TO_CREATE_VALID_STRING_H
+#endif // DYNAMIC_PROGRAMMING_SAMPLES_MINIMAL_OPERATIONS_TO_CREATE_VALID_STRING_H

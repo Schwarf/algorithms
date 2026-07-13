@@ -16,27 +16,29 @@
 // The server executes process1 and removes it from the queue.
 // To avoid starvation, it reduces the priority of process2 to floor(p/2) .
 // Start again from step 1.
-// Given the initial priority of the processes, find the final priority of the processes which remain after the algorithm terminates.
-// Note that relative the arrangement of remaining processes in the queue remains the same,only their priorities change.
-// Function Description
-// Complete the function getPrioritiesAfterExecution in the editor.
-//getPrioritiesAfterExecution has the following parameter:
+// Given the initial priority of the processes, find the final priority of the processes which remain after the
+// algorithm terminates. Note that relative the arrangement of remaining processes in the queue remains the same,only
+// their priorities change. Function Description Complete the function getPrioritiesAfterExecution in the editor.
+// getPrioritiesAfterExecution has the following parameter:
 //    int priority[n]: the initial prorities of processes
-//Returns
+// Returns
 //    int[]: the final priorities of the remaining processes
 #include <algorithm>
+#include <cmath>
 #include <unordered_map>
 #include <vector>
-#include <cmath>
 
-int get_max_shared_priority(const std::vector<int>& priorities) {
+int get_max_shared_priority(const std::vector<int>& priorities)
+{
     std::unordered_map<int, int> frequency_map;
     int max_shared_priority = 0;
 
     // Build a frequency map of priorities
-    for (int priority : priorities) {
+    for (int priority : priorities)
+    {
         frequency_map[priority]++;
-        if (frequency_map[priority] > 1 && priority > max_shared_priority) {
+        if (frequency_map[priority] > 1 && priority > max_shared_priority)
+        {
             max_shared_priority = priority;
         }
     }
@@ -44,23 +46,31 @@ int get_max_shared_priority(const std::vector<int>& priorities) {
     return max_shared_priority; // Return the highest shared priority
 }
 
-    std::vector<int> priorities_after_execution_brute_force(std::vector<int> priorities) {
-    while (true) {
+std::vector<int> priorities_after_execution_brute_force(std::vector<int> priorities)
+{
+    while (true)
+    {
         // Step 1: Find the maximum shared priority
         int max_shared_priority = get_max_shared_priority(priorities);
-        if (max_shared_priority == 0) {
+        if (max_shared_priority == 0)
+        {
             break; // Terminate if no shared priority is found
         }
 
         bool first_found = false;
-        for (size_t i = 0; i < priorities.size(); i++) {
-            if (priorities[i] == max_shared_priority) {
-                if (!first_found) {
+        for (size_t i = 0; i < priorities.size(); i++)
+        {
+            if (priorities[i] == max_shared_priority)
+            {
+                if (!first_found)
+                {
                     // O(N) operation
                     priorities.erase(priorities.begin() + i);
                     i--; // Adjust the index after removal
                     first_found = true;
-                } else {
+                }
+                else
+                {
                     priorities[i] = floor(max_shared_priority / 2.0);
                     break;
                 }
@@ -71,7 +81,8 @@ int get_max_shared_priority(const std::vector<int>& priorities) {
 }
 
 
-struct Indices {
+struct Indices
+{
     int index1;
     int index2;
     int max_priority_value;
@@ -79,15 +90,19 @@ struct Indices {
 };
 
 
-Indices get_max_shared_priority(std::unordered_map<int, std::vector<int>> & frequency_map) {
+Indices get_max_shared_priority(std::unordered_map<int, std::vector<int>>& frequency_map)
+{
     int max_shared_priority = 0;
-    for (const auto& entry : frequency_map) {
-        if (entry.second.size() >= 2) {
+    for (const auto& entry : frequency_map)
+    {
+        if (entry.second.size() >= 2)
+        {
             max_shared_priority = std::max(max_shared_priority, entry.first);
         }
     }
 
-    if (max_shared_priority == 0) {
+    if (max_shared_priority == 0)
+    {
         return Indices(-1, -1, max_shared_priority);
     }
 
@@ -100,20 +115,26 @@ Indices get_max_shared_priority(std::unordered_map<int, std::vector<int>> & freq
     return Indices(index1, index2, max_shared_priority);
 }
 
-std::vector<int> priorities_after_execution(std::vector<int> priorities) {
+std::vector<int> priorities_after_execution(std::vector<int> priorities)
+{
     std::unordered_map<int, std::vector<int>> frequency_map;
 
-    for (size_t i = 0; i < priorities.size(); i++) {
+    for (size_t i = 0; i < priorities.size(); i++)
+    {
         frequency_map[priorities[i]].push_back(i);
     }
 
     std::vector<int> ans;
-    while (true) {
+    while (true)
+    {
         Indices max_shared_priority_index = get_max_shared_priority(frequency_map);
         int maxSharedPriority = max_shared_priority_index.max_priority_value;
-        if (maxSharedPriority == 0) {
-            for (int p : priorities) {
-                if (p != -1) {
+        if (maxSharedPriority == 0)
+        {
+            for (int p : priorities)
+            {
+                if (p != -1)
+                {
                     ans.push_back(p);
                 }
             }
@@ -134,4 +155,4 @@ std::vector<int> priorities_after_execution(std::vector<int> priorities) {
 }
 
 
-#endif //PRIORITIES_AFTER_EXECUTION_H
+#endif // PRIORITIES_AFTER_EXECUTION_H

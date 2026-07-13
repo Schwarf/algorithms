@@ -42,4 +42,4 @@ void delete_middle_node_in_list_with_at_least_two_elements(Node<T>* head)
     delete slow;
 }
 
-#endif //DELETE_NODES_H
+#endif // DELETE_NODES_H

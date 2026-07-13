@@ -2,8 +2,8 @@
 // Created by andreas on 29.09.24.
 //
 #include <deque>
-#include "gtest/gtest.h"
 #include "deques/circular_deque.h"
+#include "gtest/gtest.h"
 
 
 TEST(TestCircularDeque, InsertFront)
@@ -135,9 +135,9 @@ TEST(TestCircularDeque, MixedOperations)
     EXPECT_FALSE(deque.is_full());
 
     // Insert elements at front and back
-    EXPECT_TRUE(deque.insert_back(1));  // deque: [1]
+    EXPECT_TRUE(deque.insert_back(1)); // deque: [1]
     EXPECT_TRUE(deque.insert_front(2)); // deque: [2, 1]
-    EXPECT_TRUE(deque.insert_back(3));  // deque: [2, 1, 3]
+    EXPECT_TRUE(deque.insert_back(3)); // deque: [2, 1, 3]
     EXPECT_TRUE(deque.insert_front(4)); // deque: [4, 2, 1, 3]
     EXPECT_FALSE(deque.insert_back(5)); // should fail, full
 
@@ -153,7 +153,7 @@ TEST(TestCircularDeque, MixedOperations)
     EXPECT_EQ(back.value(), 3);
 
     // Delete from both ends
-    EXPECT_TRUE(deque.delete_back());  // deque: [4, 2, 1]
+    EXPECT_TRUE(deque.delete_back()); // deque: [4, 2, 1]
     EXPECT_TRUE(deque.delete_front()); // deque: [2, 1]
     EXPECT_FALSE(deque.is_full());
     EXPECT_FALSE(deque.is_empty());
@@ -167,7 +167,7 @@ TEST(TestCircularDeque, MixedOperations)
     EXPECT_EQ(back.value(), 1);
 
     // Insert again after deletions
-    EXPECT_TRUE(deque.insert_back(5));  // deque: [2, 1, 5]
+    EXPECT_TRUE(deque.insert_back(5)); // deque: [2, 1, 5]
     EXPECT_TRUE(deque.insert_front(6)); // deque: [6, 2, 1, 5]
     EXPECT_FALSE(deque.insert_back(7)); // full
 
@@ -179,8 +179,8 @@ TEST(TestCircularDeque, MixedOperations)
     // Clear all
     EXPECT_TRUE(deque.delete_front()); // [2, 1, 5]
     EXPECT_TRUE(deque.delete_front()); // [1, 5]
-    EXPECT_TRUE(deque.delete_back());  // [1]
-    EXPECT_TRUE(deque.delete_back());  // []
+    EXPECT_TRUE(deque.delete_back()); // [1]
+    EXPECT_TRUE(deque.delete_back()); // []
     EXPECT_FALSE(deque.delete_back()); // nothing to delete
 
     EXPECT_TRUE(deque.is_empty());

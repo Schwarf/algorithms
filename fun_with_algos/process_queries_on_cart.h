@@ -12,7 +12,8 @@
 //    If the query integer is positive, add the integer representing an item id to the back of the cart.
 //    If the query integer is negative, remove the first occurrence of the integer from the cart.
 //    List the final items present in the cart after all the queries are completed.
-//    It is safe to assume that the cart will not end up empty. The queries only ask for removal of items that are present in the cart. There is no 0 in array query.
+//    It is safe to assume that the cart will not end up empty. The queries only ask for removal of items that are
+//    present in the cart. There is no 0 in array query.
 // Function Description
 // Complete the function processQueriesOnCart in the editor below.
 // processQueriesOnCart has the following parameters:
@@ -20,10 +21,10 @@
 //    int query[q] : items to add or remove
 #include <list>
 #include <vector>
-std::vector<int> process_queries_on_cart(const std::vector<int> & items, const std::vector<int> & queries)
+std::vector<int> process_queries_on_cart(const std::vector<int>& items, const std::vector<int>& queries)
 {
     std::list cart(items.begin(), items.end());
-    for (const auto query: queries)
+    for (const auto query : queries)
     {
         if (query > 0)
             cart.push_back(query);
@@ -44,4 +45,4 @@ std::vector<int> process_queries_on_cart(const std::vector<int> & items, const s
 }
 
 
-#endif //PROCESS_QUERIES_ON_CART_H
+#endif // PROCESS_QUERIES_ON_CART_H

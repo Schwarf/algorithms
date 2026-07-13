@@ -5,9 +5,9 @@
 #ifndef DYNAMIC_PROGRAMMING_SAMPLES_LONGEST_IDEAL_STRING_SUBSEQUENCE_H
 #define DYNAMIC_PROGRAMMING_SAMPLES_LONGEST_IDEAL_STRING_SUBSEQUENCE_H
 
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 // You are given a string s consisting of lowercase letters and an integer k.
 // We call a string t ideal if the following conditions are satisfied:
@@ -19,7 +19,8 @@
 // Note that the alphabet order is not cyclic. For example, the absolute difference in the alphabet order of 'a'
 // and 'z' is 25, not 1.
 
-int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string &input, int k) {
+int dfs(int index, int character, std::vector<std::vector<int>>& dp, std::string& input, int k)
+{
     if (dp[index][character] != -1)
         return dp[index][character];
 
@@ -28,11 +29,15 @@ int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string
     if (does_match)
         dp[index][character] = 1;
 
-    if (index > 0) {
+    if (index > 0)
+    {
         dp[index][character] = dfs(index - 1, character, dp, input, k);
-        if (does_match) {
-            for (int char_index{}; char_index < 26; ++char_index) {
-                if (std::abs(character - char_index) <= k) {
+        if (does_match)
+        {
+            for (int char_index{}; char_index < 26; ++char_index)
+            {
+                if (std::abs(character - char_index) <= k)
+                {
                     dp[index][character] = std::max(dp[index][character], 1 + dfs(index - 1, char_index, dp, input, k));
                 }
             }
@@ -41,29 +46,33 @@ int dfs(int index, int character, std::vector<std::vector<int>> &dp, std::string
     return dp[index][character];
 }
 
-//int longest_ideal_string_top_down(std::string &input, int k) {
-//    int n = input.size();
-//    std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
+// int longest_ideal_string_top_down(std::string &input, int k) {
+//     int n = input.size();
+//     std::vector<std::vector<int>> dp(n, std::vector<int>(26, -1));
 //
-//    int result{};
-//    for (int character{}; character < 26; ++character) {
-//        result = std::max(result, dfs(n - 1, character, dp, input, k));
-//    }
+//     int result{};
+//     for (int character{}; character < 26; ++character) {
+//         result = std::max(result, dfs(n - 1, character, dp, input, k));
+//     }
 //
-//}
+// }
 
 
-int longest_ideal_string_bottom_up(std::string s, int k) {
+int longest_ideal_string_bottom_up(std::string s, int k)
+{
     int n = s.size();
     std::vector<int> dp(26, 0);
 
     int result{};
     // Updating dp with the i-th character
-    for (int i{}; i < n; i++) {
+    for (int i{}; i < n; i++)
+    {
         int current = s[i] - 'a';
         int best{};
-        for (int prev{}; prev < 26; prev++) {
-            if (abs(prev - current) <= k) {
+        for (int prev{}; prev < 26; prev++)
+        {
+            if (abs(prev - current) <= k)
+            {
                 best = std::max(best, dp[prev]);
             }
         }
@@ -75,4 +84,4 @@ int longest_ideal_string_bottom_up(std::string s, int k) {
     return result;
 }
 
-#endif //DYNAMIC_PROGRAMMING_SAMPLES_LONGEST_IDEAL_STRING_SUBSEQUENCE_H
+#endif // DYNAMIC_PROGRAMMING_SAMPLES_LONGEST_IDEAL_STRING_SUBSEQUENCE_H

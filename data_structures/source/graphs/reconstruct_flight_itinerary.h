@@ -4,10 +4,10 @@
 
 #ifndef RECONSTRUCT_FLIGHT_ITINERARY_H
 #define RECONSTRUCT_FLIGHT_ITINERARY_H
-#include <string>
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 // You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival
 // airports of one flight. Reconstruct the itinerary in order and return it.
 // All the tickets belong to a man who departs from "JFK", thus, the itinerary must begin with "JFK".
@@ -16,8 +16,7 @@
 // For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
 // You may assume all tickets form at least one valid itinerary. You must use all the tickets once and only once.
 
-void dfs(std::unordered_map<std::string, std::vector<std::string>>& graph,
-         std::string& current,
+void dfs(std::unordered_map<std::string, std::vector<std::string>>& graph, std::string& current,
          std::vector<std::string>& result)
 {
     while (!graph[current].empty())
@@ -55,4 +54,4 @@ std::vector<std::string> reconstruct_itinerary(const std::vector<std::vector<std
     return result;
 }
 
-#endif //RECONSTRUCT_FLIGHT_ITINERARY_H
+#endif // RECONSTRUCT_FLIGHT_ITINERARY_H

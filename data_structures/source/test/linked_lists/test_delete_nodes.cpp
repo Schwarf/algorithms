@@ -1,9 +1,9 @@
 //
 // Created by andreas on 17.03.23.
 //
-#include "setup_singly_linked_lists.h"
-#include "linked_lists/delete_nodes.h"
 #include <vector>
+#include "linked_lists/delete_nodes.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, delete_nodes1)
 {

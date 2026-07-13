@@ -68,4 +68,4 @@ std::vector<int> shortest_distance_after_road_additions(int n, std::vector<std::
 }
 
 
-#endif //SHORTEST_DISTANCE_AFTER_ROAD_ADDITION_H
+#endif // SHORTEST_DISTANCE_AFTER_ROAD_ADDITION_H

@@ -36,4 +36,4 @@ int rabin_karp(const std::string& pattern, const std::string& input)
     }
 }
 
-#endif //DATA_STRUCTURES_RABIN_KARP_SAMPLE_H
+#endif // DATA_STRUCTURES_RABIN_KARP_SAMPLE_H

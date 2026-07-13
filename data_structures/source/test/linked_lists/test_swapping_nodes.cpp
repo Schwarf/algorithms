@@ -1,9 +1,9 @@
 //
 // Created by andreas on 15.05.23.
 //
+#include "./linked_lists/swapping_nodes.h"
 #include "gtest/gtest.h"
 #include "setup_singly_linked_lists.h"
-#include "./linked_lists/swapping_nodes.h"
 
 TEST_F(SetupSinglyLinkedLists, simple1)
 {

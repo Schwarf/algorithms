@@ -6,8 +6,8 @@
 #define ZERO_MATRIX_H
 // Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and
 // column are set to 0.
-#include <vector>
 #include <unordered_set>
+#include <vector>
 
 void zero_matrix(std::vector<std::vector<int>>& matrix)
 {
@@ -102,4 +102,4 @@ void zero_matrix_optimized(std::vector<std::vector<int>>& matrix)
     }
 }
 
-#endif //ZERO_MATRIX_H
+#endif // ZERO_MATRIX_H

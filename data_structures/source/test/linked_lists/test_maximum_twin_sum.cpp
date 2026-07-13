@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/maximum_twin_sum.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, maximum_twin_sum_double_simple)
 {

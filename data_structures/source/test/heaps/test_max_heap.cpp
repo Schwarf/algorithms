@@ -193,12 +193,7 @@ struct Job
 
 TEST(MaxHeapTest, WorksWithCustomTotallyOrderedType)
 {
-    MaxHeap<Job> heap({
-        Job{5, 100},
-        Job{1, 200},
-        Job{3, 300},
-        Job{3, 350}
-    });
+    MaxHeap<Job> heap({Job{5, 100}, Job{1, 200}, Job{3, 300}, Job{3, 350}});
 
     EXPECT_EQ(heap.remove(), (Job{5, 100}));
     EXPECT_EQ(heap.remove(), (Job{3, 350}));

@@ -7,43 +7,65 @@
 // ---------------- helpers ----------------
 
 // Insert with BST rule: left < node, right >= node (duplicates go right)
-static TreeNode<int>* insert(TreeNode<int>* root, int v) {
-    if (!root) return new TreeNode<int>(v);
+static TreeNode<int>* insert(TreeNode<int>* root, int v)
+{
+    if (!root)
+        return new TreeNode<int>(v);
     auto* cur = root;
-    while (true) {
-        if (v < cur->value) {
-            if (cur->left) cur = cur->left;
-            else { cur->left = new TreeNode<int>(v); break; }
-        } else {
-            if (cur->right) cur = cur->right;
-            else { cur->right = new TreeNode<int>(v); break; }
+    while (true)
+    {
+        if (v < cur->value)
+        {
+            if (cur->left)
+                cur = cur->left;
+            else
+            {
+                cur->left = new TreeNode<int>(v);
+                break;
+            }
+        }
+        else
+        {
+            if (cur->right)
+                cur = cur->right;
+            else
+            {
+                cur->right = new TreeNode<int>(v);
+                break;
+            }
         }
     }
     return root;
 }
 
-static TreeNode<int>* buildBst(std::initializer_list<int> values) {
+static TreeNode<int>* buildBst(std::initializer_list<int> values)
+{
     TreeNode<int>* root = nullptr;
-    for (int v : values) root = insert(root, v);
+    for (int v : values)
+        root = insert(root, v);
     return root;
 }
 
 // Post-order delete. This will trigger your TreeNode dtor (and thus TestTracker logging).
-static void destroy(TreeNode<int>* node) {
-    if (!node) return;
+static void destroy(TreeNode<int>* node)
+{
+    if (!node)
+        return;
     destroy(node->left);
     destroy(node->right);
     delete node;
 }
 
 
-TEST(TestKthLargestBST, SingleNodeK1) {
+TEST(TestKthLargestBST, SingleNodeK1)
+{
     auto* root = buildBst({42});
     EXPECT_EQ(find_Kth_largest_value(root, 1), 42);
     destroy(root);
 }
 
-TEST(TestKthLargestBST, BalancedUniqueValues_AllKs) {
+TEST(TestKthLargestBST, BalancedUniqueValues_AllKs)
+{
     auto* root = buildBst({4, 2, 6, 1, 3, 5, 7});
     // Desc: 7,6,5,4,3,2,1
     EXPECT_EQ(find_Kth_largest_value(root, 1), 7);
@@ -56,7 +78,8 @@ TEST(TestKthLargestBST, BalancedUniqueValues_AllKs) {
     destroy(root);
 }
 
-TEST(TestKthLargestBST, RightSkewedTree) {
+TEST(TestKthLargestBST, RightSkewedTree)
+{
     auto* root = buildBst({1, 2, 3, 4, 5}); // right chain
     // Desc: 5,4,3,2,1
     EXPECT_EQ(find_Kth_largest_value(root, 1), 5);
@@ -65,7 +88,8 @@ TEST(TestKthLargestBST, RightSkewedTree) {
     destroy(root);
 }
 
-TEST(TestKthLargestBST, LeftSkewedTree) {
+TEST(TestKthLargestBST, LeftSkewedTree)
+{
     auto* root = buildBst({5, 4, 3, 2, 1}); // left chain
     EXPECT_EQ(find_Kth_largest_value(root, 1), 5);
     EXPECT_EQ(find_Kth_largest_value(root, 3), 3);
@@ -73,7 +97,8 @@ TEST(TestKthLargestBST, LeftSkewedTree) {
     destroy(root);
 }
 
-TEST(TestKthLargestBST, HandlesDuplicates_DuplicatesGoRight) {
+TEST(TestKthLargestBST, HandlesDuplicates_DuplicatesGoRight)
+{
     auto* root = buildBst({5, 3, 7, 5, 5, 7, 1});
     // Sorted asc: 1,3,5,5,5,7,7
     // Desc:       7,7,5,5,5,3,1
@@ -86,7 +111,8 @@ TEST(TestKthLargestBST, HandlesDuplicates_DuplicatesGoRight) {
     destroy(root);
 }
 
-TEST(TestKthLargestBST, HandlesNegativeAndMixedValues) {
+TEST(TestKthLargestBST, HandlesNegativeAndMixedValues)
+{
     auto* root = buildBst({-10, -3, -20, 0, 5, -3, 2});
     // Sorted asc: -20, -10, -3, -3, 0, 2, 5
     // Desc:        5,   2,  0, -3, -3, -10, -20
@@ -99,7 +125,8 @@ TEST(TestKthLargestBST, HandlesNegativeAndMixedValues) {
     destroy(root);
 }
 
-TEST(TestKthLargestBST, LargerTree_SanityChecks) {
+TEST(TestKthLargestBST, LargerTree_SanityChecks)
+{
     auto* root = buildBst({15, 5, 20, 2, 5, 17, 22, 1, 3, 18});
     // Asc: 1,2,3,5,5,15,17,18,20,22
     // Desc:22,20,18,17,15,5,5,3,2,1
@@ -112,13 +139,15 @@ TEST(TestKthLargestBST, LargerTree_SanityChecks) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-TEST(TestKthLargestBSTOptimized, SingleNodeK1) {
+TEST(TestKthLargestBSTOptimized, SingleNodeK1)
+{
     auto* root = buildBst({42});
     EXPECT_EQ(find_Kth_largest_value_optimized(root, 1), 42);
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, BalancedUniqueValues_AllKs) {
+TEST(TestKthLargestBSTOptimized, BalancedUniqueValues_AllKs)
+{
     auto* root = buildBst({4, 2, 6, 1, 3, 5, 7});
     // Desc: 7,6,5,4,3,2,1
     EXPECT_EQ(find_Kth_largest_value_optimized(root, 1), 7);
@@ -131,7 +160,8 @@ TEST(TestKthLargestBSTOptimized, BalancedUniqueValues_AllKs) {
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, RightSkewedTree) {
+TEST(TestKthLargestBSTOptimized, RightSkewedTree)
+{
     auto* root = buildBst({1, 2, 3, 4, 5}); // right chain
     // Desc: 5,4,3,2,1
     EXPECT_EQ(find_Kth_largest_value_optimized(root, 1), 5);
@@ -140,7 +170,8 @@ TEST(TestKthLargestBSTOptimized, RightSkewedTree) {
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, LeftSkewedTree) {
+TEST(TestKthLargestBSTOptimized, LeftSkewedTree)
+{
     auto* root = buildBst({5, 4, 3, 2, 1}); // left chain
     EXPECT_EQ(find_Kth_largest_value_optimized(root, 1), 5);
     EXPECT_EQ(find_Kth_largest_value_optimized(root, 3), 3);
@@ -148,7 +179,8 @@ TEST(TestKthLargestBSTOptimized, LeftSkewedTree) {
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, HandlesDuplicates_DuplicatesGoRight) {
+TEST(TestKthLargestBSTOptimized, HandlesDuplicates_DuplicatesGoRight)
+{
     auto* root = buildBst({5, 3, 7, 5, 5, 7, 1});
     // Sorted asc: 1,3,5,5,5,7,7
     // Desc:       7,7,5,5,5,3,1
@@ -161,7 +193,8 @@ TEST(TestKthLargestBSTOptimized, HandlesDuplicates_DuplicatesGoRight) {
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, HandlesNegativeAndMixedValues) {
+TEST(TestKthLargestBSTOptimized, HandlesNegativeAndMixedValues)
+{
     auto* root = buildBst({-10, -3, -20, 0, 5, -3, 2});
     // Sorted asc: -20, -10, -3, -3, 0, 2, 5
     // Desc:        5,   2,  0, -3, -3, -10, -20
@@ -174,7 +207,8 @@ TEST(TestKthLargestBSTOptimized, HandlesNegativeAndMixedValues) {
     destroy(root);
 }
 
-TEST(TestKthLargestBSTOptimized, LargerTree_SanityChecks) {
+TEST(TestKthLargestBSTOptimized, LargerTree_SanityChecks)
+{
     auto* root = buildBst({15, 5, 20, 2, 5, 17, 22, 1, 3, 18});
     // Asc: 1,2,3,5,5,15,17,18,20,22
     // Desc:22,20,18,17,15,5,5,3,2,1

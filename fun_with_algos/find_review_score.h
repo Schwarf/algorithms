@@ -29,20 +29,24 @@
 // - dProductButScu
 // - Wash
 // The longest substring is "dProductButScra", return its length, 15.
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
-int find_review_score(const std::string & review, std::vector<std::string> prohibited_words) {
+int find_review_score(const std::string& review, std::vector<std::string> prohibited_words)
+{
 
     int maxLength = 0;
     int start = 0;
 
-    for (int end = 0; end < review.size(); end++) {
+    for (int end = 0; end < review.size(); end++)
+    {
         // Check if any prohibited word exists in the current substring
-        for (const auto & word : prohibited_words) {
-            if (review.substr(start, end - start + 1).find(word) != std::string::npos) {
+        for (const auto& word : prohibited_words)
+        {
+            if (review.substr(start, end - start + 1).find(word) != std::string::npos)
+            {
                 start++; // Move start forward to exclude the prohibited word
-                break;   // Break early since one violation is enough
+                break; // Break early since one violation is enough
             }
         }
         maxLength = std::max(maxLength, end - start + 1); // Update max valid length
@@ -50,4 +54,4 @@ int find_review_score(const std::string & review, std::vector<std::string> prohi
 
     return maxLength;
 }
-#endif //FIND_REVIEW_SCORE_H
+#endif // FIND_REVIEW_SCORE_H

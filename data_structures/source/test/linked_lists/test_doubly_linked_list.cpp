@@ -9,10 +9,7 @@
 class SetupDoublyLinkedList : public testing::Test
 {
 public:
-    SetupDoublyLinkedList()
-    {
-        linked_list = new DoublyLinkedList<int64_t>();
-    }
+    SetupDoublyLinkedList() { linked_list = new DoublyLinkedList<int64_t>(); }
 
 protected:
     DoublyLinkedList<int64_t>* linked_list;

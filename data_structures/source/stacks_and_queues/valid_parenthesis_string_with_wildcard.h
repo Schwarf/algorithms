@@ -11,8 +11,8 @@
 // - Left parenthesis '(' must go before the corresponding right parenthesis ')'.
 // - '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
 
-#include<stack>
-#include<string>
+#include <stack>
+#include <string>
 
 bool is_parenthesis_string_with_wildcard_valid(std::string input)
 {
@@ -88,4 +88,4 @@ bool is_parenthesis_string_with_wildcard_valid_optimized(std::string input)
     // If open count and close count are both non-negative, the string is valid
     return true;
 }
-#endif //VALID_PARANTHESIS_STRING_H
+#endif // VALID_PARANTHESIS_STRING_H

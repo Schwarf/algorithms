@@ -2,8 +2,8 @@
 // Created by andreas on 11.07.26.
 //
 
-#include "gtest/gtest.h"
 #include "../../knapsack-like/coin_permutations.h"
+#include "gtest/gtest.h"
 
 TEST(CoinPermutations, zero_amount)
 {

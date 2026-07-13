@@ -1,8 +1,8 @@
 //
 // Created by andreas on 16.04.25.
 //
-#include "trees/binary_trees/boundary_of_binary_tree.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/boundary_of_binary_tree.h"
 
 TEST_F(SetupBinaryTree, TestBoundaryOfBinaryTreeSimple1)
 {

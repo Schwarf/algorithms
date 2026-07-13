@@ -2,8 +2,8 @@
 // Created by andreas on 24.06.24.
 //
 
-#include "gtest/gtest.h"
 #include "../../interval-DP/matrix_chain_multiplication.h"
+#include "gtest/gtest.h"
 
 TEST(TestMatrixChainMultiplication, simple1)
 {

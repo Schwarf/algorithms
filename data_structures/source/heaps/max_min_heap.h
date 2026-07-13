@@ -5,22 +5,22 @@
 #ifndef MAX_MIN_HEAP_H
 #define MAX_MIN_HEAP_H
 
-#include <iostream>
 #include <concepts>
+#include <iostream>
 #include <vector>
 
 #include <stdexcept>
 
 template <typename T>
-concept Ordered = requires(T a, T b)
-{
+concept Ordered = requires(T a, T b) {
     { a < b } -> std::convertible_to<bool>;
     { a <= b } -> std::convertible_to<bool>;
     { a > b } -> std::convertible_to<bool>;
     { a >= b } -> std::convertible_to<bool>;
 };
 
-template <typename T, class Container = std::vector<T>, class Comparator = std::less<T>> requires Ordered<T>
+template <typename T, class Container = std::vector<T>, class Comparator = std::less<T>>
+    requires Ordered<T>
 class MaxMinHeap
 {
 public:
@@ -32,15 +32,9 @@ public:
         trickle_up(heap_.size() - 1);
     }
 
-    [[nodiscard]] size_t size() const
-    {
-        return heap_.size();
-    }
+    [[nodiscard]] size_t size() const { return heap_.size(); }
 
-    [[nodiscard]] bool empty() const
-    {
-        return heap_.empty();
-    }
+    [[nodiscard]] bool empty() const { return heap_.empty(); }
 
     const T& max() const
     {
@@ -227,7 +221,8 @@ private:
         }
     }
 
-    // In min-max heaps, the required ordering must be established between an element, its children, and its grandchildren.
+    // In min-max heaps, the required ordering must be established between an element, its children, and its
+    // grandchildren.
     void trickle_down(int index)
     {
         const auto level = determine_level(index);
@@ -280,20 +275,11 @@ private:
         }
     }
 
-    int parent(int index) const
-    {
-        return (index - 1) / 2;
-    }
+    int parent(int index) const { return (index - 1) / 2; }
 
-    int left_child(int index) const
-    {
-        return 2 * index + 1;
-    }
+    int left_child(int index) const { return 2 * index + 1; }
 
-    int right_child(int index) const
-    {
-        return 2 * index + 2;
-    }
+    int right_child(int index) const { return 2 * index + 2; }
 
 
     // Compute the level for index i in the min-max-heap by using floor(determine_level(i))
@@ -314,4 +300,4 @@ private:
     static constexpr bool is_max_level{true};
 };
 
-#endif //MAX_MIN_HEAP_H
+#endif // MAX_MIN_HEAP_H

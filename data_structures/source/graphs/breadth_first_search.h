@@ -4,8 +4,8 @@
 
 #ifndef BREADTH_FIRST_SEARCH_H
 #define BREADTH_FIRST_SEARCH_H
-#include <queue>
 #include <map>
+#include <queue>
 #include <vector>
 #include "graph.h"
 
@@ -34,4 +34,4 @@ std::map<id_T, id_T> get_breadth_first_search_tree(Graph<id_T, data_T>& graph,
     return bfs_tree;
 }
 
-#endif //BREADTH_FIRST_SEARCH_H
+#endif // BREADTH_FIRST_SEARCH_H

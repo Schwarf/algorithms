@@ -19,20 +19,11 @@ private:
 public:
     QueueAB() = default;
 
-    bool is_empty() const final
-    {
-        return size_ == 0;
-    }
+    bool is_empty() const final { return size_ == 0; }
 
-    bool is_full() const
-    {
-        return size_ == queue_capacity;
-    }
+    bool is_full() const { return size_ == queue_capacity; }
 
-    size_t size() const final
-    {
-        return size_;
-    }
+    size_t size() const final { return size_; }
 
     void enqueue(const T& value)
     {
@@ -73,4 +64,4 @@ public:
     }
 };
 
-#endif //QUEUE_ARRAY_BASED_H
+#endif // QUEUE_ARRAY_BASED_H

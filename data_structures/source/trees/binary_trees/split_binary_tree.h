@@ -4,9 +4,9 @@
 
 #ifndef ALGORITHMS_SPLIT_BINARY_TREE_H
 #define ALGORITHMS_SPLIT_BINARY_TREE_H
-// You’re given the root of a binary tree. You may remove exactly one edge (i.e., cut the connection between a parent and one of its children). This would split the tree into two separate trees.
-// Return the sum of the values in each of the two resulting trees if there exists a cut such that the two sums are equal.
-// If no such cut exists, return 0.
+// You’re given the root of a binary tree. You may remove exactly one edge (i.e., cut the connection between a parent
+// and one of its children). This would split the tree into two separate trees. Return the sum of the values in each of
+// the two resulting trees if there exists a cut such that the two sums are equal. If no such cut exists, return 0.
 #include "tree_node.h"
 
 template <typename T>
@@ -18,7 +18,7 @@ T get_tree_sum(TreeNode<T>* node)
 }
 
 template <typename T>
-T subtree_sum_and_find(TreeNode<T>* node, T wanted, bool &found)
+T subtree_sum_and_find(TreeNode<T>* node, T wanted, bool& found)
 {
     if (!node)
         return 0;
@@ -35,24 +35,24 @@ template <typename T>
 bool try_subtree(TreeNode<T>* node, T wanted)
 {
     bool found = false;
-    subtree_sum_and_find(node, wanted,found);
+    subtree_sum_and_find(node, wanted, found);
     return found;
 }
 
 template <typename T>
-requires std::is_integral_v<T>
+    requires std::is_integral_v<T>
 T split_binary_tree(TreeNode<T>* root)
 {
     T sum = get_tree_sum(root);
     if (sum & 1)
         return 0; // Odd number -> no split possible
-    T wanted = sum/2;
+    T wanted = sum / 2;
     return try_subtree(root, wanted) ? wanted : 0;
 }
 
 
 template <typename T>
-T dfs(TreeNode<T>* node, T target, bool&found, bool is_root)
+T dfs(TreeNode<T>* node, T target, bool& found, bool is_root)
 {
     if (!node)
         return T{};
@@ -66,15 +66,15 @@ T dfs(TreeNode<T>* node, T target, bool&found, bool is_root)
 }
 
 template <typename T>
-requires std::is_integral_v<T>
+    requires std::is_integral_v<T>
 T split_binary_tree2(TreeNode<T>* root)
 {
     T sum = get_tree_sum(root);
     if (sum & 1)
         return 0; // Odd number -> no split possible
-    T wanted = sum/2;
+    T wanted = sum / 2;
     return try_subtree(root, wanted) ? wanted : 0;
 }
 
 
-#endif //ALGORITHMS_SPLIT_BINARY_TREE_H
+#endif // ALGORITHMS_SPLIT_BINARY_TREE_H

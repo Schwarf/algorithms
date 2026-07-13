@@ -56,10 +56,8 @@ TEST(TestMakeDivisibleByValueBruteForce, complex1)
 
 TEST(TestMakeDivisibleByValueBruteForce, complex2)
 {
-    std::vector<int> input{
-        3, 4, 79, 65, 11, 1, 44, 4, 12, 53, 21, 52, 52, 37, 86, 58, 37, 17, 5, 61, 74, 85, 18, 71,
-        79, 68, 25, 63, 73, 36, 69, 3, 84, 70, 86, 22, 4, 3, 58, 32, 44, 12, 17, 58, 32, 63
-    };
+    std::vector<int> input{3,  4,  79, 65, 11, 1,  44, 4,  12, 53, 21, 52, 52, 37, 86, 58, 37, 17, 5,  61, 74, 85, 18,
+                           71, 79, 68, 25, 63, 73, 36, 69, 3,  84, 70, 86, 22, 4,  3,  58, 32, 44, 12, 17, 58, 32, 63};
     constexpr int value{1352};
     constexpr int expected_result{11};
     EXPECT_EQ(expected_result, min_size_of_subarray_brute_force(input, value));
@@ -129,10 +127,8 @@ TEST(TestMakeDivisibleByValue, complex1)
 
 TEST(TestMakeDivisibleByValue, complex2)
 {
-    std::vector<int> input{
-        3, 4, 79, 65, 11, 1, 44, 4, 12, 53, 21, 52, 52, 37, 86, 58, 37, 17, 5, 61, 74, 85, 18, 71,
-        79, 68, 25, 63, 73, 36, 69, 3, 84, 70, 86, 22, 4, 3, 58, 32, 44, 12, 17, 58, 32, 63
-    };
+    std::vector<int> input{3,  4,  79, 65, 11, 1,  44, 4,  12, 53, 21, 52, 52, 37, 86, 58, 37, 17, 5,  61, 74, 85, 18,
+                           71, 79, 68, 25, 63, 73, 36, 69, 3,  84, 70, 86, 22, 4,  3,  58, 32, 44, 12, 17, 58, 32, 63};
     constexpr int value{1352};
     constexpr int expected_result{11};
     EXPECT_EQ(expected_result, min_size_of_subarray(input, value));

@@ -8,18 +8,18 @@
 //    The right subtree of a node contains only nodes with keys greater than the node's key.
 //    Both the left and right subtrees must also be binary search trees.
 
-#include "../trees/binary_trees/tree_node.h"
 #include <limits>
+#include "../trees/binary_trees/tree_node.h"
 
 template <typename T>
-bool is_valid_BST(TreeNode<T>* root, long long min = std::numeric_limits<long long>::min(), long long max =
-std::numeric_limits<long long>::max()) {
-    if(!root)
+bool is_valid_BST(TreeNode<T>* root, long long min = std::numeric_limits<long long>::min(),
+                  long long max = std::numeric_limits<long long>::max())
+{
+    if (!root)
         return true;
 
-    if(root->value <= min || root->value >= max)
+    if (root->value <= min || root->value >= max)
         return false;
 
     return is_valid_BST(root->left, min, root->value) && is_valid_BST(root->right, root->value, max);
-
 }

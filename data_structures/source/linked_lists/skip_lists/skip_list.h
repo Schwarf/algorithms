@@ -4,10 +4,10 @@
 
 #ifndef SKIP_LIST_H
 #define SKIP_LIST_H
-#include <vector>
-#include <random>
-#include <optional>
 #include <algorithm>
+#include <optional>
+#include <random>
+#include <vector>
 // https://en.wikipedia.org/wiki/Skip_list
 
 template <typename KeyType, typename ValueType, int MaxLevel>
@@ -45,8 +45,8 @@ private:
     }
 
 public:
-    explicit SkipList(float probability = 0.5) : probability(probability), generator(std::random_device{}()),
-                                                 distribution(probability)
+    explicit SkipList(float probability = 0.5) :
+        probability(probability), generator(std::random_device{}()), distribution(probability)
     {
         // create head on all levels
         header = new Node(MaxLevel, KeyType(), ValueType());
@@ -62,7 +62,6 @@ public:
             current_node = next_node;
         }
     }
-
 
 
     void insert(const KeyType& key, const ValueType& value)
@@ -93,7 +92,8 @@ public:
         }
 
         // We decide which levels (all, some, 1) get the new key-value pair
-        // for that we make coin-flip(s) and the level is defined by std::max(MaxLevel, consecutive-successful-coin-flips)
+        // for that we make coin-flip(s) and the level is defined by std::max(MaxLevel,
+        // consecutive-successful-coin-flips)
         int new_level = randomLevel();
         if (new_level > top_level)
         {
@@ -128,7 +128,7 @@ public:
     {
         std::vector<Node*> update(MaxLevel + 1);
         auto current_node = header;
-        for(int level = top_level; level > -1; --level)
+        for (int level = top_level; level > -1; --level)
         {
             while (current_node->forward[level] && current_node->forward[level]->key < key)
             {
@@ -146,17 +146,17 @@ public:
             return false;
 
 
-        for(int level = 0; level <= top_level; ++level)
+        for (int level = 0; level <= top_level; ++level)
         {
             // we stop as soon as we hit a level where current_node is not found
-            if(update[level]->forward[level] != current_node)
+            if (update[level]->forward[level] != current_node)
                 break;
             update[level]->forward[level] = current_node->forward[level];
         }
         delete current_node;
         --node_count;
         // Adjust current_level
-        while(top_level > 0 && header->forward[top_level] == nullptr)
+        while (top_level > 0 && header->forward[top_level] == nullptr)
         {
             --top_level;
         }
@@ -166,7 +166,7 @@ public:
     bool search(const KeyType& key, ValueType& value) const
     {
         auto current_node = header;
-        for(int level = top_level; level > -1; --level)
+        for (int level = top_level; level > -1; --level)
         {
             while (current_node->forward[level] && current_node->forward[level]->key < key)
             {
@@ -188,20 +188,17 @@ public:
     std::optional<ValueType> get(const KeyType& key) const
     {
         ValueType value;
-        if (search(key, value)) {
+        if (search(key, value))
+        {
             return std::optional<ValueType>(value);
         }
         return std::nullopt;
     }
 
     // size(): current number of elements
-    size_t size() const noexcept {
-        return node_count;
-    }
+    size_t size() const noexcept { return node_count; }
 
     // empty(): check if list has no elements
-    bool empty() const noexcept {
-        return node_count == 0;
-    }
+    bool empty() const noexcept { return node_count == 0; }
 };
-#endif //SKIP_LIST_H
+#endif // SKIP_LIST_H

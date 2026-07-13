@@ -5,9 +5,9 @@
 #ifndef MAXIMUM_NUMBER_OF_UNCROSSING_LINES_H
 #define MAXIMUM_NUMBER_OF_UNCROSSING_LINES_H
 
+#include <algorithm>
 #include <concepts>
 #include <vector>
-#include <algorithm>
 
 // You are given two integer arrays nums1 and nums2. We write the integers of input1 and input2
 // (in the order they are given) on two separate horizontal lines.
@@ -17,17 +17,23 @@
 // Note that a connecting line cannot intersect even at the endpoints (i.e., each number can
 // only belong to one connecting line).
 // Return the maximum number of connecting lines we can draw in this way.
-template<typename T>
-requires std::is_integral_v<T>
-int maximum_number_of_uncrossing_lines(std::vector<T> &input1, std::vector<T> &input2) {
+template <typename T>
+    requires std::is_integral_v<T>
+int maximum_number_of_uncrossing_lines(std::vector<T>& input1, std::vector<T>& input2)
+{
     int n1 = input1.size();
     int n2 = input2.size();
     std::vector<std::vector<T>> dp(n1 + 1, std::vector<T>(n2 + 1, T{}));
-    for (int i = 1; i <= n1; i++) {
-        for (int j = 1; j <= n2; j++) {
-            if (input1[i - 1] == input2[j - 1]) {
+    for (int i = 1; i <= n1; i++)
+    {
+        for (int j = 1; j <= n2; j++)
+        {
+            if (input1[i - 1] == input2[j - 1])
+            {
                 dp[i][j] = 1 + dp[i - 1][j - 1];
-            } else {
+            }
+            else
+            {
                 dp[i][j] = std::max(dp[i][j - 1], dp[i - 1][j]);
             }
         }
@@ -36,4 +42,4 @@ int maximum_number_of_uncrossing_lines(std::vector<T> &input1, std::vector<T> &i
     return dp[n1][n2];
 }
 
-#endif //MAXIMUM_NUMBER_OF_UNCROSSING_LINES_H
+#endif // MAXIMUM_NUMBER_OF_UNCROSSING_LINES_H

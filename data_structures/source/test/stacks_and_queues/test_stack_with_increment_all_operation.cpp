@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "stacks_and_queues/stack_with_increment_all_operation.h"  // Assuming the IncrementStack class is defined here.
+#include "stacks_and_queues/stack_with_increment_all_operation.h" // Assuming the IncrementStack class is defined here.
 
 // Test fixture for handling setup and teardown for tests
 template <typename T>
@@ -14,10 +14,7 @@ protected:
         stack = new IncrementStack<T>(5);
     }
 
-    void TearDown() override
-    {
-        delete stack;
-    }
+    void TearDown() override { delete stack; }
 };
 
 using MyTypes = ::testing::Types<int, double>; // You can add more types to test.

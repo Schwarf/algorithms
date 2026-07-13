@@ -12,8 +12,8 @@
 // You can't visit the same cell more than once.
 // Never visit a cell with 0 gold.
 // You can start and stop collecting gold from any position in the grid that has some gold.
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 template <typename T>
     requires std::is_arithmetic_v<T>
@@ -28,8 +28,8 @@ T dfs_backtrack(std::vector<std::vector<T>>& grid, int row, int col, int rows, i
     grid[row][col] = T{};
     for (int direction{}; direction < 4; direction++)
     {
-        gold = std::max(gold, dfs_backtrack(grid, row + directions[direction], col + directions[direction + 1],
-                                            rows, columns));
+        gold = std::max(
+            gold, dfs_backtrack(grid, row + directions[direction], col + directions[direction + 1], rows, columns));
     }
     // backtrack
     grid[row][col] = original_value;
@@ -54,4 +54,4 @@ T path_with_maximum_gold(std::vector<std::vector<T>>& grid)
     return max;
 }
 
-#endif //DATA_STRUCTURES_PATH_WITH_MAXIMUM_GOLD_H
+#endif // DATA_STRUCTURES_PATH_WITH_MAXIMUM_GOLD_H

@@ -14,11 +14,11 @@
 // If it is impossible to convert source to target, return -1.
 //
 // Note that there may exist indices i, j such that original[j] == original[i] and changed[j] == changed[i].
+#include <algorithm>
+#include <numeric>
+#include <queue>
 #include <string>
 #include <vector>
-#include <queue>
-#include <numeric>
-#include <algorithm>
 
 std::vector<long long> dijkstra(int start, const std::vector<std::vector<std::pair<int, int>>>& graph)
 {
@@ -87,7 +87,7 @@ void floyd_warshall(std::vector<std::vector<long long>>& conversion_costs)
                 {
                     conversion_costs[start_char][end_char] = std::min(conversion_costs[start_char][end_char],
                                                                       conversion_costs[start_char][transition_char] +
-                                                                      conversion_costs[transition_char][end_char]);
+                                                                          conversion_costs[transition_char][end_char]);
                 }
             }
         }
@@ -95,17 +95,17 @@ void floyd_warshall(std::vector<std::vector<long long>>& conversion_costs)
 }
 
 
-long long
-minimum_cost_to_convert_string_floyd_warshall(std::string& source, std::string& target, std::vector<char>& original,
-                                              std::vector<char>& changed, std::vector<int>& costs)
+long long minimum_cost_to_convert_string_floyd_warshall(std::string& source, std::string& target,
+                                                        std::vector<char>& original, std::vector<char>& changed,
+                                                        std::vector<int>& costs)
 {
-    std::vector<std::vector<long long>> conversion_costs(26, std::vector<long long>(26,
-                                                             std::numeric_limits<long long>::max()));
+    std::vector<std::vector<long long>> conversion_costs(
+        26, std::vector<long long>(26, std::numeric_limits<long long>::max()));
 
     for (int i{}; i < original.size(); ++i)
     {
-        conversion_costs[original[i] - 'a'][changed[i] - 'a'] = std::min(
-            conversion_costs[original[i] - 'a'][changed[i] - 'a'], static_cast<long long>(costs[i]));
+        conversion_costs[original[i] - 'a'][changed[i] - 'a'] =
+            std::min(conversion_costs[original[i] - 'a'][changed[i] - 'a'], static_cast<long long>(costs[i]));
     }
 
 
@@ -123,4 +123,4 @@ minimum_cost_to_convert_string_floyd_warshall(std::string& source, std::string& 
     return total_costs;
 }
 
-#endif //DATA_STRUCTURES_MINIMUM_COST_TO_CONVERT_STRING_H
+#endif // DATA_STRUCTURES_MINIMUM_COST_TO_CONVERT_STRING_H

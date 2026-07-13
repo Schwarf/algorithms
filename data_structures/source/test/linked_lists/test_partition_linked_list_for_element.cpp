@@ -4,8 +4,8 @@
 
 #include <algorithm>
 
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/partition_linked_list_for_element.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, partition_element1)
 {

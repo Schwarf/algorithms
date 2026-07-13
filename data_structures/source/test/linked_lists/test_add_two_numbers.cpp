@@ -1,8 +1,8 @@
 //
 // Created by andreas on 19.03.23.
 //
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/add_two_numbers.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, add_two_numbers)
 {

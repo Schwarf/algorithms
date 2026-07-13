@@ -14,21 +14,22 @@
 //  'R' means to go from a node to its right child node.
 //  'U' means to go from a node to its parent node.
 // Return the step-by-step directions of the shortest path from node s to node t.
-#include "tree_node.h"
-#include <string>
+#include <algorithm>
 #include <queue>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
-#include <algorithm>
+#include "tree_node.h"
 
 // ---------------------------------------------------------------------------------------------------------------------
 // solution with back tracking
-// we build a graph, then we bfs through the graph. Startting from start_node we track all nodes (strings) in 
+// we build a graph, then we bfs through the graph. Startting from start_node we track all nodes (strings) in
 // a hashmap until we reach end_node. Then we use the tracking-hashmap to construct the direction-string and reverse
 // it to get the correct answer. Very complicated approach
-template<typename T>
-requires std::is_integral_v<T>
-TreeNode<T> *find_start_node(TreeNode<T> *node, T start_value) {
+template <typename T>
+    requires std::is_integral_v<T>
+TreeNode<T>* find_start_node(TreeNode<T>* node, T start_value)
+{
     if (node == nullptr)
         return node;
     if (node->value == start_value)
@@ -40,79 +41,87 @@ TreeNode<T> *find_start_node(TreeNode<T> *node, T start_value) {
     return find_start_node(node->right, start_value);
 }
 
-template<typename T>
-requires std::is_integral_v<T>
-void fill_parent_map(TreeNode<T> *node, std::unordered_map<T, TreeNode<T> *> &parent_map) {
+template <typename T>
+    requires std::is_integral_v<T>
+void fill_parent_map(TreeNode<T>* node, std::unordered_map<T, TreeNode<T>*>& parent_map)
+{
     if (!node)
         return;
 
-    if (node->left) {
+    if (node->left)
+    {
         parent_map[node->left->value] = node;
         fill_parent_map(node->left, parent_map);
     }
-    if (node->right) {
+    if (node->right)
+    {
         parent_map[node->right->value] = node;
         fill_parent_map(node->right, parent_map);
     }
-
 }
 
-template<typename T>
-requires std::is_integral_v<T>
-std::string backtrack_string(TreeNode<T> *node,
-                             std::unordered_map<TreeNode<T> *, std::pair<TreeNode<T> *, std::string>> path_tracker) {
+template <typename T>
+    requires std::is_integral_v<T>
+std::string backtrack_string(TreeNode<T>* node,
+                             std::unordered_map<TreeNode<T>*, std::pair<TreeNode<T>*, std::string>> path_tracker)
+{
     std::string path;
-    std::unordered_set<TreeNode<T> *> visited;
-    while (path_tracker.count(node)) {
+    std::unordered_set<TreeNode<T>*> visited;
+    while (path_tracker.count(node))
+    {
         visited.insert(node);
         path += path_tracker[node].second;
         node = path_tracker[node].first;
     }
     std::reverse(path.begin(), path.end());
     return path;
-
 }
 
-template<typename T>
-requires std::is_integral_v<T>
-std::string get_directions(TreeNode<T> *root, T start_value, T end_value) {
+template <typename T>
+    requires std::is_integral_v<T>
+std::string get_directions(TreeNode<T>* root, T start_value, T end_value)
+{
     // create undirected graph with the help of a parent map that tracks the parent of each node
-    std::unordered_map<T, TreeNode<T> *> parent_map;
+    std::unordered_map<T, TreeNode<T>*> parent_map;
     auto start_node = find_start_node(root, start_value);
     fill_parent_map(root, parent_map);
 
-    std::queue<TreeNode<T> *> q;
+    std::queue<TreeNode<T>*> q;
     q.push(start_node);
-    std::unordered_set<TreeNode<T> *> visited;
-    std::unordered_map<TreeNode<T> *, std::pair<TreeNode<T> *, std::string>> string_tracker;
+    std::unordered_set<TreeNode<T>*> visited;
+    std::unordered_map<TreeNode<T>*, std::pair<TreeNode<T>*, std::string>> string_tracker;
     visited.insert(start_node);
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto current = q.front();
         q.pop();
         if (current->value == end_value)
             return backtrack_string(current, string_tracker);
 
-        if (parent_map.find(current->value) != parent_map.end()) {
+        if (parent_map.find(current->value) != parent_map.end())
+        {
             auto parent = parent_map[current->value];
-            if (visited.find(parent) == visited.end()) {
+            if (visited.find(parent) == visited.end())
+            {
                 q.push(parent);
                 string_tracker[parent] = {current, "U"};
                 visited.insert(parent);
             }
         }
 
-        if (current->left && visited.find(current->left) == visited.end()) {
+        if (current->left && visited.find(current->left) == visited.end())
+        {
             q.push(current->left);
             string_tracker[current->left] = {current, "L"};
             visited.insert(current->left);
         }
 
-        if (current->right && visited.find(current->right) == visited.end()) {
+        if (current->right && visited.find(current->right) == visited.end())
+        {
             q.push(current->right);
             string_tracker[current->right] = {current, "R"};
             visited.insert(current->right);
         }
-
     }
     return {};
 }
@@ -120,11 +129,11 @@ std::string get_directions(TreeNode<T> *root, T start_value, T end_value) {
 // ---------------------------------------------------------------------------------------------------------------------
 
 
-
 // another solution is to find the lowest common ancestor (LCA)
 
-template<typename T>
-TreeNode<T> *find_lca(TreeNode<T> *node, T value1, T value2) {
+template <typename T>
+TreeNode<T>* find_lca(TreeNode<T>* node, T value1, T value2)
+{
     if (!node)
         return nullptr;
 
@@ -140,11 +149,11 @@ TreeNode<T> *find_lca(TreeNode<T> *node, T value1, T value2) {
         return left_lca;
     // Both
     return node;
-
 }
 
-template<typename T>
-bool find_path(TreeNode<T> *node, int value, std::string &path) {
+template <typename T>
+bool find_path(TreeNode<T>* node, int value, std::string& path)
+{
     if (!node)
         return false;
     if (node->value == value)
@@ -166,8 +175,9 @@ bool find_path(TreeNode<T> *node, int value, std::string &path) {
     return false;
 }
 
-template<typename T>
-std::string get_directions_lca(TreeNode<T> *root, T start_value, T end_value) {
+template <typename T>
+std::string get_directions_lca(TreeNode<T>* root, T start_value, T end_value)
+{
     auto lowest_common_ancestor = find_lca(root, start_value, end_value);
 
     std::string path_to_start{};
@@ -186,4 +196,4 @@ std::string get_directions_lca(TreeNode<T> *root, T start_value, T end_value) {
 }
 
 
-#endif //DATA_STRUCTURES_DIRECTIONS_FROM_NODE_TO_NODE_H
+#endif // DATA_STRUCTURES_DIRECTIONS_FROM_NODE_TO_NODE_H

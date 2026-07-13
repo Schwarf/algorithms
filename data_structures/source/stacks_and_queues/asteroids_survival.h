@@ -5,8 +5,8 @@
 #ifndef DATA_STRUCTURES_ASTEROIDS_SURVIVAL_H
 #define DATA_STRUCTURES_ASTEROIDS_SURVIVAL_H
 
-#include <stack>
 #include <concepts>
+#include <stack>
 #include <vector>
 // Given a list of asteroids on collision course. The positive ones fly to the right the negative ones to the left.
 // If they hit each other the larger one survives. If they are of the same size they both get destroyed.
@@ -45,4 +45,4 @@ std::vector<T> survived_asteroids(const std::vector<T>& asteroids)
     return survivors;
 }
 
-#endif //DATA_STRUCTURES_ASTEROIDS_SURVIVAL_H
+#endif // DATA_STRUCTURES_ASTEROIDS_SURVIVAL_H

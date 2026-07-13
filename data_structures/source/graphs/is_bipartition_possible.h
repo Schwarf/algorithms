@@ -4,10 +4,10 @@
 
 #ifndef IS_BIPARTITION_POSSIBLE_H
 #define IS_BIPARTITION_POSSIBLE_H
-#include <vector>
-#include "used_concepts.h"
 #include <queue>
+#include <vector>
 #include "graph.h"
+#include "used_concepts.h"
 // We want to split a group of n objects (labeled from 1 to n) into two groups of any size.
 // Each object in one goup may be connected with some other objects of the other group BUT not related to the objects
 // of the OWN group.
@@ -93,4 +93,4 @@ bool is_bi_partition_possible(Graph<int, int>& graph)
     return true;
 }
 
-#endif //IS_BIPARTITION_POSSIBLE_H
+#endif // IS_BIPARTITION_POSSIBLE_H

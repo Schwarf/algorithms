@@ -1,8 +1,8 @@
 //
 // Created by andreas on 12.11.23.
 //
-#include "gtest/gtest.h"
 #include "graphs/design_graph_with_shortest_path_calculator.h"
+#include "gtest/gtest.h"
 
 // These tests are bad because they test 3 methods per test ... .
 TEST(TestDesignGraphWithShortestPathCalculator, simpleDijkstra1)
@@ -24,14 +24,12 @@ TEST(TestDesignGraphWithShortestPathCalculator, simpleDijkstra1)
 TEST(TestDesignGraphWithShortestPathCalculator, complexDijkstra1)
 {
     constexpr int number_of_nodes{13};
-    std::vector<std::vector<int>> edges
-    {
-        {7, 2, 131570}, {9, 4, 622890}, {9, 1, 812365}, {1, 3, 399349}, {10, 2, 407736}, {6, 7, 880509},
-        {1, 4, 289656}, {8, 0, 802664}, {6, 4, 826732}, {10, 3, 567982}, {5, 6, 434340}, {4, 7, 833968},
-        {12, 1, 578047}, {8, 5, 739814}, {10, 9, 648073}, {1, 6, 679167}, {3, 6, 933017}, {0, 10, 399226},
-        {1, 11, 915959}, {0, 12, 393037}, {11, 5, 811057}, {6, 2, 100832}, {5, 1, 731872}, {3, 8, 741455},
-        {2, 9, 835397}, {7, 0, 516610}, {11, 8, 680504}, {3, 11, 455056}, {1, 0, 252721}
-    };
+    std::vector<std::vector<int>> edges{
+        {7, 2, 131570},  {9, 4, 622890},  {9, 1, 812365},  {1, 3, 399349},  {10, 2, 407736}, {6, 7, 880509},
+        {1, 4, 289656},  {8, 0, 802664},  {6, 4, 826732},  {10, 3, 567982}, {5, 6, 434340},  {4, 7, 833968},
+        {12, 1, 578047}, {8, 5, 739814},  {10, 9, 648073}, {1, 6, 679167},  {3, 6, 933017},  {0, 10, 399226},
+        {1, 11, 915959}, {0, 12, 393037}, {11, 5, 811057}, {6, 2, 100832},  {5, 1, 731872},  {3, 8, 741455},
+        {2, 9, 835397},  {7, 0, 516610},  {11, 8, 680504}, {3, 11, 455056}, {1, 0, 252721}};
     Graph graph(number_of_nodes, edges);
     constexpr int expected_shortest_path_9_to_3{1211714};
     EXPECT_EQ(expected_shortest_path_9_to_3, graph.shortest_path(9, 3));
@@ -60,14 +58,12 @@ TEST(TestDesignGraphWithShortestPathCalculator, simpleFloydWarshall1)
 TEST(TestDesignGraphWithShortestPathCalculator, complexFloydWarshall1)
 {
     constexpr int number_of_nodes{13};
-    std::vector<std::vector<int>> edges
-    {
-        {7, 2, 131570}, {9, 4, 622890}, {9, 1, 812365}, {1, 3, 399349}, {10, 2, 407736}, {6, 7, 880509},
-        {1, 4, 289656}, {8, 0, 802664}, {6, 4, 826732}, {10, 3, 567982}, {5, 6, 434340}, {4, 7, 833968},
-        {12, 1, 578047}, {8, 5, 739814}, {10, 9, 648073}, {1, 6, 679167}, {3, 6, 933017}, {0, 10, 399226},
-        {1, 11, 915959}, {0, 12, 393037}, {11, 5, 811057}, {6, 2, 100832}, {5, 1, 731872}, {3, 8, 741455},
-        {2, 9, 835397}, {7, 0, 516610}, {11, 8, 680504}, {3, 11, 455056}, {1, 0, 252721}
-    };
+    std::vector<std::vector<int>> edges{
+        {7, 2, 131570},  {9, 4, 622890},  {9, 1, 812365},  {1, 3, 399349},  {10, 2, 407736}, {6, 7, 880509},
+        {1, 4, 289656},  {8, 0, 802664},  {6, 4, 826732},  {10, 3, 567982}, {5, 6, 434340},  {4, 7, 833968},
+        {12, 1, 578047}, {8, 5, 739814},  {10, 9, 648073}, {1, 6, 679167},  {3, 6, 933017},  {0, 10, 399226},
+        {1, 11, 915959}, {0, 12, 393037}, {11, 5, 811057}, {6, 2, 100832},  {5, 1, 731872},  {3, 8, 741455},
+        {2, 9, 835397},  {7, 0, 516610},  {11, 8, 680504}, {3, 11, 455056}, {1, 0, 252721}};
     GraphFW graph(number_of_nodes, edges);
     constexpr int expected_shortest_path_9_to_3{1211714};
     EXPECT_EQ(expected_shortest_path_9_to_3, graph.shortest_path(9, 3));

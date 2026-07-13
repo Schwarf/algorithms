@@ -8,19 +8,21 @@
 // Return True if all the elements in the linked list starting from the head correspond to some downward path
 // connected in the binary tree otherwise return False.
 // In this context downward path means a path that starts at some node and goes downwards.
-#include "tree_node.h"
-#include "./../../linked_lists/node.h"
 #include <queue>
+#include "./../../linked_lists/node.h"
+#include "tree_node.h"
 
-template<typename T>
-bool is_in_tree(Node<T> *head, TreeNode<T> *node) {
+template <typename T>
+bool is_in_tree(Node<T>* head, TreeNode<T>* node)
+{
     if (!head)
         return true;
     if (!node)
         return false;
     bool left{};
     bool right{};
-    if (head->value == node->value) {
+    if (head->value == node->value)
+    {
         left = is_in_tree(head->next, node->left);
         right = is_in_tree(head->next, node->right);
     }
@@ -28,15 +30,17 @@ bool is_in_tree(Node<T> *head, TreeNode<T> *node) {
 }
 
 
-template<typename T>
-bool is_linked_list_in_tree(Node<T> *head, TreeNode<T> *root) {
+template <typename T>
+bool is_linked_list_in_tree(Node<T>* head, TreeNode<T>* root)
+{
     if (!head)
         return true;
     if (!root)
         return false;
-    std::queue<TreeNode<T> *> q;
+    std::queue<TreeNode<T>*> q;
     q.emplace(root);
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto node = q.front();
         q.pop();
         if (is_in_tree(head, node))
@@ -49,4 +53,4 @@ bool is_linked_list_in_tree(Node<T> *head, TreeNode<T> *root) {
     return false;
 }
 
-#endif //DATA_STRUCTURES_IS_LINKED_LIST_IN_TREE_H
+#endif // DATA_STRUCTURES_IS_LINKED_LIST_IN_TREE_H

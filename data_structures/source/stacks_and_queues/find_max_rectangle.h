@@ -6,9 +6,9 @@
 #define DATA_STRUCTURES_FIND_MAX_RECTANGLE_H
 // Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing
 // only 1's and return its area.
-#include <vector>
-#include <stack>
 #include <algorithm>
+#include <stack>
+#include <vector>
 
 int largest_rectangle_area_in_histogram(const std::vector<int>& histogram)
 {
@@ -17,8 +17,7 @@ int largest_rectangle_area_in_histogram(const std::vector<int>& histogram)
 
     for (int i{}; i <= histogram.size(); ++i)
     {
-        while (!s.empty() &&
-            (i == histogram.size() || histogram[s.top()] > histogram[i]))
+        while (!s.empty() && (i == histogram.size() || histogram[s.top()] > histogram[i]))
         {
             const int height = histogram[s.top()];
             s.pop();
@@ -52,4 +51,4 @@ int find_maximal_rectangle(std::vector<std::vector<char>>& grid)
     return result;
 }
 
-#endif //DATA_STRUCTURES_FIND_MAX_RECTANGLE_H
+#endif // DATA_STRUCTURES_FIND_MAX_RECTANGLE_H

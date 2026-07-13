@@ -5,18 +5,18 @@
 #ifndef DATA_STRUCTURES_FIBONACCI_HEAP_H
 #define DATA_STRUCTURES_FIBONACCI_HEAP_H
 
-#include <concepts>
-#include <compare>
-#include <numbers>
 #include <cmath>
+#include <compare>
+#include <concepts>
+#include <numbers>
 
 template <typename T>
-concept strong_ordered = requires(T a, T b)
-{
+concept strong_ordered = requires(T a, T b) {
     { a <=> b } -> std::same_as<std::strong_ordering>;
 };
 
-template <typename KeyType, typename ValueType> requires strong_ordered<KeyType>
+template <typename KeyType, typename ValueType>
+    requires strong_ordered<KeyType>
 struct Node
 {
     KeyType key;
@@ -28,9 +28,7 @@ struct Node
     bool is_marked{};
     int number_of_children{};
 
-    Node(KeyType key, ValueType value) : key(key), value(value)
-    {
-    }
+    Node(KeyType key, ValueType value) : key(key), value(value) {}
 };
 
 
@@ -48,7 +46,8 @@ struct Node
  *       a stable ordering.
  *
  */
-template <typename KeyType, typename ValueType> requires strong_ordered<KeyType>
+template <typename KeyType, typename ValueType>
+    requires strong_ordered<KeyType>
 class FibonacciHeap
 {
 public:
@@ -59,10 +58,7 @@ public:
         return node;
     }
 
-    [[nodiscard]] int size() const
-    {
-        return _number_of_nodes;
-    }
+    [[nodiscard]] int size() const { return _number_of_nodes; }
 
     ~FibonacciHeap()
     {
@@ -79,16 +75,10 @@ public:
         return value;
     }
 
-    void decrease_key(Node<KeyType, ValueType>* node, KeyType new_key)
-    {
-        _decrease_key(node, new_key);
-    }
+    void decrease_key(Node<KeyType, ValueType>* node, KeyType new_key) { _decrease_key(node, new_key); }
 
 
-    [[nodiscard]] bool is_empty() const
-    {
-        return _minimum_node == nullptr;
-    }
+    [[nodiscard]] bool is_empty() const { return _minimum_node == nullptr; }
 
     [[nodiscard]] bool check_heap_property()
     {
@@ -338,4 +328,4 @@ private:
     Node<KeyType, ValueType>* _minimum_node = nullptr; // Important note: _minimum_node is the most next node.
 };
 
-#endif //DATA_STRUCTURES_FIBONACCI_HEAP_H
+#endif // DATA_STRUCTURES_FIBONACCI_HEAP_H

@@ -2,9 +2,9 @@
 // Created by andreas on 18.07.22.
 //
 
-#include "gtest/gtest.h"
-#include "../../linear-1D-DP/min_costs_to_reach_end.h"
 #include <vector>
+#include "../../linear-1D-DP/min_costs_to_reach_end.h"
+#include "gtest/gtest.h"
 
 class SetupCostsPerStep : public testing::Test
 {

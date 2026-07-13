@@ -20,4 +20,4 @@ public:
     virtual bool is_empty() const = 0;
 };
 
-#endif //I_LINKED_LIST_H
+#endif // I_LINKED_LIST_H

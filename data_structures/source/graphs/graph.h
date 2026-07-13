@@ -4,12 +4,12 @@
 
 #ifndef GRAPH_H
 #define GRAPH_H
-#include <unordered_map>
-#include <vector>
-#include <set>
-#include <memory>
 #include <algorithm>
+#include <memory>
+#include <set>
+#include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 
 template <typename id_T, typename data_T>
@@ -34,33 +34,17 @@ template <typename id_T, typename data_T, bool directed_ = false>
 class Graph
 {
 public:
-    void set_has_cycle()
-    {
-        has_cycle_ = true;
-    }
+    void set_has_cycle() { has_cycle_ = true; }
 
-    bool has_cycle()
-    {
-        return has_cycle_;
-    }
+    bool has_cycle() { return has_cycle_; }
 
-    std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T>& vertex)
-    {
-        return this->edges_[vertex->id];
-    }
+    std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T>& vertex) { return this->edges_[vertex->id]; }
 
-    std::set<id_T> get_neighbors(id_T id)
-    {
-        return this->edges_[id];
-    }
+    std::set<id_T> get_neighbors(id_T id) { return this->edges_[id]; }
 
-    GraphNodePtr<id_T, data_T> get_vertex_by_id(id_T id)
-    {
-        return vertices_[id];
-    }
+    GraphNodePtr<id_T, data_T> get_vertex_by_id(id_T id) { return vertices_[id]; }
 
-    void add_edge(const GraphNodePtr<id_T, data_T>& source_vertex,
-                  const GraphNodePtr<id_T, data_T>& destination_vertex)
+    void add_edge(const GraphNodePtr<id_T, data_T>& source_vertex, const GraphNodePtr<id_T, data_T>& destination_vertex)
     {
         if (vertices_.find(source_vertex->id) == vertices_.end())
             add_vertex(source_vertex);
@@ -69,15 +53,14 @@ public:
         add_edge(source_vertex->id, destination_vertex->id);
     }
 
-    void add_edge(const id_T& source_vertex_id,
-                  const id_T& destination_vertex_id)
+    void add_edge(const id_T& source_vertex_id, const id_T& destination_vertex_id)
     {
         if (vertices_.find(source_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The source vertex id=" + std::to_string(source_vertex_id) +
+                                        " does not exist in the graph!");
         if (vertices_.find(destination_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The destination vertex id=" + std::to_string(destination_vertex_id) +
+                                        " does not exist in the graph!");
         edges_[source_vertex_id].insert(destination_vertex_id);
         if (!directed_)
             edges_[destination_vertex_id].insert(source_vertex_id);
@@ -93,15 +76,9 @@ public:
         has_cycle_ = false;
     }
 
-    std::size_t number_of_vertices() const
-    {
-        return vertices_.size();
-    }
+    std::size_t number_of_vertices() const { return vertices_.size(); }
 
-    void add_vertex(const GraphNodePtr<id_T, data_T>& vertex)
-    {
-        vertices_[vertex->id] = vertex;
-    }
+    void add_vertex(const GraphNodePtr<id_T, data_T>& vertex) { vertices_[vertex->id] = vertex; }
 
     bool erase_edge(const id_T& source_vertex_id, const id_T& destination_vertex_id)
     {
@@ -122,12 +99,12 @@ public:
         bool is_destination_vertex_in_graph = edges_.find(destination_vertex_id) != edges_.end();
         bool is_destination_vertex_in_vertices = vertices_.find(destination_vertex_id) != vertices_.end();
 
-        if (!is_source_vertex_in_vertices || !is_destination_vertex_in_vertices || !is_destination_vertex_in_graph
-            || !is_source_vertex_in_graph)
+        if (!is_source_vertex_in_vertices || !is_destination_vertex_in_vertices || !is_destination_vertex_in_graph ||
+            !is_source_vertex_in_graph)
             return false;
 
-        return (edges_[source_vertex_id].find(destination_vertex_id) != edges_[source_vertex_id].end())
-            && (edges_[destination_vertex_id].find(source_vertex_id) != edges_[destination_vertex_id].end());
+        return (edges_[source_vertex_id].find(destination_vertex_id) != edges_[source_vertex_id].end()) &&
+            (edges_[destination_vertex_id].find(source_vertex_id) != edges_[destination_vertex_id].end());
     }
 
     bool erase_vertex(id_T id)
@@ -146,13 +123,8 @@ public:
             edges_.erase(id);
             for (const auto& neighbor_id : affected_neighbors)
             {
-                auto iterator =
-                    std::find_if(edges_[neighbor_id].begin(),
-                                 edges_[neighbor_id].end(),
-                                 [id](const id_T& vertex_id)
-                                 {
-                                     return vertex_id == id;
-                                 });
+                auto iterator = std::find_if(edges_[neighbor_id].begin(), edges_[neighbor_id].end(),
+                                             [id](const id_T& vertex_id) { return vertex_id == id; });
                 edges_[neighbor_id].erase(iterator);
             }
         }
@@ -258,26 +230,14 @@ public:
     }
 
     // Get adjacent nodes of a given node
-    const std::vector<NodeType>& get_neighbors(int node) const
-    {
-        return adjacency_list.at(node);
-    }
+    const std::vector<NodeType>& get_neighbors(int node) const { return adjacency_list.at(node); }
 
-    int get_node_count() const
-    {
-        return node_count;
-    }
+    int get_node_count() const { return node_count; }
 
     // Get the total number of edges in the graph
-    int get_edge_count() const
-    {
-        return edge_count;
-    }
+    int get_edge_count() const { return edge_count; }
 
-    std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() &
-    {
-        return adjacency_list;
-    }
+    std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() & { return adjacency_list; }
 
 private:
     // Adjacency list: each node points to a set of nodes it has edges to
@@ -301,7 +261,7 @@ public:
                           const std::initializer_list<std::tuple<NodeType, NodeType, WeightType>>& weighted_edges)
     {
         for (const auto& node : nodes)
-            this->get_adjacency_list()[node];  // inherited method
+            this->get_adjacency_list()[node]; // inherited method
 
         for (const auto& [src, dest, weight] : weighted_edges)
             add_edge(src, dest, weight);
@@ -312,22 +272,16 @@ public:
     {
         if (source != dest && !weights.contains({source, dest}))
         {
-            DirectedGraph<NodeType>::add_edge(source, dest);  // call base method
+            DirectedGraph<NodeType>::add_edge(source, dest); // call base method
             weights[{source, dest}] = weight;
         }
     }
 
     // Access edge weight (throws if edge not present)
-    WeightType get_weight(NodeType source, NodeType dest) const
-    {
-        return weights.at({source, dest});
-    }
+    WeightType get_weight(NodeType source, NodeType dest) const { return weights.at({source, dest}); }
 
     // Check if an edge has a weight (i.e., exists)
-    bool has_edge(NodeType source, NodeType dest) const
-    {
-        return weights.contains({source, dest});
-    }
+    bool has_edge(NodeType source, NodeType dest) const { return weights.contains({source, dest}); }
 
     // Optional: get all weighted edges
     std::vector<std::tuple<NodeType, NodeType, WeightType>> get_all_weighted_edges() const
@@ -412,39 +366,21 @@ public:
     }
 
     // Get all nodes in the graph
-    std::vector<NodeType> get_all_nodes() const
-    {
-        return nodes;
-    }
+    std::vector<NodeType> get_all_nodes() const { return nodes; }
 
     // Get adjacent nodes of a given node
-    const std::vector<NodeType>& get_neighbors(int node) const
-    {
-        return adjacency_list.at(node);
-    }
+    const std::vector<NodeType>& get_neighbors(int node) const { return adjacency_list.at(node); }
 
-    const std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() const
-    {
-        return adjacency_list;
-    }
+    const std::unordered_map<NodeType, std::vector<NodeType>>& get_adjacency_list() const { return adjacency_list; }
 
 
     // Get the total number of nodes in the graph
-    int get_node_count() const
-    {
-        return node_count;
-    }
+    int get_node_count() const { return node_count; }
 
     // Get the total number of edges in the graph
-    int get_edge_count() const
-    {
-        return edge_count;
-    }
+    int get_edge_count() const { return edge_count; }
 
-    std::unordered_set<Edge<NodeType>> get_all_edges() const
-    {
-        return edge_set;
-    }
+    std::unordered_set<Edge<NodeType>> get_all_edges() const { return edge_set; }
 
 private:
     std::unordered_map<NodeType, std::vector<NodeType>> adjacency_list;
@@ -456,4 +392,4 @@ private:
 };
 
 
-#endif //GRAPH_H
+#endif // GRAPH_H

@@ -13,7 +13,8 @@
 
 // O(2^N) runtime complexity with optimal backtracking
 // O(N) space complexity
-int compute_xor_sums(const std::vector<int> &input, int index = 0, int current_sum = 0) {
+int compute_xor_sums(const std::vector<int>& input, int index = 0, int current_sum = 0)
+{
     if (index == input.size())
         return current_sum;
 
@@ -24,10 +25,12 @@ int compute_xor_sums(const std::vector<int> &input, int index = 0, int current_s
 
 // O(N) runtime complexity with optimal algorithm
 // O(1) space complexity
-int compute_xor_sums_optimal(const std::vector<int> &input) {
+int compute_xor_sums_optimal(const std::vector<int>& input)
+{
     int or_sum{};
     // Capture each bit that is set in any of the elements
-    for (const auto element: input) {
+    for (const auto element : input)
+    {
         or_sum |= element;
     }
     // Multiply by the number of subset XOR totals that will have each bit set
@@ -36,4 +39,4 @@ int compute_xor_sums_optimal(const std::vector<int> &input) {
 }
 
 
-#endif //BIT_MANIPULATION_SUM_ALL_XOR_SUBSETS_H
+#endif // BIT_MANIPULATION_SUM_ALL_XOR_SUBSETS_H

@@ -5,12 +5,13 @@
 #ifndef MINIMUM_DEPTH_OF_BINARY_TREE_H
 #define MINIMUM_DEPTH_OF_BINARY_TREE_H
 
-#include "tree_node.h"
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include "tree_node.h"
 
-template<typename T>
-int minimum_depth_binary_tree_dfs(TreeNode<T> *root) {
+template <typename T>
+int minimum_depth_binary_tree_dfs(TreeNode<T>* root)
+{
     if (!root)
         return 0;
     if (root->left && root->right)
@@ -22,17 +23,20 @@ int minimum_depth_binary_tree_dfs(TreeNode<T> *root) {
     return 1;
 }
 
-template<typename T>
-int minimum_depth_binary_tree_bfs(TreeNode<T> *root) {
+template <typename T>
+int minimum_depth_binary_tree_bfs(TreeNode<T>* root)
+{
     if (!root)
         return 0;
-    std::queue<TreeNode<T> *> q;
+    std::queue<TreeNode<T>*> q;
     q.push(root);
     int depth{};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         auto size = q.size();
         depth++;
-        while (size--) {
+        while (size--)
+        {
             auto node = q.front();
             q.pop();
             if (!node->left && !node->right)
@@ -47,4 +51,4 @@ int minimum_depth_binary_tree_bfs(TreeNode<T> *root) {
 }
 
 
-#endif //MINIMUM_DEPTH_OF_BINARY_TREE_H
+#endif // MINIMUM_DEPTH_OF_BINARY_TREE_H

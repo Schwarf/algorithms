@@ -5,9 +5,9 @@
 #ifndef MINIMUM_OPERATIONS_TO_REDUCE_X_TO_ZERO_H
 #define MINIMUM_OPERATIONS_TO_REDUCE_X_TO_ZERO_H
 
-#include "used_concepts.h"
-#include <numeric>
 #include <algorithm>
+#include <numeric>
+#include "used_concepts.h"
 
 // You are given an integer array nums and an integer x. In one operation, you can either remove the
 // leftmost or the rightmost element from the array nums and subtract its value from x.
@@ -15,9 +15,10 @@
 // Return the minimum number of operations to reduce x to exactly 0 if it is possible, otherwise, return -1.
 
 // #SLIDING_WINDOW
-template<typename T, template<typename...> class ContainerType>
-requires IndexedContainer<ContainerType<T>> && std::is_signed_v<T>
-int minimal_operations_to_reduce_x_to_zero(const ContainerType<T> &input, T x) {
+template <typename T, template <typename...> class ContainerType>
+    requires IndexedContainer<ContainerType<T>> && std::is_signed_v<T>
+int minimal_operations_to_reduce_x_to_zero(const ContainerType<T>& input, T x)
+{
     T sum = std::accumulate(input.begin(), input.end(), T{});
     if (sum < T{})
         return -1;
@@ -30,7 +31,8 @@ int minimal_operations_to_reduce_x_to_zero(const ContainerType<T> &input, T x) {
     // Two pointers left and right
     int left{};
     int max_size{};
-    for (int right{}; right < input.size(); ++right) {
+    for (int right{}; right < input.size(); ++right)
+    {
         current_sum += input[right];
         // If current_sum is larger than difference, we reduce it (from the left of input) until we are below or equal
         // difference
@@ -43,7 +45,6 @@ int minimal_operations_to_reduce_x_to_zero(const ContainerType<T> &input, T x) {
     }
 
     return max_size != 0 ? input.size() - max_size : -1;
-
 }
 
-#endif //MINIMUM_OPERATIONS_TO_REDUCE_X_TO_ZERO_H
+#endif // MINIMUM_OPERATIONS_TO_REDUCE_X_TO_ZERO_H

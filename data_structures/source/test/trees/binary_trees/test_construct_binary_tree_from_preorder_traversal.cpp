@@ -2,9 +2,9 @@
 // Created by andreas on 23.02.25.
 //
 
-#include "trees/binary_trees/construct_binary_tree_from_preorder_traversal.h"
-#include "setup_binary_tree.h"
 #include "gtest/gtest.h"
+#include "setup_binary_tree.h"
+#include "trees/binary_trees/construct_binary_tree_from_preorder_traversal.h"
 
 TEST(TestConstructBinaryTreeFromPreorderTraversal, simple1)
 {

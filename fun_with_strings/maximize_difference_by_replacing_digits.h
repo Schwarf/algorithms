@@ -15,8 +15,8 @@
 // Return the max difference between a and b.
 //
 // Note that neither a nor b may have any leading zeros, and must not be 0.
-#include <string>
 #include <algorithm>
+#include <string>
 
 int max_difference_by_replacing_digits(int input)
 {
@@ -58,4 +58,4 @@ int max_difference_by_replacing_digits(int input)
 
     return stoi(max_num) - stoi(min_num);
 }
-#endif //MAXIMIZE_DIFFERENCE_BY_REPLACING_DIGITS_H
+#endif // MAXIMIZE_DIFFERENCE_BY_REPLACING_DIGITS_H

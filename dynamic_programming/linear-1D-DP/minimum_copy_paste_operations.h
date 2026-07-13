@@ -10,7 +10,8 @@
 
 #include <algorithm>
 
-int count_operations(int n, int current_length, int paste_length) {
+int count_operations(int n, int current_length, int paste_length)
+{
     if (current_length == n)
         return 0;
 
@@ -27,13 +28,15 @@ int count_operations(int n, int current_length, int paste_length) {
 // Copy + Paste operation adds 2 operations
 // Paste operation add 1 operation
 // n <= 1000
-int minimum_copy_paste_operations_recursive(int n) {
+int minimum_copy_paste_operations_recursive(int n)
+{
     if (n == 1)
         return 0;
     return 1 + count_operations(n, 1, 1);
 }
 
-int count_operations(int n, int current_length, int paste_length, std::vector<std::vector<int>> &memo) {
+int count_operations(int n, int current_length, int paste_length, std::vector<std::vector<int>>& memo)
+{
     if (current_length == n)
         return 0;
     if (current_length > n)
@@ -49,7 +52,8 @@ int count_operations(int n, int current_length, int paste_length, std::vector<st
     return memo[current_length][paste_length];
 }
 
-int minimum_copy_paste_operations_top_down(int n) {
+int minimum_copy_paste_operations_top_down(int n)
+{
     if (n == 1)
         return 0;
     // We can only copy (and paste) maximal n/2 +1 elements in the last step
@@ -58,16 +62,20 @@ int minimum_copy_paste_operations_top_down(int n) {
 }
 
 // O(n^2) time complexity, O(n) space complexity
-int minimum_copy_paste_operations_bottom_up(int n) {
+int minimum_copy_paste_operations_bottom_up(int n)
+{
     std::vector<int> dp(n + 1, 1000);
 
     // Base case
     dp[1] = 0;
-    for (int target_count = 2; target_count <= n; target_count++) {
-        for (int previous_count = 1; previous_count <= target_count / 2; previous_count++) {
+    for (int target_count = 2; target_count <= n; target_count++)
+    {
+        for (int previous_count = 1; previous_count <= target_count / 2; previous_count++)
+        {
             // Copy All and Paste (i-j) / j times
             // for all valid j's
-            if (target_count % previous_count == 0) {
+            if (target_count % previous_count == 0)
+            {
                 dp[target_count] = std::min(dp[target_count], dp[previous_count] + target_count / previous_count);
             }
         }
@@ -82,11 +90,14 @@ int minimum_copy_paste_operations_bottom_up(int n) {
 //    g_1 x g_2 x g_3 x ...  = n
 // Each composite factor can be split further (until it cannot) which corresponds to integer prime factorization
 // O(n) time complexity, O(1) space_complexity
-int minimum_copy_paste_operations_prime_factorization(int n) {
+int minimum_copy_paste_operations_prime_factorization(int n)
+{
     int result{};
     int prime_factor_candidate{2};
-    while (n > 1) {
-        while (n % prime_factor_candidate == 0) {
+    while (n > 1)
+    {
+        while (n % prime_factor_candidate == 0)
+        {
             result += prime_factor_candidate;
             n /= prime_factor_candidate;
         }
@@ -96,4 +107,4 @@ int minimum_copy_paste_operations_prime_factorization(int n) {
 }
 
 
-#endif //DYNAMIC_PROGRAMMING_SAMPLES_MINIMUM_COPY_PASTE_OPERATIONS_H
+#endif // DYNAMIC_PROGRAMMING_SAMPLES_MINIMUM_COPY_PASTE_OPERATIONS_H

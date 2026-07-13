@@ -1,8 +1,8 @@
 //
 // Created by andreas on 02.02.25.
 //
-#include "trees/binary_trees/count_good_nodes.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/count_good_nodes.h"
 
 TEST_F(SetupBinaryTree, TestCountGoodNodesDFSRecursiveSimple1)
 {

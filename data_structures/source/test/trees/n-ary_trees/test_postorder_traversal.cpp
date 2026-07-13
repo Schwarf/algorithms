@@ -1,8 +1,8 @@
 //
 // Created by andreas on 26.08.24.
 //
-#include "trees/n-ary_trees/postorder_traversal.h"
 #include "gtest/gtest.h"
+#include "trees/n-ary_trees/postorder_traversal.h"
 
 TEST(TestPostOrderTraversalRecursive, simple1)
 {
@@ -32,10 +32,8 @@ TEST(TestPostOrderTraversalRecursive, simple2)
     tree->children[3]->children.push_back(new TreeNode<double>(9.0));
     tree->children[3]->children.push_back(new TreeNode<double>(10.0));
     tree->children[3]->children[0]->children.push_back(new TreeNode<double>(13.0));
-    const std::vector<double> expected_output{
-        2.0, 6.0, 14.0, 11.0, 7.0, 3.0, 12.0, 8.0, 4.0, 13.0, 9.0, 10.0, 5.0,
-        1.0
-    };
+    const std::vector<double> expected_output{2.0, 6.0, 14.0, 11.0, 7.0,  3.0, 12.0,
+                                              8.0, 4.0, 13.0, 9.0,  10.0, 5.0, 1.0};
     EXPECT_EQ(postorder_traversal_recursive(tree), expected_output);
 }
 

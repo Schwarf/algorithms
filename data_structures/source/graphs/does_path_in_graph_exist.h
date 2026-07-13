@@ -4,12 +4,11 @@
 
 #ifndef DOES_PATH_IN_GRAPH_EXIST_H
 #define DOES_PATH_IN_GRAPH_EXIST_H
-#include "graph.h"
 #include <queue>
+#include "graph.h"
 
 template <typename id_T, typename data_T>
-bool does_path_exist(Graph<id_T, data_T>& graph,
-                     const GraphNodePtr<id_T, data_T>& source_vertex,
+bool does_path_exist(Graph<id_T, data_T>& graph, const GraphNodePtr<id_T, data_T>& source_vertex,
                      const GraphNodePtr<id_T, data_T>& destination_vertex)
 {
     std::queue<id_T> bfs_queue;
@@ -34,4 +33,4 @@ bool does_path_exist(Graph<id_T, data_T>& graph,
     return false;
 }
 
-#endif //DOES_PATH_IN_GRAPH_EXIST_H
+#endif // DOES_PATH_IN_GRAPH_EXIST_H

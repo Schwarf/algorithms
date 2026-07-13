@@ -7,8 +7,8 @@
 // Given the head of a linked list, we repeatedly delete consecutive sequences of nodes that
 // sum to 0 until there are no such sequences.
 // After doing so, return the head of the final linked list.  You may return any such answer.
-#include "node.h"
 #include <unordered_map>
+#include "node.h"
 
 // O(N^2) time, O(1) space
 template <typename T>
@@ -75,4 +75,4 @@ Node<T>* remove_zero_sum_consecutive_nodes_optimized(Node<T>* head)
     return front->next;
 }
 
-#endif //REMOVE_ZERO_SUM_CONSECUTIVE_NODES_H
+#endif // REMOVE_ZERO_SUM_CONSECUTIVE_NODES_H

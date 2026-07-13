@@ -4,26 +4,29 @@
 
 #ifndef ORDER_STATISTIC_TREE_H
 #define ORDER_STATISTIC_TREE_H
+#include <algorithm>
 #include "avl_tree.h"
 #include "order_statistic_node.h"
-#include <algorithm>
 
 template <typename T>
-class OrderStatisticTree : public AVLTree<T> {
+class OrderStatisticTree : public AVLTree<T>
+{
 public:
-    T get_ith(int i) const {
+    T get_ith(int i) const
+    {
         auto node = get_ith_(static_cast<OrderStatisticNode<T>*>(this->root_), i);
         if (!node)
-              throw std::out_of_range("Index out of bounds");
+            throw std::out_of_range("Index out of bounds");
         return node->value;
     }
 
 protected:
     using Node = OrderStatisticNode<T>;
 
-    OrderStatisticNode<T>* insert_(OrderStatisticNode<T>* node, const T& value) override {
+    OrderStatisticNode<T>* insert_(OrderStatisticNode<T>* node, const T& value) override
+    {
         if (!node)
-          return new OrderStatisticNode<T>(value);
+            return new OrderStatisticNode<T>(value);
 
         if (value < node->value)
             node->left = insert_(static_cast<Node*>(node->left), value);
@@ -40,17 +43,18 @@ protected:
         return balanced ? balanced : node;
     }
 
-    int size_(Node* node) const {
-        return node ? node->subtree_size : 0;
-    }
+    int size_(Node* node) const { return node ? node->subtree_size : 0; }
 
-    void update_(Node* node) {
-        if (!node) return;
-    }
-
-    Node* get_ith_(Node* node, int i) const {
+    void update_(Node* node)
+    {
         if (!node)
-          return nullptr;
+            return;
+    }
+
+    Node* get_ith_(Node* node, int i) const
+    {
+        if (!node)
+            return nullptr;
 
         int left_size = size_(static_cast<Node*>(node->left));
 
@@ -63,4 +67,4 @@ protected:
     }
 };
 
-#endif //ORDER_STATISTIC_TREE_H
+#endif // ORDER_STATISTIC_TREE_H

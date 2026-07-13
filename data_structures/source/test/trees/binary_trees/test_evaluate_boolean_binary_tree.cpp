@@ -1,8 +1,8 @@
 //
 // Created by andreas on 19.05.24.
 //
-#include "trees/binary_trees/evaluate_boolean_binary_tree.h"
 #include "gtest/gtest.h"
+#include "trees/binary_trees/evaluate_boolean_binary_tree.h"
 
 
 TEST(TestEvaluateBinaryTree, simple1)

@@ -12,17 +12,18 @@
 //        If path is a file path, returns a list that only contains this file's name.
 //        If path is a directory path, returns the list of file and directory names in this directory.
 //    The answer should in lexicographic order.
-//    void mkdir(String path) Makes a new directory according to the given path. The given directory path does not exist. If the middle directories in the path do not exist, you should create them as well.
-//    void addContentToFile(String filePath, String content)
+//    void mkdir(String path) Makes a new directory according to the given path. The given directory path does not
+//    exist. If the middle directories in the path do not exist, you should create them as well. void
+//    addContentToFile(String filePath, String content)
 //        If filePath does not exist, creates that file containing given content.
 //        If filePath already exists, appends the given content to original content.
 //    String readContentFromFile(String filePath) Returns the content in the file at filePath.
+#include <algorithm>
+#include <memory>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <sstream>
-#include <algorithm>
-#include <memory>
 
 class FileSystem
 {
@@ -53,9 +54,7 @@ private:
     }
 
 public:
-    FileSystem() : root(std::make_unique<Directory>())
-    {
-    }
+    FileSystem() : root(std::make_unique<Directory>()) {}
 
     std::vector<std::string> ls(const std::string& path) const
     {
@@ -134,4 +133,4 @@ public:
     }
 };
 
-#endif //DESIGN_IN_MEMORY_FILE_SYSTEM_H
+#endif // DESIGN_IN_MEMORY_FILE_SYSTEM_H

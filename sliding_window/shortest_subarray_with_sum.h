@@ -5,8 +5,8 @@
 #ifndef SMALLEST_SUBARRAY_WITH_SUM_H
 #define SMALLEST_SUBARRAY_WITH_SUM_H
 #include <algorithm>
-#include <vector>
 #include <queue>
+#include <vector>
 // Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray
 // whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 int shortest_subarray_with_sum(std::vector<int>& input, int target_sum)
@@ -56,4 +56,4 @@ int shortest_subarray_with_sum_with_negatives(std::vector<int>& input, int targe
 }
 
 
-#endif //SMALLEST_SUBARRAY_WITH_SUM_H
+#endif // SMALLEST_SUBARRAY_WITH_SUM_H

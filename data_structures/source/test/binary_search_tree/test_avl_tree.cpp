@@ -1,18 +1,16 @@
 //
 // Created by andreas on 25.09.22.
 //
-#include "gtest/gtest.h"
-#include "binary_search_tree/avl_tree.h"
-#include <vector>
-#include <random>
 #include <algorithm>
+#include <random>
+#include <vector>
+#include "binary_search_tree/avl_tree.h"
+#include "gtest/gtest.h"
 
 class SetupAVLTree : public testing::Test
 {
 public:
-    explicit SetupAVLTree()
-        :
-        random_engine_{std::random_device{}()}
+    explicit SetupAVLTree() : random_engine_{std::random_device{}()}
     {
         ascending_order = descending_order;
         std::reverse(ascending_order.begin(), ascending_order.end());

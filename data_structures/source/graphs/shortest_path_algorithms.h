@@ -6,9 +6,9 @@
 #define SHORTEST_PATH_ALGORITHMS_H
 
 #include <iostream>
-#include <vector>
 #include <queue>
 #include <utility>
+#include <vector>
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
@@ -41,8 +41,7 @@ std::vector<DistanceType> distances_from_source_bellman_ford_matrix(VertexType s
         for (VertexType v = 0; v < number_of_vertices; ++v)
         {
             if (graph[u][v] != std::numeric_limits<DistanceType>::max() &&
-                distances[u] != std::numeric_limits<DistanceType>::max() &&
-                distances[u] + graph[u][v] < distances[v])
+                distances[u] != std::numeric_limits<DistanceType>::max() && distances[u] + graph[u][v] < distances[v])
             {
                 throw std::runtime_error("Graph contains a negative-weight cycle");
             }
@@ -54,9 +53,9 @@ std::vector<DistanceType> distances_from_source_bellman_ford_matrix(VertexType s
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
-                                                             const std::vector<std::vector<std::pair<VertexType,
-                                                                 DistanceType>>>& graph)
+std::vector<DistanceType>
+distances_from_source_bellman_ford(VertexType source,
+                                   const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
     auto number_of_vertices = graph.size();
     std::vector<DistanceType> distances(number_of_vertices, std::numeric_limits<DistanceType>::max());
@@ -67,9 +66,8 @@ std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
         {
             for (const auto& [v, distance] : graph[u])
             {
-                //prevent overflow by fist condition
-                if (distances[u] != std::numeric_limits<DistanceType>::max()
-                    && distances[u] + distance < distances[v])
+                // prevent overflow by fist condition
+                if (distances[u] != std::numeric_limits<DistanceType>::max() && distances[u] + distance < distances[v])
                 {
                     distances[v] = distances[u] + distance;
                 }
@@ -92,16 +90,16 @@ std::vector<DistanceType> distances_from_source_bellman_ford(VertexType source,
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<DistanceType> distances_from_source_dijkstra(VertexType source,
-                                                         const std::vector<std::vector<std::pair<VertexType,
-                                                             DistanceType>>>& graph)
+std::vector<DistanceType>
+distances_from_source_dijkstra(VertexType source,
+                               const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
     int number_of_vertices = graph.size();
     auto distances_from_source_vertex =
         std::vector<DistanceType>(number_of_vertices, std::numeric_limits<DistanceType>::max());
-    std::priority_queue<std::pair<DistanceType, VertexType>,
-                        std::vector<std::pair<DistanceType, VertexType>>,
-                        std::greater<>> pq;
+    std::priority_queue<std::pair<DistanceType, VertexType>, std::vector<std::pair<DistanceType, VertexType>>,
+                        std::greater<>>
+        pq;
     pq.emplace(static_cast<DistanceType>(0), source);
     distances_from_source_vertex[source] = static_cast<DistanceType>(0);
 
@@ -176,8 +174,7 @@ std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(std::vect
             for (int j = 0; j < number_of_vertices; ++j)
             {
                 if (graph[i][k] != std::numeric_limits<DistanceType>::max() &&
-                    graph[k][j] != std::numeric_limits<DistanceType>::max() &&
-                    graph[i][j] > graph[i][k] + graph[k][j])
+                    graph[k][j] != std::numeric_limits<DistanceType>::max() && graph[i][j] > graph[i][k] + graph[k][j])
                 {
                     graph[i][j] = graph[i][k] + graph[k][j];
                 }
@@ -190,13 +187,12 @@ std::vector<std::vector<DistanceType>> distances_floyd_warshall_matrix(std::vect
 // Note the Floyd-Warhall algorithm operates on adjacency matrix. Therefore, adjacency lists have to be converted.
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::vector<std::vector<DistanceType>> distances_floyd_warshall(std::vector<std::vector<std::pair<VertexType,
-    DistanceType>>>& graph)
+std::vector<std::vector<DistanceType>>
+distances_floyd_warshall(std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
     auto number_of_vertices = graph.size();
-    std::vector<std::vector<DistanceType>> graph_matrix
-    (number_of_vertices,
-     std::vector<DistanceType>(number_of_vertices, std::numeric_limits<DistanceType>::max()));
+    std::vector<std::vector<DistanceType>> graph_matrix(
+        number_of_vertices, std::vector<DistanceType>(number_of_vertices, std::numeric_limits<DistanceType>::max()));
 
     for (VertexType u{}; u < number_of_vertices; ++u)
     {
@@ -210,4 +206,4 @@ std::vector<std::vector<DistanceType>> distances_floyd_warshall(std::vector<std:
 }
 
 
-#endif //SHORTEST_PATH_ALGORITHMS_H
+#endif // SHORTEST_PATH_ALGORITHMS_H

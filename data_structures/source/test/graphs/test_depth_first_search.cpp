@@ -1,9 +1,9 @@
 //
 // Created by andreas on 04.01.23.
 //
-#include "gtest/gtest.h"
-#include "graphs/graph.h"
 #include "graphs/depth_first_search.h"
+#include "graphs/graph.h"
+#include "gtest/gtest.h"
 
 
 class SetupDFSGraph : public testing::Test
@@ -68,14 +68,7 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex1)
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 1;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{
-        {2, 1},
-        {3, 1},
-        {4, 3},
-        {5, 3},
-        {6, 5},
-        {7, 5}
-    };
+    std::map<int, int> expected_dfs_tree{{2, 1}, {3, 1}, {4, 3}, {5, 3}, {6, 5}, {7, 5}};
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
     for (const auto& [child, parent] : expected_dfs_tree)
@@ -90,14 +83,7 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex4)
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 4;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{
-        {3, 4},
-        {1, 3},
-        {2, 3},
-        {5, 3},
-        {6, 5},
-        {7, 5}
-    };
+    std::map<int, int> expected_dfs_tree{{3, 4}, {1, 3}, {2, 3}, {5, 3}, {6, 5}, {7, 5}};
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
     for (const auto& [child, parent] : expected_dfs_tree)
@@ -112,14 +98,7 @@ TEST_F(SetupDFSGraph, test_depth_first_search_start_vertex5)
     GraphNodePtr<int, int> start_vertex = nullptr;
     int start_vertex_id = 5;
     auto graph = get_graph(start_vertex_id, start_vertex);
-    std::map<int, int> expected_dfs_tree{
-        {3, 5},
-        {6, 5},
-        {7, 5},
-        {2, 6},
-        {1, 2},
-        {4, 3}
-    };
+    std::map<int, int> expected_dfs_tree{{3, 5}, {6, 5}, {7, 5}, {2, 6}, {1, 2}, {4, 3}};
     auto dfs_tree = get_depth_first_search_tree<int, int>(graph, start_vertex);
     EXPECT_EQ(dfs_tree.size(), expected_dfs_tree.size());
     for (const auto& [child, parent] : expected_dfs_tree)

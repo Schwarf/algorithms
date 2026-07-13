@@ -4,8 +4,8 @@
 
 #ifndef TEST_ARE_STRINGS_EQUAL_UPTO_ROTATION_H
 #define TEST_ARE_STRINGS_EQUAL_UPTO_ROTATION_H
-#include "gtest/gtest.h"
 #include "./../are_strings_equal_upto_rotation.h"
+#include "gtest/gtest.h"
 
 
 TEST(AreStringsRotateEqualBruteForce, simple1)
@@ -68,4 +68,4 @@ TEST(AreStringsRotateEqualDoubleString, simple4)
     EXPECT_TRUE(are_strings_equal_double_string(input1, target_string));
 }
 
-#endif //TEST_ARE_STRINGS_EQUAL_UPTO_ROTATION_H
+#endif // TEST_ARE_STRINGS_EQUAL_UPTO_ROTATION_H

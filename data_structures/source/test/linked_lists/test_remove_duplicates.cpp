@@ -2,8 +2,8 @@
 // Created by andreas on 15.03.23.
 //
 
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/remove_duplicates.h"
+#include "setup_singly_linked_lists.h"
 TEST_F(SetupSinglyLinkedLists, remove_duplicates1)
 {
     std::vector<int> input_with_duplicates1{1, 2, 4, 2, 6, 7, 6};

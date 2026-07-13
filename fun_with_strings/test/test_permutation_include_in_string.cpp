@@ -1,8 +1,8 @@
 //
 // Created by andreas on 06.10.24.
 //
-#include "gtest/gtest.h"
 #include "./../permutation_included_in_string.h"
+#include "gtest/gtest.h"
 
 TEST(TestPermutationIncludedInString, simple1)
 {

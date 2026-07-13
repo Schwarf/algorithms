@@ -2,8 +2,8 @@
 // Created by andreas on 04.11.23.
 //
 #include "gtest/gtest.h"
-#include "trees/binary_trees/find_mode_in_binary_tree.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/find_mode_in_binary_tree.h"
 
 TEST_F(SetupBinaryTree, find_mode_dfs_iterative_in_small_tree)
 {

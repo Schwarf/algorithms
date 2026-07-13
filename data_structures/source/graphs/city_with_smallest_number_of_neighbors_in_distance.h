@@ -9,15 +9,15 @@
 // represents a bidirectional and weighted edge between cities fromi and toi, and given the integer distanceThreshold.
 // Return the city with the smallest number of cities that are reachable through some path and whose distance is at
 // most distanceThreshold, If there are multiple such cities, return the city with the greatest number.
-// Notice that the distance of a path connecting cities i and j is equal to the sum of the edges' weights along that path.
-#include <vector>
-#include <queue>
-#include <limits>
-#include <iostream>
+// Notice that the distance of a path connecting cities i and j is equal to the sum of the edges' weights along that
+// path.
 #include <algorithm>
+#include <iostream>
+#include <limits>
+#include <queue>
+#include <vector>
 
-int
-helper_to_determine_resulting_city(std::vector<std::vector<int>>& distance_matrix, int n, int max_allowed_distance)
+int helper_to_determine_resulting_city(std::vector<std::vector<int>>& distance_matrix, int n, int max_allowed_distance)
 {
     int result_city{-1};
     int count{n};
@@ -42,9 +42,8 @@ helper_to_determine_resulting_city(std::vector<std::vector<int>>& distance_matri
     return result_city;
 }
 
-void
-dijkstra(const std::vector<std::vector<std::pair<int, int>>>& graph, std::vector<int>& shortest_path_distances,
-         int start)
+void dijkstra(const std::vector<std::vector<std::pair<int, int>>>& graph, std::vector<int>& shortest_path_distances,
+              int start)
 {
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> q;
     q.emplace(start, 0);
@@ -67,8 +66,8 @@ dijkstra(const std::vector<std::vector<std::pair<int, int>>>& graph, std::vector
     }
 }
 
-void bellman_ford(int n, const std::vector<std::vector<int>>& edges,
-                  std::vector<int>& shortest_path_distances, int start)
+void bellman_ford(int n, const std::vector<std::vector<int>>& edges, std::vector<int>& shortest_path_distances,
+                  int start)
 {
     std::fill(shortest_path_distances.begin(), shortest_path_distances.end(), std::numeric_limits<int>::max());
     shortest_path_distances[start] = 0;
@@ -95,8 +94,8 @@ void bellman_ford(int n, const std::vector<std::vector<int>>& edges,
 }
 
 
-int
-city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<int>>& edges, int max_allowed_distance)
+int city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<int>>& edges,
+                                                    int max_allowed_distance)
 {
     std::vector<std::vector<std::pair<int, int>>> graph(n);
     for (const auto& edge : edges)
@@ -120,9 +119,8 @@ city_with_smallest_number_of_neighbors_dijkstra(int n, std::vector<std::vector<i
 }
 
 
-int
-city_with_smallest_number_of_neighbors_bellman_ford(int n, std::vector<std::vector<int>>& edges,
-                                                    int max_allowed_distance)
+int city_with_smallest_number_of_neighbors_bellman_ford(int n, std::vector<std::vector<int>>& edges,
+                                                        int max_allowed_distance)
 {
     std::vector<std::vector<int>> shortest_paths(n, std::vector<int>(n, std::numeric_limits<int>::max()));
     for (int i{}; i < n; ++i)
@@ -151,15 +149,14 @@ void floyd_warshall(int n, std::vector<std::vector<int>>& distance_matrix)
                     distance_matrix[transition_city][end_city] != std::numeric_limits<int>::max())
                     distance_matrix[start_city][end_city] = std::min(distance_matrix[start_city][end_city],
                                                                      distance_matrix[start_city][transition_city] +
-                                                                     distance_matrix[transition_city][end_city]);
+                                                                         distance_matrix[transition_city][end_city]);
             }
         }
     }
 }
 
-int
-city_with_smallest_number_of_neighbors_floyd_warshall(int n, std::vector<std::vector<int>>& edges,
-                                                      int max_allowed_distance)
+int city_with_smallest_number_of_neighbors_floyd_warshall(int n, std::vector<std::vector<int>>& edges,
+                                                          int max_allowed_distance)
 {
     std::vector<std::vector<int>> distance_matrix(n, std::vector<int>(n, std::numeric_limits<int>::max()));
     for (int city{}; city < n; ++city)
@@ -178,8 +175,7 @@ city_with_smallest_number_of_neighbors_floyd_warshall(int n, std::vector<std::ve
 }
 
 void shortest_path_first(int n, const std::vector<std::vector<std::pair<int, int>>>& graph,
-                         std::vector<int>& shortest_path_distances,
-                         int start)
+                         std::vector<int>& shortest_path_distances, int start)
 {
     std::queue<int> q;
     std::vector<int> update_count(n);
@@ -205,9 +201,8 @@ void shortest_path_first(int n, const std::vector<std::vector<std::pair<int, int
     }
 }
 
-int
-city_with_smallest_number_of_neighbors_shortest_path_first(int n, std::vector<std::vector<int>>& edges,
-                                                           int max_allowed_distance)
+int city_with_smallest_number_of_neighbors_shortest_path_first(int n, std::vector<std::vector<int>>& edges,
+                                                               int max_allowed_distance)
 {
     std::vector<std::vector<std::pair<int, int>>> graph(n);
     for (const auto& edge : edges)
@@ -227,4 +222,4 @@ city_with_smallest_number_of_neighbors_shortest_path_first(int n, std::vector<st
     return helper_to_determine_resulting_city(shortest_paths, n, max_allowed_distance);
 }
 
-#endif //DATA_STRUCTURES_CITY_WITH_SMALLEST_NUMBER_OF_NEIGHBORS_IN_DISTANCE_H
+#endif // DATA_STRUCTURES_CITY_WITH_SMALLEST_NUMBER_OF_NEIGHBORS_IN_DISTANCE_H

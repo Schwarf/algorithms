@@ -1,8 +1,8 @@
 //
 // Created by andreas on 15.02.25.
 //
-#include "gtest/gtest.h"
 #include "./../construct_lexicographically_largest_sequence.h"
+#include "gtest/gtest.h"
 
 
 TEST(TestConstructLexicographicallyLargestSequence, simple1)

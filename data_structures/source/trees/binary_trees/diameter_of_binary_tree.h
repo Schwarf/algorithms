@@ -5,21 +5,24 @@
 #ifndef DIAMETER_OF_BINARY_TREE_H
 #define DIAMETER_OF_BINARY_TREE_H
 
-#include "tree_node.h"
-#include <queue>
 #include <algorithm>
-//Given the root of a binary tree, return the length of the diameter of the tree.
-//The diameter of a binary tree is the length of the longest path between any two nodes in a tree.
-//The length of a path between two nodes is represented by the number of edges between them.
+#include <queue>
+#include "tree_node.h"
+// Given the root of a binary tree, return the length of the diameter of the tree.
+// The diameter of a binary tree is the length of the longest path between any two nodes in a tree.
+// The length of a path between two nodes is represented by the number of edges between them.
 
-template<typename T>
-int bfs_help(TreeNode<T> *node) {
-    std::queue<TreeNode<T> *> q;
+template <typename T>
+int bfs_help(TreeNode<T>* node)
+{
+    std::queue<TreeNode<T>*> q;
     q.push(node);
     int length{-1};
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         int q_size = q.size();
-        for (int i{}; i < q_size; ++i) {
+        for (int i{}; i < q_size; ++i)
+        {
             auto current = q.front();
             q.pop();
             if (current->left)
@@ -33,8 +36,9 @@ int bfs_help(TreeNode<T> *node) {
 }
 
 // using breadth first search
-template<typename T>
-int diameter_of_tree(TreeNode<T> *root) {
+template <typename T>
+int diameter_of_tree(TreeNode<T>* root)
+{
     int max{};
     if (root->left && root->right)
         max = std::max(max, 2 + bfs_help(root->right) + bfs_help(root->left));
@@ -47,8 +51,9 @@ int diameter_of_tree(TreeNode<T> *root) {
     return max;
 }
 
-template<typename T>
-int diameter(TreeNode<T> *node, int &result) {
+template <typename T>
+int diameter(TreeNode<T>* node, int& result)
+{
     // Base case: if the current node is null, return 0
     if (!node)
         return 0;
@@ -64,12 +69,13 @@ int diameter(TreeNode<T> *node, int &result) {
     return std::max(left, right) + 1;
 }
 
-template<typename T>
-int diameter_of_tree_optimal(TreeNode<T> *root) {
+template <typename T>
+int diameter_of_tree_optimal(TreeNode<T>* root)
+{
     int result{};
     diameter(root, result);
     return result;
 }
 
 
-#endif //DIAMETER_OF_BINARY_TREE_H
+#endif // DIAMETER_OF_BINARY_TREE_H

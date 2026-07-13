@@ -9,7 +9,8 @@
 // Helper function for checking if nodes are really deleted.
 void collect_node_addresses(TreeNode<int>* node, std::unordered_map<TreeNode<int>*, int>& addresses)
 {
-    if (!node) return;
+    if (!node)
+        return;
     addresses.insert({node, node->value});
     collect_node_addresses(node->left, addresses);
     collect_node_addresses(node->right, addresses);
@@ -33,10 +34,8 @@ TEST(TestDeleteNodesReturnForest, delete_nodes_in_between)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree};
     auto result = delete_nodes_return_forest(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -65,10 +64,8 @@ TEST(TestDeleteNodesReturnForest, delete_root_node)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree};
     auto result = delete_nodes_return_forest(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -145,16 +142,13 @@ TEST(TestDeleteNodesReturnForest, large_tree_multiple_deletions)
 
     auto fifth_expected_tree = new TreeNode<int>(11);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     auto result = delete_nodes_return_forest(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -197,16 +191,13 @@ TEST(TestDeleteNodesReturnForest, large_tree_deletions_various_levels)
 
     auto fifth_expected_tree = new TreeNode<int>(7);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     auto result = delete_nodes_return_forest(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -245,16 +236,13 @@ TEST(TestDeleteNodesReturnForest, delete_node_and_child_but_not_grandchildren)
     auto third_expected_tree = new TreeNode<int>(8);
     auto fourth_expected_tree = new TreeNode<int>(9);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree};
 
     auto result = delete_nodes_return_forest(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -285,10 +273,8 @@ TEST(TestDeleteNodesReturnForestIterative, delete_nodes_in_between)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree};
     auto result = delete_nodes_return_forest_bfs(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -317,10 +303,8 @@ TEST(TestDeleteNodesReturnForestIterative, delete_root_node)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree};
     auto result = delete_nodes_return_forest_bfs(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -397,16 +381,13 @@ TEST(TestDeleteNodesReturnForestIterative, large_tree_multiple_deletions)
 
     auto fifth_expected_tree = new TreeNode<int>(11);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     auto result = delete_nodes_return_forest_bfs(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -449,16 +430,13 @@ TEST(TestDeleteNodesReturnForestIterative, large_tree_deletions_various_levels)
 
     auto fifth_expected_tree = new TreeNode<int>(7);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     auto result = delete_nodes_return_forest_bfs(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -497,16 +475,13 @@ TEST(TestDeleteNodesReturnForestIterative, delete_node_and_child_but_not_grandch
     auto third_expected_tree = new TreeNode<int>(8);
     auto fourth_expected_tree = new TreeNode<int>(9);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree};
 
     auto result = delete_nodes_return_forest_bfs(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -543,10 +518,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_nodes_in_between)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree};
     auto result = delete_nodes_return_forest_bfs_with_correct_deletion(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -592,10 +565,8 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_root_node)
     std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree};
     auto result = delete_nodes_return_forest_bfs_with_correct_deletion(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -717,19 +688,16 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_multiple_delet
 
     auto fifth_expected_tree = new TreeNode<int>(11);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     std::unordered_map<TreeNode<int>*, int> node_addresses;
     collect_node_addresses(input_root, node_addresses);
 
     auto result = delete_nodes_return_forest_bfs_with_correct_deletion(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -785,19 +753,16 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, large_tree_deletions_vari
 
     auto fifth_expected_tree = new TreeNode<int>(7);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree, fifth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree, fifth_expected_tree};
 
     std::unordered_map<TreeNode<int>*, int> node_addresses;
     collect_node_addresses(input_root, node_addresses);
 
     auto result = delete_nodes_return_forest_bfs_with_correct_deletion(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);
@@ -850,19 +815,16 @@ TEST(TestDeleteNodesReturnForestIterativeWithDeletion, delete_node_and_child_but
     auto third_expected_tree = new TreeNode<int>(8);
     auto fourth_expected_tree = new TreeNode<int>(9);
 
-    std::vector<TreeNode<int>*> expected_result{
-        first_expected_tree, second_expected_tree, third_expected_tree, fourth_expected_tree
-    };
+    std::vector<TreeNode<int>*> expected_result{first_expected_tree, second_expected_tree, third_expected_tree,
+                                                fourth_expected_tree};
 
     std::unordered_map<TreeNode<int>*, int> node_addresses;
     collect_node_addresses(input_root, node_addresses);
 
     auto result = delete_nodes_return_forest_bfs_with_correct_deletion(input_root, value_to_delete);
     EXPECT_EQ(expected_result.size(), result.size());
-    std::sort(result.begin(), result.end(), [](TreeNode<int>* root1, TreeNode<int>* root2)
-    {
-        return root1->value < root2->value;
-    });
+    std::sort(result.begin(), result.end(),
+              [](TreeNode<int>* root1, TreeNode<int>* root2) { return root1->value < root2->value; });
     for (int i{}; i < result.size(); ++i)
     {
         auto result_values = pre_order_traversal(result[i]);

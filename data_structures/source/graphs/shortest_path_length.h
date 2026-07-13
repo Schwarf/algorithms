@@ -40,4 +40,4 @@ T shortest_path_length(std::vector<std::vector<T>>& graph)
 
     return -1;
 }
-#endif //SHORTEST_PATH_LENGTH_H
+#endif // SHORTEST_PATH_LENGTH_H

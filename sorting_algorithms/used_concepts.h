@@ -5,17 +5,16 @@
 #ifndef USED_CONCEPTS_H
 #define USED_CONCEPTS_H
 
-#include <concepts>
 #include <bit>
+#include <concepts>
 
-template<typename Container>
-concept IndexedContainer = requires(Container c)
-{
-    { c[0] } -> std::same_as<typename Container::value_type &>;
+template <typename Container>
+concept IndexedContainer = requires(Container c) {
+    { c[0] } -> std::same_as<typename Container::value_type&>;
     { c.size() } -> std::integral;
 };
 
-template<std::size_t N>
+template <std::size_t N>
 concept PowerOfTwo = ((N > 0) && (std::has_single_bit(N))) || (N == 0);
 
 template <typename T>
@@ -24,14 +23,13 @@ concept Sortable = requires(T a, T b) {
     { std::declval<const T&>() < std::declval<const T&>() } -> std::convertible_to<bool>;
     { std::declval<const T&>() > std::declval<const T&>() } -> std::convertible_to<bool>;
 };
-template<typename Element>
+template <typename Element>
 concept NoPointerElement = !std::is_pointer_v<Element>;
 
-template<typename SequenceFunction>
-concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size_t container_size)
-{
+template <typename SequenceFunction>
+concept SequenceFunctionTemplate = requires(SequenceFunction function, std::size_t container_size) {
     { function(container_size) } -> std::same_as<std::vector<std::size_t>>;
 };
 
 
-#endif //USED_CONCEPTS_H
+#endif // USED_CONCEPTS_H

@@ -2,8 +2,8 @@
 // Created by andreas on 16.05.23.
 //
 #include "gtest/gtest.h"
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/swap_nodes_in_pairs.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, swap_nodes_in_pairs_simple)
 {

@@ -4,23 +4,17 @@
 
 #ifndef OPTIMIZED_DISJOINT_SET_H
 #define OPTIMIZED_DISJOINT_SET_H
-#include <vector>
 #include <optional>
+#include <vector>
 
 template <typename IdType>
-requires std::is_signed_v<IdType>
+    requires std::is_signed_v<IdType>
 class UnionFindDense
 {
-    bool in_set(IdType value)
-    {
-        return 0 <= value && value < roots.size() && roots[value] != -1;
-    }
+    bool in_set(IdType value) { return 0 <= value && value < roots.size() && roots[value] != -1; }
 
 public:
-    explicit UnionFindDense(int size)
-        :
-        roots(size),
-        ranks(size)
+    explicit UnionFindDense(int size) : roots(size), ranks(size)
     {
         for (int i{}; i < size; ++i)
         {
@@ -31,7 +25,7 @@ public:
 
     std::optional<IdType> find_root(IdType value)
     {
-        if(!in_set(value))
+        if (!in_set(value))
             return std::nullopt;
         if (value == roots[value])
             return value;
@@ -74,4 +68,4 @@ private:
     std::vector<IdType> ranks;
 };
 
-#endif //OPTIMIZED_DISJOINT_SET_H
+#endif // OPTIMIZED_DISJOINT_SET_H

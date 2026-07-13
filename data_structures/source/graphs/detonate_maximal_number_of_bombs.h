@@ -5,12 +5,12 @@
 #ifndef MAXIMUM_MARKED_CIRCLES_H
 #define MAXIMUM_MARKED_CIRCLES_H
 
-#include <vector>
-#include <unordered_map>
-#include <queue>
-#include <unordered_set>
-#include <stack>
 #include <algorithm>
+#include <queue>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 // You are given a list of bombs. The range of a bomb is defined as the area where its effect can be felt.
 // This area is in the shape of a circle with the center as the location of the bomb.
 // The bombs are represented by a 0-indexed 2D integer array bombs where bombs[i] = [xi, yi, ri]. xi and yi denote
@@ -71,11 +71,9 @@ int maximum_number(const std::vector<std::vector<T>>& circles)
         {
             if (i == j)
                 continue;
-            double distance_squared =
-                static_cast<double>(circles[i][0] - circles[j][0]) *
-                static_cast<double>(circles[i][0] - circles[j][0])
-                + static_cast<double>(circles[i][1] - circles[j][1])
-                * static_cast<double>(circles[i][1] - circles[j][1]);
+            double distance_squared = static_cast<double>(circles[i][0] - circles[j][0]) *
+                    static_cast<double>(circles[i][0] - circles[j][0]) +
+                static_cast<double>(circles[i][1] - circles[j][1]) * static_cast<double>(circles[i][1] - circles[j][1]);
             double radius_squared = static_cast<double>(circles[i][0]) * static_cast<double>(circles[i][0]);
             if (distance_squared <= radius_squared)
                 graph[i].push_back(j);
@@ -97,8 +95,8 @@ int maximum_number_bfs(std::vector<std::vector<int>>& bombs)
 
     auto square_distance = [](const std::vector<int>& bomb1, const std::vector<int>& bomb2)
     {
-        return static_cast<long long>(bomb1[0] - bomb2[0]) * (bomb1[0] - bomb2[0])
-            + static_cast<long long>(bomb1[1] - bomb2[1]) * (bomb1[1] - bomb2[1]);
+        return static_cast<long long>(bomb1[0] - bomb2[0]) * (bomb1[0] - bomb2[0]) +
+            static_cast<long long>(bomb1[1] - bomb2[1]) * (bomb1[1] - bomb2[1]);
     };
     // compute connections aka build graph
     for (int i{}; i < n; ++i)
@@ -151,8 +149,8 @@ int maximum_number_dfs(std::vector<std::vector<int>>& bombs)
 
     auto square_distance = [](const std::vector<int>& bomb1, const std::vector<int>& bomb2)
     {
-        return static_cast<long long>(bomb1[0] - bomb2[0]) * (bomb1[0] - bomb2[0])
-            + static_cast<long long>(bomb1[1] - bomb2[1]) * (bomb1[1] - bomb2[1]);
+        return static_cast<long long>(bomb1[0] - bomb2[0]) * (bomb1[0] - bomb2[0]) +
+            static_cast<long long>(bomb1[1] - bomb2[1]) * (bomb1[1] - bomb2[1]);
     };
     // compute connections aka build graph
     for (int i{}; i < n; ++i)
@@ -197,4 +195,4 @@ int maximum_number_dfs(std::vector<std::vector<int>>& bombs)
     return max_count;
 }
 
-#endif //MAXIMUM_MARKED_CIRCLES_H
+#endif // MAXIMUM_MARKED_CIRCLES_H

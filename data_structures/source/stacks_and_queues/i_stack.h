@@ -23,4 +23,4 @@ public:
     virtual size_t size() const = 0;
 };
 
-#endif //I_STACK_H
+#endif // I_STACK_H

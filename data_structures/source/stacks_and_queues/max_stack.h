@@ -10,22 +10,27 @@
 #include <utility>
 
 template <typename T>
-requires std::totally_ordered<T>
-class MaxStack {
+    requires std::totally_ordered<T>
+class MaxStack
+{
     std::set<std::pair<int, T>> stack;
     std::set<std::pair<T, int>> ordered_values;
     int count{};
+
 public:
     MaxStack() = default;
 
-    void push(int value) {
+    void push(int value)
+    {
         stack.insert({count, value});
         ordered_values.insert({value, count});
         count++;
     }
 
-    T pop() {
-        if (stack.empty()) {
+    T pop()
+    {
+        if (stack.empty())
+        {
             throw std::out_of_range("pop() on empty MaxStack");
         }
         auto pair = *stack.rbegin();
@@ -34,22 +39,28 @@ public:
         return pair.second;
     }
 
-    T top() {
-        if (stack.empty()) {
+    T top()
+    {
+        if (stack.empty())
+        {
             throw std::out_of_range("top() on empty MaxStack");
         }
         return stack.rbegin()->second;
     }
 
-    T peekMax() {
-        if (stack.empty()) {
+    T peekMax()
+    {
+        if (stack.empty())
+        {
             throw std::out_of_range("peekMax() on empty MaxStack");
         }
         return ordered_values.rbegin()->first;
     }
 
-    T popMax() {
-        if (stack.empty()) {
+    T popMax()
+    {
+        if (stack.empty())
+        {
             throw std::out_of_range("popMax() on empty MaxStack");
         }
         auto pair = *ordered_values.rbegin();
@@ -58,13 +69,8 @@ public:
         return pair.first;
     }
 
-    int size() const {
-        return stack.size();
-    }
+    int size() const { return stack.size(); }
 
-    bool empty() const {
-        return stack.empty();
-    }
-
+    bool empty() const { return stack.empty(); }
 };
-#endif //ALGORITHMS_MAX_STACK_H
+#endif // ALGORITHMS_MAX_STACK_H

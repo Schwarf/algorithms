@@ -4,18 +4,17 @@
 
 #ifndef DATA_STRUCTURES_SHORTEST_PATH_IN_BINARY_MATRIX_H
 #define DATA_STRUCTURES_SHORTEST_PATH_IN_BINARY_MATRIX_H
-// Given an n x n binary matrix determine the shortest path from [0, 0] to [n-1, n-1]. All 8 directions from a cell are allowed.
-// A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell
+// Given an n x n binary matrix determine the shortest path from [0, 0] to [n-1, n-1]. All 8 directions from a cell are
+// allowed. A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell
 // (i.e., (n - 1, n - 1)) such that all the visited cells of the path are 0.
 // The length of a clear path is the number of visited cells of this path.
 
-#include <vector>
 #include <algorithm>
 #include <queue>
+#include <vector>
 
 // For debugging purpose we track the path
-inline std::vector<std::pair<int, int>>
-reconstruct_path(std::vector<std::vector<std::pair<int, int>>>& parent, int n)
+inline std::vector<std::pair<int, int>> reconstruct_path(std::vector<std::vector<std::pair<int, int>>>& parent, int n)
 {
     std::vector<std::pair<int, int>> path;
     for (int x = n - 1, y = n - 1; parent[x][y] != std::make_pair(x, y);)
@@ -43,16 +42,8 @@ inline int length_of_shortest_path_binary_matrix_bfs(std::vector<std::vector<int
     q.emplace(0, 0);
     // We use the 1 value as block for already visited nodes.
     matrix[0][0] = 1;
-    std::vector<std::pair<int, int>> directions = {
-        {1, 1},
-        {1, -1},
-        {-1, -1},
-        {-1, 1},
-        {1, 0},
-        {-1, 0},
-        {0, 1},
-        {0, -1}
-    };
+    std::vector<std::pair<int, int>> directions = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1},
+                                                   {1, 0}, {-1, 0}, {0, 1},   {0, -1}};
 
 
     while (!q.empty())
@@ -92,16 +83,8 @@ inline int astar_algorithm(std::vector<std::vector<int>>& matrix)
     std::vector<int> distances(n * n, std::numeric_limits<int>::max());
     // Each node costs one
     distances[0] = 1;
-    std::vector<std::pair<int, int>> directions = {
-        {1, 1},
-        {1, -1},
-        {-1, -1},
-        {-1, 1},
-        {1, 0},
-        {-1, 0},
-        {0, 1},
-        {0, -1}
-    };
+    std::vector<std::pair<int, int>> directions = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1},
+                                                   {1, 0}, {-1, 0}, {0, 1},   {0, -1}};
     while (!q.empty())
     {
         auto current = q.top();
@@ -149,4 +132,4 @@ inline int length_of_shortest_path_binary_matrix_astar(std::vector<std::vector<i
 }
 
 
-#endif //DATA_STRUCTURES_SHORTEST_PATH_IN_BINARY_MATRIX_H
+#endif // DATA_STRUCTURES_SHORTEST_PATH_IN_BINARY_MATRIX_H

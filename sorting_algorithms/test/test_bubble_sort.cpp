@@ -1,11 +1,12 @@
 //
 // Created by andreas on 22.03.23.
 //
-#include "test_setup.h"
-#include "bubble_sort.h"
 #include <algorithm>
+#include "bubble_sort.h"
+#include "test_setup.h"
 
-TEST_F(SetupSortingTests, bubble_sort_int_vector) {
+TEST_F(SetupSortingTests, bubble_sort_int_vector)
+{
     auto result = get_N_random_number_vector(-1000, 1000, 1000);
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);
@@ -15,7 +16,8 @@ TEST_F(SetupSortingTests, bubble_sort_int_vector) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupSortingTests, bubble_sort_int_array) {
+TEST_F(SetupSortingTests, bubble_sort_int_array)
+{
     auto result = get_N_random_number_array<100>(-1000, 1000);
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);
@@ -26,7 +28,8 @@ TEST_F(SetupSortingTests, bubble_sort_int_array) {
 }
 
 
-TEST_F(SetupSortingTests, bubble_sort_string) {
+TEST_F(SetupSortingTests, bubble_sort_string)
+{
     auto result = generate_random_string(128);
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);
@@ -36,7 +39,8 @@ TEST_F(SetupSortingTests, bubble_sort_string) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupSortingTests, bubble_sort_empty_vector) {
+TEST_F(SetupSortingTests, bubble_sort_empty_vector)
+{
     auto result = std::vector<int>{};
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);
@@ -46,7 +50,8 @@ TEST_F(SetupSortingTests, bubble_sort_empty_vector) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupSortingTests, bubble_sort_empty_array) {
+TEST_F(SetupSortingTests, bubble_sort_empty_array)
+{
     auto result = std::array<int, 0>{};
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);
@@ -56,7 +61,8 @@ TEST_F(SetupSortingTests, bubble_sort_empty_array) {
     EXPECT_EQ(result, expected_result);
 }
 
-TEST_F(SetupSortingTests, bubble_sort_empty_string) {
+TEST_F(SetupSortingTests, bubble_sort_empty_string)
+{
     auto result = std::string{};
     auto expected_result = result;
     EXPECT_EQ(result, expected_result);

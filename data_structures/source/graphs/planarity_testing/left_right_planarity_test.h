@@ -4,14 +4,14 @@
 
 #ifndef LEFT_RIGHT_PLANARITY_TEST_H
 #define LEFT_RIGHT_PLANARITY_TEST_H
+#include <algorithm>
 #include <fstream>
-#include <unordered_map>
-#include <unordered_set>
 #include <limits>
 #include <optional>
 #include <stack>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
-#include <algorithm>
 #include "graphs/graph.h"
 #include "json.hpp"
 
@@ -30,15 +30,9 @@ class PlanarityTest
         Interval() = default;
 
         // Constructor with specific low and high values
-        Interval(const Edge<NodeType>& low, const Edge<NodeType>& high)
-            : low(low), high(high)
-        {
-        }
+        Interval(const Edge<NodeType>& low, const Edge<NodeType>& high) : low(low), high(high) {}
 
-        bool is_empty() const
-        {
-            return low == NoneEdge<NodeType> && high == NoneEdge<NodeType>;
-        }
+        bool is_empty() const { return low == NoneEdge<NodeType> && high == NoneEdge<NodeType>; }
     };
 
     friend bool operator==(const Interval& lhs, const Interval& rhs)
@@ -55,15 +49,9 @@ class PlanarityTest
         ConflictPair() = default;
 
         // Constructor with initial intervals
-        ConflictPair(const Interval& left, const Interval& right)
-            : left(left), right(right)
-        {
-        }
+        ConflictPair(const Interval& left, const Interval& right) : left(left), right(right) {}
 
-        void swap()
-        {
-            std::swap(left, right);
-        }
+        void swap() { std::swap(left, right); }
     };
 
     const ConflictPair NoneConflictPair{Interval{}, Interval{}};
@@ -79,8 +67,7 @@ class PlanarityTest
 public:
     static int counter;
 
-    explicit PlanarityTest(UndirectedGraph<NodeType>& graph)
-        : graph_(graph)
+    explicit PlanarityTest(UndirectedGraph<NodeType>& graph) : graph_(graph)
     {
         // Initialize `height` and parent edges
         for (const auto& node : graph_.get_all_nodes())
@@ -114,11 +101,11 @@ public:
 
         for (const auto root_node : roots)
         {
-                if(!dfs_testing(root_node))
-                {
-                    is_planar = false;
-                    break;
-                }
+            if (!dfs_testing(root_node))
+            {
+                is_planar = false;
+                break;
+            }
         }
     }
 
@@ -144,7 +131,7 @@ public:
         is_planar = true;
         for (const auto root_node : roots)
         {
-            if(!dfs_testing_recursive(root_node))
+            if (!dfs_testing_recursive(root_node))
             {
                 is_planar = false;
                 break;
@@ -152,10 +139,7 @@ public:
         }
     }
 
-    bool is_graph_planar() const
-    {
-        return is_planar;
-    }
+    bool is_graph_planar() const { return is_planar; }
 
 private:
     int get_lowest_lowpt(const ConflictPair& conflict_pair)
@@ -172,10 +156,10 @@ private:
         for (auto& [node, neighbors] : dfs_graph.get_adjacency_list())
         {
             const auto current_node = node;
-            std::sort(neighbors.begin(), neighbors.end(), [&, current_node](NodeType a, NodeType b)
-            {
-                return nesting_depth[make_edge(current_node, a)] < nesting_depth[make_edge(current_node, b)];
-            });
+            std::sort(neighbors.begin(), neighbors.end(),
+                      [&, current_node](NodeType a, NodeType b) {
+                          return nesting_depth[make_edge(current_node, a)] < nesting_depth[make_edge(current_node, b)];
+                      });
         }
     }
 
@@ -226,19 +210,19 @@ private:
                 {
                     if (lowest_point[current_edge] < lowest_point[parent_edge])
                     {
-                        second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge],
-                                                                    second_lowest_point[current_edge]);
+                        second_lowest_point[parent_edge] =
+                            std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
                         lowest_point[parent_edge] = lowest_point[current_edge];
                     }
                     else if (lowest_point[current_edge] > lowest_point[parent_edge])
                     {
-                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
-                                                                    lowest_point[current_edge]);
+                        second_lowest_point[parent_edge] =
+                            std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
                     }
                     else
                     {
-                        second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
-                                                                    second_lowest_point[current_edge]);
+                        second_lowest_point[parent_edge] =
+                            std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
                     }
                 }
             }
@@ -289,19 +273,19 @@ private:
             {
                 if (lowest_point[current_edge] < lowest_point[parent_edge])
                 {
-                    second_lowest_point[parent_edge] = std::min(lowest_point[parent_edge],
-                                                                second_lowest_point[current_edge]);
+                    second_lowest_point[parent_edge] =
+                        std::min(lowest_point[parent_edge], second_lowest_point[current_edge]);
                     lowest_point[parent_edge] = lowest_point[current_edge];
                 }
                 else if (lowest_point[current_edge] > lowest_point[parent_edge])
                 {
-                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
-                                                                lowest_point[current_edge]);
+                    second_lowest_point[parent_edge] =
+                        std::min(second_lowest_point[parent_edge], lowest_point[current_edge]);
                 }
                 else
                 {
-                    second_lowest_point[parent_edge] = std::min(second_lowest_point[parent_edge],
-                                                                second_lowest_point[current_edge]);
+                    second_lowest_point[parent_edge] =
+                        std::min(second_lowest_point[parent_edge], second_lowest_point[current_edge]);
                 }
             }
         }
@@ -311,7 +295,8 @@ private:
     {
         std::stack<NodeType> dfs_stack{{start_node}};
         auto preprocessed_edges = std::unordered_set<Edge<NodeType>, EdgeHash>{};
-        auto neighbor_iterators = std::unordered_map<NodeType, decltype(dfs_graph.get_adjacency_list()[start_node].begin())>{};
+        auto neighbor_iterators =
+            std::unordered_map<NodeType, decltype(dfs_graph.get_adjacency_list()[start_node].begin())>{};
         while (!dfs_stack.empty())
         {
             auto current_node = dfs_stack.top();
@@ -323,7 +308,7 @@ private:
                 neighbor_iterators[current_node] = dfs_graph.get_adjacency_list()[current_node].begin();
             }
             auto& neighbor_iterator = neighbor_iterators[current_node];
-            while ( neighbor_iterator !=dfs_graph.get_adjacency_list()[current_node].end())
+            while (neighbor_iterator != dfs_graph.get_adjacency_list()[current_node].end())
             {
                 auto neighbor = *neighbor_iterator;
 
@@ -343,7 +328,7 @@ private:
                     stack.push(ConflictPair(Interval{}, Interval(current_edge, current_edge)));
                 }
 
-                if (lowest_point.contains(current_edge) &&  lowest_point[current_edge] < height[current_node])
+                if (lowest_point.contains(current_edge) && lowest_point[current_edge] < height[current_node])
                 {
                     if (neighbor == dfs_graph.get_adjacency_list()[current_node][0])
                     {
@@ -351,7 +336,7 @@ private:
                     }
                     else
                     {
-//                        dump_to_json();
+                        //                        dump_to_json();
                         if (!apply_constraints(current_edge, parent_edge))
                             return false;
                     }
@@ -450,8 +435,9 @@ private:
         {
             auto highest_return_edge_left = stack.top().left.high;
             auto highest_return_edge_right = stack.top().right.high;
-            if (highest_return_edge_left != NoneEdge<NodeType> && (highest_return_edge_right != NoneEdge<NodeType> ||
-                lowest_point[highest_return_edge_left] > lowest_point[highest_return_edge_right]))
+            if (highest_return_edge_left != NoneEdge<NodeType> &&
+                (highest_return_edge_right != NoneEdge<NodeType> ||
+                 lowest_point[highest_return_edge_left] > lowest_point[highest_return_edge_right]))
             {
                 ref[edge] = highest_return_edge_left;
             }
@@ -496,7 +482,8 @@ private:
             {
                 ref[current_conflict_pair.right.low] = lowpt_edge[parent_edge];
             }
-        } while(!stack.empty() && (stack.top() != stack_bottom[edge]));
+        }
+        while (!stack.empty() && (stack.top() != stack_bottom[edge]));
 
         while (!stack.empty() && (conflicting(stack.top().left, edge) || conflicting(stack.top().right, edge)))
         {
@@ -534,43 +521,46 @@ private:
 
     bool conflicting(const Interval& interval, const Edge<NodeType>& edge)
     {
-        return !interval.is_empty() && lowest_point.contains(interval.high) && lowest_point.contains(edge) && lowest_point[interval.high] > lowest_point[edge];
+        return !interval.is_empty() && lowest_point.contains(interval.high) && lowest_point.contains(edge) &&
+            lowest_point[interval.high] > lowest_point[edge];
     }
 
     void dump_to_json()
     {
         json output;
-        for(const auto & [node, h]: height)
+        for (const auto& [node, h] : height)
         {
             output["heights"][std::to_string(node)] = h;
         }
-        for(const auto & [edge, value]: lowest_point)
+        for (const auto& [edge, value] : lowest_point)
         {
-            output["lowpt"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+            output["lowpt"]["(" + std::to_string(edge.first) + ", " + std::to_string(edge.second) + ")"] = value;
         }
-        for(const auto & [edge, value]: second_lowest_point)
+        for (const auto& [edge, value] : second_lowest_point)
         {
-            output["lowpt2"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+            output["lowpt2"]["(" + std::to_string(edge.first) + ", " + std::to_string(edge.second) + ")"] = value;
         }
-        for(const auto & [edge, value]: nesting_depth)
+        for (const auto& [edge, value] : nesting_depth)
         {
-            output["nesting"]["("+std::to_string(edge.first)+", "+std::to_string(edge.second)+")"] = value;
+            output["nesting"]["(" + std::to_string(edge.first) + ", " + std::to_string(edge.second) + ")"] = value;
         }
 
-        for(const auto & [node, neighbors]: dfs_graph.get_adjacency_list())
+        for (const auto& [node, neighbors] : dfs_graph.get_adjacency_list())
         {
             output["ordered"][std::to_string(node)] = neighbors;
         }
-        for(const auto & [key_edge, value_edge]: lowpt_edge)
+        for (const auto& [key_edge, value_edge] : lowpt_edge)
         {
-            output["lowpt_edge"]["("+std::to_string(key_edge.first)+", "+std::to_string(key_edge.second)+")"] = {value_edge.first, value_edge.second};
+            output["lowpt_edge"]["(" + std::to_string(key_edge.first) + ", " + std::to_string(key_edge.second) + ")"] =
+                {value_edge.first, value_edge.second};
         }
 
         std::ofstream file("dump.json");
         file << output.dump(4);
     }
 
-    // We follow the naming here: https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
+    // We follow the naming here:
+    // https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=7963e9feffe1c9362eb1a69010a5139d1da3661e
     const UndirectedGraph<NodeType>& graph_;
     DirectedGraph<NodeType> dfs_graph;
     std::vector<NodeType> roots; // Stores the roots of all connected components
@@ -592,4 +582,4 @@ private:
 };
 
 
-#endif //LEFT_RIGHT_PLANARITY_TEST_H
+#endif // LEFT_RIGHT_PLANARITY_TEST_H

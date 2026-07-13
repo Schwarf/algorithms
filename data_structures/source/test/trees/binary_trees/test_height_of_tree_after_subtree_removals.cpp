@@ -1,8 +1,8 @@
 //
 // Created by andreas on 29.10.24.
 //
-#include "trees/binary_trees/height_of_tree_after_subtree_removals.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/height_of_tree_after_subtree_removals.h"
 
 TEST_F(SetupBinaryTree, RemoveSubtreesViaQueriesSimple1)
 {

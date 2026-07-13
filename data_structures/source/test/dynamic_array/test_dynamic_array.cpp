@@ -10,19 +10,22 @@
 #include "dynamic_array/dynamic_array.h"
 #include "gtest/gtest.h"
 
-TEST(DynamicArrayTest, ConstructorRejectsNonPositiveCapacity) {
+TEST(DynamicArrayTest, ConstructorRejectsNonPositiveCapacity)
+{
     EXPECT_THROW(DynamicArray<int>(0), std::invalid_argument);
     EXPECT_THROW(DynamicArray<int>(-1), std::invalid_argument);
 }
 
-TEST(DynamicArrayTest, NewArrayIsEmptyAndHasCapacity) {
+TEST(DynamicArrayTest, NewArrayIsEmptyAndHasCapacity)
+{
     DynamicArray<int> arr(4);
 
     EXPECT_EQ(arr.getSize(), 0);
     EXPECT_EQ(arr.getCapacity(), 4);
 }
 
-TEST(DynamicArrayTest, PushBackAndGetWorkForInt) {
+TEST(DynamicArrayTest, PushBackAndGetWorkForInt)
+{
     DynamicArray<int> arr(3);
 
     arr.pushBack(10);
@@ -36,7 +39,8 @@ TEST(DynamicArrayTest, PushBackAndGetWorkForInt) {
     EXPECT_EQ(arr.get(2), 30);
 }
 
-TEST(DynamicArrayTest, SetUpdatesElementForUnsignedInt) {
+TEST(DynamicArrayTest, SetUpdatesElementForUnsignedInt)
+{
     DynamicArray<unsigned int> arr(2);
 
     arr.pushBack(10u);
@@ -48,7 +52,8 @@ TEST(DynamicArrayTest, SetUpdatesElementForUnsignedInt) {
     EXPECT_EQ(arr.get(1), 99u);
 }
 
-TEST(DynamicArrayTest, PushBackResizesWhenFullForFloat) {
+TEST(DynamicArrayTest, PushBackResizesWhenFullForFloat)
+{
     DynamicArray<float> arr(2);
 
     arr.pushBack(1.5f);
@@ -62,7 +67,8 @@ TEST(DynamicArrayTest, PushBackResizesWhenFullForFloat) {
     EXPECT_FLOAT_EQ(arr.get(2), 3.5f);
 }
 
-TEST(DynamicArrayTest, PopBackReturnsLastElementAndReducesSize) {
+TEST(DynamicArrayTest, PopBackReturnsLastElementAndReducesSize)
+{
     DynamicArray<int> arr(2);
 
     arr.pushBack(5);
@@ -76,7 +82,8 @@ TEST(DynamicArrayTest, PopBackReturnsLastElementAndReducesSize) {
     EXPECT_EQ(arr.getSize(), 0);
 }
 
-TEST(DynamicArrayTest, GetThrowsForInvalidIndex) {
+TEST(DynamicArrayTest, GetThrowsForInvalidIndex)
+{
     DynamicArray<int> arr(2);
     arr.pushBack(42);
 
@@ -84,7 +91,8 @@ TEST(DynamicArrayTest, GetThrowsForInvalidIndex) {
     EXPECT_THROW(arr.get(1), std::out_of_range);
 }
 
-TEST(DynamicArrayTest, SetThrowsForInvalidIndex) {
+TEST(DynamicArrayTest, SetThrowsForInvalidIndex)
+{
     DynamicArray<int> arr(2);
     arr.pushBack(42);
 
@@ -92,7 +100,8 @@ TEST(DynamicArrayTest, SetThrowsForInvalidIndex) {
     EXPECT_THROW(arr.set(1, 5), std::out_of_range);
 }
 
-TEST(DynamicArrayTest, PopBackThrowsWhenEmpty) {
+TEST(DynamicArrayTest, PopBackThrowsWhenEmpty)
+{
     DynamicArray<int> arr(2);
 
     EXPECT_THROW(arr.popBack(), std::out_of_range);

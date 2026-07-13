@@ -1,8 +1,8 @@
 //
 // Created by andreas on 30.12.22.
 //
-#include "gtest/gtest.h"
 #include "graphs/weighted_graph.h"
+#include "gtest/gtest.h"
 
 class SetupWeightedGraph : public testing::Test
 {
@@ -138,8 +138,8 @@ TEST_F(SetupWeightedGraph, test_weight_for_non_existent_edge)
     const std::shared_ptr<GraphNode<int, int>> vertex3(new GraphNode<int, int>(id3, data3));
     graph.add_edge(vertex1, vertex2, weight1);
     graph.add_edge(vertex1, vertex3, weight2);
-    std::string message = "The edge with source id " + std::to_string(vertex2->id) + " and destination id "
-        + std::to_string(vertex3->id) + " does not exist in the graph!";
+    std::string message = "The edge with source id " + std::to_string(vertex2->id) + " and destination id " +
+        std::to_string(vertex3->id) + " does not exist in the graph!";
 
     try
     {
@@ -289,11 +289,8 @@ TEST_F(SetupWeightedGraph, simple_prim_graph2)
     auto graph = get_graph2(start_node);
     auto minimum_spanning_tree = graph.compute_minimum_spanning_tree_simple_prim(start_node);
     std::map<int, std::pair<int, int>> expected_minimum_spanning_tree{
-        std::make_pair(1, std::make_pair(0, 2)),
-        std::make_pair(2, std::make_pair(1, 3)),
-        std::make_pair(3, std::make_pair(0, 6)),
-        std::make_pair(4, std::make_pair(1, 5))
-    };
+        std::make_pair(1, std::make_pair(0, 2)), std::make_pair(2, std::make_pair(1, 3)),
+        std::make_pair(3, std::make_pair(0, 6)), std::make_pair(4, std::make_pair(1, 5))};
     for (const auto& element : expected_minimum_spanning_tree)
     {
         EXPECT_EQ(minimum_spanning_tree[element.first], element.second);

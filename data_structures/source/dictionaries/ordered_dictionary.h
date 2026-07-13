@@ -8,21 +8,18 @@
 #include "used_concepts.h"
 
 // An ordered dictionary keeps the order of the items inserted
-template <typename KeyType, typename ValueType> requires is_optional_type<ValueType>
+template <typename KeyType, typename ValueType>
+    requires is_optional_type<ValueType>
 struct OrderedDictionaryNode
 {
-    OrderedDictionaryNode(const KeyType& k, const ValueType& v)
-        : key(k), value(v), prev(nullptr), next(nullptr)
+    OrderedDictionaryNode(const KeyType& k, const ValueType& v) : key(k), value(v), prev(nullptr), next(nullptr) {}
+
+    OrderedDictionaryNode(const KeyType& k, ValueType&& v) : key(k), value(std::move(v)), prev(nullptr), next(nullptr)
     {
     }
 
-    OrderedDictionaryNode(const KeyType& k, ValueType&& v)
-        : key(k), value(std::move(v)), prev(nullptr), next(nullptr)
-    {
-    }
-
-    OrderedDictionaryNode(KeyType&& k, ValueType&& v)
-        : key(std::move(k)), value(std::move(v)), prev(nullptr), next(nullptr)
+    OrderedDictionaryNode(KeyType&& k, ValueType&& v) :
+        key(std::move(k)), value(std::move(v)), prev(nullptr), next(nullptr)
     {
     }
 
@@ -32,7 +29,8 @@ struct OrderedDictionaryNode
     OrderedDictionaryNode<KeyType, ValueType>* next{nullptr};
 };
 
-template <typename KeyType, typename ValueType> requires is_hashable<KeyType>
+template <typename KeyType, typename ValueType>
+    requires is_hashable<KeyType>
 class OrderedDictionary
 {
 public:
@@ -163,10 +161,7 @@ public:
         delete node;
     }
 
-    size_t size() const
-    {
-        return hashmap.size();
-    }
+    size_t size() const { return hashmap.size(); }
 
 private:
     std::unordered_map<KeyType, OrderedDictionaryNode<KeyType, ValueType>*> hashmap;
@@ -175,4 +170,4 @@ private:
     ValueType invalid_value_;
 };
 
-#endif //ORDERED_DICTIONARY_H
+#endif // ORDERED_DICTIONARY_H

@@ -7,8 +7,9 @@
 
 #include "tree_node.h"
 
-template<typename T>
-void dfs(TreeNode<T> *node, T &sum) {
+template <typename T>
+void dfs(TreeNode<T>* node, T& sum)
+{
     if (!node)
         return;
     if (node->left && !node->left->left && !node->left->right)
@@ -18,12 +19,12 @@ void dfs(TreeNode<T> *node, T &sum) {
     dfs(node->right, sum);
 }
 
-template<typename T>
-T sum_of_left_leafs(TreeNode<T> *root) {
+template <typename T>
+T sum_of_left_leafs(TreeNode<T>* root)
+{
     T sum{};
     dfs(root, sum);
     return sum;
 }
 
-#endif //DATA_STRUCTURES_SUM_OF_LEFT_LEAF_NODES_H
-
+#endif // DATA_STRUCTURES_SUM_OF_LEFT_LEAF_NODES_H

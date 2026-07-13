@@ -5,8 +5,8 @@
 #ifndef SPLIT_LINKED_LIST_IN_PARTS_H
 #define SPLIT_LINKED_LIST_IN_PARTS_H
 
-#include "node.h"
 #include <vector>
+#include "node.h"
 
 // Given a linked list L and an integer k, divide the linked list into k parts such that each part is either empty or
 // a non-empty linked list. The elements of the array or vector should contain these parts.
@@ -43,4 +43,4 @@ std::vector<Node<T>*> split_linked_list_in_parts(Node<T>* head, int k)
     return result;
 }
 
-#endif //SPLIT_LINKED_LIST_IN_PARTS_H
+#endif // SPLIT_LINKED_LIST_IN_PARTS_H

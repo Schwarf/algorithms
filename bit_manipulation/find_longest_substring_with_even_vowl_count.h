@@ -6,23 +6,24 @@
 #define BIT_MANIPULATION_FIND_LONGEST_SUBSTRING_WITH_EVEN_VOWL_COUNT_H
 // Given the string s, return the size of the longest substring containing each vowel an even number of times.
 // That is, 'a', 'e', 'i', 'o', and 'u' must appear an even number of times.
-#include <vector>
-#include <string>
 #include <algorithm>
-int find_longest_valid_substring(std::string & s)
+#include <string>
+#include <vector>
+int find_longest_valid_substring(std::string& s)
 {
     int prefix_XOR{};
     std::vector<int> character_map(26);
-    character_map['a'-'a'] = 1; // 0th-bit
-    character_map['e'-'a'] = 2;
-    character_map['i'-'a'] = 4;
-    character_map['o'-'a'] = 8;
-    character_map['u'-'a'] = 16; // 4th-bit
+    character_map['a' - 'a'] = 1; // 0th-bit
+    character_map['e' - 'a'] = 2;
+    character_map['i' - 'a'] = 4;
+    character_map['o' - 'a'] = 8;
+    character_map['u' - 'a'] = 16; // 4th-bit
     // Its essential to initialize to -1 so the length computation for consonants is correct
     std::vector<int> bitmask_first_seen(32, -1);
     int longest_substring{};
 
-    for (int i = 0; i < s.length(); i++) {
+    for (int i = 0; i < s.length(); i++)
+    {
         // for a consonant the following assignment does not change prefix_XOR
         // if a vowel is found the corresponding bit in prefix_XOR is toggled
         prefix_XOR ^= character_map[s[i] - 'a'];
@@ -36,4 +37,4 @@ int find_longest_valid_substring(std::string & s)
     return longest_substring;
 }
 
-#endif //BIT_MANIPULATION_FIND_LONGEST_SUBSTRING_WITH_EVEN_VOWL_COUNT_H
+#endif // BIT_MANIPULATION_FIND_LONGEST_SUBSTRING_WITH_EVEN_VOWL_COUNT_H

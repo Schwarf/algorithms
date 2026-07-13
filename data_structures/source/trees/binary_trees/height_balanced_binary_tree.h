@@ -9,19 +9,19 @@
 // A Binary Tree is height balanced if for each node in the tree, the difference between the height of its.
 // left subtree and the height of its right subtree is at most 1.
 
-#include "tree_node.h"
 #include <algorithm>
+#include "tree_node.h"
 
 template <typename T>
 int balanced_height(TreeNode<T>* node)
 {
-    if(!node)
+    if (!node)
         return 0;
     const int left_height = balanced_height(node->left);
-    if(left_height == -1)
+    if (left_height == -1)
         return -1;
     const int right_height = balanced_height(node->right);
-    if(right_height == -1)
+    if (right_height == -1)
         return -1;
     if (std::abs(left_height - right_height) > 1)
         return -1;
@@ -35,4 +35,4 @@ bool height_balanced_binary_tree(TreeNode<T>* root)
     return balanced_height(root) != -1;
 }
 
-#endif //ALGORITHMS_HEIGHT_BALANCED_BINARY_TREE_H
+#endif // ALGORITHMS_HEIGHT_BALANCED_BINARY_TREE_H

@@ -1,8 +1,8 @@
 //
 // Created by andreas on 03.04.24.
 //
-#include "gtest/gtest.h"
 #include "graphs/does_word_exist_in_grid.h"
+#include "gtest/gtest.h"
 
 TEST(TestDoesWordExistInGrid, simple1)
 {

@@ -5,9 +5,9 @@
 #ifndef TARJAN_ALGORITHM_DIRECTED_GRAPH_H
 #define TARJAN_ALGORITHM_DIRECTED_GRAPH_H
 
+#include <algorithm>
 #include <stack>
 #include "graphs/graph.h"
-#include <algorithm>
 
 
 template <typename NodeType>
@@ -15,9 +15,8 @@ template <typename NodeType>
 void dfs_ssc_trajan(NodeType current_node, const DirectedGraph<NodeType>& graph,
                     std::unordered_map<NodeType, int>& discovery_order,
                     std::unordered_map<NodeType, int>& ancestor_reachability_value,
-                    std::stack<NodeType>& scc_candidates,
-                    std::unordered_set<NodeType>& in_active_path, std::set<std::set<NodeType>>& SCCs,
-                    int& discovery_index)
+                    std::stack<NodeType>& scc_candidates, std::unordered_set<NodeType>& in_active_path,
+                    std::set<std::set<NodeType>>& SCCs, int& discovery_index)
 {
     // Discovery order keeps track of the order in which each node was first visited during DFS.
     discovery_order[current_node] = discovery_index++;
@@ -39,15 +38,15 @@ void dfs_ssc_trajan(NodeType current_node, const DirectedGraph<NodeType>& graph,
             dfs_ssc_trajan(neighbor, graph, discovery_order, ancestor_reachability_value, scc_candidates,
                            in_active_path, SCCs, discovery_index);
             // update the reachability
-            ancestor_reachability_value[current_node] = std::min(ancestor_reachability_value[current_node],
-                                                                 ancestor_reachability_value[neighbor]);
+            ancestor_reachability_value[current_node] =
+                std::min(ancestor_reachability_value[current_node], ancestor_reachability_value[neighbor]);
         }
         // This branch handles the second (or higher) encounters of the neighbor-nodes
         else if (in_active_path.contains(neighbor))
         {
             // Neighbor node is in the current active path. That means we saw it before, and we found a back-edge.
-            ancestor_reachability_value[current_node] = std::min(ancestor_reachability_value[current_node],
-                                                                 discovery_order[neighbor]);
+            ancestor_reachability_value[current_node] =
+                std::min(ancestor_reachability_value[current_node], discovery_order[neighbor]);
         }
     }
 
@@ -96,4 +95,4 @@ std::set<std::set<NodeType>> strongly_connected_components_tarjan(const Directed
     return strongly_connected_components;
 }
 
-#endif //TARJAN_ALGORITHM_DIRECTED_GRAPH_H
+#endif // TARJAN_ALGORITHM_DIRECTED_GRAPH_H

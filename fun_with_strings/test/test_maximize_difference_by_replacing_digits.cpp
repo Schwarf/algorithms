@@ -1,8 +1,8 @@
 //
 // Created by andreas on 15.06.25.
 //
-#include "gtest/gtest.h"
 #include "./../maximize_difference_by_replacing_digits.h"
+#include "gtest/gtest.h"
 
 TEST(TestMaximizeDifferenceByReplacingDigits, simple1)
 {

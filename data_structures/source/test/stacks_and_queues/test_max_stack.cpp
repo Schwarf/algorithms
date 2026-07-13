@@ -7,41 +7,48 @@
 #include <stdexcept>
 
 
-class MaxStackTest : public ::testing::Test {
+class MaxStackTest : public ::testing::Test
+{
 protected:
     MaxStack<int> stack;
 };
 
-TEST_F(MaxStackTest, default_constructed_stack_is_empty) {
+TEST_F(MaxStackTest, default_constructed_stack_is_empty)
+{
     EXPECT_TRUE(stack.empty());
     EXPECT_EQ(stack.size(), 0);
 }
 
-TEST_F(MaxStackTest, pop_on_empty_throws) {
+TEST_F(MaxStackTest, pop_on_empty_throws)
+{
     EXPECT_TRUE(stack.empty());
     EXPECT_EQ(stack.size(), 0);
     EXPECT_THROW(stack.pop(), std::out_of_range);
 }
 
-TEST_F(MaxStackTest, top_on_empty_throws) {
+TEST_F(MaxStackTest, top_on_empty_throws)
+{
     EXPECT_TRUE(stack.empty());
     EXPECT_EQ(stack.size(), 0);
     EXPECT_THROW(stack.top(), std::out_of_range);
 }
 
-TEST_F(MaxStackTest, peekMax_on_empty_throws) {
+TEST_F(MaxStackTest, peekMax_on_empty_throws)
+{
     EXPECT_TRUE(stack.empty());
     EXPECT_EQ(stack.size(), 0);
     EXPECT_THROW(stack.peekMax(), std::out_of_range);
 }
 
-TEST_F(MaxStackTest, popMax_on_empty_throws) {
+TEST_F(MaxStackTest, popMax_on_empty_throws)
+{
     EXPECT_TRUE(stack.empty());
     EXPECT_EQ(stack.size(), 0);
     EXPECT_THROW(stack.popMax(), std::out_of_range);
 }
 
-TEST_F(MaxStackTest, push_one_element_updates_empty_size_top_and_max) {
+TEST_F(MaxStackTest, push_one_element_updates_empty_size_top_and_max)
+{
     stack.push(42);
 
     EXPECT_FALSE(stack.empty());
@@ -50,7 +57,8 @@ TEST_F(MaxStackTest, push_one_element_updates_empty_size_top_and_max) {
     EXPECT_EQ(stack.peekMax(), 42);
 }
 
-TEST_F(MaxStackTest, push_multiple_elements_updates_size) {
+TEST_F(MaxStackTest, push_multiple_elements_updates_size)
+{
     stack.push(1);
     EXPECT_EQ(stack.size(), 1);
 
@@ -65,7 +73,8 @@ TEST_F(MaxStackTest, push_multiple_elements_updates_size) {
     EXPECT_EQ(stack.peekMax(), 3);
 }
 
-TEST_F(MaxStackTest, pop_returns_last_pushed_element_and_decreases_size) {
+TEST_F(MaxStackTest, pop_returns_last_pushed_element_and_decreases_size)
+{
     stack.push(1);
     stack.push(2);
     stack.push(3);
@@ -79,7 +88,8 @@ TEST_F(MaxStackTest, pop_returns_last_pushed_element_and_decreases_size) {
     EXPECT_EQ(stack.peekMax(), 2);
 }
 
-TEST_F(MaxStackTest, top_does_not_modify_stack) {
+TEST_F(MaxStackTest, top_does_not_modify_stack)
+{
     stack.push(10);
     stack.push(20);
 
@@ -93,7 +103,8 @@ TEST_F(MaxStackTest, top_does_not_modify_stack) {
     EXPECT_EQ(stack.peekMax(), 20);
 }
 
-TEST_F(MaxStackTest, peekMax_does_not_modify_stack) {
+TEST_F(MaxStackTest, peekMax_does_not_modify_stack)
+{
     stack.push(5);
     stack.push(1);
     stack.push(7);
@@ -108,7 +119,8 @@ TEST_F(MaxStackTest, peekMax_does_not_modify_stack) {
     EXPECT_EQ(stack.top(), 3);
 }
 
-TEST_F(MaxStackTest, popMax_removes_largest_value_and_decreases_size) {
+TEST_F(MaxStackTest, popMax_removes_largest_value_and_decreases_size)
+{
     stack.push(5);
     stack.push(1);
     stack.push(7);
@@ -123,7 +135,8 @@ TEST_F(MaxStackTest, popMax_removes_largest_value_and_decreases_size) {
     EXPECT_EQ(stack.top(), 3);
 }
 
-TEST_F(MaxStackTest, popMax_removes_most_recent_of_duplicate_maximums) {
+TEST_F(MaxStackTest, popMax_removes_most_recent_of_duplicate_maximums)
+{
     stack.push(5);
     stack.push(1);
     stack.push(5);
@@ -140,7 +153,8 @@ TEST_F(MaxStackTest, popMax_removes_most_recent_of_duplicate_maximums) {
     EXPECT_EQ(stack.peekMax(), 5);
 }
 
-TEST_F(MaxStackTest, pop_after_popMax_keeps_structure_consistent) {
+TEST_F(MaxStackTest, pop_after_popMax_keeps_structure_consistent)
+{
     stack.push(5);
     stack.push(1);
     stack.push(5);
@@ -155,7 +169,8 @@ TEST_F(MaxStackTest, pop_after_popMax_keeps_structure_consistent) {
     EXPECT_EQ(stack.peekMax(), 5);
 }
 
-TEST_F(MaxStackTest, popMax_when_top_is_not_max_preserves_top) {
+TEST_F(MaxStackTest, popMax_when_top_is_not_max_preserves_top)
+{
     stack.push(1);
     stack.push(3);
     stack.push(2);
@@ -170,7 +185,8 @@ TEST_F(MaxStackTest, popMax_when_top_is_not_max_preserves_top) {
     EXPECT_EQ(stack.peekMax(), 2);
 }
 
-TEST_F(MaxStackTest, repeated_popMax_removes_all_elements) {
+TEST_F(MaxStackTest, repeated_popMax_removes_all_elements)
+{
     stack.push(4);
     stack.push(2);
     stack.push(4);
@@ -200,7 +216,8 @@ TEST_F(MaxStackTest, repeated_popMax_removes_all_elements) {
     EXPECT_EQ(stack.size(), 0);
 }
 
-TEST_F(MaxStackTest, alternating_operations_work_correctly) {
+TEST_F(MaxStackTest, alternating_operations_work_correctly)
+{
     stack.push(2);
     stack.push(7);
     stack.push(1);
@@ -233,7 +250,8 @@ TEST_F(MaxStackTest, alternating_operations_work_correctly) {
     EXPECT_EQ(stack.size(), 0);
 }
 
-TEST_F(MaxStackTest, single_element_pop_leaves_stack_empty) {
+TEST_F(MaxStackTest, single_element_pop_leaves_stack_empty)
+{
     stack.push(77);
 
     EXPECT_FALSE(stack.empty());
@@ -245,7 +263,8 @@ TEST_F(MaxStackTest, single_element_pop_leaves_stack_empty) {
     EXPECT_EQ(stack.size(), 0);
 }
 
-TEST_F(MaxStackTest, single_element_popMax_leaves_stack_empty) {
+TEST_F(MaxStackTest, single_element_popMax_leaves_stack_empty)
+{
     stack.push(99);
 
     EXPECT_FALSE(stack.empty());

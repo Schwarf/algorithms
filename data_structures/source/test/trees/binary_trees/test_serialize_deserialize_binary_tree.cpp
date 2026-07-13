@@ -20,11 +20,11 @@ protected:
     template <typename T>
     bool treesEqual(TreeNode<T>* a, TreeNode<T>* b)
     {
-        if (!a && !b) return true;
-        if (!a || !b) return false;
-        return a->value == b->value
-            && treesEqual(a->left, b->left)
-            && treesEqual(a->right, b->right);
+        if (!a && !b)
+            return true;
+        if (!a || !b)
+            return false;
+        return a->value == b->value && treesEqual(a->left, b->left) && treesEqual(a->right, b->right);
     }
 };
 
@@ -55,11 +55,7 @@ TEST_F(SerializeDeserializeTest, CompleteTree)
         //     / \
         //    4   5
         */
-    TreeNode<int>* root = makeNode<int>(1,
-                                        makeNode<int>(2),
-                                        makeNode<int>(3,
-                                                      makeNode<int>(4),
-                                                      makeNode<int>(5)));
+    TreeNode<int>* root = makeNode<int>(1, makeNode<int>(2), makeNode<int>(3, makeNode<int>(4), makeNode<int>(5)));
     std::string s = serialize_tree(root);
     EXPECT_EQ(s, "1,2,#,#,3,4,#,#,5,#,#,");
     TreeNode<int>* des = deserialize_tree<int>(s);
@@ -75,11 +71,7 @@ TEST_F(SerializeDeserializeTest, UnbalancedTree)
     //       \
     //        9
     */
-    TreeNode<int>* root = makeNode<int>(7,
-                                        nullptr,
-                                        makeNode<int>(8,
-                                                      nullptr,
-                                                      makeNode<int>(9)));
+    TreeNode<int>* root = makeNode<int>(7, nullptr, makeNode<int>(8, nullptr, makeNode<int>(9)));
     std::string s = serialize_tree(root);
     EXPECT_EQ(s, "7,#,8,#,9,#,#,");
     TreeNode<int>* des = deserialize_tree<int>(s);

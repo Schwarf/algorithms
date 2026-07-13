@@ -1,11 +1,12 @@
 //
 // Created by andreas on 14.01.24.
 //
-#include "test_setup.h"
-#include "shell_sort.h"
 #include <algorithm>
+#include "shell_sort.h"
+#include "test_setup.h"
 
-TEST_F(SetupSortingTests, ShellSortSimpleSequence1) {
+TEST_F(SetupSortingTests, ShellSortSimpleSequence1)
+{
     auto input = get_N_random_number_vector(0, 1000, 100);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -13,7 +14,8 @@ TEST_F(SetupSortingTests, ShellSortSimpleSequence1) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSimpleSequence2) {
+TEST_F(SetupSortingTests, ShellSortSimpleSequence2)
+{
     auto input = get_N_random_number_vector(0, 10000, 1000);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -21,7 +23,8 @@ TEST_F(SetupSortingTests, ShellSortSimpleSequence2) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSimpleSequence3) {
+TEST_F(SetupSortingTests, ShellSortSimpleSequence3)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 523);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -29,7 +32,8 @@ TEST_F(SetupSortingTests, ShellSortSimpleSequence3) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSimpleSequence4) {
+TEST_F(SetupSortingTests, ShellSortSimpleSequence4)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 5689);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -37,7 +41,8 @@ TEST_F(SetupSortingTests, ShellSortSimpleSequence4) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSedgewickSequence1) {
+TEST_F(SetupSortingTests, ShellSortSedgewickSequence1)
+{
     auto input = get_N_random_number_vector(0, 1000, 100);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -45,7 +50,8 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence1) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSedgewickSequence2) {
+TEST_F(SetupSortingTests, ShellSortSedgewickSequence2)
+{
     auto input = get_N_random_number_vector(0, 10000, 1000);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -53,7 +59,8 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence2) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSedgewickSequence3) {
+TEST_F(SetupSortingTests, ShellSortSedgewickSequence3)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 523);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -61,7 +68,8 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence3) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortSedgewickSequence4) {
+TEST_F(SetupSortingTests, ShellSortSedgewickSequence4)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 5689);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -69,7 +77,8 @@ TEST_F(SetupSortingTests, ShellSortSedgewickSequence4) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortFuchsSequence1) {
+TEST_F(SetupSortingTests, ShellSortFuchsSequence1)
+{
     auto input = get_N_random_number_vector(0, 1000, 100);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -78,7 +87,8 @@ TEST_F(SetupSortingTests, ShellSortFuchsSequence1) {
 }
 
 
-TEST_F(SetupSortingTests, ShellSortFuchsSequence2) {
+TEST_F(SetupSortingTests, ShellSortFuchsSequence2)
+{
     auto input = get_N_random_number_vector(0, 10000, 1000);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -86,7 +96,8 @@ TEST_F(SetupSortingTests, ShellSortFuchsSequence2) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortFuchsSequence3) {
+TEST_F(SetupSortingTests, ShellSortFuchsSequence3)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 523);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());
@@ -94,7 +105,8 @@ TEST_F(SetupSortingTests, ShellSortFuchsSequence3) {
     EXPECT_EQ(input, expected_output);
 }
 
-TEST_F(SetupSortingTests, ShellSortFuchsSequence4) {
+TEST_F(SetupSortingTests, ShellSortFuchsSequence4)
+{
     auto input = get_N_random_number_vector(-1000, 1000, 5689);
     auto expected_output{input};
     std::sort(expected_output.begin(), expected_output.end());

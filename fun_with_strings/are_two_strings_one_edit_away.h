@@ -46,4 +46,4 @@ bool are_one_edit_away(const std::string& first, const std::string& second)
     return true;
 }
 
-#endif //ARE_TWO_STRINGS_ONE_EDIT_AWAY_H
+#endif // ARE_TWO_STRINGS_ONE_EDIT_AWAY_H

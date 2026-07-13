@@ -1,8 +1,8 @@
 //
 // Created by andreas on 29.03.23.
 //
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/are_linked_lists_intersecting.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, are_linked_lists_intersecting_yes_list1_longer)
 {

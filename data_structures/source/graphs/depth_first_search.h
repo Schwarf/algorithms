@@ -4,8 +4,8 @@
 
 #ifndef DEPTH_FIRST_SEARCH_H
 #define DEPTH_FIRST_SEARCH_H
-#include <stack>
 #include <map>
+#include <stack>
 #include <vector>
 #include "graph.h"
 
@@ -40,4 +40,4 @@ std::map<id_T, id_T> get_depth_first_search_tree(Graph<id_T, data_T>& graph,
     return dfs_tree;
 }
 
-#endif //DEPTH_FIRST_SEARCH_H
+#endif // DEPTH_FIRST_SEARCH_H

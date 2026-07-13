@@ -80,4 +80,4 @@ Node<T>* partition_linked_list_for_element_and_keep_order(Node<T>* head, const T
 }
 
 
-#endif //PARTITION_LINKED_LIST_FOR_ELEMENT_H
+#endif // PARTITION_LINKED_LIST_FOR_ELEMENT_H

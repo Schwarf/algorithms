@@ -6,15 +6,15 @@
 
 TEST(TestIsDnaSequenceSimilar, simple1)
 {
-     std::vector<std::vector<std::string>> input{{"aa", "bb"}, {"abc", "bcd"}, {"aa", "aa"}};
-     std::vector<bool> expected_result(3, true);
-     EXPECT_EQ(are_sequences_similar(input), expected_result);
+    std::vector<std::vector<std::string>> input{{"aa", "bb"}, {"abc", "bcd"}, {"aa", "aa"}};
+    std::vector<bool> expected_result(3, true);
+    EXPECT_EQ(are_sequences_similar(input), expected_result);
 }
 
 
 TEST(TestIsDnaSequenceSimilar, simple2)
 {
-     std::vector<std::vector<std::string>> input{{"ab", ""}, {"abbb", "bbbd"}, {"aa", "ccb"}, {"aabbcc", "bccaaa"}};
-     std::vector<bool> expected_result{true, true, false, true};
-     EXPECT_EQ(are_sequences_similar(input), expected_result);
+    std::vector<std::vector<std::string>> input{{"ab", ""}, {"abbb", "bbbd"}, {"aa", "ccb"}, {"aabbcc", "bccaaa"}};
+    std::vector<bool> expected_result{true, true, false, true};
+    EXPECT_EQ(are_sequences_similar(input), expected_result);
 }

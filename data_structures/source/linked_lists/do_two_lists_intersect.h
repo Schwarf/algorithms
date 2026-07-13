@@ -49,4 +49,4 @@ Node<T>* do_lists_intersect(Node<T>* head1, Node<T>* head2)
 }
 
 
-#endif //DATA_STRUCTURES_DO_TWO_LISTS_INTERSECT_H
+#endif // DATA_STRUCTURES_DO_TWO_LISTS_INTERSECT_H

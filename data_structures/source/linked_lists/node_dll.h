@@ -9,15 +9,11 @@
 template <typename T>
 struct NodeDLL
 {
-    explicit NodeDLL(T val)
-        :
-        value(val)
-    {
-    }
+    explicit NodeDLL(T val) : value(val) {}
 
     T value;
     NodeDLL<T>* next{nullptr};
     NodeDLL<T>* previous{nullptr};
 };
 
-#endif //NODE_DLL_H
+#endif // NODE_DLL_H

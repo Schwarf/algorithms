@@ -1,31 +1,29 @@
 //
 // Created by andreas on 05.04.26.
 //
-#include <string>
 #include <iostream>
+#include <string>
 
-class Singleton {
+class Singleton
+{
 private:
     std::string value_;
     Singleton() {}
 
 public:
-
-    static Singleton *getInstance() {
+    static Singleton* getInstance()
+    {
         static Singleton instance;
         return &instance;
     }
 
-    std::string getValue() {
-        return value_;
-    }
+    std::string getValue() { return value_; }
 
-    void setValue(const std::string &value) {
-        value_ = value;
-    }
+    void setValue(const std::string& value) { value_ = value; }
 };
 
-int main() {
+int main()
+{
     Singleton* s1 = Singleton::getInstance();
     s1->setValue("Hello Singleton");
 
@@ -34,7 +32,8 @@ int main() {
     std::cout << "Value from s1: " << s1->getValue() << '\n';
     std::cout << "Value from s2: " << s2->getValue() << '\n';
 
-    if (s1 == s2) {
+    if (s1 == s2)
+    {
         std::cout << "s1 and s2 point to the same instance.\n";
     }
 

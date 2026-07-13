@@ -3,9 +3,9 @@
 //
 #include <gtest/gtest.h>
 
+#include <optional>
 #include <string>
 #include <vector>
-#include <optional>
 
 // Include your header (adjust path as needed)
 #include "union_find_disjoint_set/union_find_sparse.h"
@@ -14,12 +14,13 @@
 // Basic behavior tests
 // --------------------
 
-TEST(UnionFindSparseInt, AddSetBasicAndDuplicate) {
+TEST(UnionFindSparseInt, AddSetBasicAndDuplicate)
+{
     UnionFindSparse<int> union_find;
 
     EXPECT_TRUE(union_find.add_set(1));
     EXPECT_TRUE(union_find.add_set(2));
-    EXPECT_FALSE(union_find.add_set(1));  // duplicate
+    EXPECT_FALSE(union_find.add_set(1)); // duplicate
 
     auto r1 = union_find.get_root(1);
     ASSERT_TRUE(r1.has_value());
@@ -30,14 +31,16 @@ TEST(UnionFindSparseInt, AddSetBasicAndDuplicate) {
     EXPECT_EQ(*r2, 2);
 }
 
-TEST(UnionFindSparseInt, GetRootMissingReturnsNullopt) {
+TEST(UnionFindSparseInt, GetRootMissingReturnsNullopt)
+{
     UnionFindSparse<int> union_find;
 
     EXPECT_FALSE(union_find.get_root(42).has_value());
     EXPECT_FALSE(union_find.get_root(-7).has_value());
 }
 
-TEST(UnionFindSparseInt, UnionSetNoOpIfMissing) {
+TEST(UnionFindSparseInt, UnionSetNoOpIfMissing)
+{
     UnionFindSparse<int> union_find;
     union_find.add_set(1);
     union_find.add_set(2);
@@ -54,19 +57,21 @@ TEST(UnionFindSparseInt, UnionSetNoOpIfMissing) {
     EXPECT_FALSE(union_find.are_connected(1, 2));
 }
 
-TEST(UnionFindSparseInt, AreConnectedMissingIsFalseEvenIfBothMissing) {
+TEST(UnionFindSparseInt, AreConnectedMissingIsFalseEvenIfBothMissing)
+{
     UnionFindSparse<int> union_find;
 
-    EXPECT_FALSE(union_find.are_connected(1, 2));   // both missing
+    EXPECT_FALSE(union_find.are_connected(1, 2)); // both missing
     union_find.add_set(1);
-    EXPECT_FALSE(union_find.are_connected(1, 2));   // one missing
+    EXPECT_FALSE(union_find.are_connected(1, 2)); // one missing
 }
 
 // --------------------
 // Union + find behavior
 // --------------------
 
-TEST(UnionFindSparseInt, UnionSetConnectsTwoSingletonsDeterministicRootOnTie) {
+TEST(UnionFindSparseInt, UnionSetConnectsTwoSingletonsDeterministicRootOnTie)
+{
     UnionFindSparse<int> union_find;
     union_find.add_set(10);
     union_find.add_set(20);
@@ -78,7 +83,8 @@ TEST(UnionFindSparseInt, UnionSetConnectsTwoSingletonsDeterministicRootOnTie) {
     EXPECT_EQ(*union_find.get_root(10), *union_find.get_root(20));
 }
 
-TEST(UnionFindSparseInt, UnionSetTransitiveConnectivity) {
+TEST(UnionFindSparseInt, UnionSetTransitiveConnectivity)
+{
     UnionFindSparse<int> union_find;
     union_find.add_set(1);
     union_find.add_set(2);
@@ -99,24 +105,27 @@ TEST(UnionFindSparseInt, UnionSetTransitiveConnectivity) {
     EXPECT_EQ(*union_find.get_root(3), 1);
 }
 
-TEST(UnionFindSparseInt, UnionSetIdempotentAndSelfUnion) {
+TEST(UnionFindSparseInt, UnionSetIdempotentAndSelfUnion)
+{
     UnionFindSparse<int> union_find;
     union_find.add_set(5);
     union_find.add_set(6);
 
     union_find.union_set(5, 6);
-    union_find.union_set(5, 6);  // repeat
-    union_find.union_set(6, 5);  // reverse
-    union_find.union_set(5, 5);  // self-union
+    union_find.union_set(5, 6); // repeat
+    union_find.union_set(6, 5); // reverse
+    union_find.union_set(5, 5); // self-union
 
     EXPECT_TRUE(union_find.are_connected(5, 6));
     EXPECT_EQ(*union_find.get_root(5), 5);
     EXPECT_EQ(*union_find.get_root(6), 5);
 }
 
-TEST(UnionFindSparseInt, UnionSetMergeTwoComponents) {
+TEST(UnionFindSparseInt, UnionSetMergeTwoComponents)
+{
     UnionFindSparse<int> union_find;
-    for (int x : {1,2,3,4}) union_find.add_set(x);
+    for (int x : {1, 2, 3, 4})
+        union_find.add_set(x);
 
     union_find.union_set(1, 2);
     union_find.union_set(3, 4);
@@ -136,7 +145,8 @@ TEST(UnionFindSparseInt, UnionSetMergeTwoComponents) {
 // Sparse-domain motivation tests
 // --------------------
 
-TEST(UnionFindSparseInt, SupportsNegativeAndLargeIds) {
+TEST(UnionFindSparseInt, SupportsNegativeAndLargeIds)
+{
     UnionFindSparse<int> union_find;
     union_find.add_set(-10);
     union_find.add_set(1'000'000);
@@ -157,7 +167,8 @@ TEST(UnionFindSparseInt, SupportsNegativeAndLargeIds) {
 // Template works for other IdTypes
 // --------------------
 
-TEST(UnionFindSparseString, WorksForStringIds) {
+TEST(UnionFindSparseString, WorksForStringIds)
+{
     UnionFindSparse<std::string> union_find;
 
     EXPECT_TRUE(union_find.add_set("alice"));

@@ -16,38 +16,44 @@
 //    A subarray is a contiguous part of the array.
 //    An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
 
-#include <utility>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
-bool has_valid_subarray_sum(const std::vector<int>& nums, int k) {
+bool has_valid_subarray_sum(const std::vector<int>& nums, int k)
+{
     int n = nums.size();
     // Special‐case: if k==0, only subarrays summing exactly to 0
     // count—but per the examples we still exclude zero‐sum subarrays,
     // so there's nothing to find.
     if (k == 0)
-      return false;
+        return false;
 
     // Map from residue -> pair{ earliest index, prefixSum at that index }
-    std::unordered_map<int, std::pair<int,long long>> seen;
+    std::unordered_map<int, std::pair<int, long long>> seen;
     // We treat prefix sum 0 at index -1
     seen[0] = std::make_pair(-1, 0LL);
 
     long long sum = 0;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i)
+    {
         sum += nums[i];
         // normalize mod in [0..|k|-1]
         int residue = ((sum % k) + k) % k;
 
         auto it = seen.find(residue);
-        if (it != seen.end()) {
+        if (it != seen.end())
+        {
             int prevIdx = it->second.first;
             long long prevSum = it->second.second;
             // check length >= 2 and actual subarray sum != 0
-            if (i - prevIdx >= 2 && (sum - prevSum) != 0) {
+            if (i - prevIdx >= 2 && (sum - prevSum) != 0)
+            {
                 return true;
             }
-        } else {
+        }
+        else
+        {
             // first time we see this residue
             seen[residue] = std::make_pair(i, sum);
         }
@@ -55,4 +61,4 @@ bool has_valid_subarray_sum(const std::vector<int>& nums, int k) {
     return false;
 }
 
-#endif //CONTINEOUS_SUBARRAY_SUM_H
+#endif // CONTINEOUS_SUBARRAY_SUM_H

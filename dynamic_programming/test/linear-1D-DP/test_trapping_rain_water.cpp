@@ -1,8 +1,8 @@
 //
 // Created by andreas on 26.11.22.
 //
-#include "gtest/gtest.h"
 #include "../../linear-1D-DP/trapping_rain_water.h"
+#include "gtest/gtest.h"
 
 #include <algorithm>
 

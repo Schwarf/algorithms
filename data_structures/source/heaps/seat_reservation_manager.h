@@ -9,8 +9,8 @@
 //	All seats are initially available.
 //  int reserve() Fetches the smallest-numbered unreserved seat, reserves it, and returns its number.
 //  void unreserve(int seatNumber) Unreserves the seat with the given seatNumber.
-#include <vector>
 #include <queue>
+#include <vector>
 
 class SeatManager
 {
@@ -19,10 +19,7 @@ private:
     int min;
 
 public:
-    SeatManager(int n)
-        : min(1)
-    {
-    }
+    SeatManager(int n) : min(1) {}
 
     int reserve()
     {
@@ -37,10 +34,7 @@ public:
         return seatNumber;
     }
 
-    void unreserve(int seatNumber)
-    {
-        seats_available.push(seatNumber);
-    }
+    void unreserve(int seatNumber) { seats_available.push(seatNumber); }
 };
 
-#endif //SEAT_RESERVATION_MANAGER_H
+#endif // SEAT_RESERVATION_MANAGER_H

@@ -13,9 +13,9 @@
 // and the profit will be added to your total capital. Pick a list of at most k distinct projects from given
 // projects to maximize your final capital, and return the final maximized capital.
 // The answer is guaranteed to fit in a 32-bit signed integer.
-#include <vector>
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include <vector>
 
 int maximize_capital(int k, int start_capital, std::vector<int>& profits, std::vector<int>& capital)
 {
@@ -43,4 +43,4 @@ int maximize_capital(int k, int start_capital, std::vector<int>& profits, std::v
     return start_capital;
 }
 
-#endif //DATA_STRUCTURES_MAXIMIZE_CAPITAL_WITH_K_PROJECTS_H
+#endif // DATA_STRUCTURES_MAXIMIZE_CAPITAL_WITH_K_PROJECTS_H

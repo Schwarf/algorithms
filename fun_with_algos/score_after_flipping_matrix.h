@@ -11,32 +11,41 @@
 // Return the highest possible score after making any number of moves (including zero moves).
 #include <vector>
 
-int matrix_score_after_flipping(std::vector<std::vector<int>> &grid) {
+int matrix_score_after_flipping(std::vector<std::vector<int>>& grid)
+{
     int rows = grid.size();
     int columns = grid[0].size();
 
     // Set first column
-    for (int row = 0; row < rows; row++) {
-        if (grid[row][0] == 0) {
+    for (int row = 0; row < rows; row++)
+    {
+        if (grid[row][0] == 0)
+        {
             // Flip row
-            for (int col = 0; col < columns; col++) {
+            for (int col = 0; col < columns; col++)
+            {
                 grid[row][col] = 1 - grid[row][col];
             }
         }
     }
 
     // Optimize columns except first column
-    for (int col = 1; col < columns; col++) {
+    for (int col = 1; col < columns; col++)
+    {
         int count_zeros{};
         // Count zeros
-        for (int row = 0; row < rows; row++) {
-            if (grid[row][col] == 0) {
+        for (int row = 0; row < rows; row++)
+        {
+            if (grid[row][col] == 0)
+            {
                 count_zeros++;
             }
         }
         // Flip the column if there are more zeros for better score
-        if (count_zeros > rows - count_zeros) {
-            for (int row = 0; row < rows; row++) {
+        if (count_zeros > rows - count_zeros)
+        {
+            for (int row = 0; row < rows; row++)
+            {
                 grid[row][col] = 1 - grid[row][col];
             }
         }
@@ -44,8 +53,10 @@ int matrix_score_after_flipping(std::vector<std::vector<int>> &grid) {
 
     // Calculate the final score considering bit positions
     int score{};
-    for (int row = 0; row < rows; row++) {
-        for (int col = 0; col < columns; col++) {
+    for (int row = 0; row < rows; row++)
+    {
+        for (int col = 0; col < columns; col++)
+        {
             // Left shift bit by place value of column to find column contribution
             int column_score = grid[row][col] << (columns - col - 1);
             // Add contribution to score
@@ -55,4 +66,4 @@ int matrix_score_after_flipping(std::vector<std::vector<int>> &grid) {
     return score;
 }
 
-#endif //FUN_WITH_ALGOS_SCORE_AFTER_FLIPPING_MATRIX_H
+#endif // FUN_WITH_ALGOS_SCORE_AFTER_FLIPPING_MATRIX_H

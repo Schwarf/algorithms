@@ -1,8 +1,8 @@
 //
 // Created by andreas on 16.06.25.
 //
-#include "gtest/gtest.h"
 #include "./../longest_bit_sequence_with_flip.h"
+#include "gtest/gtest.h"
 
 TEST(TestLongestBitSequenceWithFlip, simple1)
 {

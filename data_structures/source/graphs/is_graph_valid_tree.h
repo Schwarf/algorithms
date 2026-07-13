@@ -6,10 +6,10 @@
 #define IS_GRAPH_VALID_TREE_H
 // Given n nodes labeled from 0 to n-1 and a list of undirected edges (each edge is a pair of nodes),
 // write a function to check whether these edges make up a valid tree.
-#include <vector>
-#include <queue>
 #include <concepts>
+#include <queue>
 #include <unordered_set>
+#include <vector>
 
 template <typename T>
     requires std::is_unsigned_v<T>
@@ -80,4 +80,4 @@ bool is_graph_valid_tree_with_set(int number_of_nodes, const std::vector<std::ve
 }
 
 
-#endif //IS_GRAPH_VALID_TREE_H
+#endif // IS_GRAPH_VALID_TREE_H

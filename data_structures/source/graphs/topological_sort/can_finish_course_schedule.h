@@ -10,9 +10,9 @@
 // For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 // Return true if you can finish all courses. Otherwise, return false.
 
-#include <vector>
-#include <queue>
 #include <concepts>
+#include <queue>
+#include <vector>
 
 template <typename T>
     requires std::is_unsigned_v<T>
@@ -46,4 +46,4 @@ bool can_finish_course_schedule(const std::vector<std::vector<T>>& prerequisites
     }
     return nodes_visited == number_of_courses;
 }
-#endif //DATA_STRUCTURES_CAN_FINISH_COURSE_SCHEDULE_H
+#endif // DATA_STRUCTURES_CAN_FINISH_COURSE_SCHEDULE_H

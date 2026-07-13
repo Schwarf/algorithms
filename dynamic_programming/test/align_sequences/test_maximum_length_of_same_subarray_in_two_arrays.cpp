@@ -1,8 +1,8 @@
 //
 // Created by andreas on 20.09.22.
 //
-#include "gtest/gtest.h"
 #include "../../align_subsequences/maximum_length_of_same_subarray_in_two_arrays.h"
+#include "gtest/gtest.h"
 
 class SetupMaximumLengthOfSameSubarrayInTwoArrays : public testing::Test
 {

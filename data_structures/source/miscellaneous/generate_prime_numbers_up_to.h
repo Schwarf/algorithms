@@ -47,4 +47,4 @@ void generate_prime_numbers_up_to(size_t n)
     }
 }
 
-#endif //GENERATE_PRIMES_IN_RANGE_H
+#endif // GENERATE_PRIMES_IN_RANGE_H

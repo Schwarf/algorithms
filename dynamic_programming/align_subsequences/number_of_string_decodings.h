@@ -9,27 +9,29 @@
 #include <vector>
 // A message containing letters from A-Z can be encoded into numbers using the following mapping:
 // 'A' -> "1", 'B' -> "2", ..., 'Z' -> "26"
-// To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above (there may be multiple ways). For example, "11106" can be mapped into:
-// "AAJF" with the grouping (1 1 10 6)
-// "KJF" with the grouping (11 10 6)
-// Note that the grouping (1 11 06) is invalid because "06" cannot be mapped into 'F' since "6" is different from "06".
-// Given a string s containing only digits, return the number of ways to decode it.
-// The test cases are generated so that the answer fits in a 32-bit integer.
+// To decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the
+// mapping above (there may be multiple ways). For example, "11106" can be mapped into: "AAJF" with the grouping (1 1 10
+// 6) "KJF" with the grouping (11 10 6) Note that the grouping (1 11 06) is invalid because "06" cannot be mapped into
+// 'F' since "6" is different from "06". Given a string s containing only digits, return the number of ways to decode
+// it. The test cases are generated so that the answer fits in a 32-bit integer.
 
 
-int number_of_decodings_recursive(std::string s) {
+int number_of_decodings_recursive(std::string s)
+{
     if (s.empty())
         return 1;
     if (s[0] == '0')
-        return 0;  // String starting with '0' can't be decoded
+        return 0; // String starting with '0' can't be decoded
 
     // Recursive case for single character
     int count = number_of_decodings_recursive(s.substr(1)); // s.substr(n) returns r-value of the string from [n, end())
 
     // Recursive case for two characters (if valid)
-    if (s.size() >= 2) {
+    if (s.size() >= 2)
+    {
         int twoDigit = stoi(s.substr(0, 2));
-        if (twoDigit >= 10 && twoDigit <= 26) {
+        if (twoDigit >= 10 && twoDigit <= 26)
+        {
             count += number_of_decodings_recursive(s.substr(2));
         }
     }
@@ -37,19 +39,22 @@ int number_of_decodings_recursive(std::string s) {
 }
 
 // Using index argument
-int number_of_decodings_recursive2(const std::string &s, size_t index = 0) {
+int number_of_decodings_recursive2(const std::string& s, size_t index = 0)
+{
     if (index == s.length())
         return 1; // Reached the end of the string
     if (s[index] == '0')
-        return 0;     // Current digit is '0', no valid encoding
+        return 0; // Current digit is '0', no valid encoding
 
     // Recursive call for single character
     int count = number_of_decodings_recursive2(s, index + 1);
 
     // Recursive call for two characters
-    if (index < s.length() - 1) {
+    if (index < s.length() - 1)
+    {
         int twoDigit = stoi(s.substr(index, 2));
-        if (twoDigit >= 10 && twoDigit <= 26) {
+        if (twoDigit >= 10 && twoDigit <= 26)
+        {
             count += number_of_decodings_recursive2(s, index + 2);
         }
     }
@@ -57,55 +62,61 @@ int number_of_decodings_recursive2(const std::string &s, size_t index = 0) {
     return count;
 }
 
-int memoization(const std::string &s, int index, std::vector<int> &memo) {
+int memoization(const std::string& s, int index, std::vector<int>& memo)
+{
     if (index == s.length())
         return 1;
     if (s.empty())
         return 1;
     if (s[0] == '0')
-        return 0;  // String starting with '0' can't be decoded
+        return 0; // String starting with '0' can't be decoded
     if (memo[index] != -1)
         return memo[index];
     int count = memoization(s, index + 1, memo);
 
     // Recursive call for two characters
-    if (index < s.length() - 1) {
+    if (index < s.length() - 1)
+    {
         int twoDigit = stoi(s.substr(index, 2));
-        if (twoDigit >= 10 && twoDigit <= 26) {
+        if (twoDigit >= 10 && twoDigit <= 26)
+        {
             count += memoization(s, index + 2, memo);
         }
     }
     memo[index] = count;
 
     return count;
-
 }
 
-int number_of_decodings_top_down(const std::string &s) {
+int number_of_decodings_top_down(const std::string& s)
+{
     std::vector<int> memo(s.size(), -1);
     return memoization(s, 0, memo);
 }
 
-int number_of_decodings_bottom_up(const std::string &s) {
+int number_of_decodings_bottom_up(const std::string& s)
+{
     if (s.empty() || s[0] == '0')
         return 0;
     int n = s.size();
     std::vector<int> dp(n + 1, 0);
     dp[0] = 1;
     dp[1] = 1;
-    for (int i{2}; i <= n; ++i) {
+    for (int i{2}; i <= n; ++i)
+    {
         int oneDigit = stoi(s.substr(i - 1, 1));
         int twoDigits = stoi(s.substr(i - 2, 2));
 
-        if (oneDigit >= 1) {
+        if (oneDigit >= 1)
+        {
             dp[i] += dp[i - 1];
         }
-        if (twoDigits >= 10 && twoDigits <= 26) {
+        if (twoDigits >= 10 && twoDigits <= 26)
+        {
             dp[i] += dp[i - 2];
         }
     }
     return dp[n];
 }
 
-#endif //NUMBER_OF_STRING_DECODINGS_H
-
+#endif // NUMBER_OF_STRING_DECODINGS_H

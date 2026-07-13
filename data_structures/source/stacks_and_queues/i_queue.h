@@ -22,4 +22,4 @@ public:
     virtual T dequeue() = 0;
 };
 
-#endif //I_QUEUE_H
+#endif // I_QUEUE_H

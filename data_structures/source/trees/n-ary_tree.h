@@ -4,10 +4,10 @@
 
 #ifndef I_TREE_H
 #define I_TREE_H
-#include <vector>
 #include <functional>
 #include <iostream>
 #include <queue>
+#include <vector>
 
 template <typename T>
 void print(T value)
@@ -22,9 +22,7 @@ struct N_aryTreeNode
     size_t depth{};
     std::vector<N_aryTreeNode<T, maximal_number_of_children>*> children;
 
-    N_aryTreeNode()
-    {
-    }
+    N_aryTreeNode() {}
 
     bool add_child(const T& value)
     {
@@ -43,10 +41,7 @@ struct N_aryTreeNode
         value_ = value;
     }
 
-    size_t number_of_children()
-    {
-        return children.size();
-    }
+    size_t number_of_children() { return children.size(); }
 };
 
 template <typename T, size_t maximum_number_of_children>
@@ -55,10 +50,7 @@ class N_aryTree
 public:
     N_aryTree() = delete;
 
-    explicit N_aryTree(const T& value)
-    {
-        root_ = new N_aryTreeNode<T, maximum_number_of_children>(value);
-    }
+    explicit N_aryTree(const T& value) { root_ = new N_aryTreeNode<T, maximum_number_of_children>(value); }
 
     void traverse_preorder(std::function<void(T)> function)
     {
@@ -84,10 +76,7 @@ public:
         inorder_traversal(node, function);
     }
 
-    N_aryTreeNode<T, maximum_number_of_children>* root()
-    {
-        return root_;
-    }
+    N_aryTreeNode<T, maximum_number_of_children>* root() { return root_; }
 
 private:
     void preorder_traversal(N_aryTreeNode<T, maximum_number_of_children>* node, std::function<void(T)> function)
@@ -127,4 +116,4 @@ private:
 };
 
 
-#endif //I_TREE_H
+#endif // I_TREE_H

@@ -4,12 +4,12 @@
 
 #ifndef MINIMAL_DISTANCE_TO_CONNECT_ALL_POINTS_H
 #define MINIMAL_DISTANCE_TO_CONNECT_ALL_POINTS_H
-#include <vector>
-#include <concepts>
-#include <queue>
-#include <limits>
-#include "union_find_disjoint_set/union_find_dense.h"
 #include <algorithm>
+#include <concepts>
+#include <limits>
+#include <queue>
+#include <vector>
+#include "union_find_disjoint_set/union_find_dense.h"
 
 // You are given an array points representing integer coordinates of some points on a 2D-plane,
 // where points[i] = [xi, yi].
@@ -82,4 +82,4 @@ T minimal_costs_to_connect_points2(std::vector<std::vector<T>> points)
     return min_cost;
 }
 
-#endif //MINIMAL_DISTANCE_TO_CONNECT_ALL_POINTS_H
+#endif // MINIMAL_DISTANCE_TO_CONNECT_ALL_POINTS_H

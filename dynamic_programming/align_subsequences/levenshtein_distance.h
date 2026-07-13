@@ -4,11 +4,11 @@
 
 #ifndef LEVENSHTEIN_DISTANCE_H
 #define LEVENSHTEIN_DISTANCE_H
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-int levenshtein_distance(const std::string &word1, const std::string &word2)
+int levenshtein_distance(const std::string& word1, const std::string& word2)
 {
     int n1 = word1.length();
     int n2 = word2.length();
@@ -39,4 +39,4 @@ int levenshtein_distance(const std::string &word1, const std::string &word2)
     }
     return dp[n1][n2];
 }
-#endif //LEVENSHTEIN_DISTANCE_H
+#endif // LEVENSHTEIN_DISTANCE_H

@@ -5,25 +5,29 @@
 #ifndef BASIC_CALCULATOR3_H
 #define BASIC_CALCULATOR3_H
 // Implement a basic calculator to evaluate a simple expression string.
-// The expression string contains only non-negative integers, '+', '-', '*', '/' operators, and open '(' and closing parentheses ')'. The integer division should truncate toward zero.
-// You may assume that the given expression is always valid. All intermediate results will be in the range of [-231, 231 - 1].
-// Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().
-// Constraints:
+// The expression string contains only non-negative integers, '+', '-', '*', '/' operators, and open '(' and closing
+// parentheses ')'. The integer division should truncate toward zero. You may assume that the given expression is always
+// valid. All intermediate results will be in the range of [-231, 231 - 1]. Note: You are not allowed to use any
+// built-in function which evaluates strings as mathematical expressions, such as eval(). Constraints:
 //
 //    1 <= s <= 104
 //    s consists of digits, '+', '-', '*', '/', '(', and ')'.
 //    s is a valid expression.
-#include <string>
 #include <stack>
+#include <string>
 
 int apply_opeartion(char operation, int x, int y)
 {
     switch (operation)
     {
-    case '+': return x;
-    case '-': return -x;
-    case '*': return x * y;
-    case '/': return x / y; // integer division truncates toward zero
+    case '+':
+        return x;
+    case '-':
+        return -x;
+    case '*':
+        return x * y;
+    case '/':
+        return x / y; // integer division truncates toward zero
     }
     return 0; // should never hit
 }
@@ -80,4 +84,4 @@ int calculated3(std::string input)
     return compute(input, index);
 }
 
-#endif //BASIC_CALCULATOR3_H
+#endif // BASIC_CALCULATOR3_H

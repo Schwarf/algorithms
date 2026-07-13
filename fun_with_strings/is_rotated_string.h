@@ -11,17 +11,19 @@
 
 bool isSubstring(const std::string& haystack, const std::string& needle)
 {
-  return haystack.find(needle) != std::string::npos;
+    return haystack.find(needle) != std::string::npos;
 }
 
-bool is_rotated_string(const std::string& input, const std::string& rotated) {
+bool is_rotated_string(const std::string& input, const std::string& rotated)
+{
 
-  if(input.size() != rotated.size() || input.empty()) {
-    return false;
-  }
-  std::string concatenated = input + input;
-  return isSubstring(concatenated, rotated);
+    if (input.size() != rotated.size() || input.empty())
+    {
+        return false;
+    }
+    std::string concatenated = input + input;
+    return isSubstring(concatenated, rotated);
 }
 
 
-#endif //STRING_ROTATION_H
+#endif // STRING_ROTATION_H

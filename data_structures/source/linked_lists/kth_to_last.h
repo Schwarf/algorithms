@@ -31,4 +31,4 @@ Node<T>* kth_to_last_element(Node<T>* head, int k)
     return tail;
 }
 
-#endif //KTH_TO_LAST_H
+#endif // KTH_TO_LAST_H

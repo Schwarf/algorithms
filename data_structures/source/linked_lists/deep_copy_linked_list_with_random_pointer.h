@@ -4,8 +4,8 @@
 
 #ifndef DEEP_COPY_LINKED_LIST_WITH_RANDOM_POINTER_H
 #define DEEP_COPY_LINKED_LIST_WITH_RANDOM_POINTER_H
-#include "node.h"
 #include <unordered_map>
+#include "node.h"
 // A linked list of length n is given such that each node contains an additional random pointer,
 // which could point to any node in the list, or null.
 // Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes,
@@ -46,4 +46,4 @@ NodePlusRP<T>* deep_copy_linked_list_with_random_pointer(NodePlusRP<T>* head)
     return old_to_new[head];
 }
 
-#endif //DEEP_COPY_LINKED_LIST_WITH_RANDOM_POINTER_H
+#endif // DEEP_COPY_LINKED_LIST_WITH_RANDOM_POINTER_H

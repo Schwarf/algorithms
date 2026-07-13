@@ -4,11 +4,11 @@
 
 #ifndef BACKTRACKING_FIND_ALL_COMBINATIONS_TO_SUM_UP_TO_TARGET_H
 #define BACKTRACKING_FIND_ALL_COMBINATIONS_TO_SUM_UP_TO_TARGET_H
-// You are given an array with positive integers and a target number. Find all combinations of array-elements that sum up to the target
-// number. Each element can only be used once.
-#include <vector>
-#include <set>
+// You are given an array with positive integers and a target number. Find all combinations of array-elements that sum
+// up to the target number. Each element can only be used once.
 #include <algorithm>
+#include <set>
+#include <vector>
 
 template <typename T>
     requires std::is_integral_v<T>
@@ -45,8 +45,8 @@ std::vector<std::vector<T>> find_all_combinations_brute_force(std::vector<T>& in
 
 
 template <typename T>
-void get_combinations(std::vector<std::vector<T>>& results, std::vector<T>& current_combination, const std::vector<T>& input,
-                      T target, int index)
+void get_combinations(std::vector<std::vector<T>>& results, std::vector<T>& current_combination,
+                      const std::vector<T>& input, T target, int index)
 {
     if (target == 0)
     {
@@ -82,4 +82,4 @@ std::vector<std::vector<T>> find_all_combinations_backtracking(std::vector<T>& i
 }
 
 
-#endif //BACKTRACKING_FIND_ALL_COMBINATIONS_TO_SUM_UP_TO_TARGET_H
+#endif // BACKTRACKING_FIND_ALL_COMBINATIONS_TO_SUM_UP_TO_TARGET_H

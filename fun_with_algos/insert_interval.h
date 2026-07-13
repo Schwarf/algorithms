@@ -10,27 +10,30 @@
 // Insert newInterval into intervals such that intervals is still sorted in ascending order by start_i and
 // intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
 // Return intervals after the insertion.
-#include <vector>
-#include <concepts>
 #include <algorithm>
+#include <concepts>
+#include <vector>
 
-template<typename T>
-requires std::three_way_comparable<T>
-std::vector<std::vector<T>>
-insert_new_interval(const std::vector<std::vector<T>> &intervals, std::vector<T> &new_interval) {
+template <typename T>
+    requires std::three_way_comparable<T>
+std::vector<std::vector<T>> insert_new_interval(const std::vector<std::vector<T>>& intervals,
+                                                std::vector<T>& new_interval)
+{
     int n = intervals.size();
     int index{};
     std::vector<std::vector<T>> result;
 
     // Compare ending point of intervals to starting point of new_interval and
     // add until new_interval start is lower than endpoint of exiting interval
-    while (index < n && intervals[index][1] < new_interval[0]) {
+    while (index < n && intervals[index][1] < new_interval[0])
+    {
         result.push_back(intervals[index]);
         index++;
     }
 
     // Merging overlapping intervals
-    while (index < n && new_interval[1] >= intervals[index][0]) {
+    while (index < n && new_interval[1] >= intervals[index][0])
+    {
         new_interval[0] = std::min(new_interval[0], intervals[index][0]);
         new_interval[1] = std::max(new_interval[1], intervals[index][1]);
         index++;
@@ -38,7 +41,8 @@ insert_new_interval(const std::vector<std::vector<T>> &intervals, std::vector<T>
     result.push_back(new_interval);
 
     // Add remaining intervals
-    while (index < n) {
+    while (index < n)
+    {
         result.push_back(intervals[index]);
         index++;
     }
@@ -46,4 +50,4 @@ insert_new_interval(const std::vector<std::vector<T>> &intervals, std::vector<T>
 }
 
 
-#endif //INSERT_INTERVAL_H
+#endif // INSERT_INTERVAL_H

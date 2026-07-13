@@ -22,32 +22,36 @@
 // Complete the function totalExecutionTime in the editor.
 // totalExecutionTime has the following parameter:
 // int execution[n] : an array of integers representing the execution times
-#include <vector>
-#include <unordered_map>
-#include <deque>
 #include <cmath>
+#include <deque>
+#include <unordered_map>
+#include <vector>
 int time_to_execute_process(std::vector<int>& processes)
 {
     int n = processes.size();
     std::unordered_map<int, std::vector<int>> processes_index;
 
     // Build a map where each processes time has a list of its indices
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         processes_index[processes[i]].push_back(i);
     }
 
     int total_time = 0;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         total_time += processes[i]; // Add execution time
         // Get the list of indices that had the same execution time originally
-        std::vector <int>& indexes = processes_index[processes[i]];
+        std::vector<int>& indexes = processes_index[processes[i]];
 
-        if (!indexes.empty() && indexes.front() == i) {
+        if (!indexes.empty() && indexes.front() == i)
+        {
 
             // Update execution times for the remaining cohesive processes
             int new_execution_time = ceil(processes[i] / 2.0);
-            for (int index : indexes) {
+            for (int index : indexes)
+            {
                 processes[index] = new_execution_time; // Update the execution time
             }
         }
@@ -55,4 +59,4 @@ int time_to_execute_process(std::vector<int>& processes)
     return total_time;
 }
 
-#endif //EXECUTE_PROCESSES_H
+#endif // EXECUTE_PROCESSES_H

@@ -2,9 +2,9 @@
 // Created by andreas on 23.10.24.
 //
 #include "setup_binary_tree.h"
-#include "trees/binary_trees/replace_value_in_tree_with_cousin_sum.h"
-#include "trees/binary_trees/pre_order_traversal.h"
 #include "trees/binary_trees/level_order_traversal.h"
+#include "trees/binary_trees/pre_order_traversal.h"
+#include "trees/binary_trees/replace_value_in_tree_with_cousin_sum.h"
 
 TEST_F(SetupBinaryTree, TestCousinReplacementSimple1)
 {

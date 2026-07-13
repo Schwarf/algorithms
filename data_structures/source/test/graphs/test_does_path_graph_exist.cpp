@@ -1,8 +1,8 @@
 //
 // Created by andreas on 30.12.22.
 //
-#include "gtest/gtest.h"
 #include "graphs/does_path_in_graph_exist.h"
+#include "gtest/gtest.h"
 
 class SetupDoesPathExist : public testing::Test
 {

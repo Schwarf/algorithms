@@ -5,8 +5,8 @@
 #ifndef CHECK_IF_LINKED_LIST_IS_PALINDROME_H
 #define CHECK_IF_LINKED_LIST_IS_PALINDROME_H
 
-#include "node.h"
 #include <stack>
+#include "node.h"
 
 template <typename T>
 Node<T>* revert_and_clone(Node<T>* head)
@@ -66,4 +66,4 @@ bool is_palindrome_with_stack(Node<T>* head)
 }
 
 
-#endif //CHECK_IF_LINKED_LIST_IS_PALINDROME_H
+#endif // CHECK_IF_LINKED_LIST_IS_PALINDROME_H

@@ -5,10 +5,10 @@
 #ifndef DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
 #define DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
 
-#include <vector>
-#include <utility>
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include <utility>
+#include <vector>
 // A directed weighted graph that consists of n nodes numbered from 0 to n - 1.
 // The edges of the graph are initially represented by the given array edges where edges[i] = [from, to, weight]
 // meaning that there is an edge from 'from' to 'to' with the cost 'weight'.
@@ -20,12 +20,13 @@
 //    If no path exists, return -1. The cost of a path is the sum of the costs of the edges in the path.
 
 // DIJKSTRA algorithm
-template <typename T> requires std::is_signed_v<T>
+template <typename T>
+    requires std::is_signed_v<T>
 class Graph
 {
 public:
-    Graph(int number_of_nodes, const std::vector<std::vector<T>>& edges_with_weights)
-        : number_of_nodes_{number_of_nodes}
+    Graph(int number_of_nodes, const std::vector<std::vector<T>>& edges_with_weights) :
+        number_of_nodes_{number_of_nodes}
     {
         graph.resize(number_of_nodes_);
         for (const auto& triple : edges_with_weights)
@@ -34,10 +35,7 @@ public:
         }
     }
 
-    void add_edge(const std::vector<T>& triple)
-    {
-        graph[triple[0]].push_back({triple[1], triple[2]});
-    }
+    void add_edge(const std::vector<T>& triple) { graph[triple[0]].push_back({triple[1], triple[2]}); }
 
     int shortest_path(T start_node, T end_node)
     {
@@ -74,12 +72,13 @@ public:
 };
 
 // FLOYD-WARSHALL algorithm
-template <typename T> requires std::is_signed_v<T>
+template <typename T>
+    requires std::is_signed_v<T>
 class GraphFW
 {
 public:
-    GraphFW(int n, std::vector<std::vector<T>>& edges_with_weights)
-        : n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max() / n))
+    GraphFW(int n, std::vector<std::vector<T>>& edges_with_weights) :
+        n_(n), graph(n, std::vector<T>(n, std::numeric_limits<T>::max() / n))
     {
         for (auto& edge : edges_with_weights)
         {
@@ -124,4 +123,4 @@ public:
     std::vector<std::vector<T>> graph{};
 };
 
-#endif //DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H
+#endif // DESIGN_GRAPH_WITH_SHORTEST_PATH_CALCULATOR_H

@@ -9,10 +9,7 @@
 class SetupSinlgyLinkedList : public testing::Test
 {
 public:
-    SetupSinlgyLinkedList()
-    {
-        linked_list = new SinglyLinkedList<int64_t>();
-    }
+    SetupSinlgyLinkedList() { linked_list = new SinglyLinkedList<int64_t>(); }
 
 protected:
     SinglyLinkedList<int64_t>* linked_list;

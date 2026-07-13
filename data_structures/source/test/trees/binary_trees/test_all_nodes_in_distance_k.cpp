@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "trees/binary_trees/all_nodes_in_distance_k.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/all_nodes_in_distance_k.h"
 
 #include <algorithm>
 

@@ -51,4 +51,4 @@ std::string minimum_window_substring(std::string s, std::string t)
     return result_size == std::numeric_limits<int>::max() ? "" : s.substr(result.first, result_size);
 }
 
-#endif //MINIMUM_WINDOW_SUBSTRING_H
+#endif // MINIMUM_WINDOW_SUBSTRING_H

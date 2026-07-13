@@ -4,11 +4,12 @@
 
 #ifndef FIXED_SIZE_HASHMAP_H
 #define FIXED_SIZE_HASHMAP_H
-#include "used_concepts.h"
 #include <array>
 #include <stdexcept>
+#include "used_concepts.h"
 
-template <typename KeyType, typename ValueType, size_t Capacity> requires is_hashable<KeyType>
+template <typename KeyType, typename ValueType, size_t Capacity>
+    requires is_hashable<KeyType>
 class FixedSizeHashmap
 {
 public:
@@ -55,4 +56,4 @@ private:
         return std::hash<KeyType>{}(key) % Capacity; // Collision are still possible --> test it
     }
 };
-#endif //FIXED_SIZE_HASHMAP_H
+#endif // FIXED_SIZE_HASHMAP_H

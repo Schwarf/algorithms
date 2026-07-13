@@ -15,16 +15,10 @@ static TreeNode<T>* newNode(T val, TreeNode<T>* left = nullptr, TreeNode<T>* rig
 }
 
 // Corner case: empty tree
-TEST(is_valid_BSTTest, EmptyTree)
-{
-    EXPECT_TRUE(is_valid_BST<int>(nullptr));
-}
+TEST(is_valid_BSTTest, EmptyTree) { EXPECT_TRUE(is_valid_BST<int>(nullptr)); }
 
 // Single-node tree should always be valid
-TEST(is_valid_BSTTest, SingleNode)
-{
-    EXPECT_TRUE(is_valid_BST(new TreeNode(42)));
-}
+TEST(is_valid_BSTTest, SingleNode) { EXPECT_TRUE(is_valid_BST(new TreeNode(42))); }
 
 TEST(is_valid_BSTTest, SimpleThreeNodeValid)
 {
@@ -52,9 +46,7 @@ TEST(is_valid_BSTTest, DuplicateImmediateChild)
 */
 TEST(is_valid_BSTTest, RightSubtreeDeepViolation)
 {
-    auto root = newNode(10,
-                        newNode(5),
-                        newNode(15, newNode(6), newNode(20)));
+    auto root = newNode(10, newNode(5), newNode(15, newNode(6), newNode(20)));
     EXPECT_FALSE(is_valid_BST(root));
 }
 
@@ -67,18 +59,14 @@ TEST(is_valid_BSTTest, RightSubtreeDeepViolation)
 */
 TEST(is_valid_BSTTest, LeftSubtreeDeepViolation)
 {
-    auto root = newNode<int>(10,
-                        newNode<int>(5, nullptr, newNode(11)),
-                        newNode<int>(15));
+    auto root = newNode<int>(10, newNode<int>(5, nullptr, newNode(11)), newNode<int>(15));
     EXPECT_FALSE(is_valid_BST(root));
 }
 
 // Valid BST including INT_MIN and INT_MAX
 TEST(is_valid_BSTTest, IntMinMaxValues)
 {
-    auto root = newNode(0,
-                        newNode(std::numeric_limits<int>::min()),
-                        newNode(std::numeric_limits<int>::max()));
+    auto root = newNode(0, newNode(std::numeric_limits<int>::min()), newNode(std::numeric_limits<int>::max()));
     EXPECT_TRUE(is_valid_BST(root));
 }
 
@@ -94,15 +82,7 @@ TEST(is_valid_BSTTest, IntMinMaxValues)
 */
 TEST(is_valid_BSTTest, ComplexValidTree)
 {
-    auto root = newNode(8,
-                        newNode(3,
-                                newNode(1),
-                                newNode(6, newNode(4), newNode(7))
-                        ),
-                        newNode<int>(10,
-                                nullptr,
-                                newNode<int>(14, newNode(13), nullptr)
-                        )
-    );
+    auto root = newNode(8, newNode(3, newNode(1), newNode(6, newNode(4), newNode(7))),
+                        newNode<int>(10, nullptr, newNode<int>(14, newNode(13), nullptr)));
     EXPECT_TRUE(is_valid_BST(root));
 }

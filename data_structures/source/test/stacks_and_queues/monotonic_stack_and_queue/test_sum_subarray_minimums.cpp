@@ -1,8 +1,8 @@
 //
 // Created by andreas on 27.11.22.
 //
-#include "gtest/gtest.h"
 #include <vector>
+#include "gtest/gtest.h"
 #include "stacks_and_queues/monotonic_stack_and_queue/sum_subarray_minimums.h"
 
 TEST(ComputeSumSubArrayMinimums, Test1)

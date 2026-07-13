@@ -11,24 +11,30 @@
 // set bits. You are allowed to do this operation any number of times (including zero).
 //
 // Return true if you can sort the array in ascending order, else return false.
+#include <algorithm>
 #include <limits>
 #include <vector>
-#include <algorithm>
 
-bool can_array_be_sorted_bubble_sort(std::vector<int> & input)
+bool can_array_be_sorted_bubble_sort(std::vector<int>& input)
 {
     int n = input.size();
-    if(n == 1)
+    if (n == 1)
         return true;
-    for (int i{}; i < n; i++) {
-        for (int j{}; j < n - i - 1; j++) {
-            if (input[j] >= input[j + 1]) {
-                if (__builtin_popcount(input[j]) == __builtin_popcount(input[j + 1])) {
+    for (int i{}; i < n; i++)
+    {
+        for (int j{}; j < n - i - 1; j++)
+        {
+            if (input[j] >= input[j + 1])
+            {
+                if (__builtin_popcount(input[j]) == __builtin_popcount(input[j + 1]))
+                {
                     // Swap the elements
                     std::swap(input[j], input[j + 1]);
-                    } else {
-                        return false;
-                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }
@@ -36,7 +42,8 @@ bool can_array_be_sorted_bubble_sort(std::vector<int> & input)
 }
 
 
-bool can_array_be_sorted(std::vector<int>& input) {
+bool can_array_be_sorted(std::vector<int>& input)
+{
     // Number of set bits of the elements in the current segment
     int number_of_set_bits = __builtin_popcount(input[0]);
     int maximum_of_segment = input[0];
@@ -46,16 +53,21 @@ bool can_array_be_sorted(std::vector<int>& input) {
     // integer
     int maximum_of_previous_segment = std::numeric_limits<int>::min();
 
-    for (int i{1}; i < input.size(); i++) {
-        if (__builtin_popcount(input[i]) == number_of_set_bits) {
+    for (int i{1}; i < input.size(); i++)
+    {
+        if (__builtin_popcount(input[i]) == number_of_set_bits)
+        {
             // Element belongs to the same segment
             // Update min and max values of the segment
             maximum_of_segment = std::max(maximum_of_segment, input[i]);
             minimum_of_segment = std::min(minimum_of_segment, input[i]);
-        } else {  // Element belongs to a new segment
+        }
+        else
+        { // Element belongs to a new segment
             // Check if the segments are arranged properly
             // If not we can not swap to a valid sorted order
-            if (minimum_of_segment < maximum_of_previous_segment) {
+            if (minimum_of_segment < maximum_of_previous_segment)
+            {
                 return false;
             }
 
@@ -69,9 +81,10 @@ bool can_array_be_sorted(std::vector<int>& input) {
         }
     }
     // Final check for proper segment arrangement
-    if (minimum_of_segment < maximum_of_previous_segment) {
+    if (minimum_of_segment < maximum_of_previous_segment)
+    {
         return false;
     }
     return true;
 }
-#endif //CAN_ARRY_BE_SORTED_H
+#endif // CAN_ARRY_BE_SORTED_H

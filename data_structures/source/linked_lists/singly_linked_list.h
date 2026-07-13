@@ -16,16 +16,10 @@ class SinglyLinkedList : public ILinkedList<T>
         Node* next;
     };
 
-    bool is_index_valid_(size_t index) const
-    {
-        return index <= length_;
-    }
+    bool is_index_valid_(size_t index) const { return index <= length_; }
 
 public:
-    SinglyLinkedList()
-    {
-        head_ = nullptr;
-    }
+    SinglyLinkedList() { head_ = nullptr; }
 
     ~SinglyLinkedList() override
     {
@@ -39,19 +33,13 @@ public:
             head_ = next;
         }
 
-        head_= nullptr;
+        head_ = nullptr;
         length_ = 0;
     }
 
-    size_t size() const final
-    {
-        return length_;
-    }
+    size_t size() const final { return length_; }
 
-    bool is_empty() const final
-    {
-        return head_ == nullptr;
-    }
+    bool is_empty() const final { return head_ == nullptr; }
 
     T pop_front() final
     {
@@ -215,4 +203,4 @@ private:
     size_t length_{};
 };
 
-#endif //SINGLY_LINKED_LIST_H
+#endif // SINGLY_LINKED_LIST_H

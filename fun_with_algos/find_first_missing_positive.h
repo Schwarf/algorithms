@@ -9,30 +9,37 @@
 #include <vector>
 
 // O(N) space using bool vector
-int find_first_missing_positive(const std::vector<int> &nums) {
+int find_first_missing_positive(const std::vector<int>& nums)
+{
     std::vector<bool> missing(nums.size() + 1, true);
-    for (int i = 0; i < nums.size(); ++i) {
+    for (int i = 0; i < nums.size(); ++i)
+    {
         if (nums[i] > -1 && nums[i] <= nums.size())
             missing[nums[i]] = false;
     }
-    for (int i{1}; i <= nums.size() + 1; ++i) {
+    for (int i{1}; i <= nums.size() + 1; ++i)
+    {
         if (missing[i])
             return i;
     }
     return nums.size();
 }
 
-int find_first_missing_positive_optimized(std::vector<int> &nums) {
+int find_first_missing_positive_optimized(std::vector<int>& nums)
+{
     int n = nums.size();
     bool contains_value_1{};
 
     // Check if array conatin the value 1. Set all non-positive values to 1.
-    for (int i{}; i < n; i++) {
+    for (int i{}; i < n; i++)
+    {
         // Check whether 1 is in the original array
-        if (nums[i] == 1) {
+        if (nums[i] == 1)
+        {
             contains_value_1 = true;
         }
-        if (nums[i] <= 0 || nums[i] > n) {
+        if (nums[i] <= 0 || nums[i] > n)
+        {
             nums[i] = 1;
         }
     }
@@ -42,29 +49,35 @@ int find_first_missing_positive_optimized(std::vector<int> &nums) {
 
     // Mark whether integers 1 to n are in nums
     // Use index as a hash key and negative sign as a presence detector.
-    for (int i{}; i < n; i++) {
+    for (int i{}; i < n; i++)
+    {
         int index = abs(nums[i]);
         // since 0-index is not use, use it for index=n
-        if (index == n) {
+        if (index == n)
+        {
             nums[0] = -abs(nums[0]);
-        } else {
+        }
+        else
+        {
             nums[index] = -abs(nums[index]);
         }
     }
 
     // We negated all values at the appearing indices in the array. The first value greater 0
     // has as index the first missing positive integer
-    for (int i{1}; i < n; i++) {
+    for (int i{1}; i < n; i++)
+    {
         if (nums[i] > 0)
             return i;
     }
 
     // nums[0] stores whether n is in nums
-    if (nums[0] > 0) {
+    if (nums[0] > 0)
+    {
         return n;
     }
     // If all former value were negative, we return n+1 as the first missing integer
     return n + 1;
 }
 
-#endif //FIND_FIRST_MISSING_POSITIVE_H
+#endif // FIND_FIRST_MISSING_POSITIVE_H

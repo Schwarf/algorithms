@@ -11,9 +11,9 @@
 // Return the minimum number of candies you need to have to distribute the candies to the children.
 
 // #GREEDY
-#include <vector>
-#include <concepts>
 #include <algorithm>
+#include <concepts>
+#include <vector>
 
 template <typename T>
     requires std::is_signed_v<T>
@@ -49,4 +49,4 @@ T total_candy(const std::vector<T>& grades)
     return candy;
 }
 
-#endif //CANDY_FOR_CHILDREN_GRADES_H
+#endif // CANDY_FOR_CHILDREN_GRADES_H

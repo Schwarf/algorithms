@@ -1,8 +1,8 @@
 //
 // Created by andreas on 12.06.25.
 //
-#include "gtest/gtest.h"
 #include "./../palindrome_number.h"
+#include "gtest/gtest.h"
 
 TEST(TestPalindromNumber, simple1)
 {

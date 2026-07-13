@@ -22,4 +22,4 @@
 //    A subarray of an array is a contiguous section of the array.
 
 
-#endif //MEAN_RANK_COUNT_H
+#endif // MEAN_RANK_COUNT_H

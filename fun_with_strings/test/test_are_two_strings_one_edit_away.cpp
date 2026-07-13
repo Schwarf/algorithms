@@ -39,4 +39,3 @@ TEST(TestAreStringsOneEditAway, simple5)
     std::string input2 = "pale";
     EXPECT_FALSE(are_one_edit_away(input1, input2));
 }
-

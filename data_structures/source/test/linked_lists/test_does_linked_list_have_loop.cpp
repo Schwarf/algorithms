@@ -1,8 +1,8 @@
 //
 // Created by andreas on 29.03.23.
 //
-#include "setup_singly_linked_lists.h"
 #include "linked_lists/does_linked_list_have_loop.h"
+#include "setup_singly_linked_lists.h"
 
 TEST_F(SetupSinglyLinkedLists, does_linked_list_have_loop_yes)
 {

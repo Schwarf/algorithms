@@ -5,62 +5,72 @@
 #include "./../find_duplicate_in_array.h"
 #include "gtest/gtest.h"
 
-TEST(TestFindDuplicate, simple1) {
+TEST(TestFindDuplicate, simple1)
+{
     std::vector<int> input{1, 3, 4, 2, 2};
     constexpr int expected_output{2};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicate, simple2) {
+TEST(TestFindDuplicate, simple2)
+{
     std::vector<int> input{3, 1, 3, 4, 2};
     constexpr int expected_output{3};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicate, simple3) {
+TEST(TestFindDuplicate, simple3)
+{
     std::vector<int> input{1, 1, 1, 1, 1};
     constexpr int expected_output{1};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicate, simple4) {
+TEST(TestFindDuplicate, simple4)
+{
     std::vector<int> input{1, 2, 3, 4, 5, 6, 7, 7};
     constexpr int expected_output{7};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicate, simple5) {
+TEST(TestFindDuplicate, simple5)
+{
     std::vector<int> input{1, 1};
     constexpr int expected_output{1};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
 
-TEST(TestFindDuplicateLinkedList, simple1) {
+TEST(TestFindDuplicateLinkedList, simple1)
+{
     std::vector<int> input{1, 3, 4, 2, 2};
     constexpr int expected_output{2};
     EXPECT_EQ(expected_output, find_duplicate_linked_list(input));
 }
 
-TEST(TestFindDuplicateLinkedList, simple2) {
+TEST(TestFindDuplicateLinkedList, simple2)
+{
     std::vector<int> input{3, 1, 3, 4, 2};
     constexpr int expected_output{3};
     EXPECT_EQ(expected_output, find_duplicate_linked_list(input));
 }
 
-TEST(TestFindDuplicateLinkedList, simple3) {
+TEST(TestFindDuplicateLinkedList, simple3)
+{
     std::vector<int> input{1, 1, 1, 1, 1};
     constexpr int expected_output{1};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicateLinkedList, simple4) {
+TEST(TestFindDuplicateLinkedList, simple4)
+{
     std::vector<int> input{1, 2, 3, 4, 5, 6, 7, 7};
     constexpr int expected_output{7};
     EXPECT_EQ(expected_output, find_duplicate(input));
 }
 
-TEST(TestFindDuplicateLinkedList, simple5) {
+TEST(TestFindDuplicateLinkedList, simple5)
+{
     std::vector<int> input{1, 1};
     constexpr int expected_output{1};
     EXPECT_EQ(expected_output, find_duplicate(input));

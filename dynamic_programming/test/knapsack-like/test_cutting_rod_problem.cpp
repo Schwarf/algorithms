@@ -2,8 +2,8 @@
 // Created by andreas on 23.06.24.
 //
 
-#include "gtest/gtest.h"
 #include "../../knapsack-like/cutting_rod_problem.h"
+#include "gtest/gtest.h"
 
 TEST(TestCuttingRodProblem, simple1)
 {
@@ -45,12 +45,12 @@ TEST(TestCuttingRodProblem, simple5)
     EXPECT_EQ(expected_result, rod_cutting(prices, length));
 }
 
-//TEST(TestCuttingRodProblem, simple6) {
-//    std::vector<int> prices{0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
-//    constexpr int length{30};
-//    constexpr int expected_result{90};
-//    EXPECT_EQ(expected_result, rod_cutting(prices, length));
-//}
+// TEST(TestCuttingRodProblem, simple6) {
+//     std::vector<int> prices{0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
+//     constexpr int length{30};
+//     constexpr int expected_result{90};
+//     EXPECT_EQ(expected_result, rod_cutting(prices, length));
+// }
 
 
 TEST(TestCuttingRodProblemMemo, simple1)

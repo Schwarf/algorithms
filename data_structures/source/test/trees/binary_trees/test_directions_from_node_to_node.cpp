@@ -2,9 +2,9 @@
 // Created by andreas on 16.07.24.
 //
 
-#include "trees/binary_trees/directions_from_node_to_node.h"
-#include "setup_binary_tree.h"
 #include "gtest/gtest.h"
+#include "setup_binary_tree.h"
+#include "trees/binary_trees/directions_from_node_to_node.h"
 
 TEST_F(SetupBinaryTree, DirectionsFromNodeToNode_simple1)
 {

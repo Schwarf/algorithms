@@ -13,24 +13,26 @@
 // Elements with the same mapped values should appear in the same relative order as in the input.
 // The elements of nums should only be sorted based on their mapped values and not be replaced by them.
 
-#include <vector>
-#include <unordered_map>
 #include <algorithm>
+#include <unordered_map>
+#include <vector>
 
 template <typename T>
-requires std::is_unsigned_v<T>
-std::vector<T> sort_jumbled_numbers(std::vector<T> & mapping, std::vector<T> & values)
+    requires std::is_unsigned_v<T>
+std::vector<T> sort_jumbled_numbers(std::vector<T>& mapping, std::vector<T>& values)
 {
     std::unordered_map<T, T> mapped_values;
-    for(auto value : values)
+    for (auto value : values)
     {
         auto current = value;
-        if(current == 0)
+        if (current == 0)
             mapped_values[0] = mapping[0];
-        else {
+        else
+        {
             int place{1};
             T mapped_value{};
-            while (current) {
+            while (current)
+            {
                 mapped_value += place * mapping[current % 10];
                 current /= 10;
                 place *= 10;
@@ -39,13 +41,10 @@ std::vector<T> sort_jumbled_numbers(std::vector<T> & mapping, std::vector<T> & v
         }
     }
 
-    auto comparator = [&](const T & v1, const T & v2) -> bool
-    {
-        return mapped_values[v1] < mapped_values[v2];
-    };
+    auto comparator = [&](const T& v1, const T& v2) -> bool { return mapped_values[v1] < mapped_values[v2]; };
 
     std::sort(values.begin(), values.end(), comparator);
     return values;
 }
 
-#endif //SORT_SORT_JUMBLED_NUMBERS_H
+#endif // SORT_SORT_JUMBLED_NUMBERS_H

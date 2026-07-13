@@ -4,47 +4,56 @@
 #include <iostream>
 
 template <typename T>
-class MyClass {
+class MyClass
+{
 public:
-	template <typename U>
-	void foo(U value) {
-		T::template bar<U>(value);
-	}
+    template <typename U>
+    void foo(U value)
+    {
+        T::template bar<U>(value);
+    }
 };
 
-class MyType {
+class MyType
+{
 public:
-	template <typename U>
-	static void bar(U value) {
-		std::cout << "bar: " << value << std::endl;
-	}
+    template <typename U>
+    static void bar(U value)
+    {
+        std::cout << "bar: " << value << std::endl;
+    }
 };
 
 
 template <typename T>
-class Outer {
+class Outer
+{
 public:
-	template <typename U>
-	class Nested {
-	public:
-		void foo() {
-			typename T::template Inner<U>::type variable;
-			std::cout << "foo: " << typeid(variable).name() << std::endl;
-		}
-	};
+    template <typename U>
+    class Nested
+    {
+    public:
+        void foo()
+        {
+            typename T::template Inner<U>::type variable;
+            std::cout << "foo: " << typeid(variable).name() << std::endl;
+        }
+    };
 };
 
 template <typename T>
-struct Inner {
-	using type = T;
+struct Inner
+{
+    using type = T;
 };
 
 
-int main() {
-	MyClass<MyType> obj;
-	obj.foo(42);
+int main()
+{
+    MyClass<MyType> obj;
+    obj.foo(42);
 
-	Outer<Inner<int>>::Nested<int> nestedObj;
-	nestedObj.foo();
-	return 0;
+    Outer<Inner<int>>::Nested<int> nestedObj;
+    nestedObj.foo();
+    return 0;
 }

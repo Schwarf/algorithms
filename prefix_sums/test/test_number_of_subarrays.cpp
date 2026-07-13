@@ -2,8 +2,8 @@
 // Created by andreas on 22.06.24.
 //
 
-#include "gtest/gtest.h"
 #include "./../number_of_subarrays.h"
+#include "gtest/gtest.h"
 
 TEST(TestNumberOfSubArrays, simple1)
 {
@@ -47,10 +47,8 @@ TEST(TestNumberOfSubArrays, simple5)
 
 TEST(TestNumberOfSubArrays, simple6)
 {
-    std::vector<int> input{
-        45627, 50891, 94884, 11286, 35337, 46414, 62029, 20247, 72789, 89158, 54203, 79628, 25920,
-        16832, 47469, 80909
-    };
+    std::vector<int> input{45627, 50891, 94884, 11286, 35337, 46414, 62029, 20247,
+                           72789, 89158, 54203, 79628, 25920, 16832, 47469, 80909};
     constexpr int number_of_required_odd_elements{1};
     constexpr int expected_result{28};
     EXPECT_EQ(expected_result, number_of_sub_arrays(input, number_of_required_odd_elements));

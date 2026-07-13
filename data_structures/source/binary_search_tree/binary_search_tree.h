@@ -73,9 +73,7 @@ private:
     }
 
 public:
-    BinarySearchTree(T val) : value(val)
-    {
-    }
+    BinarySearchTree(T val) : value(val) {}
 
     ~BinarySearchTree()
     {
@@ -122,9 +120,6 @@ public:
         return false;
     }
 
-    BinarySearchTree& remove(T val)
-    {
-        return remove(val, nullptr);
-    }
+    BinarySearchTree& remove(T val) { return remove(val, nullptr); }
 };
-#endif //ALGORITHMS_BINARY_SEARCH_TREE_H
+#endif // ALGORITHMS_BINARY_SEARCH_TREE_H

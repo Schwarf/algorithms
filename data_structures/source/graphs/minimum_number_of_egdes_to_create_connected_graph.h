@@ -8,13 +8,12 @@
 // Determine if the cables in the graph can be rearranged
 // to make the graph a connected graph with n vertices. Return the number of "cable rear"
 // If there are not enough cables return -1;
-#include "used_concepts.h"
-#include <vector>
 #include <queue>
+#include <vector>
+#include "used_concepts.h"
 
 template <VertexRequirement VertexType>
-void depth_first_search(VertexType node, const std::vector<std::vector<VertexType>>& graph,
-                        std::vector<bool>& visited)
+void depth_first_search(VertexType node, const std::vector<std::vector<VertexType>>& graph, std::vector<bool>& visited)
 {
     visited[node] = true;
     for (const auto& neighbor : graph[node])
@@ -28,8 +27,7 @@ void depth_first_search(VertexType node, const std::vector<std::vector<VertexTyp
 }
 
 template <VertexRequirement VertexType>
-void breadth_first_search(VertexType node,
-                          const std::vector<std::vector<VertexType>>& graph,
+void breadth_first_search(VertexType node, const std::vector<std::vector<VertexType>>& graph,
                           std::vector<bool>& visited)
 {
     std::queue<VertexType> q({node});
@@ -81,4 +79,4 @@ int minimum_number_of_edges_to_create_connected_graph(VertexType n, std::vector<
 }
 
 
-#endif //MINIMUM_NUMBER_OF_EGDES_TO_CREATE_CONNECTED_GRAPH_H
+#endif // MINIMUM_NUMBER_OF_EGDES_TO_CREATE_CONNECTED_GRAPH_H

@@ -10,19 +10,21 @@
 // team is between min_cost and max_cost, both inclusive.
 // Given the array cost and two integers min_cost and max_cost,
 // find the number of pairs of people whose total expense is between min_cost and max_cost, both inclusive.
-#include <vector>
 #include <algorithm>
+#include <vector>
 
-int number_of_candidate_pairs(std::vector<int> & candidate_costs, int min_cost, int max_cost)
+int number_of_candidate_pairs(std::vector<int>& candidate_costs, int min_cost, int max_cost)
 {
-     std::sort(candidate_costs.begin(), candidate_costs.end());
-     int count{};
-     for(int i{}; i<candidate_costs.size()- 1; ++i)
-     {
-         auto lower = std::lower_bound(candidate_costs.begin() + i + 1, candidate_costs.end(), min_cost - candidate_costs[i]);
-         auto upper = std::upper_bound(candidate_costs.begin() + i + 1, candidate_costs.end(), max_cost - candidate_costs[i]);
-         count += std::distance(lower, upper); // Count valid pairs
-     }
-     return count;
+    std::sort(candidate_costs.begin(), candidate_costs.end());
+    int count{};
+    for (int i{}; i < candidate_costs.size() - 1; ++i)
+    {
+        auto lower =
+            std::lower_bound(candidate_costs.begin() + i + 1, candidate_costs.end(), min_cost - candidate_costs[i]);
+        auto upper =
+            std::upper_bound(candidate_costs.begin() + i + 1, candidate_costs.end(), max_cost - candidate_costs[i]);
+        count += std::distance(lower, upper); // Count valid pairs
+    }
+    return count;
 }
-#endif //HIRING_CANDIDATES_H
+#endif // HIRING_CANDIDATES_H

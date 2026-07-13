@@ -2,8 +2,8 @@
 // Created by andreas on 04.06.26.
 //
 #include <algorithm>
-#include <vector>
 #include <gtest/gtest.h>
+#include <vector>
 
 #include "../construct_powerset.h"
 
@@ -18,18 +18,14 @@ std::vector<std::vector<int>> canonicalize(std::vector<std::vector<int>> sets)
     return sets;
 }
 
-void expect_powerset_no_backtrack_equal(
-    const std::vector<int>& input,
-    const std::vector<std::vector<int>>& expected)
+void expect_powerset_no_backtrack_equal(const std::vector<int>& input, const std::vector<std::vector<int>>& expected)
 {
     const auto result = powerset_no_backtrack(input);
 
     EXPECT_EQ(canonicalize(result), canonicalize(expected));
 }
 
-void expect_powerset_backtrack_equal(
-    const std::vector<int>& input,
-    const std::vector<std::vector<int>>& expected)
+void expect_powerset_backtrack_equal(const std::vector<int>& input, const std::vector<std::vector<int>>& expected)
 {
     const auto result = powerset_backtrack(input);
 
@@ -51,9 +47,7 @@ TEST(PowersetIterative, EmptyInputReturnsOnlyEmptySubset)
 {
     const std::vector<int> input{};
 
-    const std::vector<std::vector<int>> expected{
-        {}
-    };
+    const std::vector<std::vector<int>> expected{{}};
 
     expect_powerset_no_backtrack_equal(input, expected);
 }
@@ -62,10 +56,7 @@ TEST(PowersetIterative, SingleElementInputReturnsEmptyAndSingleElementSubset)
 {
     const std::vector<int> input{1};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}};
 
     expect_powerset_no_backtrack_equal(input, expected);
 }
@@ -74,12 +65,7 @@ TEST(PowersetIterative, TwoElementInputReturnsAllSubsets)
 {
     const std::vector<int> input{1, 2};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1},
-        {2},
-        {1, 2}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}, {2}, {1, 2}};
 
     expect_powerset_no_backtrack_equal(input, expected);
 }
@@ -88,16 +74,7 @@ TEST(PowersetIterative, ThreeElementInputReturnsAllSubsets)
 {
     const std::vector<int> input{1, 2, 3};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1},
-        {2},
-        {3},
-        {1, 2},
-        {1, 3},
-        {2, 3},
-        {1, 2, 3}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}};
 
     expect_powerset_no_backtrack_equal(input, expected);
 }
@@ -106,16 +83,7 @@ TEST(PowersetIterative, HandlesZeroAndNegativeNumbers)
 {
     const std::vector<int> input{-1, 0, 2};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {-1},
-        {0},
-        {2},
-        {-1, 0},
-        {-1, 2},
-        {0, 2},
-        {-1, 0, 2}
-    };
+    const std::vector<std::vector<int>> expected{{}, {-1}, {0}, {2}, {-1, 0}, {-1, 2}, {0, 2}, {-1, 0, 2}};
 
     expect_powerset_no_backtrack_equal(input, expected);
 }
@@ -158,9 +126,7 @@ TEST(PowersetBacktrack, EmptyInputReturnsOnlyEmptySubset)
 {
     const std::vector<int> input{};
 
-    const std::vector<std::vector<int>> expected{
-        {}
-    };
+    const std::vector<std::vector<int>> expected{{}};
 
     expect_powerset_backtrack_equal(input, expected);
 }
@@ -169,10 +135,7 @@ TEST(PowersetBacktrack, SingleElementInputReturnsEmptyAndSingleElementSubset)
 {
     const std::vector<int> input{1};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}};
 
     expect_powerset_backtrack_equal(input, expected);
 }
@@ -181,12 +144,7 @@ TEST(PowersetBacktrack, TwoElementInputReturnsAllSubsets)
 {
     const std::vector<int> input{1, 2};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1},
-        {2},
-        {1, 2}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}, {2}, {1, 2}};
 
     expect_powerset_backtrack_equal(input, expected);
 }
@@ -195,16 +153,7 @@ TEST(PowersetBacktrack, ThreeElementInputReturnsAllSubsets)
 {
     const std::vector<int> input{1, 2, 3};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {1},
-        {2},
-        {3},
-        {1, 2},
-        {1, 3},
-        {2, 3},
-        {1, 2, 3}
-    };
+    const std::vector<std::vector<int>> expected{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}};
 
     expect_powerset_backtrack_equal(input, expected);
 }
@@ -213,16 +162,7 @@ TEST(PowersetBacktrack, HandlesZeroAndNegativeNumbers)
 {
     const std::vector<int> input{-1, 0, 2};
 
-    const std::vector<std::vector<int>> expected{
-        {},
-        {-1},
-        {0},
-        {2},
-        {-1, 0},
-        {-1, 2},
-        {0, 2},
-        {-1, 0, 2}
-    };
+    const std::vector<std::vector<int>> expected{{}, {-1}, {0}, {2}, {-1, 0}, {-1, 2}, {0, 2}, {-1, 0, 2}};
 
     expect_powerset_backtrack_equal(input, expected);
 }

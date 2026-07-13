@@ -1,8 +1,8 @@
 //
 // Created by andreas on 28.09.23.
 //
-#include "gtest/gtest.h"
 #include "../../align_subsequences/longest_common_subsequence.h"
+#include "gtest/gtest.h"
 
 TEST(TestLongesCommonSqubSequence, simple1)
 {

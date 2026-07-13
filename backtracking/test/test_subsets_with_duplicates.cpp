@@ -27,11 +27,10 @@ TEST(SubsetsWithDuplicatesTest, ReturnsOnlyEmptySubsetForEmptyInput)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesSingleElement)
@@ -40,12 +39,11 @@ TEST(SubsetsWithDuplicatesTest, HandlesSingleElement)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {0},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {0},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesGivenExampleOne)
@@ -54,16 +52,15 @@ TEST(SubsetsWithDuplicatesTest, HandlesGivenExampleOne)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {1},
-            {2},
-            {1, 2},
-            {2, 2},
-            {1, 2, 2},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {1},
+                             {2},
+                             {1, 2},
+                             {2, 2},
+                             {1, 2, 2},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesGivenExampleWithManyDuplicates)
@@ -72,20 +69,19 @@ TEST(SubsetsWithDuplicatesTest, HandlesGivenExampleWithManyDuplicates)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {1},
-            {4},
-            {1, 4},
-            {4, 4},
-            {1, 4, 4},
-            {4, 4, 4},
-            {1, 4, 4, 4},
-            {4, 4, 4, 4},
-            {1, 4, 4, 4, 4},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {1},
+                             {4},
+                             {1, 4},
+                             {4, 4},
+                             {1, 4, 4},
+                             {4, 4, 4},
+                             {1, 4, 4, 4},
+                             {4, 4, 4, 4},
+                             {1, 4, 4, 4, 4},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesOnlyDuplicateValues)
@@ -94,14 +90,13 @@ TEST(SubsetsWithDuplicatesTest, HandlesOnlyDuplicateValues)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {7},
-            {7, 7},
-            {7, 7, 7},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {7},
+                             {7, 7},
+                             {7, 7, 7},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesAllDistinctValues)
@@ -110,18 +105,17 @@ TEST(SubsetsWithDuplicatesTest, HandlesAllDistinctValues)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {1},
-            {2},
-            {3},
-            {1, 2},
-            {1, 3},
-            {2, 3},
-            {1, 2, 3},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {1},
+                             {2},
+                             {3},
+                             {1, 2},
+                             {1, 3},
+                             {2, 3},
+                             {1, 2, 3},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesUnsortedInput)
@@ -130,16 +124,15 @@ TEST(SubsetsWithDuplicatesTest, HandlesUnsortedInput)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {1},
-            {2},
-            {1, 2},
-            {2, 2},
-            {1, 2, 2},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {1},
+                             {2},
+                             {1, 2},
+                             {2, 2},
+                             {1, 2, 2},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, HandlesNegativeValuesAndZero)
@@ -148,16 +141,15 @@ TEST(SubsetsWithDuplicatesTest, HandlesNegativeValuesAndZero)
 
     const auto result = subsets_with_duplicates(nums);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {-1},
-            {0},
-            {-1, -1},
-            {-1, 0},
-            {-1, -1, 0},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {-1},
+                             {0},
+                             {-1, -1},
+                             {-1, 0},
+                             {-1, -1, 0},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, DoesNotGenerateDuplicateSubsets)
@@ -168,15 +160,14 @@ TEST(SubsetsWithDuplicatesTest, DoesNotGenerateDuplicateSubsets)
 
     ASSERT_EQ(result.size(), 5U);
 
-    expect_subsets_equal(
-        result,
-        {
-            {},
-            {2},
-            {2, 2},
-            {2, 2, 2},
-            {2, 2, 2, 2},
-        });
+    expect_subsets_equal(result,
+                         {
+                             {},
+                             {2},
+                             {2, 2},
+                             {2, 2, 2},
+                             {2, 2, 2, 2},
+                         });
 }
 
 TEST(SubsetsWithDuplicatesTest, SortsInputInPlace)

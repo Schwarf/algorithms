@@ -1,8 +1,8 @@
 //
 // Created by andreas on 14.06.25.
 //
-#include "gtest/gtest.h"
 #include "./../zero_matrix.h"
+#include "gtest/gtest.h"
 
 TEST(TestZeroMatrix, simple1)
 {
@@ -23,11 +23,7 @@ TEST(TestZeroMatrix, simple2)
 
 TEST(TestZeroMatrix, simple3)
 {
-    std::vector<std::vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
+    std::vector<std::vector<int>> matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     std::vector<std::vector<int>> expected_result = matrix;
     zero_matrix(matrix);
     EXPECT_EQ(matrix, expected_result);
@@ -35,16 +31,8 @@ TEST(TestZeroMatrix, simple3)
 
 TEST(TestZeroMatrix, simple4)
 {
-    std::vector<std::vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 0, 6},
-        {7, 8, 9}
-    };
-    std::vector<std::vector<int>> expected_result = {
-        {1, 0, 3},
-        {0, 0, 0},
-        {7, 0, 9}
-    };
+    std::vector<std::vector<int>> matrix = {{1, 2, 3}, {4, 0, 6}, {7, 8, 9}};
+    std::vector<std::vector<int>> expected_result = {{1, 0, 3}, {0, 0, 0}, {7, 0, 9}};
     zero_matrix(matrix);
     EXPECT_EQ(matrix, expected_result);
 }
@@ -71,11 +59,7 @@ TEST(TestZeroMatrixOptimized, simple2)
 
 TEST(TestZeroMatrixOptimized, simple3)
 {
-    std::vector<std::vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
+    std::vector<std::vector<int>> matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     std::vector<std::vector<int>> expected_result = matrix;
     zero_matrix_optimized(matrix);
     EXPECT_EQ(matrix, expected_result);
@@ -83,16 +67,8 @@ TEST(TestZeroMatrixOptimized, simple3)
 
 TEST(TestZeroMatrixOptimized, simple4)
 {
-    std::vector<std::vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 0, 6},
-        {7, 8, 9}
-    };
-    std::vector<std::vector<int>> expected_result = {
-        {1, 0, 3},
-        {0, 0, 0},
-        {7, 0, 9}
-    };
+    std::vector<std::vector<int>> matrix = {{1, 2, 3}, {4, 0, 6}, {7, 8, 9}};
+    std::vector<std::vector<int>> expected_result = {{1, 0, 3}, {0, 0, 0}, {7, 0, 9}};
     zero_matrix_optimized(matrix);
     EXPECT_EQ(matrix, expected_result);
 }

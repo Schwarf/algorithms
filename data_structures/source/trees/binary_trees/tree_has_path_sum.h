@@ -10,7 +10,8 @@
 // root-to-leaf path such that adding up all the values along the path equals targetSum
 #include "tree_node.h"
 
-bool has_path_sum(TreeNode<int> *root, int target) {
+bool has_path_sum(TreeNode<int>* root, int target)
+{
     if (!root)
         return false;
     // has to be leaf node
@@ -21,4 +22,4 @@ bool has_path_sum(TreeNode<int> *root, int target) {
 }
 
 
-#endif //TREE_ALGORITHMS_H
+#endif // TREE_ALGORITHMS_H

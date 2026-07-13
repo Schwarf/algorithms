@@ -14,10 +14,9 @@ TEST(TestEscapeFromMaze, simple1)
 
 TEST(TestEscapeFromMaze, simple2)
 {
-    std::vector<std::vector<int>> blocked{
-        {691938, 300406}, {710196, 624190}, {858790, 609485}, {268029, 225806}, {200010, 188664}, {132599, 612099},
-        {329444, 633495}, {196657, 757958}, {628509, 883388}
-    };
+    std::vector<std::vector<int>> blocked{{691938, 300406}, {710196, 624190}, {858790, 609485},
+                                          {268029, 225806}, {200010, 188664}, {132599, 612099},
+                                          {329444, 633495}, {196657, 757958}, {628509, 883388}};
     std::vector<int> source{655988, 180910};
     std::vector<int> target{267728, 840949};
     EXPECT_TRUE(is_escape_possible(blocked, source, target));
@@ -28,7 +27,7 @@ TEST(TestEscapeFromMaze, simple3)
 {
     std::vector<std::vector<int>> blocked{};
     std::vector<int> source{0, 0};
-    std::vector<int> target{999999,999999};
+    std::vector<int> target{999999, 999999};
     EXPECT_TRUE(is_escape_possible(blocked, source, target));
 }
 
@@ -48,9 +47,8 @@ TEST(TestEscapeFromMaze, complex1)
         {100079, 100043}, {100078, 100044}, {100077, 100045}, {100076, 100046}, {100075, 100047}, {100074, 100048},
         {100073, 100049}, {100072, 100050}, {100071, 100051}, {100070, 100052}, {100069, 100053}, {100068, 100054},
         {100067, 100055}, {100066, 100056}, {100065, 100057}, {100064, 100058}, {100063, 100059}, {100062, 100060},
-        {100061, 100061}, {100060, 100062}
-    };
+        {100061, 100061}, {100060, 100062}};
     std::vector<int> source{100079, 100063};
-    std::vector<int> target{999948,999967};
+    std::vector<int> target{999948, 999967};
     EXPECT_FALSE(is_escape_possible(blocked, source, target));
 }

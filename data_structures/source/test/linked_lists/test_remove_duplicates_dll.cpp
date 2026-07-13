@@ -3,8 +3,8 @@
 //
 
 #include <algorithm>
-#include "setup_doubly_linked_lists.h"
 #include "linked_lists/remove_duplicates_dll.h"
+#include "setup_doubly_linked_lists.h"
 
 TEST_F(SetupDoublyLinkedLists, remove_duplicates_head1)
 {

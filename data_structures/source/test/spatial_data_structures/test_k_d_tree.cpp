@@ -1,8 +1,8 @@
 //
 // Created by andreas on 30.03.25.
 //
-#include "spatial_data_structures/k_d_tree.h"
 #include "gtest/gtest.h"
+#include "spatial_data_structures/k_d_tree.h"
 
 
 TEST(KDTreeTest, EmptyTree)
@@ -28,11 +28,7 @@ TEST(KDTreeTest, SinglePoint)
 
 TEST(KDTreeTest, ExactMatch)
 {
-    std::vector<std::array<double, 2>> points = {
-        {1.0, 2.0},
-        {3.0, 4.0},
-        {5.0, 6.0}
-    };
+    std::vector<std::array<double, 2>> points = {{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}};
     KDTree<double, 2> tree(points);
     EXPECT_EQ(tree.number_of_nodes(), points.size());
     std::array<double, 2> target = {3.0, 4.0};
@@ -42,12 +38,7 @@ TEST(KDTreeTest, ExactMatch)
 
 TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder)
 {
-    std::vector<std::array<double, 2>> points = {
-        {1.0, 1.0},
-        {2.0, 2.0},
-        {3.0, 3.0},
-        {4.0, 4.0}
-    };
+    std::vector<std::array<double, 2>> points = {{1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}};
     KDTree<double, 2> tree(points);
     EXPECT_EQ(tree.number_of_nodes(), points.size());
     // Target is exactly halfway between (2.0,2.0) and (3.0,3.0)
@@ -63,12 +54,7 @@ TEST(KDTreeTest, BoundaryCaseTieGivesLexicographicalOrder)
 TEST(KDTreeTest, NearestNeighbor3D)
 {
     std::vector<std::array<double, 3>> points = {
-        {2.1, 3.2, 4.5},
-        {5.4, 2.3, 3.1},
-        {4.2, 7.3, 1.5},
-        {9.1, 6.2, 8.7},
-        {7.4, 3.5, 2.6}
-    };
+        {2.1, 3.2, 4.5}, {5.4, 2.3, 3.1}, {4.2, 7.3, 1.5}, {9.1, 6.2, 8.7}, {7.4, 3.5, 2.6}};
 
     // Build the tree from points
     KDTree<double, 3> tree(points);
@@ -93,13 +79,7 @@ TEST(KDTreeTest, NearestNeighbor3D)
 // Test the 2-dimensional KDTree nearest neighbor functionality
 TEST(KDTreeTest, NearestNeighbor2D)
 {
-    std::vector<std::array<double, 2>> points = {
-        {1.0, 2.0},
-        {3.0, 4.0},
-        {5.0, 1.0},
-        {2.0, 3.0},
-        {4.0, 0.0}
-    };
+    std::vector<std::array<double, 2>> points = {{1.0, 2.0}, {3.0, 4.0}, {5.0, 1.0}, {2.0, 3.0}, {4.0, 0.0}};
 
     KDTree<double, 2> tree(points);
     EXPECT_EQ(tree.number_of_nodes(), points.size());

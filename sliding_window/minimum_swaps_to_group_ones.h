@@ -5,17 +5,19 @@
 #ifndef SLIDING_WINDOW_MINIMUM_SWAPS_TO_GROUP_ONES_H
 #define SLIDING_WINDOW_MINIMUM_SWAPS_TO_GROUP_ONES_H
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 // Given a binary array. Find the minimum number of swaps to cluster all 1’s together.
 // The 1’s can be clustered across the array boundaries (like a circular array)
 // As a warm-up we ignore the circular array condition first.
 
-int sliding_window_analysis(const std::vector<int> &input, int val) {
+int sliding_window_analysis(const std::vector<int>& input, int val)
+{
     int total{};
     int size = input.size();
-    for (int i{}; i < size; ++i) {
+    for (int i{}; i < size; ++i)
+    {
         if (input[i] == val)
             total++;
     }
@@ -27,12 +29,14 @@ int sliding_window_analysis(const std::vector<int> &input, int val) {
     int current{};
 
     // build sliding window-size
-    while (end_index < total) {
+    while (end_index < total)
+    {
         if (input[end_index++] == val)
             current++;
     }
     int max_value_in_window{current};
-    while (end_index < size) {
+    while (end_index < size)
+    {
         if (input[end_index++] == val)
             current++;
         if (input[start_index++] == val)
@@ -44,31 +48,39 @@ int sliding_window_analysis(const std::vector<int> &input, int val) {
 }
 // Circular case
 
-int swaps_needed_brute_force_circular(const std::vector<int> &input){
+int swaps_needed_brute_force_circular(const std::vector<int>& input)
+{
     int n = input.size();
     int total_ones = 0;
-    for (int num : input) {
-        if (num == 1) {
+    for (int num : input)
+    {
+        if (num == 1)
+        {
             total_ones++;
         }
     }
 
-    if (total_ones == 0 || total_ones == n) return 0; // No need to swap if no 1's or all are 1's
+    if (total_ones == 0 || total_ones == n)
+        return 0; // No need to swap if no 1's or all are 1's
 
     int number_of_swaps = n; // Initialize with the maximum possible swaps, which cannot exceed the array size.
 
     // Check every possible block of 'total_ones' length
-    for (int start = 0; start < n; start++) {
+    for (int start = 0; start < n; start++)
+    {
         int onesCount = 0;
 
         // Calculate the number of 1's in the current block of length 'total_ones'
-        for (int i = 0; i < total_ones; i++) {
-            if (input[(start + i) % n] == 1) {
+        for (int i = 0; i < total_ones; i++)
+        {
+            if (input[(start + i) % n] == 1)
+            {
                 onesCount++;
             }
         }
 
-        int currentSwaps = total_ones - onesCount; // The number of 0's in the block that need to be swapped with 1's outside the block
+        int currentSwaps =
+            total_ones - onesCount; // The number of 0's in the block that need to be swapped with 1's outside the block
         number_of_swaps = std::min(number_of_swaps, currentSwaps);
     }
 
@@ -76,11 +88,10 @@ int swaps_needed_brute_force_circular(const std::vector<int> &input){
 }
 
 
-
-
-int swaps_needed_sliding_window_circular(const std::vector<int> &input) {
+int swaps_needed_sliding_window_circular(const std::vector<int>& input)
+{
     return std::min(sliding_window_analysis(input, 1), sliding_window_analysis(input, 0));
 }
 
 
-#endif //SLIDING_WINDOW_MINIMUM_SWAPS_TO_GROUP_ONES_H
+#endif // SLIDING_WINDOW_MINIMUM_SWAPS_TO_GROUP_ONES_H

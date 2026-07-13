@@ -8,11 +8,11 @@
 
 #include "compute_all_permutations.h"
 
-std::vector<std::vector<int>> powerset_no_backtrack(const std::vector<int> & elements)
+std::vector<std::vector<int>> powerset_no_backtrack(const std::vector<int>& elements)
 {
     std::vector<std::vector<int>> powerset;
     powerset.push_back({});
-    for (const auto & element : elements)
+    for (const auto& element : elements)
     {
         auto size = powerset.size();
         for (int i{}; i < size; ++i)
@@ -25,7 +25,8 @@ std::vector<std::vector<int>> powerset_no_backtrack(const std::vector<int> & ele
     return powerset;
 }
 
-void backtrack(const std::vector<int>& elements, int index, std::vector<int>& current, std::vector<std::vector<int>>& powerset)
+void backtrack(const std::vector<int>& elements, int index, std::vector<int>& current,
+               std::vector<std::vector<int>>& powerset)
 {
     if (index == elements.size())
     {
@@ -42,7 +43,7 @@ void backtrack(const std::vector<int>& elements, int index, std::vector<int>& cu
 }
 
 
-std::vector<std::vector<int>> powerset_backtrack(const std::vector<int> & elements)
+std::vector<std::vector<int>> powerset_backtrack(const std::vector<int>& elements)
 {
     std::vector<std::vector<int>> powerset;
     std::vector<int> current;
@@ -51,5 +52,4 @@ std::vector<std::vector<int>> powerset_backtrack(const std::vector<int> & elemen
 }
 
 
-
-#endif //ALGORITHMS_CONSTRUCT_POWERSET_H
+#endif // ALGORITHMS_CONSTRUCT_POWERSET_H

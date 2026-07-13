@@ -8,9 +8,9 @@
 // the very left of the array to the very right. You can only see the k numbers in the window.
 // Each time the sliding window moves right by one position.
 // Return the max sliding window.
-#include <vector>
 #include <deque>
 #include <set>
+#include <vector>
 
 std::vector<int> sliding_window_maximum(std::vector<int>& input, int window_size)
 {
@@ -50,9 +50,9 @@ std::vector<int> sliding_window_maximum_simpler(std::vector<int>& input, int win
     std::multiset<int, std::greater<>> set;
     set.insert(input.begin(), input.begin() + window_size);
     std::vector<int> result{*set.begin()};
-    for (int i{window_size}; i< input.size(); ++i)
+    for (int i{window_size}; i < input.size(); ++i)
     {
-        set.erase(set.find(input[i-window_size]));
+        set.erase(set.find(input[i - window_size]));
         set.insert(input[i]);
         result.push_back(*set.begin());
     }
@@ -60,4 +60,4 @@ std::vector<int> sliding_window_maximum_simpler(std::vector<int>& input, int win
 }
 
 
-#endif //SLIDING_WINDOW_MAXIMUM_H
+#endif // SLIDING_WINDOW_MAXIMUM_H

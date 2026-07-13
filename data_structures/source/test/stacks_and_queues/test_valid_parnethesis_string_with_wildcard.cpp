@@ -66,15 +66,15 @@ TEST(TestValidParenthesisStringWithWildcard, simple10)
 
 TEST(TestValidParenthesisStringWithWildcard, complex1)
 {
-    std::string
-        input{"(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())"};
+    std::string input{
+        "(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())"};
     EXPECT_FALSE(is_parenthesis_string_with_wildcard_valid(input));
 }
 
 TEST(TestValidParenthesisStringWithWildcard, complex2)
 {
-    std::string
-        input{"((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()"};
+    std::string input{
+        "((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()"};
     EXPECT_TRUE(is_parenthesis_string_with_wildcard_valid(input));
 }
 
@@ -140,14 +140,14 @@ TEST(TestValidParenthesisStringWithWildcardOptimized, simple10)
 
 TEST(TestValidParenthesisStringWithWildcardOptimized, complex1)
 {
-    std::string
-        input{"(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())"};
+    std::string input{
+        "(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())"};
     EXPECT_FALSE(is_parenthesis_string_with_wildcard_valid_optimized(input));
 }
 
 TEST(TestValidParenthesisStringWithWildcardOptimized, complex2)
 {
-    std::string
-        input{"((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()"};
+    std::string input{
+        "((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()"};
     EXPECT_TRUE(is_parenthesis_string_with_wildcard_valid_optimized(input));
 }

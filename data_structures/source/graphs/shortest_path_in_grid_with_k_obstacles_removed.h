@@ -72,4 +72,4 @@ int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, 
     return -1;
 }
 
-#endif //SHORTEST_PATH_IN_GRID_WITH_OBSTACLES_H
+#endif // SHORTEST_PATH_IN_GRID_WITH_OBSTACLES_H

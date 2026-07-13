@@ -6,11 +6,12 @@
 #define NTH_UGLY_NUMBER_H
 // An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
 // Given an integer n, return the nth ugly number.
-#include <vector>
-#include <set>
 #include <algorithm>
+#include <set>
+#include <vector>
 
-bool is_ugly(int num) {
+bool is_ugly(int num)
+{
     if (num == 1)
         return true;
     if (num % 2 == 0)
@@ -22,11 +23,14 @@ bool is_ugly(int num) {
     return false;
 }
 
-int nth_ugly_number_brute_force(int n) {
+int nth_ugly_number_brute_force(int n)
+{
     int count{};
     int current{1};
-    while (true) {
-        if (is_ugly(current)) {
+    while (true)
+    {
+        if (is_ugly(current))
+        {
             count++;
             if (count == n)
                 return current;
@@ -37,12 +41,14 @@ int nth_ugly_number_brute_force(int n) {
 }
 
 // O(n) time complexity, O(n) space complexity
-int nth_ugly_number(int n) {
+int nth_ugly_number(int n)
+{
     std::vector<int> ugly(n);
     ugly[0] = 1;
     int index2{}, index3{}, index5{};
     int count{1};
-    while (count < n) {
+    while (count < n)
+    {
         int value2 = ugly[index2] * 2;
         int value3 = ugly[index3] * 3;
         int value5 = ugly[index5] * 5;
@@ -59,21 +65,22 @@ int nth_ugly_number(int n) {
 }
 
 // O(n *log(m)) where m is the size of the set
-int nth_ugly_number_set(int n) {
+int nth_ugly_number_set(int n)
+{
     std::set<long long> ugly_set;
     ugly_set.insert(1);
 
     long long current_ugly{1};
-    for (int i{}; i < n; ++i) {
+    for (int i{}; i < n; ++i)
+    {
         current_ugly = *ugly_set.begin();
         ugly_set.erase(ugly_set.begin());
         ugly_set.insert(current_ugly * 2);
         ugly_set.insert(current_ugly * 3);
         ugly_set.insert(current_ugly * 5);
-
     }
     return static_cast<int>(current_ugly);
 }
 
 
-#endif //NTH_UGLY_NUMBER_H
+#endif // NTH_UGLY_NUMBER_H

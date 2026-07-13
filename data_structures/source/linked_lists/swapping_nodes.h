@@ -29,4 +29,4 @@ Node<T>* swapping_nodes(Node<T>* head, int k)
     std::swap(left->value, first->value);
     return head;
 }
-#endif //SWAPPING_NODES_H
+#endif // SWAPPING_NODES_H

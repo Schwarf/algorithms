@@ -5,8 +5,8 @@
 #ifndef OPTIMIZED_SORT_H
 #define OPTIMIZED_SORT_H
 #include <algorithm>
-#include <limits>
 #include <bits/random.h>
+#include <limits>
 
 
 template <typename ValueType, typename Comparator>
@@ -76,12 +76,16 @@ constexpr void sort_six(ValueType& a, ValueType& b, ValueType& c, ValueType& d, 
 
 
 template <std::random_access_iterator RandomIterator, typename Comparator>
-typename std::iterator_traits<RandomIterator>::value_type
-choose_pivot(RandomIterator begin, RandomIterator end, Comparator comparator) {
+typename std::iterator_traits<RandomIterator>::value_type choose_pivot(RandomIterator begin, RandomIterator end,
+                                                                       Comparator comparator)
+{
     auto middle = begin + (end - begin) / 2; // Middle index
-    if (comparator(*middle, *begin)) std::iter_swap(middle, begin);
-    if (comparator(*(end - 1), *begin)) std::iter_swap(end - 1, begin);
-    if (comparator(*(end - 1), *middle)) std::iter_swap(end - 1, middle);
+    if (comparator(*middle, *begin))
+        std::iter_swap(middle, begin);
+    if (comparator(*(end - 1), *begin))
+        std::iter_swap(end - 1, begin);
+    if (comparator(*(end - 1), *middle))
+        std::iter_swap(end - 1, middle);
     return *middle;
 }
 
@@ -118,8 +122,8 @@ bool insertion_sort(RandomAccessIterator begin, RandomAccessIterator end, Compar
         decltype(iterator) other_iterator;
         int distance{};
 
-        for (other_iterator = iterator; other_iterator > begin && comp(element, *(other_iterator - 1)); --
-             other_iterator)
+        for (other_iterator = iterator; other_iterator > begin && comp(element, *(other_iterator - 1));
+             --other_iterator)
         {
             *other_iterator = std::move(*(other_iterator - 1));
             if (++distance > max_distance)
@@ -210,4 +214,4 @@ void optimized_sort(Container& container, Comparator comparator = std::less())
 }
 
 
-#endif //OPTIMIZED_SORT_H
+#endif // OPTIMIZED_SORT_H

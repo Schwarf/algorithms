@@ -4,22 +4,19 @@
 
 #ifndef K_D_TREE_H
 #define K_D_TREE_H
-#include <memory>
-#include <vector>
-#include <array>
 #include <algorithm>
+#include <array>
+#include <memory>
 #include <ranges>
 #include <stack>
+#include <vector>
 
 template <typename T, size_t dimensions>
     requires std::is_floating_point_v<T>
 class KDTree
 {
 public:
-    explicit KDTree(std::vector<std::array<T, dimensions>>& points)
-    {
-        root = build_tree(points, 0, 0, points.size());
-    }
+    explicit KDTree(std::vector<std::array<T, dimensions>>& points) { root = build_tree(points, 0, 0, points.size()); }
 
     std::array<T, dimensions> nearest_neighbor(const std::array<T, dimensions>& target) const
     {
@@ -29,10 +26,7 @@ public:
         return nearest_point;
     }
 
-    int number_of_nodes() const
-    {
-        return node_count;
-    }
+    int number_of_nodes() const { return node_count; }
 
 private:
     int node_count{};
@@ -42,9 +36,7 @@ private:
         std::unique_ptr<Node> left;
         std::unique_ptr<Node> right;
 
-        Node(const std::array<T, dimensions>& pt): point(pt), left(nullptr), right(nullptr)
-        {
-        }
+        Node(const std::array<T, dimensions>& pt) : point(pt), left(nullptr), right(nullptr) {}
     };
     std::unique_ptr<Node> root;
 
@@ -53,8 +45,7 @@ private:
         return (x <= (y + error)) && (x >= (y - error));
     }
 
-    std::unique_ptr<Node> build_tree(std::vector<std::array<T, dimensions>>& points, int depth, int start,
-                                     int end)
+    std::unique_ptr<Node> build_tree(std::vector<std::array<T, dimensions>>& points, int depth, int start, int end)
     {
         if (start >= end)
         {
@@ -65,9 +56,7 @@ private:
         int mid = start + (end - start) / 2;
         std::nth_element(points.begin() + start, points.begin() + mid, points.begin() + end,
                          [axis](const std::array<T, dimensions>& p1, const std::array<T, dimensions>& p2)
-                         {
-                             return p1[axis] < p2[axis];
-                         });
+                         { return p1[axis] < p2[axis]; });
 
         std::unique_ptr<Node> node = std::make_unique<Node>(points[mid]);
         node->left = build_tree(points, depth + 1, start, mid);
@@ -86,8 +75,7 @@ private:
     }
 
     void nearest_helper(Node* node, const std::array<T, dimensions>& target, int depth,
-                        std::array<T, dimensions>& nearest_point,
-                        T& best_distance) const
+                        std::array<T, dimensions>& nearest_point, T& best_distance) const
     {
         if (!node)
             return;
@@ -109,4 +97,4 @@ private:
     }
 };
 
-#endif //K_D_TREE_H
+#endif // K_D_TREE_H

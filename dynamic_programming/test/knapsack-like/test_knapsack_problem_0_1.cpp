@@ -1,47 +1,19 @@
 //
 // Created by andreas on 14.07.23.
 //
-#include "gtest/gtest.h"
 #include "../../knapsack-like/knapsack_problem_0_1.h"
+#include "gtest/gtest.h"
 
 class SetupKnapsackProblem : public testing::Test
 {
 protected:
-    std::vector<Item<int, int>> items1{
-        {6, 1},
-        {10, 2},
-        {12, 3}
-    };
+    std::vector<Item<int, int>> items1{{6, 1}, {10, 2}, {12, 3}};
     int knapsack1{5};
-    std::vector<Item<int, int>> items2{
-        {3, 2},
-        {4, 3},
-        {5, 4},
-        {6, 5}
-    };
+    std::vector<Item<int, int>> items2{{3, 2}, {4, 3}, {5, 4}, {6, 5}};
     int knapsack2{8};
-    std::vector<Item<int, int>> items3{
-        {9, 4},
-        {7, 3},
-        {5, 2},
-        {12, 5},
-        {14, 6},
-        {2, 1},
-        {6, 3},
-        {17, 8},
-        {21, 9},
-        {16, 7},
-        {12, 5},
-        {10, 4},
-        {15, 6},
-        {7, 3},
-        {5, 2},
-        {13, 5},
-        {9, 4},
-        {16, 6},
-        {4, 2},
-        {2, 1}
-    };
+    std::vector<Item<int, int>> items3{{9, 4},  {7, 3},  {5, 2},  {12, 5}, {14, 6}, {2, 1},  {6, 3},
+                                       {17, 8}, {21, 9}, {16, 7}, {12, 5}, {10, 4}, {15, 6}, {7, 3},
+                                       {5, 2},  {13, 5}, {9, 4},  {16, 6}, {4, 2},  {2, 1}};
     int knapsack3{30};
 };
 

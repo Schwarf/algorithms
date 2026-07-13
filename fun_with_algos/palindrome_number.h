@@ -21,4 +21,4 @@ bool is_palindrome_number(int input)
     }
     return reversed == help;
 }
-#endif //PALINDROME_NUMBER_H
+#endif // PALINDROME_NUMBER_H

@@ -5,11 +5,12 @@
 #ifndef FLATTEN_BINARY_SEARCH_TREE_TO_ARRAY_H
 #define FLATTEN_BINARY_SEARCH_TREE_TO_ARRAY_H
 
-#include "../trees/binary_trees/tree_node.h"
 #include <vector>
+#include "../trees/binary_trees/tree_node.h"
 
-template<typename T>
-int help_flatten_binary_search_tree(TreeNode<T> *root, std::vector<int> &result, int index) {
+template <typename T>
+int help_flatten_binary_search_tree(TreeNode<T>* root, std::vector<int>& result, int index)
+{
     if (!root)
         return index;
     index = help_flatten_binary_search_tree(root->left, result, index);
@@ -22,11 +23,12 @@ int help_flatten_binary_search_tree(TreeNode<T> *root, std::vector<int> &result,
     return index;
 }
 
-template<typename T>
-std::vector<T> flatten_binary_search_tree(TreeNode<T> *root) {
+template <typename T>
+std::vector<T> flatten_binary_search_tree(TreeNode<T>* root)
+{
     std::vector<T> result;
     help_flatten_binary_search_tree(root, result, 0);
     return result;
 }
 
-#endif //FLATTEN_BINARY_SEARCH_TREE_TO_ARRAY_H
+#endif // FLATTEN_BINARY_SEARCH_TREE_TO_ARRAY_H

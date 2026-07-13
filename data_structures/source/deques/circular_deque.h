@@ -5,17 +5,17 @@
 #ifndef DATA_STRUCTURES_CIRCULAR_DEQUE_H
 #define DATA_STRUCTURES_CIRCULAR_DEQUE_H
 
-#include "linked_lists/node_dll.h"
 #include <optional>
+#include "linked_lists/node_dll.h"
 // Design your implementation of the circular double-ended queue (deque).
 // Implement the circular_deque class:
 //
 // circular_deque(int k) Initializes the deque with a maximum size of k.
-// boolean insert_front() Adds an item at the front of Deque. Returns true if the operation is successful, or false otherwise.
-// boolean insert_last() Adds an item at the rear of Deque. Returns true if the operation is successful, or false otherwise.
-// boolean delete_front() Deletes an item from the front of Deque. Returns true if the operation is successful, or false otherwise.
-// boolean delete_last() Deletes an item from the rear of Deque. Returns true if the operation is successful, or false otherwise.
-// int get_front() Returns the front item from the Deque via std::optional.
+// boolean insert_front() Adds an item at the front of Deque. Returns true if the operation is successful, or false
+// otherwise. boolean insert_last() Adds an item at the rear of Deque. Returns true if the operation is successful, or
+// false otherwise. boolean delete_front() Deletes an item from the front of Deque. Returns true if the operation is
+// successful, or false otherwise. boolean delete_last() Deletes an item from the rear of Deque. Returns true if the
+// operation is successful, or false otherwise. int get_front() Returns the front item from the Deque via std::optional.
 // int get_back() Returns the last item from Deque via std::optional.
 // boolean is_empty() Returns true if the deque is empty, or false otherwise.
 // boolean is_full() Returns true if the deque is full, or false otherwise.
@@ -30,9 +30,7 @@ class CircularDeque
     NodeDLL<T>* tail{nullptr};
 
 public:
-    explicit CircularDeque(int k) : capacity{k}
-    {
-    }
+    explicit CircularDeque(int k) : capacity{k} {}
 
     bool insert_front(T value)
     {
@@ -132,15 +130,9 @@ public:
         return tail->value;
     }
 
-    bool is_empty()
-    {
-        return size == 0;
-    }
+    bool is_empty() { return size == 0; }
 
-    bool is_full()
-    {
-        return size == capacity;
-    }
+    bool is_full() { return size == capacity; }
 };
 
 
@@ -212,15 +204,9 @@ public:
         return queue[back_index];
     }
 
-    bool is_empty()
-    {
-        return size == 0;
-    }
+    bool is_empty() { return size == 0; }
 
-    bool is_full()
-    {
-        return size == capacity;
-    }
+    bool is_full() { return size == capacity; }
 };
 
-#endif //DATA_STRUCTURES_CIRCULAR_DEQUE_H
+#endif // DATA_STRUCTURES_CIRCULAR_DEQUE_H

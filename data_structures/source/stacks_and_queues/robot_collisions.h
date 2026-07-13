@@ -18,14 +18,13 @@
 // Return an array containing the health of the remaining robots (in the order they were given in the input),
 // after no further collisions can occur.
 // Note: The positions may be unsorted.
-#include <vector>
-#include <string>
-#include <stack>
-#include <numeric>
 #include <algorithm>
+#include <numeric>
+#include <stack>
+#include <string>
+#include <vector>
 
-std::vector<int> survivedRobotsHealths(std::vector<int>& positions,
-                                       std::vector<int>& healths, std::string directions)
+std::vector<int> survivedRobotsHealths(std::vector<int>& positions, std::vector<int>& healths, std::string directions)
 {
     int n = positions.size();
     std::vector<int> indices(n);
@@ -36,8 +35,7 @@ std::vector<int> survivedRobotsHealths(std::vector<int>& positions,
     // Compare the positions of the robots and sort indices accordingly to the provided positions.
     // Alternative: Using a tuple for positions, healths and directions and sport that according to positions did
     // not work
-    std::sort(indices.begin(), indices.end(),
-              [&](int lhs, int rhs) { return positions[lhs] < positions[rhs]; });
+    std::sort(indices.begin(), indices.end(), [&](int lhs, int rhs) { return positions[lhs] < positions[rhs]; });
 
     for (int currentIndex : indices)
     {
@@ -88,4 +86,4 @@ std::vector<int> survivedRobotsHealths(std::vector<int>& positions,
     return result;
 }
 
-#endif //DATA_STRUCTURES_ROBOT_COLLISIONS_H
+#endif // DATA_STRUCTURES_ROBOT_COLLISIONS_H

@@ -9,10 +9,11 @@
 // blocked squares, where each blocked[i] = [xi, yi] represents a blocked square with coordinates (xi, yi).
 // Each move, we can walk one square north, east, south, or west if the square is not in the array of blocked squares.
 // We are also not allowed to walk outside of the grid.
-// Return true if and only if it is possible to reach the target square from the source square through a sequence of valid moves.
-#include <vector>
-#include <unordered_set>
+// Return true if and only if it is possible to reach the target square from the source square through a sequence of
+// valid moves.
 #include <queue>
+#include <unordered_set>
+#include <vector>
 
 
 // Custom hash for a pair of coordinates
@@ -25,10 +26,8 @@ struct PairHash
     }
 };
 
-bool bfs(const std::vector<int>& start,
-         const std::vector<int>& finish,
-         const std::unordered_set<std::pair<int, int>, PairHash>& blockedSet,
-         int maxSteps)
+bool bfs(const std::vector<int>& start, const std::vector<int>& finish,
+         const std::unordered_set<std::pair<int, int>, PairHash>& blockedSet, int maxSteps)
 {
     const std::vector<std::pair<int, int>> directions{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     constexpr int grid_size{1000000};
@@ -54,8 +53,8 @@ bool bfs(const std::vector<int>& start,
             int new_row = row + x;
             int new_col = col + y;
             auto new_pair = std::make_pair(new_row, new_col);
-            if (new_row >= 0 && new_row < grid_size && new_col >= 0 && new_col < grid_size
-                && !blockedSet.count(new_pair) && !visited.count(new_pair))
+            if (new_row >= 0 && new_row < grid_size && new_col >= 0 && new_col < grid_size &&
+                !blockedSet.count(new_pair) && !visited.count(new_pair))
             {
                 visited.insert(new_pair);
                 queue.push(new_pair);
@@ -67,9 +66,7 @@ bool bfs(const std::vector<int>& start,
     return steps > maxSteps;
 }
 
-bool is_escape_possible(std::vector<std::vector<int>>& blocked,
-                        std::vector<int>& source,
-                        std::vector<int>& target)
+bool is_escape_possible(std::vector<std::vector<int>>& blocked, std::vector<int>& source, std::vector<int>& target)
 {
     // Insert blocked cells into a hash set for O(1) lookup
     std::unordered_set<std::pair<int, int>, PairHash> blockedSet;
@@ -82,8 +79,7 @@ bool is_escape_possible(std::vector<std::vector<int>>& blocked,
     int maxSteps = blocked.size() * (blocked.size() - 1) / 2;
 
     // We need to ensure neither source nor target is enclosed
-    return bfs(source, target, blockedSet, maxSteps)
-        && bfs(target, source, blockedSet, maxSteps);
+    return bfs(source, target, blockedSet, maxSteps) && bfs(target, source, blockedSet, maxSteps);
 }
 
 
@@ -116,4 +112,4 @@ bool escape_from_maze_custom_lambdas(const std::vector<std::vector<int>>& blocke
     return max_steps == blocked.size() * (blocked.size() - 1) / 2;
 }
 */
-#endif //ESCAPE_FROM_MAZE_H
+#endif // ESCAPE_FROM_MAZE_H

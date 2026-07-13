@@ -1,16 +1,11 @@
 //
 // Created by andreas on 01.01.24.
 //
-#include "gtest/gtest.h"
 #include "caches/lru_cache.h"
+#include "gtest/gtest.h"
 
-void createCacheWithNegativeCapacity() {
-    LRUCache<std::string, int> cache(-1);
-}
-TEST(TestLRUCache, test_throws)
-{
-    EXPECT_THROW( createCacheWithNegativeCapacity() , std::invalid_argument);
-}
+void createCacheWithNegativeCapacity() { LRUCache<std::string, int> cache(-1); }
+TEST(TestLRUCache, test_throws) { EXPECT_THROW(createCacheWithNegativeCapacity(), std::invalid_argument); }
 
 TEST(TestLRUCache, test_eviction_policy1)
 {

@@ -8,14 +8,13 @@
 //
 // Starting with score = 0, apply the following algorithm:
 //
-//    Choose the smallest integer of the array that is not marked. If there is a tie, choose the one with the smallest index.
-//    Add the value of the chosen integer to score.
-//    Mark the chosen element and its two adjacent elements if they exist.
-//    Repeat until all the array elements are marked.
+//    Choose the smallest integer of the array that is not marked. If there is a tie, choose the one with the smallest
+//    index. Add the value of the chosen integer to score. Mark the chosen element and its two adjacent elements if they
+//    exist. Repeat until all the array elements are marked.
 //
 // Return the score you get after applying the above algorithm.
-#include<vector>
-#include<queue>
+#include <queue>
+#include <vector>
 
 long long find_score_using_heap(std::vector<int>& input)
 {
@@ -63,4 +62,4 @@ long long find_score_using_sliding_window(std::vector<int>& input)
     return result;
 }
 
-#endif //SCORE_AFTER_MARKING_ELEMENTS_H
+#endif // SCORE_AFTER_MARKING_ELEMENTS_H

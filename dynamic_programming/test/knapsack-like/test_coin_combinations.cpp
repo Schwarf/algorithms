@@ -3,8 +3,8 @@
 //
 
 //
-#include "gtest/gtest.h"
 #include "../../knapsack-like/coin_combinations.h"
+#include "gtest/gtest.h"
 
 TEST(CoinCombinationsRecursive, simple1)
 {
@@ -79,10 +79,10 @@ TEST(CoinCombinationsRecursive2, complex1)
 /*
 TEST(CoinCombinationsRecursive, complex2)
 {
-	const std::vector<int> coins{3, 5, 7, 8, 9, 10, 11};
-	constexpr int amount{1000};
-	constexpr int expected_number_of_combinations{1952879228};
-	EXPECT_EQ(coin_combinations_top_down(coins, amount), expected_number_of_combinations);
+    const std::vector<int> coins{3, 5, 7, 8, 9, 10, 11};
+    constexpr int amount{1000};
+    constexpr int expected_number_of_combinations{1952879228};
+    EXPECT_EQ(coin_combinations_top_down(coins, amount), expected_number_of_combinations);
 }
 */
 
@@ -169,12 +169,12 @@ TEST(CoinCombinationsTopDown2, complex1)
     EXPECT_EQ(coin_combinations_top_down2(coins, amount), expected_number_of_combinations);
 }
 
-//TEST(CoinCombinationsTopDown2, complex2) {
-//    const std::vector<int> coins{3, 5, 7, 8, 9, 10, 11};
-//    constexpr int amount{1000};
-//    constexpr int expected_number_of_combinations{1952879228};
-//    EXPECT_EQ(coin_combinations_top_down2(coins, amount), expected_number_of_combinations);
-//}
+// TEST(CoinCombinationsTopDown2, complex2) {
+//     const std::vector<int> coins{3, 5, 7, 8, 9, 10, 11};
+//     constexpr int amount{1000};
+//     constexpr int expected_number_of_combinations{1952879228};
+//     EXPECT_EQ(coin_combinations_top_down2(coins, amount), expected_number_of_combinations);
+// }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////

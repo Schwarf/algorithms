@@ -1,8 +1,8 @@
 //
 // Created by andreas on 22.11.22.
 //
-#include "gtest/gtest.h"
 #include "../../knapsack-like/perfect_squares.h"
+#include "gtest/gtest.h"
 
 
 TEST(TestPerfectSquares, simple_bottom_up1)

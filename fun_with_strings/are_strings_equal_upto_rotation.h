@@ -10,13 +10,15 @@
 #include <algorithm>
 #include <string>
 
-inline bool are_strings_equal_brute_force(std::string & input1, const std::string & target_string)
+inline bool are_strings_equal_brute_force(std::string& input1, const std::string& target_string)
 {
-    if (input1.length() != target_string.length()) return false;
+    if (input1.length() != target_string.length())
+        return false;
     int length = input1.length();
 
     // Try all possible rotations of the string
-    for (int rotationCount = 0; rotationCount < length; ++rotationCount) {
+    for (int rotationCount = 0; rotationCount < length; ++rotationCount)
+    {
         // Perform one rotation
         std::rotate(input1.begin(), input1.begin() + 1, input1.end());
         if (input1 == target_string)
@@ -27,7 +29,7 @@ inline bool are_strings_equal_brute_force(std::string & input1, const std::strin
 
 // TRICK: If we double input1 we have a string that contains all rotations of input1
 // In that way we just need to search for the target_string in the double_string
-inline bool are_strings_equal_double_string(std::string & input1, const std::string & target_string)
+inline bool are_strings_equal_double_string(std::string& input1, const std::string& target_string)
 {
     if (input1.length() != target_string.length())
         return false;
@@ -36,5 +38,4 @@ inline bool are_strings_equal_double_string(std::string & input1, const std::str
 }
 
 
-
-#endif //ROTATE_STRING_H
+#endif // ROTATE_STRING_H

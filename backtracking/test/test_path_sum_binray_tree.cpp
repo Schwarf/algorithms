@@ -4,20 +4,21 @@
 #include "./../path_sum_binary_tree.h"
 #include "gtest/gtest.h"
 
-TEST(TestPathSumBinaryTree, simple1) {
+TEST(TestPathSumBinaryTree, simple1)
+{
     auto root = new TreeNode<unsigned int>(1);
     root->left = new TreeNode<unsigned int>(2);
     root->right = new TreeNode<unsigned int>(2);
     root->left->left = new TreeNode<unsigned int>(3);
     root->right->left = new TreeNode<unsigned int>(3);
     constexpr unsigned int target_sum{6};
-    std::vector<std::vector<unsigned int>> paths{{1, 2, 3},
-                                                 {1, 2, 3}};
+    std::vector<std::vector<unsigned int>> paths{{1, 2, 3}, {1, 2, 3}};
     EXPECT_EQ(paths, path_sum(root, target_sum));
 }
 
 
-TEST(TestPathSumBinaryTree, simple2) {
+TEST(TestPathSumBinaryTree, simple2)
+{
     auto root = new TreeNode<unsigned int>(1);
     root->left = new TreeNode<unsigned int>(2);
     root->right = new TreeNode<unsigned int>(2);
@@ -30,7 +31,8 @@ TEST(TestPathSumBinaryTree, simple2) {
 }
 
 
-TEST(TestPathSumBinaryTree, simple3) {
+TEST(TestPathSumBinaryTree, simple3)
+{
     auto root = new TreeNode<int>(1);
     root->left = new TreeNode<int>(4);
     root->right = new TreeNode<int>(2);
@@ -42,7 +44,8 @@ TEST(TestPathSumBinaryTree, simple3) {
     EXPECT_EQ(paths, path_sum(root, target_sum));
 }
 
-TEST(TestPathSumBinaryTree, simple4) {
+TEST(TestPathSumBinaryTree, simple4)
+{
     auto root = new TreeNode<int>(1);
     root->left = new TreeNode<int>(4);
     root->right = new TreeNode<int>(3);
@@ -52,4 +55,3 @@ TEST(TestPathSumBinaryTree, simple4) {
     std::vector<std::vector<int>> paths{{1, 4, 2}, {1, 3, 3}};
     EXPECT_EQ(paths, path_sum(root, target_sum));
 }
-

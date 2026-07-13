@@ -9,19 +9,14 @@
 #include <queue>
 #include <unordered_set>
 
-template <typename T> requires std::totally_ordered<T> && std::is_integral_v<T>
+template <typename T>
+    requires std::totally_ordered<T> && std::is_integral_v<T>
 class SmallestPositiveInfiniteSet
 {
 public:
-    explicit SmallestPositiveInfiniteSet(const T& initial_value)
-        : current_value(initial_value)
-    {
-    }
+    explicit SmallestPositiveInfiniteSet(const T& initial_value) : current_value(initial_value) {}
 
-    SmallestPositiveInfiniteSet()
-        : current_value(T{})
-    {
-    }
+    SmallestPositiveInfiniteSet() : current_value(T{}) {}
 
     // pops the smallest element that has not been pooped yet and has not been re-added
     T pop()
@@ -56,4 +51,4 @@ private:
 };
 
 
-#endif //SMALLEST_NUMBER_IN_INFINITE_SET_H
+#endif // SMALLEST_NUMBER_IN_INFINITE_SET_H

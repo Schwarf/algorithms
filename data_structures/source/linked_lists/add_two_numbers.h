@@ -4,8 +4,8 @@
 
 #ifndef ADD_TWO_NUMBERS_H
 #define ADD_TWO_NUMBERS_H
-#include "node.h"
 #include <concepts>
+#include "node.h"
 // We have a number where each digit [0-9] is provided by a node in a linked list. The least significant digit
 // is provided by head and the most significant digit is provided the last node. Given two numbers compute the
 // sum of those two numbers.
@@ -25,8 +25,7 @@ Node<T>* add_two_numbers_recursive(Node<T>* head1, Node<T>* head2, int carry_ove
     carry_over = sum / 10;
     if (head1 || head2)
     {
-        auto next =
-            add_two_numbers_recursive(head1 ? head1->next : nullptr, head2 ? head2->next : nullptr, carry_over);
+        auto next = add_two_numbers_recursive(head1 ? head1->next : nullptr, head2 ? head2->next : nullptr, carry_over);
         result->next = next;
     }
     return result;
@@ -89,4 +88,4 @@ Node<T>* add_two_numbers_iteratively(Node<T>* head1, Node<T>* head2)
     }
     return result_head;
 }
-#endif //ADD_TWO_NUMBERS_H
+#endif // ADD_TWO_NUMBERS_H

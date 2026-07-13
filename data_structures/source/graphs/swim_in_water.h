@@ -5,11 +5,13 @@
 #ifndef SWIM_IN_WATER_H
 #define SWIM_IN_WATER_H
 // You are given an n x n integer matrix grid where each value grid[i][j] represents the elevation at that point (i, j).
-// The rain starts to fall. At time t, the depth of the water everywhere is t. You can swim from a square to another 4-directionally adjacent square if and only if the elevation of both squares individually are at most t. You can swim infinite distances in zero time. Of course, you must stay within the boundaries of the grid during your swim.
-// Return the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0).
-#include <vector>
-#include <queue>
+// The rain starts to fall. At time t, the depth of the water everywhere is t. You can swim from a square to another
+// 4-directionally adjacent square if and only if the elevation of both squares individually are at most t. You can swim
+// infinite distances in zero time. Of course, you must stay within the boundaries of the grid during your swim. Return
+// the least time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0).
 #include <algorithm>
+#include <queue>
+#include <vector>
 
 int swim_in_water(std::vector<std::vector<int>>& grid)
 {
@@ -54,4 +56,4 @@ int swim_in_water(std::vector<std::vector<int>>& grid)
     }
     return -1; // Should never happen given problem constraints.
 }
-#endif //SWIM_IN_WATER_H
+#endif // SWIM_IN_WATER_H

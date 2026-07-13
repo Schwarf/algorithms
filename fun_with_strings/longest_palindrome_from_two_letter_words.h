@@ -5,13 +5,13 @@
 #ifndef LONGEST_PALINDROME_FROM_TWO_LETTER_WORDS_H
 #define LONGEST_PALINDROME_FROM_TWO_LETTER_WORDS_H
 // You are given an array of strings words. Each element of words consists of two lowercase English letters.
-// Create the longest possible palindrome by selecting some elements from words and concatenating them in any order. Each element can be selected at most once.
-// Return the length of the longest palindrome that you can create. If it is impossible to create any palindrome, return 0.
-// A palindrome is a string that reads the same forward and backward.
-#include <string>
-#include <vector>
-#include <unordered_map>
+// Create the longest possible palindrome by selecting some elements from words and concatenating them in any order.
+// Each element can be selected at most once. Return the length of the longest palindrome that you can create. If it is
+// impossible to create any palindrome, return 0. A palindrome is a string that reads the same forward and backward.
 #include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 int longest_palindromic_string(std::vector<std::string>& words)
 {
@@ -57,4 +57,4 @@ int longest_palindromic_string(std::vector<std::string>& words)
 
     return count;
 }
-#endif //LONGEST_PALINDROME_FROM_TWO_LETTER_WORDS_H
+#endif // LONGEST_PALINDROME_FROM_TWO_LETTER_WORDS_H

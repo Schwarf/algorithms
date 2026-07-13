@@ -6,23 +6,18 @@
 #define DATA_STRUCTURES_SPIRAL_MATRIX_H
 // You are given two integers rows and columns, which represent the dimensions of a matrix.
 // You are also given the head of a linked list of integers.
-// Generate an rows x columns matrix that contains the integers in the linked list presented in spiral order (clockwise),
-// starting from the top-left of the matrix. If there are remaining empty spaces, fill them with -1.
-// Return the generated matrix.
+// Generate an rows x columns matrix that contains the integers in the linked list presented in spiral order
+// (clockwise), starting from the top-left of the matrix. If there are remaining empty spaces, fill them with -1. Return
+// the generated matrix.
+#include <algorithm>
 #include <vector>
 #include "node.h"
-#include <algorithm>
 
 template <typename T>
 std::vector<std::vector<T>> spiral_matrix(int rows, int columns, Node<T>* head)
 {
     std::vector<std::vector<int>> result(rows, std::vector<int>(columns, -1));
-    std::vector<std::pair<int, int>> directions{
-        {0, 1},
-        {1, 0},
-        {0, -1},
-        {-1, 0}
-    };
+    std::vector<std::pair<int, int>> directions{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     if (!head)
         return result;
     int direction_index{};
@@ -45,4 +40,4 @@ std::vector<std::vector<T>> spiral_matrix(int rows, int columns, Node<T>* head)
     return result;
 }
 
-#endif //DATA_STRUCTURES_SPIRAL_MATRIX_H
+#endif // DATA_STRUCTURES_SPIRAL_MATRIX_H

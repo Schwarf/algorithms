@@ -8,9 +8,9 @@
 // You are given the head of a linked list.
 // Remove every node which has a node with a greater value anywhere to the right side of it.
 // Return the head of the modified linked list.
+#include <algorithm>
 #include <stack>
 #include "node.h"
-#include <algorithm>
 
 template <typename T>
     requires std::is_arithmetic_v<T>
@@ -100,4 +100,4 @@ Node<T>* remove_larger_nodes_double_reverse(Node<T>* head)
     return revert_list(head);
 }
 
-#endif //DATA_STRUCTURES_REMOVE_LARGER_NODES_H
+#endif // DATA_STRUCTURES_REMOVE_LARGER_NODES_H

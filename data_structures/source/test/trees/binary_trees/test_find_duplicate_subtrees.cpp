@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "trees/binary_trees/find_duplicate_subtrees.h"
 #include "setup_binary_tree.h"
+#include "trees/binary_trees/find_duplicate_subtrees.h"
 
 
 TEST_F(SetupBinaryTree, small_tree_with_duplicates)

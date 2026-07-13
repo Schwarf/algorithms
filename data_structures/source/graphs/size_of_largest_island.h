@@ -5,10 +5,10 @@
 #ifndef GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
 #define GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
 
-#include <vector>
+#include <algorithm>
 #include <stack>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
 /*
 You are given an m x n binary matrix grid, the quadrant_map. An island is a group of 1's (representing land)
@@ -18,10 +18,8 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 */
 
-void
-dfs_iterative_max_area(std::vector<std::vector<int>>& quadrant_map, std::vector<std::vector<bool>>& visited,
-                       int& max_area,
-                       int row, int column)
+void dfs_iterative_max_area(std::vector<std::vector<int>>& quadrant_map, std::vector<std::vector<bool>>& visited,
+                            int& max_area, int row, int column)
 {
     if (!quadrant_map[row][column])
         return;
@@ -77,9 +75,9 @@ int dfs_recursive_max_area(std::vector<std::vector<int>>& quadrant_map, int row,
     if (!quadrant_map[row][column])
         return 0;
     quadrant_map[row][column] = 0;
-    return 1 + dfs_recursive_max_area(quadrant_map, row + 1, column) + dfs_recursive_max_area(
-            quadrant_map, row - 1, column) +
-        dfs_recursive_max_area(quadrant_map, row, column - 1) + dfs_recursive_max_area(quadrant_map, row, column + 1);
+    return 1 + dfs_recursive_max_area(quadrant_map, row + 1, column) +
+        dfs_recursive_max_area(quadrant_map, row - 1, column) + dfs_recursive_max_area(quadrant_map, row, column - 1) +
+        dfs_recursive_max_area(quadrant_map, row, column + 1);
 }
 
 int size_of_largest_island_recursive(std::vector<std::vector<int>>& quadrant_map)
@@ -99,4 +97,4 @@ int size_of_largest_island_recursive(std::vector<std::vector<int>>& quadrant_map
     return max_area;
 }
 
-#endif //GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H
+#endif // GRAPH_RELATED_ALGORITHMS_SIZE_OF_LARGEST_ISLAND_H

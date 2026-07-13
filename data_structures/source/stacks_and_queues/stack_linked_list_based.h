@@ -27,15 +27,9 @@ private:
     size_t size_{};
 
 public:
-    StackLLB()
-    {
-        head_ = nullptr;
-    }
+    StackLLB() { head_ = nullptr; }
 
-    StackLLB(const T& value)
-    {
-        head_ = new Node(value);
-    }
+    StackLLB(const T& value) { head_ = new Node(value); }
 
     ~StackLLB()
     {
@@ -89,15 +83,9 @@ public:
         return head_->value;
     }
 
-    bool is_empty() const final
-    {
-        return head_ == nullptr;
-    }
+    bool is_empty() const final { return head_ == nullptr; }
 
-    size_t size() const final
-    {
-        return size_;
-    }
+    size_t size() const final { return size_; }
 };
 
-#endif //STACK_LINKED_LIST_BASED_H
+#endif // STACK_LINKED_LIST_BASED_H

@@ -1,8 +1,8 @@
 //
 // Created by andreas on 08.10.24.
 //
-#include "gtest/gtest.h"
 #include "../minimum_length_after_removing_substrings.h"
+#include "gtest/gtest.h"
 
 TEST(TestMinimumLengthAfterRemovingSubStringsoptimal, simple1)
 {

@@ -1,11 +1,12 @@
 //
 // Created by andreas on 27.04.25.
 //
-#include "linked_lists/skip_lists/skip_list.h"
 #include "gtest/gtest.h"
+#include "linked_lists/skip_lists/skip_list.h"
 
 
-TEST(TestSkipList, EmptySkipList) {
+TEST(TestSkipList, EmptySkipList)
+{
     SkipList<int, std::string, 32> skip_list;
     std::string value;
     EXPECT_TRUE(skip_list.empty());
@@ -17,12 +18,12 @@ TEST(TestSkipList, EmptySkipList) {
 TEST(TestSkipList, InsertAndSerach)
 {
     SkipList<int, uint32_t, 32> skip_list;
-    for (int i = 0; i < 30; i+=2)
+    for (int i = 0; i < 30; i += 2)
     {
-        skip_list.insert(i, i*10);
+        skip_list.insert(i, i * 10);
     }
 
-    for (int i = 0 ; i < 30; ++i)
+    for (int i = 0; i < 30; ++i)
     {
         uint32_t value{};
 
@@ -33,13 +34,13 @@ TEST(TestSkipList, InsertAndSerach)
         else
         {
             EXPECT_TRUE(skip_list.search(i, value));
-            EXPECT_EQ(value, i*10);
+            EXPECT_EQ(value, i * 10);
         }
-
     }
 }
 
-TEST(TestSkipList, UpdateExisting) {
+TEST(TestSkipList, UpdateExisting)
+{
     SkipList<int, std::string, 32> skip_list;
 
     skip_list.insert(2, "two");
@@ -58,7 +59,8 @@ TEST(TestSkipList, UpdateExisting) {
 }
 
 // Test remove
-TEST(TestSkipList, RemoveExisting) {
+TEST(TestSkipList, RemoveExisting)
+{
     SkipList<int, std::string, 5> skip_list;
     skip_list.insert(10, "ten");
     skip_list.insert(20, "twenty");

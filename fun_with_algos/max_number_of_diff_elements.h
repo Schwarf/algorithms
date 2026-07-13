@@ -11,22 +11,25 @@
 //     Add an integer in the range [-k, k] to the element.
 //
 // Return the maximum possible number of distinct elements in nums after performing the operations.
-#include <vector>
 #include <algorithm>
 #include <limits>
+#include <vector>
 
-int max_distinct_elements(std::vector<int>& nums, int k) {
+int max_distinct_elements(std::vector<int>& nums, int k)
+{
     std::sort(nums.begin(), nums.end());
     int cnt = 0;
     int prev = std::numeric_limits<int>::min();
-    for (int num : nums) {
+    for (int num : nums)
+    {
         // greedily make the current element as small as possible to generate as many different elements as possible
         int curr = std::min(std::max(num - k, prev + 1), num + k);
-        if (curr > prev) {
+        if (curr > prev)
+        {
             cnt++;
             prev = curr;
         }
     }
     return cnt;
 }
-#endif //ALGORITHMS_MAX_NUMBER_OF_DIFF_ELEMENTS_H
+#endif // ALGORITHMS_MAX_NUMBER_OF_DIFF_ELEMENTS_H

@@ -4,8 +4,8 @@
 
 #ifndef UNION_FIND_SPARSE_H
 #define UNION_FIND_SPARSE_H
-#include <unordered_map>
 #include <optional>
+#include <unordered_map>
 
 template <typename IdType>
 class UnionFindSparse
@@ -70,4 +70,4 @@ private:
     std::unordered_map<IdType, std::size_t> rank;
 };
 
-#endif //UNION_FIND_SPARSE
+#endif // UNION_FIND_SPARSE

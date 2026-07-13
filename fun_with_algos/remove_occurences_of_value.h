@@ -15,14 +15,16 @@
 //   The remaining elements of nums are not important as well as the size of nums.
 // - Return k.
 
-template<typename T>
-int remove_value(std::vector<int> &elements, T value_to_remove) {
+template <typename T>
+int remove_value(std::vector<int>& elements, T value_to_remove)
+{
     int index{};
-    for (const auto &element: elements) {
+    for (const auto& element : elements)
+    {
         if (element != value_to_remove)
             elements[index++] = element;
     }
     return index;
 }
 
-#endif //REMOVE_OCCURENCES_OF_VALUE_H
+#endif // REMOVE_OCCURENCES_OF_VALUE_H

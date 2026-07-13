@@ -9,22 +9,25 @@
 // You must write an algorithm that runs in linear runtime complexity and uses only constant extra space.
 #include <vector>
 
-std::vector<int> find_singular_elements(std::vector<int> &input) {
+std::vector<int> find_singular_elements(std::vector<int>& input)
+{
     int x_or{};
-    for (const auto element: input) {
+    for (const auto element : input)
+    {
         x_or ^= element;
     }
     // These two approaches  won't work if you reach the numeric limits of int
     //     int right_most_bit = x_or & -x_or;
     //     int right_most_bit = x_or & ~(x_or - 1);
     int right_most_bit{1};
-    while((right_most_bit & x_or) == 0)
+    while ((right_most_bit & x_or) == 0)
     {
-        right_most_bit <<=1;
+        right_most_bit <<= 1;
     }
     int number1{};
     int number2{};
-    for (const auto element: input) {
+    for (const auto element : input)
+    {
         if (element & right_most_bit)
             number1 ^= element;
         else
@@ -33,4 +36,4 @@ std::vector<int> find_singular_elements(std::vector<int> &input) {
     return {number1, number2};
 }
 
-#endif //BIT_MANIPULATION_FIND_TWO_SINGULAR_ELEMENTS_H
+#endif // BIT_MANIPULATION_FIND_TWO_SINGULAR_ELEMENTS_H

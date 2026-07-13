@@ -9,10 +9,11 @@
 // The robot can only move either down or right at any point in time.
 // Given the two integers m and n, return the number of possible unique paths that the robot can
 // take to reach the bottom-right corner.
-//The test cases are generated so that the answer will be less than or equal to 2 * 109.
+// The test cases are generated so that the answer will be less than or equal to 2 * 109.
 #include <vector>
 
-int unique_paths_with_obstacles_recursive(const std::vector<std::vector<int>> &matrix, int row = 0, int col = 0) {
+int unique_paths_with_obstacles_recursive(const std::vector<std::vector<int>>& matrix, int row = 0, int col = 0)
+{
     // We initialize with 1 because at least one path exists from each position
     if (row > matrix.size() - 1 || col > matrix[0].size() - 1)
         return 0;
@@ -20,12 +21,12 @@ int unique_paths_with_obstacles_recursive(const std::vector<std::vector<int>> &m
         return 0;
     if (row == matrix.size() - 1 && col == matrix[0].size() - 1)
         return 1;
-    return unique_paths_with_obstacles_recursive(matrix, row + 1, col)
-           + unique_paths_with_obstacles_recursive(matrix, row, col + 1);
+    return unique_paths_with_obstacles_recursive(matrix, row + 1, col) +
+        unique_paths_with_obstacles_recursive(matrix, row, col + 1);
 }
 
-int
-top_down(const std::vector<std::vector<int>> &matrix, std::vector<std::vector<int>> &memo, int row = 0, int col = 0) {
+int top_down(const std::vector<std::vector<int>>& matrix, std::vector<std::vector<int>>& memo, int row = 0, int col = 0)
+{
     // We initialize with 1 because at least one path exists from each position
     if (row > matrix.size() - 1 || col > matrix[0].size() - 1)
         return 0;
@@ -35,25 +36,30 @@ top_down(const std::vector<std::vector<int>> &matrix, std::vector<std::vector<in
         return memo[row][col];
     if (row == matrix.size() - 1 && col == matrix[0].size() - 1)
         return 1;
-    memo[row][col] = unique_paths_with_obstacles_recursive(matrix, row + 1, col)
-                     + unique_paths_with_obstacles_recursive(matrix, row, col + 1);
+    memo[row][col] = unique_paths_with_obstacles_recursive(matrix, row + 1, col) +
+        unique_paths_with_obstacles_recursive(matrix, row, col + 1);
     return memo[row][col];
 }
 
-int unique_paths_with_obstacles_top_down(const std::vector<std::vector<int>> &matrix) {
+int unique_paths_with_obstacles_top_down(const std::vector<std::vector<int>>& matrix)
+{
     // We initialize with 1 because at least one path exists from each position
     std::vector<std::vector<int>> memo(matrix.size(), std::vector<int>(matrix[0].size(), -1));
     return top_down(matrix, memo, 0, 0);
 }
 
-int unique_paths_with_obstacles_bottom_up(const std::vector<std::vector<int>> &matrix) {
+int unique_paths_with_obstacles_bottom_up(const std::vector<std::vector<int>>& matrix)
+{
     int rows = matrix.size();
     int columns = matrix[0].size();
     std::vector<std::vector<int>> dp(rows + 1, std::vector<int>(columns + 1, 0));
     dp[rows - 1][columns - 1] = 1;
-    for (int row{rows - 1}; row > -1; --row) {
-        for (int col{columns - 1}; col > -1; --col) {
-            if (matrix[row][col] == 1) {
+    for (int row{rows - 1}; row > -1; --row)
+    {
+        for (int col{columns - 1}; col > -1; --col)
+        {
+            if (matrix[row][col] == 1)
+            {
                 dp[row][col] = 0;
                 continue;
             }
@@ -63,13 +69,13 @@ int unique_paths_with_obstacles_bottom_up(const std::vector<std::vector<int>> &m
                 dp[row][col] = dp[row + 1][col];
             else if (col < columns - 1)
                 dp[row][col] = dp[row][col + 1];
-
         }
     }
     return dp[0][0];
 }
 
-int unique_paths_with_obstacles_bottom_up_optimized(const std::vector<std::vector<int>> &matrix) {
+int unique_paths_with_obstacles_bottom_up_optimized(const std::vector<std::vector<int>>& matrix)
+{
     const int rows = matrix.size();
     const int columns = matrix[0].size();
     std::vector<int> dp(columns);
@@ -83,8 +89,6 @@ int unique_paths_with_obstacles_bottom_up_optimized(const std::vector<std::vecto
                 dp[col] += dp[col - 1];
 
     return dp[columns - 1];
-
 }
 
-#endif //unique_paths_with_obstacles_WITH_OBSTACLES_H
-
+#endif // unique_paths_with_obstacles_WITH_OBSTACLES_H

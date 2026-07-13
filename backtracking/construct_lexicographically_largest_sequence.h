@@ -11,18 +11,20 @@
 //    Each integer between 2 and n occurs twice in the sequence.
 //    For every integer i between 2 and n, the distance between the two occurrences of i is exactly i.
 //
-// The distance between two numbers on the sequence, a[i] and a[j], is the absolute difference of their indices, |j - i|.
+// The distance between two numbers on the sequence, a[i] and a[j], is the absolute difference of their indices, |j -
+// i|.
 //
-// Return the lexicographically largest sequence. It is guaranteed that under the given constraints, there is always a solution.
+// Return the lexicographically largest sequence. It is guaranteed that under the given constraints, there is always a
+// solution.
 //
-// A sequence a is lexicographically larger than a sequence b (of the same length) if in the first position where a and b differ, sequence a has a number greater than the corresponding number in b. For example, [0,1,9,0] is lexicographically larger than [0,1,5,6] because the first position they differ is at the third number, and 9 is greater than 5.
-// LC: 1718
+// A sequence a is lexicographically larger than a sequence b (of the same length) if in the first position where a and
+// b differ, sequence a has a number greater than the corresponding number in b. For example, [0,1,9,0] is
+// lexicographically larger than [0,1,5,6] because the first position they differ is at the third number, and 9 is
+// greater than 5. LC: 1718
 #include <vector>
 
-bool find_lexicographically_largest_sequence(int current_index,
-                                             std::vector<int>& result_sequence,
-                                             std::vector<char>& is_number_used,
-                                             int target_number)
+bool find_lexicographically_largest_sequence(int current_index, std::vector<int>& result_sequence,
+                                             std::vector<char>& is_number_used, int target_number)
 {
     // If we have filled all positions, return true indicating success
     if (current_index == result_sequence.size())
@@ -33,8 +35,8 @@ bool find_lexicographically_largest_sequence(int current_index,
     // If the current position is already filled, move to the next index
     if (result_sequence[current_index] != 0)
     {
-        return find_lexicographically_largest_sequence(
-            current_index + 1, result_sequence, is_number_used, target_number);
+        return find_lexicographically_largest_sequence(current_index + 1, result_sequence, is_number_used,
+                                                       target_number);
     }
 
     // Attempt to place numbers from targetNumber to 1 for a lexicographically largest result
@@ -55,13 +57,12 @@ bool find_lexicographically_largest_sequence(int current_index,
         }
         // Place larger numbers at two positions if valid
         else if (current_index + number_to_place < result_sequence.size() &&
-            result_sequence[current_index + number_to_place] == 0)
+                 result_sequence[current_index + number_to_place] == 0)
         {
             result_sequence[current_index + number_to_place] = number_to_place;
 
-            if (find_lexicographically_largest_sequence(
-                current_index + 1, result_sequence, is_number_used,
-                target_number))
+            if (find_lexicographically_largest_sequence(current_index + 1, result_sequence, is_number_used,
+                                                        target_number))
             {
                 return true;
             }
@@ -93,4 +94,4 @@ std::vector<int> construct_distanced_sequence(int target_number)
 }
 
 
-#endif //CONSTRUCT_LEXICOGRAPHICALLY_LARGEST_SEQUENCE_H
+#endif // CONSTRUCT_LEXICOGRAPHICALLY_LARGEST_SEQUENCE_H

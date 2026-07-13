@@ -4,32 +4,34 @@
 
 #ifndef SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H
 #define SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H
+#include <algorithm>
 #include <map>
 #include <vector>
-#include <algorithm>
 #include "used_concepts.h"
 // Given an array of integers nums, sort the array in increasing order based on the frequency of the values.
 // If multiple values have the same frequency, sort them in decreasing order.
 // Return the sorted array.
 
-template<typename Container>
-requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && Sortable<typename Container::value_type>
-void sort_by_increasing_frequency(Container & input)
+template <typename Container>
+    requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> &&
+    Sortable<typename Container::value_type>
+void sort_by_increasing_frequency(Container& input)
 {
     using element_type = typename Container::value_type;
-    std::map<element_type , int> frequencies;
-    for(const auto element: input)
+    std::map<element_type, int> frequencies;
+    for (const auto element : input)
     {
         frequencies[element]++;
     }
     std::vector<std::pair<element_type, int>> pairs;
-    for(const auto & [value, frequency]: frequencies)
+    for (const auto& [value, frequency] : frequencies)
     {
         pairs.emplace_back(value, frequency);
     }
 
-    auto comparator = [](std::pair<element_type, int> & element1, std::pair<element_type, int> & element2) -> bool{
-        if(element1.second == element2.second)
+    auto comparator = [](std::pair<element_type, int>& element1, std::pair<element_type, int>& element2) -> bool
+    {
+        if (element1.second == element2.second)
             return element1.first > element2.first;
         return element1.second < element2.second;
     };
@@ -37,26 +39,28 @@ void sort_by_increasing_frequency(Container & input)
 
 
     int index{};
-    for(const auto & pair: pairs)
+    for (const auto& pair : pairs)
     {
-        for(int i{}; i < pair.second; ++i)
+        for (int i{}; i < pair.second; ++i)
         {
             input[index++] = pair.first;
         }
     }
- }
+}
 
-template<typename Container>
-requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> && Sortable<typename Container::value_type>
-void sort_by_increasing_frequency_simple(Container & input)
+template <typename Container>
+    requires IndexedContainer<Container> && NoPointerElement<typename Container::value_type> &&
+    Sortable<typename Container::value_type>
+void sort_by_increasing_frequency_simple(Container& input)
 {
     using element_type = typename Container::value_type;
-    std::unordered_map<element_type , int> frequencies;
-    for(const auto & element: input)
+    std::unordered_map<element_type, int> frequencies;
+    for (const auto& element : input)
         frequencies[element]++;
 
-    auto comparator = [&](const element_type & element1, const element_type & element2){
-        if(frequencies[element1] == frequencies[element2])
+    auto comparator = [&](const element_type& element1, const element_type& element2)
+    {
+        if (frequencies[element1] == frequencies[element2])
             return element1 > element2;
         return frequencies[element1] < frequencies[element2];
     };
@@ -64,4 +68,4 @@ void sort_by_increasing_frequency_simple(Container & input)
     std::sort(input.begin(), input.end(), comparator);
 }
 
-#endif //SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H
+#endif // SORT_SORT_ARRAY_BY_INCREASING_FREQUENCY_H

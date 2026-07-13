@@ -11,4 +11,4 @@ concept VertexRequirement = std::is_integral_v<VertexType> && !std::is_signed_v<
 template <typename EdgeType>
 concept EdgeRequirement = std::is_arithmetic_v<EdgeType>;
 
-#endif //USED_CONCEPTS_H
+#endif // USED_CONCEPTS_H

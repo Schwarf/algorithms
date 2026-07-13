@@ -7,15 +7,15 @@
 // Given the root of a binary tree, return a list of strings representing every path from the root to a leaf node.
 // A path should contain the node values in traversal order, separated by "->".
 // Return the paths in any order.
-#include<vector>
-#include<string>
+#include <string>
+#include <vector>
 #include "./../data_structures/source/trees/binary_trees/tree_node.h"
 
-void backtrack(std::vector<std::string> & result, std::string & current, TreeNode<int> * node)
+void backtrack(std::vector<std::string>& result, std::string& current, TreeNode<int>* node)
 {
     const size_t old_size = current.size();
 
-    if(!current.empty())
+    if (!current.empty())
     {
         current += "->";
     }
@@ -68,5 +68,4 @@ std::vector<std::string> binary_tree_paths(TreeNode<int>* root)
 }
 
 
-
-#endif //ALGORITHMS_BINARY_TREE_PATHS_H
+#endif // ALGORITHMS_BINARY_TREE_PATHS_H

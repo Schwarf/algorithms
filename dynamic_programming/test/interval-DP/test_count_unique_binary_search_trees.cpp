@@ -1,8 +1,8 @@
 //
 // Created by andreas on 09.01.24.
 //
-#include "gtest/gtest.h"
 #include "../../interval-DP/count_unique_binary_search_trees.h"
+#include "gtest/gtest.h"
 
 TEST(TestCountUniqueBinarySearchTrees, one_recursive)
 {

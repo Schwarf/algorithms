@@ -11,32 +11,30 @@
 // Given an integer k, return the kth letter (1-indexed) in the decoded string.
 #include <string>
 
-std::string decode_at_index(const std::string & input, int k)
+std::string decode_at_index(const std::string& input, int k)
 {
-	int index{};
-	long long length{};
-	while(length < k)
-	{
-		std::isdigit(input[index]) ? (length *= (input[index] -'0')) : length++;
-		index++;
-	}
-	for(int j{index-1}; j > -1; --j)
-	{
-		if(std::isdigit(input[j]))
-		{
-			length /= input[j] - '0';
-			k %= length;
-		}
-		else
-		{
-			if(k==0 || k ==length)
-				return input.substr(j, 1);
-			length--;
-		}
-	}
-	return {};
-
-
+    int index{};
+    long long length{};
+    while (length < k)
+    {
+        std::isdigit(input[index]) ? (length *= (input[index] - '0')) : length++;
+        index++;
+    }
+    for (int j{index - 1}; j > -1; --j)
+    {
+        if (std::isdigit(input[j]))
+        {
+            length /= input[j] - '0';
+            k %= length;
+        }
+        else
+        {
+            if (k == 0 || k == length)
+                return input.substr(j, 1);
+            length--;
+        }
+    }
+    return {};
 }
 
-#endif //DECODE_STRING_AT_INDEX_H
+#endif // DECODE_STRING_AT_INDEX_H

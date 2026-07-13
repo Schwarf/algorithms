@@ -23,16 +23,16 @@ int longest_common_substring(const std::string& word1, const std::string& word2)
     int n1 = word1.size();
     int n2 = word2.size();
 
-    std::vector<std::vector<int>> dp(n1+1, std::vector<int>(n2+1));
+    std::vector<std::vector<int>> dp(n1 + 1, std::vector<int>(n2 + 1));
 
     int longest{};
-    for(int i1{1}; i1 <= n1; ++i1)
+    for (int i1{1}; i1 <= n1; ++i1)
     {
         for (int i2{1}; i2 <= n2; ++i2)
         {
-            if (word1[i1-1] == word2[i2-1])
+            if (word1[i1 - 1] == word2[i2 - 1])
             {
-                dp[i1][i2] = dp[i1-1][i2-1] + 1;
+                dp[i1][i2] = dp[i1 - 1][i2 - 1] + 1;
                 longest = std::max(longest, dp[i1][i2]);
             }
         }

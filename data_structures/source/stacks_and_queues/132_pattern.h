@@ -5,8 +5,8 @@
 #ifndef INC_132_PATTERN_H
 #define INC_132_PATTERN_H
 #include <concepts>
-#include <vector>
 #include <stack>
+#include <vector>
 // Given an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i], nums[j] and nums[k]
 // such that i < j < k and nums[i] < nums[k] < nums[j].
 // Return true if there is a 132 pattern in nums, otherwise, return false.
@@ -19,7 +19,8 @@ bool find_132_pattern(const std::vector<T>& nums)
 
     for (int i = nums.size() - 1; i >= 0; i--)
     {
-        if (nums[i] < third) return true;
+        if (nums[i] < third)
+            return true;
         while (!s.empty() && s.top() < nums[i])
         {
             third = s.top();
@@ -30,4 +31,4 @@ bool find_132_pattern(const std::vector<T>& nums)
     return false;
 }
 
-#endif //INC_132_PATTERN_H
+#endif // INC_132_PATTERN_H

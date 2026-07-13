@@ -12,10 +12,10 @@
 // Among all possible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
 // Return a list of all MHTs' root labels. You can return the answer in any order.
 // The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
-#include <vector>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
-#include <queue>
+#include <vector>
 
 template <typename T>
     requires std::is_unsigned_v<T>
@@ -47,7 +47,7 @@ std::vector<T> find_minimum_height_trees(std::vector<std::vector<T>>& edges, int
         {
             auto u = *graph[leaf].begin(); // Get the only neighbor of a leaf node
             graph[u].erase(leaf); // Remove the leaf itself from this neighbor
-            if (graph[u].size() == 1) //If neighbor has only one adjacent/child add it to new_leaves
+            if (graph[u].size() == 1) // If neighbor has only one adjacent/child add it to new_leaves
                 new_leaves.push_back(u);
         }
         leaves = new_leaves;
@@ -117,4 +117,4 @@ std::vector<T> find_minimum_height_trees_alternative(std::vector<std::vector<T>>
 }
 
 
-#endif //DATA_STRUCTURES_MINIMUM_HEIGHT_TREES_H
+#endif // DATA_STRUCTURES_MINIMUM_HEIGHT_TREES_H

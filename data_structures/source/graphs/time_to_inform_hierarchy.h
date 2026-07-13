@@ -11,9 +11,9 @@
 // the time needed of member i to inform all the members of his/hers subgroup.
 // Return the total time needed to inform all group members.
 
-#include <vector>
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include <vector>
 
 int time_to_inform_group(int n, int headID, const std::vector<int>& leaders, const std::vector<int>& times)
 {
@@ -62,4 +62,4 @@ int time_to_inform_group_dfs(int n, int headID, const std::vector<int>& leaders,
     return max_time;
 }
 
-#endif //TIME_TO_INFORM_HIERARCHY_H
+#endif // TIME_TO_INFORM_HIERARCHY_H

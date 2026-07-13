@@ -1,8 +1,8 @@
 //
 // Created by andreas on 10.02.24.
 //
-#include "gtest/gtest.h"
 #include "../../align_subsequences/count_palindromic_substrings.h"
+#include "gtest/gtest.h"
 
 TEST(TestCountPalindromicSubstringsNoDP, simple1)
 {

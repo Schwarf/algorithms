@@ -37,4 +37,4 @@ TEST(TestFixedSizeHashMap, insert_get)
     EXPECT_EQ(map.get(1), 4);
 }
 
-#endif //TEST_FIXED_SIZE_HASHMAP_H
+#endif // TEST_FIXED_SIZE_HASHMAP_H

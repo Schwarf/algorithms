@@ -5,29 +5,33 @@
 #ifndef MAXIMUM_DEPTH_H
 #define MAXIMUM_DEPTH_H
 
-#include "tree_node.h"
-#include <queue>
 #include <algorithm>
+#include <queue>
+#include "tree_node.h"
 
-template<typename T>
-int maximum_depth_recursive(TreeNode<T> *root) {
+template <typename T>
+int maximum_depth_recursive(TreeNode<T>* root)
+{
     if (!root)
         return 0;
     return 1 + std::max(maximum_depth_recursive(root->left), maximum_depth_recursive(root->right));
 }
 
-template<typename T>
-int maximum_depth(TreeNode<T> *root) {
-    auto nodes_per_level = std::queue<TreeNode<T> *>();
+template <typename T>
+int maximum_depth(TreeNode<T>* root)
+{
+    auto nodes_per_level = std::queue<TreeNode<T>*>();
     int node_count{};
     if (!root)
         return 0;
     nodes_per_level.push(root);
     int height{};
-    while (!nodes_per_level.empty()) {
+    while (!nodes_per_level.empty())
+    {
         height++;
         node_count = nodes_per_level.size();
-        while (node_count--) {
+        while (node_count--)
+        {
             auto node = nodes_per_level.front();
             if (node->left)
                 nodes_per_level.push(node->left);
@@ -40,4 +44,4 @@ int maximum_depth(TreeNode<T> *root) {
 }
 
 
-#endif //MAXIMUM_DEPTH_H
+#endif // MAXIMUM_DEPTH_H

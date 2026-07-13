@@ -15,15 +15,15 @@ std::vector<std::vector<int>> four_sum(std::vector<int>& input, int target)
     std::unordered_map<int, std::vector<std::pair<int, int>>> map;
     std::vector<std::vector<int>> result;
     int n = input.size();
-    for (int i{1}; i < n-1; ++i )
+    for (int i{1}; i < n - 1; ++i)
     {
-        for (int j{i+1}; j < n; ++j)
+        for (int j{i + 1}; j < n; ++j)
         {
             auto current_sum = input[i] + input[j];
             auto diff = target - current_sum;
             if (map.contains(diff))
             {
-                for (const auto & [first, second] : map[diff])
+                for (const auto& [first, second] : map[diff])
                 {
                     result.push_back({first, second, input[i], input[j]});
                 }
@@ -38,4 +38,4 @@ std::vector<std::vector<int>> four_sum(std::vector<int>& input, int target)
     return result;
 }
 
-#endif //ALGORITHMS_FOUR_SUM_H
+#endif // ALGORITHMS_FOUR_SUM_H

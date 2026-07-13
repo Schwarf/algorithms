@@ -15,9 +15,9 @@
 // plates between candles in this substring is 2, as each of the two plates has at least one candle
 // in the substring to its left and right.
 //
-//Return an integer array answer where answer[i] is the answer to the ith query.
-#include <vector>
+// Return an integer array answer where answer[i] is the answer to the ith query.
 #include <string>
+#include <vector>
 
 std::vector<int> plates_between_candles(std::string& input, std::vector<std::vector<int>>& queries)
 {
@@ -66,4 +66,4 @@ std::vector<int> plates_between_candles(std::string& input, std::vector<std::vec
 }
 
 
-#endif //PLATES_BETWEEN_CANDLES_H
+#endif // PLATES_BETWEEN_CANDLES_H

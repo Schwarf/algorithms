@@ -1,8 +1,8 @@
 //
 // Created by andreas on 10.07.23.
 //
-#include "gtest/gtest.h"
 #include "../../knapsack-like/coin_change.h"
+#include "gtest/gtest.h"
 
 TEST(MinimizeClassic, simple1)
 {
@@ -148,7 +148,7 @@ TEST(MinimizeTopDown, does_not_work)
 }
 
 // Long runtime
-//TEST(MinimizeTopDown, complex)
+// TEST(MinimizeTopDown, complex)
 //{
 //	const std::vector<int> coins{186, 419, 83, 408};
 //	constexpr int amount{6249};
@@ -156,7 +156,7 @@ TEST(MinimizeTopDown, does_not_work)
 //	EXPECT_EQ(expected_result, minimize_number_of_coins_top_down(coins, amount));
 //}
 // Long runtime
-//TEST(MinimizeTopDown, complex2)
+// TEST(MinimizeTopDown, complex2)
 //{
 //	const std::vector<int> coins{411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422};
 //	constexpr int amount{9864};

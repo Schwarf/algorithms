@@ -9,9 +9,8 @@
 
 template <typename NodeType>
 void gabow_dfs(NodeType current_node, const DirectedGraph<NodeType>& graph,
-               std::unordered_map<NodeType, int>& discover_order,
-               std::stack<NodeType>& path_stack, std::stack<int>& boundary_stack,
-               std::unordered_set<NodeType>& identified_scc_nodes,
+               std::unordered_map<NodeType, int>& discover_order, std::stack<NodeType>& path_stack,
+               std::stack<int>& boundary_stack, std::unordered_set<NodeType>& identified_scc_nodes,
                std::set<std::set<NodeType>>& SCCs, int& current_index)
 {
     discover_order[current_node] = current_index++;
@@ -74,4 +73,4 @@ std::set<std::set<NodeType>> strongly_connected_components_gabow(const DirectedG
 }
 
 
-#endif //STRONGLY_CONNECTED_COMPONENTS_GABOW_H
+#endif // STRONGLY_CONNECTED_COMPONENTS_GABOW_H

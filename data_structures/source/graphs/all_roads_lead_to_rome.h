@@ -4,8 +4,8 @@
 
 #ifndef ALL_ROADS_LAD_TO_ROME_H
 #define ALL_ROADS_LAD_TO_ROME_H
-#include <vector>
 #include <queue>
+#include <vector>
 #include "used_concepts.h"
 // There are n cities from 0 to n-1 with n-1 roads. Rome is city 0. There is only one way to travel between the
 // cities and they are all one-way roads. Last year some roads were reoriented. This year a big event happens in Rome
@@ -64,4 +64,4 @@ int all_roads_lead_to_rome(T n, const std::vector<std::vector<T>>& roads)
 }
 
 
-#endif //ALL_ROADS_LAD_TO_ROME_H
+#endif // ALL_ROADS_LAD_TO_ROME_H

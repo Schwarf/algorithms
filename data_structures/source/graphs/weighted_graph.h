@@ -4,9 +4,9 @@
 
 #ifndef WEIGHTED_GRAPH_H
 #define WEIGHTED_GRAPH_H
-#include "graph.h"
-#include <tuple>
 #include <queue>
+#include <tuple>
+#include "graph.h"
 
 struct id_T_pair_hash
 {
@@ -21,28 +21,16 @@ template <typename id_T, typename data_T, typename weight_T, bool directed_ = fa
 class WeightedGraph
 {
 public:
-    void set_has_cycle()
-    {
-        has_cycle_ = true;
-    }
+    void set_has_cycle() { has_cycle_ = true; }
 
-    std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T>& vertex)
-    {
-        return this->edges_[vertex->id];
-    }
+    std::set<id_T> get_neighbors(const GraphNodePtr<id_T, data_T>& vertex) { return this->edges_[vertex->id]; }
 
-    std::set<id_T> get_neighbors(id_T id)
-    {
-        return this->edges_[id];
-    }
+    std::set<id_T> get_neighbors(id_T id) { return this->edges_[id]; }
 
-    GraphNodePtr<id_T, data_T> get_vertex_by_id(id_T id)
-    {
-        return vertices_[id];
-    }
+    GraphNodePtr<id_T, data_T> get_vertex_by_id(id_T id) { return vertices_[id]; }
 
-    void add_edge(const GraphNodePtr<id_T, data_T>& source_vertex,
-                  const GraphNodePtr<id_T, data_T>& destination_vertex, const weight_T& weight)
+    void add_edge(const GraphNodePtr<id_T, data_T>& source_vertex, const GraphNodePtr<id_T, data_T>& destination_vertex,
+                  const weight_T& weight)
     {
         if (vertices_.find(source_vertex->id) == vertices_.end())
             add_vertex(source_vertex);
@@ -51,25 +39,18 @@ public:
         add_edge(source_vertex->id, destination_vertex->id, weight);
     }
 
-    void add_vertex(const GraphNodePtr<id_T, data_T>& vertex)
-    {
-        vertices_[vertex->id] = vertex;
-    }
+    void add_vertex(const GraphNodePtr<id_T, data_T>& vertex) { vertices_[vertex->id] = vertex; }
 
-    std::size_t number_of_vertices() const
-    {
-        return vertices_.size();
-    }
+    std::size_t number_of_vertices() const { return vertices_.size(); }
 
-    void add_edge(const id_T& source_vertex_id,
-                  const id_T& destination_vertex_id, const weight_T& weight)
+    void add_edge(const id_T& source_vertex_id, const id_T& destination_vertex_id, const weight_T& weight)
     {
         if (vertices_.find(source_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The source vertex id=" + std::to_string(source_vertex_id) +
+                                        " does not exist in the graph!");
         if (vertices_.find(destination_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The destination vertex id=" + std::to_string(destination_vertex_id) +
+                                        " does not exist in the graph!");
         edges_[source_vertex_id].insert(destination_vertex_id);
         weights_[{source_vertex_id, destination_vertex_id}] = weight;
         if (!directed_)
@@ -89,24 +70,21 @@ public:
         has_cycle_ = false;
     }
 
-    bool has_cycle()
-    {
-        return has_cycle_;
-    }
+    bool has_cycle() { return has_cycle_; }
 
     weight_T get_edge_weight(const id_T& source_vertex_id, const id_T& destination_vertex_id)
     {
         if (vertices_.find(source_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The source vertex id=" + std::to_string(source_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The source vertex id=" + std::to_string(source_vertex_id) +
+                                        " does not exist in the graph!");
         if (vertices_.find(destination_vertex_id) == vertices_.end())
-            throw std::invalid_argument(
-                "The destination vertex id=" + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The destination vertex id=" + std::to_string(destination_vertex_id) +
+                                        " does not exist in the graph!");
         std::array<id_T, 2> id_pair{source_vertex_id, destination_vertex_id};
         if (weights_.find(id_pair) == weights_.end())
-            throw std::invalid_argument(
-                "The edge with source id " + std::to_string(source_vertex_id) + " and destination id "
-                + std::to_string(destination_vertex_id) + " does not exist in the graph!");
+            throw std::invalid_argument("The edge with source id " + std::to_string(source_vertex_id) +
+                                        " and destination id " + std::to_string(destination_vertex_id) +
+                                        " does not exist in the graph!");
         return weights_[id_pair];
     }
 
@@ -127,12 +105,8 @@ public:
             for (const auto& neighbor_id : affected_neighbors)
             {
                 auto id_iterator =
-                    std::find_if(edges_[neighbor_id].begin(),
-                                 edges_[neighbor_id].end(),
-                                 [id_to_erase](const id_T& vertex_id)
-                                 {
-                                     return vertex_id == id_to_erase;
-                                 });
+                    std::find_if(edges_[neighbor_id].begin(), edges_[neighbor_id].end(),
+                                 [id_to_erase](const id_T& vertex_id) { return vertex_id == id_to_erase; });
 
                 edges_[neighbor_id].erase(id_iterator);
                 weights_.erase({id_to_erase, neighbor_id});
@@ -143,8 +117,8 @@ public:
 
     // Simple prim algo is O(N^2), if we neglect the introduced overhead by data-structures (std::map,
     // std::unordered_map)
-    std::map<id_T, std::pair<id_T, weight_T>> compute_minimum_spanning_tree_simple_prim(
-        const GraphNodePtr<id_T, data_T>& start_vertex)
+    std::map<id_T, std::pair<id_T, weight_T>>
+    compute_minimum_spanning_tree_simple_prim(const GraphNodePtr<id_T, data_T>& start_vertex)
     {
         reset_all_vertex_properties();
         std::unordered_map<id_T, weight_T> minimum_weight_for_vertex_id;
@@ -161,8 +135,8 @@ public:
             {
                 current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
                 // if new minimum weight is found in undiscovered vertex store weight in hashmap and update parent
-                if (!get_vertex_by_id(neighbor_id)->discovered
-                    && current_edge_weight < minimum_weight_for_vertex_id[neighbor_id])
+                if (!get_vertex_by_id(neighbor_id)->discovered &&
+                    current_edge_weight < minimum_weight_for_vertex_id[neighbor_id])
                 {
                     minimum_weight_for_vertex_id[neighbor_id] = current_edge_weight;
                     parents[neighbor_id] = std::make_pair(current_vertex_id, current_edge_weight);
@@ -172,8 +146,7 @@ public:
             weight_T minimum_weight = std::numeric_limits<weight_T>::max();
             for (const auto& [id, _] : edges_)
             {
-                if (!get_vertex_by_id(id)->discovered
-                    && minimum_weight_for_vertex_id[id] < minimum_weight)
+                if (!get_vertex_by_id(id)->discovered && minimum_weight_for_vertex_id[id] < minimum_weight)
                 {
                     minimum_weight = minimum_weight_for_vertex_id[id];
                     current_vertex_id = id;
@@ -199,21 +172,18 @@ public:
             for (const auto& neighbor_id : get_neighbors(current_vertex_id))
             {
                 current_edge_weight = weights_[{current_vertex_id, neighbor_id}];
-                // if the current neighbor distance_to_vertices is larger than the distance_to_vertices to the current vertex plus the weight
-                // between neighbor and current-vertex
-                if ((distance_to_vertices[current_vertex_id] + current_edge_weight)
-                    < distance_to_vertices[neighbor_id])
+                // if the current neighbor distance_to_vertices is larger than the distance_to_vertices to the current
+                // vertex plus the weight between neighbor and current-vertex
+                if ((distance_to_vertices[current_vertex_id] + current_edge_weight) < distance_to_vertices[neighbor_id])
                 {
-                    distance_to_vertices[neighbor_id] =
-                        current_edge_weight + distance_to_vertices[current_vertex_id];
+                    distance_to_vertices[neighbor_id] = current_edge_weight + distance_to_vertices[current_vertex_id];
                 }
             }
             // for the next for loop determine the absolute minimum weight across all id's
             weight_T minimum_weight = std::numeric_limits<weight_T>::max();
             for (const auto& [id, _] : edges_)
             {
-                if (!get_vertex_by_id(id)->discovered
-                    && distance_to_vertices[id] < minimum_weight)
+                if (!get_vertex_by_id(id)->discovered && distance_to_vertices[id] < minimum_weight)
                 {
                     minimum_weight = distance_to_vertices[id];
                     current_vertex_id = id;
@@ -256,12 +226,12 @@ private:
     std::unordered_map<id_T, std::set<id_T>> edges_;
     // Store the weights
     std::unordered_map<std::array<id_T, 2>, weight_T, id_T_pair_hash> weights_;
-    // Here we store all graph-vertices (id, data) pairs, that can be retrieved using the id. A vertex might be isolated.
-    // not participating in any relations with other vertexs
+    // Here we store all graph-vertices (id, data) pairs, that can be retrieved using the id. A vertex might be
+    // isolated. not participating in any relations with other vertexs
     std::unordered_map<id_T, GraphNodePtr<id_T, data_T>> vertices_;
 
     bool has_cycle_{};
 };
 
 
-#endif //WEIGHTED_GRAPH_H
+#endif // WEIGHTED_GRAPH_H

@@ -14,7 +14,8 @@
 #include <algorithm>
 #include "tree_node.h"
 
-void get_max_diff(TreeNode<int> *node, const int &root_value, int &max_diff) {
+void get_max_diff(TreeNode<int>* node, const int& root_value, int& max_diff)
+{
     if (!node || node->value == root_value)
         return;
     max_diff = std::max(max_diff, std::abs(node->value - root_value));
@@ -22,7 +23,8 @@ void get_max_diff(TreeNode<int> *node, const int &root_value, int &max_diff) {
     get_max_diff(node->right, root_value, max_diff);
 }
 
-void get_max_diff_for_node(TreeNode<int> *node, int &max) {
+void get_max_diff_for_node(TreeNode<int>* node, int& max)
+{
     if (!node)
         return;
     int max_left{};
@@ -36,13 +38,15 @@ void get_max_diff_for_node(TreeNode<int> *node, int &max) {
 }
 
 // O(N^2) time complexity, O(N^2) space complexity because we recursively call function on stack
-int brute_force_solution(TreeNode<int> *root) {
+int brute_force_solution(TreeNode<int>* root)
+{
     int max{};
     get_max_diff_for_node(root, max);
     return max;
 }
 
-int dfs(TreeNode<int> *node, int current_max, int current_min) {
+int dfs(TreeNode<int>* node, int current_max, int current_min)
+{
     if (!node)
         return current_max - current_min;
     current_max = std::max(current_max, node->value);
@@ -53,12 +57,11 @@ int dfs(TreeNode<int> *node, int current_max, int current_min) {
 }
 
 // O(N) time complexity, O(N) space complexity
-int one_recursion_solution(TreeNode<int> *root) {
+int one_recursion_solution(TreeNode<int>* root)
+{
     if (!root)
         return 0;
     return dfs(root, root->value, root->value);
-
 }
 
-#endif //MAXIMUM_DIFFERENCE_BETWEEN_NODE_AND_ANCESTOR_H
-
+#endif // MAXIMUM_DIFFERENCE_BETWEEN_NODE_AND_ANCESTOR_H

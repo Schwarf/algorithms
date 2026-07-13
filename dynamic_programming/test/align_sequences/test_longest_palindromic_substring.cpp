@@ -2,16 +2,16 @@
 // Created by andreas on 09.07.23.
 //
 
-#include "gtest/gtest.h"
 #include "../../align_subsequences/longest_palindromic_substring.h"
+#include "gtest/gtest.h"
 
 TEST(LongestPalindromicSubstring, simple1_tabulation)
 {
     const std::string input_string{"babad"};
     const std::string expected_result1{"bab"};
     const std::string expected_result2{"aba"};
-    EXPECT_TRUE(expected_result1 == longest_palindromic_substring_with_tabulation(input_string)
-        || expected_result2 == longest_palindromic_substring_with_tabulation(input_string));
+    EXPECT_TRUE(expected_result1 == longest_palindromic_substring_with_tabulation(input_string) ||
+                expected_result2 == longest_palindromic_substring_with_tabulation(input_string));
 }
 
 TEST(LongestPalindromicSubstring, simple2_tabulation)
@@ -42,5 +42,5 @@ TEST(LongestPalindromicSubstring, simple5_tabulation)
     const std::string expected_result1{"1"};
     const std::string expected_result2{"2"};
     EXPECT_TRUE(expected_result1 == longest_palindromic_substring_with_tabulation(input_string) ||
-        expected_result2 == longest_palindromic_substring_with_tabulation(input_string));
+                expected_result2 == longest_palindromic_substring_with_tabulation(input_string));
 }

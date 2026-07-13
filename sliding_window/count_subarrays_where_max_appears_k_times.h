@@ -8,20 +8,23 @@
 // Return the number of subarrays where the maximum element of nums appears
 // at least k (required_frequency) times in that subarray.
 // A subarray is a contiguous sequence of elements within an array.
-#include <vector>
 #include <algorithm>
+#include <vector>
 
-template<typename T>
-long long count_subarrays_where_max_appears_k_times(const std::vector<T> &input, int required_frequency) {
+template <typename T>
+long long count_subarrays_where_max_appears_k_times(const std::vector<T>& input, int required_frequency)
+{
     auto max = *std::max_element(input.begin(), input.end());
     long long result{};
     int left{};
-    for (int right{}; right < input.size(); ++right) {
+    for (int right{}; right < input.size(); ++right)
+    {
         // we lower required_frequency to track how many max element we have passed already
         if (input[right] == max)
             required_frequency--;
 
-        while (required_frequency == 0) {
+        while (required_frequency == 0)
+        {
             // If we encounter max at left we increase required_frequency and leave the while loop
             if (input[left] == max)
                 required_frequency++;
@@ -35,4 +38,4 @@ long long count_subarrays_where_max_appears_k_times(const std::vector<T> &input,
     return result;
 }
 
-#endif //COUNT_SUBARRAYS_WHERE_MAX_APPEARS_K_TIMES_H
+#endif // COUNT_SUBARRAYS_WHERE_MAX_APPEARS_K_TIMES_H

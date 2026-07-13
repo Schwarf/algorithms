@@ -7,12 +7,13 @@
 
 #include <vector>
 
-template<typename T>
-struct TreeNode {
+template <typename T>
+struct TreeNode
+{
     explicit TreeNode(T val) : value{val} {}
 
-    std::vector<TreeNode *> children{};
+    std::vector<TreeNode*> children{};
     T value{};
 };
 
-#endif //DATA_STRUCTURES_TREE_NODE_H
+#endif // DATA_STRUCTURES_TREE_NODE_H

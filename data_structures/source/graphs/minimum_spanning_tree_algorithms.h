@@ -5,18 +5,17 @@
 #ifndef MINIMUM_SPANNING_TREE_ALGORITHMS_H
 #define MINIMUM_SPANNING_TREE_ALGORITHMS_H
 #include <iostream>
-#include <vector>
 #include <queue>
-#include <utility>
 #include <tuple>
+#include <utility>
+#include <vector>
 
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::tuple<std::vector<VertexType>, std::vector<DistanceType>> minimum_spanning_tree_prim(VertexType start_vertex,
-    const std::vector<std::vector<
-        std::pair<VertexType,
-                  DistanceType>>>& graph)
+std::tuple<std::vector<VertexType>, std::vector<DistanceType>>
+minimum_spanning_tree_prim(VertexType start_vertex,
+                           const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
     if (start_vertex > graph.size())
         throw std::out_of_range("The start_vertex id is larger than the graph size.");
@@ -25,9 +24,9 @@ std::tuple<std::vector<VertexType>, std::vector<DistanceType>> minimum_spanning_
     std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
     std::vector<VertexType> spanning_tree_parents(number_of_vertices, std::numeric_limits<VertexType>::max());
     std::vector<bool> visited_vertices(number_of_vertices, false);
-    std::priority_queue<std::pair<DistanceType, VertexType>,
-                        std::vector<std::pair<DistanceType, VertexType>>,
-                        std::greater<>> pq;
+    std::priority_queue<std::pair<DistanceType, VertexType>, std::vector<std::pair<DistanceType, VertexType>>,
+                        std::greater<>>
+        pq;
     pq.push({static_cast<DistanceType>(0), start_vertex});
 
     weights[start_vertex] = static_cast<DistanceType>(0);
@@ -55,10 +54,8 @@ std::tuple<std::vector<VertexType>, std::vector<DistanceType>> minimum_spanning_
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::tuple<std::vector<VertexType>,
-           std::vector<DistanceType>> minimum_spanning_tree_prim_matrix(VertexType start_vertex,
-                                                                        const std::vector<std::vector<DistanceType>>&
-                                                                        graph)
+std::tuple<std::vector<VertexType>, std::vector<DistanceType>>
+minimum_spanning_tree_prim_matrix(VertexType start_vertex, const std::vector<std::vector<DistanceType>>& graph)
 {
     if (start_vertex > graph.size())
         throw std::out_of_range("The start_vertex id is larger than the graph size.");
@@ -67,9 +64,9 @@ std::tuple<std::vector<VertexType>,
     std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
     std::vector<VertexType> spanning_tree_parents(number_of_vertices, std::numeric_limits<VertexType>::max());
     std::vector<bool> visited_vertices(number_of_vertices, false);
-    std::priority_queue<std::pair<DistanceType, VertexType>,
-                        std::vector<std::pair<DistanceType, VertexType>>,
-                        std::greater<>> pq;
+    std::priority_queue<std::pair<DistanceType, VertexType>, std::vector<std::pair<DistanceType, VertexType>>,
+                        std::greater<>>
+        pq;
     pq.push({static_cast<DistanceType>(0), start_vertex});
 
     weights[start_vertex] = static_cast<DistanceType>(0);
@@ -94,4 +91,4 @@ std::tuple<std::vector<VertexType>,
     return std::make_tuple(spanning_tree_parents, weights);
 }
 
-#endif //MINIMUM_SPANNING_TREE_ALGORITHMS_H
+#endif // MINIMUM_SPANNING_TREE_ALGORITHMS_H

@@ -3,8 +3,8 @@
 //
 
 #include <gtest/gtest.h>
-#include <vector>
 #include <optional>
+#include <vector>
 
 #include "union_find_disjoint_set/union_find_dense.h"
 
@@ -27,7 +27,7 @@ TEST(UnionFindDense, InitiallyAllDisconnected)
     {
         for (int j{}; j < elements; ++j)
         {
-            if (i==j)
+            if (i == j)
                 EXPECT_TRUE(union_find.are_connected(i, j));
             else
                 EXPECT_FALSE(union_find.are_connected(i, j));

@@ -13,10 +13,7 @@ class QueueLLB : IQueue<T>
 private:
     struct Node
     {
-        Node()
-        {
-            next = nullptr;
-        }
+        Node() { next = nullptr; }
 
         explicit Node(const T& val)
         {
@@ -39,15 +36,9 @@ public:
         tail_ = nullptr;
     }
 
-    bool is_empty() const final
-    {
-        return head_ == nullptr;
-    }
+    bool is_empty() const final { return head_ == nullptr; }
 
-    size_t size() const final
-    {
-        return size_;
-    }
+    size_t size() const final { return size_; }
 
     void enqueue(const T& value)
     {
@@ -97,4 +88,4 @@ public:
     }
 };
 
-#endif //QUEUE_LINKED_LIST_BASED_H
+#endif // QUEUE_LINKED_LIST_BASED_H

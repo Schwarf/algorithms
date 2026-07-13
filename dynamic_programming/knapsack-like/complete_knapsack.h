@@ -6,13 +6,13 @@
 #define COMPLETE_KNAPSACK_H
 // The complete knapsack model is similar to the 0-1 knapsack, the only difference from the 0-1 knapsack is that an
 // item can be selected an unlimited number of times instead of only once.
-#include "knapsack_problem_0_1.h"
 #include <algorithm>
+#include "knapsack_problem_0_1.h"
 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
 ValueType complete_knapsack_problem_bottom_up(const std::vector<Item<ValueType, WeightType>>& items,
-                                     WeightType knapsack_capacity)
+                                              WeightType knapsack_capacity)
 {
     int number_of_items = items.size();
     std::vector<WeightType> dp_previous(knapsack_capacity + 1, {});
@@ -38,7 +38,7 @@ ValueType complete_knapsack_problem_bottom_up(const std::vector<Item<ValueType, 
 template <typename ValueType, typename WeightType>
     requires std::is_arithmetic_v<ValueType> && std::is_integral_v<WeightType>
 ValueType complete_knapsack_problem_bottom_up_optimized(const std::vector<Item<ValueType, WeightType>>& items,
-                                     WeightType knapsack_capacity)
+                                                        WeightType knapsack_capacity)
 {
     int number_of_items = items.size();
     std::vector<std::vector<ValueType>> dp(number_of_items + 1, std::vector<ValueType>(knapsack_capacity + 1, 0));
@@ -50,8 +50,7 @@ ValueType complete_knapsack_problem_bottom_up_optimized(const std::vector<Item<V
 
             if (items[i - 1].weight <= weight)
             {
-                dp[i][weight] =
-                    std::max(items[i - 1].value + dp[i][weight - items[i - 1].weight], dp[i][weight]);
+                dp[i][weight] = std::max(items[i - 1].value + dp[i][weight - items[i - 1].weight], dp[i][weight]);
             }
         }
     }
@@ -59,4 +58,4 @@ ValueType complete_knapsack_problem_bottom_up_optimized(const std::vector<Item<V
 }
 
 
-#endif //COMPLETE_KNAPSACK_H
+#endif // COMPLETE_KNAPSACK_H

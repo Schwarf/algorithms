@@ -13,15 +13,13 @@
 namespace
 {
 
-void expect_paths_equal(
-    std::vector<std::string> actual,
-    std::vector<std::string> expected)
-{
-    std::sort(actual.begin(), actual.end());
-    std::sort(expected.begin(), expected.end());
+    void expect_paths_equal(std::vector<std::string> actual, std::vector<std::string> expected)
+    {
+        std::sort(actual.begin(), actual.end());
+        std::sort(expected.begin(), expected.end());
 
-    EXPECT_EQ(actual, expected);
-}
+        EXPECT_EQ(actual, expected);
+    }
 
 } // namespace
 
@@ -122,13 +120,12 @@ TEST(BinaryTreePathsTest, HandlesTreeWithSeveralLeaves)
 
     const auto result = binary_tree_paths(&root);
 
-    expect_paths_equal(
-        result,
-        {
-            "1->2->4",
-            "1->2->5",
-            "1->3->6",
-        });
+    expect_paths_equal(result,
+                       {
+                           "1->2->4",
+                           "1->2->5",
+                           "1->3->6",
+                       });
 }
 
 TEST(BinaryTreePathsTest, HandlesNegativeAndMultiDigitValues)
@@ -168,10 +165,9 @@ TEST(BinaryTreePathsTest, RestoresCurrentPathAfterBacktracking)
     // Verifies that current.resize(old_size) restores the caller's state.
     EXPECT_EQ(current, "prefix");
 
-    expect_paths_equal(
-        result,
-        {
-            "prefix->1->2",
-            "prefix->1->3",
-        });
+    expect_paths_equal(result,
+                       {
+                           "prefix->1->2",
+                           "prefix->1->3",
+                       });
 }

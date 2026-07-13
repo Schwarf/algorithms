@@ -11,12 +11,11 @@
 // and return its success probability.
 // If there is no path from start to end, return 0. Your answer will be accepted if it differs from the
 // correct answer by at most 1e-5.
-#include <vector>
 #include <queue>
+#include <vector>
 
-double
-max_probability_path_bellman_ford(int n, std::vector<std::vector<int>>& edges, std::vector<double>& probabilities,
-                                  int start_node, int end_node)
+double max_probability_path_bellman_ford(int n, std::vector<std::vector<int>>& edges,
+                                         std::vector<double>& probabilities, int start_node, int end_node)
 {
     std::vector<double> maximum_probability(n);
     maximum_probability[start_node] = 1.0;
@@ -46,9 +45,8 @@ max_probability_path_bellman_ford(int n, std::vector<std::vector<int>>& edges, s
     return maximum_probability[end_node];
 }
 
-double
-max_probability_path_dijkstra(int n, std::vector<std::vector<int>>& edges, std::vector<double>& probabilities,
-                              int start_node, int end_node)
+double max_probability_path_dijkstra(int n, std::vector<std::vector<int>>& edges, std::vector<double>& probabilities,
+                                     int start_node, int end_node)
 {
     std::vector<std::vector<std::pair<int, double>>> graph(n);
     std::priority_queue<std::pair<double, int>> q;
@@ -82,10 +80,9 @@ max_probability_path_dijkstra(int n, std::vector<std::vector<int>>& edges, std::
 }
 
 
-double
-max_probability_path_shortest_path_faster_algorithm(int n, std::vector<std::vector<int>>& edges,
-                                                    std::vector<double>& probabilities,
-                                                    int start_node, int end_node)
+double max_probability_path_shortest_path_faster_algorithm(int n, std::vector<std::vector<int>>& edges,
+                                                           std::vector<double>& probabilities, int start_node,
+                                                           int end_node)
 {
     std::vector<std::vector<std::pair<int, double>>> graph(n);
     std::vector<bool> visited(n);
@@ -118,4 +115,4 @@ max_probability_path_shortest_path_faster_algorithm(int n, std::vector<std::vect
     return maximum_probability[end_node];
 }
 
-#endif //DATA_STRUCTURES_PATH_WITH_MAXIMUM_PROBABILITY_H
+#endif // DATA_STRUCTURES_PATH_WITH_MAXIMUM_PROBABILITY_H
