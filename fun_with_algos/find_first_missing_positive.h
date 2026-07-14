@@ -6,6 +6,7 @@
 #define FIND_FIRST_MISSING_POSITIVE_H
 // Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.
 // You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.
+#include <cstdlib>
 #include <vector>
 
 // O(N) space using bool vector
@@ -51,15 +52,15 @@ int find_first_missing_positive_optimized(std::vector<int>& nums)
     // Use index as a hash key and negative sign as a presence detector.
     for (int i{}; i < n; i++)
     {
-        int index = abs(nums[i]);
+        int index = std::abs(nums[i]);
         // since 0-index is not use, use it for index=n
         if (index == n)
         {
-            nums[0] = -abs(nums[0]);
+            nums[0] = -std::abs(nums[0]);
         }
         else
         {
-            nums[index] = -abs(nums[index]);
+            nums[index] = -std::abs(nums[index]);
         }
     }
 

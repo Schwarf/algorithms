@@ -6,6 +6,8 @@
 #define IS_PALINDROM_PERMUTATION_H
 // Given a string, write a function to check if it is a permutation of a palindrome.
 
+#include <array>
+#include <cctype>
 #include <string>
 #include <unordered_map>
 bool is_palindrome_permutation_case_sensitive(std::string& input)

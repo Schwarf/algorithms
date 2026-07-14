@@ -6,6 +6,7 @@
 #define COUNT_WAYS_2D_GRID_H
 
 #include <unordered_map>
+#include <vector>
 
 // 2D grid. You start from upper left corner and have to reach lower right corner. How many ways are there to reach
 // the lower right corner.

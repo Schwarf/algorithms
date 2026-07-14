@@ -10,6 +10,7 @@
 // The length of a clear path is the number of visited cells of this path.
 
 #include <algorithm>
+#include <limits>
 #include <queue>
 #include <vector>
 

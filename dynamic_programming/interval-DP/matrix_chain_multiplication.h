@@ -8,6 +8,7 @@
 // (arr[i-1] * arr[i]), the task is to find the most efficient way to multiply these matrices
 // together such that the total number of element multiplications is minimum.
 #include <algorithm>
+#include <limits>
 #include <vector>
 
 int minimal_matrix_chain_multiplications(std::vector<int>& matrix_dimensions, int matrix_index1 = -1,

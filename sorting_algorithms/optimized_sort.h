@@ -5,8 +5,8 @@
 #ifndef OPTIMIZED_SORT_H
 #define OPTIMIZED_SORT_H
 #include <algorithm>
-#include <bits/random.h>
 #include <limits>
+#include <random>
 
 
 template <typename ValueType, typename Comparator>

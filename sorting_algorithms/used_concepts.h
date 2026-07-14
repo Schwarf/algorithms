@@ -7,6 +7,7 @@
 
 #include <bit>
 #include <concepts>
+#include <vector>
 
 template <typename Container>
 concept IndexedContainer = requires(Container c) {

@@ -5,6 +5,7 @@
 #ifndef ALGORITHMS_COUNT_DISTINCT_SUBSEQUENCES_H
 #define ALGORITHMS_COUNT_DISTINCT_SUBSEQUENCES_H
 
+#include <string>
 #include <vector>
 
 int count_distinct_subsequences(const std::string& source, const std::string& target)

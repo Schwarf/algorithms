@@ -4,6 +4,7 @@
 
 #ifndef WEIGHTED_GRAPH_H
 #define WEIGHTED_GRAPH_H
+#include <map>
 #include <queue>
 #include <tuple>
 #include "graph.h"

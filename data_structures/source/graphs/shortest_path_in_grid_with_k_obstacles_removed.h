@@ -10,6 +10,7 @@
 // Return the minimum number of steps to walk from the upper left corner (0, 0) to the lower right corner (m - 1, n - 1)
 // given that you can eliminate at most k obstacles. If it is not possible to find such walk return -1.
 #include <queue>
+#include <tuple>
 #include <vector>
 // Use BFS
 int shortest_path_with_k_obstactles_removed(std::vector<std::vector<int>> grid, int k)

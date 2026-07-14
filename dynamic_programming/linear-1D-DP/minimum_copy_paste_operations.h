@@ -9,6 +9,7 @@
 // of operations to create it n times. You can copy as many characters as you want and paste them then,
 
 #include <algorithm>
+#include <vector>
 
 int count_operations(int n, int current_length, int paste_length)
 {

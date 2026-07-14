@@ -5,6 +5,7 @@
 #ifndef COUNT_BEAUTIFUL_SUBSTRINGS_H
 #define COUNT_BEAUTIFUL_SUBSTRINGS_H
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 // You are given a string s and a positive integer k.
 // Let vowels and consonants be the number of vowels and consonants in a string.

@@ -6,7 +6,11 @@
 #define BASIC_BIT_OPERATIONS_H
 #include <bit>
 #include <concepts>
+#include <cstdint>
 #include <cstddef>
+#include <limits>
+#include <stdexcept>
+#include <string>
 
 
 template <typename T>

@@ -6,6 +6,7 @@
 #define LRU_CACHE_H
 #include <list>
 #include <optional>
+#include <stdexcept>
 #include <unordered_map>
 
 template <typename KeyType, typename ValueType>

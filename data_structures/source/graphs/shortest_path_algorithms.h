@@ -6,7 +6,10 @@
 #define SHORTEST_PATH_ALGORITHMS_H
 
 #include <iostream>
+#include <limits>
 #include <queue>
+#include <set>
+#include <type_traits>
 #include <utility>
 #include <vector>
 

@@ -11,6 +11,7 @@
 // choose a job that ends at time X you will be able to start another job that
 // starts at time X.
 #include <algorithm>
+#include <functional>
 #include <vector>
 
 struct Job

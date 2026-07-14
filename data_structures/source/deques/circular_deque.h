@@ -6,6 +6,7 @@
 #define DATA_STRUCTURES_CIRCULAR_DEQUE_H
 
 #include <optional>
+#include <vector>
 #include "linked_lists/node_dll.h"
 // Design your implementation of the circular double-ended queue (deque).
 // Implement the circular_deque class:

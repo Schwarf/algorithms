@@ -9,6 +9,7 @@
 // We define the distance between two integers a and b to be their absolute difference |a - b|.
 // Return the maximum distance.
 #include <algorithm>
+#include <limits>
 #include <vector>
 
 int get_maximum_distance_brute_force(std::vector<std::vector<int>>& input)
