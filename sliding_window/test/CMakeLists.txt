@@ -19,7 +19,8 @@ add_executable(test_sliding_windows
         test_sum_longest_subarray_with_unique_elements.cpp
         test_minimal_operations_to_get_zero.cpp
         test_minimum_window_substring.cpp
-        test_sliding_window_maximum.cpp)
+        test_sliding_window_maximum.cpp
+        test_max_sum_subarray_size_k.cpp)
 
 target_link_libraries(test_sliding_windows GTest::GTest GTest::Main pthread)
 add_test(NAME SlidingWindowsTests COMMAND test_sliding_windows)
