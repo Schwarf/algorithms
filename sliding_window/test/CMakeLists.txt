@@ -19,6 +19,7 @@ add_executable(test_sliding_windows
         test_sum_longest_subarray_with_unique_elements.cpp
         test_longest_subarray_with_at_most_2_distinct_values.cpp
         test_minimal_operations_to_get_zero.cpp
+        test_count_substrings_rearranged.cpp
         test_minimum_window_substring.cpp
         test_sliding_window_maximum.cpp
         test_max_consecutive_ones.cpp
