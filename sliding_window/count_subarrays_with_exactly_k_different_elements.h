@@ -36,8 +36,8 @@ int count_subarrays_with_up_to_k_different_elements(const std::vector<T>& input,
 template <typename T>
 int count_subarrays_with_exactly_k_different_elements(const std::vector<T>& input, int k)
 {
-    return count_subarrays_with_up_to_k_different_values(input, k) -
-        count_subarrays_with_up_to_k_different_values(input, k - 1);
+    return count_subarrays_with_up_to_k_different_elements(input, k) -
+        count_subarrays_with_up_to_k_different_elements(input, k - 1);
 }
 
 #endif // COUNT_SUBARRAYS_WITH_EXACTLY_K_DIFFERENT_ELEMENTS_H

@@ -10,7 +10,7 @@ add_executable(test_sliding_windows
         test_count_subarrays_with_target.cpp
         test_find_longest_subarray_with_at_most_k_frequency.cpp
         test_count_subarrays_where_max_appears_k_times.cpp
-        test_count_subarrays_find_k_different_elements.h.cpp
+        test_count_subarrays_with_exactly_k_different_elements.cpp
         test_minimum_swaps_to_group_ones.cpp
         test_shortest_subarray_with_sum.cpp
         test_max_sum_of_distinct_subarrays_with_given_length.cpp
