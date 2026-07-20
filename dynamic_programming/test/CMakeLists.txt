@@ -67,6 +67,7 @@ add_executable(test_DP_sequence_chaining
         sequence_chaining/test_longest_ideal_string_subsequence.cpp
         sequence_chaining/test_count_numbers_of_valid_triples.cpp
         sequence_chaining/test_maximum_sum_increasing_subsequence.cpp
+        sequence_chaining/test_maximum_sum_increasing_subsequence_with_elements.cpp
 )
 target_link_libraries(test_DP_sequence_chaining GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingSequenceChainingTests COMMAND test_DP_sequence_chaining)
