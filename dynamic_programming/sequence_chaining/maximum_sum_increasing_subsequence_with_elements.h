@@ -46,5 +46,43 @@ std::vector<std::vector<int>> longest_increasing_subsequence(const std::vector<i
     return {{sum}, elements[index]};
 }
 
+std::vector<std::vector<int>> longest_increasing_subsequence_better_space(const std::vector<int> & input)
+{
+    int n = input.size();
+    if (n ==0)
+        return {{0}, {}};
+
+    std::vector<int> dp = input;
+    std::vector<int> predecessor(n, -1);
+
+    int index = 0;
+    int sum = input[0];
+    for (int i=1; i < n; ++i)
+    {
+        for (int j=0; j < i; ++j)
+        {
+            if (input[i] > input[j] && (dp[j] + input[i] > dp[i]))
+            {
+                dp[i] = dp[j] + input[i];
+                predecessor[i] = j;
+
+            }
+        }
+        if (dp[i] > sum)
+        {
+            sum = dp[i];
+            index = i;
+        }
+    }
+    std::vector<int> elements;
+    while (index != -1)
+    {
+        elements.push_back(input[index]);
+        index  = predecessor[index];
+    }
+
+    return {{sum}, elements};
+}
+
 
 #endif // ALGORITHMS_LONGEST_INCREASING_SUBSEQUENCE_H
