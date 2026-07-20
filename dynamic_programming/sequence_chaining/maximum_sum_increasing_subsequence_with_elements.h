@@ -9,6 +9,7 @@
 // The maximum sum obtainable from a strictly increasing subsequence.
 // One strictly increasing subsequence that produces that sum.
 
+#include <algorithm>
 #include <vector>
 
 std::vector<std::vector<int>> longest_increasing_subsequence(const std::vector<int> & input)
@@ -80,6 +81,7 @@ std::vector<std::vector<int>> longest_increasing_subsequence_better_space(const 
         elements.push_back(input[index]);
         index  = predecessor[index];
     }
+    std::reverse(elements.begin(), elements.end());
 
     return {{sum}, elements};
 }
