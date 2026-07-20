@@ -7,25 +7,31 @@
 #include <stdexcept>
 #include <type_traits>
 #include <vector>
-template <typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
-int first_appearance(std::vector<T>& input, T target)
+
+template <typename T>
+int first_appearance_index(const std::vector<T>& input, T target)
 {
-    int iterator_distance = input.size() - 1;
-    int start_index{};
-    while (iterator_distance > 0)
+    int left = 0;
+    int right = static_cast<int>(input.size()) - 1;
+    int index = -1;
+
+    while (left <= right)
     {
-        int current_index = start_index;
-        int step_size = iterator_distance / 2;
-        current_index += step_size;
-        if (input[current_index] < target)
+        int mid = left + (right - left) / 2;
+
+        if (input[mid] >= target)
         {
-            start_index = ++current_index;
-            iterator_distance -= step_size + 1;
+            if (input[mid] == target)
+                index = mid;
+            right = mid - 1;
         }
         else
-            iterator_distance = step_size;
+        {
+            left = mid + 1;
+        }
     }
-    return start_index == input.size() - 1 ? ++start_index : start_index;
+
+    return index;
 }
 
 #endif // FIRST_APPEARANCE_IN_SORTED_VECTOR_H

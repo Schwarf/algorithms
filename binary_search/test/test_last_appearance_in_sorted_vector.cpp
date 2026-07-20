@@ -4,41 +4,67 @@
 
 #include "gtest/gtest.h"
 
-#include <algorithm>
 #include "./../last_appearance_in_sorted_vector.h"
 
-TEST(LastAppearance, simple)
+TEST(LastAppearance, target_occurs_multiple_times)
 {
     std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
-    int target = 5;
-    int expected_result = std::distance(input.begin(), std::upper_bound(input.begin(), input.end(), target));
-    int result = last_appearance(input, target);
-    EXPECT_EQ(result, expected_result);
+    constexpr int target = 5;
+    constexpr int expected_result = 11;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
 }
 
-TEST(LastAppearance, simple2)
+TEST(LastAppearance, target_is_last_element)
+{
+    std::vector<int> input{1, 2, 3, 3, 3};
+    constexpr int target = 3;
+    constexpr int expected_result = 4;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
+}
+
+TEST(LastAppearance, target_is_first_element)
+{
+    std::vector<int> input{1, 2, 3};
+    constexpr int target = 1;
+    constexpr int expected_result = 0;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
+}
+
+TEST(LastAppearance, target_greater_than_all_values_returns_minus_one)
 {
     std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
-    int target = 11;
-    int expected_result = std::distance(input.begin(), std::upper_bound(input.begin(), input.end(), target));
-    int result = last_appearance(input, target);
-    EXPECT_EQ(result, expected_result);
+    constexpr int target = 11;
+    constexpr int expected_result = -1;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
 }
 
-TEST(LastAppearance, simple3)
+TEST(LastAppearance, target_less_than_all_values_returns_minus_one)
 {
     std::vector<int> input{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7};
-    int target = -1;
-    int expected_result = std::distance(input.begin(), std::upper_bound(input.begin(), input.end(), target));
-    int result = last_appearance(input, target);
-    EXPECT_EQ(result, expected_result);
+    constexpr int target = -1;
+    constexpr int expected_result = -1;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
 }
 
-TEST(LastAppearance, simple4)
+TEST(LastAppearance, target_between_values_returns_minus_one)
+{
+    std::vector<int> input{1, 3, 5, 7};
+    constexpr int target = 4;
+    constexpr int expected_result = -1;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
+}
+
+TEST(LastAppearance, empty_input_returns_minus_one)
 {
     std::vector<int> input{};
-    int target = -1;
-    int expected_result = std::distance(input.begin(), std::upper_bound(input.begin(), input.end(), target));
-    int result = last_appearance(input, target);
-    EXPECT_EQ(result, expected_result);
+    constexpr int target = -1;
+    constexpr int expected_result = -1;
+
+    EXPECT_EQ(expected_result, last_appearance_index(input, target));
 }

@@ -9,28 +9,28 @@
 #include <vector>
 
 
-template <typename T, typename std::enable_if<std::is_integral<T>::value, bool>::type = true>
-int last_appearance(std::vector<T>& input, T target)
+template <typename T>
+int last_appearance_index(std::vector<T>& input, T target)
 {
-    int iterator_distance = input.size() - 1;
-    int current_index{};
-    int step{};
-    int start_index{};
-    while (iterator_distance > 0)
+    int left = 0;
+    int right = static_cast<int>(input.size()) - 1;
+    int index = -1;
+
+    while (left <= right)
     {
-        current_index = start_index;
-        step = iterator_distance / 2;
-        current_index += step;
-        if (target >= input[current_index])
+        int mid = (right - left) / 2 + left;
+        if (input[mid] <= target)
         {
-            start_index = current_index;
-            ++start_index;
-            iterator_distance -= step + 1;
+            if (input[mid] == target)
+                index = mid;
+            left = mid + 1;
         }
         else
-            iterator_distance = step;
+        {
+            right = mid - 1;
+        }
     }
-    return start_index == input.size() - 1 ? ++start_index : start_index;
+    return index;
 }
 
 #endif // LAST_APPEARANCE_IN_SORTED_VECTOR_H
