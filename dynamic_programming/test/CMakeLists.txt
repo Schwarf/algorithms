@@ -61,7 +61,7 @@ target_link_libraries(test_DP_align_sequences GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingAlignSequencesTests COMMAND test_DP_align_sequences)
 
 add_executable(test_DP_sequence_chaining
-        sequence_chaining/test_longest_increasing_subsequence.cpp
+        sequence_chaining/test_size_longest_increasing_subsequence.cpp
         sequence_chaining/test_longest_string_chain.cpp
         sequence_chaining/test_largest_divisible_subset.cpp
         sequence_chaining/test_longest_ideal_string_subsequence.cpp

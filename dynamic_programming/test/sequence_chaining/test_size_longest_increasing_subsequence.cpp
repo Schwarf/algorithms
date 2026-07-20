@@ -2,7 +2,7 @@
 // Created by andreas on 08.08.22.
 //
 #include <vector>
-#include "../../sequence_chaining/longest_increasing_subsequence.h"
+#include "../../sequence_chaining/size_longest_increasing_subsequence.h"
 #include "gtest/gtest.h"
 
 class SetupLongestIncreasingSubsequence : public testing::Test
