@@ -10,14 +10,15 @@
 #include <cstdint>
 #include <array>
 
-void radix_sort(std::vector<std::uint32_t>& array)
+template <std::unsigned_integral T>
+void radix_sort(std::vector<T>& array)
 {
     if (array.size() < 2)
         return;
 
     constexpr std::size_t radix = 256;
     constexpr int bits_per_pass = 8;
-    constexpr int passes = 32 / bits_per_pass;
+    constexpr int passes = std::numeric_limits<T>::digits / bits_per_pass;
 
     std::vector<std::uint32_t> buffer(array.size());
     for (int pass = 0; pass < passes; ++pass)
@@ -28,7 +29,7 @@ void radix_sort(std::vector<std::uint32_t>& array)
         // Count occurrences of each byte value
         for (const auto value : array)
         {
-            const std::uint32_t digit = (value >> bit_shift) & 0xFFu;
+            const T digit = (value >> bit_shift) & T{0xFFu};
             ++counts[digit];
         }
 
@@ -41,7 +42,7 @@ void radix_sort(std::vector<std::uint32_t>& array)
 
         for (const auto value: array)
         {
-            const std::uint32_t digit = (value >> bit_shift) & 0xFFu;
+            const auto digit = (value >> bit_shift) & T{0xFFu};
             buffer[positions[digit]] = value;
             ++positions[digit];
         }
