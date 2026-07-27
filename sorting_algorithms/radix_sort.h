@@ -19,14 +19,14 @@ void radix_sort(std::vector<std::uint32_t>& array)
     constexpr int bits_per_pass = 8;
     constexpr int passes = 32 / bits_per_pass;
 
-    std::vector<std::uint32_t> sorted_array(array.size());
+    std::vector<std::uint32_t> buffer(array.size());
     for (int pass = 0; pass < passes; ++pass)
     {
         std::array<int, radix> counts{};
         const int bit_shift = pass * bits_per_pass;
 
-        // Count occurences of each byte value
-        for (std::uint32_t value : array)
+        // Count occurrences of each byte value
+        for (const auto value : array)
         {
             const std::uint32_t digit = (value >> bit_shift) & 0xFFu;
             ++counts[digit];
@@ -34,13 +34,19 @@ void radix_sort(std::vector<std::uint32_t>& array)
 
         // Convert counts into starting positions
         std::array<int, radix> positions{};
-        for (int i{}; i < radix; ++i)
+        for (int i = 1; i < radix; ++i)
         {
             positions[i] = positions[i - 1] + counts[i - 1];
         }
 
+        for (const auto value: array)
+        {
+            const std::uint32_t digit = (value >> bit_shift) & 0xFFu;
+            buffer[positions[digit]] = value;
+            ++positions[digit];
+        }
+        array.swap(buffer);
     }
-
 
 }
 
