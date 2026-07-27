@@ -9,6 +9,7 @@ add_executable(test_sorting_algorithms
         test_setup.h
         test_quick_sort.cpp
         test_counting_sort.cpp
+        test_radix_sort.cpp
         test_merge_sort.cpp
         test_insertion_sort.cpp
         test_selection_sort.cpp
