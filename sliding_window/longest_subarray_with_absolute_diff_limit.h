@@ -8,7 +8,9 @@
 // return the length of the longest contiguous subarray such that the
 // absolute difference between any two elements in the subarray is less than or equal to limit.
 // If no such subarray exists, return 0.
+// Constraints: input contains only positive integers and limit is greater than or equal to zero.
 
+#include <algorithm>
 #include <deque>
 #include <vector>
 
@@ -20,8 +22,8 @@ int longest_subarray_with_absolute_diff_limit(const std::vector<int>& input, int
         return 0;
     int left = 0;
 
-    std::deque<int> max_deque(input[0]);
-    std::deque<int> min_deque(input[0]);
+    std::deque<int> max_deque{input[0]};
+    std::deque<int> min_deque{input[0]};
 
     int max_length = 1;
 
