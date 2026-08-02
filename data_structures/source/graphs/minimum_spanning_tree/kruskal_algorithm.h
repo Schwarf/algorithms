@@ -59,7 +59,7 @@ std::vector<std::vector<std::vector<int>>> kruskal_algorithm(std::vector<std::ve
         }
     };
 
-    std::vector<std::vector<std::vector<int>>> mst;
+    std::vector<std::vector<std::vector<int>>> mst(n);
     for(const auto & edge : sorted_edges)
     {
         if (find(find, edge.from) != find(find, edge.to))
