@@ -1,7 +1,7 @@
 //
 // Created by andreas on 04.01.24.
 //
-#include "graphs/minimum_spanning_tree_algorithms.h"
+#include "../../../graphs/minimum_spanning_tree/prim_algorithm.h"
 #include "gtest/gtest.h"
 
 class SetupMSTGraphTests : public testing::Test
