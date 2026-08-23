@@ -3,6 +3,7 @@
 //
 #include "../../../graphs/minimum_spanning_tree/prim_algorithm.h"
 #include "gtest/gtest.h"
+#include <algorithm>
 
 class SetupMSTGraphTests : public testing::Test
 {
@@ -78,6 +79,29 @@ public:
         return std::make_tuple(adjacency_list, adjacency_matrix, weight_vectors_per_start_vertex,
                                parent_vectors_per_start_vertex);
     }
+
+    template <typename VertexType, typename DistanceType>
+    static std::vector<std::vector<std::pair<VertexType, DistanceType>>>
+    expected_mst_graph(const std::vector<VertexType>& parents, const std::vector<DistanceType>& weights)
+    {
+        std::vector<std::vector<std::pair<VertexType, DistanceType>>> graph(parents.size());
+        for (VertexType vertex{}; vertex < parents.size(); ++vertex)
+        {
+            if (parents[vertex] == std::numeric_limits<VertexType>::max())
+                continue;
+
+            graph[vertex].push_back({parents[vertex], weights[vertex]});
+            graph[parents[vertex]].push_back({vertex, weights[vertex]});
+        }
+        return graph;
+    }
+
+    template <typename VertexType, typename DistanceType>
+    static void sort_adjacency_lists(std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
+    {
+        for (auto& edges : graph)
+            std::sort(edges.begin(), edges.end());
+    }
 };
 
 
@@ -86,19 +110,12 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyListCase1)
     auto tuple = case1();
     auto adjacency_list = std::get<0>(tuple);
     auto expected_weight_lists = std::get<2>(tuple);
-    auto expected_mst_lists = std::get<3>(tuple);
-    constexpr unsigned int number_of_vertices{5U};
-    for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex)
-    {
-        auto result = minimum_spanning_tree_prim(start_vertex, adjacency_list);
-        auto result_weights = std::get<1>(result);
-        auto result_mst = std::get<0>(result);
-        for (unsigned int i{}; i < number_of_vertices; ++i)
-        {
-            EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
-            EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
-        }
-    }
+    auto expected_parent_lists = std::get<3>(tuple);
+    auto result = minimum_spanning_tree_prim(adjacency_list);
+    auto expected = expected_mst_graph(expected_parent_lists[0], expected_weight_lists[0]);
+    sort_adjacency_lists(result);
+    sort_adjacency_lists(expected);
+    EXPECT_EQ(result, expected);
 }
 
 TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase1)
@@ -126,19 +143,12 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyListCase2)
     auto tuple = case2();
     auto adjacency_list = std::get<0>(tuple);
     auto expected_weight_lists = std::get<2>(tuple);
-    auto expected_mst_lists = std::get<3>(tuple);
-    constexpr unsigned int number_of_vertices{10U};
-    for (unsigned int start_vertex{}; start_vertex < number_of_vertices; ++start_vertex)
-    {
-        auto result = minimum_spanning_tree_prim(start_vertex, adjacency_list);
-        auto result_weights = std::get<1>(result);
-        auto result_mst = std::get<0>(result);
-        for (unsigned int i{}; i < number_of_vertices; ++i)
-        {
-            EXPECT_FLOAT_EQ(result_weights[i], expected_weight_lists[start_vertex][i]);
-            EXPECT_FLOAT_EQ(result_mst[i], expected_mst_lists[start_vertex][i]);
-        }
-    }
+    auto expected_parent_lists = std::get<3>(tuple);
+    auto result = minimum_spanning_tree_prim(adjacency_list);
+    auto expected = expected_mst_graph(expected_parent_lists[0], expected_weight_lists[0]);
+    sort_adjacency_lists(result);
+    sort_adjacency_lists(expected);
+    EXPECT_EQ(result, expected);
 }
 
 TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase2)
@@ -164,10 +174,15 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase2)
 TEST_F(SetupMSTGraphTests, TestPrimsThrowsWhenStartVertexIsOutOfRange)
 {
     auto tuple = case1();
-    auto adjacency_list = std::get<0>(tuple);
     auto adjacency_matrix = std::get<1>(tuple);
-    const auto invalid_start_vertex = static_cast<unsigned int>(adjacency_list.size());
+    const auto invalid_start_vertex = static_cast<unsigned int>(adjacency_matrix.size());
 
-    EXPECT_THROW((void)minimum_spanning_tree_prim(invalid_start_vertex, adjacency_list), std::out_of_range);
     EXPECT_THROW((void)minimum_spanning_tree_prim_matrix(invalid_start_vertex, adjacency_matrix), std::out_of_range);
+}
+
+TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyListReturnsEmptyTreeForEmptyGraph)
+{
+    const std::vector<std::vector<std::pair<unsigned int, int>>> graph;
+
+    EXPECT_TRUE(minimum_spanning_tree_prim(graph).empty());
 }

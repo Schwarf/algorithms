@@ -13,13 +13,9 @@
 
 template <typename VertexType, typename DistanceType>
     requires std::is_unsigned_v<VertexType> && std::is_arithmetic_v<DistanceType>
-std::tuple<std::vector<VertexType>, std::vector<DistanceType>>
-minimum_spanning_tree_prim(VertexType start_vertex,
-                           const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
+std::vector<std::vector<std::pair<VertexType, DistanceType>>>
+minimum_spanning_tree_prim(const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
-    if (start_vertex >= graph.size())
-        throw std::out_of_range("The start_vertex id is larger than the graph size.");
-
     struct QueueEntry
     {
         VertexType vertex;
@@ -36,12 +32,14 @@ minimum_spanning_tree_prim(VertexType start_vertex,
     };
 
     const auto number_of_vertices = graph.size();
-    std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
-    std::vector<VertexType> spanning_tree_parents(number_of_vertices, std::numeric_limits<VertexType>::max());
+    std::vector<std::vector<std::pair<VertexType, DistanceType>>> minimum_spanning_tree(number_of_vertices);
+    if (graph.empty())
+        return minimum_spanning_tree;
+
     std::vector<bool> visited_vertices(number_of_vertices, false);
     std::priority_queue<QueueEntry, std::vector<QueueEntry>, Compare> pq;
 
-    pq.push({start_vertex, static_cast<DistanceType>(0), std::numeric_limits<VertexType>::max()});
+    pq.push({static_cast<VertexType>(0), static_cast<DistanceType>(0), std::numeric_limits<VertexType>::max()});
     while (!pq.empty())
     {
         const auto current = pq.top();
@@ -51,8 +49,11 @@ minimum_spanning_tree_prim(VertexType start_vertex,
             continue;
 
         visited_vertices[current.vertex] = true;
-        weights[current.vertex] = current.weight;
-        spanning_tree_parents[current.vertex] = current.parent;
+        if (current.parent != std::numeric_limits<VertexType>::max())
+        {
+            minimum_spanning_tree[current.vertex].push_back({current.parent, current.weight});
+            minimum_spanning_tree[current.parent].push_back({current.vertex, current.weight});
+        }
 
         for (const auto& edge : graph[current.vertex])
         {
@@ -62,7 +63,7 @@ minimum_spanning_tree_prim(VertexType start_vertex,
                 pq.push({next_vertex, weight, current.vertex});
         }
     }
-    return std::make_tuple(spanning_tree_parents, weights);
+    return minimum_spanning_tree;
 }
 
 template <typename VertexType, typename DistanceType>
