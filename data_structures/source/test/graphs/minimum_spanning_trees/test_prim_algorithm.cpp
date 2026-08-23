@@ -160,3 +160,14 @@ TEST_F(SetupMSTGraphTests, TestPrimsAdjacencyMatrixCase2)
         }
     }
 }
+
+TEST_F(SetupMSTGraphTests, TestPrimsThrowsWhenStartVertexIsOutOfRange)
+{
+    auto tuple = case1();
+    auto adjacency_list = std::get<0>(tuple);
+    auto adjacency_matrix = std::get<1>(tuple);
+    const auto invalid_start_vertex = static_cast<unsigned int>(adjacency_list.size());
+
+    EXPECT_THROW((void)minimum_spanning_tree_prim(invalid_start_vertex, adjacency_list), std::out_of_range);
+    EXPECT_THROW((void)minimum_spanning_tree_prim_matrix(invalid_start_vertex, adjacency_matrix), std::out_of_range);
+}

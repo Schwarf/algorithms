@@ -17,36 +17,49 @@ std::tuple<std::vector<VertexType>, std::vector<DistanceType>>
 minimum_spanning_tree_prim(VertexType start_vertex,
                            const std::vector<std::vector<std::pair<VertexType, DistanceType>>>& graph)
 {
-    if (start_vertex > graph.size())
+    if (start_vertex >= graph.size())
         throw std::out_of_range("The start_vertex id is larger than the graph size.");
 
-    auto number_of_vertices = graph.size();
+    struct QueueEntry
+    {
+        VertexType vertex;
+        DistanceType weight;
+        VertexType parent;
+    };
+
+    struct Compare
+    {
+        bool operator()(const QueueEntry& lhs, const QueueEntry& rhs) const
+        {
+            return lhs.weight > rhs.weight;
+        }
+    };
+
+    const auto number_of_vertices = graph.size();
     std::vector<DistanceType> weights(number_of_vertices, std::numeric_limits<DistanceType>::max());
     std::vector<VertexType> spanning_tree_parents(number_of_vertices, std::numeric_limits<VertexType>::max());
     std::vector<bool> visited_vertices(number_of_vertices, false);
-    std::priority_queue<std::pair<DistanceType, VertexType>, std::vector<std::pair<DistanceType, VertexType>>,
-                        std::greater<>>
-        pq;
-    pq.push({static_cast<DistanceType>(0), start_vertex});
+    std::priority_queue<QueueEntry, std::vector<QueueEntry>, Compare> pq;
 
-    weights[start_vertex] = static_cast<DistanceType>(0);
+    pq.push({start_vertex, static_cast<DistanceType>(0), std::numeric_limits<VertexType>::max()});
     while (!pq.empty())
     {
-        VertexType current_vertex = pq.top().second;
+        const auto current = pq.top();
         pq.pop();
-        if (visited_vertices[current_vertex])
+
+        if (visited_vertices[current.vertex])
             continue;
-        visited_vertices[current_vertex] = true;
-        for (const auto& edge : graph[current_vertex])
+
+        visited_vertices[current.vertex] = true;
+        weights[current.vertex] = current.weight;
+        spanning_tree_parents[current.vertex] = current.parent;
+
+        for (const auto& edge : graph[current.vertex])
         {
             auto next_vertex = edge.first;
             auto weight = edge.second;
-            if (!visited_vertices[next_vertex] && weights[next_vertex] > weight)
-            {
-                weights[next_vertex] = weight;
-                pq.push({weight, next_vertex});
-                spanning_tree_parents[next_vertex] = current_vertex;
-            }
+            if (!visited_vertices[next_vertex])
+                pq.push({next_vertex, weight, current.vertex});
         }
     }
     return std::make_tuple(spanning_tree_parents, weights);
@@ -57,7 +70,7 @@ template <typename VertexType, typename DistanceType>
 std::tuple<std::vector<VertexType>, std::vector<DistanceType>>
 minimum_spanning_tree_prim_matrix(VertexType start_vertex, const std::vector<std::vector<DistanceType>>& graph)
 {
-    if (start_vertex > graph.size())
+    if (start_vertex >= graph.size())
         throw std::out_of_range("The start_vertex id is larger than the graph size.");
 
     auto number_of_vertices = graph.size();
