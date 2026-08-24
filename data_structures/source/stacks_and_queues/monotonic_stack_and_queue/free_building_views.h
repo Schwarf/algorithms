@@ -10,7 +10,6 @@
 // strictly shorter. Return the indices of all buildings that have a free view, sorted in increasing order.
 
 #include <algorithm>
-#include <stack>
 #include <string>
 #include <vector>
 
@@ -48,35 +47,28 @@ std::vector<int> free_views(const std::vector<int>& buildings, const std::string
 
 std::vector<int> free_views_monotonic_stack(const std::vector<int>& buildings, const std::string& direction)
 {
-    std::stack<int> stack;
-    int n = buildings.size();
+    std::vector<int> result;
+    const int n = static_cast<int>(buildings.size());
+
     if (direction == "EAST")
     {
         for (int i = 0; i < n; ++i)
         {
-            while(!stack.empty() && buildings[stack.top()] <= buildings[i])
-                stack.pop();
-            stack.push(i);
+            while (!result.empty() && buildings[result.back()] <= buildings[i])
+                result.pop_back();
+            result.push_back(i);
         }
+        return result;
     }
-    else
+
+    for (int i = n - 1; i >= 0; --i)
     {
-        for (int i = n-1; i > -1; --i)
-        {
-            while(!stack.empty() && buildings[stack.top()] <= buildings[i])
-                stack.pop();
-            stack.push(i);
-        }
+        while (!result.empty() && buildings[result.back()] <= buildings[i])
+            result.pop_back();
+        result.push_back(i);
     }
-    std::vector<int> result(stack.size());
-    int i{};
-    while(!stack.empty())
-    {
-        result[i++] = stack.top();
-        stack.pop();
-    }
-    if (direction == "EAST")
-        std::reverse(result.begin(), result.end());
+
+    std::reverse(result.begin(), result.end());
     return result;
 }
 
