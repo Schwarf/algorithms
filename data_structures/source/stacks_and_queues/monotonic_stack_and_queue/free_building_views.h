@@ -9,7 +9,9 @@
 // specifies the direction in which we view. A building has a free view if every building between it and the horizon is
 // strictly shorter. Return the indices of all buildings that have a free view, sorted in increasing order.
 
+#include <algorithm>
 #include <stack>
+#include <string>
 #include <vector>
 
 std::vector<int> free_views(const std::vector<int>& buildings, const std::string& direction)
