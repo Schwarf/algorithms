@@ -9,6 +9,7 @@ namespace
 void expect_free_views(const std::vector<int>& buildings, const std::string& direction, const std::vector<int>& expected)
 {
     EXPECT_EQ(expected, free_views(buildings, direction));
+    EXPECT_EQ(expected, free_views_monotonic_stack(buildings, direction));
 }
 }
 

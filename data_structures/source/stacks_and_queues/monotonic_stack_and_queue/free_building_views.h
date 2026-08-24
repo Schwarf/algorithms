@@ -46,4 +46,39 @@ std::vector<int> free_views(const std::vector<int>& buildings, const std::string
     return result;
 }
 
+std::vector<int> free_views_monotonic_stack(const std::vector<int>& buildings, const std::string& direction)
+{
+    std::stack<int> stack;
+    int n = buildings.size();
+    if (direction == "EAST")
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            while(!stack.empty() && buildings[stack.top()] <= buildings[i])
+                stack.pop();
+            stack.push(i);
+        }
+    }
+    else
+    {
+        for (int i = n-1; i > -1; --i)
+        {
+            while(!stack.empty() && buildings[stack.top()] <= buildings[i])
+                stack.pop();
+            stack.push(i);
+        }
+    }
+    std::vector<int> result(stack.size());
+    int i{};
+    while(!stack.empty())
+    {
+        result[i++] = stack.top();
+        stack.pop();
+    }
+    if (direction == "EAST")
+        std::reverse(result.begin(), result.end());
+    return result;
+}
+
+
 #endif // ALGORITHMS_FREE_BUILDING_VIEWS_H
