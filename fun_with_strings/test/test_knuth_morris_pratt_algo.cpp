@@ -66,3 +66,27 @@ TEST(TestKnuthMorriPratt, simple5)
     const std::vector<int> expected_result{};
     EXPECT_EQ(expected_result, find_start_indices_of_pattern(input, pattern));
 }
+
+TEST(TestKnuthMorriPratt, pattern_larger_than_text)
+{
+    const std::string input{"abc"};
+    const std::string pattern{"abcd"};
+    const std::vector<int> expected_result{};
+    EXPECT_EQ(expected_result, find_start_indices_of_pattern(input, pattern));
+}
+
+TEST(TestKnuthMorriPratt, equal_length_pattern_matches_text)
+{
+    const std::string input{"abc"};
+    const std::string pattern{"abc"};
+    const std::vector<int> expected_result{0};
+    EXPECT_EQ(expected_result, find_start_indices_of_pattern(input, pattern));
+}
+
+TEST(TestKnuthMorriPratt, equal_length_pattern_does_not_match_text)
+{
+    const std::string input{"abc"};
+    const std::string pattern{"abd"};
+    const std::vector<int> expected_result{};
+    EXPECT_EQ(expected_result, find_start_indices_of_pattern(input, pattern));
+}
