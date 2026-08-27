@@ -114,3 +114,51 @@ TEST_F(SetupKnapsackProblem, optimized3)
     constexpr int expected_result{76};
     EXPECT_EQ(result, expected_result);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+TEST_F(SetupKnapsackProblem, optimized_1d1)
+{
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items1, knapsack1);
+    constexpr int expected_result{22};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized_1d2)
+{
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items2, knapsack2);
+    constexpr int expected_result{10};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized_1d3)
+{
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items3, knapsack3);
+    // Checked online: https://augustineaykara.github.io/Knapsack-Calculator/
+    constexpr int expected_result{76};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized_1d_with_empty_items)
+{
+    const std::vector<Item<int, int>> items{};
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items, 10);
+    constexpr int expected_result{0};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized_1d_with_zero_capacity)
+{
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items1, 0);
+    constexpr int expected_result{0};
+    EXPECT_EQ(result, expected_result);
+}
+
+TEST_F(SetupKnapsackProblem, optimized_1d_does_not_reuse_items)
+{
+    const std::vector<Item<int, int>> items{{10, 5}};
+    const auto result = knapsack_problem_bottom_up_optimized_1d(items, 10);
+    constexpr int expected_result{10};
+    EXPECT_EQ(result, expected_result);
+}
