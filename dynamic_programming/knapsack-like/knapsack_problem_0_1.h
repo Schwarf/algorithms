@@ -169,7 +169,6 @@ ValueType knapsack_problem_bottom_up_optimized_1d(
     WeightType knapsack_capacity)
 {
     std::vector<ValueType> dp(knapsack_capacity + 1, 0);
-
     for (const auto& item : items)
     {
         for (WeightType weight = knapsack_capacity;
