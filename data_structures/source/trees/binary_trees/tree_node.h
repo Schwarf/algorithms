@@ -37,8 +37,8 @@ template <typename T>
 struct TreeNode
 {
     T value;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode* left = nullptr;
+    TreeNode* right = nullptr;
 
     TreeNode() : value(T{}), left(nullptr), right(nullptr) {}
 
@@ -48,5 +48,26 @@ struct TreeNode
 
     ~TreeNode() { TestTracker::getInstance().addDeletedNode(this); }
 };
+
+template <typename T>
+struct ParentedTreeNode
+{
+    T value;
+    ParentedTreeNode* left = nullptr;
+    ParentedTreeNode* right = nullptr;
+    ParentedTreeNode* parent = nullptr;
+
+    ParentedTreeNode() : value(T{}), left(nullptr), right(nullptr), parent(nullptr) {}
+
+    explicit ParentedTreeNode(const T& val) : value(val), left(nullptr), right(nullptr), parent(nullptr) {}
+
+    ParentedTreeNode(const T& val, ParentedTreeNode* left, ParentedTreeNode* right,
+                     ParentedTreeNode* parent = nullptr) : value(val), left(left), right(right), parent(parent)
+    {
+    }
+
+    ~ParentedTreeNode() { TestTracker::getInstance().addDeletedNode(this); }
+};
+
 
 #endif // TREE_NODE_H
