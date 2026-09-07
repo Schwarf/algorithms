@@ -1,0 +1,8 @@
+//
+// Created by andreas on 07.09.26.
+//
+
+#ifndef ALGORITHMS_FIND_SUCCESSOR_H
+#define ALGORITHMS_FIND_SUCCESSOR_H
+
+#endif //ALGORITHMS_FIND_SUCCESSOR_H
