@@ -19,6 +19,13 @@ protected:
         return nodes.back().get();
     }
 
+    //                          25
+    //                    /            \
+    //                  15              50
+    //              /        \      /        \
+    //            10          22  35          70
+    //          /    \      /   \ /  \      /    \
+    //         4      12   18  24 31  44   66     90
     Node* create_tree()
     {
         root = make_node(25);
@@ -102,7 +109,7 @@ TEST_F(SetupParentedBinaryTree, returns_first_ancestor_reached_from_left)
 {
     create_tree();
 
-    EXPECT_EQ(inorder_find_successor(root, node12), node15);
+    EXPECT_EQ(inorder_find_successor(root, node10), node15);
     EXPECT_EQ(inorder_find_successor(root, node24), root);
     EXPECT_EQ(inorder_find_successor(root, node44), node50);
 }
@@ -126,12 +133,15 @@ TEST_F(SetupParentedBinaryTree, preorder_returns_nullptr_for_null_node)
     EXPECT_EQ(preorder_find_successor<int>(nullptr, nullptr), nullptr);
 }
 
+/////////////////// PRE-ORDER
+
 TEST_F(SetupParentedBinaryTree, preorder_returns_left_child_when_present)
 {
     create_tree();
 
     EXPECT_EQ(preorder_find_successor(root, root), node15);
     EXPECT_EQ(preorder_find_successor(root, node15), node10);
+    EXPECT_EQ(preorder_find_successor(root, node4), node12);
 }
 
 TEST_F(SetupParentedBinaryTree, preorder_returns_right_child_when_left_child_is_missing)
