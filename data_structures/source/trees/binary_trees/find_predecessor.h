@@ -65,4 +65,32 @@ ParentedTreeNode<T>* inorder_find_predecessor(ParentedTreeNode<T>* root, Parente
     return current->parent;
 }
 
+template <typename T>
+ParentedTreeNode<T>* postorder_find_predecessor(ParentedTreeNode<T>* root, ParentedTreeNode<T>* node)
+{
+    (void)root;
+
+    if (!node)
+        return nullptr;
+
+    if(node->right)
+        return node->right;
+    if (node->left)
+        return node->left;
+
+    auto current = node;
+
+    while (current->parent)
+    {
+        if (current == current->parent->right &&
+            current->parent->left)
+        {
+            return current->parent->left;
+        }
+
+        current = current->parent;
+    }
+    return nullptr;
+}
+
 #endif // ALGORITHMS_FIND_PREDECESSOR_H
