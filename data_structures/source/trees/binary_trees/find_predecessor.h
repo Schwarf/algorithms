@@ -36,5 +36,33 @@ ParentedTreeNode<T>* preorder_find_predecessor(ParentedTreeNode<T>* root, Parent
     return nullptr;
 }
 
+template <typename T>
+ParentedTreeNode<T>* inorder_find_predecessor(ParentedTreeNode<T>* root, ParentedTreeNode<T>* node)
+{
+    (void)root;
+
+    if (!node)
+        return nullptr;
+
+    // Case 1: If a left child exists, the predecessor is the rightmost node in the left subtree.
+    if (node->left)
+    {
+        auto current = node->left;
+        while (current->right)
+            current = current->right;
+        return current;
+    }
+
+    // Case 2: climb until we come from a right child.
+    auto current = node;
+
+    while (current->parent &&
+           current == current->parent->left)
+    {
+        current = current->parent;
+    }
+
+    return current->parent;
+}
 
 #endif // ALGORITHMS_FIND_PREDECESSOR_H
