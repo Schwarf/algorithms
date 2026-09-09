@@ -7,7 +7,7 @@
 #include "tree_node.h"
 
 // Given a node in a binary tree where each node has a pointer to its parent,
-// find the node's successor in an in-order traversal.
+// find the node's successor in an in-order, pre-order and post-order traversal.
 
 template <typename T>
 ParentedTreeNode<T>* inorder_find_successor(ParentedTreeNode<T>* root, ParentedTreeNode<T>* node)
