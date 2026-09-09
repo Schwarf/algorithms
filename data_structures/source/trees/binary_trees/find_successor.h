@@ -72,4 +72,37 @@ ParentedTreeNode<T>* preorder_find_successor(ParentedTreeNode<T>* root, Parented
     return nullptr;
 }
 
+template <typename T>
+ParentedTreeNode<T>* postorder_find_successor(ParentedTreeNode<T>* root, ParentedTreeNode<T>* node)
+{
+    (void)root;
+
+    if (!node || !node->parent)
+        return nullptr;
+
+    // Only two cases:
+    // 1. If the node is a right child, post-order of the subtrees is finished and we return the parent.
+    // 2. If the node is a left child return the parent if no right subtree. Else go down postorder like;
+    // Case 1.:
+    if (node->parent->right == node)
+        return node->parent;
+
+    if (node->parent->left == node)
+    {
+        if (!node->parent->right)
+            return node->parent;
+        auto current = node->parent->right;
+        while (current->left || current->right)
+        {
+            if (current->left)
+                current = current->left;
+            else
+                current = current->right;
+        }
+
+        return current;
+    }
+    return nullptr;
+}
+
 #endif // ALGORITHMS_FIND_SUCCESSOR_H
