@@ -109,7 +109,7 @@ TEST_F(SetupParentedBinaryTree, returns_first_ancestor_reached_from_left)
 {
     create_tree();
 
-    EXPECT_EQ(inorder_find_successor(root, node10), node15);
+    EXPECT_EQ(inorder_find_successor(root, node10), node12);
     EXPECT_EQ(inorder_find_successor(root, node24), root);
     EXPECT_EQ(inorder_find_successor(root, node44), node50);
 }
@@ -174,4 +174,79 @@ TEST_F(SetupParentedBinaryTree, preorder_returns_nullptr_for_single_node_tree)
     auto single_node = make_node(42);
 
     EXPECT_EQ(preorder_find_successor(single_node, single_node), nullptr);
+}
+
+/////////////////// POST-ORDER
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_nullptr_for_null_node)
+{
+    EXPECT_EQ(postorder_find_successor<int>(nullptr, nullptr), nullptr);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_first_node_in_right_subtree_after_left_subtree)
+{
+    create_tree();
+
+    EXPECT_EQ(postorder_find_successor(root, node10), node18);
+    EXPECT_EQ(postorder_find_successor(root, node15), node31);
+    EXPECT_EQ(postorder_find_successor(root, node35), node66);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_parent_after_right_subtree)
+{
+    create_tree();
+
+    EXPECT_EQ(postorder_find_successor(root, node12), node10);
+    EXPECT_EQ(postorder_find_successor(root, node24), node22);
+    EXPECT_EQ(postorder_find_successor(root, node70), node50);
+    EXPECT_EQ(postorder_find_successor(root, node50), root);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_parent_when_left_child_has_no_right_sibling)
+{
+    auto parent = make_node(1);
+    auto left_child = make_node(2);
+    connect(parent, left_child, nullptr);
+
+    EXPECT_EQ(postorder_find_successor(parent, left_child), parent);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_descends_to_right_child_when_right_subtree_has_no_left_branch)
+{
+    auto parent = make_node(1);
+    auto left_child = make_node(2);
+    auto right_child = make_node(3);
+    auto right_grandchild = make_node(4);
+    connect(parent, left_child, right_child);
+    connect(right_child, nullptr, right_grandchild);
+
+    EXPECT_EQ(postorder_find_successor(parent, left_child), right_grandchild);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_successors_for_full_traversal_sequence)
+{
+    create_tree();
+
+    EXPECT_EQ(postorder_find_successor(root, node4), node12);
+    EXPECT_EQ(postorder_find_successor(root, node12), node10);
+    EXPECT_EQ(postorder_find_successor(root, node10), node18);
+    EXPECT_EQ(postorder_find_successor(root, node18), node24);
+    EXPECT_EQ(postorder_find_successor(root, node24), node22);
+    EXPECT_EQ(postorder_find_successor(root, node22), node15);
+    EXPECT_EQ(postorder_find_successor(root, node15), node31);
+    EXPECT_EQ(postorder_find_successor(root, node31), node44);
+    EXPECT_EQ(postorder_find_successor(root, node44), node35);
+    EXPECT_EQ(postorder_find_successor(root, node35), node66);
+    EXPECT_EQ(postorder_find_successor(root, node66), node90);
+    EXPECT_EQ(postorder_find_successor(root, node90), node70);
+    EXPECT_EQ(postorder_find_successor(root, node70), node50);
+    EXPECT_EQ(postorder_find_successor(root, node50), root);
+    EXPECT_EQ(postorder_find_successor(root, root), nullptr);
+}
+
+TEST_F(SetupParentedBinaryTree, postorder_returns_nullptr_for_single_node_tree)
+{
+    auto single_node = make_node(42);
+
+    EXPECT_EQ(postorder_find_successor(single_node, single_node), nullptr);
 }
