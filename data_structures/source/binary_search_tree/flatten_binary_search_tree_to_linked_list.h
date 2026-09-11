@@ -40,4 +40,29 @@ TreeNode<T>* flatten_to_linked_list_preorder(TreeNode<T>* root)
     return root;
 }
 
+template <typename T>
+void inorder(TreeNode<T>* node, TreeNode<T> *& prev)
+{
+    if (!node)
+        return;
+    inorder(node->left, prev);
+    if (prev)
+    {
+        prev->right = node;
+    }
+    node->left = prev;
+    prev = node;
+    inorder(node->right, prev);
+}
+
+template <typename T>
+TreeNode<T>* flatten_to_linked_list_inorder(TreeNode<T>* root)
+{
+    TreeNode<T> * prev = nullptr;
+    inorder(root, prev);
+    while (root && root->left)
+        root = root->left;
+    return root;
+}
+
 #endif // FLATTEN_BINARY_SEARCH_TREE_TO_LINKED_LIST_H
