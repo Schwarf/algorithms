@@ -65,4 +65,40 @@ TreeNode<T>* flatten_to_linked_list_inorder(TreeNode<T>* root)
     return root;
 }
 
+// Write a function that takes in a Binary Tree, flattens it in postorder,
+// and returns the first node of the flattened tree.
+// A flattened Binary Tree is a structure that's nearly identical
+// to a Doubly Linked List (except that nodes have left and right pointers
+// instead of prev and next pointers).
+// The nodes in the flattened tree should appear in the same
+// order as a postorder traversal of the original tree.
+template <typename T>
+void postorder(TreeNode<T>* node, TreeNode<T> *& prev)
+{
+    if (!node)
+        return;
+    postorder(node->left, prev);
+    postorder(node->right, prev);
+    if (prev)
+    {
+        prev->right = node;
+    }
+    node->left = prev;
+    prev = node;
+}
+
+template <typename T>
+TreeNode<T>* flatten_to_linked_list_postorder(TreeNode<T>* root)
+{
+    TreeNode<T> * prev = nullptr;
+    postorder(root, prev);
+    // prev is root and root->right must be nullptr
+    if (prev)
+        prev->right = nullptr;
+
+    while (root && root->left)
+        root = root->left;
+    return root;
+}
+
 #endif // FLATTEN_BINARY_SEARCH_TREE_TO_LINKED_LIST_H
