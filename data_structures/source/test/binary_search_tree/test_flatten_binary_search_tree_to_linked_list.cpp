@@ -212,3 +212,86 @@ TEST(flatten_binary_search_tree_to_linked_list, inorder_handles_empty_tree)
 
     EXPECT_EQ(nullptr, flatten_to_linked_list_inorder(root));
 }
+
+TEST(flatten_binary_search_tree_to_linked_list, flattens_tree_in_postorder)
+{
+    auto root = new TreeNode<int>(25);
+    root->left = new TreeNode<int>(15);
+    root->right = new TreeNode<int>(50);
+    root->left->left = new TreeNode<int>(10);
+    root->left->right = new TreeNode<int>(22);
+    root->right->left = new TreeNode<int>(35);
+    root->right->right = new TreeNode<int>(70);
+
+    auto head = flatten_to_linked_list_postorder(root);
+
+    const std::vector<int> expected_forward{10, 22, 15, 35, 70, 50, 25};
+    const std::vector<int> expected_backward{25, 50, 70, 35, 15, 22, 10};
+
+    EXPECT_EQ(10, head->value);
+    EXPECT_EQ(root, tail_of(head));
+    EXPECT_EQ(expected_forward, values_forward(head));
+    EXPECT_EQ(expected_backward, values_backward(tail_of(head)));
+    EXPECT_EQ(nullptr, head->left);
+    EXPECT_EQ(nullptr, root->right);
+
+    delete_flattened_list(head);
+}
+
+TEST(flatten_binary_search_tree_to_linked_list, postorder_preserves_existing_nodes)
+{
+    auto root = new TreeNode<int>(4);
+    auto left = new TreeNode<int>(2);
+    auto right = new TreeNode<int>(6);
+    auto left_left = new TreeNode<int>(1);
+    auto left_right = new TreeNode<int>(3);
+    auto right_left = new TreeNode<int>(5);
+    auto right_right = new TreeNode<int>(7);
+
+    root->left = left;
+    root->right = right;
+    left->left = left_left;
+    left->right = left_right;
+    right->left = right_left;
+    right->right = right_right;
+
+    auto head = flatten_to_linked_list_postorder(root);
+
+    EXPECT_EQ(left_left, head);
+    EXPECT_EQ(left_right, left_left->right);
+    EXPECT_EQ(left_left, left_right->left);
+    EXPECT_EQ(left, left_right->right);
+    EXPECT_EQ(left_right, left->left);
+    EXPECT_EQ(right_left, left->right);
+    EXPECT_EQ(left, right_left->left);
+    EXPECT_EQ(right_right, right_left->right);
+    EXPECT_EQ(right_left, right_right->left);
+    EXPECT_EQ(right, right_right->right);
+    EXPECT_EQ(right_right, right->left);
+    EXPECT_EQ(root, right->right);
+    EXPECT_EQ(right, root->left);
+    EXPECT_EQ(nullptr, root->right);
+
+    delete_flattened_list(head);
+}
+
+TEST(flatten_binary_search_tree_to_linked_list, postorder_handles_single_node)
+{
+    auto root = new TreeNode<int>(42);
+
+    auto head = flatten_to_linked_list_postorder(root);
+
+    EXPECT_EQ(root, head);
+    EXPECT_EQ(42, head->value);
+    EXPECT_EQ(nullptr, head->left);
+    EXPECT_EQ(nullptr, head->right);
+
+    delete head;
+}
+
+TEST(flatten_binary_search_tree_to_linked_list, postorder_handles_empty_tree)
+{
+    TreeNode<int>* root = nullptr;
+
+    EXPECT_EQ(nullptr, flatten_to_linked_list_postorder(root));
+}
