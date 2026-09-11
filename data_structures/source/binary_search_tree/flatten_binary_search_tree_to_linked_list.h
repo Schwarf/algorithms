@@ -7,62 +7,37 @@
 
 #include "../trees/binary_trees/tree_node.h"
 
-/*
-     TreeNode * get_right_most(TreeNode* root)
-    {
-        if(!root->right)
-            return root;
-        return get_right_most(root->right);
-    }
+// Write a function that takes in a Binary Tree, flattens it in preorder,
+// and returns the first node of the flattened tree.
+// A flattened Binary Tree is a structure that's nearly identical
+// to a Doubly Linked List (except that nodes have left and right pointers
+// instead of prev and next pointers).
+// The nodes in the flattened tree should appear in the same
+// order as a preorder traversal of the original tree.
 
-    void flatten(TreeNode* root) {
-        if (!root)
-            return;
-        TreeNode * right_most;
-        TreeNode * right_tree;
-        while(root)
-        {
-            if(root->left)
-            {
-                right_tree = root->right;
-                root->right = root->left;
-                right_most = get_right_most(root->right);
-                right_most->right = right_tree;
-                root->left = nullptr;
-            }
-            root = root->right;
-        }
-
-    }
-
-  */
 template <typename T>
-TreeNode<T>* get_right_most(TreeNode<T>* root)
+void preorder(TreeNode<T>* node, TreeNode<T> *& prev)
 {
-    if (!root->right)
-        return root;
-    return get_right_most(root->right);
+    if (!node)
+        return;
+    TreeNode<T>* right = node->right;
+    TreeNode<T>* left = node->left;
+    if (prev)
+    {
+        prev->right = node;
+    }
+    node->left = prev;
+    prev = node;
+    preorder(left, prev);
+    preorder(right, prev);
 }
 
 template <typename T>
-void flatten_to_linked_list(TreeNode<T>* root)
+TreeNode<T>* flatten_to_linked_list_preorder(TreeNode<T>* root)
 {
-    if (!root)
-        return;
-    TreeNode<T>* right_most;
-    TreeNode<T>* right_tree;
-    while (root)
-    {
-        if (root->left)
-        {
-            right_tree = root->right;
-            root->right = root->left;
-            right_most = get_right_most(root->right);
-            right_most->right = right_tree;
-            root->left = nullptr;
-        }
-        root = root->right;
-    }
+    TreeNode<T> * prev = nullptr;
+    preorder(root, prev);
+    return root;
 }
 
 #endif // FLATTEN_BINARY_SEARCH_TREE_TO_LINKED_LIST_H
