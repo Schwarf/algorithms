@@ -54,7 +54,6 @@ void iterative_inorder_traversal(ParentedTreeNode<T>* root, void (*callback)(Par
 
 }
 
-
 template <typename T>
 void iterative_preorder_traversal(ParentedTreeNode<T>* root, void (*callback)(ParentedTreeNode<T>*))
 {
@@ -86,6 +85,51 @@ void iterative_preorder_traversal(ParentedTreeNode<T>* root, void (*callback)(Pa
         }
         else if (current->right == prev)
             next = current->parent;
+
+        prev = current;
+        current = next;
+    }
+}
+
+template <typename T>
+void iterative_postorder_traversal(ParentedTreeNode<T>* root, void (*callback)(ParentedTreeNode<T>*))
+{
+    if (!root)
+        return;
+
+    ParentedTreeNode<T>* prev = nullptr;
+    auto current = root;
+
+    while (current)
+    {
+        ParentedTreeNode<T>* next = nullptr;
+        if (current->parent == prev)
+        {
+            if (current->left)
+                next = current->left;
+            else if (current->right)
+                next = current->right;
+            else
+            {
+                callback(current);
+                next = current->parent;
+            }
+        }
+        else if (current->left == prev)
+        {
+            if (current->right)
+                next = current->right;
+            else
+            {
+                callback(current);
+                next = current->parent;
+            }
+        }
+        else if (current->right == prev)
+        {
+            callback(current);
+            next = current->parent;
+        }
 
         prev = current;
         current = next;
