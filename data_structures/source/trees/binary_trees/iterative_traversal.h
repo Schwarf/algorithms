@@ -54,4 +54,42 @@ void iterative_inorder_traversal(ParentedTreeNode<T>* root, void (*callback)(Par
 
 }
 
+
+template <typename T>
+void iterative_preorder_traversal(ParentedTreeNode<T>* root, void (*callback)(ParentedTreeNode<T>*))
+{
+    if (!root)
+        return;
+
+    ParentedTreeNode<T>* prev = nullptr;
+    auto current = root;
+
+    while (current)
+    {
+        ParentedTreeNode<T>* next = nullptr;
+        if (current->parent == prev)
+        {
+            callback(current);
+            if (current->left)
+                next = current->left;
+            else if (current->right)
+                next = current->right;
+            else
+                next = current->parent;
+        }
+        else if (current->left == prev)
+        {
+            if (current->right)
+                next = current->right;
+            else
+                next = current->parent;
+        }
+        else if (current->right == prev)
+            next = current->parent;
+
+        prev = current;
+        current = next;
+    }
+}
+
 #endif // ALGORITHMS_ITERATIVE_TRAVERSAL_H
