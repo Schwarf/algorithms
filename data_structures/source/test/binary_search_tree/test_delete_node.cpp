@@ -105,15 +105,15 @@ TEST_F(DeleteNodeTest, DeletesNodeWithOnlyRightChild)
 
 TEST_F(DeleteNodeTest, DeletesNodeWithTwoChildrenUsingInOrderPredecessor)
 {
-    auto root = node(10, node(5, node(3), node(7, node(6), node(8))), node(15));
-    auto predecessor = root->left->right->right;
+    auto root = node(20, node(10, node<int>(5, nullptr, node(7)), node(15)), node(25));
+    auto predecessor = root->left->left->right;
 
-    root = delete_node(root, 5);
+    root = delete_node(root, 10);
 
     EXPECT_TRUE(TestTracker::getInstance().wasNodeDeleted(predecessor));
     EXPECT_TRUE(is_valid_binary_search_tree(root));
-    EXPECT_EQ(values_in_order(root), (std::vector<int>{3, 6, 7, 8, 10, 15}));
-    EXPECT_EQ(root->left->value, 8);
+    EXPECT_EQ(values_in_order(root), (std::vector<int>{5, 7, 15, 20, 25}));
+    EXPECT_EQ(root->left->value, 7);
 
     delete_tree(root);
 }
