@@ -22,6 +22,13 @@ public:
     virtual void update(const T& value) = 0;
 };
 
+// Subject stores non-owning pointers to observers.
+// Destroying the Subject does not destroy the observers.
+// Limitations:
+// - no unsubscribe(): destroying an observer while it is still registered leaves a dangling pointer
+// - the same observer can be subscribed multiple times
+// - nullptr is currently accepted by subscribe()
+// - not thread-safe
 template <typename T>
 class Subject
 {
@@ -44,7 +51,7 @@ private:
     std::vector<Observer<T>*> observers;
 };
 
-// concrete Observer object
+// Concrete Observer
 class TemperatureDisplay: public Observer<double>
 {
 public:
