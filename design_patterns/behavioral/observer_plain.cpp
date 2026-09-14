@@ -13,7 +13,9 @@
 //   - implements the notification behavior
 
 #include <iostream>
+#include <unordered_set>
 #include <vector>
+
 template <typename T>
 class Observer
 {
@@ -51,6 +53,42 @@ private:
     std::vector<Observer<T>*> observers;
 };
 
+// BetterSubject stores non-owning pointers to observers.
+// Destroying the BetterSubject does not destroy the observers.
+// Limitations:
+// - lifetime safety: if an Observer is destroyed without first unsubscribing, BetterSubject keeps a dangling pointer
+// - not thread-safe
+// - subscribing/unsubscribing during notify() is unsafe
+template <typename T>
+class BetterSubject
+{
+public:
+    void subscribe(Observer<T>* observer)
+    {
+        if (observer == nullptr)
+            throw std::invalid_argument("observer must not be nullptr");
+
+        observers.insert(observer);
+    }
+
+    void unsubscribe(Observer<T>* observer)
+    {
+        observers.erase(observer);
+    }
+
+    void notify(const T& value)
+    {
+        for (auto * observer : observers)
+        {
+            observer->update(value);
+        }
+    }
+
+
+private:
+    std::unordered_set<Observer<T>*> observers;
+};
+
 // Concrete Observer
 class TemperatureDisplay: public Observer<double>
 {
@@ -64,7 +102,7 @@ public:
 
 int main()
 {
-    Subject<double> sensor;
+    BetterSubject<double> sensor;
     TemperatureDisplay display;
     sensor.subscribe(&display);
     sensor.notify(25.5);
