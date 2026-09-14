@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <memory>
-#include <unordered_set>
 #include <vector>
 
 template <typename T>
@@ -22,16 +21,20 @@ public:
 // Improvements:
 //   - no dangling pointer if an observer is destroyed
 //   - expired observers can be detected and removed
+//   - duplicate subscriptions are prevented
+//   - observers can unsubscribe safely
+//   - subscribing/unsubscribing during notify() is safe because
+//     notify() operates on a snapshot
 //
 // Remaining limitations:
 //   - not thread-safe
-//   - subscribing/unsubscribing during notify() still needs consideration
 
 // We use std::vector<std::weak_ptr<T>> because before C++26 std::weak_ptr has no
 // standard owner-based hash/equality support for straightforward use in std::unordered_set.
 template <typename T>
 class Subject
 {
+
 public:
     void subscribe(const std::shared_ptr<Observer<T>>& observer)
     {
@@ -57,7 +60,7 @@ public:
     {
         for (auto it = observers.begin(); it != observers.end();)
         {
-            if (auto current = it.lock())
+            if (auto current = it->lock())
             {
                 if (current == observer)
                 {
@@ -73,18 +76,33 @@ public:
 
     void notify(const T& value)
     {
+        // take a snapshot
+        std::vector<std::shared_ptr<Observer<T>>> snapshot_observers;
         for (auto it = observers.begin(); it != observers.end();)
         {
-            if (auto observer = it->lock())
+            if (auto current = it->lock())
             {
-                observer->update(value);
+                snapshot_observers.push_back(current);
                 ++it;
             }
             else
-            {
                 it = observers.erase(it);
-            }
         }
+        for (auto &observer: snapshot_observers)
+            observer->update(value);
+
+        // for (auto it = observers.begin(); it != observers.end();)
+        // {
+        //     if (auto observer = it->lock())
+        //     {
+        //         observer->update(value);
+        //         ++it;
+        //     }
+        //     else
+        //     {
+        //         it = observers.erase(it);
+        //     }
+        // }
     }
 
 private:
