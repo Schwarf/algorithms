@@ -1,0 +1,64 @@
+//
+// Created by andreas on 14.09.26.
+//
+// Subject
+//   - stores a list of observers
+//   - allows observers to subscribe
+//   - notifies all observers
+//
+// Observer
+//   - defines the interface that concrete observers must implement
+//
+// ConcreteObserver
+//   - implements the notification behavior
+
+#include <iostream>
+#include <vector>
+template <typename T>
+class Observer
+{
+public:
+    virtual ~Observer() = default;
+    virtual void update(const T& value) = 0;
+};
+
+template <typename T>
+class Subject
+{
+public:
+    void subscribe(Observer<T>* observer)
+    {
+        observers.push_back(observer);
+    }
+
+    void notify(const T& value)
+    {
+        for (auto observer : observers)
+        {
+            observer->update(value);
+        }
+    }
+
+
+private:
+    std::vector<Observer<T>*> observers;
+};
+
+// concrete Observer object
+class TemperatureDisplay: public Observer<double>
+{
+public:
+    void update(const double& value) override
+    {
+        std::cout << "Temperature: " << value << std::endl;
+    }
+
+};
+
+int main()
+{
+    Subject<double> sensor;
+    TemperatureDisplay display;
+    sensor.subscribe(&display);
+    sensor.notify(25.5);
+}
