@@ -38,6 +38,24 @@ public:
         observers.push_back(observer);
     }
 
+    void unsubscribe(const std::shared_ptr<Observer<T>>& observer)
+    {
+        for (auto it = observers.begin(); it != observers.end();)
+        {
+            if (auto current = it.lock())
+            {
+                if (current == observer)
+                {
+                    it = observers.erase(it);
+                    break;
+                }
+                ++it;
+            }
+            else
+                it = observers.erase(it);
+        }
+    }
+
     void notify(const T& value)
     {
         for (auto it = observers.begin(); it != observers.end();)
