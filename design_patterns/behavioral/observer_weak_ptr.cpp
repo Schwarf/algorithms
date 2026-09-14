@@ -24,17 +24,32 @@ public:
 //   - expired observers can be detected and removed
 //
 // Remaining limitations:
-//   - duplicate subscriptions are possible
-//   - no explicit unsubscribe() yet
 //   - not thread-safe
 //   - subscribing/unsubscribing during notify() still needs consideration
 
+// We use std::vector<std::weak_ptr<T>> because before C++26 std::weak_ptr has no
+// standard owner-based hash/equality support for straightforward use in std::unordered_set.
 template <typename T>
 class Subject
 {
 public:
     void subscribe(const std::shared_ptr<Observer<T>>& observer)
     {
+        if (!observer)
+            throw std::invalid_argument("observer must not be null");
+        for (auto it = observers.begin(); it != observers.end();)
+        {
+            if (auto current = it->lock())
+            {
+                if (current == observer)
+                {
+                    return;
+                }
+                ++it;
+            }
+            else
+                it = observers.erase(it);
+        }
         observers.push_back(observer);
     }
 
