@@ -5,6 +5,17 @@
 #include <iostream>
 #include <unordered_map>
 
+// Advantages:
+//   - no Observer base class or inheritance required
+//   - supports lambdas, free functions and callable objects
+//   - simple unsubscribe via SubscriptionId
+//
+// Limitations:
+//   - callbacks may capture dangling pointers/references
+//   - duplicate logical subscriptions are possible
+//   - std::function adds type-erasure overhead
+//   - not thread-safe
+//   - subscribe/unsubscribe during notify() is unsafe
 template <typename T>
 class CallbackSubject
 {
@@ -35,4 +46,22 @@ public:
         }
     }
 };
+
+int main()
+{
+    CallbackSubject<double> sensor;
+
+    auto id = sensor.subscribe(
+        [](const double& value)
+        {
+            std::cout << "Temperature: " << value << '\n';
+        });
+
+    sensor.notify(25.5);
+
+    sensor.unsubscribe(id);
+
+    sensor.notify(30.0); // nothing printed
+}
+
 
