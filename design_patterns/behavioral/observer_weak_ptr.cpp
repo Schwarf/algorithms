@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <vector>
 
 template <typename T>
@@ -23,11 +24,13 @@ public:
 //   - expired observers can be detected and removed
 //   - duplicate subscriptions are prevented
 //   - observers can unsubscribe safely
-//   - subscribing/unsubscribing during notify() is safe because
-//     notify() operates on a snapshot
+//   - subscribing/unsubscribing during notify() is safe because notify() operates on a snapshot
 //
-// Remaining limitations:
-//   - not thread-safe
+// Thread safety:
+//   - access to observers is protected by a mutex
+//   - notify() builds a snapshot while holding the mutex
+//   - callbacks are invoked after releasing the mutex
+//   - concurrent notify() calls may invoke the same Observer concurrently
 
 // We use std::vector<std::weak_ptr<T>> because before C++26 std::weak_ptr has no
 // standard owner-based hash/equality support for straightforward use in std::unordered_set.
@@ -38,8 +41,10 @@ class Subject
 public:
     void subscribe(const std::shared_ptr<Observer<T>>& observer)
     {
+
         if (!observer)
             throw std::invalid_argument("observer must not be null");
+        std::lock_guard lock(mutex);
         for (auto it = observers.begin(); it != observers.end();)
         {
             if (auto current = it->lock())
@@ -58,6 +63,7 @@ public:
 
     void unsubscribe(const std::shared_ptr<Observer<T>>& observer)
     {
+        std::lock_guard lock(mutex);
         for (auto it = observers.begin(); it != observers.end();)
         {
             if (auto current = it->lock())
@@ -78,17 +84,21 @@ public:
     {
         // take a snapshot
         std::vector<std::shared_ptr<Observer<T>>> snapshot_observers;
-        for (auto it = observers.begin(); it != observers.end();)
         {
-            if (auto current = it->lock())
+            std::lock_guard lock(mutex);
+
+            for (auto it = observers.begin(); it != observers.end();)
             {
-                snapshot_observers.push_back(current);
-                ++it;
+                if (auto current = it->lock())
+                {
+                    snapshot_observers.push_back(current);
+                    ++it;
+                }
+                else
+                    it = observers.erase(it);
             }
-            else
-                it = observers.erase(it);
         }
-        for (auto &observer: snapshot_observers)
+        for (auto& observer : snapshot_observers)
             observer->update(value);
 
         // for (auto it = observers.begin(); it != observers.end();)
@@ -107,15 +117,13 @@ public:
 
 private:
     std::vector<std::weak_ptr<Observer<T>>> observers;
+    std::mutex mutex;
 };
 
 class TemperatureDisplay : public Observer<double>
 {
 public:
-    void update(const double& value) override
-    {
-        std::cout << "Temperature: " << value << '\n';
-    }
+    void update(const double& value) override { std::cout << "Temperature: " << value << '\n'; }
 };
 
 int main()
