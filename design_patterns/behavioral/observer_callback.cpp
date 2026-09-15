@@ -3,6 +3,7 @@
 //
 #include <functional>
 #include <iostream>
+#include <mutex>
 #include <unordered_map>
 
 // Advantages:
@@ -43,6 +44,64 @@ public:
         for (const auto& [id, callback] : callbacks)
         {
             callback(value);
+        }
+    }
+};
+
+// Callback-based Observer implementation.
+//
+// Improvements:
+//   - no Observer base class or inheritance required
+//   - supports lambdas, free functions and other callables via std::function
+//   - unsubscribe() is simple via SubscriptionId
+//   - access to callbacks and next_id is protected by a mutex
+//   - notify() works on a snapshot, so callbacks may subscribe/unsubscribe safely
+//   - callbacks are invoked after releasing the mutex, avoiding re-entrant deadlocks
+//
+// Remaining limitations:
+//   - callbacks may capture dangling pointers or references; their lifetimes are
+//     not managed by BetterCallbackSubject
+//   - logically identical callbacks can be subscribed multiple times
+//   - std::function adds type-erasure overhead and may allocate dynamically
+//   - concurrent notify() calls may execute the same callback concurrently
+//   - SubscriptionId may theoretically wrap around after enough subscriptions
+
+template <typename T>
+class BetterCallbackSubject
+{
+public:
+    using Callback = std::function<void(const T&)>;
+    using SubscriptionId = std::size_t;
+private:
+    std::unordered_map<SubscriptionId, Callback> callbacks;
+    SubscriptionId next_id{};
+    std::mutex mutex;
+public:
+
+    SubscriptionId subscribe(Callback callback)
+    {
+        std::lock_guard lock{mutex};
+        auto id = next_id++;
+        callbacks[id] = callback;
+        return id;
+    }
+
+    void unsubscribe(SubscriptionId id)
+    {
+        std::lock_guard lock{mutex};
+        callbacks.erase(id);
+    }
+
+    void notify(const T & value)
+    {
+        std::unordered_map<SubscriptionId, Callback> snapshot;
+        {
+            std::lock_guard lock{mutex};
+            snapshot = callbacks;
+        }
+        for (const auto& [id, callback] : snapshot)
+        {
+                callback(value);
         }
     }
 };
