@@ -72,6 +72,12 @@ add_executable(test_DP_sequence_chaining
 target_link_libraries(test_DP_sequence_chaining GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingSequenceChainingTests COMMAND test_DP_sequence_chaining)
 
+add_executable(test_DP_longest_increasing_subsequence
+        sequence_chaining/test_longest_increasing_subsequence.cpp
+)
+target_link_libraries(test_DP_longest_increasing_subsequence GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingLongestIncreasingSubsequenceTests COMMAND test_DP_longest_increasing_subsequence)
+
 
 add_executable(test_DP_interval
         interval-DP/test_count_unique_binary_search_trees.cpp
