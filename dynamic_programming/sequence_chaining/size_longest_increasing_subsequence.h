@@ -6,7 +6,6 @@
 #define LONGEST_INCREASING_SUBSEQUENCE_H
 
 #include <algorithm>
-#include <concepts>
 #include <vector>
 
 
@@ -75,13 +74,13 @@ int size_of_longest_increasing_subsequence_bottom_up(const std::vector<T>& seque
     return *std::max_element(dp.begin(), dp.end());
 }
 
-// Optimized version of dynamic programming approach working in O(N*logN)
-// Start iterating from the left.
-// For each element in the sequence, find the first element in tails that is greater than or equal to it
-// using binary search. Replace that element with the current one.
-// This replacement doesn't change the length of the longest increasing subsequence but ensures the potential
-// for future elements to extend the subsequence. If no such element exists, then the current element can
-// extend the existing longest increasing subsequence, so append it to the tail_array.
+// O(N log N) algorithm for the length of the longest strictly increasing subsequence.
+// tails[len - 1] stores the smallest possible tail value of an increasing subsequence
+// of length len found so far.
+// For each value, find the first tail greater than or equal to it using lower_bound.
+// Replacing that tail keeps the same subsequence length but lowers the ending value,
+// making it easier for future values to extend it.
+// If no such tail exists, the value extends the longest length found so far.
 int size_of_longest_increasing_subsequence_tail_list(const std::vector<int>& sequence)
 {
     std::vector<int> tails;
@@ -89,10 +88,10 @@ int size_of_longest_increasing_subsequence_tail_list(const std::vector<int>& seq
     for (int i = 0; i < n; i++)
     {
         // We search for the FIRST element in the sorted tail_array that is greater equal the element sequence[i]
-        // If we find one (the FIRST one) that is greater we replace it with the current sequence element sequence[i].
-        // If not we append the sequence[i] element to the array. In that way the 'last' element of tails
+        // If we find one (the FIRST one) that is greater than or equal we replace it with the current sequence element
+        // sequence[i]. If not we append the sequence[i] element to the array. In that way the 'last' element of tails
         // is always the smallest possible optimizing for length.
-        auto it = lower_bound(tails.begin(), tails.end(), sequence[i]);
+        auto it = std::lower_bound(tails.begin(), tails.end(), sequence[i]);
         if (it != tails.end())
         {
             *it = sequence[i];
