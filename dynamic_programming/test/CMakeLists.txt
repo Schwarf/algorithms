@@ -105,4 +105,10 @@ add_executable(test_DP_counting
 )
 target_link_libraries(test_DP_counting GTest::GTest GTest::Main pthread)
 add_test(NAME DynamicProgrammingCountingTests COMMAND test_DP_counting)
+
+add_executable(test_DP_digit
+        digit-DP/test_rotated_digits.cpp
+)
+target_link_libraries(test_DP_digit GTest::GTest GTest::Main pthread)
+add_test(NAME DynamicProgrammingDigitTests COMMAND test_DP_digit)
 #target_link_libraries(dynamic_programming_samples_test ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)
