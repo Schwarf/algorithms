@@ -56,8 +56,8 @@ std::string get_alphabet(const std::vector<std::string>& words ) {
         if(e)
             ++existing;
     }
-    for (int i{}; i < words.size()-1; ++i) {
-        if (!add_edge(edges, indegree, words[i], words[i+1])) {
+    for (std::size_t i = 1; i < words.size(); ++i) {
+        if (!add_edge(edges, indegree, words[i-1], words[i])) {
             return {};
         }
     }
