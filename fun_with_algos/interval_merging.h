@@ -10,7 +10,7 @@
 // and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
 template <typename T>
-std::vector<std::vector<T>> merge_intervals(std::vector<std::vector<T>>& intervals)
+std::vector<std::vector<T>> merge_intervals(const std::vector<std::vector<T>>& intervals)
 {
     if (intervals.empty())
         return {};
@@ -28,4 +28,22 @@ std::vector<std::vector<T>> merge_intervals(std::vector<std::vector<T>>& interva
     return result;
 }
 
+template <typename T>
+std::vector<std::vector<T>> merge_intervals_optimized(std::vector<std::vector<T>> & intervals) {
+    if (intervals.empty())
+        return intervals;
+    std::sort(intervals.begin(),intervals.end());
+    int write = 0;
+    for (int read = 1; read < intervals.size(); ++read) {
+        if (intervals[read][0] <= intervals[write][1]) {
+            intervals[write][1] = std::max(intervals[write][1], intervals[read][1]);
+        }
+        else {
+            ++write;
+            intervals[write] = intervals[read];
+        }
+    }
+    intervals.resize(write+1);
+    return intervals;
+}
 #endif // INTERVAL_MERGING_H
