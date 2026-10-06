@@ -5,119 +5,146 @@
 #include "interval_merging.h"
 #include <limits>
 
-TEST(IntervalMerging, simple1)
+struct StandardIntervalMerger
+{
+    template <typename T>
+    static void check(std::vector<std::vector<T>>& input, const std::vector<std::vector<T>>& expected)
+    {
+        EXPECT_EQ(expected, merge_intervals(input));
+    }
+};
+
+struct OptimizedIntervalMerger
+{
+    template <typename T>
+    static void check(std::vector<std::vector<T>>& input, const std::vector<std::vector<T>>& expected)
+    {
+        EXPECT_EQ(expected, merge_intervals_optimized(input));
+        EXPECT_EQ(expected, input);
+    }
+};
+
+template <typename Merger>
+class IntervalMerging : public ::testing::Test {};
+
+using IntervalMergingImplementations = ::testing::Types<StandardIntervalMerger, OptimizedIntervalMerger>;
+TYPED_TEST_SUITE(IntervalMerging, IntervalMergingImplementations);
+
+TYPED_TEST(IntervalMerging, simple1)
 {
     std::vector<std::vector<int>> input{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
     const std::vector<std::vector<int>> expected_output{{1, 6}, {8, 10}, {15, 18}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, simple2)
+TYPED_TEST(IntervalMerging, simple2)
 {
     std::vector<std::vector<int>> input{{1, 4}, {4, 5}};
     const std::vector<std::vector<int>> expected_output{{1, 5}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, simple3)
+TYPED_TEST(IntervalMerging, simple3)
 {
     std::vector<std::vector<int>> input{{2, 3}, {0, 1}, {1, 2}, {3, 4}, {4, 5}, {1, 1},
                                         {0, 1}, {4, 6}, {5, 7}, {1, 1}, {3, 5}};
     const std::vector<std::vector<int>> expected_output{{0, 7}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, simple4)
+TYPED_TEST(IntervalMerging, simple4)
 {
     std::vector<std::vector<int>> input{{2, 3}};
-    EXPECT_EQ(input, merge_intervals(input));
+    const auto expected_output = input;
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, simple5)
+TYPED_TEST(IntervalMerging, simple5)
 {
     std::vector<std::vector<int>> input;
-    EXPECT_EQ(input, merge_intervals(input));
+    const auto expected_output = input;
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, DisjointIntervalsInReverseOrder)
+TYPED_TEST(IntervalMerging, DisjointIntervalsInReverseOrder)
 {
     std::vector<std::vector<int>> input{{8, 10}, {4, 6}, {1, 3}};
     const std::vector<std::vector<int>> expected_output{{1, 3}, {4, 6}, {8, 10}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, NestedIntervalsDoNotShrinkMergedEnd)
+TYPED_TEST(IntervalMerging, NestedIntervalsDoNotShrinkMergedEnd)
 {
     std::vector<std::vector<int>> input{{1, 10}, {2, 3}, {4, 5}, {9, 12}};
     const std::vector<std::vector<int>> expected_output{{1, 12}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, EqualStartsMergeRegardlessOfInputOrder)
+TYPED_TEST(IntervalMerging, EqualStartsMergeRegardlessOfInputOrder)
 {
     const std::vector<std::vector<int>> expected_output{{1, 10}, {12, 13}};
     std::vector<std::vector<int>> input{{1, 3}, {1, 10}, {1, 5}, {12, 13}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 
     input = {{12, 13}, {1, 5}, {1, 10}, {1, 3}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, EqualEndsMergeContainedIntervals)
+TYPED_TEST(IntervalMerging, EqualEndsMergeContainedIntervals)
 {
     std::vector<std::vector<int>> input{{5, 8}, {1, 8}, {3, 8}};
     const std::vector<std::vector<int>> expected_output{{1, 8}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, DuplicateIntervalsCollapse)
+TYPED_TEST(IntervalMerging, DuplicateIntervalsCollapse)
 {
     std::vector<std::vector<int>> input{{5, 7}, {1, 3}, {5, 7}, {1, 3}};
     const std::vector<std::vector<int>> expected_output{{1, 3}, {5, 7}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, PointIntervalsMergeOnlyWhenCovered)
+TYPED_TEST(IntervalMerging, PointIntervalsMergeOnlyWhenCovered)
 {
     std::vector<std::vector<int>> input{{7, 7}, {3, 3}, {1, 1}, {1, 5}, {5, 5}, {7, 7}, {0, 0}};
     const std::vector<std::vector<int>> expected_output{{0, 0}, {1, 5}, {7, 7}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, NegativeIntervalsAndOverlapAcrossZero)
+TYPED_TEST(IntervalMerging, NegativeIntervalsAndOverlapAcrossZero)
 {
     std::vector<std::vector<int>> input{{2, 4}, {-3, 2}, {-8, -5}, {-10, -7}, {6, 8}};
     const std::vector<std::vector<int>> expected_output{{-10, -5}, {-3, 4}, {6, 8}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, IntegerLimitsRemainSeparateAcrossGap)
+TYPED_TEST(IntervalMerging, IntegerLimitsRemainSeparateAcrossGap)
 {
     constexpr int lowest = std::numeric_limits<int>::lowest();
     constexpr int highest = std::numeric_limits<int>::max();
     std::vector<std::vector<int>> input{{highest, highest}, {0, highest}, {lowest, -1}, {lowest, lowest}};
     const std::vector<std::vector<int>> expected_output{{lowest, -1}, {0, highest}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, IntegerLimitsCanMergeIntoFullRange)
+TYPED_TEST(IntervalMerging, IntegerLimitsCanMergeIntoFullRange)
 {
     constexpr int lowest = std::numeric_limits<int>::lowest();
     constexpr int highest = std::numeric_limits<int>::max();
     std::vector<std::vector<int>> input{{0, highest}, {lowest, 0}};
     const std::vector<std::vector<int>> expected_output{{lowest, highest}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
-TEST(IntervalMerging, FractionalEndpointsPreserveGapsAndTouchingBoundaries)
+TYPED_TEST(IntervalMerging, FractionalEndpointsPreserveGapsAndTouchingBoundaries)
 {
     std::vector<std::vector<double>> input{{2.5, 3.0}, {0.5, 1.25}, {1.25, 2.0}, {2.25, 2.5}};
     const std::vector<std::vector<double>> expected_output{{0.5, 2.0}, {2.25, 3.0}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }
 
 
-TEST(IntervalMerging, complex1)
+TYPED_TEST(IntervalMerging, complex1)
 {
     std::vector<std::vector<int>> input{
         {362, 367}, {314, 315}, {133, 138}, {434, 443}, {202, 203}, {144, 145}, {229, 235}, {205, 212}, {314, 323},
@@ -138,5 +165,5 @@ TEST(IntervalMerging, complex1)
         {182, 190}, {192, 197}, {201, 212}, {221, 239}, {259, 265}, {267, 272}, {275, 280}, {297, 306}, {307, 328},
         {333, 347}, {356, 358}, {362, 367}, {368, 369}, {371, 375}, {376, 383}, {386, 391}, {394, 403}, {409, 421},
         {432, 443}, {452, 452}, {458, 464}, {465, 467}, {475, 480}, {481, 488}};
-    EXPECT_EQ(expected_output, merge_intervals(input));
+    TypeParam::check(input, expected_output);
 }

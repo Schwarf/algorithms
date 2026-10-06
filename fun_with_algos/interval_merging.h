@@ -10,7 +10,7 @@
 // and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
 template <typename T>
-std::vector<std::vector<T>> merge_intervals(const std::vector<std::vector<T>>& intervals)
+std::vector<std::vector<T>> merge_intervals(std::vector<std::vector<T>>& intervals)
 {
     if (intervals.empty())
         return {};
