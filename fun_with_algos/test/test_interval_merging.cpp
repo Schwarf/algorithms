@@ -3,6 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "interval_merging.h"
+#include <limits>
 
 TEST(IntervalMerging, simple1)
 {
@@ -36,6 +37,83 @@ TEST(IntervalMerging, simple5)
 {
     std::vector<std::vector<int>> input;
     EXPECT_EQ(input, merge_intervals(input));
+}
+
+TEST(IntervalMerging, DisjointIntervalsInReverseOrder)
+{
+    std::vector<std::vector<int>> input{{8, 10}, {4, 6}, {1, 3}};
+    const std::vector<std::vector<int>> expected_output{{1, 3}, {4, 6}, {8, 10}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, NestedIntervalsDoNotShrinkMergedEnd)
+{
+    std::vector<std::vector<int>> input{{1, 10}, {2, 3}, {4, 5}, {9, 12}};
+    const std::vector<std::vector<int>> expected_output{{1, 12}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, EqualStartsMergeRegardlessOfInputOrder)
+{
+    const std::vector<std::vector<int>> expected_output{{1, 10}, {12, 13}};
+    std::vector<std::vector<int>> input{{1, 3}, {1, 10}, {1, 5}, {12, 13}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+
+    input = {{12, 13}, {1, 5}, {1, 10}, {1, 3}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, EqualEndsMergeContainedIntervals)
+{
+    std::vector<std::vector<int>> input{{5, 8}, {1, 8}, {3, 8}};
+    const std::vector<std::vector<int>> expected_output{{1, 8}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, DuplicateIntervalsCollapse)
+{
+    std::vector<std::vector<int>> input{{5, 7}, {1, 3}, {5, 7}, {1, 3}};
+    const std::vector<std::vector<int>> expected_output{{1, 3}, {5, 7}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, PointIntervalsMergeOnlyWhenCovered)
+{
+    std::vector<std::vector<int>> input{{7, 7}, {3, 3}, {1, 1}, {1, 5}, {5, 5}, {7, 7}, {0, 0}};
+    const std::vector<std::vector<int>> expected_output{{0, 0}, {1, 5}, {7, 7}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, NegativeIntervalsAndOverlapAcrossZero)
+{
+    std::vector<std::vector<int>> input{{2, 4}, {-3, 2}, {-8, -5}, {-10, -7}, {6, 8}};
+    const std::vector<std::vector<int>> expected_output{{-10, -5}, {-3, 4}, {6, 8}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, IntegerLimitsRemainSeparateAcrossGap)
+{
+    constexpr int lowest = std::numeric_limits<int>::lowest();
+    constexpr int highest = std::numeric_limits<int>::max();
+    std::vector<std::vector<int>> input{{highest, highest}, {0, highest}, {lowest, -1}, {lowest, lowest}};
+    const std::vector<std::vector<int>> expected_output{{lowest, -1}, {0, highest}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, IntegerLimitsCanMergeIntoFullRange)
+{
+    constexpr int lowest = std::numeric_limits<int>::lowest();
+    constexpr int highest = std::numeric_limits<int>::max();
+    std::vector<std::vector<int>> input{{0, highest}, {lowest, 0}};
+    const std::vector<std::vector<int>> expected_output{{lowest, highest}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
+}
+
+TEST(IntervalMerging, FractionalEndpointsPreserveGapsAndTouchingBoundaries)
+{
+    std::vector<std::vector<double>> input{{2.5, 3.0}, {0.5, 1.25}, {1.25, 2.0}, {2.25, 2.5}};
+    const std::vector<std::vector<double>> expected_output{{0.5, 2.0}, {2.25, 3.0}};
+    EXPECT_EQ(expected_output, merge_intervals(input));
 }
 
 
