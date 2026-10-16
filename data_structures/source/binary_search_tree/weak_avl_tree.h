@@ -4,23 +4,21 @@
 
 #ifndef ALGORITHMS_WEAK_AVL_TREE_H
 #define ALGORITHMS_WEAK_AVL_TREE_H
+#include "../../../../../../../../usr/include/c++/11/bits/valarray_after.h"
 
-template<typename T>
+template <typename T>
 class weakAVL
 {
 public:
     weakAVL() = default;
-    ~weakAVL()
-    {
-        destroy(root);
-    }
+    ~weakAVL() { destroy(root); }
 
     weakAVL(const weakAVL&) = delete;
-    weakAVL( weakAVL&&) = delete;
-    weakAVL operator=(const weakAVL &) = delete;
+    weakAVL(weakAVL&&) = delete;
+    weakAVL operator=(const weakAVL&) = delete;
     weakAVL operator=(weakAVL&&) = delete;
 
-    bool contains(const T & key) const
+    bool contains(const T& key) const
     {
         auto node = root;
         while (node)
@@ -35,7 +33,7 @@ public:
         return false;
     }
 
-    bool insert(const T & key)
+    bool insert(const T& key)
     {
         auto node = root;
         Node* parent = nullptr;
@@ -61,10 +59,28 @@ public:
         return true;
     }
 
+    static bool validate_bst(const Node* node, const T* upper, const T* lower, const Node* expected_parent)
+    {
+        if (!node)
+            return true;
+
+        if (node->parent != expected_parent)
+            return false;
+
+        if (lower &&  node->key < lower)
+            return false;
+
+        if (upper && upper < node->key)
+            return false;
+        return validate_bst(node->left, node->key, lower, node) &&
+            validate_bst(node->right, upper, node->key, node);
+    }
+
+
 private:
     struct Node
     {
-        explicit Node(const T & value): key(value){}
+        explicit Node(const T& value) : key(value) {}
         int rank{};
         T key;
         Node* parent{};
@@ -73,7 +89,7 @@ private:
     };
     Node* root;
 
-    static void destroy(Node * node) noexcept
+    static void destroy(Node* node) noexcept
     {
         if (!node)
             return;
@@ -82,16 +98,9 @@ private:
         delete node;
     }
 
-    static int rank(const Node* node) noexcept
-    {
-        return node ? node->rank : -1;
-    }
+    static int rank(const Node* node) noexcept { return node ? node->rank : -1; }
 
-    static int rank_difference(const Node* parent, const Node* node)
-    {
-        return rank(parent) - rank(node);
-    }
-
+    static int rank_difference(const Node* parent, const Node* node) { return rank(parent) - rank(node); }
 };
 
 #endif // ALGORITHMS_WEAK_AVL_TREE_H
