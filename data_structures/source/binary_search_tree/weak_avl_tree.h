@@ -15,8 +15,8 @@ public:
 
     weakAVL(const weakAVL&) = delete;
     weakAVL(weakAVL&&) = delete;
-    weakAVL operator=(const weakAVL&) = delete;
-    weakAVL operator=(weakAVL&&) = delete;
+    weakAVL & operator=(const weakAVL&) = delete;
+    weakAVL & operator=(weakAVL&&) = delete;
 
     bool contains(const T& key) const
     {
@@ -67,22 +67,25 @@ public:
         if (node->parent != expected_parent)
             return false;
 
-        if (lower &&  node->key < lower)
+        if (lower &&  !(*lower < node->key))
             return false;
 
-        if (upper && upper < node->key)
+        if (upper && !(node->key < *upper))
             return false;
-        return validate_bst(node->left, node->key, lower, node) &&
-            validate_bst(node->right, upper, node->key, node);
+        return validate_bst(node->left, &node->key, lower, node) &&
+            validate_bst(node->right, upper, &node->key, node);
     }
 
     static bool validate_wavl(const Node * node)
     {
         if (!node)
             return true;
+        if (!node->left && !node->right)
+            return node->rank == 0;
 
         int left_diff = rank_difference(node, node->left);
         int right_diff = rank_difference(node, node->right);
+
         if (left_diff != 1 && left_diff != 2)
             return false;
         if (right_diff != 1 && right_diff != 2)
@@ -100,7 +103,7 @@ private:
         Node* left{};
         Node* right{};
     };
-    Node* root;
+    Node* root{};
 
     static void destroy(Node* node) noexcept
     {
