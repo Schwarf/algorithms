@@ -20,7 +20,7 @@ public:
     weakAVL operator=(const weakAVL &) = delete;
     weakAVL operator=(weakAVL&&) = delete;
 
-    bool contains(const T & key) const noexcept
+    bool contains(const T & key) const
     {
         auto node = root;
         while (node)
@@ -35,19 +35,30 @@ public:
         return false;
     }
 
-    bool insert(const T & key) const noexcept
+    bool insert(const T & key)
     {
         auto node = root;
+        Node* parent = nullptr;
         while (node)
         {
+            parent = node;
             if (key < node->key)
                 node = node->left;
             else if (node->key < key)
                 node = node->right;
             else
-                return true;
+                return false;
         }
-        return false;
+        Node* inserted = new Node(key);
+        inserted->parent = inserted;
+
+        if (!parent)
+            root = inserted;
+        else if (key < parent->key)
+            parent->left = inserted;
+        else
+            parent->right = inserted;
+        return true;
     }
 
 private:
@@ -80,6 +91,7 @@ private:
     {
         return rank(parent) - rank(node);
     }
+
 };
 
 #endif // ALGORITHMS_WEAK_AVL_TREE_H
