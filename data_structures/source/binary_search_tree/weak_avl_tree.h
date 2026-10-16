@@ -1,0 +1,85 @@
+//
+// Created by andreas on 16.10.26.
+//
+
+#ifndef ALGORITHMS_WEAK_AVL_TREE_H
+#define ALGORITHMS_WEAK_AVL_TREE_H
+
+template<typename T>
+class weakAVL
+{
+public:
+    weakAVL() = default;
+    ~weakAVL()
+    {
+        destroy(root);
+    }
+
+    weakAVL(const weakAVL&) = delete;
+    weakAVL( weakAVL&&) = delete;
+    weakAVL operator=(const weakAVL &) = delete;
+    weakAVL operator=(weakAVL&&) = delete;
+
+    bool contains(const T & key) const noexcept
+    {
+        auto node = root;
+        while (node)
+        {
+            if (key < node->key)
+                node = node->left;
+            else if (node->key < key)
+                node = node->right;
+            else
+                return true;
+        }
+        return false;
+    }
+
+    bool insert(const T & key) const noexcept
+    {
+        auto node = root;
+        while (node)
+        {
+            if (key < node->key)
+                node = node->left;
+            else if (node->key < key)
+                node = node->right;
+            else
+                return true;
+        }
+        return false;
+    }
+
+private:
+    struct Node
+    {
+        explicit Node(const T & value): key(value){}
+        int rank{};
+        T key;
+        Node* parent{};
+        Node* left{};
+        Node* right{};
+    };
+    Node* root;
+
+    static void destroy(Node * node) noexcept
+    {
+        if (!node)
+            return;
+        destroy(node->left);
+        destroy(node->right);
+        delete node;
+    }
+
+    static int rank(const Node* node) noexcept
+    {
+        return node ? node->rank : -1;
+    }
+
+    static int rank_difference(const Node* parent, const Node* node)
+    {
+        return rank(parent) - rank(node);
+    }
+};
+
+#endif // ALGORITHMS_WEAK_AVL_TREE_H
