@@ -65,7 +65,7 @@ public:
 
     bool validate_wavl() const
     {
-        return validate_wavbl(root);
+        return validate_wavl(root);
     }
 
 
