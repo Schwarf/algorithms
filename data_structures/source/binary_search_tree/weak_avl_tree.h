@@ -4,7 +4,6 @@
 
 #ifndef ALGORITHMS_WEAK_AVL_TREE_H
 #define ALGORITHMS_WEAK_AVL_TREE_H
-#include "../../../../../../../../usr/include/c++/11/bits/valarray_after.h"
 
 template <typename T>
 class weakAVL
@@ -48,7 +47,7 @@ public:
                 return false;
         }
         Node* inserted = new Node(key);
-        inserted->parent = inserted;
+        inserted->parent = parent;
 
         if (!parent)
             root = inserted;
@@ -58,6 +57,30 @@ public:
             parent->right = inserted;
         return true;
     }
+
+    bool validate_bst() const
+    {
+        return validate_bst(root, nullptr, nullptr, nullptr);
+    }
+
+    bool validate_wavl() const
+    {
+        return validate_wavbl(root);
+    }
+
+
+private:
+    struct Node
+    {
+        explicit Node(const T& value) : key(value) {}
+        int rank{};
+        T key;
+        Node* parent{};
+        Node* left{};
+        Node* right{};
+    };
+    Node* root{};
+
 
     static bool validate_bst(const Node* node, const T* upper, const T* lower, const Node* expected_parent)
     {
@@ -92,18 +115,6 @@ public:
             return false;
         return validate_wavl(node->left) && validate_wavl(node->right);
     }
-
-private:
-    struct Node
-    {
-        explicit Node(const T& value) : key(value) {}
-        int rank{};
-        T key;
-        Node* parent{};
-        Node* left{};
-        Node* right{};
-    };
-    Node* root{};
 
     static void destroy(Node* node) noexcept
     {
