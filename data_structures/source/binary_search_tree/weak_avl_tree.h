@@ -76,6 +76,19 @@ public:
             validate_bst(node->right, upper, node->key, node);
     }
 
+    static bool validate_wavl(const Node * node)
+    {
+        if (!node)
+            return true;
+
+        int left_diff = rank_difference(node, node->left);
+        int right_diff = rank_difference(node, node->right);
+        if (left_diff != 1 && left_diff != 2)
+            return false;
+        if (right_diff != 1 && right_diff != 2)
+            return false;
+        return validate_wavl(node->left) && validate_wavl(node->right);
+    }
 
 private:
     struct Node
