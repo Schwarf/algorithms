@@ -46,5 +46,37 @@ std::vector<std::vector<int>> three_sum(std::vector<int>& nums)
     return vector_result;
 }
 
+std::vector<std::vector<int>> three_sum_optimal(std::vector<int>& nums)
+{
+    auto size = nums.size();
+    std::vector<std::vector<int>> result;
+    for (int i{}; i < size-2; ++i)
+    {
+        int left = i+1;
+        int right = size-1;
+        while (left < right)
+        {
+            int sum = nums[i] + nums[left] + nums[right];
+
+            if (sum < 0)
+                left++;
+            else if (sum > 0)
+                right--;
+            else
+            {
+                result.push_back({nums[i], nums[left], nums[right]});
+                left++;
+                right--;
+                while (left < right && nums[left] == nums[left-1])
+                    ++left;
+                while (left < right && nums[right] == nums[right+1])
+                    --right;
+            }
+        }
+
+    }
+    return result;
+}
+
 
 #endif // THREE_SUM_H
