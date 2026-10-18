@@ -50,8 +50,11 @@ std::vector<std::vector<int>> three_sum_optimal(std::vector<int>& nums)
 {
     auto size = nums.size();
     std::vector<std::vector<int>> result;
+    std::sort(nums.begin(), nums.end());
     for (int i{}; i < size-2; ++i)
     {
+        if (i > 0 && nums[i] == nums[i-1])
+            continue;
         int left = i+1;
         int right = size-1;
         while (left < right)

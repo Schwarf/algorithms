@@ -11,7 +11,7 @@ TEST(TestThreeSum, simple1)
     std::vector<int> input{-1, 0, 1, 2, -1, -4};
     const std::vector<std::vector<int>> expected_result{{-1, -1, 2}, {-1, 0, 1}};
     auto result = three_sum(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -22,7 +22,7 @@ TEST(TestThreeSum, simple2)
     std::vector<int> input{0, 1, 1};
     const std::vector<std::vector<int>> expected_result{};
     auto result = three_sum(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -34,7 +34,7 @@ TEST(TestThreeSum, simple3)
     std::sort(input.begin(), input.end());
     const std::vector<std::vector<int>> expected_result{input};
     auto result = three_sum(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -54,7 +54,7 @@ TEST(TestThreeSum, complex1)
         {-29, 1, 28},   {-29, 12, 17},  {-14, -3, 17}, {-14, 1, 13},  {-14, 2, 12},  {-11, -6, 17}, {-11, 1, 10},
         {-3, 1, 2}};
     auto result = three_sum(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -69,7 +69,7 @@ TEST(TestThreeSumOptimal, simple1)
     std::vector<int> input{-1, 0, 1, 2, -1, -4};
     const std::vector<std::vector<int>> expected_result{{-1, -1, 2}, {-1, 0, 1}};
     auto result = three_sum_optimal(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -80,7 +80,7 @@ TEST(TestThreeSumOptimal, simple2)
     std::vector<int> input{0, 1, 1};
     const std::vector<std::vector<int>> expected_result{};
     auto result = three_sum_optimal(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -92,7 +92,7 @@ TEST(TestThreeSumOptimal, simple3)
     std::sort(input.begin(), input.end());
     const std::vector<std::vector<int>> expected_result{input};
     auto result = three_sum_optimal(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
@@ -112,7 +112,7 @@ TEST(TestThreeSumOptimal, complex1)
         {-29, 1, 28},   {-29, 12, 17},  {-14, -3, 17}, {-14, 1, 13},  {-14, 2, 12},  {-11, -6, 17}, {-11, 1, 10},
         {-3, 1, 2}};
     auto result = three_sum_optimal(input);
-    for (int i{}; i < result.size(); ++i)
+    for (int i{}; i < expected_result.size(); ++i)
     {
         EXPECT_EQ(result[i], expected_result[i]);
     }
