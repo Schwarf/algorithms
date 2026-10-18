@@ -7,6 +7,7 @@
 
 
 #include <algorithm>
+#include <limits>
 #include <utility>
 #include <vector>
 
@@ -131,4 +132,140 @@ TEST_F(SetupFourSum, ManySolutionsAllSumCorrectly)
 
     EXPECT_FALSE(result.empty());
     expectAllSumToTarget(result, target);
+}
+
+class SetupFourSumUnique : public SetupFourSum
+{
+};
+
+TEST_F(SetupFourSumUnique, EmptyInputReturnsEmpty)
+{
+    std::vector<int> input{};
+    EXPECT_TRUE(four_sum_unique(input, 0).empty());
+}
+
+TEST_F(SetupFourSumUnique, FewerThanFourElementsReturnsEmpty)
+{
+    for (int size = 1; size < 4; ++size)
+    {
+        SCOPED_TRACE(size);
+        std::vector<int> input(size, 0);
+        EXPECT_TRUE(four_sum_unique(input, 0).empty());
+    }
+}
+
+TEST_F(SetupFourSumUnique, ExactlyFourElementsMatch)
+{
+    std::vector<int> input{4, 1, 3, 2};
+    expectSameQuads(four_sum_unique(input, 10), {{1, 2, 3, 4}});
+}
+
+TEST_F(SetupFourSumUnique, ExactlyFourElementsNoMatch)
+{
+    std::vector<int> input{1, 2, 3, 4};
+    EXPECT_TRUE(four_sum_unique(input, 11).empty());
+}
+
+TEST_F(SetupFourSumUnique, FindsAllUniqueQuadrupletsInClassicCase)
+{
+    std::vector<int> input{1, 0, -1, 0, -2, 2};
+    expectSameQuads(four_sum_unique(input, 0),
+                    {{-2, -1, 1, 2}, {-2, 0, 0, 2}, {-1, 0, 0, 1}});
+}
+
+TEST_F(SetupFourSumUnique, AllZerosReturnOneQuadruplet)
+{
+    std::vector<int> input{0, 0, 0, 0, 0, 0};
+    expectSameQuads(four_sum_unique(input, 0), {{0, 0, 0, 0}});
+}
+
+TEST_F(SetupFourSumUnique, AllEqualNonzeroValuesReturnOneQuadruplet)
+{
+    std::vector<int> input{2, 2, 2, 2, 2, 2};
+    expectSameQuads(four_sum_unique(input, 8), {{2, 2, 2, 2}});
+}
+
+TEST_F(SetupFourSumUnique, AllEqualValuesWithWrongTargetReturnEmpty)
+{
+    std::vector<int> input{2, 2, 2, 2, 2, 2};
+    EXPECT_TRUE(four_sum_unique(input, 9).empty());
+}
+
+TEST_F(SetupFourSumUnique, RepeatedValuesDoNotDuplicateOrHideQuadruplets)
+{
+    std::vector<int> input{2, -1, 0, -2, 1, 2, -1, 0, -2, 1};
+    expectSameQuads(four_sum_unique(input, 0),
+                    {
+                        {-2, -2, 2, 2},
+                        {-2, -1, 1, 2},
+                        {-2, 0, 0, 2},
+                        {-2, 0, 1, 1},
+                        {-1, -1, 0, 2},
+                        {-1, -1, 1, 1},
+                        {-1, 0, 0, 1},
+                    });
+}
+
+TEST_F(SetupFourSumUnique, SkipsRepeatedRightValuesAtEndOfInput)
+{
+    std::vector<int> input{0, 0, 0, 1, 1, 1};
+    expectSameQuads(four_sum_unique(input, 1), {{0, 0, 0, 1}});
+}
+
+TEST_F(SetupFourSumUnique, DoesNotReuseAnInputElement)
+{
+    std::vector<int> input{0, 1, 2, 4};
+    EXPECT_TRUE(four_sum_unique(input, 8).empty());
+}
+
+TEST_F(SetupFourSumUnique, AllPositiveValuesWithPositiveTarget)
+{
+    std::vector<int> input{5, 1, 4, 2, 3};
+    expectSameQuads(four_sum_unique(input, 12), {{1, 2, 4, 5}});
+}
+
+TEST_F(SetupFourSumUnique, AllNegativeValuesWithNegativeTarget)
+{
+    std::vector<int> input{-5, -1, -4, -2, -3};
+    expectSameQuads(four_sum_unique(input, -12), {{-5, -4, -2, -1}});
+}
+
+TEST_F(SetupFourSumUnique, TargetsOutsidePossibleSumRangeReturnEmpty)
+{
+    for (int target : {-100, 100})
+    {
+        SCOPED_TRACE(target);
+        std::vector<int> input{-3, -2, -1, 0, 1, 2, 3};
+        EXPECT_TRUE(four_sum_unique(input, target).empty());
+    }
+}
+
+TEST_F(SetupFourSumUnique, FindsQuadrupletWithCancellingIntegerLimits)
+{
+    constexpr int min = std::numeric_limits<int>::min();
+    constexpr int max = std::numeric_limits<int>::max();
+    std::vector<int> input{max, min, max, min};
+    expectSameQuads(four_sum_unique(input, -2), {{min, min, max, max}});
+}
+
+TEST_F(SetupFourSumUnique, HandlesIntegerLimitTargets)
+{
+    for (int target : {std::numeric_limits<int>::min(), std::numeric_limits<int>::max()})
+    {
+        SCOPED_TRACE(target);
+        std::vector<int> input{0, target, 0, 0};
+        expectSameQuads(four_sum_unique(input, target), {{target, 0, 0, 0}});
+    }
+}
+
+TEST_F(SetupFourSumUnique, PositiveSumOverflowDoesNotProduceFalseMatch)
+{
+    std::vector<int> input{1'000'000'000, 1'000'000'000, 1'000'000'000, 1'000'000'000};
+    EXPECT_TRUE(four_sum_unique(input, -294'967'296).empty());
+}
+
+TEST_F(SetupFourSumUnique, NegativeSumOverflowDoesNotProduceFalseMatch)
+{
+    std::vector<int> input{-1'000'000'000, -1'000'000'000, -1'000'000'000, -1'000'000'000};
+    EXPECT_TRUE(four_sum_unique(input, 294'967'296).empty());
 }

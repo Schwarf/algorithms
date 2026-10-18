@@ -79,7 +79,7 @@ std::vector<std::vector<int>> four_sum_unique(std::vector<int>& input, int targe
                     while (left < right && input[left] == input[left-1])
                         ++left;
                     while (left < right && input[right] == input[right+1])
-                        ++right;
+                        --right;
                 }
             }
         }
