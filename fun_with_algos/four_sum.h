@@ -8,6 +8,7 @@
 // in the array that add up to a provided target-sum.
 
 #include <unordered_map>
+#include <algorithm>
 #include <vector>
 
 std::vector<std::vector<int>> four_sum(std::vector<int>& input, int target)
