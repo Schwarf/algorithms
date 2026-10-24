@@ -17,8 +17,15 @@ ParentedTreeNode<T>* preorder_find_predecessor(ParentedTreeNode<T>* root, Parent
     if (!node || !node->parent)
         return nullptr;
 
+    // Only two cases:
+    // 1. If the node is a left child, the predecessor is its parent.
+    // 2. If the node is a right child, return the parent if there is no left subtree.
+    // Otherwise, find the last node in pre-order of the left subtree, preferring right children as we descend.
+    // Case 1.:
     if (node->parent->left ==node)
         return node->parent;
+
+    // Case 2.:
     if (node->parent->right ==node)
     {
         if (!node->parent->left)
@@ -73,11 +80,20 @@ ParentedTreeNode<T>* postorder_find_predecessor(ParentedTreeNode<T>* root, Paren
     if (!node)
         return nullptr;
 
+    // Only three cases:
+    // 1. If the node has a right child, the predecessor is this child.
+    // 2. If the node has no right child but has a left child, the predecessor is the left child.
+    // 3. If the node is a leaf, climb until we come from a right child whose parent has a left subtree.
+    // The predecessor is the root of that left subtree. If no such ancestor exists, there is no predecessor.
+    // Case 1.:
     if(node->right)
         return node->right;
+
+    // Case 2.:
     if (node->left)
         return node->left;
 
+    // Case 3.:
     auto current = node;
 
     while (current->parent)
