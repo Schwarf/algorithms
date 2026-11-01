@@ -32,9 +32,12 @@ int unique_paths_with_mirrors(std::vector<std::vector<int>>& grid)
     const int MOD = 1'000'000'007;
     int rows = grid.size();
     int columns = grid[0].size();
-    std::vector<std::vector<long long>> right(rows, std::vector<long long>(colums));
+    if (rows == 1 && columns == 1)
+        return 1;
+
+    std::vector<std::vector<long long>> right(rows, std::vector<long long>(columns));
     std::vector<std::vector<long long>> down(rows, std::vector<long long>(columns));
-    if (cols > 1)
+    if (columns > 1)
         right[0][1] = 1;
     if (rows > 1)
         down[1][0] = 1;
@@ -71,6 +74,9 @@ int unique_paths_with_mirrors(std::vector<std::vector<int>>& grid)
             }
         }
     }
+    if (grid[rows - 1][columns - 1] == 1)
+        return 0;
+
     return (right[rows - 1][columns - 1] + down[rows - 1][columns - 1]) % MOD;
 }
 

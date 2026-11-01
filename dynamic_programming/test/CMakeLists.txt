@@ -40,6 +40,7 @@ add_executable(test_DP_grid
         grid-DP/test_minimum_path_through_matrix.cpp
         grid-DP/test_unique_paths.cpp
         grid-DP/test_unique_paths_with_obstacles.cpp
+        grid-DP/test_unique_paths_with_mirrors.cpp
         grid-DP/test_maximum_number_of_points_with_costs.cpp
 )
 target_link_libraries(test_DP_grid GTest::GTest GTest::Main pthread)
