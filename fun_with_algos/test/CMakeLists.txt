@@ -37,6 +37,7 @@ add_executable(test_fun_with_algos
         test_maximum_matrix_sum.cpp
         test_flip_columns_to_maximize_equal_rows.cpp
         test_minimum_swaps.cpp
+        test_minimum_move_to_equal_array_elements.cpp
         test_is_dna_sequence_similar.cpp
         test_hiring_candidates.cpp
         test_min_swaps_for_palindrome.cpp
