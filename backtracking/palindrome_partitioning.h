@@ -24,6 +24,8 @@ bool is_palindrome(std::string s)
         {
             return false;
         }
+        ++left;
+        --right;
     }
     return true;
 }
@@ -33,14 +35,22 @@ void backtrack(std::vector<std::vector<std::string>> & result, std::vector<std::
     if (start == s.size())
     {
         result.push_back(current);
+        return;
     }
-
+    for (int end{start}; end < s.size(); ++end) {
+        if (is_palindrome(s.substr(start, end-start+1))) {
+            current.push_back(s.substr(start, end-start+1));
+            backtrack(result, current, end+1, s);
+            current.pop_back();
+        }
+    }
 }
 
 std::vector<std::vector<std::string>> palindrome_partitioning(std::string s)
 {
     std::vector<std::vector<std::string>> result;
     std::vector<std::string> current;
-
+    backtrack(result, current, 0, s);
+    return result;
 }
 #endif // ALGORITHMS_PALINDROME_PARTITIONING_H
