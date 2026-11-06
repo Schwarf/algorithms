@@ -19,6 +19,7 @@ add_executable(test_backtracking
         test_subsets_with_duplicates.cpp
         test_generate_parentheses.cpp
         test_palindrome_generation.cpp
+        test_palindrome_partitioning.cpp
         test_binary_string_without_consecutive_ones.cpp
         test_changing_letters.cpp)
 
