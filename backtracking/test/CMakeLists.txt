@@ -17,7 +17,10 @@ add_executable(test_backtracking
         test_binary_tree_paths.cpp
         test_target_sum_ways.cpp
         test_subsets_with_duplicates.cpp
-        test_generate_parentheses.cpp)
+        test_generate_parentheses.cpp
+        test_palindrome_generation.cpp
+        test_binary_string_without_consecutive_ones.cpp
+        test_changing_letters.cpp)
 
 
 target_link_libraries(test_backtracking GTest::GTest GTest::Main pthread)
